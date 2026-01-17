@@ -5,8 +5,6 @@ import "./globals.css";
 import NavHeader from "./components/NavHeader";
 import ClientOnly from "./components/ClientOnly";
 import Footer from "./components/Footer";
-// import "./styles/platformscode-core.css";
-// import "./styles/platformscode-main.css";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -18,11 +16,6 @@ import Footer from "./components/Footer";
 //   subsets: ["latin"],
 // });
 
-// const ibmPlexArabic = localFont({
-//   // This path is RELATIVE to this file (e.g., layout.tsx)
-//   // src: "./public/assets/fonts/IBM-Plex-Sans-Arabic/IBMPlexSansArabic-Medium.woff2",
-//   variable: "--font-ibm-plex-arabic",
-// });
 
 export const metadata: Metadata = {
   title: "Hamza",

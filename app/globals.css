@@ -369,6 +369,7 @@ body {
 
 /* sub-nav */
 .sub-navs {
+  
     padding: 32px 80px;
     justify-content: space-around;
     align-items: center;
@@ -382,7 +383,7 @@ body {
 
 /* Sub-nav container links */
 .sub-navs a {
-  font-family: "IBM Plex Sans Arabic", sans-serif;
+  font-family: "IBMPlexSansArabic", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
@@ -413,8 +414,7 @@ a:not(.header-menu__item--active):hover {
   gap: 12px;
   align-self: start;
   max-width: 300px;
-
-  font-family: "IBM Plex Sans Arabic", sans-serif;
+ font-family: "IBMPlexSansArabic", sans-serif; 
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
