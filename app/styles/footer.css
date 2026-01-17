@@ -1,0 +1,118 @@
+.c-ontent {
+  padding: 0 80px;
+}
+
+
+.footer {
+  /* background-image: url("../../wassets/imges/pattern footer.svg"); */
+background-color: #074d31;
+  width: 100%;
+  height: 86.41px;
+  background-repeat: repeat-x;
+  background-size: cover;
+  background-position: center;
+}
+
+.footer-container {
+  gap: 48px;
+  display: grid;
+  padding-top: 40px;
+  padding-bottom: 24px;
+}
+
+.footer-item {
+  gap: 8px;
+}
+.py-4 {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.footer-title {
+  color: #fff !important;
+
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+}
+
+.line-title {
+  display: flex;
+  padding-bottom: 8px;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.border-green {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+a.border-green:hover {
+  background-color: #39715a;
+}
+a.border-green:focus {
+  background-color: #6a9483;
+}
+.pt-4 {
+  padding-top: 16px;
+}
+.pb-10 {
+  padding-bottom: 40px;
+}
+
+.footer-contnet {
+  gap: 8px;
+  padding-top: 8px;
+  display: grid; /* makes links stack vertically */
+}
+.footer__nav-links ul a {
+  font-weight: 400 !important;
+  font-size: var(--typo-size-text-sm) !important;
+  line-height: var(--line-heights-text-sm) !important;
+  letter-spacing: 0 !important;
+  text-align: right !important;
+}
+
+.footer-link {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #ffffff;
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.footer-link:active {
+  color: #ffffff;
+  opacity: 0.6;
+}
+.footer-link:focus {
+  border: 2px solid #fff;
+  color: #ffffff;
+
+  opacity: 1;
+
+  border-radius: 4px; /* Optional: rounded corners */
+}
+
+.text-center-mobile {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .text-center-mobile {
+    text-align: right;
+  }
+}
