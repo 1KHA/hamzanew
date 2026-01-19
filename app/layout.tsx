@@ -16,7 +16,6 @@ import Footer from "./components/Footer";
 //   subsets: ["latin"],
 // });
 
-
 export const metadata: Metadata = {
   title: "Hamza",
 };
@@ -28,17 +27,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" dir="rtl">
-    <body className="min-h-screen flex flex-col">
-  <ClientOnly>
-    <NavHeader />
+      <body className="min-h-screen flex flex-col">
+        <ClientOnly>
+          <NavHeader />
 
-    <main className="mx-auto flex-1 w-full bg-neutral-50">
-      {children}
-    </main>
+          <main className="flex-1 w-full bg-neutral-50">{children}</main>
 
-    <Footer />
-  </ClientOnly>
-</body>
+          <Footer />
+        </ClientOnly>
+      </body>
     </html>
   );
 }

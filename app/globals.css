@@ -620,7 +620,7 @@ body {
 /* Home banner */
 
 .c-mask {
-  width: 100%;
+  width: 100vw;
   overflow: hidden;
   position: relative;
 }
@@ -637,6 +637,7 @@ body {
   height: 560px;
   display: flex;
   align-items: center;
+
 }
 
 .embla-container {
@@ -651,19 +652,20 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to left, #104f34 40%, transparent 100%);
+  background: linear-gradient(to left, #104f34 20%, transparent 60%);
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
 
 [dir="ltr"] .overlay {
-  background: linear-gradient(to right, #104f34 40%, transparent 100%);
+  background: linear-gradient(to right, #104f34 20%, transparent 60%);
   justify-content: flex-start;
 }
 
