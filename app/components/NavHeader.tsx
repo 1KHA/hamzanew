@@ -1,16 +1,25 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-// import "../styles/dga-nav-header-sub-menu.css";
+import DigitalSignature from "./DigitalSignature";
+import "../styles/header.css";
 
 function NavHeader() {
   const [activeLink, setActiveLink] = useState("link-1");
-  const [collapsed, setCollapsed] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openSubmenus, setOpenSubmenus] = useState<string[]>([]);
+
+  const toggleSubmenu = (name: string) => {
+    setOpenSubmenus((prev) =>
+      prev.includes(name) ? prev.filter((i) => i !== name) : [...prev, name],
+    );
+  };
+
   return (
     <>
-
-    {/* desktop header */}
-      <div className="relative header header--divider">
+      <DigitalSignature />
+      {/* desktop header */}
+      <div className="header header--divider">
         <nav className="header-nav--full">
           {/* <!-- Header main --> */}
           <div className="header-nav__main">
@@ -21,12 +30,16 @@ function NavHeader() {
                 className="dga-btn dga-btn--md dga-btn--transparent dga-btn--icon"
                 aria-label="Button with icon"
                 role="button"
+                onClick={() => setIsMenuOpen(true)}
               >
                 <span className="dga-btn-icon" aria-hidden="true">
-                  <i
-                    className="hgi-stroke hgi-rounded hgi-menu-01"
-                    style={{ fontSize: "24px" }}
-                  ></i>
+                  <img
+                    src="/assets/icons/stroke-standard/menu-01-stroke-rounded.svg"
+                    alt=""
+                    width={24}
+                    height={24}
+                    className="inline-block transform rtl:rotate-0 ltr:rotate-180"
+                  />
                 </span>
               </button>
             </div>
@@ -34,10 +47,10 @@ function NavHeader() {
             {/* <!-- Logo --> */}
             <div style={{ width: "192px ", aspectRatio: "192 / 37" }}>
               <div className="header-nav__branding">
-                <Link href="#" className="header__logo">
+                <Link href="/" className="header__logo">
                   <img
-                  src="/assets/image/logo.png"
-                  style={{ width: "182px", height: "auto" }}
+                    src="/assets/image/Group.svg"
+                    alt="Logo"
                   />
                 </Link>
               </div>
@@ -71,8 +84,8 @@ function NavHeader() {
                 <div
                   className="sub-navs sub-navs-fixed grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-[24px] hidden group-hover:grid"
                   style={{
-                    position: "fixed",
-                    top: "72px",
+                    position: "absolute",
+                    top: "100%",
                     left: "0px",
                     zIndex: 9998,
                   }}
@@ -251,8 +264,8 @@ function NavHeader() {
                 <div
                   className="sub-navs sub-navs-fixed grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-[24px] hidden group-hover:grid"
                   style={{
-                    position: "fixed",
-                    top: "72px",
+                    position: "absolute",
+                    top: "100%",
                     left: "0px",
                     zIndex: 9998,
                   }}
@@ -299,7 +312,9 @@ function NavHeader() {
                               width={24}
                               height={24}
                             />
-                            <span>آلية الإختبار (محوسب حضوري، محوسب عن بعد)</span>
+                            <span>
+                              آلية الإختبار (محوسب حضوري، محوسب عن بعد)
+                            </span>
                           </div>
                         </Link>
                       </li>
@@ -311,8 +326,7 @@ function NavHeader() {
               <li>
                 <Link href="#" className="header-menu__item">
                   <span className="header-menu__item-label">المنظمات </span>
-                  <span className="header-menu__item-arrow">
-                  </span>
+                  <span className="header-menu__item-arrow"></span>
                 </Link>
               </li>
 
@@ -329,12 +343,12 @@ function NavHeader() {
                     />
                   </span>
                 </Link>
-                  {/* submenu */}
+                {/* submenu */}
                 <div
                   className="sub-navs sub-navs-fixed grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-[24px] hidden group-hover:grid"
                   style={{
-                    position: "fixed",
-                    top: "72px",
+                    position: "absolute",
+                    top: "100%",
                     left: "0px",
                     zIndex: 9998,
                   }}
@@ -453,9 +467,8 @@ function NavHeader() {
             </ul>
           </div>
         </nav>
-      </div>
+      </div> 
     </>
   );
 }
-
 export default NavHeader;

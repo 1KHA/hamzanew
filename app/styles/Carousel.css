@@ -1,0 +1,87 @@
+.custom-carousel {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  will-change: transform;
+}
+
+.carousel-item {
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+/* Arrows */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5e7eb;
+  color: #374151;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+  padding: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-arrow:hover {
+  background-color: #f9fafb !important;
+  color: #1b8354;
+  border-color: #1b8354;
+}
+
+.carousel-arrow.prev {
+  inset-inline-start: -48px;
+}
+
+.carousel-arrow.next {
+  inset-inline-end: -48px;
+}
+
+/* On small screens, move arrows inside to avoid overflow issues */
+@media (max-width: 1400px) {
+  .carousel-arrow.prev {
+    inset-inline-start: 8px;
+  }
+  .carousel-arrow.next {
+    inset-inline-end: 8px;
+  }
+}
+
+/* Dots */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap; /* In case there are many dots */
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background-color: #e5e7eb;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 0;
+}
+
+.carousel-dot.active {
+  background-color: #1b8354;
+}
