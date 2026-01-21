@@ -257,7 +257,7 @@ function NavHeader() {
                   </span>
                 </Link>
                 <div
-                  className="sub-navs sub-navs-fixed grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-[24px] hidden group-hover:grid"
+                  className="sub-navs sub-navs-fixed grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-[24px] hidden group-hover:grid"
                   style={{
                     position: "absolute",
                     top: "100%",
@@ -266,7 +266,7 @@ function NavHeader() {
                   }}
                 >
                   {/* ===== Column 1 ===== */}
-                  <div className="sub-nav-title">
+                  <div className="sub-nav-title-w-auto">
                     <div className="p-[12px]">الإستعداد للإختبار</div>
 
                     <ul className="grid gap-[4px]">
