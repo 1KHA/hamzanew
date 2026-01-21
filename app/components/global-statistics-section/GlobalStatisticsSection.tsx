@@ -74,6 +74,7 @@ function GlobalStatisticsSection() {
               variant="default"
               optionLabel="label"
               trackBy="value"
+              className="w-full"
               options={[
                 {
                   label: "اختبار عام",
@@ -101,6 +102,7 @@ function GlobalStatisticsSection() {
               variant="default"
               optionLabel="label"
               trackBy="value"
+              className="w-full"
               options={[
                 {
                   label: "2026",
@@ -128,6 +130,7 @@ function GlobalStatisticsSection() {
               variant="default"
               optionLabel="label"
               trackBy="value"
+              className="w-full"
               options={[
                 {
                   label: "امريكية",
