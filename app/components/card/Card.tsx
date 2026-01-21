@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { DgaIcon, DgaButton, DgaTag } from "platformscode-new-react";
-import "../styles/card.css";
+import "./card.css";
 
 interface CardProps {
   style?: React.CSSProperties;
@@ -16,6 +16,7 @@ interface CardProps {
   primaryTrailIconType?: string;
   linkPrimaryAction?: string;
   showPrimaryIcon?: boolean;
+  buttonIconOnly?: boolean;
   overridePrimaryAction?: () => void;
   disablePrimaryAction?: boolean;
   logoImage?: boolean;
@@ -42,6 +43,7 @@ const Card: React.FC<CardProps> = ({
   primaryTrailIconType = "location-01",
   linkPrimaryAction,
   showPrimaryIcon = false,
+  buttonIconOnly = false,
   overridePrimaryAction,
   disablePrimaryAction = false,
   logoImage = false,
@@ -173,6 +175,22 @@ const Card: React.FC<CardProps> = ({
             )}
           </>
         )}
+{/* scondery icon button  */}
+        {
+          buttonIconOnly && (
+            <DgaButton
+              tabIndex={0}
+              iconOnly
+              iconType="Circle"
+              trailIcon
+              trailIconProps={{ size: 16, type: "standard", variant: "stroke" }}
+              label={primaryActionLabel}
+              size="md"
+              variant="secondary-outline"
+              onClick={handlePrimaryClick}
+            />
+          )
+        }
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import DigitalSignature from "./DigitalSignature";
-import "../styles/header.css";
+import DigitalSignature from "../digital-signature/DigitalSignature";
+import "./NavHeader.css";
 
 function NavHeader() {
   const [activeLink, setActiveLink] = useState("link-1");
@@ -45,15 +45,10 @@ function NavHeader() {
             </div>
 
             {/* <!-- Logo --> */}
-            <div style={{ width: "192px ", aspectRatio: "192 / 37" }}>
-              <div className="header-nav__branding">
-                <Link href="/" className="header__logo">
-                  <img
-                    src="/assets/image/Group.svg"
-                    alt="Logo"
-                  />
-                </Link>
-              </div>
+            <div className="header-nav__branding">
+              <Link href="/" className="header__logo">
+                <img src="/assets/image/Hamza_Logo.png" alt="Logo" />
+              </Link>
             </div>
 
             {/* <!-- Main menu --> */}
@@ -96,7 +91,7 @@ function NavHeader() {
 
                     <ul className="grid gap-[4px]">
                       <li>
-                        <Link href="#" className="sub-link">
+                        <Link href="/about" className="sub-link sub-menu__link">
                           <div className="flex gap-[16px] items-center">
                             <img
                               src="/assets/icons/stroke-standard/user-group-stroke-rounded.svg"
@@ -110,7 +105,7 @@ function NavHeader() {
                       </li>
 
                       <li>
-                        <Link href="#" className="sub-link">
+                        <Link href="#" className="sub-link sub-menu__link">
                           <div className="flex gap-[16px] items-center">
                             <img
                               src="/assets/icons/stroke-standard/message-question-stroke-rounded.svg"
@@ -124,7 +119,7 @@ function NavHeader() {
                       </li>
 
                       <li>
-                        <Link href="#" className="sub-link">
+                        <Link href="#" className="sub-link sub-menu__link">
                           <div className="flex gap-[16px] items-center">
                             <img
                               src="/assets/icons/stroke-standard/file-star-stroke-rounded.svg"
@@ -138,7 +133,7 @@ function NavHeader() {
                       </li>
 
                       <li>
-                        <Link href="#" className="sub-link">
+                        <Link href="#" className="sub-link sub-menu__link">
                           <div className="flex gap-[16px] items-center">
                             <img
                               src="/assets/icons/stroke-standard/checkmark-badge-02-stroke-rounded.svg"
@@ -152,7 +147,7 @@ function NavHeader() {
                       </li>
 
                       <li>
-                        <Link href="#" className="sub-link">
+                        <Link href="#" className="sub-link sub-menu__link">
                           <div className="flex gap-[16px] items-center">
                             <img
                               src="/assets/icons/stroke-standard/school-01-stroke-rounded.svg"
@@ -173,7 +168,7 @@ function NavHeader() {
 
                     <ul className="grid gap-[4px]">
                       <li>
-                        <Link href="#" className="sub-link">
+                        <Link href="#" className="sub-link sub-menu__link">
                           <div className="flex gap-[16px] items-center">
                             <img
                               src="/assets/icons/stroke-standard/right-to-left-list-bullet-stroke-rounded.svg"
@@ -187,7 +182,7 @@ function NavHeader() {
                       </li>
 
                       <li>
-                        <Link href="#" className="sub-link">
+                        <Link href="#" className="sub-link sub-menu__link">
                           <div className="flex gap-[16px] items-center">
                             <img
                               src="/assets/icons/stroke-standard/mortarboard-01-stroke-rounded.svg"
@@ -201,7 +196,7 @@ function NavHeader() {
                       </li>
 
                       <li>
-                        <Link href="#" className="sub-link">
+                        <Link href="#" className="sub-link sub-menu__link">
                           <div className="flex gap-[16px] items-center">
                             <img
                               src="/assets/icons/stroke-standard/glasses-stroke-rounded.svg"
@@ -215,7 +210,7 @@ function NavHeader() {
                       </li>
 
                       <li>
-                        <Link href="#" className="sub-link">
+                        <Link href="#" className="sub-link sub-menu__link">
                           <div className="flex gap-[16px] items-center">
                             <img
                               src="/assets/icons/stroke-standard/star-stroke-rounded.svg"
@@ -229,7 +224,7 @@ function NavHeader() {
                       </li>
 
                       <li>
-                        <Link href="#" className="sub-link">
+                        <Link href="#" className="sub-link sub-menu__link">
                           <div className="flex gap-[16px] items-center">
                             <img
                               src="/assets/icons/stroke-standard/book-02-stroke-rounded.svg"
@@ -276,7 +271,7 @@ function NavHeader() {
 
                     <ul className="grid gap-[4px]">
                       <li>
-                        <Link href="#" className="sub-link">
+                        <Link href="#" className="sub-link sub-menu__link">
                           <div className="flex gap-[16px] items-center">
                             <img
                               src="/assets/icons/stroke-standard/book-04-stroke-standard.svg"
@@ -290,7 +285,7 @@ function NavHeader() {
                       </li>
 
                       <li>
-                        <Link href="#" className="sub-link">
+                        <Link href="#" className="sub-link sub-menu__link">
                           <div className="flex gap-[16px] items-center">
                             <img
                               src="/assets/icons/stroke-standard/course-stroke-standard.svg"
@@ -304,7 +299,7 @@ function NavHeader() {
                       </li>
 
                       <li>
-                        <Link href="#" className="sub-link">
+                        <Link href="#" className="sub-link sub-menu__link">
                           <div className="flex gap-[16px] items-center">
                             <img
                               src="/assets/icons/stroke-standard/task-daily-02-stroke-standard.svg"
@@ -359,7 +354,7 @@ function NavHeader() {
 
                     <ul className="grid gap-[4px]">
                       <li>
-                        <Link href="#" className="sub-link">
+                        <Link href="#" className="sub-link sub-menu__link">
                           <div className="flex gap-[16px] items-center">
                             <img
                               src="/assets/icons/stroke-standard/book-04-stroke-standard.svg"
@@ -373,7 +368,7 @@ function NavHeader() {
                       </li>
 
                       <li>
-                        <Link href="#" className="sub-link">
+                        <Link href="#" className="sub-link sub-menu__link">
                           <div className="flex gap-[16px] items-center">
                             <img
                               src="/assets/icons/stroke-standard/chart-bar-line-stroke-standard.svg"
@@ -467,7 +462,7 @@ function NavHeader() {
             </ul>
           </div>
         </nav>
-      </div> 
+      </div>
     </>
   );
 }

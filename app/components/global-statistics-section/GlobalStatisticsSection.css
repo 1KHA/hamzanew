@@ -1,0 +1,113 @@
+/* GlobalStatisticsSection */
+
+.global-statistics-section {
+  background-color: #f9fafb;
+  background-image: url("/assets/image/global.png");
+  background-repeat: no-repeat;
+  background-size: 47.884% 57.327%;
+  background-position: 394.347px 140.849px;
+  height: 578px;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 40px;
+  border: 1px solid #2f0676;
+}
+/* .stats-bg {
+  position: relative;
+  background-color: #F9FAFB;
+}
+
+.stats-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/assets/image/global.png") no-repeat;
+  background-size: 47.884% 57.327%;
+  background-position: 394.347px 140.849px;
+
+  opacity: 0.25;         
+  filter: grayscale(1);    
+  pointer-events: none;
+}
+
+.stats-bg > * {
+  position: relative; 
+} */
+
+.search-container {
+  display: flex;
+  width: 100%;
+  max-width: 992px;
+  padding: 16px;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow:
+    0 4px 8px -2px rgba(16, 24, 40, 0.1),
+    0 2px 4px -2px rgba(16, 24, 40, 0.06);
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .search-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .search-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.input-label {
+  color: var(--Text-text-secondary, #344054);
+  font-family: "IBMPlexSansArabic";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.cards-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #067647;
+  margin: 0 auto;
+}
+
+.cards-grid {
+  width: 100%;
+  display: grid;
+  gap: var(--Global-spacing-4xl, 32px);
+  grid-template-columns: 1fr; /* Default: 1 card per row */
+  margin: auto;
+  border: 1px solid #080676;
+}
+
+/* 600px and up: 2 cards per row */
+@media (min-width: 600px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 960px and up: 4 cards per row */
+@media (min-width: 960px) {
+  .cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

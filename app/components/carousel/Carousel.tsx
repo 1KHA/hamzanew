@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, ReactNode, Children, useRef } from "react";
-import "../styles/Carousel.css";
+import "./Carousel.css";
 
 interface CustomCarouselProps {
   children: ReactNode;
@@ -28,9 +28,31 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isRTL, setIsRTL] = useState(true); // Default to true as per project context
+  /* Responsive itemsPerSlide logic */
+  const [effectiveItems, setEffectiveItems] = useState(itemsPerSlide);
+
+  useEffect(() => {
+    const handleResize = () => {
+      // User requested 1 card for sm (600) and md (960)
+      // We interpret this as: below 960px, show 1 card.
+      if (window.innerWidth < 960) {
+        setEffectiveItems(1);
+      } else {
+        setEffectiveItems(itemsPerSlide);
+      }
+    };
+
+    // Initial check
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [itemsPerSlide]);
+
   const items = Children.toArray(children);
   const totalItems = items.length;
-  const maxSlide = Math.max(0, totalItems - itemsPerSlide);
+  // Ensure we don't slide past the end
+  const maxSlide = Math.max(0, totalItems - effectiveItems);
 
   useEffect(() => {
     // Detect RTL
@@ -43,14 +65,14 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
   }, []);
 
   useEffect(() => {
-    if (!autoPlay || totalItems <= itemsPerSlide) return;
+    if (!autoPlay || totalItems <= effectiveItems) return;
 
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev >= maxSlide ? 0 : prev + 1));
     }, interval);
 
     return () => clearInterval(timer);
-  }, [autoPlay, interval, totalItems, itemsPerSlide, maxSlide]);
+  }, [autoPlay, interval, totalItems, effectiveItems, maxSlide]);
 
   if (totalItems === 0) return null;
 
@@ -62,8 +84,8 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
     setCurrentSlide((prev) => (prev <= 0 ? maxSlide : prev - 1));
   };
 
-  // Calculate the width of each item based on itemsPerSlide and gap
-  const itemWidth = `calc((100% - ${(itemsPerSlide - 1) * gap}px) / ${itemsPerSlide})`;
+  // Calculate the width of each item based on effectiveItems and gap
+  const itemWidth = `calc((100% - ${(effectiveItems - 1) * gap}px) / ${effectiveItems})`;
 
   // In RTL, translateX positive moves content to the right (showing items on the left)
   // In LTR, translateX negative moves content to the left (showing items on the right)
@@ -95,7 +117,7 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
         </div>
       </div>
 
-      {showArrows && totalItems > itemsPerSlide && (
+      {showArrows && totalItems > effectiveItems && (
         <>
           <button
             className="carousel-arrow prev"
@@ -141,7 +163,7 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
       )}
 
       {/* Dots Navigation */}
-      {showDots && totalItems > itemsPerSlide && (
+      {showDots && totalItems > effectiveItems && (
         <div className="carousel-dots">
           {items.slice(0, maxSlide + 1).map((_, index) => (
             <button

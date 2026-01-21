@@ -1,8 +1,9 @@
 import { DgaDropdown, DgaSearchBox } from "platformscode-new-react";
-import Card from "./Card";
+import Card from "../card/Card";
+import "./GlobalStatisticsSection.css";
 
 function GlobalStatisticsSection() {
-  // Fake stats data (like your screenshot)
+  // Fake stats data
   const stats = [
     {
       id: "centers",
@@ -34,13 +35,13 @@ function GlobalStatisticsSection() {
     return (
       <Card
         style={{
-          width: 192,
+          width: 224,
           height: 172,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: 10,
+          gap: 24,
           textAlign: "center",
           padding: 16,
           border: "none",
@@ -57,7 +58,7 @@ function GlobalStatisticsSection() {
 
   return (
     <>
-      <div className="global-statistics-section stats-bg">
+      <div className="global-statistics-section">
         {/* Search section */}
         <div className="search-container">
           <DgaSearchBox

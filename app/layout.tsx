@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 // import localFont from "next/font/local";
 import "./globals.css";
-import NavHeader from "./components/NavHeader";
+import NavHeader from "./components/nav-header/NavHeader";
 import ClientOnly from "./components/ClientOnly";
-import Footer from "./components/Footer";
+import Footer from "./components/footer/Footer";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -26,12 +26,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" dir="rtl">
+    <html lang="ar" dir="rtl">
       <body className="min-h-screen flex flex-col">
         <ClientOnly>
           <NavHeader />
 
-          <main className="flex-1 w-full bg-neutral-50">{children}</main>
+          <main className="flex-1 w-full bg-white">{children}</main>
 
           <Footer />
         </ClientOnly>
