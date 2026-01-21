@@ -12,7 +12,7 @@
   justify-content: space-between;
   align-items: center;
   padding-block: 40px;
-  border: 1px solid #2f0676;
+  /* border: 1px solid #2f0676; */
 }
 /* .stats-bg {
   position: relative;
@@ -85,7 +85,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #067647;
+  /* border: 1px solid #067647; */
   margin: 0 auto;
 }
 
@@ -95,7 +95,7 @@
   gap: var(--Global-spacing-4xl, 32px);
   grid-template-columns: 1fr; /* Default: 1 card per row */
   margin: auto;
-  border: 1px solid #080676;
+  /* border: 1px solid #080676; */
 }
 
 /* 600px and up: 2 cards per row */
