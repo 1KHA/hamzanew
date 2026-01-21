@@ -65,7 +65,7 @@ function Banner() {
                 <div className="hero">
                   <h1>{slide.title}</h1>
                   {slide.description && <p>{slide.description}</p>}
-                  <button className="dga-btn dga-btn--md dga-btn--secondary-outline">
+                  <button className="dga-btn dga-btn--md dga-btn--primary-neutral--on-color">
                     <span className="dga-btn-label"> {slide.buttonText}</span>
                   </button>
                 </div>

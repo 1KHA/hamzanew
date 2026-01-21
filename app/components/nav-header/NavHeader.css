@@ -33,6 +33,7 @@
 }
 
 .header {
+ 
   position: relative;
   width: 100%;
   min-height: 72px;
@@ -93,6 +94,8 @@
   flex: 1;
 }
 .header-nav__branding {
+
+  min-width: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -106,11 +109,11 @@
 }
 
 .header__logo img {
-  height: 37px;
-  width: auto;
+  height: 57px;
+  width: 120px;
   object-fit: contain;
 }
-@media only screen and (max-width: 56.25em) {
+@media only screen and (max-width: 960px) {
   .header-nav__branding {
     flex: 1;
     justify-content: center;
@@ -147,6 +150,15 @@
     display: none;
   }
 }
+
+.header-menu__item:focus, .header-menu__item:active, a:focus, a:active {
+    outline: 2px solid #161616 !important;
+    outline-offset: 1px !important;
+    border-radius: 6px;
+    z-index: 9999 !important;
+    position: relative;
+}
+
 .header-menu__item {
   display: inline-flex;
   height: 72px;
@@ -203,6 +215,7 @@
 .header-menu__item-icon,
 .header-menu__item-arrow {
   color: var(--text-default);
+      width: max-content;
 }
 .header-menu__item-icon {
   color: var(--text-default);
@@ -345,6 +358,7 @@
 
 /* Sub-nav container links */
 .sub-navs a {
+  width:inherit;
   font-family: "IBMPlexSansArabic", sans-serif;
   font-size: 16px;
   font-style: normal;
@@ -384,7 +398,8 @@ a:not(.header-menu__item--active):hover {
 }
 
 .sub-nav-title-w-auto {
-  
+  max-width: 400px;
+
   display: grid;
   gap: 12px;
   align-self: start;
@@ -395,7 +410,6 @@ a:not(.header-menu__item--active):hover {
   font-weight: 700;
   line-height: 28px;
   color: #1b8354;
- 
 }
 
 /* ******************************* */
@@ -415,8 +429,7 @@ a:not(.header-menu__item--active):hover {
 .header__sub-menu--bg-white {
   background: var(--background-menu, #fff);
   /* Shadows/shadow-lg */
-  box-shadow:
-    0px 12px 16px -4px rgba(16, 24, 40, 0.08),
+  box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.08),
     0px 4px 6px -2px rgba(16, 24, 40, 0.03);
 }
 .header__sub-menu--full {
@@ -449,7 +462,7 @@ a:not(.header-menu__item--active):hover {
   gap: var(--spacing-xl);
   align-items: center;
   background-color: transparent;
-  min-width: 300px;
+  /* min-width: 300px; */
 }
 .sub-menu__link:hover {
   background-color: var(--button-background-neutral-hovered);

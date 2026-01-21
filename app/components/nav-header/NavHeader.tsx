@@ -47,7 +47,11 @@ function NavHeader() {
             {/* <!-- Logo --> */}
             <div className="header-nav__branding">
               <Link href="/" className="header__logo">
-                <img src="/assets/image/Hamza_Logo.png" alt="Logo" />
+                <img
+                  width={120}
+                  src="/assets/image/Hamza_Logo.png"
+                  alt="Logo"
+                />
               </Link>
             </div>
 
@@ -67,7 +71,7 @@ function NavHeader() {
                   <span className="header-menu__item-label">عن الجهة</span>
                   <span className="header-menu__item-arrow">
                     <img
-                      src="/assets/icons/stroke-standard/arrow-down-01-stroke-standard.svg"
+                      src="/assets/icons/stroke-standard/arrow-down-01-stroke-rounded.svg"
                       alt=""
                       width={24}
                       height={24}
@@ -77,7 +81,7 @@ function NavHeader() {
                 </Link>
                 {/* submenu */}
                 <div
-                  className="sub-navs sub-navs-fixed grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-[24px] hidden group-hover:grid"
+                  className="sub-navs sub-navs-fixed grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-[24px] hidden group-hover:grid"
                   style={{
                     position: "absolute",
                     top: "100%",
@@ -248,7 +252,7 @@ function NavHeader() {
                   </span>
                   <span className="header-menu__item-arrow">
                     <img
-                      src="/assets/icons/stroke-standard/arrow-down-01-stroke-standard.svg"
+                      src="/assets/icons/stroke-standard/arrow-down-01-stroke-rounded.svg"
                       alt=""
                       width={24}
                       height={24}
@@ -330,7 +334,7 @@ function NavHeader() {
                   <span className="header-menu__item-label">الأبحاث</span>
                   <span className="header-menu__item-arrow">
                     <img
-                      src="/assets/icons/stroke-standard/arrow-down-01-stroke-standard.svg"
+                      src="/assets/icons/stroke-standard/arrow-down-01-stroke-rounded.svg"
                       alt=""
                       width={24}
                       height={24}
@@ -387,11 +391,6 @@ function NavHeader() {
               <li>
                 <Link href="#" className="header-menu__item">
                   <span className="header-menu__item-label">الاخبار</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="header-menu__item">
-                  <span className="header-menu__item-label">تواصل معنا </span>
                 </Link>
               </li>
             </ul>
