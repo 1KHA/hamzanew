@@ -1,5 +1,5 @@
 @import "tailwindcss";
-/* @import "../node_modules/platformscode-new-react/dist/style.css"; */
+@import "../node_modules/platformscode-new-react/dist/style.css";
 
 @theme {
   --font-sans: var(--font-ibm-plex-arabic), "IBMPlexSansArabic", sans-serif;
