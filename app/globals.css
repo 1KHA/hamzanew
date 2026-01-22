@@ -248,7 +248,14 @@ body {
 }
 
 
+li{
+      width: inherit;
+}
 
+.icon-green{
+
+      filter: invert(24%) sepia(86%) saturate(642%) hue-rotate(112deg) brightness(92%) contrast(96%);
+}
 /* Home banner */
 
 .c-mask {
