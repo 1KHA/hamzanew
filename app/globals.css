@@ -18,6 +18,8 @@
   --Global-spacing-4xl: 32px;
   --Global-spacing-3xl: 24px;
   --Global-spacing-xl: 16px;
+  --Global-spacing-8xl: 80px;
+  --Global-spacing-10xl: 128px;
 }
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap");
@@ -201,6 +203,12 @@ body {
 }
 .section-spacing-xl {
   padding-block: var(--Global-spacing-xl);
+}
+.section-spacing-8xl {
+  padding-block: var(--Global-spacing-8xl);
+}
+.section-spacing-10xl {
+  padding-block: var(--Global-spacing-10xl);
 }
 
 .flex-between-center {

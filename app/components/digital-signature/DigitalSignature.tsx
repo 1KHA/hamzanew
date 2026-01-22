@@ -86,7 +86,7 @@ export default function DigitalSignature() {
                     height={24}
                     className="inline-block"
                   /> */}
-                    <svg
+                    {/* <svg
                       className="w-5 h-5 text-[#067647]"
                       viewBox="0 0 24 24"
                       fill="none"
@@ -97,7 +97,7 @@ export default function DigitalSignature() {
                     >
                       <rect x="3" y="11" width="18" height="11" rx="2" />
                       <path d="M7 11V7a5 5 0 0110 0v4" />
-                    </svg>
+                    </svg> */}
                   </div>
 
                   <div className="digital_content_item_content">
@@ -116,7 +116,7 @@ export default function DigitalSignature() {
               {/* More Content */}
               <div className="digital_more_content">
                 <div className="digital_more_content_icon">
-                  <svg width="21" height="31" viewBox="0 0 21 31" fill="none">
+                  {/* <svg width="21" height="31" viewBox="0 0 21 31" fill="none">
                     <path
                       d="M11.3549 15.0182C11.1993 15.1314 11.1003 15.3152 11.1003 15.5132V20.5334C11.1003 20.8728 11.369 21.1415 11.7084 21.1415C12.0478 21.1415 12.3165 20.8728 12.3165 20.5334V15.8243L17.6478 12.091C17.8317 12.1899 18.0297 12.2324 18.2559 12.2324C18.9771 12.2324 19.5711 11.6526 19.5711 10.9172C19.5711 10.196 18.9913 9.60205 18.2559 9.60205C17.5347 9.60205 16.9408 10.1819 16.9408 10.9172C16.9408 10.9738 16.9408 11.0303 16.9549 11.0728L11.3549 15.0182Z"
                       fill="url(#paint0_linear_19848_20660)"
@@ -238,7 +238,7 @@ export default function DigitalSignature() {
                         <stop offset="1" stop-color="#774896"></stop>
                       </linearGradient>
                     </defs>
-                  </svg>
+                  </svg> */}
                 </div>
 
                 <div className="digital_more_content_content">
