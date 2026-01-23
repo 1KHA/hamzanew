@@ -5,6 +5,7 @@ import "./card.css";
 interface CardProps {
   style?: React.CSSProperties;
   icon?: string;
+  number?: string;
   title: string;
   description?: string;
   image?: string;
@@ -32,6 +33,7 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({
   style,
   icon,
+  number,
   title,
   description,
   image,
@@ -106,6 +108,13 @@ const Card: React.FC<CardProps> = ({
             type="rounded"
             variant="stroke"
           />
+        </div>
+      )}
+
+      {/* optional icon */}
+      {number && (
+        <div className="circular-green-number">
+          <span>{number}</span>
         </div>
       )}
 

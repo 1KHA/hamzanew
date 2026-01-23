@@ -44,6 +44,27 @@
   justify-content: center;
   margin-bottom: 4px;
 }
+.circular-green-number {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+  border-radius: 100%;
+  background: #079455;
+}
+.circular-green-number span{
+color: #FFF;
+text-align: right;
+
+/* Text xl/Bold */
+font-family: "IBMPlexSansArabic";
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: 30px; /* 150% */
+}
 
 .btn-card {
   width: 100%;
