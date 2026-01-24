@@ -18,27 +18,27 @@ function AboutPage() {
     {
       icon: "certificate",
       title: "أهمية اختبارات همزة",
-      link: "/exam-importance",
+      link: "/about/benefits-of-hamza-test",
     },
     {
       icon: "share-nodes",
       title: "المشاركة الالكترونية",
-      link: "/e-participation",
+      link: "#",
     },
     {
       icon: "building-columns",
       title: "اللجنة الاستشارية الدولية",
-      link: "/international-advisory-committee",
+      link: "/about/international-advisory-committee",
     },
     {
       icon: "badge-check",
       title: "المؤسسات والدول التي تقبل همزة",
-      link: "/accepted-institutions-countries",
+      link: "/about/institutions-and-countries-that-accept-the-hamza",
     },
     {
       icon: "message-circle",
       title: "تواصل معنا",
-      link: "/contact",
+      link: "#",
     },
   ];
 

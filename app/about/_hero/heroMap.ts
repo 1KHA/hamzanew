@@ -1,6 +1,6 @@
 export type HeroData = {
   title: string;
-  description: string;
+  description?: string;
   bgColor?: string; // e.g. "#F7FDF9"
   externalLink?: {
     href: string;
@@ -46,5 +46,14 @@ export const heroMap: Record<string, HeroData> = {
       href: "#",
       label: "التسجيل في الاختبار",
     },
+  },
+  "/about/benefits-of-hamza-test": {
+    title: "أهمية اختبارات همزة",
+    bgColor: "#F9FAFB",
+  },
+  "/about/institutions-and-countries-that-accept-the-hamza": {
+    title: "المؤسسات و الدول التي تقبل همزة",
+    description:"تعتمد بعض المؤسسات حول العالم على اختبار همزة لتقييم الكفاءة في اللغة العربية تشمل هذه المؤسسات: الجامعات، الجهات الحكومية، الهيئات المهنية، شركات التوظيف، وجهات الهجرة في الدول الناطقة بالعربية أو المهتمة بها.",
+    bgColor: "#F9FAFB"
   },
 };

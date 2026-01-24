@@ -37,7 +37,7 @@
   max-width: 860px;
 
   color: var(--Text-text-default, #161616);
-  text-align: right;
+  /* text-align: right; */
 
   font-family: var(--Font-Family-font-family-text, "IBMPlexSansArabic");
   font-size: var(--Size-Text-typo-size-text-md, 16px);
@@ -46,6 +46,12 @@
   line-height: var(--Line-Height-Text-line-heights-text-md, 24px);
 }
 
+:dir(ltr) .title .desc{
+  text-align: left;
+}
+:dir(rtl) .title .desc {
+  text-align: right;
+}
 /* actions */
 .actions {
   margin-top: 16px;

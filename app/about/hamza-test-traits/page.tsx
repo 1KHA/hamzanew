@@ -1,5 +1,6 @@
 "use client";
 import Card from "@/app/components/card/Card";
+import bg from "@/public/assets/image/bg-image.png";
 import "../about.css";
 export default function page() {
   const traits = [
@@ -45,7 +46,16 @@ export default function page() {
   ));
   return (
     <>
-      <div className="block-padding-10xl bg-color-grey-50">
+      <div className="block-padding-10xl bg-color-grey-50"
+ style={{
+  backgroundColor: "#f9fafb",
+  backgroundImage: `url(${bg.src})`,
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "1233.365px 0px",
+  backgroundSize: "36.905% 100%",
+}}
+
+      >
         <div className="stack-xl custom-container">
           <h1 className="section-header">السمات</h1>
           <div className="grid-cols-4-gap-24">

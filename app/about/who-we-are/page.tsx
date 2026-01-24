@@ -1,7 +1,7 @@
 "use client";
 import Card from "@/app/components/card/Card";
 import "../about.css";
-export default function WhoWeAre() {
+export default function page() {
   const cardsContent = [
     {
       title: "الرؤية",

@@ -22,8 +22,7 @@ export default function AboutHero() {
     >
       <div className={styles.inner}>
         <h1 className={styles.title}>{hero.title}</h1>
-
-        <p className={styles.desc}>{hero.description}</p>
+        {hero.description && <p className={styles.desc}>{hero.description}</p>}
 
         {hero.externalLink ? (
           <div className={styles.actions}>
