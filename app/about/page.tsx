@@ -1,6 +1,6 @@
 "use client";
 
-import { DgaIcon } from "platformscode-new-react";
+// import { DgaIcon } from "platformscode-new-react";
 import Card from "../components/card/Card";
 
 function AboutPage() {
@@ -8,12 +8,12 @@ function AboutPage() {
     {
       icon: "user-group",
       title: "من نحن",
-      link: "/about",
+      link: "/about/who-we-are",
     },
     {
       icon: "user-group",
       title: "سمات اختبار همزة",
-      link: "/exam-features",
+      link: "/about/hamza-test-traits",
     },
     {
       icon: "certificate",
@@ -49,7 +49,8 @@ function AboutPage() {
         icon={page.icon}
         title={page.title}
         buttonIconOnly={true}
-        linkPrimaryAction={page.link}
+        // linkPrimaryAction={page.link}
+        linkSecondaryAction={page.link}
       />
     );
   });

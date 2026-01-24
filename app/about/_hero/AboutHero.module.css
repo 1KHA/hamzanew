@@ -46,6 +46,24 @@
   line-height: var(--Line-Height-Text-line-heights-text-md, 24px);
 }
 
+/* actions */
+.actions {
+  margin-top: 16px;
+  width: 100%;
+  display: flex;
+}
+
+/* LTR */
+:dir(ltr) .actions {
+  justify-content: flex-end;
+}
+
+/* RTL */
+:dir(rtl) .actions {
+  justify-content: flex-start;
+}
+
+
 @media (max-width: 768px) {
   .hero {
     padding: var(--Global-spacing-5xl, 40px) var(--Global-spacing-4xl, 32px);

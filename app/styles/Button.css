@@ -24,6 +24,10 @@ dga-button {
   outline: 2px solid #161616;
    
 }
+.dga-btn:focus-visible {
+  outline: 2px solid #161616;
+   
+}
 .dga-btn-icon {
   display: flex;
   width: 24px;

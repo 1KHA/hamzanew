@@ -1,6 +1,8 @@
 import React, { ReactNode } from "react";
 import { DgaIcon, DgaButton, DgaTag } from "platformscode-new-react";
 import "./card.css";
+// import router from "next/router";
+import { useRouter } from "next/navigation";
 
 interface CardProps {
   style?: React.CSSProperties;
@@ -23,7 +25,7 @@ interface CardProps {
   logoImage?: boolean;
   showSecondaryAction?: boolean;
   secondaryActionLabel?: string;
-  linkSecondaryAction?: () => void;
+  linkSecondaryAction?: string;
   buttonColor?: "primary-brand" | "secondary-outline" | string;
   tagLable?: string;
   children?: ReactNode;
@@ -57,6 +59,7 @@ const Card: React.FC<CardProps> = ({
   children,
   isImgCenter = false,
 }) => {
+  const router = useRouter();
   // RTL detection - checking document direction
   const isRTL = typeof document !== "undefined" ? document.dir === "rtl" : true;
 
@@ -77,6 +80,7 @@ const Card: React.FC<CardProps> = ({
       window.location.href = linkPrimaryAction;
     }
   };
+  console.log(linkSecondaryAction);
 
   return (
     <div className="card" style={style}>
@@ -143,7 +147,14 @@ const Card: React.FC<CardProps> = ({
             label={secondaryActionLabel}
             size="md"
             variant="secondary-outline"
-            onClick={linkSecondaryAction}
+            onClick={() => {
+              if (!linkSecondaryAction) return;
+              if (linkSecondaryAction.startsWith("http")) {
+                window.open(linkSecondaryAction, external ? "_blank" : "_self");
+              } else {
+                router.push(linkSecondaryAction);
+              }
+            }}
           />
         )}
 
@@ -176,7 +187,6 @@ const Card: React.FC<CardProps> = ({
                   variant: "stroke",
                 }}
                 trailIconType={resolvedTrailIconType}
-                label={primaryActionLabel}
                 size="md"
                 variant={buttonColor as any}
                 onClick={handlePrimaryClick}
@@ -184,22 +194,27 @@ const Card: React.FC<CardProps> = ({
             )}
           </>
         )}
-{/* scondery icon button  */}
-        {
-          buttonIconOnly && (
-            <DgaButton
-              tabIndex={0}
-              iconOnly
-              iconType="Circle"
-              trailIcon
-              trailIconProps={{ size: 16, type: "standard", variant: "stroke" }}
-              label={primaryActionLabel}
-              size="md"
-              variant="secondary-outline"
-              onClick={handlePrimaryClick}
-            />
-          )
-        }
+        {/* scondery icon button  */}
+        {buttonIconOnly && (
+          <DgaButton
+            tabIndex={0}
+            iconOnly
+            iconType="Circle"
+            trailIcon
+            trailIconProps={{ size: 16, type: "standard", variant: "stroke" }}
+            label={primaryActionLabel}
+            size="md"
+            variant="secondary-outline"
+            onClick={() => {
+              if (!linkSecondaryAction) return;
+              if (linkSecondaryAction.startsWith("http")) {
+                window.open(linkSecondaryAction, external ? "_blank" : "_self");
+              } else {
+                router.push(linkSecondaryAction);
+              }
+            }}
+          />
+        )}
       </div>
     </div>
   );
