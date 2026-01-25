@@ -45,27 +45,27 @@ export default function page() {
       number: "01",
       content:
         "قياس الكفاءة اللغوية لدى متعلمي اللغة العربية من غير الناطقين بها",
-      icon:  "../assets/image/image 11.png"  ,
+      icon: "../assets/image/image 11.png",
     },
     {
       number: "02",
       content: "المفاضلة بين المتقدمين للبرامج الأكاديمية.",
-      icon:  "../assets/image/image 7.png" ,
+      icon: "../assets/image/image 7.png",
     },
     {
       number: "03",
       content: "التنافس على المنح الدراسية.",
-      icon:  "../assets/image/image 8.png" ,
+      icon: "../assets/image/image 8.png",
     },
     {
       number: "04",
       content: "قياس نواتج التعلم في المقررات الدراسية وتطوير مخرجات التعليم",
-      icon:  "../assets/image/image 10.png" ,
+      icon: "../assets/image/image 10.png",
     },
     {
       number: "05",
       content: "الإعفاء من بعض المقررات الجامعية.",
-      icon:  "../assets/image/image 9.png" ,
+      icon: "../assets/image/image 9.png",
     },
   ];
 
@@ -74,17 +74,18 @@ export default function page() {
       <div
         className="bg-color-grey-50"
         style={{
-          padding: "var(--Global-spacing-4xl, 32px) 80px",
+          padding: "clamp(16px, 3vw, 32px) clamp(16px, 6vw, 80px)",
         }}
       >
         <div
           className="custom-container stack"
           style={{
             display: "flex",
-            padding: "70px",
-            gap: 70,
+            padding: "clamp(20px, 5vw, 70px)",
+            gap: "clamp(16px, 5vw, 70px)",
             borderRadius: 16,
-            background: "#FFF",          }}
+            background: "#FFF",
+          }}
         >
           {/* upper section */}
           <div className="flex-start-gap-80">
@@ -106,10 +107,7 @@ export default function page() {
             <div className="stack-lg">{benefitsCards}</div>
           </div>
           {/* bottom section */}
-          {/* <div className="flex-start-gap-80"> */}
-
-            <ScrollFrame slides={myData} />
-          {/* </div> */}
+          <ScrollFrame slides={myData} />
         </div>
       </div>
     </>

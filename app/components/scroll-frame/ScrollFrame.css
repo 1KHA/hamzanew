@@ -5,6 +5,8 @@
   background: #fff;
   overflow: hidden;
   direction: rtl; /* Proper Arabic alignment */
+
+  display: flex;
 }
 
 /* Static Titles: Positioned absolutely over the scroll frame */
@@ -72,6 +74,8 @@
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scrollbar-width: none;
+
+  flex: 1;
 }
 
 .scroll-frame::-webkit-scrollbar {
@@ -180,8 +184,8 @@
   height: 100%;
 
   /* This is the CSS equivalent of "background-size: cover" for <img> tags */
-  object-fit: cover;
-
+  /* object-fit: cover; */
+object-fit: contain;
   /* This is the CSS equivalent of "background-position: 50% 50%" */
   object-position: center;
 
@@ -210,4 +214,113 @@
   font-size: 1.5rem;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.05);
+}
+
+
+
+/* --- Tablet Breakpoint (e.g., iPad) --- */
+@media (max-width: 1024px) {
+  .fixed-labels-overlay {
+    width: 220px;
+    right: 20px;
+  }
+  
+  .main-title {
+    font-size: 1.75rem; /* Scale down title */
+  }
+
+  .slide {
+    gap: 40px;
+    padding: 0 20px;
+  }
+
+  .sticky-card {
+    width: 60%;
+    padding: 24px;
+  }
+
+  .icon-wrapper {
+    width: 160px; /* Scale down icon box */
+    height: auto;
+  }
+  .card-bg-id {
+    display: none;
+  }
+}
+
+/* --- Mobile Breakpoint --- */
+@media (max-width: 768px) {
+  .frame-container {
+    flex-direction: column; /* Stack vertically */
+    height: auto; /* Let it grow */
+    min-height: 500px;
+    overflow: visible;
+  }
+
+  .fixed-labels-overlay {
+    position: relative; /* Remove absolute positioning */
+    right: 0;
+    top: 0;
+    width: 100%;
+    padding: 20px;
+    pointer-events: auto;
+    gap: 8px;
+  }
+
+  .main-title {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin-top: 5px;
+  }
+
+  .scroll-frame {
+    height: 320px; /* Specific height for the card view area */
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .slide {
+    height: 320px; /* Match scroll-frame */
+    flex-direction: column-reverse; /* Put number above or below card */
+    gap: 10px;
+    padding: 15px;
+  }
+
+  .sticky-card {
+    width: 100%;
+    height: 240px;
+    top: 40px; /* Sticky offset for mobile */
+    flex-direction: column; /* Content stacks inside card */
+    padding: 20px;
+    text-align: center;
+  }
+
+  .card-inner {
+    flex-direction: column; /* Image top, text bottom */
+    text-align: center;
+    gap: 12px;
+  }
+
+  .icon-wrapper {
+    width: 80%;
+    height: 100px;
+  }
+
+  .number-container {
+    width: 100%;
+    justify-content: center;
+    height: 40px;
+    align-items: center;
+  }
+
+  .moving-number {
+    font-size: 2.5rem; /* Smaller number */
+  }
+
+  .card-text {
+    font-size: 0.95rem;
+    text-align: center;
+  }
+  .card-bg-id {
+    display: none;
+  }
 }

@@ -264,6 +264,19 @@ align-self: stretch;
   }
 }
 
+@media (max-width: 960px) {
+.flex-start-gap-80{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+}
+@media (max-width: 600px) {
+.flex-start-gap-80{
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+}
+}
+
 /* periodic Advisory Committee */
 
 .upper-section {
