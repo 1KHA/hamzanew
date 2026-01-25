@@ -1,0 +1,213 @@
+.frame-container {
+  position: relative;
+  width: 100%;
+  height: 258px;
+  background: #fff;
+  overflow: hidden;
+  direction: rtl; /* Proper Arabic alignment */
+}
+
+/* Static Titles: Positioned absolutely over the scroll frame */
+.fixed-labels-overlay {
+  position: absolute;
+  /* right: 40px; Adjust based on your padding */
+  /* top: 50px; */
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 300px;
+  z-index: 10;
+  pointer-events: none; /* Allows scroll through the text */
+}
+
+/* 
+.subtitle {
+  color: #2ba57e;
+  font-size: 0.9rem;
+  display: block;
+}
+
+.main-title {
+  font-size: 1.4rem;
+  margin: 5px 0 0 0;
+  color: #333;
+  line-height: 1.3;
+} */
+.subtitle {
+  color: var(--Text-text-primary, #1b8354);
+  text-align: right;
+
+  /* Text lg/Medium */
+  font-family: var(--Font-Family-font-family-text, "IBMPlexSansArabic");
+  /* font-size: var(--Size-Text-typo-size-text-lg, 18px); */
+  font-size: var(--Size-Text-typo-size-text-lg, 1.125rem);
+  font-style: normal;
+  font-weight: 500;
+  line-height: var(
+    --Line-Height-Text-line-heights-text-lg,
+    28px
+  ); /* 155.556% */
+}
+.main-title {
+  color: var(--Text-text-default, #161616);
+  text-align: right;
+
+  /* Display md/Semibold */
+  font-family: var(--Font-Family-font-family-display, "IBMPlexSansArabic");
+  /* font-size: var(--Size-Display-typo-size-display-md, 36px); */
+  font-size: var(--Size-Display-typo-size-display-md, 2.25rem);
+  font-style: normal;
+  font-weight: 600;
+  line-height: var(
+    --Line-Height-Display-line-heights-display-md,
+    44px
+  ); /* 122.222% */
+  /* letter-spacing: 12px; */
+  margin-top: 1.25rem;
+}
+/* Scroll Frame: Fills the whole parent so you can scroll anywhere */
+.scroll-frame {
+  width: 100%;
+  height: 258px;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+}
+
+.scroll-frame::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  height: 258px;
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse; /* Card left, Number right */
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--Global-spacing-8xl, 80px);
+  scroll-snap-align: start;
+  position: relative;
+}
+
+/* THE MAGIC: Card stays in place while scrolling */
+.sticky-card {
+  position: sticky;
+  top: 29px; /* Centering (258px - 200px) / 2 */
+  width: 65%;
+  height: 100%;
+  /* margin-right: auto; */ /* Pushes card to the left */
+  /* margin-left: 40px; */
+  background: #f8fbfa;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: var(--Global-spacing-6xl, 48px);
+  z-index: 1;
+  /* Add shadow to make the overlay look distinct */
+  box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.02);
+  /* border: 2px solid #7a0a4d; */
+}
+
+.card-content {
+  display: flex;
+  /* justify-content: flext-co; */
+  flex-direction: column;
+  /* align-items: center; */
+  gap: 24px;
+  align-self: stretch;
+  /* border: 1px solid #0a227a; */
+}
+
+/* Number Container: Moves naturally with the scroll */
+.number-container {
+  width: 300px; /* Matches fixed-labels width */
+  height: 100%;
+  display: flex;
+  align-items: flex-end; /* Aligns number below the static titles */
+  /* padding: 0 40px 40px 0; */
+  /* border: 1px solid #12809b; */
+}
+
+.moving-number {
+  color: var(--Text-text-primary, #1b8354);
+  text-align: right;
+
+  /* Display lg/Regular */
+  font-family: var(--Font-Family-font-family-display, "IBMPlexSansArabic");
+  font-size: var(--Size-Display-typo-size-display-lg, 48px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(
+    --Line-Height-Display-line-heights-display-lg,
+    60px
+  ); /* 125% */
+  letter-spacing: -0.96px;
+}
+
+/* Internal Card Styling */
+.card-inner {
+  /* display: flex; */
+  width: 100%;
+  align-items: center;
+  /* gap: 20px; */
+  display: flex;
+  /* padding: 0 var(--Global-spacing-6xl, 48px); */
+  /* align-items: flex-end; */
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  gap: var(--Card-card-lg-gap, 24px);
+  /* align-self: stretch; */
+  /* border: 3px solid #0a7a1b; */
+}
+
+.icon-wrapper {
+  background-color: #f8fbfa;
+  width: 222px;
+  height: 172.827px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden; /* Ensures the image doesn't bleed out */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  /* border: #7a0a4d 2px solid; */
+}
+
+.icon-img {
+  width: 100%;
+  height: 100%;
+
+  /* This is the CSS equivalent of "background-size: cover" for <img> tags */
+  object-fit: cover;
+
+  /* This is the CSS equivalent of "background-position: 50% 50%" */
+  object-position: center;
+
+  /* Optional: If the icon has a transparent background, 
+     this ensures it looks clean over your background-image */
+  display: block;
+}
+.card-text {
+  color: var(--Text-text-display, #1f2a37);
+  text-align: right;
+
+  /* Text lg/Semibold */
+  font-family: var(--Font-Family-font-family-text, "IBMPlexSansArabic");
+  font-size: var(--Size-Text-typo-size-text-Ig, 18px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: var(
+    --Line-Height-Text-line-heights-text-Ig,
+    28px
+  ); /* 155.556% */
+}
+.card-bg-id {
+  /* position: absolute;
+  top: 15px;
+  right: 20px; */
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.05);
+}

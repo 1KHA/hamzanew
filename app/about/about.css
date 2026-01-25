@@ -39,6 +39,9 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
+
+    flex: 1;      /* take remaining space */
+  min-width: 0; /* IMPORTANT: allow text to wrap instead of overflowing */
 }
 
 
@@ -79,7 +82,7 @@
     /* align-items: stretch; */
   /* flex-grow: 1; */
   gap: var(--Global-spacing-8xl, 80px);
-  border: 1px solid #0a7a3a;
+  /* border: 1px solid #0a7a3a; */
 }
 .description{
   color: var(--Text-text-default, #161616);
@@ -90,6 +93,9 @@
   font-style: normal;
   font-weight: 400;
   line-height: var(--Line-Height-Text-line-heights-text-md, 24px); /* 150% */
+  /* border: 1px solid #0a7a3a; */
+  width: 100%;
+  align-self: stretch;
 }
 .flex-end-gap-24 {
   display: flex;
@@ -97,7 +103,7 @@ justify-content: flex-end;
 align-items: center;
 gap: 24px;
 align-self: stretch;
-  border: 1px solid #0a7a3a;
+  /* border: 1px solid #0a7a3a; */
 }
 
 
