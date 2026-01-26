@@ -85,9 +85,7 @@ export default function page() {
   });
   return (
     <>
-      <div className="custom-container"
-    
-      >
+      <div className="content">
         {/* upper section */}
         <div className="stack-4xl block-padding-8xl">
           <div className="section-head">

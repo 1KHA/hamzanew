@@ -98,6 +98,8 @@ export default function page() {
     );
   });
 
+
+  
   const mortakazatCards = mortakazatCardsContents.map((content, index) => {
     return (
       <Card
@@ -105,7 +107,7 @@ export default function page() {
         style={{
           borderRadius: "16px",
           display: "flex",
-          height: 200,
+        
           border: "none"
         }}
         title={content.title}
@@ -116,6 +118,10 @@ export default function page() {
   });
   return (
     <>
+
+
+    
+
       <div className="stack">
         {/* first section */}
         <div className="about-us-cards-container custom-container">
@@ -131,11 +137,11 @@ export default function page() {
             </div>
 
             <div className="about-cards">
-              <div className="about-cards__row about-cards__row--top">
+              <div className="grid  grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-[24px]">
                 {valuesCards.slice(0, 3)}
               </div>
 
-              <div className="about-cards__row about-cards__row--bottom">
+              <div className="grid  grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-[24px]">
                 {valuesCards.slice(3, 5)}
               </div>
             </div>

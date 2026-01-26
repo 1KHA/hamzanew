@@ -17,6 +17,7 @@
   overflow: hidden;
 }
 .card {
+      height: -webkit-fill-available;
   width: 100%;
   min-height: 100%;
   border: 1px solid #d2d6db;

@@ -164,6 +164,45 @@ body {
 }
 
 
+.content{
+    max-width: 1280px;
+    padding: 0px 32px;
+    margin: auto;
+
+}
+
+
+/* Mobile default styles */
+
+@media (min-width: 600px) {
+ .content{
+    padding: 0px 16px;
+
+}
+}
+
+@media (min-width: 960px) {
+  
+
+.content{
+    padding: 0px 32px;
+
+}
+}
+
+@media (min-width: 1280px) {
+ 
+
+.content{
+    max-width: 1280px;
+    padding: 0px 32px;
+    margin: auto;
+
+}
+}
+
+
+
 /* Custom dga container */
 .custom-container {
   max-width: var(--container-max-width-desktop);
