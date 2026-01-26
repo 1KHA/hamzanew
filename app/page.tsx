@@ -187,6 +187,9 @@ export default function Home() {
       {/* </div> */}
 
       {/* hamza in numbers section */}
+
+      <div className="bg-neutral-50">
+        
       <section className="section-spacing-5xl custom-container">
         <div className="bg-white">
           <div className="">
@@ -208,6 +211,7 @@ export default function Home() {
         </div>
       </section>
 
+      </div>
       <div className="bg-white">
         {/* partners section */}
         <section className="section-spacing-5xl custom-container">
