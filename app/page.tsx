@@ -155,7 +155,7 @@ export default function Home() {
             </p>
           </div>
           <div className="section-spacing-4xl">
-            <Carousel itemsPerSlide={3} gap={20}>
+            <Carousel itemsPerSlide={4} gap={20}>
               {servicesCard}
             </Carousel>
           </div>

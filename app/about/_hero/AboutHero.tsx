@@ -16,7 +16,7 @@ export default function AboutHero() {
 
   return (
     <section
-      className={styles.hero}
+      className="content !mt-[40px]"
       dir="rtl"
       style={{ background: hero.bgColor ?? "#F7FDF9" }}
     >
