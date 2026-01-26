@@ -54,6 +54,6 @@ export const heroMap: Record<string, HeroData> = {
   "/about/institutions-and-countries-that-accept-the-hamza": {
     title: "المؤسسات و الدول التي تقبل همزة",
     description:"تعتمد بعض المؤسسات حول العالم على اختبار همزة لتقييم الكفاءة في اللغة العربية تشمل هذه المؤسسات: الجامعات، الجهات الحكومية، الهيئات المهنية، شركات التوظيف، وجهات الهجرة في الدول الناطقة بالعربية أو المهتمة بها.",
-    bgColor: "#F9FAFB"
+    bgColor: "#FFF"
   },
 };

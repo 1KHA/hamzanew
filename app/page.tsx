@@ -89,7 +89,7 @@ export default function Home() {
         title={item.title}
         description={item.disc}
         icon={item.icon}
-        showPrimaryAction
+        showPrimaryAction={true}
         primaryActionLabel="التسجيل للاختبار"
         
         showSecondaryAction
@@ -124,9 +124,9 @@ export default function Home() {
       title={item.title}
       description={item.des}
       image={item.image}
-      showPrimaryAction
+      showPrimaryAction={true}
       primaryActionLabel="قراءة المزيد"
-      buttonColor="primary-brand"
+      // buttonColor="primary-brand"
       showPrimaryIcon={false}
       linkPrimaryAction="#"
     />
