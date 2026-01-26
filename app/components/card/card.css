@@ -1,3 +1,8 @@
+.green-icon{
+  filter: invert(33%) sepia(87%) saturate(438%) hue-rotate(95deg) brightness(95%) contrast(90%);
+
+}
+
 .card-img {
   border-radius: 8px;
   width: 100%;
