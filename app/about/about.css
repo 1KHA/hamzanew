@@ -1,6 +1,9 @@
 .block-padding-10xl {
   padding-block: var(--Global-spacing-10xl, 128px); /* top + bottom */
 }
+.block-padding-8xl {
+  padding-block: var(--Global-spacing-8xl, 80px); /* top + bottom */
+}
 .max-w-size {
   max-width: 1280px;
 }
@@ -16,9 +19,7 @@
   padding-inline: var(--container-padding-desktop);
 }
 
-.bg-color-grey-50 {
-  background: linear-gradient(0deg, #f9fafb 0%, #f9fafb 100%), #f9fafb;
-}
+
 .stack {
   display: flex;
   flex-direction: column;
@@ -73,6 +74,11 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 }
+.grid-cols-5-gap-24 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
 
 .flex-start-gap-80 {
   display: flex;
@@ -106,6 +112,52 @@ align-self: stretch;
   /* border: 1px solid #0a7a3a; */
 }
 
+.row-center-gap-3xl {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: var(--Global-spacing-3xl, 24px);
+}
+
+
+.section-bg-bottom-image {
+  position: relative;
+  background-color: #074D31;
+  overflow: hidden;
+}
+
+.section-bg-bottom-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: url("/assets/image/bg-image-2.png") no-repeat;
+  background-position: 271.689px -280.654px;
+  background-size: 65.364% 277.615%;
+  opacity: 0.35;
+
+  z-index: 0;
+  pointer-events: none;
+}
+
+.section-bg-bottom-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: #1A5B41;      /* tint color */
+  mix-blend-mode: multiply; /* try: multiply / overlay / screen */
+  opacity: 0.35;
+
+  z-index: 0;
+  pointer-events: none;
+}
+
+.section-bg-bottom-image > * {
+  position: relative;
+  z-index: 1;
+}
 
 
 
@@ -269,12 +321,7 @@ align-self: stretch;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-}
-@media (max-width: 600px) {
-.flex-start-gap-80{
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-}
+
 }
 
 /* periodic Advisory Committee */
@@ -347,5 +394,108 @@ align-self: stretch;
   .custom-container {
     padding-inline: var(--container-padding-mobile, 16px);
   }
+  .flex-start-gap-80{
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
 }
+.grid-cols-5-gap-24{
+  grid-template-columns: repeat(1, 1fr);
+  inline-size: 100%;
+}
+.row-center-gap-3xl{
+  flex-direction: column;
+}
+}
+
+
+/* Default (desktop: 960+) */
+.section-cta {
+  text-align: center;
+}
+
+.section-cta__box {
+  width: clamp(280px, 90vw, 704px);
+  aspect-ratio: 704 / 196;
+  height: auto;
+  max-width: 100%;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--Card-card-lg-gap, 24px);
+}
+
+.section-cta__title {
+  color: var(--Text-text-oncolor-primary, #fff);
+  text-align: center;
+
+  font-family: var(--Font-Family-font-family-display, "IBM Plex Sans Arabic");
+  font-size: var(--Size-Display-typo-size-display-md, 36px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: var(--Line-Height-Display-line-heights-display-md, 44px);
+  letter-spacing: -0.72px;
+
+  margin: 0;
+}
+
+.section-cta__desc {
+  color: var(--Text-text-oncolor-primary, #fff);
+  text-align: center;
+
+  font-family: var(--Font-Family-font-family-display, "IBM Plex Sans Arabic");
+  font-size: var(--Size-Display-typo-size-display-xs, 24px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--Line-Height-Display-line-heights-display-xs, 32px);
+
+  margin: 0;
+  max-width: 60ch;
+}
+
+/* Tablet: 600–959 */
+@media (min-width: 600px) and (max-width: 959px) {
+  .section-cta__box {
+    aspect-ratio: auto; /* prevent squish */
+    padding: var(--Global-spacing-6xl, 48px) var(--Global-spacing-4xl, 32px);
+    width: min(90vw, 704px);
+  }
+
+  .section-cta__title {
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -0.6px;
+  }
+
+  .section-cta__desc {
+    font-size: 20px;
+    line-height: 30px;
+    max-width: 52ch;
+  }
+}
+
+/* Mobile: 0–559 */
+@media (max-width: 559px) {
+  .section-cta__box {
+    aspect-ratio: auto; /* prevent overflow on short heights */
+    width: min(92vw, 704px);
+    padding: var(--Global-spacing-5xl, 40px) var(--Global-spacing-xl, 16px);
+    gap: var(--Global-spacing-3xl, 24px);
+  }
+
+  .section-cta__title {
+    font-size: 24px;
+    line-height: 32px;
+    letter-spacing: -0.4px;
+  }
+
+  .section-cta__desc {
+    font-size: 16px;
+    line-height: 24px;
+    max-width: 40ch;
+  }
+}
+
 

@@ -8,7 +8,7 @@ interface CardProps {
   style?: React.CSSProperties;
   icon?: string;
   number?: string;
-  title: string;
+  title?: string;
   description?: string;
   image?: string;
   imageWidth?: string | number;
@@ -80,7 +80,7 @@ const Card: React.FC<CardProps> = ({
       window.location.href = linkPrimaryAction;
     }
   };
-  console.log(linkSecondaryAction);
+  console.log("*******", primaryActionLabel);
 
   return (
     <div className="card" style={style}>
@@ -123,11 +123,18 @@ const Card: React.FC<CardProps> = ({
       )}
 
       {/* content */}
-      <div className="card-content">
-        <div className="title">{title}</div>
+      {(title || description || children) && (
+        <div className="card-content">
+          {title && <div className="title">{title}</div>}
+          {description && <div className="disc">{description}</div>}
+          {children}
+        </div>
+      )}
+      {/* <div className="card-content">
+      { title && <div className="title">{title}</div>}
         {description && <div className="disc">{description}</div>}
         {children}
-      </div>
+      </div> */}
 
       {/* tag */}
       {tagLable && <DgaTag label={tagLable} size="md" variant="neutral" />}
@@ -167,7 +174,7 @@ const Card: React.FC<CardProps> = ({
                 className={`${buttonColor} flex justify-between gap-[4px] cursor-pointer`}
                 onClick={handlePrimaryClick}
               >
-                {primaryActionLabel}
+                <span>{primaryActionLabel}</span>
                 <DgaIcon
                   color=""
                   icon={resolvedTrailIconType}
@@ -180,6 +187,7 @@ const Card: React.FC<CardProps> = ({
               <DgaButton
                 tabIndex={0}
                 disabled={disablePrimaryAction}
+                label={primaryActionLabel}
                 trailIcon={showPrimaryIcon}
                 trailIconProps={{
                   size: 16,

@@ -179,6 +179,14 @@ body {
   }
 }
 
+.bg-color-grey-50 {
+  background: linear-gradient(0deg, #f9fafb 0%, #f9fafb 100%), #f9fafb;
+}
+.bg-primary-074d31 {
+  background-color: #074D31;
+}
+
+
 /* section title */
 .section-title {
   color: var(--Text-text-default, #161616);
@@ -222,7 +230,7 @@ body {
   justify-content: flex-start;
   align-items: center;
 }
-.flex-start-center.gap-4 {
+.flex-start-center .gap-4 {
   gap: 32px;
 }
 /* text in sections */
