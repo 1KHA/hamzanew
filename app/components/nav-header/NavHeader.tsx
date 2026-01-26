@@ -20,7 +20,7 @@ function NavHeader() {
       <DigitalSignature />
       {/* desktop header */}
       <div className="header header--divider">
-        <nav className="header-nav--full">
+        <nav className="header-nav--full  custom-container">
           {/* <!-- Header main --> */}
           <div className="header-nav__main">
             {/* <!-- Menu button --> */}
@@ -429,21 +429,7 @@ function NavHeader() {
                 </Link>
               </li>
 
-              <li className="action-btn-reversed translate-btn">
-                <Link href="#" className="header-menu__item">
-                  <span className="header-menu__item-label">البحث</span>
-                  <span className="header-menu__item-arrow">
-                    <img
-                      src="/assets/icons/stroke-standard/search-01-stroke-standard.svg"
-                      alt=""
-                      width={24}
-                      height={24}
-                      className="inline-block"
-                    />{" "}
-                  </span>
-                </Link>
-              </li>
-
+            
               <li className="action-btn-reversed">
                 <Link href="#" className="header-menu__item">
                   <span className="header-menu__item-label">تسجيل الدخول</span>
@@ -458,6 +444,24 @@ function NavHeader() {
                   </span>
                 </Link>
               </li>
+
+
+
+                <li className="action-btn-reversed translate-btn">
+                <Link href="#" className="header-menu__item">
+                  {/* <span className="header-menu__item-label">البحث</span> */}
+                  <span className="header-menu__item-arrow">
+                    <img
+                      src="/assets/icons/stroke-standard/search-01-stroke-standard.svg"
+                      alt=""
+                      width={24}
+                      height={24}
+                      className="inline-block"
+                    />{" "}
+                  </span>
+                </Link>
+              </li>
+
             </ul>
           </div>
         </nav>

@@ -137,6 +137,7 @@ a.border-green:focus {
 } */
 
 .footer-bottom {
+  max-width: 1280px;
   display: grid;
   grid-template-columns: 1fr;
   padding-block: 16px;

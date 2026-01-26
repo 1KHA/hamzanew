@@ -61,10 +61,10 @@ function Banner() {
                 alt={slide.alt}
                 className="custom-banner"
               />
-              <div className="overlay">
-                <div className="hero">
-                  <h1>{slide.title}</h1>
-                  {slide.description && <p>{slide.description}</p>}
+              <div className="overlay ">
+                <div className="hero section-spacing-5xl custom-container">
+                  <h1 className="display-xl-semibold">{slide.title}</h1>
+                  {slide.description && <p className="!mb-[32px] text-xl-regular">{slide.description}</p>}
                   <button className="dga-btn dga-btn--md dga-btn--primary-neutral--on-color">
                     <span className="dga-btn-label"> {slide.buttonText}</span>
                   </button>

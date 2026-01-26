@@ -3,8 +3,7 @@ import { DgaIcon, DgaButton, DgaTag } from "platformscode-new-react";
 import "./card.css";
 // import router from "next/router";
 import { useRouter } from "next/navigation";
-
-interface CardProps {
+ interface CardProps {
   style?: React.CSSProperties;
   icon?: string;
   number?: string;
@@ -105,14 +104,14 @@ const Card: React.FC<CardProps> = ({
       {/* optional icon */}
       {icon && (
         <div className="circular-green">
-          <DgaIcon
-            color="#067647"
-            icon={icon}
-            size={24}
-            type="rounded"
-            variant="stroke"
-          />
-        </div>
+          <img
+  alt=""
+  width={24}
+  height={24}
+  className="inline-block"
+  src={`/assets/icons/stroke-standard/link-01-stroke-standard.svg`}
+/>
+         </div>
       )}
 
       {/* optional icon */}
@@ -168,6 +167,8 @@ const Card: React.FC<CardProps> = ({
                 onClick={handlePrimaryClick}
               >
                 {primaryActionLabel}
+
+                
                 <DgaIcon
                   color=""
                   icon={resolvedTrailIconType}

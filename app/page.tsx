@@ -9,7 +9,7 @@ export default function Home() {
   // fake  data
   const services = [
     {
-      title: "اختبار همزة الجامع",
+      title: "اختبار همزة العام",
       disc: "اختبار لقياس كفايات اللغة العربية للناطقين بغيرها لأغراض عامة.",
       icon: "link-02", // or: "exam-01"
     },
@@ -91,6 +91,7 @@ export default function Home() {
         icon={item.icon}
         showPrimaryAction
         primaryActionLabel="التسجيل للاختبار"
+        
         showSecondaryAction
         secondaryActionLabel="المزيد"
       />
