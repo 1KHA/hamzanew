@@ -85,7 +85,9 @@ export default function page() {
   });
   return (
     <>
-      <div className="custom-container">
+      <div className="custom-container"
+    
+      >
         {/* upper section */}
         <div className="stack-4xl block-padding-8xl">
           <div className="section-head">
@@ -118,7 +120,8 @@ export default function page() {
         </div>
 
         {/* middle section */}
-        <div className="row-center-gap-3xl block-padding-8xl">{dataCards}</div>
+        <div className="row-center-gap-3xl block-padding-8xl"
+        >{dataCards}</div>
       </div>
       {/* bottom section */}
       <div className="section-bg-bottom-image block-padding-8xl section-cta">
