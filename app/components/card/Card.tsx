@@ -4,7 +4,8 @@ import "./card.css";
 // import router from "next/router";
 import { useRouter } from "next/navigation";
 
-interface CardProps {
+import Image from "../../../public/assets/icons/stroke-standard/link-01-stroke-rounded.svg";
+ interface CardProps {
   style?: React.CSSProperties;
   icon?: string;
   number?: string;
@@ -105,14 +106,25 @@ const Card: React.FC<CardProps> = ({
       {/* optional icon */}
       {icon && (
         <div className="circular-green">
-          <DgaIcon
-            color="#067647"
-            icon={icon}
-            size={24}
-            type="rounded"
-            variant="stroke"
-          />
-        </div>
+
+{/* 
+         <DgaIcon
+                  color=""
+                  icon={icon}
+                  size={16}
+                  type="standard"
+                  variant="stroke"
+                /> */}
+
+
+          <img
+  alt=""
+  width={24}
+  height={24}
+  className="inline-block green-icon"
+  src={`/assets/icons/stroke-standard/${icon}-stroke-rounded.svg`}
+/>
+         </div>
       )}
 
       {/* optional icon */}
@@ -174,7 +186,9 @@ const Card: React.FC<CardProps> = ({
                 className={`${buttonColor} flex justify-between gap-[4px] cursor-pointer`}
                 onClick={handlePrimaryClick}
               >
+
                 <span>{primaryActionLabel}</span>
+
                 <DgaIcon
                   color=""
                   icon={resolvedTrailIconType}

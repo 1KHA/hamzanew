@@ -9,19 +9,19 @@ export default function Home() {
   // fake  data
   const services = [
     {
-      title: "اختبار همزة الجامع",
+      title: "اختبار همزة العام",
       disc: "اختبار لقياس كفايات اللغة العربية للناطقين بغيرها لأغراض عامة.",
-      icon: "link-02", // or: "exam-01"
+      icon: "glasses", // or: "exam-01"
     },
     {
       title: "اختبار همزة الأكاديمي",
       disc: "اختبار محوسب، دقيق، يقيس كفايات اللغة العربية للناطقين بغيرها لأغراض أكاديمية.",
-      icon: "graduation-hat-01",
+      icon: "mortarboard-01",
     },
     {
       title: "اختبار تحديد المستوى",
       disc: "اختبار لتحديد مستوى الكفاءة اللغوية العامة باللغة العربية لغير الناطقين بها لاستخدامه في البرامج الأكاديمية.",
-      icon: "star-01",
+      icon: "star",
     },
     {
       title: "اختبار همزة المفردات",
@@ -91,6 +91,7 @@ export default function Home() {
         icon={item.icon}
         showPrimaryAction={true}
         primaryActionLabel="التسجيل للاختبار"
+        
         showSecondaryAction
         secondaryActionLabel="المزيد"
       />

@@ -8,7 +8,7 @@ export default function DigitalSignature() {
   return (
     <div className=" bg-[#f5f5f5]">
       {/* <div className="m-5"> */}
-      <div className="digital_wrapper border-2">
+      <div className="digital_wrapper border-2 custom-container">
         <div className="digital_container digital_heads">
           {/* Header */}
 

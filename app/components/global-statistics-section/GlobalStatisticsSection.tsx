@@ -14,8 +14,8 @@ function GlobalStatisticsSection() {
     {
       id: "sessions",
       value: "12",
-      label: "عدد الجلسات",
-      icon: "users-01",
+      label: "عدد الجنسيات",
+      icon: "user-group",
     },
     {
       id: "countries",

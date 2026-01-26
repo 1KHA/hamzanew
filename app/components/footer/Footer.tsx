@@ -9,7 +9,7 @@ function Footer() {
       <div style={{ backgroundColor: "#074D31" }}>
         <div className="c-ontent">
           <div className="c">
-            <div className="grid gap-12 pt-10 pb-6">
+            <div className="grid gap-12 pt-10 pb-6 custom-container">
               {/* 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-7 md:gap-[24px] pt-4 pb-10 border-2">
 
@@ -59,7 +59,7 @@ function Footer() {
 
         </div> */}
 
-              <div className="footer-bottom">
+              <div className="footer-bottom ">
                 <div className="footer-bottom-content">
                   <div className="footer-legal-links">
                     <a href="#" className="footer-link">
