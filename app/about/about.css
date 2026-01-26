@@ -146,9 +146,9 @@ align-self: stretch;
   position: absolute;
   inset: 0;
 
-  background: #1A5B41;      /* tint color */
+  background: #074D31;      /* tint color */
   mix-blend-mode: multiply; /* try: multiply / overlay / screen */
-  opacity: 0.35;
+  opacity: 0;
 
   z-index: 0;
   pointer-events: none;
@@ -182,14 +182,14 @@ align-self: stretch;
 
   /* Text lg/Medium */
   font-family: var(--Font-Family-font-family-text, "IBMPlexSansArabic");
-  /* font-size: var(--Size-Text-typo-size-text-lg, 18px); */
-  font-size: var(--Size-Text-typo-size-text-lg, 1.125rem);
+  font-size: var(--Size-Text-typo-size-text-lg, 18px);
   font-style: normal;
   font-weight: 500;
   line-height: var(
     --Line-Height-Text-line-heights-text-lg,
     28px
   ); /* 155.556% */
+
 }
 .section-header {
   color: var(--Text-text-default, #161616);
@@ -197,8 +197,8 @@ align-self: stretch;
 
   /* Display md/Semibold */
   font-family: var(--Font-Family-font-family-display, "IBMPlexSansArabic");
-  /* font-size: var(--Size-Display-typo-size-display-md, 36px); */
-  font-size: var(--Size-Display-typo-size-display-md, 2.25rem);
+  font-size: var(--Size-Display-typo-size-display-md, 36px);
+  /* font-size: var(--Size-Display-typo-size-display-md, 2.25rem); */
   font-style: normal;
   font-weight: 600;
   line-height: var(
@@ -208,6 +208,19 @@ align-self: stretch;
   /* letter-spacing: 12px; */
   margin-top: 1.25rem;
 }
+
+/* Display sm / Bold */
+.section-header-sm {
+  color: var(--Text-text-default, #161616);
+  text-align: right;
+
+  font-family: var(--Font-Family-font-family-display, "IBMPlexSansArabic");
+  font-size: var(--Size-Display-typo-size-display-sm, 30px);
+  font-style: normal;
+  font-weight: 700;
+  line-height: var(--Line-Height-Display-line-heights-display-sm, 38px);
+}
+
 
 .about-cards {
   display: flex;

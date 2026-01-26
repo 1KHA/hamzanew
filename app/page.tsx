@@ -126,7 +126,7 @@ export default function Home() {
       image={item.image}
       showPrimaryAction={true}
       primaryActionLabel="قراءة المزيد"
-      buttonColor="primary-brand"
+      // buttonColor="primary-brand"
       showPrimaryIcon={false}
       linkPrimaryAction="#"
     />

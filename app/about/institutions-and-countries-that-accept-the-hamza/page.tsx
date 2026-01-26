@@ -69,14 +69,14 @@ export default function page() {
       <Card
         key={item.id}
         style={{
-          height:"268px"
+          height: "268px",
         }}
         title={item.title}
         description={item.description}
         icon={item.icon}
         showPrimaryAction={true}
         primaryActionLabel={item.primaryActionLabel}
-        primaryTrailIconType="link-square-01"
+        primaryTrailIconType="arrow-up-right-01"
         buttonColor="primary-brand"
         external={true}
         linkPrimaryAction={item.externalLink}
@@ -85,19 +85,9 @@ export default function page() {
   });
   return (
     <>
-      <div
-        className="custom-container"
-        style={{
-          border: "1px solid red",
-        }}
-      >
+      <div className="custom-container">
         {/* upper section */}
-        <div
-          className="stack-4xl block-padding-8x"
-          style={{
-            border: "1px solid #0a7a3a",
-          }}
-        >
+        <div className="stack-4xl block-padding-8xl">
           <div className="section-head">
             <p className="section-title">كن جزءًا من مجتمع همزة</p>
             <h1 className="section-header">الجهات التي طبقت اختبار همزة</h1>
@@ -128,61 +118,29 @@ export default function page() {
         </div>
 
         {/* middle section */}
-        <div
-          className="row-center-gap-3xl block-padding-8xl"
-          style={{
-            border: "1px solid pink",
-          }}
-        >
-          {dataCards}
-        </div>
+        <div className="row-center-gap-3xl block-padding-8xl">{dataCards}</div>
       </div>
       {/* bottom section */}
-      {/* <div
-        className="bg-primary-074d31 section-bg-bottom-image block-padding-8xl"
-        style={{
-          border: "1px solid purple",
-        }}
-      >
-        <div
-          className="stack-lg custom-container"
-          style={{
-            border: "1px solid red",
+      <div className="section-bg-bottom-image block-padding-8xl section-cta">
+        <div className="stack-lg custom-container section-cta__box">
+          <h1 className="section-cta__title">هل أنت مستعد للانضمام إلينا؟</h1>
 
-            width: "clamp(280px, 90vw, 704px)",
-            aspectRatio: "704 / 196",
-            height: "auto",
-            maxWidth: "100%",
-            minWidth: 0,
-          }}
-        >
-          <h1>هل أنت مستعد للانضمام إلينا؟</h1>
-          <p>
+          <p className="section-cta__desc">
             انضم إلى آلاف المؤسسات والشركات في العالم العربي التي تعتمد همزة
             لاختيار الموظفين القادرين على التواصل باحترافية وإتقان.
           </p>
+
           <button className="dga-btn dga-btn--md dga-btn--primary-neutral--on-color">
-            <span className="dga-btn-label"> إنضم إلينا</span>
-            <img src="/assets/image/link-square-01.svg" alt="" />
+            <span className="dga-btn-label">إنضم إلينا</span>
+            <img
+              src="/assets/icons/stroke-standard/arrow-up-right-01-stroke-rounded.svg"
+              width={24}
+              height={24}
+              alt=""
+            />
           </button>
         </div>
-      </div> */}
-      <div className="section-bg-bottom-image block-padding-8xl section-cta">
-  <div className="stack-lg custom-container section-cta__box">
-    <h1 className="section-cta__title">هل أنت مستعد للانضمام إلينا؟</h1>
-
-    <p className="section-cta__desc">
-      انضم إلى آلاف المؤسسات والشركات في العالم العربي التي تعتمد همزة لاختيار
-      الموظفين القادرين على التواصل باحترافية وإتقان.
-    </p>
-
-    <button className="dga-btn dga-btn--md dga-btn--primary-neutral--on-color">
-      <span className="dga-btn-label">إنضم إلينا</span>
-      <img src="/assets/image/link-square-01.svg" alt="" />
-    </button>
-  </div>
-</div>
-
+      </div>
     </>
   );
 }
