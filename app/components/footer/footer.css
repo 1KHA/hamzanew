@@ -1,10 +1,83 @@
 .c-ontent {
   padding: 0 80px;
+  /* margin-inline: auto; */
 }
 
 @media screen and (max-width: 599px) {
   .c-ontent {
     padding: 0 16px;
+  }
+}
+
+.green-icon {
+  filter: invert(33%) sepia(87%) saturate(438%) hue-rotate(95deg)
+    brightness(95%) contrast(90%);
+}
+/* section */
+.c-divider {
+  border: none;
+  border-top: 2px solid #074d31;
+  margin: 0;
+  width: 100%;
+}
+.feedback-section {
+  display: flex;
+  flex-direction: column;
+  gap: 32px; /* gap-8 */
+  padding-top: 24px !important; /* !py-[24px] */
+  padding-bottom: 24px !important;
+}
+
+/* main row */
+.feedback-row {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* max-md:gap-4 */
+}
+
+/* left group */
+.feedback-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* gap-4 */
+}
+
+.feedback-question {
+  color: #161616;
+}
+
+/* buttons wrapper */
+.feedback-actions {
+  display: flex;
+  gap: 16px; /* gap-4 */
+}
+
+/* stats text */
+.feedback-stats {
+  color: #161616;
+  text-align: end;
+}
+
+.invalid-feedback {
+  width: 100% !important;
+  font-size: 14px !important;
+  color: #b42318 !important;
+}
+
+/* Tablet/Desktop (md: >= 768px) */
+@media (min-width: 768px) {
+  .feedback-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0; /* removes mobile gap */
+  }
+
+  .feedback-left {
+    flex-direction: row;
+    align-items: center;
+    gap: 24px; /* md:gap-6 */
   }
 }
 
@@ -126,7 +199,7 @@ a.border-green:focus {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
   gap: 16px;
 }
 
