@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "../styles/Button.css";
 const slides = [
   {
-    image: "/assets/image/hero1.png",
+    image: "/assets/image/hero.jpg",
     alt: "اختبارات همزة",
     title: "اختبارات همزة",
     description:
@@ -40,12 +40,12 @@ const slides = [
 function Banner() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setCurrentSlide((prev) => (prev + 1) % slides.length);
+  //   }, 5000);
+  //   return () => clearInterval(timer);
+  // }, []);
 
   return (
     <div className="relative c-mask h-[560px] w-full">
@@ -62,9 +62,14 @@ function Banner() {
                 className="custom-banner"
               />
               <div className="overlay ">
-                <div className="hero section-spacing-5xl custom-container">
+                <div className="hero w-[-webkit-fill-available] content !text-start">
                   <h1 className="display-xl-semibold">{slide.title}</h1>
-                  {slide.description && <p className="!mb-[32px] text-xl-regular">{slide.description}</p>}
+                  {slide.description && 
+                  <div>
+
+                  
+                  <p className="!mb-[32px] text-xl-regular max-w-[720px]">{slide.description}</p>
+                  </div>}
                   <button className="dga-btn dga-btn--md dga-btn--primary-neutral--on-color">
                     <span className="dga-btn-label"> {slide.buttonText}</span>
                   </button>
