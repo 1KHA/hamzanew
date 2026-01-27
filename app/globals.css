@@ -223,7 +223,6 @@ body {
   max-width: var(--container-max-width-desktop);
   margin-inline: auto;
   padding-inline: var(--container-padding-mobile,16px);
-  /* height: 100%; */
 }
 
 /* Desktop */

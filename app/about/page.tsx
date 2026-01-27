@@ -11,35 +11,31 @@ function AboutPage() {
       link: "/about/who-we-are",
     },
     {
-      icon: "user-group",
+      icon: "geometric-shapes-01",
       title: "سمات اختبار همزة",
       link: "/about/hamza-test-traits",
     },
     {
-      icon: "certificate",
+      icon: "file-star",
       title: "أهمية اختبارات همزة",
       link: "/about/benefits-of-hamza-test",
     },
     {
-      icon: "share-nodes",
-      title: "المشاركة الالكترونية",
-      link: "#",
+      icon: "checkmark-badge-02",
+      title: "المؤسسات والدول التي تقبل همزة",
+      link: "/about/institutions-and-countries-that-accept-the-hamza",
     },
+
     {
-      icon: "building-columns",
+      icon: "school-01",
       title: "اللجنة الاستشارية الدولية",
       link: "/about/international-advisory-committee",
     },
     {
-      icon: "badge-check",
-      title: "المؤسسات والدول التي تقبل همزة",
-      link: "/about/institutions-and-countries-that-accept-the-hamza",
-    },
-    {
-      icon: "message-circle",
-      title: "تواصل معنا",
+      icon: "share-08",
+      title: "المشاركة الالكترونية",
       link: "#",
-    },
+    }
   ];
 
   const aboutPagesCard = aboutPages.map((page, index) => {
@@ -48,6 +44,7 @@ function AboutPage() {
         key={index}
         icon={page.icon}
         title={page.title}
+        primaryTrailIconType="arrow"
         buttonIconOnly={true}
         // linkPrimaryAction={page.link}
         linkSecondaryAction={page.link}
@@ -57,7 +54,7 @@ function AboutPage() {
 
   return (
     <div>
-      <div className="section-spacing-5xl responsive-cards-grid custom-container">
+      <div className="section-spacing-5xl responsive-cards-grid content">
         {aboutPagesCard}
       </div>
     </div>

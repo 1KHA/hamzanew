@@ -7,13 +7,13 @@ export default function page() {
       title: "الرؤية",
       description:
         "الريادة عالميًا في تعزيز مكانة اللغة العربية عبر اختبارات كفاءة عالية الجودة، مبنية على معايير دولية ومعتمدة وموثوقة.",
-      icon: "/assets/image/about-icon.png",
+      icon: "view",
     },
     {
       title: "الرسالة",
       description:
         "تقديم اختبارات عربية عالية الجودة، مبنية على معايير دولية، تمكّن المتعلمين والمهنيين من إثبات كفاءتهم، وتفتح أمامهــــــم آفاقًــــا أكـــاديـــميــــة ومهنيــــــة واسعــــــــــة.",
-      icon: "/assets/image/about-icon.png",
+      icon: "mail-01",
     },
   ];
 
@@ -71,11 +71,7 @@ export default function page() {
       <Card
         key={index}
         style={{
-          borderRadius: "16px",
-          display: "flex",
-          height: 200,
-          padding: "16px",
-        }}
+          borderRadius: "16px",        }}
         title={card.title}
         description={card.description}
         icon={card.icon}
@@ -155,7 +151,7 @@ export default function page() {
             </div>
 
             <div className="about-cards">
-              <div className="about-cards__row">{mortakazatCards}</div>
+              <div className="about-cards__row !items-stretch">{mortakazatCards}</div>
             </div>
           </div>
         </div>

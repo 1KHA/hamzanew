@@ -4,8 +4,8 @@ import "./card.css";
 // import router from "next/router";
 import { useRouter } from "next/navigation";
 
-import Image from "../../../public/assets/icons/stroke-standard/link-01-stroke-rounded.svg";
- interface CardProps {
+// import Image from "../../../public/assets/icons/stroke-standard/link-01-stroke-rounded.svg";
+interface CardProps {
   style?: React.CSSProperties;
   icon?: string;
   number?: string;
@@ -78,10 +78,12 @@ const Card: React.FC<CardProps> = ({
     if (external) {
       window.open(linkPrimaryAction, "_blank", "noopener,noreferrer");
     } else {
-      window.location.href = linkPrimaryAction;
+      // window.location.href = linkPrimaryAction;
+      router.push(linkPrimaryAction);
     }
   };
   console.log("*******", primaryActionLabel);
+  console.log("resolvedTrailIconType=>", resolvedTrailIconType);
 
   return (
     <div className="card" style={style}>
@@ -106,8 +108,7 @@ const Card: React.FC<CardProps> = ({
       {/* optional icon */}
       {icon && (
         <div className="circular-green">
-
-{/* 
+          {/* 
          <DgaIcon
                   color=""
                   icon={icon}
@@ -116,15 +117,14 @@ const Card: React.FC<CardProps> = ({
                   variant="stroke"
                 /> */}
 
-
           <img
-  alt=""
-  width={24}
-  height={24}
-  className="inline-block green-icon"
-  src={`/assets/icons/stroke-standard/${icon}-stroke-rounded.svg`}
-/>
-         </div>
+            alt=""
+            width={24}
+            height={24}
+            className="inline-block green-icon"
+            src={`/assets/icons/stroke-standard/${icon}-stroke-rounded.svg`}
+          />
+        </div>
       )}
 
       {/* optional icon */}
@@ -152,92 +152,110 @@ const Card: React.FC<CardProps> = ({
       {tagLable && <DgaTag label={tagLable} size="md" variant="neutral" />}
 
       {/* actions */}
-      <div
-        className={`flex btn-card ${
-          secondaryActionLabel ? "gap-[12px]" : "gap-0"
-        }`}
-      >
-        {/* secondary button */}
-        {showSecondaryAction && (
-          <DgaButton
-            tabIndex={0}
-            trailIcon
-            trailIconProps={{ size: 16, type: "standard", variant: "stroke" }}
-            label={secondaryActionLabel}
-            size="md"
-            variant="secondary-outline"
-            onClick={() => {
-              if (!linkSecondaryAction) return;
-              if (linkSecondaryAction.startsWith("http")) {
-                window.open(linkSecondaryAction, external ? "_blank" : "_self");
-              } else {
-                router.push(linkSecondaryAction);
-              }
-            }}
-          />
-        )}
+{(showSecondaryAction || showPrimaryAction || buttonIconOnly) && (
+  <div
+    className={`flex btn-card ${
+      secondaryActionLabel ? "!gap-[12px]" : "!gap-0"
+    }`}
+  >
+    {/* secondary button */}
+    {showSecondaryAction && (
+      <DgaButton
+        tabIndex={0}
+        trailIcon
+        trailIconProps={{ size: 16, type: "standard", variant: "stroke" }}
+        label={secondaryActionLabel}
+        size="md"
+        variant="secondary-outline"
+        onClick={() => {
+          if (!linkSecondaryAction) return;
+          if (linkSecondaryAction.startsWith("http")) {
+            window.open(linkSecondaryAction, external ? "_blank" : "_self");
+          } else {
+            router.push(linkSecondaryAction);
+          }
+        }}
+      />
+    )}
 
-        {/* primary button */}
-        {showPrimaryAction && (
+    {/* primary button */}
+    {showPrimaryAction &&(
+      <>
+        {external  ? (
           <>
-            {buttonColor !== "primary-brand" ? (
-              <div
-                tabIndex={0}
-                className={`${buttonColor} flex justify-between gap-[4px] cursor-pointer`}
-                onClick={handlePrimaryClick}
-              >
-
-                <span>{primaryActionLabel}</span>
-
-                <DgaIcon
-                  color=""
-                  icon={resolvedTrailIconType}
-                  size={16}
-                  type="standard"
-                  variant="stroke"
-                />
-              </div>
-            ) : (
-              <DgaButton
-                tabIndex={0}
-                disabled={disablePrimaryAction}
-                label={primaryActionLabel}
-                trailIcon={showPrimaryIcon}
-                trailIconProps={{
-                  size: 16,
-                  type: "standard",
-                  variant: "stroke",
-                }}
-                trailIconType={resolvedTrailIconType}
-                size="md"
-                variant={buttonColor as any}
-                onClick={handlePrimaryClick}
-              />
-            )}
-          </>
-        )}
-        {/* scondery icon button  */}
-        {buttonIconOnly && (
+         
+           <button
+        className="dga-btn dga-btn--md dga-btn--primary-brand  !flex !justify-center !items-center !p-4 !cursor-pointer"
+        onClick={() => {
+          if (!linkSecondaryAction) return;
+          if (linkSecondaryAction.startsWith("http")) {
+            window.open(linkSecondaryAction, external ? "_blank" : "_self");
+          } else {
+            router.push(linkSecondaryAction);
+          }
+        }}
+      >
+          <span>{primaryActionLabel}</span> 
+          {/* // <div
+          //   tabIndex={0}
+          //   className={`${buttonColor} flex justify-between gap-[4px] cursor-pointer`}
+          //   onClick={handlePrimaryClick}
+          // >
+            <span>{primaryActionLabel}---</span> */}
+            <img
+              alt=""
+              width={24}
+              height={24}
+              className="inline-block white-icon"
+              src={`/assets/icons/stroke-standard/${resolvedTrailIconType}-stroke-rounded.svg`}
+            />
+            </button>
+             </>
+          // </div>
+        ) : (
           <DgaButton
             tabIndex={0}
-            iconOnly
-            iconType="Circle"
-            trailIcon
-            trailIconProps={{ size: 16, type: "standard", variant: "stroke" }}
+            disabled={disablePrimaryAction}
             label={primaryActionLabel}
-            size="md"
-            variant="secondary-outline"
-            onClick={() => {
-              if (!linkSecondaryAction) return;
-              if (linkSecondaryAction.startsWith("http")) {
-                window.open(linkSecondaryAction, external ? "_blank" : "_self");
-              } else {
-                router.push(linkSecondaryAction);
-              }
+            trailIcon={showPrimaryIcon}
+            trailIconProps={{
+              size: 16,
+              type: "standard",
+              variant: "stroke",
             }}
+            trailIconType={resolvedTrailIconType}
+            size="md"
+            variant={buttonColor as any}
+            onClick={handlePrimaryClick}
           />
         )}
-      </div>
+      </>
+    )}
+
+    {/* icon-only button */}
+    {buttonIconOnly && (
+      <button
+        className="dga-btn dga-btn--lg dga-btn--secondary dir-start !flex !justify-center !items-center !p-4 !cursor-pointer"
+        onClick={() => {
+          if (!linkSecondaryAction) return;
+          if (linkSecondaryAction.startsWith("http")) {
+            window.open(linkSecondaryAction, external ? "_blank" : "_self");
+          } else {
+            router.push(linkSecondaryAction);
+          }
+        }}
+      >
+        <img
+          alt=""
+          width={24}
+          height={24}
+          className="inline-block"
+          src={`/assets/icons/stroke-standard/${resolvedTrailIconType}-stroke-rounded.svg`}
+        />
+      </button>
+    )}
+  </div>
+)}
     </div>
   );
 };

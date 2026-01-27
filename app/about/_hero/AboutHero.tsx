@@ -16,35 +16,39 @@ export default function AboutHero() {
 
   return (
     <section
-      className="content !mt-[40px]"
+      className={styles.hero}
       dir="rtl"
       style={{ background: hero.bgColor ?? "#F7FDF9" }}
     >
-      <div className={styles.inner}>
-        <h1 className={styles.title}>{hero.title}</h1>
-        {hero.description && <p className={styles.desc}>{hero.description}</p>}
+      <div className="content">
+        <div className={styles.inner}>
+          <h1 className={styles.title}>{hero.title}</h1>
+          {hero.description && (
+            <p className={styles.desc}>{hero.description}</p>
+          )}
 
-        {hero.externalLink ? (
-          <div className={styles.actions}>
-            <button
-              className="dga-btn dga-btn--lg dga-btn--primary-brand"
-              onClick={() => {
-                window.open(
-                  hero.externalLink?.href,
-                  "_blank",
-                  "noopener,noreferrer",
-                );
-              }}
-            >
-              {hero.externalLink.label}
-              <img
-                className="dga-btn-icon"
-                src="/assets/icons/stroke-standard/Trailing icon.png"
-                alt=""
-              />
-            </button>
-          </div>
-        ) : null}
+          {hero.externalLink ? (
+            <div className={styles.actions}>
+              <button
+                className="dga-btn dga-btn--lg dga-btn--primary-brand"
+                onClick={() => {
+                  window.open(
+                    hero.externalLink?.href,
+                    "_blank",
+                    "noopener,noreferrer",
+                  );
+                }}
+              >
+                {hero.externalLink.label}
+                <img
+                  className="dga-btn-icon"
+                  src="/assets/icons/stroke-standard/Trailing icon.png"
+                  alt=""
+                />
+              </button>
+            </div>
+          ) : null}
+        </div>
       </div>
     </section>
   );

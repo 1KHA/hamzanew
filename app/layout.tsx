@@ -30,9 +30,9 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col">
         <ClientOnly>
           <NavHeader />
-
+{/* </ClientOnly> */}
           <main className="flex-1 w-full bg-white">{children}</main>
-
+   {/* <ClientOnly> */} 
           <Footer />
         </ClientOnly>
       </body>

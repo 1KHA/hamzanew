@@ -14,7 +14,7 @@ export default function page() {
     "/assets/image/institutions2.png",
     "/assets/image/institutions3.png",
     "/assets/image/institutions2.png",
-    "/assets/image/institutions3.png",
+    "/assets/image/institutions1.png",
   ];
 
   const data = [
@@ -46,15 +46,6 @@ export default function page() {
         isImgCenter={true}
         logoImage={true}
         style={{
-          //   display: "flex",
-          //   flexDirection: "column",
-          // //   flex:"1 0 0",
-          //   width:"100%",
-          //   alignItems: "center",
-          //   justifyContent: "center",
-          //   gap: 10,
-          //   textAlign: "center",
-          //   padding: 16,
           borderRadius: 16,
           border: "1px solid #D2D6DB",
         }}
@@ -69,7 +60,7 @@ export default function page() {
       <Card
         key={item.id}
         style={{
-          height: "268px",
+          // height: "268px", 
         }}
         title={item.title}
         description={item.description}
@@ -85,9 +76,9 @@ export default function page() {
   });
   return (
     <>
-      <div className="content">
+      <div className="custom-container">
         {/* upper section */}
-        <div className="stack-4xl block-padding-8xl">
+        <div className="stack-xl block-padding-8xl">
           <div className="section-head">
             <p className="section-title">كن جزءًا من مجتمع همزة</p>
             <h1 className="section-header">الجهات التي طبقت اختبار همزة</h1>
@@ -114,11 +105,12 @@ export default function page() {
               variant="neutral"
             />
           </div>
-          <div className="grid-cols-5-gap-24">{institutionsCards}</div>
+          <div className="!grid !grid-cols-1 md:!grid-cols-5 !gap-4  !mx-auto">{institutionsCards}</div>
         </div>
 
         {/* middle section */}
-        <div className="row-center-gap-3xl block-padding-8xl">{dataCards}</div>
+        <div className="row-center-gap-3xl block-padding-8xl"
+        >{dataCards}</div>
       </div>
       {/* bottom section */}
       <div className="section-bg-bottom-image block-padding-8xl section-cta">
