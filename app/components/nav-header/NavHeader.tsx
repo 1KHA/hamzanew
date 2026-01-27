@@ -1,26 +1,47 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import DigitalSignature from "../digital-signature/DigitalSignature";
 import "./NavHeader.css";
 
 function NavHeader() {
-  const [activeLink, setActiveLink] = useState("link-1");
+  const [activeLink, setActiveLink] = useState("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openSubmenus, setOpenSubmenus] = useState<string[]>([]);
+  const navRef = useRef<HTMLDivElement>(null);
 
   const toggleSubmenu = (name: string) => {
     setOpenSubmenus((prev) =>
-      prev.includes(name) ? prev.filter((i) => i !== name) : [...prev, name],
+      prev.includes(name) ? [] : [name], // إغلاق القديم وفتح الجديد
     );
+    setActiveLink(name); // تعيين العنصر النشط
   };
+
+  const handleLinkClick = (linkName: string) => {
+    setActiveLink(linkName);
+    setOpenSubmenus([]); // إغلاق القوائم الفرعية
+  };
+
+  // إغلاق القائمة عند الضغط خارجها
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setOpenSubmenus([]);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
       <DigitalSignature />
       {/* desktop header */}
       <div className="header header--divider">
-        <nav className="header-nav--full  custom-container">
+        <nav className="header-nav--full custom-container" ref={navRef}>
           {/* <!-- Header main --> */}
           <div className="header-nav__main">
             {/* <!-- Menu button --> */}
@@ -60,14 +81,23 @@ function NavHeader() {
               <li>
                 <Link
                   href="/"
-                  className="header-menu__item header-menu__item--active"
+                  onClick={() => handleLinkClick("home")}
+                  className={`header-menu__item ${
+                    activeLink === "home" ? "header-menu__item--active" : ""
+                  }`}
                 >
                   <span className="header-menu__item-label">الرئيسية</span>
                 </Link>
               </li>
 
               <li className="group">
-                <Link href="#" className="header-menu__item">
+                <button
+                  onClick={() => toggleSubmenu("about")}
+                  className={`header-menu__item ${
+                    activeLink === "about" ? "header-menu__item--active" : ""
+                  }`}
+                 
+                >
                   <span className="header-menu__item-label">عن الجهة</span>
                   <span className="header-menu__item-arrow">
                     <img
@@ -75,13 +105,19 @@ function NavHeader() {
                       alt=""
                       width={24}
                       height={24}
-                      className="inline-block"
+                      className={`inline-block transition-transform duration-300 ${
+                        openSubmenus.includes("about") ? "rotate-180" : ""
+                      }`}
                     />
                   </span>
-                </Link>
+                </button>
                 {/* submenu */}
                 <div
-                  className="sub-navs sub-navs-fixed grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-[24px] hidden group-hover:grid"
+                  className={`sub-navs sub-navs-fixed transition-all duration-150 ease-out ${
+                    openSubmenus.includes("about")
+                      ? "opacity-100 visible"
+                      : "opacity-0 invisible"
+                  }`}
                   style={{
                     position: "absolute",
                     top: "100%",
@@ -89,164 +125,212 @@ function NavHeader() {
                     zIndex: 9998,
                   }}
                 >
-                  {/* ===== Column 1 ===== */}
-                  <div className="sub-nav-title">
-                    <div className="p-[12px]">عن همزة</div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-[24px] content">
+                    {/* ===== Column 1 ===== */}
+                    <div className="sub-nav-title">
+                      <div className="p-[12px]">عن همزة</div>
 
-                    <ul className="grid gap-[4px]">
-                      <li>
-                        <Link href="/about" className="sub-link sub-menu__link">
-                          <div className="flex gap-[16px] items-center">
-                            <img
-                              src="/assets/icons/stroke-standard/user-group-stroke-rounded.svg"
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                            <span>عن الجهة</span>
-                          </div>
-                        </Link>
-                      </li>
+                      <ul className="grid gap-[4px]">
+                        <li>
+                          <Link
+                            href="/about"
+                            onClick={() => handleLinkClick("about")}
+                            className="sub-link sub-menu__link"
+                          >
+                            <div className="flex gap-[16px] items-center">
+                              <img
+                                src="/assets/icons/stroke-standard/user-group-stroke-rounded.svg"
+                                alt=""
+                                width={24}
+                                height={24}
+                              />
+                              <span>عن الجهة</span>
+                            </div>
+                          </Link>
+                        </li>
 
-                      <li>
-                        <Link href="#" className="sub-link sub-menu__link">
-                          <div className="flex gap-[16px] items-center">
-                            <img
-                              src="/assets/icons/stroke-standard/message-question-stroke-rounded.svg"
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                            <span>لماذا تختار همزة؟</span>
-                          </div>
-                        </Link>
-                      </li>
+                        <li>
+                          <Link
+                            href="#"
+                            onClick={() => handleLinkClick("about")}
+                            className="sub-link sub-menu__link"
+                          >
+                            <div className="flex gap-[16px] items-center">
+                              <img
+                                src="/assets/icons/stroke-standard/message-question-stroke-rounded.svg"
+                                alt=""
+                                width={24}
+                                height={24}
+                              />
+                              <span>لماذا تختار همزة؟</span>
+                            </div>
+                          </Link>
+                        </li>
 
-                      <li>
-                        <Link href="#" className="sub-link sub-menu__link">
-                          <div className="flex gap-[16px] items-center">
-                            <img
-                              src="/assets/icons/stroke-standard/file-star-stroke-rounded.svg"
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                            <span>فوائد اختبارات همزة</span>
-                          </div>
-                        </Link>
-                      </li>
+                        <li>
+                          <Link
+                            href="#"
+                            onClick={() => handleLinkClick("about")}
+                            className="sub-link sub-menu__link"
+                          >
+                            <div className="flex gap-[16px] items-center">
+                              <img
+                                src="/assets/icons/stroke-standard/file-star-stroke-rounded.svg"
+                                alt=""
+                                width={24}
+                                height={24}
+                              />
+                              <span>فوائد اختبارات همزة</span>
+                            </div>
+                          </Link>
+                        </li>
 
-                      <li>
-                        <Link href="#" className="sub-link sub-menu__link">
-                          <div className="flex gap-[16px] items-center">
-                            <img
-                              src="/assets/icons/stroke-standard/checkmark-badge-02-stroke-rounded.svg"
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                            <span>المؤسسات والدول التي تقبل همزة</span>
-                          </div>
-                        </Link>
-                      </li>
+                        <li>
+                          <Link
+                            href="#"
+                            onClick={() => handleLinkClick("about")}
+                            className="sub-link sub-menu__link"
+                          >
+                            <div className="flex gap-[16px] items-center">
+                              <img
+                                src="/assets/icons/stroke-standard/checkmark-badge-02-stroke-rounded.svg"
+                                alt=""
+                                width={24}
+                                height={24}
+                              />
+                              <span>المؤسسات والدول التي تقبل همزة</span>
+                            </div>
+                          </Link>
+                        </li>
 
-                      <li>
-                        <Link href="#" className="sub-link sub-menu__link">
-                          <div className="flex gap-[16px] items-center">
-                            <img
-                              src="/assets/icons/stroke-standard/school-01-stroke-rounded.svg"
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                            <span>اللجنة الاستشارية الدولية</span>
-                          </div>
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
+                        <li>
+                          <Link
+                            href="#"
+                            onClick={() => handleLinkClick("about")}
+                            className="sub-link sub-menu__link"
+                          >
+                            <div className="flex gap-[16px] items-center">
+                              <img
+                                src="/assets/icons/stroke-standard/school-01-stroke-rounded.svg"
+                                alt=""
+                                width={24}
+                                height={24}
+                              />
+                              <span>اللجنة الاستشارية الدولية</span>
+                            </div>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
 
-                  {/* ===== Column 2 ===== */}
-                  <div className="sub-nav-title">
-                    <div className="p-[12px]">الاختبارات</div>
+                    {/* ===== Column 2 ===== */}
+                    <div className="sub-nav-title">
+                      <div className="p-[12px]">الاختبارات</div>
 
-                    <ul className="grid gap-[4px]">
-                      <li>
-                        <Link href="#" className="sub-link sub-menu__link">
-                          <div className="flex gap-[16px] items-center">
-                            <img
-                              src="/assets/icons/stroke-standard/right-to-left-list-bullet-stroke-rounded.svg"
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                            <span>أنواع اختبارات همزة</span>
-                          </div>
-                        </Link>
-                      </li>
+                      <ul className="grid gap-[4px]">
+                        <li>
+                          <Link
+                            href="#"
+                            onClick={() => handleLinkClick("about")}
+                            className="sub-link sub-menu__link"
+                          >
+                            <div className="flex gap-[16px] items-center">
+                              <img
+                                src="/assets/icons/stroke-standard/right-to-left-list-bullet-stroke-rounded.svg"
+                                alt=""
+                                width={24}
+                                height={24}
+                              />
+                              <span>أنواع اختبارات همزة</span>
+                            </div>
+                          </Link>
+                        </li>
 
-                      <li>
-                        <Link href="#" className="sub-link sub-menu__link">
-                          <div className="flex gap-[16px] items-center">
-                            <img
-                              src="/assets/icons/stroke-standard/mortarboard-01-stroke-rounded.svg"
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                            <span>همزة الأكاديمي</span>
-                          </div>
-                        </Link>
-                      </li>
+                        <li>
+                          <Link
+                            href="#"
+                            onClick={() => handleLinkClick("about")}
+                            className="sub-link sub-menu__link"
+                          >
+                            <div className="flex gap-[16px] items-center">
+                              <img
+                                src="/assets/icons/stroke-standard/mortarboard-01-stroke-rounded.svg"
+                                alt=""
+                                width={24}
+                                height={24}
+                              />
+                              <span>همزة الأكاديمي</span>
+                            </div>
+                          </Link>
+                        </li>
 
-                      <li>
-                        <Link href="#" className="sub-link sub-menu__link">
-                          <div className="flex gap-[16px] items-center">
-                            <img
-                              src="/assets/icons/stroke-standard/glasses-stroke-rounded.svg"
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                            <span>همزة العام</span>
-                          </div>
-                        </Link>
-                      </li>
+                        <li>
+                          <Link
+                            href="#"
+                            onClick={() => handleLinkClick("about")}
+                            className="sub-link sub-menu__link"
+                          >
+                            <div className="flex gap-[16px] items-center">
+                              <img
+                                src="/assets/icons/stroke-standard/glasses-stroke-rounded.svg"
+                                alt=""
+                                width={24}
+                                height={24}
+                              />
+                              <span>همزة العام</span>
+                            </div>
+                          </Link>
+                        </li>
 
-                      <li>
-                        <Link href="#" className="sub-link sub-menu__link">
-                          <div className="flex gap-[16px] items-center">
-                            <img
-                              src="/assets/icons/stroke-standard/star-stroke-rounded.svg"
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                            <span>همزة لتحديد المستوى</span>
-                          </div>
-                        </Link>
-                      </li>
+                        <li>
+                          <Link
+                            href="#"
+                            onClick={() => handleLinkClick("about")}
+                            className="sub-link sub-menu__link"
+                          >
+                            <div className="flex gap-[16px] items-center">
+                              <img
+                                src="/assets/icons/stroke-standard/star-stroke-rounded.svg"
+                                alt=""
+                                width={24}
+                                height={24}
+                              />
+                              <span>همزة لتحديد المستوى</span>
+                            </div>
+                          </Link>
+                        </li>
 
-                      <li>
-                        <Link href="#" className="sub-link sub-menu__link">
-                          <div className="flex gap-[16px] items-center">
-                            <img
-                              src="/assets/icons/stroke-standard/book-02-stroke-rounded.svg"
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                            <span>همزة للمفردات</span>
-                          </div>
-                        </Link>
-                      </li>
-                    </ul>
+                        <li>
+                          <Link
+                            href="#"
+                            onClick={() => handleLinkClick("about")}
+                            className="sub-link sub-menu__link"
+                          >
+                            <div className="flex gap-[16px] items-center">
+                              <img
+                                src="/assets/icons/stroke-standard/book-02-stroke-rounded.svg"
+                                alt=""
+                                width={24}
+                                height={24}
+                              />
+                              <span>همزة للمفردات</span>
+                            </div>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </li>
 
               <li className="group">
-                <Link href="#" className="header-menu__item">
+                <button
+                  onClick={() => toggleSubmenu("test-takers")}
+                  className={`header-menu__item ${
+                    activeLink === "test-takers" ? "header-menu__item--active" : ""
+                  }`}
+                 
+                >
                   <span className="header-menu__item-label">
                     المتقدمون للإختبار
                   </span>
@@ -256,12 +340,20 @@ function NavHeader() {
                       alt=""
                       width={24}
                       height={24}
-                      className="inline-block"
+                      className={`inline-block transition-transform duration-300 ${
+                        openSubmenus.includes("test-takers") ? "rotate-180" : ""
+                      }`}
                     />
                   </span>
-                </Link>
+                </button>
+
+                {/* submenu */}
                 <div
-                  className="sub-navs sub-navs-fixed grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-[24px] hidden group-hover:grid"
+                  className={`sub-navs sub-navs-fixed transition-all duration-150 ease-out ${
+                    openSubmenus.includes("test-takers")
+                      ? "opacity-100 visible"
+                      : "opacity-0 invisible"
+                  }`}
                   style={{
                     position: "absolute",
                     top: "100%",
@@ -269,68 +361,94 @@ function NavHeader() {
                     zIndex: 9998,
                   }}
                 >
-                  {/* ===== Column 1 ===== */}
-                  <div className="sub-nav-title-w-auto">
-                    <div className="p-[12px]">الإستعداد للإختبار</div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-[24px] content">
+                    {/* ===== Column 1 ===== */}
+                    <div className="sub-nav-title">
+                      <div className="p-[12px]">الإستعداد للإختبار</div>
 
-                    <ul className="grid gap-[4px]">
-                      <li>
-                        <Link href="#" className="sub-link sub-menu__link">
-                          <div className="flex gap-[16px] items-center">
-                            <img
-                              src="/assets/icons/stroke-standard/book-04-stroke-standard.svg"
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                            <span> مصادر التحضير</span>
-                          </div>
-                        </Link>
-                      </li>
+                      <ul className="grid gap-[4px]">
+                        <li>
+                          <Link
+                            href="#"
+                            onClick={() => handleLinkClick("test-takers")}
+                            className="sub-link sub-menu__link"
+                          >
+                            <div className="flex gap-[16px] items-center">
+                              <img
+                                src="/assets/icons/stroke-standard/book-04-stroke-standard.svg"
+                                alt=""
+                                width={24}
+                                height={24}
+                              />
+                              <span>مصادر التحضير</span>
+                            </div>
+                          </Link>
+                        </li>
 
-                      <li>
-                        <Link href="#" className="sub-link sub-menu__link">
-                          <div className="flex gap-[16px] items-center">
-                            <img
-                              src="/assets/icons/stroke-standard/course-stroke-standard.svg"
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                            <span>دورة مران همزة</span>
-                          </div>
-                        </Link>
-                      </li>
+                        <li>
+                          <Link
+                            href="#"
+                            onClick={() => handleLinkClick("test-takers")}
+                            className="sub-link sub-menu__link"
+                          >
+                            <div className="flex gap-[16px] items-center">
+                              <img
+                                src="/assets/icons/stroke-standard/course-stroke-standard.svg"
+                                alt=""
+                                width={24}
+                                height={24}
+                              />
+                              <span>دورة مران همزة</span>
+                            </div>
+                          </Link>
+                        </li>
 
-                      <li>
-                        <Link href="#" className="sub-link sub-menu__link">
-                          <div className="flex gap-[16px] items-center">
-                            <img
-                              src="/assets/icons/stroke-standard/task-daily-02-stroke-standard.svg"
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                            <span>
-                              آلية الإختبار (محوسب حضوري، محوسب عن بعد)
-                            </span>
-                          </div>
-                        </Link>
-                      </li>
-                    </ul>
+                        <li>
+                          <Link
+                            href="#"
+                            onClick={() => handleLinkClick("test-takers")}
+                            className="sub-link sub-menu__link"
+                          >
+                            <div className="flex gap-[16px] items-center">
+                              <img
+                                src="/assets/icons/stroke-standard/task-daily-02-stroke-standard.svg"
+                                alt=""
+                                width={24}
+                                height={24}
+                              />
+                              <span>
+                                آلية الإختبار (محوسب حضوري، محوسب عن بعد)
+                              </span>
+                            </div>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </li>
 
               <li>
-                <Link href="#" className="header-menu__item">
+                <Link
+                  href="#"
+                  onClick={() => handleLinkClick("organizations")}
+                  className={`header-menu__item ${
+                    activeLink === "organizations" ? "header-menu__item--active" : ""
+                  }`}
+                >
                   <span className="header-menu__item-label">المنظمات </span>
                   <span className="header-menu__item-arrow"></span>
                 </Link>
               </li>
 
               <li className="group">
-                <Link href="#" className="header-menu__item">
+                <button
+                  onClick={() => toggleSubmenu("research")}
+                  className={`header-menu__item ${
+                    activeLink === "research" ? "header-menu__item--active" : ""
+                  }`}
+                 
+                >
                   <span className="header-menu__item-label">الأبحاث</span>
                   <span className="header-menu__item-arrow">
                     <img
@@ -338,13 +456,20 @@ function NavHeader() {
                       alt=""
                       width={24}
                       height={24}
-                      className="inline-block"
+                      className={`inline-block transition-transform duration-300 ${
+                        openSubmenus.includes("research") ? "rotate-180" : ""
+                      }`}
                     />
                   </span>
-                </Link>
+                </button>
+
                 {/* submenu */}
                 <div
-                  className="sub-navs sub-navs-fixed grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-[24px] hidden group-hover:grid"
+                  className={`sub-navs sub-navs-fixed transition-all duration-150 ease-out ${
+                    openSubmenus.includes("research")
+                      ? "opacity-100 visible"
+                      : "opacity-0 invisible"
+                  }`}
                   style={{
                     position: "absolute",
                     top: "100%",
@@ -352,44 +477,61 @@ function NavHeader() {
                     zIndex: 9998,
                   }}
                 >
-                  {/* ===== Column 1 ===== */}
-                  <div className="sub-nav-title">
-                    <div className="p-[12px]">الأبحاث</div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-[24px] content">
+                    {/* ===== Column 1 ===== */}
+                    <div className="sub-nav-title">
+                      <div className="p-[12px]">الأبحاث</div>
 
-                    <ul className="grid gap-[4px]">
-                      <li>
-                        <Link href="#" className="sub-link sub-menu__link">
-                          <div className="flex gap-[16px] items-center">
-                            <img
-                              src="/assets/icons/stroke-standard/book-04-stroke-standard.svg"
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                            <span>مكتبة الأبحاث</span>
-                          </div>
-                        </Link>
-                      </li>
+                      <ul className="grid gap-[4px]">
+                        <li>
+                          <Link
+                            href="#"
+                            onClick={() => handleLinkClick("research")}
+                            className="sub-link sub-menu__link"
+                          >
+                            <div className="flex gap-[16px] items-center">
+                              <img
+                                src="/assets/icons/stroke-standard/book-04-stroke-standard.svg"
+                                alt=""
+                                width={24}
+                                height={24}
+                              />
+                              <span>مكتبة الأبحاث</span>
+                            </div>
+                          </Link>
+                        </li>
 
-                      <li>
-                        <Link href="#" className="sub-link sub-menu__link">
-                          <div className="flex gap-[16px] items-center">
-                            <img
-                              src="/assets/icons/stroke-standard/chart-bar-line-stroke-standard.svg"
-                              alt=""
-                              width={24}
-                              height={24}
-                            />
-                            <span>الإحصائيات</span>
-                          </div>
-                        </Link>
-                      </li>
-                    </ul>
+                        <li>
+                          <Link
+                            href="#"
+                            onClick={() => handleLinkClick("research")}
+                            className="sub-link sub-menu__link"
+                          >
+                            <div className="flex gap-[16px] items-center">
+                              <img
+                                src="/assets/icons/stroke-standard/chart-bar-line-stroke-standard.svg"
+                                alt=""
+                                width={24}
+                                height={24}
+                              />
+                              <span>الإحصائيات</span>
+                            </div>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </li>
+
               <li>
-                <Link href="#" className="header-menu__item">
+                <Link
+                  href="#"
+                  onClick={() => handleLinkClick("news")}
+                  className={`header-menu__item ${
+                    activeLink === "news" ? "header-menu__item--active" : ""
+                  }`}
+                >
                   <span className="header-menu__item-label">الاخبار</span>
                 </Link>
               </li>
@@ -429,7 +571,6 @@ function NavHeader() {
                 </Link>
               </li>
 
-            
               <li className="action-btn-reversed">
                 <Link href="#" className="header-menu__item">
                   <span className="header-menu__item-label">تسجيل الدخول</span>
@@ -445,9 +586,7 @@ function NavHeader() {
                 </Link>
               </li>
 
-
-
-                <li className="action-btn-reversed translate-btn">
+              <li className="action-btn-reversed translate-btn">
                 <Link href="#" className="header-menu__item">
                   {/* <span className="header-menu__item-label">البحث</span> */}
                   <span className="header-menu__item-arrow">
@@ -461,7 +600,6 @@ function NavHeader() {
                   </span>
                 </Link>
               </li>
-
             </ul>
           </div>
         </nav>

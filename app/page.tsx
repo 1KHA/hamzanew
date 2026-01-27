@@ -191,7 +191,7 @@ export default function Home() {
       <div className="bg-neutral-50">
         
       <section className="section-spacing-5xl custom-container">
-        <div className="bg-white">
+       
           <div className="">
             <div className="flex-between-center">
               <h1 className="section-title"> همزة في أرقام</h1>
@@ -205,7 +205,7 @@ export default function Home() {
               ومبسطة عن كل اختبار
             </p>
           </div>
-        </div>
+ 
         <div className="section-spacing-4xl">
           <GlobalStatisticsSection />
         </div>
