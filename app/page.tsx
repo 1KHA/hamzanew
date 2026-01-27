@@ -85,7 +85,7 @@ export default function Home() {
     return (
       <Card
         key={index}
-        style={{ height: 300 }}
+        style={{ height: 288 }}
         title={item.title}
         description={item.disc}
         icon={item.icon}
@@ -143,7 +143,7 @@ export default function Home() {
         <section className="section-spacing-5xl custom-container">
           <div className="border-2">
             <div className="flex-between-center">
-              <h1 className="section-title">قسم الخدمات</h1>
+              <h1 className="display-sm-bold">قسم الخدمات</h1>
               <button className="dga-btn dga-btn--lg dga-btn--secondary-outline">
                 <span className="dga-btn-label">عرض الكل</span>
               </button>
@@ -167,7 +167,7 @@ export default function Home() {
       <section className="section-spacing-5xl custom-container">
         <div className="">
           <div className="flex-between-center">
-            <h1 className="section-title"> الاخبار والمقالات</h1>
+            <h1 className="display-sm-bold"> الاخبار والمقالات</h1>
             <button className="dga-btn dga-btn--lg dga-btn--secondary-outline">
               <span className="dga-btn-label">عرض الكل</span>
             </button>
@@ -194,7 +194,7 @@ export default function Home() {
        
           <div className="">
             <div className="flex-between-center">
-              <h1 className="section-title"> همزة في أرقام</h1>
+              <h1 className="display-sm-bold"> همزة في أرقام</h1>
               <button className="dga-btn dga-btn--lg dga-btn--secondary-outline">
                 <span className="dga-btn-label">عرض الكل</span>
               </button>
@@ -217,7 +217,7 @@ export default function Home() {
         <section className="section-spacing-5xl custom-container">
           <div className="">
             <div className="flex-between-center">
-              <h1 className="section-title">الشركاء</h1>
+              <h1 className="display-sm-bold">الشركاء</h1>
             </div>
             <div className="section-spacing-4xl flex-start-center gap-4">
               <DgaTag
