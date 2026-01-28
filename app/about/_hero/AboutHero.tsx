@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import styles from "./AboutHero.module.css";
 import { heroMap } from "./heroMap";
+import DgaBreadcrumbs from "@/app/components/breadcrumbs/BreadCrumbs";
 
 export default function AboutHero() {
   const pathname = usePathname();
@@ -14,14 +15,22 @@ export default function AboutHero() {
     )?.[1] ??
     heroMap["/about"];
 
+  const data = heroMap[pathname] ??
+    heroMap["/about"] ?? {
+      title: "",
+      description: "",
+      bgColor: "#fff",
+      breadcrumbs: [{ label: "الرئيسية", path: "/" }],
+    };
   return (
     <section
       className={styles.hero}
-      dir="rtl"
+     
       style={{ background: hero.bgColor ?? "#F7FDF9" }}
     >
       <div className="content">
         <div className={styles.inner}>
+          <DgaBreadcrumbs items={data.breadcrumbs ?? []} max={5} />
           <h1 className={styles.title}>{hero.title}</h1>
           {hero.description && (
             <p className={styles.desc}>{hero.description}</p>

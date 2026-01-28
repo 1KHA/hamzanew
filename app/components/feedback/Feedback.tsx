@@ -53,11 +53,10 @@ export default function Feedback() {
   });
 
   const [stats, setStats] = useState({
-    yesPercentage: 0,
-    totalCount: 0,
+    yesPercentage: 100,
+    totalCount: 100,
   });
 
-  // دالة للحصول على اسم الصفحة
   const getPageName = () => {
     const hash = window.location.hash;
 
@@ -148,7 +147,7 @@ export default function Feedback() {
             <div>
               {(!openQuestions || submitted) && stats.totalCount > 0 && (
                 <p className="text-sm-regular text-[#161616] text-end">
-                  {stats.yesPercentage}% من المستخدمين قالوا نعم من{" "}
+                  {stats.yesPercentage}% من المستخدمين قالوا نعم من
                   {stats.totalCount} تعليقًا
                 </p>
               )}

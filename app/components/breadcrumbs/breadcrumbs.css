@@ -1,0 +1,172 @@
+.breadcrumb-link {
+  font-size: 14px;
+  font-family: "IBMPlexSansArabic", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: right;
+  color: #384250;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+  color: #6c737f;
+  text-decoration: underline;
+}
+
+.breadcrumb-link:active {
+  color: #9da4ae;
+}
+.breadcrumb-link:focus {
+  border: 2px solid #161616;
+  border-radius: 4px; /* Optional: rounded corners */
+}
+
+.breadcrumb-current {
+  /* color: #9da4ae;
+  cursor: default;
+  pointer-events: none;
+  text-decoration: none; */
+  color: #9da4ae;
+  cursor: default;
+  pointer-events: none;
+  text-decoration: none;
+}
+
+/* Minimal styling for DgaBreadcrumbs component */
+.dga-breadcrumb-root {
+  position: relative;
+  font-family: inherit;
+}
+.dga-breadcrumb {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  /* border: red solid 1px; */
+}
+.dga-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  /* border: blue solid 1px; */
+}
+.dga-breadcrumb-icon {
+  /* margin-right: 6px; */
+  filter: grayscale(100%) brightness(65%);
+  /* color: #999; */
+  /* font-size: 12px; */
+}
+.dga-breadcrumb-item.active .link__label {
+  font-weight: 600;
+
+  font-size: 14px;
+  font-family: "IBMPlexSansArabic", sans-serif;
+  font-style: normal;
+  line-height: 20px;
+  text-align: right;
+  color: #6c737f;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link {
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "IBMPlexSansArabic", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: right;
+  color: #384250;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  /* border: rgb(25, 0, 255) solid 1px; */
+}
+
+.link:hover {
+  color: #6c737f;
+  text-decoration: underline;
+}
+
+.link:active {
+  color: #9da4ae;
+}
+.link:focus {
+  border: 2px solid #161616;
+  border-radius: 4px; /* Optional: rounded corners */
+}
+.link_empty {
+  cursor: default;
+}
+.disabled-link {
+  color: #9ca3af;
+  pointer-events: none;
+}
+.ellipsis-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 4px;
+  color: #374151;
+}
+.dga-breadcrumb-dropdown {
+  position: absolute;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  margin-top: 6px;
+  padding: 8px 0px !important;
+
+  list-style: none;
+  min-width: 160px;
+  z-index: 40;
+      height: fit-content !important;
+          gap: 8px;
+
+}
+
+
+
+[dir=rtl] .dga-breadcrumb-dropdown{
+
+      /* left: 0; */
+    right: 45px !important;
+    left: 0px !important;
+}
+
+[dir=ltr] .dga-breadcrumb-dropdown{
+
+      /* left: 0; */
+    left: 45px !important;
+    right: 0px !important;
+
+}
+.dga-breadcrumb-dropdown-item {
+  padding: 8px 8px !important;
+
+align-self: anchor-center !important;
+
+}
+.dga-breadcrumb-dropdown-item a {
+  color: #111827;
+  text-decoration: none;
+  display: block;
+}
+.dga-breadcrumb-dropdown-item a:hover {
+  background: #f3f4f6;
+  border: #111827 solid 1px;
+}
+.link__label {
+  display: inline-block;
+}
+
+/* .dga-breadcrumb-root * {
+  border: 1px solid #111827;
+}
+.dga-breadcrumb-item * {
+  border: 1px solid #2e4f96;
+} */

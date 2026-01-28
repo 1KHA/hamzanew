@@ -8,7 +8,9 @@ export type HeroData = {
   };
 };
 
-export const heroMap: Record<string, HeroData> = {
+export type Crumb = { label: string; path?: string; disabled?: boolean };
+
+export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   "/about": {
     title: "عن الجهة",
     description: `منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها.
@@ -18,6 +20,12 @@ export const heroMap: Record<string, HeroData> = {
     //   href: "",
     //   label: "",
     // },
+    breadcrumbs: [
+      { label: "الرئيسية", path: "/" },
+      { label: "عن الجهة", disabled: true },
+      { label: "عن همزة", disabled: true },
+      { label: "عن الجهة", disabled: true },
+    ],
   },
 
   "/about/who-we-are": {
@@ -25,6 +33,13 @@ export const heroMap: Record<string, HeroData> = {
     description: `منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها.
 وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة.`,
     bgColor: "#FFF",
+    breadcrumbs: [
+      { label: "الرئيسية", path: "/" },
+      { label: "عن الجهة", disabled: true },
+      { label: "عن همزة", disabled: true },
+      { label: "عن الجهة", path: "/about" },
+      { label: "من نحن ", path: "/about/who-we-are", disabled: true },
+    ],
   },
 
   "/about/periodic-advisory-committee": {
@@ -35,6 +50,17 @@ export const heroMap: Record<string, HeroData> = {
     //   href: "",
     //   label: "",
     // },
+    breadcrumbs: [
+      { label: "الرئيسية", path: "/" },
+      { label: "عن الجهة", disabled: true },
+      { label: "عن همزة", disabled: true },
+      { label: "عن الجهة", path: "/about" },
+      {
+        label: "اللجنة الاستشارية الدورية",
+        path: "/about/periodic-advisory-committee",
+        disabled: true,
+      },
+    ],
   },
 
   "/about/hamza-test-traits": {
@@ -46,6 +72,17 @@ export const heroMap: Record<string, HeroData> = {
       href: "#",
       label: "التسجيل في الاختبار",
     },
+    breadcrumbs: [
+      { label: "الرئيسية", path: "/" },
+      { label: "عن الجهة", disabled: true },
+      { label: "عن همزة", disabled: true },
+      { label: "عن الجهة", path: "/about" },
+      {
+        label: "سمات إختبار همزة",
+        path: "/about/hamza-test-traits",
+        disabled: true,
+      },
+    ],
   },
   "/about/benefits-of-hamza-test": {
     title: "أهمية اختبارات همزة",
@@ -53,7 +90,19 @@ export const heroMap: Record<string, HeroData> = {
   },
   "/about/institutions-and-countries-that-accept-the-hamza": {
     title: "المؤسسات و الدول التي تقبل همزة",
-    description:"تعتمد بعض المؤسسات حول العالم على اختبار همزة لتقييم الكفاءة في اللغة العربية تشمل هذه المؤسسات: الجامعات، الجهات الحكومية، الهيئات المهنية، شركات التوظيف، وجهات الهجرة في الدول الناطقة بالعربية أو المهتمة بها.",
-    bgColor: "#FFF"
+    description:
+      "تعتمد بعض المؤسسات حول العالم على اختبار همزة لتقييم الكفاءة في اللغة العربية تشمل هذه المؤسسات: الجامعات، الجهات الحكومية، الهيئات المهنية، شركات التوظيف، وجهات الهجرة في الدول الناطقة بالعربية أو المهتمة بها.",
+    bgColor: "#FFF",
+    breadcrumbs: [
+      { label: "الرئيسية", path: "/" },
+      { label: "عن الجهة", disabled: true },
+      { label: "عن همزة", disabled: true },
+      { label: "عن الجهة", path: "/about" },
+      {
+        label: "المؤسسات و الدول التي تقبل همزة",
+        path: "/about/institutions-and-countries-that-accept-the-hamza",
+        disabled: true,
+      },
+    ],
   },
 };
