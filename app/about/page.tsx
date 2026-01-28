@@ -1,6 +1,5 @@
 "use client";
 
-// import { DgaIcon } from "platformscode-new-react";
 import Card from "../components/card/Card";
 
 function AboutPage() {
@@ -35,7 +34,7 @@ function AboutPage() {
       icon: "share-08",
       title: "المشاركة الالكترونية",
       link: "#",
-    }
+    },
   ];
 
   const aboutPagesCard = aboutPages.map((page, index) => {
