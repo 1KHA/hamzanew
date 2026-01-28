@@ -119,13 +119,37 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   border-radius: 6px;
   margin-top: 6px;
-  padding: 8px 0;
+  padding: 8px 0px !important;
+
   list-style: none;
   min-width: 160px;
   z-index: 40;
+      height: fit-content !important;
+          gap: 8px;
+
+}
+
+
+
+[dir=rtl] .dga-breadcrumb-dropdown{
+
+      /* left: 0; */
+    right: 45px !important;
+    left: 0px !important;
+}
+
+[dir=ltr] .dga-breadcrumb-dropdown{
+
+      /* left: 0; */
+    left: 45px !important;
+    right: 0px !important;
+
 }
 .dga-breadcrumb-dropdown-item {
-  padding: 6px 12px;
+  padding: 8px 8px !important;
+
+align-self: anchor-center !important;
+
 }
 .dga-breadcrumb-dropdown-item a {
   color: #111827;
