@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { MenuItemType } from "./menuData";
-import NavigationSubmenu from "./NavigationSubmenu";
 
 interface MenuItemProps {
   item: MenuItemType;
@@ -36,11 +35,6 @@ export default function MenuItem({
             />
           </span>
         </button>
-        <NavigationSubmenu
-          isOpen={isSubmenuOpen}
-          columns={item.submenuColumns}
-          onLinkClick={onLinkClick}
-        />
       </li>
     );
   }

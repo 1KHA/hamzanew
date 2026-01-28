@@ -13,15 +13,20 @@ interface MobileNavProps {
 }
 
 export default function MobileNav({ isOpen, onClose, activeLink, onLinkClick }: MobileNavProps) {
+  const [expandedItem, setExpandedItem] = useState<string | null>(null);
+
   // Lock body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     }
     return () => {
       document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     };
   }, [isOpen]);
 
@@ -39,6 +44,10 @@ export default function MobileNav({ isOpen, onClose, activeLink, onLinkClick }: 
   const handleLinkClick = (linkId: string) => {
     onLinkClick(linkId);
     onClose();
+  };
+
+  const toggleSubmenu = (itemId: string) => {
+    setExpandedItem(expandedItem === itemId ? null : itemId);
   };
 
   return (
@@ -87,7 +96,9 @@ export default function MobileNav({ isOpen, onClose, activeLink, onLinkClick }: 
                 key={item.id}
                 item={item}
                 isActive={activeLink === item.id}
+                isExpanded={expandedItem === item.id}
                 onLinkClick={handleLinkClick}
+                onToggleSubmenu={() => toggleSubmenu(item.id)}
                 index={index}
               />
             ))}
@@ -119,18 +130,18 @@ export default function MobileNav({ isOpen, onClose, activeLink, onLinkClick }: 
 interface MobileNavItemProps {
   item: MenuItemType;
   isActive: boolean;
+  isExpanded: boolean;
   onLinkClick: (linkId: string) => void;
+  onToggleSubmenu: () => void;
   index: number;
 }
 
-function MobileNavItem({ item, isActive, onLinkClick, index }: MobileNavItemProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-
+function MobileNavItem({ item, isActive, isExpanded, onLinkClick, onToggleSubmenu, index }: MobileNavItemProps) {
   if (item.hasSubmenu) {
     return (
       <div className="mobile-nav__item-wrapper" style={{ animationDelay: `${index * 50}ms` }}>
         <button
-          onClick={() => setIsExpanded(!isExpanded)}
+          onClick={onToggleSubmenu}
           className={`mobile-nav__item ${isActive ? "mobile-nav__item--active" : ""}`}
         >
           <span>{item.label}</span>

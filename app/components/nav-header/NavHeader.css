@@ -41,67 +41,16 @@
   font: 600 16px/24px "IBMPlexSansArabic";
 }
 
+
+
 .header {
- 
   position: relative;
   width: 100%;
   min-height: 72px;
   display: flex;
   height: 72px;
-  z-index: 99;
   background-color: var(--background-menu);
-}
-
-
-
-/* Sticky header styles */
-.header--sticky-active {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 9999;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  animation: slideDown 0.3s ease-out;
-}
-
-/* Smooth slide down animation */
-@keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* Submenu positioning for sticky navbar */
-.header--sticky-active .sub-navs {
-  position: fixed !important;
-  top: auto !important;
-}
-
-/* Ensure submenus stay below sticky header */
-.header--sticky-active .sub-navs-fixed {
-  margin-top: 0;
-}
-
-
-/* Ensure z-index hierarchy */
-.header--sticky-active {
-  z-index: 9999;
-}
-
-.sub-navs {
-  z-index: 9998;
-}
-
- 
-/* Prevent layout shift when header becomes sticky */
-.header--sticky-active + * {
-  margin-top: 0;
 }
 
 .header--divider::after {
@@ -480,7 +429,7 @@ a:not(.header-menu__item--active):hover {
 .header__sub-menu {
   position: absolute;
   display: flex;
-  overflow: hidden;
+  /* overflow: hidden; */
   padding: 0;
   padding: var(--spacing-none) var(--spacing-4xl);
   flex-direction: column;
@@ -628,4 +577,194 @@ a:not(.header-menu__item--active):hover {
 .sub.item-nav:hover {
   background-color: #f9fafb;
   padding-right: 12px;
+}
+
+/* Header nav container needs relative positioning for submenu */
+.header-nav--full {
+  position: relative;
+}
+
+/* Horizontal Scroll Wrapper */
+.header-nav__menu-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: visible;
+  padding-block: 4px; /* Space for focus border */
+}
+
+/* Menu Scroll Container */
+.header-nav__menu {
+  display: flex;
+  gap: var(--spacing-xs);
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  flex: 1;
+  padding-block: 4px; /* Space for focus border */
+  margin-block: -4px; /* Compensate for padding */
+}
+
+.header-nav__menu::-webkit-scrollbar {
+  display: none;
+}
+
+/* Menu items need relative positioning for submenu */
+.header-nav__menu > li {
+  position: relative;
+}
+
+/* Ensure focus outline is visible */
+.header-menu__item:focus,
+.header-menu__item:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Scroll Sentinels */
+.scroll-sentinel-start,
+.scroll-sentinel-end {
+  flex-shrink: 0;
+  flex-basis: 1px;
+  width: 1px;
+  height: 1px;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Scroll Buttons */
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+   
+}
+
+ 
+
+/* Default RTL positions */
+.scroll-button--left {
+  right: 8px;
+}
+
+.scroll-button--right {
+  left: 8px;
+}
+
+/* LTR positions */
+[dir="ltr"] .scroll-button--left {
+  left: 8px;
+  right: auto;
+}
+
+[dir="ltr"] .scroll-button--right {
+  right: 8px;
+  left: auto;
+}
+
+/* Fade Effect Indicators */
+.header-nav__menu-wrapper::before,
+.header-nav__menu-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 42px;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 0.3s ease;
+}
+
+/* Default RTL fades */
+.header-nav__menu-wrapper::before {
+  right: 0;
+      background: #fff;
+    height: 71px;
+    
+  opacity: 0;
+}
+
+.header-nav__menu-wrapper::after {
+  left: 0;
+     background: #fff;
+    height: 71px;
+    
+}
+
+/* LTR fades */
+[dir="ltr"] .header-nav__menu-wrapper::before {
+  left: 0;
+  right: auto;
+     background: #fff;
+    height: 71px;
+    
+}
+
+[dir="ltr"] .header-nav__menu-wrapper::after {
+  right: 0;
+  left: auto;
+     background: #fff;
+    height: 71px;
+    
+  opacity: 0;
+}
+
+/* Show fade when scrollable */
+.header-nav__menu-wrapper.has-scroll-left::before {
+  opacity: 1;
+}
+
+.header-nav__menu-wrapper.has-scroll-right::after {
+  opacity: 1;
+}
+
+/* Hide scroll buttons on mobile */
+@media only screen and (max-width: 960px) {
+   .header-menu__btn {
+    display: inline-flex;
+  }
+  .scroll-button,
+  .header-nav__menu-wrapper::before,
+  .header-nav__menu-wrapper::after {
+    display: none;
+  }
+
+  .header-nav__menu-wrapper,
+  .header-nav__menu,
+  .header-nav__actions {
+    display: none !important;
+  }
+
+
+
+  
+  .header-nav__menu-wrapper{
+width: auto;
+        padding: none;
+    overflow:auto;
+  }
+
+
+}
+
+/* Default styles (for all screens except 1100px-960px) */
+.header-nav__menu-wrapper {
+  width: auto;
+  padding: 0;
+  overflow: clip;
+}
+
+/* Special styles ONLY between 1100px and 960px */
+@media only screen and (max-width: 1100px) and (min-width: 960px) {
+  .header-nav__menu-wrapper {
+    width: 400px;
+    padding: 0px 50px;
+    overflow: clip;
+  }
 }

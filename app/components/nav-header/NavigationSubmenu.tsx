@@ -53,9 +53,11 @@ export default function NavigationSubmenu({ isOpen, columns, onLinkClick }: Navi
       }`}
       style={{
         position: "absolute",
-        top: "100%",
-        left: "0px",
-        zIndex: 9998,
+        top: "72px",
+        left: 0,
+        right: 0,
+        zIndex: 1,
+        transition: "opacity 0.15s ease-out, visibility 0.15s ease-out",
       }}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-[24px] content">
