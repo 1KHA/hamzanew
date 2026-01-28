@@ -33,7 +33,7 @@ function AboutPage() {
     {
       icon: "share-08",
       title: "المشاركة الالكترونية",
-      link: "#",
+      link: "/e-participation",
     },
   ];
 
