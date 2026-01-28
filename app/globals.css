@@ -168,72 +168,55 @@ body {
   }
 }
 
-
-.content{
-    max-width: 1280px;
-    padding: 0px 32px;
-    margin: auto;
-
+.content {
+  max-width: 1280px;
+  padding: 0px 32px;
+  margin: auto;
 }
-
 
 /* Mobile default styles */
 
 @media (min-width: 600px) {
- .content{
+  .content {
     padding: 0px 16px;
-
-}
-
-
-
-
-
-}
-
-@media (min-width: 960px) {
-  
-
-.content{
-    padding: 0px 32px;
-
-}
-
-
- 
-}
-
-@media (min-width: 1280px) {
- 
-
-.content{
-    max-width: 1280px;
-    padding: 0px 32px;
-    margin: auto;
-
-}
-}
-
-
-@media (max-width: 599px) {
-  .overlay {
-      background: linear-gradient(to left, #104f34 20%, transparent 210%) !important;
-
   }
 }
 
+@media (min-width: 960px) {
+  .content {
+    padding: 0px 32px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .content {
+    max-width: 1280px;
+    padding: 0px 32px;
+    margin: auto;
+  }
+}
+
+@media (max-width: 599px) {
+  .overlay {
+    background: linear-gradient(
+      to left,
+      #104f34 20%,
+      transparent 210%
+    ) !important;
+  }
+}
 
 /* Custom dga container */
 .custom-container {
   max-width: var(--container-max-width-desktop);
   margin-inline: auto;
-  padding-inline: var(--container-padding-mobile,16px);
+  padding-inline: var(--container-padding-mobile, 16px);
 }
 
 /* Desktop */
 @media (min-width: 1280px) {
   .custom-container {
-    padding-inline: var(--container-padding-desktop,32px);
+    padding-inline: var(--container-padding-desktop, 32px);
   }
 }
 
@@ -241,9 +224,8 @@ body {
   background: linear-gradient(0deg, #f9fafb 0%, #f9fafb 100%), #f9fafb;
 }
 .bg-primary-074d31 {
-  background-color: #074D31;
+  background-color: #074d31;
 }
-
 
 /* section title */
 .section-title {
@@ -295,7 +277,7 @@ body {
 
 .text-md-regular {
   color: var(--Text-text-default, #161616);
-  text-align: right;
+  text-align: start;
 
   /* Text md / Regular */
   font-family: var(--Font-Family-font-family-text, "IBMPlexSansArabic");
@@ -313,14 +295,13 @@ body {
   background: var(--Background-background-white, #ffffff);
 }
 
-
-li{
-      width: inherit;
+li {
+  width: inherit;
 }
 
-.icon-green{
-
-      filter: invert(24%) sepia(86%) saturate(642%) hue-rotate(112deg) brightness(92%) contrast(96%);
+.icon-green {
+  filter: invert(24%) sepia(86%) saturate(642%) hue-rotate(112deg)
+    brightness(92%) contrast(96%);
 }
 /* Home banner */
 
@@ -349,7 +330,7 @@ li{
   width: 100%;
   height: 100%;
   transition: transform 0.5s ease-in-out;
- }
+}
 
 .custom-banner {
   width: 100%;
@@ -372,19 +353,18 @@ li{
   justify-content: flex-start;
 }
 
-
 /* شعار في الزاوية العلوية اليمنى */
 .banner-logo {
-    position: absolute;
-    /* top: -90px; */
-    right: -120px;
-    z-index: 2;
-        opacity: 1.4;
+  position: absolute;
+  /* top: -90px; */
+  right: -120px;
+  z-index: 2;
+  opacity: 1.4;
 }
 
 .banner-logo img {
-    width: 500px;
-    height: auto;
+  width: 500px;
+  height: auto;
 }
 
 /* للـ LTR */
@@ -394,7 +374,6 @@ li{
 }
 
 .hero {
- 
   color: white;
   max-width: 1280px;
   text-align: right;
@@ -405,7 +384,7 @@ li{
 }
 
 .hero h1 {
-   font-weight: 700;
+  font-weight: 700;
   margin-bottom: 16px;
 }
 
@@ -464,7 +443,7 @@ li{
   .hero {
     padding: 0 20px;
   }
- 
+
   .hero p {
     font-size: 16px;
   }
@@ -488,7 +467,6 @@ li{
     grid-template-columns: repeat(3, 1fr);
   }
 }
-
 
 .text-xs-regular {
   font: 400 12px/18px "IBMPlexSansArabic";
