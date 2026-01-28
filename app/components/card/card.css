@@ -41,7 +41,7 @@
   border-radius: 16px;
   position: relative;
   box-sizing: border-box;
-  text-align: right;
+  text-align: start;
 }
 .card-content {
   gap: 8px;
@@ -94,6 +94,8 @@ line-height: 30px; /* 150% */
   margin-inline-start: auto; /* pushes it to the start side depending on dir */
 }
 .title {
+
+  line-height: 28px; /* 155.556% */
   font-size: 18px;
   font-weight: 700;
   color: #101828;

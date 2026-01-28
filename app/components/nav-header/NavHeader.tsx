@@ -2,27 +2,90 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import DigitalSignature from "../digital-signature/DigitalSignature";
+import MenuItem from "./MenuItem";
+import MobileNav from "./MobileNav";
+import { MENU_DATA, ACTION_ITEMS } from "./menuData";
 import "./NavHeader.css";
 
+// Icon Component
+const IconImage = ({ src, alt = "" }: { src: string; alt?: string }) => (
+  <img src={src} alt={alt} width={24} height={24} className="inline-block" />
+);
+
+// Custom Hook for Sticky Header
+const useStickyHeader = (headerRef: React.RefObject<HTMLDivElement>) => {
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (headerRef.current) {
+        const offsetTop = headerRef.current.offsetTop;
+        setIsSticky(window.scrollY > offsetTop);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [headerRef]);
+
+  return isSticky;
+};
+
+// Custom Hook for Horizontal Scroll
+const useHorizontalScroll = (menuRef: React.RefObject<HTMLUListElement>) => {
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const checkScroll = () => {
+    if (menuRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = menuRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+    }
+  };
+
+  useEffect(() => {
+    const menu = menuRef.current;
+    if (menu) {
+      checkScroll();
+      menu.addEventListener("scroll", checkScroll);
+      window.addEventListener("resize", checkScroll);
+      
+      return () => {
+        menu.removeEventListener("scroll", checkScroll);
+        window.removeEventListener("resize", checkScroll);
+      };
+    }
+  }, [menuRef]);
+
+  const scrollLeft = () => {
+    if (menuRef.current) {
+      menuRef.current.scrollBy({ left: -200, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (menuRef.current) {
+      menuRef.current.scrollBy({ left: 200, behavior: "smooth" });
+    }
+  };
+
+  return { canScrollLeft, canScrollRight, scrollLeft, scrollRight };
+};
+
+// Main Component
 function NavHeader() {
   const [activeLink, setActiveLink] = useState("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openSubmenus, setOpenSubmenus] = useState<string[]>([]);
   const navRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const menuScrollRef = useRef<HTMLUListElement>(null);
 
-  const toggleSubmenu = (name: string) => {
-    setOpenSubmenus((prev) =>
-      prev.includes(name) ? [] : [name], // إغلاق القديم وفتح الجديد
-    );
-    setActiveLink(name); // تعيين العنصر النشط
-  };
+  const isSticky = useStickyHeader(headerRef);
+  const { canScrollLeft, canScrollRight, scrollLeft, scrollRight } = useHorizontalScroll(menuScrollRef);
 
-  const handleLinkClick = (linkName: string) => {
-    setActiveLink(linkName);
-    setOpenSubmenus([]); // إغلاق القوائم الفرعية
-  };
-
-  // إغلاق القائمة عند الضغط خارجها
+  // Close submenu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
@@ -36,509 +99,120 @@ function NavHeader() {
     };
   }, []);
 
+  const toggleSubmenu = (id: string) => {
+    setOpenSubmenus((prev) => (prev.includes(id) ? [] : [id]));
+    setActiveLink(id);
+  };
+
+  const handleLinkClick = (linkId: string) => {
+    setActiveLink(linkId);
+    setOpenSubmenus([]);
+  };
+
   return (
     <>
       <DigitalSignature />
-      {/* desktop header */}
-      <div className="header header--divider">
+
+      {/* Mobile Navigation */}
+      <MobileNav
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        activeLink={activeLink}
+        onLinkClick={handleLinkClick}
+      />
+
+      <div
+        ref={headerRef}
+        className={`header header--divider ${isSticky ? "header--sticky-active" : ""}`}
+      >
         <nav className="header-nav--full custom-container" ref={navRef}>
-          {/* <!-- Header main --> */}
           <div className="header-nav__main">
-            {/* <!-- Menu button --> */}
+            {/* Menu Button */}
             <div className="header-menu__btn">
               <button
                 type="button"
                 className="dga-btn dga-btn--md dga-btn--transparent dga-btn--icon"
-                aria-label="Button with icon"
-                role="button"
+                aria-label="Menu"
                 onClick={() => setIsMenuOpen(true)}
               >
                 <span className="dga-btn-icon" aria-hidden="true">
-                  <img
+                  <IconImage
                     src="/assets/icons/stroke-standard/menu-01-stroke-rounded.svg"
-                    alt=""
-                    width={24}
-                    height={24}
-                    className="inline-block transform rtl:rotate-0 ltr:rotate-180"
+                    alt="Menu"
                   />
                 </span>
               </button>
             </div>
 
-            {/* <!-- Logo --> */}
+            {/* Logo */}
             <div className="header-nav__branding">
               <Link href="/" className="header__logo">
-                <img
-                  width={120}
-                  src="/assets/image/Hamza_Logo.png"
-                  alt="Logo"
-                />
+                <img width={120} src="/assets/image/Hamza_Logo.png" alt="Logo" />
               </Link>
             </div>
 
-            {/* <!-- Main menu --> */}
-            <ul className="header-nav__menu">
-              <li>
-                <Link
-                  href="/"
-                  onClick={() => handleLinkClick("home")}
-                  className={`header-menu__item ${
-                    activeLink === "home" ? "header-menu__item--active" : ""
-                  }`}
-                >
-                  <span className="header-menu__item-label">الرئيسية</span>
-                </Link>
-              </li>
-
-              <li className="group">
+            {/* Main Menu with Horizontal Scroll */}
+            <div className="header-nav__menu-wrapper">
+              {/* Left Scroll Button */}
+              {canScrollLeft && (
                 <button
-                  onClick={() => toggleSubmenu("about")}
-                  className={`header-menu__item ${
-                    activeLink === "about" ? "header-menu__item--active" : ""
-                  }`}
-                 
+                  onClick={scrollLeft}
+                  className="scroll-button scroll-button--left"
+                  aria-label="Scroll left"
                 >
-                  <span className="header-menu__item-label">عن الجهة</span>
-                  <span className="header-menu__item-arrow">
-                    <img
-                      src="/assets/icons/stroke-standard/arrow-down-01-stroke-rounded.svg"
-                      alt=""
-                      width={24}
-                      height={24}
-                      className={`inline-block transition-transform duration-300 ${
-                        openSubmenus.includes("about") ? "rotate-180" : ""
-                      }`}
-                    />
-                  </span>
+                  <svg 
+                    width="20" 
+                    height="20" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
                 </button>
-                {/* submenu */}
-                <div
-                  className={`sub-navs sub-navs-fixed transition-all duration-150 ease-out ${
-                    openSubmenus.includes("about")
-                      ? "opacity-100 visible"
-                      : "opacity-0 invisible"
-                  }`}
-                  style={{
-                    position: "absolute",
-                    top: "100%",
-                    left: "0px",
-                    zIndex: 9998,
-                  }}
-                >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-[24px] content">
-                    {/* ===== Column 1 ===== */}
-                    <div className="sub-nav-title">
-                      <div className="p-[12px]">عن همزة</div>
+              )}
 
-                      <ul className="grid gap-[4px]">
-                        <li>
-                          <Link
-                            href="/about"
-                            onClick={() => handleLinkClick("about")}
-                            className="sub-link sub-menu__link"
-                          >
-                            <div className="flex gap-[16px] items-center">
-                              <img
-                                src="/assets/icons/stroke-standard/user-group-stroke-rounded.svg"
-                                alt=""
-                                width={24}
-                                height={24}
-                              />
-                              <span>عن الجهة</span>
-                            </div>
-                          </Link>
-                        </li>
+              <ul className="header-nav__menu" ref={menuScrollRef}>
+                {MENU_DATA.map((item) => (
+                  <MenuItem
+                    key={item.id}
+                    item={item}
+                    isActive={activeLink === item.id}
+                    isSubmenuOpen={openSubmenus.includes(item.id)}
+                    onToggleSubmenu={() => toggleSubmenu(item.id)}
+                    onLinkClick={() => handleLinkClick(item.id)}
+                  />
+                ))}
+              </ul>
 
-                        <li>
-                          <Link
-                            href="#"
-                            onClick={() => handleLinkClick("about")}
-                            className="sub-link sub-menu__link"
-                          >
-                            <div className="flex gap-[16px] items-center">
-                              <img
-                                src="/assets/icons/stroke-standard/message-question-stroke-rounded.svg"
-                                alt=""
-                                width={24}
-                                height={24}
-                              />
-                              <span>لماذا تختار همزة؟</span>
-                            </div>
-                          </Link>
-                        </li>
-
-                        <li>
-                          <Link
-                            href="#"
-                            onClick={() => handleLinkClick("about")}
-                            className="sub-link sub-menu__link"
-                          >
-                            <div className="flex gap-[16px] items-center">
-                              <img
-                                src="/assets/icons/stroke-standard/file-star-stroke-rounded.svg"
-                                alt=""
-                                width={24}
-                                height={24}
-                              />
-                              <span>فوائد اختبارات همزة</span>
-                            </div>
-                          </Link>
-                        </li>
-
-                        <li>
-                          <Link
-                            href="#"
-                            onClick={() => handleLinkClick("about")}
-                            className="sub-link sub-menu__link"
-                          >
-                            <div className="flex gap-[16px] items-center">
-                              <img
-                                src="/assets/icons/stroke-standard/checkmark-badge-02-stroke-rounded.svg"
-                                alt=""
-                                width={24}
-                                height={24}
-                              />
-                              <span>المؤسسات والدول التي تقبل همزة</span>
-                            </div>
-                          </Link>
-                        </li>
-
-                        <li>
-                          <Link
-                            href="#"
-                            onClick={() => handleLinkClick("about")}
-                            className="sub-link sub-menu__link"
-                          >
-                            <div className="flex gap-[16px] items-center">
-                              <img
-                                src="/assets/icons/stroke-standard/school-01-stroke-rounded.svg"
-                                alt=""
-                                width={24}
-                                height={24}
-                              />
-                              <span>اللجنة الاستشارية الدولية</span>
-                            </div>
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-
-                    {/* ===== Column 2 ===== */}
-                    <div className="sub-nav-title">
-                      <div className="p-[12px]">الاختبارات</div>
-
-                      <ul className="grid gap-[4px]">
-                        <li>
-                          <Link
-                            href="#"
-                            onClick={() => handleLinkClick("about")}
-                            className="sub-link sub-menu__link"
-                          >
-                            <div className="flex gap-[16px] items-center">
-                              <img
-                                src="/assets/icons/stroke-standard/right-to-left-list-bullet-stroke-rounded.svg"
-                                alt=""
-                                width={24}
-                                height={24}
-                              />
-                              <span>أنواع اختبارات همزة</span>
-                            </div>
-                          </Link>
-                        </li>
-
-                        <li>
-                          <Link
-                            href="#"
-                            onClick={() => handleLinkClick("about")}
-                            className="sub-link sub-menu__link"
-                          >
-                            <div className="flex gap-[16px] items-center">
-                              <img
-                                src="/assets/icons/stroke-standard/mortarboard-01-stroke-rounded.svg"
-                                alt=""
-                                width={24}
-                                height={24}
-                              />
-                              <span>همزة الأكاديمي</span>
-                            </div>
-                          </Link>
-                        </li>
-
-                        <li>
-                          <Link
-                            href="#"
-                            onClick={() => handleLinkClick("about")}
-                            className="sub-link sub-menu__link"
-                          >
-                            <div className="flex gap-[16px] items-center">
-                              <img
-                                src="/assets/icons/stroke-standard/glasses-stroke-rounded.svg"
-                                alt=""
-                                width={24}
-                                height={24}
-                              />
-                              <span>همزة العام</span>
-                            </div>
-                          </Link>
-                        </li>
-
-                        <li>
-                          <Link
-                            href="#"
-                            onClick={() => handleLinkClick("about")}
-                            className="sub-link sub-menu__link"
-                          >
-                            <div className="flex gap-[16px] items-center">
-                              <img
-                                src="/assets/icons/stroke-standard/star-stroke-rounded.svg"
-                                alt=""
-                                width={24}
-                                height={24}
-                              />
-                              <span>همزة لتحديد المستوى</span>
-                            </div>
-                          </Link>
-                        </li>
-
-                        <li>
-                          <Link
-                            href="#"
-                            onClick={() => handleLinkClick("about")}
-                            className="sub-link sub-menu__link"
-                          >
-                            <div className="flex gap-[16px] items-center">
-                              <img
-                                src="/assets/icons/stroke-standard/book-02-stroke-rounded.svg"
-                                alt=""
-                                width={24}
-                                height={24}
-                              />
-                              <span>همزة للمفردات</span>
-                            </div>
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li className="group">
+              {/* Right Scroll Button */}
+              {canScrollRight && (
                 <button
-                  onClick={() => toggleSubmenu("test-takers")}
-                  className={`header-menu__item ${
-                    activeLink === "test-takers" ? "header-menu__item--active" : ""
-                  }`}
-                 
+                  onClick={scrollRight}
+                  className="scroll-button scroll-button--right"
+                  aria-label="Scroll right"
                 >
-                  <span className="header-menu__item-label">
-                    المتقدمون للإختبار
-                  </span>
-                  <span className="header-menu__item-arrow">
-                    <img
-                      src="/assets/icons/stroke-standard/arrow-down-01-stroke-rounded.svg"
-                      alt=""
-                      width={24}
-                      height={24}
-                      className={`inline-block transition-transform duration-300 ${
-                        openSubmenus.includes("test-takers") ? "rotate-180" : ""
-                      }`}
-                    />
-                  </span>
+                  <svg 
+                    width="20" 
+                    height="20" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
                 </button>
-
-                {/* submenu */}
-                <div
-                  className={`sub-navs sub-navs-fixed transition-all duration-150 ease-out ${
-                    openSubmenus.includes("test-takers")
-                      ? "opacity-100 visible"
-                      : "opacity-0 invisible"
-                  }`}
-                  style={{
-                    position: "absolute",
-                    top: "100%",
-                    left: "0px",
-                    zIndex: 9998,
-                  }}
-                >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-[24px] content">
-                    {/* ===== Column 1 ===== */}
-                    <div className="sub-nav-title">
-                      <div className="p-[12px]">الإستعداد للإختبار</div>
-
-                      <ul className="grid gap-[4px]">
-                        <li>
-                          <Link
-                            href="#"
-                            onClick={() => handleLinkClick("test-takers")}
-                            className="sub-link sub-menu__link"
-                          >
-                            <div className="flex gap-[16px] items-center">
-                              <img
-                                src="/assets/icons/stroke-standard/book-04-stroke-standard.svg"
-                                alt=""
-                                width={24}
-                                height={24}
-                              />
-                              <span>مصادر التحضير</span>
-                            </div>
-                          </Link>
-                        </li>
-
-                        <li>
-                          <Link
-                            href="#"
-                            onClick={() => handleLinkClick("test-takers")}
-                            className="sub-link sub-menu__link"
-                          >
-                            <div className="flex gap-[16px] items-center">
-                              <img
-                                src="/assets/icons/stroke-standard/course-stroke-standard.svg"
-                                alt=""
-                                width={24}
-                                height={24}
-                              />
-                              <span>دورة مران همزة</span>
-                            </div>
-                          </Link>
-                        </li>
-
-                        <li>
-                          <Link
-                            href="#"
-                            onClick={() => handleLinkClick("test-takers")}
-                            className="sub-link sub-menu__link"
-                          >
-                            <div className="flex gap-[16px] items-center">
-                              <img
-                                src="/assets/icons/stroke-standard/task-daily-02-stroke-standard.svg"
-                                alt=""
-                                width={24}
-                                height={24}
-                              />
-                              <span>
-                                آلية الإختبار (محوسب حضوري، محوسب عن بعد)
-                              </span>
-                            </div>
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li>
-                <Link
-                  href="#"
-                  onClick={() => handleLinkClick("organizations")}
-                  className={`header-menu__item ${
-                    activeLink === "organizations" ? "header-menu__item--active" : ""
-                  }`}
-                >
-                  <span className="header-menu__item-label">المنظمات </span>
-                  <span className="header-menu__item-arrow"></span>
-                </Link>
-              </li>
-
-              <li className="group">
-                <button
-                  onClick={() => toggleSubmenu("research")}
-                  className={`header-menu__item ${
-                    activeLink === "research" ? "header-menu__item--active" : ""
-                  }`}
-                 
-                >
-                  <span className="header-menu__item-label">الأبحاث</span>
-                  <span className="header-menu__item-arrow">
-                    <img
-                      src="/assets/icons/stroke-standard/arrow-down-01-stroke-rounded.svg"
-                      alt=""
-                      width={24}
-                      height={24}
-                      className={`inline-block transition-transform duration-300 ${
-                        openSubmenus.includes("research") ? "rotate-180" : ""
-                      }`}
-                    />
-                  </span>
-                </button>
-
-                {/* submenu */}
-                <div
-                  className={`sub-navs sub-navs-fixed transition-all duration-150 ease-out ${
-                    openSubmenus.includes("research")
-                      ? "opacity-100 visible"
-                      : "opacity-0 invisible"
-                  }`}
-                  style={{
-                    position: "absolute",
-                    top: "100%",
-                    left: "0px",
-                    zIndex: 9998,
-                  }}
-                >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-[24px] content">
-                    {/* ===== Column 1 ===== */}
-                    <div className="sub-nav-title">
-                      <div className="p-[12px]">الأبحاث</div>
-
-                      <ul className="grid gap-[4px]">
-                        <li>
-                          <Link
-                            href="#"
-                            onClick={() => handleLinkClick("research")}
-                            className="sub-link sub-menu__link"
-                          >
-                            <div className="flex gap-[16px] items-center">
-                              <img
-                                src="/assets/icons/stroke-standard/book-04-stroke-standard.svg"
-                                alt=""
-                                width={24}
-                                height={24}
-                              />
-                              <span>مكتبة الأبحاث</span>
-                            </div>
-                          </Link>
-                        </li>
-
-                        <li>
-                          <Link
-                            href="#"
-                            onClick={() => handleLinkClick("research")}
-                            className="sub-link sub-menu__link"
-                          >
-                            <div className="flex gap-[16px] items-center">
-                              <img
-                                src="/assets/icons/stroke-standard/chart-bar-line-stroke-standard.svg"
-                                alt=""
-                                width={24}
-                                height={24}
-                              />
-                              <span>الإحصائيات</span>
-                            </div>
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <li>
-                <Link
-                  href="#"
-                  onClick={() => handleLinkClick("news")}
-                  className={`header-menu__item ${
-                    activeLink === "news" ? "header-menu__item--active" : ""
-                  }`}
-                >
-                  <span className="header-menu__item-label">الاخبار</span>
-                </Link>
-              </li>
-            </ul>
+              )}
+            </div>
           </div>
 
-          {/* <!-- Actions --> */}
+          {/* Actions */}
           <div className="header-nav__actions">
             <div className="header-menu__btn">
               <button
@@ -550,56 +224,24 @@ function NavHeader() {
                   <i
                     className="hgi-solid hgi-rounded hgi-more-horizontal-circle-01"
                     style={{ fontSize: "24px" }}
-                  ></i>
+                  />
                 </span>
               </button>
             </div>
 
             <ul className="header-nav__actions">
-              <li className="action-btn-reversed">
-                <Link href="#" className="header-menu__item">
-                  <span className="header-menu__item-label">الترجمة</span>
-                  <span className="header-menu__item-arrow">
-                    <img
-                      src="/assets/icons/stroke-standard/translation-stroke-rounded.svg"
-                      alt=""
-                      width={24}
-                      height={24}
-                      className="inline-block"
-                    />
-                  </span>
-                </Link>
-              </li>
-
-              <li className="action-btn-reversed">
-                <Link href="#" className="header-menu__item">
-                  <span className="header-menu__item-label">تسجيل الدخول</span>
-                  <span className="header-menu__item-arrow">
-                    <img
-                      src="/assets/icons/stroke-standard/user-03-stroke-standard.svg"
-                      alt=""
-                      width={24}
-                      height={24}
-                      className="inline-block"
-                    />{" "}
-                  </span>
-                </Link>
-              </li>
-
-              <li className="action-btn-reversed translate-btn">
-                <Link href="#" className="header-menu__item">
-                  {/* <span className="header-menu__item-label">البحث</span> */}
-                  <span className="header-menu__item-arrow">
-                    <img
-                      src="/assets/icons/stroke-standard/search-01-stroke-standard.svg"
-                      alt=""
-                      width={24}
-                      height={24}
-                      className="inline-block"
-                    />{" "}
-                  </span>
-                </Link>
-              </li>
+              {ACTION_ITEMS.map((action, index) => (
+                <li key={index} className={action.className}>
+                  <Link href={action.href} className="header-menu__item">
+                    {action.label && (
+                      <span className="header-menu__item-label">{action.label}</span>
+                    )}
+                    <span className="header-menu__item-arrow">
+                      <IconImage src={action.icon} />
+                    </span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </nav>
@@ -607,4 +249,5 @@ function NavHeader() {
     </>
   );
 }
+
 export default NavHeader;

@@ -51,10 +51,59 @@
   z-index: 99;
   background-color: var(--background-menu);
 }
-.header--sticky {
-  position: sticky;
+
+
+
+/* Sticky header styles */
+.header--sticky-active {
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  animation: slideDown 0.3s ease-out;
 }
+
+/* Smooth slide down animation */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Submenu positioning for sticky navbar */
+.header--sticky-active .sub-navs {
+  position: fixed !important;
+  top: auto !important;
+}
+
+/* Ensure submenus stay below sticky header */
+.header--sticky-active .sub-navs-fixed {
+  margin-top: 0;
+}
+
+
+/* Ensure z-index hierarchy */
+.header--sticky-active {
+  z-index: 9999;
+}
+
+.sub-navs {
+  z-index: 9998;
+}
+
+ 
+/* Prevent layout shift when header becomes sticky */
+.header--sticky-active + * {
+  margin-top: 0;
+}
+
 .header--divider::after {
   content: "";
   position: absolute;

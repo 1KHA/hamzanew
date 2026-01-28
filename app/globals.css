@@ -179,6 +179,11 @@ body {
     padding: 0px 16px;
 
 }
+
+
+
+
+
 }
 
 @media (min-width: 960px) {
@@ -188,6 +193,9 @@ body {
     padding: 0px 32px;
 
 }
+
+
+ 
 }
 
 @media (min-width: 1280px) {
@@ -201,6 +209,13 @@ body {
 }
 }
 
+
+@media (max-width: 599px) {
+  .overlay {
+      background: linear-gradient(to left, #104f34 20%, transparent 210%) !important;
+
+  }
+}
 
 
 /* Custom dga container */
@@ -341,15 +356,36 @@ li{
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to left, #104f34 20%, transparent 60%);
+  background: linear-gradient(to left, #104f34 10%, transparent 100%);
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
 
 [dir="ltr"] .overlay {
-  background: linear-gradient(to right, #104f34 20%, transparent 60%);
+  background: linear-gradient(to right, #104f34 10%, transparent 100%);
   justify-content: flex-start;
+}
+
+
+/* شعار في الزاوية العلوية اليمنى */
+.banner-logo {
+    position: absolute;
+    /* top: -90px; */
+    right: -120px;
+    z-index: 2;
+        opacity: 1.4;
+}
+
+.banner-logo img {
+    width: 500px;
+    height: auto;
+}
+
+/* للـ LTR */
+[dir="ltr"] .banner-logo {
+  left: 40px;
+  right: auto;
 }
 
 .hero {
@@ -364,8 +400,7 @@ li{
 }
 
 .hero h1 {
-  font-size: 48px;
-  font-weight: 700;
+   font-weight: 700;
   margin-bottom: 16px;
 }
 
@@ -424,11 +459,7 @@ li{
   .hero {
     padding: 0 20px;
   }
-
-  .hero h1 {
-    font-size: 32px;
-  }
-
+ 
   .hero p {
     font-size: 16px;
   }
@@ -451,4 +482,129 @@ li{
   .responsive-cards-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+
+.text-xs-regular {
+  font: 400 12px/18px "IBMPlexSansArabic";
+}
+.text-2xs-regular {
+  font: 400 10px/14px "IBMPlexSansArabic";
+}
+.display-2xl-medium {
+  font: 500 72px/90px "IBMPlexSansArabic";
+}
+.display-xl-medium {
+  font: 500 60px/72px "IBMPlexSansArabic";
+}
+.display-lg-medium {
+  font: 500 48px/60px "IBMPlexSansArabic";
+}
+.display-md-medium {
+  font: 500 36px/44px "IBMPlexSansArabic";
+}
+.display-sm-medium {
+  font: 500 30px/38px "IBMPlexSansArabic";
+}
+.display-xs-medium {
+  font: 500 24px/32px "IBMPlexSansArabic";
+}
+.text-xl-medium {
+  font: 500 20px/30px "IBMPlexSansArabic";
+}
+.text-lg-medium {
+  font: 500 18px/28px "IBMPlexSansArabic";
+}
+.text-md-medium,
+.dga-btn--lg,
+.date-picker__navigator-label {
+  font: 500 16px/24px "IBMPlexSansArabic";
+}
+.text-sm-medium,
+.dga-btn--md {
+  font: 500 14px/20px "IBMPlexSansArabic";
+}
+.text-xs-medium,
+.dga-btn--sm,
+div.table-wrapper .azm-table thead th span span.text {
+  font: 500 12px/18px "IBMPlexSansArabic";
+}
+.text-2xs-medium {
+  font: 500 10px/14px "IBMPlexSansArabic";
+}
+.display-2xl-semibold {
+  font: 600 72px/90px "IBMPlexSansArabic";
+}
+.display-xl-semibold {
+  font: 600 60px/72px "IBMPlexSansArabic";
+}
+.display-lg-semibold {
+  font: 600 48px/60px "IBMPlexSansArabic";
+}
+.display-md-semibold {
+  font: 600 36px/44px "IBMPlexSansArabic";
+}
+.display-sm-semibold {
+  font: 600 30px/38px "IBMPlexSansArabic";
+}
+.display-xs-semibold {
+  font: 600 24px/32px "IBMPlexSansArabic";
+}
+.text-xl-semibold {
+  font: 600 20px/30px "IBMPlexSansArabic";
+}
+.text-lg-semibold {
+  font: 600 18px/28px "IBMPlexSansArabic";
+}
+.text-md-semibold {
+  font: 600 16px/24px "IBMPlexSansArabic";
+}
+.text-sm-semibold,
+.dga-label--lg.semibold,
+.dga-label--md.semibold {
+  font: 600 14px/20px "IBMPlexSansArabic";
+}
+.text-xs-semibold {
+  font: 600 12px/18px "IBMPlexSansArabic";
+}
+.text-2xs-semibold {
+  font: 600 10px/14px "IBMPlexSansArabic";
+}
+.display-2xl-bold {
+  font: 700 72px/90px "IBMPlexSansArabic";
+}
+.display-xl-bold {
+  font: 700 60px/72px "IBMPlexSansArabic";
+}
+.display-lg-bold {
+  font: 700 48px/60px "IBMPlexSansArabic";
+}
+.display-md-bold {
+  font: 700 36px/44px "IBMPlexSansArabic";
+}
+.display-sm-bold {
+  font: 700 30px/38px "IBMPlexSansArabic";
+}
+.display-xs-bold {
+  font: 700 24px/32px "IBMPlexSansArabic";
+}
+.text-xl-bold {
+  font: 700 20px/30px "IBMPlexSansArabic";
+}
+.text-lg-bold {
+  font: 700 18px/28px "IBMPlexSansArabic";
+}
+.text-md-bold,
+.date-cell--today .date-cell__label span {
+  font: 700 16px/24px "IBMPlexSansArabic";
+}
+.text-sm-bold {
+  font: 700 14px/20px "IBMPlexSansArabic";
+}
+.text-xs-bold,
+.menu-group__label {
+  font: 700 12px/18px "IBMPlexSansArabic";
+}
+.text-2xs-bold {
+  font: 700 10px/14px "IBMPlexSansArabic";
 }
