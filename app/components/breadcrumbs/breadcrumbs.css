@@ -56,7 +56,7 @@
 }
 .dga-breadcrumb-icon {
   /* margin-right: 6px; */
-  filter: grayscale(100%) brightness(65%);
+  filter: invert(69%) sepia(9%) saturate(380%) hue-rotate(186deg) brightness(92%) contrast(88%);
   /* color: #999; */
   /* font-size: 12px; */
 }
