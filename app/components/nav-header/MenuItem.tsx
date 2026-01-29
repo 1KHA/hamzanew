@@ -38,7 +38,7 @@ export default function MenuItem({
       </li>
     );
   }
-
+  
   return (
     <li>
       <Link href={item.href || "#"} onClick={onLinkClick} className={menuItemClass}>

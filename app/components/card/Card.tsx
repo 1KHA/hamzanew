@@ -1,3 +1,4 @@
+"use client"
 import React, { ReactNode } from "react";
 import { DgaIcon, DgaButton, DgaTag } from "platformscode-new-react";
 import "./card.css";
