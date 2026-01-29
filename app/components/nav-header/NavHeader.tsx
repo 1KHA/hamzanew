@@ -120,6 +120,7 @@ function NavHeader() {
 
       {/* STICKY WRAPPER for header and submenu */}
       <div
+        ref={navRef}
         style={{
           position: 'sticky',
           top: 0,
@@ -130,7 +131,7 @@ function NavHeader() {
       >
         {/* HEADER */}
         <header className="header header--divider">
-          <nav className="header-nav--full custom-container" ref={navRef}>
+          <nav className="header-nav--full custom-container">
             <div className="header-nav__main">
               {/* Menu button */}
               <div className="header-menu__btn">
