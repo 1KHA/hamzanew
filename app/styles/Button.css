@@ -4,6 +4,8 @@ dga-button {
 
 
 .dga-btn {
+
+  text-wrap-mode: nowrap;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none;     /* IE/Edge */
   user-select: none;

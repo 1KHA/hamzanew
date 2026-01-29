@@ -33,26 +33,23 @@ function GlobalStatisticsSection() {
 
   const statsCard = stats.map((stat) => {
     return (
-      <Card
-        style={{
-          width: 224,
-          height: 172,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 24,
-          textAlign: "center",
-          padding: 16,
-          border: "none",
-          boxShadow:
-            "0 4px 8px -2px rgba(16, 24, 40, 0.10), 0 2px 4px -2px rgba(16, 24, 40, 0.06)",
-        }}
-        key={stat.id}
-        title={stat.value}
-        description={stat.label}
-        icon={stat.icon}
-      />
+   <Card
+  style={{
+    border: "none",
+    boxShadow:
+      "0 4px 8px -2px rgba(16, 24, 40, 0.10), 0 2px 4px -2px rgba(16, 24, 40, 0.06)",
+  }}
+  key={stat.id}
+  title={stat.value}
+  description={stat.label}
+  icon={stat.icon}
+  iconPosition="left"
+  contentAlignment="center"
+  titleClass="display-md-bold"
+  titleColor="#14573A"
+  descriptionClass="text-sm-medium"
+  descriptionColor="#667085"
+/>
     );
   });
 
@@ -64,7 +61,7 @@ function GlobalStatisticsSection() {
           <DgaSearchBox
             label="ابحث عن الدولة"
             showTrailingIcon={false}
-            size="md"
+            size="lg"
             variant="default"
           />
           <div className="input-group">

@@ -159,14 +159,14 @@ export const ACTION_ITEMS = [
   //   icon: "/assets/icons/stroke-standard/translation-stroke-rounded.svg",
   //   className: "action-btn-reversed",
   // },
-  // {
-  //   label: "تسجيل الدخول",
-  //   href: "#",
-  //   icon: "/assets/icons/stroke-standard/user-03-stroke-standard.svg",
-  //   className: "action-btn-reversed",
-  // },
   {
-    label: "البحث",
+    label: "تسجيل الدخول",
+    href: "#",
+    icon: "/assets/icons/stroke-standard/user-03-stroke-standard.svg",
+    className: "action-btn-reversed",
+  },
+  {
+    label: "",
     href: "#",
     icon: "/assets/icons/stroke-standard/search-01-stroke-standard.svg",
     className: "action-btn-reversed translate-btn",

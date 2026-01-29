@@ -768,3 +768,10 @@ width: auto;
     overflow: clip;
   }
 }
+
+/* Hide desktop nav when mobile menu is open (only on mobile) */
+@media only screen and (max-width: 960px) {
+  .nav-sticky-wrapper--hidden {
+    display: none;
+  }
+}

@@ -20,7 +20,7 @@
 @media (min-width: 992px) {
   .global-statistics-section {
     min-height: 578px;
-    padding-block: 40px;
+    padding-block: 0px;
     gap: 0;
     justify-content: space-between;
   }
@@ -50,7 +50,7 @@
 .search-container {
   display: flex;
   width: 100%;
-  max-width: 992px;
+  max-width: 1280px;
   padding: 16px;
   align-items: center;
   justify-content: center;
@@ -112,13 +112,13 @@
   display: grid;
   gap: var(--Global-spacing-4xl, 32px);
   grid-template-columns: 1fr; /* Default: 1 card per row */
-  margin: auto;
+  /* margin: auto; */
 }
 
 /* 599px and up: 2 cards per row */
 @media (min-width: 599px) {
   .cards-grid {
-    width: calc(100% - 32px);
+    width: 100%;
     grid-template-columns: repeat(2, 1fr);
   }
 }

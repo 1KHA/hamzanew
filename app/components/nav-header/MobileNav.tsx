@@ -104,22 +104,38 @@ export default function MobileNav({ isOpen, onClose, activeLink, onLinkClick }: 
             ))}
           </nav>
 
+
+
           {/* Actions */}
           <div className="mobile-nav__actions">
-            {ACTION_ITEMS.map((action, index) => (
-              action.label && (
-                <Link
-                  key={index}
-                  href={action.href}
-                  className="mobile-nav__action-btn"
-                  onClick={onClose}
-                >
-                  <img src={action.icon} alt="" width={20} height={20} />
-                  <span>{action.label}</span>
-                </Link>
-              )
-            ))}
+
+            <div  className="flex justify-between ">
+              {ACTION_ITEMS.map((action, index) => (
+                action.label && (
+                  <Link
+                    key={index}
+                    href={action.href}
+                    className="dga-btn dga-btn--lg dga-btn--subtle"
+                    onClick={onClose}
+                  >
+                    <img src={action.icon} alt="" width={20} height={20} />
+                    <span>{action.label}</span>
+                  </Link>
+                )
+              ))}
+
+              {/* Translation Button */}
+              <Link
+                href="#"
+                className="dga-btn dga-btn--lg dga-btn--subtle"
+                onClick={onClose}
+              >
+                <img src="/assets/icons/stroke-standard/translation-stroke-rounded.svg" alt="" width={20} height={20} />
+                <span>English</span>
+              </Link>
+            </div>
           </div>
+
         </div>
       </div>
     </>

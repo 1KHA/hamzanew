@@ -9,7 +9,11 @@ export default function DigitalSignature() {
     <div className=" bg-[#f5f5f5]">
       {/* <div className="m-5"> */}
       <div className="digital_wrapper border-2 custom-container">
-        <div className="digital_container digital_heads">
+
+
+     <div className="flex justify-between ">
+
+       <div className="digital_container digital_heads">
           {/* Header */}
 
           <div className="flex flex-row gap-[8px] justify-center items-center">
@@ -34,6 +38,9 @@ export default function DigitalSignature() {
               setIsOpen((prev) => !prev);
             }}
           >
+
+
+            
             كيف تتحقق
             <div className="digital_link_icon">
               <img
@@ -50,6 +57,18 @@ export default function DigitalSignature() {
             </div>
           </a>
         </div>
+
+{/* Translation Button */}
+              <Link
+                href="#"
+                className="dga-btn dga-btn--sm dga-btn--subtle !hidden lg:!flex"
+
+              >
+                <img src="/assets/icons/stroke-standard/translation-stroke-rounded.svg" alt="translation-icon" width={20} height={20} />
+                <span>English</span>
+              </Link>
+     </div>
+       
 
         {/* Content */}
         <div className={`digital_collapsible ${isOpen ? 'open' : ''}`}>
