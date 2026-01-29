@@ -13,11 +13,11 @@ export default function page() {
     },
     {
       title: "التطوير المشترك والافكار",
-      link: "#",
+      link: "/e-participation/co-creation",
     },
     {
       title: "البيانات المفتوحة",
-      link: "#",
+      link: "/e-participation/open-data",
     },
     {
       title: "الشكاوى والمقترحات",
