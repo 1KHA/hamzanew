@@ -33,7 +33,7 @@ export default function page() {
     },
     {
       title: "وسائل التواصل الاجتماعي",
-      link: "#",
+      link: "/e-participation/socail-media",
     },
   ];
 
