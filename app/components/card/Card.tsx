@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { ReactNode } from "react";
 import { DgaIcon, DgaButton, DgaTag } from "platformscode-new-react";
 import "./card.css";
@@ -153,110 +153,111 @@ const Card: React.FC<CardProps> = ({
       {tagLable && <DgaTag label={tagLable} size="md" variant="neutral" />}
 
       {/* actions */}
-{(showSecondaryAction || showPrimaryAction || buttonIconOnly) && (
-  <div
-    className={`flex btn-card ${
-      secondaryActionLabel ? "!gap-[12px]" : "!gap-0"
-    }`}
-  >
-    {/* secondary button */}
-    {showSecondaryAction && (
-      <DgaButton
-        tabIndex={0}
-        trailIcon
-        trailIconProps={{ size: 16, type: "standard", variant: "stroke" }}
-        label={secondaryActionLabel}
-        size="md"
-        variant="secondary-outline"
-        onClick={() => {
-          if (!linkSecondaryAction) return;
-          if (linkSecondaryAction.startsWith("http")) {
-            window.open(linkSecondaryAction, external ? "_blank" : "_self");
-          } else {
-            router.push(linkSecondaryAction);
-          }
-        }}
-      />
-    )}
-
-    {/* primary button */}
-    {showPrimaryAction &&(
-      <>
-        {external  ? (
-          <>
-         
-           <button
-        className="dga-btn dga-btn--md dga-btn--primary-brand  !flex !justify-center !items-center !p-4 !cursor-pointer"
-        onClick={() => {
-          if (!linkSecondaryAction) return;
-          if (linkSecondaryAction.startsWith("http")) {
-            window.open(linkSecondaryAction, external ? "_blank" : "_self");
-          } else {
-            router.push(linkSecondaryAction);
-          }
-        }}
-      >
-          <span>{primaryActionLabel}</span> 
-          {/* // <div
-          //   tabIndex={0}
-          //   className={`${buttonColor} flex justify-between gap-[4px] cursor-pointer`}
-          //   onClick={handlePrimaryClick}
-          // >
-            <span>{primaryActionLabel}---</span> */}
-            <img
-              alt=""
-              width={24}
-              height={24}
-              className="inline-block white-icon"
-              src={`/assets/icons/stroke-standard/${resolvedTrailIconType}-stroke-rounded.svg`}
+      {(showSecondaryAction || showPrimaryAction || buttonIconOnly) && (
+        <div
+          className={`flex btn-card ${
+            secondaryActionLabel ? "!gap-[12px]" : "!gap-0"
+          }`}
+        >
+          {/* secondary button */}
+          {showSecondaryAction && (
+            <DgaButton
+              tabIndex={0}
+              trailIcon
+              trailIconProps={{ size: 16, type: "standard", variant: "stroke" }}
+              label={secondaryActionLabel}
+              size="md"
+              variant="secondary-outline"
+              onClick={() => {
+                if (!linkSecondaryAction) return;
+                if (linkSecondaryAction.startsWith("http")) {
+                  window.open(
+                    linkSecondaryAction,
+                    external ? "_blank" : "_self",
+                  );
+                } else {
+                  router.push(linkSecondaryAction);
+                }
+              }}
             />
-            </button>
-             </>
-          // </div>
-        ) : (
-          <DgaButton
-            tabIndex={0}
-            disabled={disablePrimaryAction}
-            label={primaryActionLabel}
-            trailIcon={showPrimaryIcon}
-            trailIconProps={{
-              size: 16,
-              type: "standard",
-              variant: "stroke",
-            }}
-            trailIconType={resolvedTrailIconType}
-            size="md"
-            variant={buttonColor as any}
-            onClick={handlePrimaryClick}
-          />
-        )}
-      </>
-    )}
+          )}
 
-    {/* icon-only button */}
-    {buttonIconOnly && (
-      <button
-        className="dga-btn dga-btn--lg dga-btn--secondary dir-start !flex !justify-center !items-center !p-4 !cursor-pointer"
-        onClick={() => {
-          if (!linkSecondaryAction) return;
-          if (linkSecondaryAction.startsWith("http")) {
-            window.open(linkSecondaryAction, external ? "_blank" : "_self");
-          } else {
-            router.push(linkSecondaryAction);
-          }
-        }}
-      >
-        <img
-          alt=""
-          width={24}
-          height={24}
-          className="inline-block"
-          src={`/assets/icons/stroke-standard/${resolvedTrailIconType}-stroke-rounded.svg`}
-        />
-      </button>
-    )}
-  </div>
-)}
+          {/* primary button */}
+          {showPrimaryAction && (
+            <>
+              {external ? (
+                <>
+                  <button
+                    className="dga-btn dga-btn--md dga-btn--primary-brand  !flex !justify-center !items-center !p-4 !cursor-pointer"
+                    onClick={() => {
+                      if (!linkSecondaryAction) return;
+                      if (linkSecondaryAction.startsWith("http")) {
+                        window.open(
+                          linkSecondaryAction,
+                          external ? "_blank" : "_self",
+                        );
+                      } else {
+                        router.push(linkSecondaryAction);
+                      }
+                    }}
+                  >
+                    <span>{primaryActionLabel}</span>
+                    <img
+                      alt=""
+                      width={24}
+                      height={24}
+                      className="inline-block white-icon"
+                      src={`/assets/icons/stroke-standard/${resolvedTrailIconType}-stroke-rounded.svg`}
+                    />
+                  </button>
+                </>
+              ) : (
+                <DgaButton
+                  tabIndex={0}
+                  disabled={disablePrimaryAction}
+                  label={primaryActionLabel}
+                  trailIcon={showPrimaryIcon}
+                  trailIconProps={{
+                    size: 16,
+                    type: "standard",
+                    variant: "stroke",
+                  }}
+                  trailIconType={resolvedTrailIconType}
+                  size="md"
+                  variant={buttonColor as any}
+                  onClick={handlePrimaryClick}
+                />
+              )}
+            </>
+          )}
+
+          {/* icon-only button */}
+          {buttonIconOnly && (
+            <button
+              className="dga-btn dga-btn--lg dga-btn--secondary dir-start !flex !justify-center !items-center !p-4 !cursor-pointer"
+              onClick={() => {
+                if (!linkSecondaryAction) return;
+                if (linkSecondaryAction.startsWith("http")) {
+                  window.open(
+                    linkSecondaryAction,
+                    external ? "_blank" : "_self",
+                  );
+                } else {
+                  router.push(linkSecondaryAction);
+                }
+              }}
+            >
+              <img
+                alt=""
+                width={24}
+                height={24}
+                className="inline-block"
+                src={`/assets/icons/stroke-standard/${resolvedTrailIconType}-stroke-rounded.svg`}
+              />
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -45,7 +45,6 @@ export default function page() {
             "0 4px 8px -2px rgba(16, 24, 40, 0.10), 0 2px 4px -2px rgba(16, 24, 40, 0.06)",
         }}
         title={item.name}
-        // image={item.logo}
         icon={item.logo}
         primaryTrailIconType="arrow"
         buttonIconOnly={true}

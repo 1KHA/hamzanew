@@ -25,7 +25,7 @@ export default function page() {
     },
     {
       title: "تقارير صوت المستفيد",
-      link: "#",
+      link: "/e-participation/voice-reports",
     },
     {
       title: "إحصائيات الموقع والخدمات",
