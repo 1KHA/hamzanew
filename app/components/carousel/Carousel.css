@@ -1,22 +1,49 @@
 .custom-carousel {
   position: relative;
   width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .carousel-viewport {
   width: 100%;
   overflow: hidden;
-}
+  max-width: 100%;
+ }
 
 .carousel-container {
   display: flex;
   transition: transform 0.5s ease-in-out;
   will-change: transform;
+  width: 100%;
+  max-width: 100%;
 }
 
 .carousel-item {
   flex-shrink: 0;
   min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.carousel-item > * {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Mobile: Gap handled by component, just ensure 100% width */
+@media (max-width: 599px) {
+  .carousel-item {
+    max-width: 100% !important;
+  }
+}
+
+/* Tablet: Let component handle calculations */
+@media (min-width: 600px) and (max-width: 1279px) {
+  .carousel-item {
+    max-width: 50% !important;
+  }
 }
 
 /* Arrows */

@@ -1,0 +1,220 @@
+/* ===================== */
+/*       TAG STYLES      */
+/* ===================== */
+
+.tag {
+  display: inline-flex;
+  height: 32px;
+  padding: var(--spacing-none) var(--spacing-lg);
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+}
+
+.tag-icon {
+  display: flex;
+  padding: 1.875px 1.5px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===================== */
+/*      TAG SIZES        */
+/* ===================== */
+.tag--lg {
+  height: 32px;
+  font: 500 14px/20px "IBMPlexSansArabic";
+}
+.tag--lg .tag-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.tag--md {
+  height: 24px;
+  font: 500 12px/18px "IBMPlexSansArabic";
+}
+.tag--md .tag-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.tag--sm {
+  height: 20px;
+  font: 500 10px/14px "IBMPlexSansArabic";
+}
+.tag--sm .tag-icon {
+  width: 10px;
+  height: 10px;
+}
+/* ===================== */
+/*   TAG ROUNDED/ICON    */
+/* ===================== */
+
+.tag--rounded {
+  border-radius: var(--radius-full);
+}
+
+.tag--icon {
+  padding: 0;
+}
+.tag--icon.tag--lg {
+  width: 32px;
+  height: 32px;
+}
+.tag--icon.tag--md {
+  width: 24px;
+  height: 24px;
+}
+.tag--icon.tag--sm {
+  width: 20px;
+  height: 20px;
+}
+
+/* ===================== */
+/*    TAG VARIANTS       */
+/* ===================== */
+
+/* Neutral */
+.tag--neutral {
+  color: var(--tag-text-neutral);
+  background: var(--tag-background-neutral-light);
+  border: 1px solid var(--border-neutral-secondary);
+}
+.tag--neutral-outlined {
+  border: 1px solid var(--tag-border-neutral);
+  background-color: transparent;
+  color: var(--tag-text-neutral);
+}
+.tag--neutral svg {
+  color: currentColor;
+  stroke: currentColor;
+}
+
+/* Success */
+.tag--success {
+  color: var(--tag-text-success);
+  background-color: var(--tag-background-success-light);
+  border: 1px solid var(--tag-border-success-light);
+}
+.tag--success-outlined {
+  border: 1px solid var(--tag-border-success);
+  background-color: transparent;
+  color: var(--tag-text-success);
+}
+.tag--success svg {
+  color: currentColor;
+  stroke: currentColor;
+}
+
+/* Error */
+.tag--error {
+  color: var(--tag-text-error);
+  background-color: var(--tag-background-error-light);
+  border: 1px solid var(--tag-border-error-light);
+}
+.tag--error-outlined {
+  border: 1px solid var(--tag-border-error);
+  background-color: transparent;
+  color: var(--tag-text-error);
+}
+.tag--error svg {
+  color: currentColor;
+  stroke: currentColor;
+}
+
+/* Warning */
+.tag--warning {
+  color: var(--tag-text-warning);
+  background-color: var(--tag-background-warning-light);
+  border: 1px solid var(--tag-border-warning-light);
+}
+.tag--warning-outlined {
+  border: 1px solid var(--tag-border-error);
+  background-color: transparent;
+  color: var(--tag-text-warning);
+}
+.tag--warning svg {
+  color: currentColor;
+  stroke: currentColor;
+}
+
+/* Info */
+.tag--info {
+  color: var(--tag-text-info);
+  background-color: var(--tag-background-info-light);
+  border: 1px solid var(--tag-border-info-light);
+}
+.tag--info-outlined {
+  border: 1px solid var(--tag-border-info);
+  background-color: transparent;
+  color: var(--tag-text-info);
+}
+.tag--info svg {
+  color: currentColor;
+  stroke: currentColor;
+}
+
+/* Purple */
+.tag--purple {
+  color: var(--colors-purple-700);
+  background-color: var(--colors-purple-50);
+  border: 1px solid var(--colors-purple-200);
+}
+.tag--purple-outlined {
+  border: 1px solid var(--colors-purple-500);
+  background-color: transparent;
+  color: var(--colors-purple-700);
+}
+.tag--purple svg {
+  color: currentColor;
+  stroke: currentColor;
+}
+
+/* Pink */
+.tag--pink {
+  color: var(--colors-pink-700);
+  background-color: var(--colors-pink-50);
+  border: 1px solid var(--colors-pink-200);
+}
+.tag--pink-outlined {
+  border: 1px solid var(--colors-pink-500);
+  background-color: transparent;
+  color: var(--colors-pink-700);
+}
+.tag--pink svg {
+  color: currentColor;
+  stroke: currentColor;
+}
+
+/* Orange */
+.tag--orange {
+  color: var(--colors-orange-700);
+  background-color: var(--colors-orange-50);
+  border: 1px solid var(--colors-orange-200);
+}
+.tag--orange-outlined {
+  border: 1px solid var(--colors-orange-500);
+  background-color: transparent;
+  color: var(--colors-orange-700);
+}
+.tag--orange svg {
+  color: currentColor;
+  stroke: currentColor;
+}
+
+/* On Color */
+.tag--on-color {
+  color: var(--text-oncolor-primary, #FFF);
+  background: var(--tag-background-on-color, rgba(255, 255, 255, 0.2));
+}
+.tag--on-color-outlined {
+  border: 1px solid var(--tag-border-on-color, rgba(255, 255, 255, 0.6));
+  background-color: transparent;
+  color: hsl(var(--colors-alpha-white) / 90%);
+}
+.tag--on-color svg {
+  color: currentColor;
+  stroke: currentColor;
+}

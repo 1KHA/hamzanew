@@ -1,6 +1,8 @@
 "use client";
 import { DgaTag } from "platformscode-new-react";
 import Banner from "./components/Banner";
+import Tag from "./components/tag/Tag";
+
 import Carousel from "./components/carousel/Carousel";
 import "./styles/Button.css";
 import GlobalStatisticsSection from "./components/global-statistics-section/GlobalStatisticsSection";
@@ -40,44 +42,38 @@ export default function Home() {
       id: 1,
       title: "إقبال واسع على منصة اختبارات همزة في مرحلتها الأولى",
       des: "شهدت المنصة تفاعلاً كبيراً من المتقدمين لقياس كفايات اللغة العربية، مع تحديثات مستمرة على تجربة المستخدم.",
-      image:
-        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80",
+      image: "/assets/image/photo2.jpg",
     },
     {
       id: 2,
       title: "اختبارات همزة توفر مؤشرات نوعية لدعم الباحثين وصنّاع القرار",
       des: "تم إطلاق لوحة مؤشرات تعرض نتائج تحليلية تساعد الجهات التعليمية على تحسين برامجها وتطوير مخرجاتها.",
-      image:
-        "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&q=80",
+      image: "/assets/image/photo1.jpg",
     },
     {
       id: 3,
       title:
         "منصة اختبارات همزة تطلق النسخة التجريبية الأولى لقياس كفايات العربية",
       des: "تتضمن النسخة التجريبية مسارات متعددة وأسئلة معيارية مصممة وفق أفضل الممارسات لضمان جودة القياس.",
-      image:
-        "https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=1200&q=80",
+      image: "/assets/image/photo4.jpg",
     },
     {
       id: 4,
       title: "تطوير بنوك أسئلة جديدة لرفع دقة القياس في مهارات اللغة",
       des: "يتم العمل على إثراء بنك الأسئلة وإضافة نماذج تقييم متنوعة لقياس الفهم والكتابة والاستيعاب.",
-      image:
-        "https://images.unsplash.com/photo-1513258496099-48168024aec0?w=1200&q=80",
+      image: "/assets/image/photo1.jpg",
     },
     {
       id: 5,
       title: "شراكات جديدة لتعزيز جودة المحتوى وتوسيع نطاق الاختبارات",
       des: "تسعى المنصة إلى التعاون مع جهات أكاديمية وخبراء لتطوير المحتوى وبناء معايير أكثر تخصصاً.",
-      image:
-        "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&q=80",
+      image: "/assets/image/photo1.jpg",
     },
     {
       id: 6,
       title: "تحسين تجربة التسجيل وإتاحة الوصول عبر الأجهزة المختلفة",
       des: "تم تحديث واجهة التسجيل وتحسين الأداء لضمان تجربة سلسة على الهاتف والكمبيوتر مع دعم كامل للاتجاه RTL.",
-      image:
-        "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80",
+      image: "/assets/image/photo1.jpg",
     },
   ];
 
@@ -91,7 +87,8 @@ export default function Home() {
         icon={item.icon}
         showPrimaryAction={true}
         primaryActionLabel="التسجيل للاختبار"
-        
+        showPrimaryIcon={true}
+        primaryTrailIconType="arrow-up-right-01"
         showSecondaryAction
         secondaryActionLabel="المزيد"
       />
@@ -140,21 +137,21 @@ export default function Home() {
 
       {/* services section */}
       <div className="bg-neutral-50">
-        <section className="section-spacing-5xl custom-container">
-          <div className="border-2">
+        <section className="section-spacing-5xl custom-container gap-[32px] !flex flex-col">
+          <div className="grid gap-[24px]">
             <div className="flex-between-center">
-              <h1 className="display-sm-bold">قسم الخدمات</h1>
-              <button className="dga-btn dga-btn--lg dga-btn--secondary-outline">
+              <h1 className="display-sm-bold"> تعرف على اختبارات همزة </h1>
+              <button className="dga-btn dga-btn--md  text-warp dga-btn--secondary-outline">
                 <span className="dga-btn-label">عرض الكل</span>
               </button>
             </div>
 
-            <p className="text-md-regular section-spacing-3xl">
+            <p className="text-md-regular  ">
               نوفر خدمات إلكترونية للتسجيل في الاختبارات، مع تقديم معلومات واضحة
               ومبسطة عن كل اختبار
             </p>
           </div>
-          <div className="section-spacing-4xl">
+          <div className="">
             <Carousel itemsPerSlide={4} gap={20}>
               {servicesCard}
             </Carousel>
@@ -164,16 +161,16 @@ export default function Home() {
 
       {/* <div className=""> */}
       {/* news section */}
-      <section className="section-spacing-5xl custom-container">
-        <div className="">
+      <section className="section-spacing-5xl custom-container gap-[32px] !flex flex-col">
+        <div className="grid gap-[24px]">
           <div className="flex-between-center">
             <h1 className="display-sm-bold"> الاخبار والمقالات</h1>
-            <button className="dga-btn dga-btn--lg dga-btn--secondary-outline">
+            <button className="dga-btn dga-btn--md dga-btn--secondary-outline">
               <span className="dga-btn-label">عرض الكل</span>
             </button>
           </div>
 
-          <p className="text-md-regular section-spacing-3xl">
+          <p className="text-md-regular ">
             نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير
             الاختبارات المعيارية للغة العربية
           </p>
@@ -189,60 +186,52 @@ export default function Home() {
       {/* hamza in numbers section */}
 
       <div className="bg-neutral-50">
-        
-      <section className="section-spacing-5xl custom-container">
-       
-          <div className="">
+        <section className="section-spacing-5xl custom-container gap-[32px] !flex flex-col">
+          <div className="grid gap-[24px]">
             <div className="flex-between-center">
               <h1 className="display-sm-bold"> همزة في أرقام</h1>
-              <button className="dga-btn dga-btn--lg dga-btn--secondary-outline">
+              <button className="dga-btn dga-btn--md dga-btn--secondary-outline">
                 <span className="dga-btn-label">عرض الكل</span>
               </button>
             </div>
 
-            <p className="text-md-regular section-spacing-3xl">
+            <p className="text-md-regular ">
               نوفر خدمات إلكترونية للتسجيل في الاختبارات، مع تقديم معلومات واضحة
               ومبسطة عن كل اختبار
             </p>
           </div>
- 
-        <div className="section-spacing-4xl">
-          <GlobalStatisticsSection />
-        </div>
-      </section>
 
+          <div className="">
+            <GlobalStatisticsSection />
+          </div>
+        </section>
       </div>
       <div className="bg-white">
         {/* partners section */}
-        <section className="section-spacing-5xl custom-container">
-          <div className="">
+        <section className="section-spacing-5xl custom-container gap-[32px] !flex flex-col">
+          <div className="grid gap-[24px]">
             <div className="flex-between-center">
               <h1 className="display-sm-bold">الشركاء</h1>
             </div>
-            <div className="section-spacing-4xl flex-start-center gap-4">
-              <DgaTag
+            <div className=" flex-start-center gap-4">
+              <Tag
                 label="داخل المملكة العربية السعودية"
-                leadIcon={{
-                  name: "CircleIcon",
-                  type: "rounded",
-                  variant: "stroke",
-                }}
-                size="md"
                 variant="success"
+                size="lg"
+                trailIcon={{ src: "/assets/image/Country Flags.svg" }}
               />
-              <DgaTag
+
+              <Tag
                 label="دول أخرى"
-                leadIcon={{
-                  name: "FlagIcon",
-                  type: "rounded",
-                  variant: "stroke",
-                }}
-                size="md"
                 variant="neutral"
+                size="lg"
+                trailIcon={{
+                  src: "/assets/icons/stroke-standard/flag-02-stroke-rounded.svg",
+                }}
               />
             </div>
           </div>
-          <div className="section-spacing-4xl">
+          <div className="">
             <Carousel
               itemsPerSlide={partners.length - 6}
               gap={20}

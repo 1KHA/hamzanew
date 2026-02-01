@@ -158,7 +158,8 @@
   }
 }
 
-.header-menu__item:focus, .header-menu__item:active, a:focus, a:active {
+.header-menu__item:focus a,
+.header-menu__item:active a {
     outline: 2px solid #161616 !important;
     outline-offset: 1px !important;
     border-radius: 6px;
@@ -766,5 +767,12 @@ width: auto;
     width: 400px;
     padding: 0px 50px;
     overflow: clip;
+  }
+}
+
+/* Hide desktop nav when mobile menu is open (only on mobile) */
+@media only screen and (max-width: 960px) {
+  .nav-sticky-wrapper--hidden {
+    display: none;
   }
 }

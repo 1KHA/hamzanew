@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, ReactNode, Children, useRef } from "react";
+import React, { useState, useEffect, ReactNode, Children } from "react";
 import "./Carousel.css";
 
 interface CustomCarouselProps {
@@ -28,25 +28,36 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isRTL, setIsRTL] = useState(true); // Default to true as per project context
+
   /* Responsive itemsPerSlide logic */
-  const [effectiveItems, setEffectiveItems] = useState(itemsPerSlide);
+  const [effectiveItems, setEffectiveItems] = useState(1); // Default to 1 for mobile-first
 
   useEffect(() => {
-    const handleResize = () => {
-      // User requested 1 card for sm (600) and md (960)
-      // We interpret this as: below 960px, show 1 card.
-      if (window.innerWidth < 960) {
-        setEffectiveItems(1);
+    const updateItemsPerSlide = () => {
+      const width = window.innerWidth;
+      let newItems;
+
+      // Responsive breakpoints:
+      // Mobile (< 600px): 1 card
+      // Medium (600px - 1280px): 2 cards
+      // Extra Large (>= 1280px): original itemsPerSlide value
+      if (width < 600) {
+        newItems = 1;
+      } else if (width < 1280) {
+        newItems = 2;
       } else {
-        setEffectiveItems(itemsPerSlide);
+        newItems = itemsPerSlide;
       }
+
+      setEffectiveItems(newItems);
     };
 
-    // Initial check
-    handleResize();
+    // Run on mount
+    updateItemsPerSlide();
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    // Run on resize
+    window.addEventListener("resize", updateItemsPerSlide);
+    return () => window.removeEventListener("resize", updateItemsPerSlide);
   }, [itemsPerSlide]);
 
   const items = Children.toArray(children);
@@ -92,7 +103,7 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
   const translationMultiplier = isRTL ? 1 : -1;
 
   return (
-    <div className="custom-carousel" dir={isRTL ? "rtl" : "ltr"}>
+    <div className="custom-carousel" >
       <div className="carousel-viewport">
         <div
           className="carousel-container"

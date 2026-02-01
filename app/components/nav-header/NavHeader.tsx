@@ -124,10 +124,9 @@ function NavHeader() {
         style={{
           position: 'sticky',
           top: 0,
-          zIndex: 9999,
-          display: isMenuOpen ? 'none' : 'block'
+          zIndex: 9999
         }}
-        className="nav-sticky-wrapper"
+        className={`nav-sticky-wrapper ${isMenuOpen ? 'nav-sticky-wrapper--hidden' : ''}`}
       >
         {/* HEADER */}
         <header className="header header--divider">
