@@ -29,7 +29,7 @@ export default function page() {
     },
     {
       title: "إحصائيات الموقع والخدمات",
-      link: "#",
+      link: "/e-participation/services-statistics",
     },
     {
       title: "وسائل التواصل الاجتماعي",

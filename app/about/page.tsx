@@ -27,8 +27,8 @@ function AboutPage() {
 
     {
       icon: "school-01",
-      title: "اللجنة الاستشارية الدولية",
-      link: "/about/international-advisory-committee",
+      title: "اللجنة الاستشارية الدورية",
+      link: "/about/periodic-advisory-committee",
     },
     {
       icon: "share-08",
