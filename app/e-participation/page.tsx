@@ -13,11 +13,11 @@ export default function page() {
     },
     {
       title: "التطوير المشترك والافكار",
-      link: "#",
+      link: "/e-participation/co-creation",
     },
     {
       title: "البيانات المفتوحة",
-      link: "#",
+      link: "/e-participation/open-data",
     },
     {
       title: "الشكاوى والمقترحات",
@@ -25,7 +25,7 @@ export default function page() {
     },
     {
       title: "تقارير صوت المستفيد",
-      link: "#",
+      link: "/e-participation/voice-reports",
     },
     {
       title: "إحصائيات الموقع والخدمات",
@@ -33,7 +33,7 @@ export default function page() {
     },
     {
       title: "وسائل التواصل الاجتماعي",
-      link: "#",
+      link: "/e-participation/socail-media",
     },
   ];
 

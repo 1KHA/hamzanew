@@ -26,7 +26,7 @@ function GlobalStatisticsSection() {
     {
       id: "experts",
       value: "1.5M",
-      label: "عدد المختبرين عالميًا",
+      label: " مختبر  عالميًا",
       icon: "certificate-01",
     },
   ];
@@ -151,7 +151,7 @@ function GlobalStatisticsSection() {
         </div>
         {/* statistics section */}
         <div className="cards-wrapper">
-          <div className="cards-grid">{statsCard}</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-[24px] w-full">{statsCard}</div>
         </div>
       </div>
     </>

@@ -103,7 +103,7 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
   const translationMultiplier = isRTL ? 1 : -1;
 
   return (
-    <div className="custom-carousel" dir={isRTL ? "rtl" : "ltr"}>
+    <div className="custom-carousel" >
       <div className="carousel-viewport">
         <div
           className="carousel-container"

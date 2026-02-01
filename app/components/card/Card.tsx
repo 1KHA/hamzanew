@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { ReactNode } from "react";
 import { DgaIcon, DgaButton, DgaTag } from "platformscode-new-react";
 import "./card.css";
@@ -255,28 +255,26 @@ const Card: React.FC<CardProps> = ({
           {showPrimaryAction && (
             <>
               {external ? (
-                <>
-                  <button
-                    className="dga-btn dga-btn--md dga-btn--primary-brand  !flex !justify-center !items-center !p-4 !cursor-pointer"
-                    onClick={() => {
-                      if (!linkSecondaryAction) return;
-                      if (linkSecondaryAction.startsWith("http")) {
-                        window.open(linkSecondaryAction, external ? "_blank" : "_self");
-                      } else {
-                        router.push(linkSecondaryAction);
-                      }
-                    }}
-                  >
-                    <span>{primaryActionLabel}</span>
-                    <img
-                      alt=""
-                      width={24}
-                      height={24}
-                      className="inline-block white-icon"
-                      src={`/assets/icons/stroke-standard/${resolvedTrailIconType}-stroke-rounded.svg`}
-                    />
-                  </button>
-                </>
+                <button
+                  className="dga-btn dga-btn--md dga-btn--primary-brand  !flex !justify-center !items-center !p-4 !cursor-pointer"
+                  onClick={() => {
+                    if (!linkPrimaryAction) return;
+                    if (linkPrimaryAction.startsWith("http")) {
+                      window.open(linkPrimaryAction, external ? "_blank" : "_self");
+                    } else {
+                      router.push(linkPrimaryAction);
+                    }
+                  }}
+                >
+                  <span>{primaryActionLabel}</span>
+                  <img
+                    alt=""
+                    width={24}
+                    height={24}
+                    className="inline-block white-icon"
+                    src={`/assets/icons/stroke-standard/${resolvedTrailIconType}-stroke-rounded.svg`}
+                  />
+                </button>
               ) : (
                 <DgaButton
                   tabIndex={0}
@@ -302,11 +300,11 @@ const Card: React.FC<CardProps> = ({
             <button
               className="dga-btn dga-btn--lg dga-btn--secondary dir-start !flex !justify-center !items-center !p-4 !cursor-pointer"
               onClick={() => {
-                if (!linkSecondaryAction) return;
-                if (linkSecondaryAction.startsWith("http")) {
-                  window.open(linkSecondaryAction, external ? "_blank" : "_self");
+                if (!linkPrimaryAction) return;
+                if (linkPrimaryAction.startsWith("http")) {
+                  window.open(linkPrimaryAction, external ? "_blank" : "_self");
                 } else {
-                  router.push(linkSecondaryAction);
+                  router.push(linkPrimaryAction);
                 }
               }}
             >
@@ -321,6 +319,8 @@ const Card: React.FC<CardProps> = ({
           )}
         </div>
       )}
+
+
     </div>
   );
 };

@@ -503,126 +503,325 @@ li {
   }
 }
 
+/* ──────────────────────────────────────────────
+   1. DESKTOP — default values
+   ────────────────────────────────────────────── */
+:root {
+  /* Display */
+  --font-size-display-2xl: 72px;
+  --line-height-display-2xl: 90px;
+
+  --font-size-display-xl: 60px;
+  --line-height-display-xl: 72px;
+
+  --font-size-display-lg: 48px;
+  --line-height-display-lg: 60px;
+
+  --font-size-display-md: 36px;
+  --line-height-display-md: 44px;
+
+  --font-size-display-sm: 30px;
+  --line-height-display-sm: 38px;
+
+  --font-size-display-xs: 24px;
+  --line-height-display-xs: 32px;
+
+  /* Text */
+  --font-size-text-xl: 20px;
+  --line-height-text-xl: 30px;
+
+  --font-size-text-lg: 18px;
+  --line-height-text-lg: 28px;
+
+  --font-size-text-md: 16px;
+  --line-height-text-md: 24px;
+
+  --font-size-text-sm: 14px;
+  --line-height-text-sm: 20px;
+
+  --font-size-text-xs: 12px;
+  --line-height-text-xs: 18px;
+
+  --font-size-text-2xs: 10px;
+  --line-height-text-2xs: 14px;
+}
+
+
+/* ──────────────────────────────────────────────
+   2. TABLET — 1024px
+   ────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  :root {
+    /* Display */
+    --font-size-display-2xl: 60px;
+    --line-height-display-2xl: 74px;
+
+    --font-size-display-xl: 48px;
+    --line-height-display-xl: 60px;
+
+    --font-size-display-lg: 40px;
+    --line-height-display-lg: 50px;
+
+    --font-size-display-md: 32px;
+    --line-height-display-md: 40px;
+
+    --font-size-display-sm: 26px;
+    --line-height-display-sm: 34px;
+
+    --font-size-display-xs: 22px;
+    --line-height-display-xs: 30px;
+
+    /* Text */
+    --font-size-text-xl: 18px;
+    --line-height-text-xl: 28px;
+
+    --font-size-text-lg: 17px;
+    --line-height-text-lg: 26px;
+
+    --font-size-text-md: 15px;
+    --line-height-text-md: 22px;
+
+    --font-size-text-sm: 14px;
+    --line-height-text-sm: 20px;
+
+    --font-size-text-xs: 12px;
+    --line-height-text-xs: 18px;
+
+    --font-size-text-2xs: 10px;
+    --line-height-text-2xs: 14px;
+  }
+}
+
+
+/* ──────────────────────────────────────────────
+   3. SMALL TABLET — 768px
+   ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  :root {
+    /* Display */
+    --font-size-display-2xl: 48px;
+    --line-height-display-2xl: 60px;
+
+    --font-size-display-xl: 40px;
+    --line-height-display-xl: 50px;
+
+    --font-size-display-lg: 34px;
+    --line-height-display-lg: 42px;
+
+    --font-size-display-md: 28px;
+    --line-height-display-md: 34px;
+
+    --font-size-display-sm: 24px;
+    --line-height-display-sm: 30px;
+
+    --font-size-display-xs: 20px;
+    --line-height-display-xs: 26px;
+
+    /* Text */
+    --font-size-text-xl: 17px;
+    --line-height-text-xl: 26px;
+
+    --font-size-text-lg: 16px;
+    --line-height-text-lg: 24px;
+
+    --font-size-text-md: 14px;
+    --line-height-text-md: 21px;
+
+    --font-size-text-sm: 13px;
+    --line-height-text-sm: 19px;
+
+    --font-size-text-xs: 12px;
+    --line-height-text-xs: 18px;
+
+    --font-size-text-2xs: 10px;
+    --line-height-text-2xs: 14px;
+  }
+}
+
+
+/* ──────────────────────────────────────────────
+   4. MOBILE — 640px
+   ────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  :root {
+    /* Display */
+    --font-size-display-2xl: 42px;
+    --line-height-display-2xl: 52px;
+
+    --font-size-display-xl: 35px;
+    --line-height-display-xl: 42px;
+
+    --font-size-display-lg: 28px;
+    --line-height-display-lg: 35px;
+
+    --font-size-display-md: 22px;
+    --line-height-display-md: 28px;
+
+    --font-size-display-sm: 18px;
+    --line-height-display-sm: 24px;
+
+    --font-size-display-xs: 16px;
+    --line-height-display-xs: 22px;
+
+    /* Text */
+    --font-size-text-xl: 15px;
+    --line-height-text-xl: 22px;
+
+    --font-size-text-lg: 14px;
+    --line-height-text-lg: 21px;
+
+    --font-size-text-md: 13px;
+    --line-height-text-md: 19px;
+
+    --font-size-text-sm: 12px;
+    --line-height-text-sm: 18px;
+
+    --font-size-text-xs: 11px;
+    --line-height-text-xs: 16px;
+
+    --font-size-text-2xs: 10px;
+    --line-height-text-2xs: 14px;
+  }
+}
+
+
+/* ============================================================
+   CLASSES — تستخدم var() بس، لا تتغير أبداً
+   ============================================================ */
+
+/* ── Regular ── */
 .text-xs-regular {
-  font: 400 12px/18px "IBMPlexSansArabic";
+  font: 400 var(--font-size-text-xs) / var(--line-height-text-xs) "IBMPlexSansArabic" !important;
 }
 .text-2xs-regular {
-  font: 400 10px/14px "IBMPlexSansArabic";
+  font: 400 var(--font-size-text-2xs) / var(--line-height-text-2xs) "IBMPlexSansArabic" !important;
 }
+
+/* ── Display — Medium ── */
 .display-2xl-medium {
-  font: 500 72px/90px "IBMPlexSansArabic";
+  font: 500 var(--font-size-display-2xl) / var(--line-height-display-2xl) "IBMPlexSansArabic" !important;
 }
 .display-xl-medium {
-  font: 500 60px/72px "IBMPlexSansArabic";
+  font: 500 var(--font-size-display-xl) / var(--line-height-display-xl) "IBMPlexSansArabic" !important;
 }
 .display-lg-medium {
-  font: 500 48px/60px "IBMPlexSansArabic";
+  font: 500 var(--font-size-display-lg) / var(--line-height-display-lg) "IBMPlexSansArabic" !important;
 }
 .display-md-medium {
-  font: 500 36px/44px "IBMPlexSansArabic";
+  font: 500 var(--font-size-display-md) / var(--line-height-display-md) "IBMPlexSansArabic" !important;
 }
 .display-sm-medium {
-  font: 500 30px/38px "IBMPlexSansArabic";
+  font: 500 var(--font-size-display-sm) / var(--line-height-display-sm) "IBMPlexSansArabic" !important;
 }
 .display-xs-medium {
-  font: 500 24px/32px "IBMPlexSansArabic";
+  font: 500 var(--font-size-display-xs) / var(--line-height-display-xs) "IBMPlexSansArabic" !important;
 }
+
+/* ── Text — Medium ── */
 .text-xl-medium {
-  font: 500 20px/30px "IBMPlexSansArabic";
+  font: 500 var(--font-size-text-xl) / var(--line-height-text-xl) "IBMPlexSansArabic" !important;
 }
 .text-lg-medium {
-  font: 500 18px/28px "IBMPlexSansArabic";
+  font: 500 var(--font-size-text-lg) / var(--line-height-text-lg) "IBMPlexSansArabic" !important;
 }
 .text-md-medium,
 .dga-btn--lg,
 .date-picker__navigator-label {
-  font: 500 16px/24px "IBMPlexSansArabic";
+  font: 500 var(--font-size-text-md) / var(--line-height-text-md) "IBMPlexSansArabic" !important;
 }
 .text-sm-medium,
 .dga-btn--md {
-  font: 500 14px/20px "IBMPlexSansArabic";
+  font: 500 var(--font-size-text-sm) / var(--line-height-text-sm) "IBMPlexSansArabic" !important;
 }
 .text-xs-medium,
 .dga-btn--sm,
 div.table-wrapper .azm-table thead th span span.text {
-  font: 500 12px/18px "IBMPlexSansArabic";
+  font: 500 var(--font-size-text-xs) / var(--line-height-text-xs) "IBMPlexSansArabic" !important;
 }
 .text-2xs-medium {
-  font: 500 10px/14px "IBMPlexSansArabic";
+  font: 500 var(--font-size-text-2xs) / var(--line-height-text-2xs) "IBMPlexSansArabic" !important;
 }
+
+/* ── Display — Semibold ── */
 .display-2xl-semibold {
-  font: 600 72px/90px "IBMPlexSansArabic";
+  font: 600 var(--font-size-display-2xl) / var(--line-height-display-2xl) "IBMPlexSansArabic" !important;
 }
 .display-xl-semibold {
-  font: 600 60px/72px "IBMPlexSansArabic";
+  font: 600 var(--font-size-display-xl) / var(--line-height-display-xl) "IBMPlexSansArabic" !important;
 }
 .display-lg-semibold {
-  font: 600 48px/60px "IBMPlexSansArabic";
+  font: 600 var(--font-size-display-lg) / var(--line-height-display-lg) "IBMPlexSansArabic" !important;
 }
 .display-md-semibold {
-  font: 600 36px/44px "IBMPlexSansArabic";
+  font: 600 var(--font-size-display-md) / var(--line-height-display-md) "IBMPlexSansArabic" !important;
 }
 .display-sm-semibold {
-  font: 600 30px/38px "IBMPlexSansArabic";
+  font: 600 var(--font-size-display-sm) / var(--line-height-display-sm) "IBMPlexSansArabic" !important;
 }
 .display-xs-semibold {
-  font: 600 24px/32px "IBMPlexSansArabic";
+  font: 600 var(--font-size-display-xs) / var(--line-height-display-xs) "IBMPlexSansArabic" !important;
 }
+
+/* ── Text — Semibold ── */
 .text-xl-semibold {
-  font: 600 20px/30px "IBMPlexSansArabic";
+  font: 600 var(--font-size-text-xl) / var(--line-height-text-xl) "IBMPlexSansArabic" !important;
 }
 .text-lg-semibold {
-  font: 600 18px/28px "IBMPlexSansArabic";
+  font: 600 var(--font-size-text-lg) / var(--line-height-text-lg) "IBMPlexSansArabic" !important;
 }
 .text-md-semibold {
-  font: 600 16px/24px "IBMPlexSansArabic";
+  font: 600 var(--font-size-text-md) / var(--line-height-text-md) "IBMPlexSansArabic" !important;
 }
 .text-sm-semibold,
 .dga-label--lg.semibold,
 .dga-label--md.semibold {
-  font: 600 14px/20px "IBMPlexSansArabic";
+  font: 600 var(--font-size-text-sm) / var(--line-height-text-sm) "IBMPlexSansArabic" !important;
 }
 .text-xs-semibold {
-  font: 600 12px/18px "IBMPlexSansArabic";
+  font: 600 var(--font-size-text-xs) / var(--line-height-text-xs) "IBMPlexSansArabic" !important;
 }
 .text-2xs-semibold {
-  font: 600 10px/14px "IBMPlexSansArabic";
+  font: 600 var(--font-size-text-2xs) / var(--line-height-text-2xs) "IBMPlexSansArabic" !important;
 }
+
+/* ── Display — Bold ── */
 .display-2xl-bold {
-  font: 700 72px/90px "IBMPlexSansArabic";
+  font: 700 var(--font-size-display-2xl) / var(--line-height-display-2xl) "IBMPlexSansArabic" !important;
 }
 .display-xl-bold {
-  font: 700 60px/72px "IBMPlexSansArabic";
+  font: 700 var(--font-size-display-xl) / var(--line-height-display-xl) "IBMPlexSansArabic" !important;
 }
 .display-lg-bold {
-  font: 700 48px/60px "IBMPlexSansArabic";
+  font: 700 var(--font-size-display-lg) / var(--line-height-display-lg) "IBMPlexSansArabic" !important;
 }
 .display-md-bold {
-  font: 700 36px/44px "IBMPlexSansArabic";
+  font: 700 var(--font-size-display-md) / var(--line-height-display-md) "IBMPlexSansArabic" !important;
 }
 .display-sm-bold {
-  font: 700 30px/38px "IBMPlexSansArabic";
+  font: 700 var(--font-size-display-sm) / var(--line-height-display-sm) "IBMPlexSansArabic" !important;
 }
 .display-xs-bold {
-  font: 700 24px/32px "IBMPlexSansArabic";
+  font: 700 var(--font-size-display-xs) / var(--line-height-display-xs) "IBMPlexSansArabic" !important;
 }
+
+/* ── Text — Bold ── */
 .text-xl-bold {
-  font: 700 20px/30px "IBMPlexSansArabic";
+  font: 700 var(--font-size-text-xl) / var(--line-height-text-xl) "IBMPlexSansArabic" !important;
 }
 .text-lg-bold {
-  font: 700 18px/28px "IBMPlexSansArabic";
+  font: 700 var(--font-size-text-lg) / var(--line-height-text-lg) "IBMPlexSansArabic" !important;
 }
 .text-md-bold,
 .date-cell--today .date-cell__label span {
-  font: 700 16px/24px "IBMPlexSansArabic";
+  font: 700 var(--font-size-text-md) / var(--line-height-text-md) "IBMPlexSansArabic" !important;
 }
 .text-sm-bold {
-  font: 700 14px/20px "IBMPlexSansArabic";
+  font: 700 var(--font-size-text-sm) / var(--line-height-text-sm) "IBMPlexSansArabic" !important;
 }
 .text-xs-bold,
 .menu-group__label {
-  font: 700 12px/18px "IBMPlexSansArabic";
+  font: 700 var(--font-size-text-xs) / var(--line-height-text-xs) "IBMPlexSansArabic" !important;
 }
 .text-2xs-bold {
-  font: 700 10px/14px "IBMPlexSansArabic";
+  font: 700 var(--font-size-text-2xs) / var(--line-height-text-2xs) "IBMPlexSansArabic" !important;
 }

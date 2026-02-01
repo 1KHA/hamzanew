@@ -1,6 +1,8 @@
 "use client";
 import { DgaTag } from "platformscode-new-react";
 import Banner from "./components/Banner";
+import Tag from "./components/tag/Tag";
+
 import Carousel from "./components/carousel/Carousel";
 import "./styles/Button.css";
 import GlobalStatisticsSection from "./components/global-statistics-section/GlobalStatisticsSection";
@@ -91,7 +93,7 @@ export default function Home() {
         icon={item.icon}
         showPrimaryAction={true}
         primaryActionLabel="التسجيل للاختبار"
-        
+
         showSecondaryAction
         secondaryActionLabel="المزيد"
       />
@@ -190,7 +192,7 @@ export default function Home() {
 
       <div className="bg-neutral-50">
 
-      <section className="section-spacing-5xl custom-container gap-[32px] !flex flex-col">
+        <section className="section-spacing-5xl custom-container gap-[32px] !flex flex-col">
 
           <div className="grid gap-[24px]">
             <div className="flex-between-center">
@@ -206,10 +208,10 @@ export default function Home() {
             </p>
           </div>
 
-        <div className="">
-          <GlobalStatisticsSection />
-        </div>
-      </section>
+          <div className="">
+            <GlobalStatisticsSection />
+          </div>
+        </section>
 
       </div>
       <div className="bg-white">
@@ -220,26 +222,23 @@ export default function Home() {
               <h1 className="display-sm-bold">الشركاء</h1>
             </div>
             <div className=" flex-start-center gap-4">
-              <DgaTag
+
+            
+
+              <Tag
                 label="داخل المملكة العربية السعودية"
-                leadIcon={{
-                  name: "CircleIcon",
-                  type: "rounded",
-                  variant: "stroke",
-                }}
-                size="md"
                 variant="success"
+                size="lg"
+                trailIcon={{ src: "/assets/image/Country Flags.svg" }}
               />
-              <DgaTag
+
+                <Tag
                 label="دول أخرى"
-                leadIcon={{
-                  name: "FlagIcon",
-                  type: "rounded",
-                  variant: "stroke",
-                }}
-                size="md"
                 variant="neutral"
+                size="lg"
+                trailIcon={{ src: "/assets/icons/stroke-standard/flag-02-stroke-rounded.svg" }}
               />
+
             </div>
           </div>
           <div className="">

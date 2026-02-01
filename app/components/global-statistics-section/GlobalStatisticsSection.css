@@ -71,14 +71,14 @@
 
 @media (max-width: 959px) {
   .search-container {
-    width: calc(100% - 32px);
+    width:fill-available;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
 }
 @media (max-width: 599px) {
   .search-container {
-    width: calc(100% - 32px);
+    width:fill-available;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
   }
