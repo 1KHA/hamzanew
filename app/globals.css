@@ -220,6 +220,7 @@ body {
 @media (min-width: 960px) {
   .content {
     padding: 0px 32px;
+    margin: 0px
   }
 }
 
@@ -255,6 +256,11 @@ body {
   }
 }
 
+@media (min-width: 960px) {
+  .custom-container {
+    padding-inline: var(--container-padding-desktop, 32px);
+  }
+}
 .bg-color-grey-50 {
   background: linear-gradient(0deg, #f9fafb 0%, #f9fafb 100%), #f9fafb;
 }

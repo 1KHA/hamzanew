@@ -96,7 +96,7 @@
   color: #9da4ae;
 }
 .link:focus {
-  border: 2px solid #161616;
+  outline: 2px solid #161616;
   border-radius: 4px; /* Optional: rounded corners */
 }
 .link_empty {

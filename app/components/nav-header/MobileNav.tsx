@@ -12,7 +12,12 @@ interface MobileNavProps {
   onLinkClick: (linkId: string) => void;
 }
 
-export default function MobileNav({ isOpen, onClose, activeLink, onLinkClick }: MobileNavProps) {
+export default function MobileNav({
+  isOpen,
+  onClose,
+  activeLink,
+  onLinkClick,
+}: MobileNavProps) {
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
 
   // Lock body scroll when menu is open
@@ -54,7 +59,9 @@ export default function MobileNav({ isOpen, onClose, activeLink, onLinkClick }: 
     <>
       {/* Backdrop */}
       <div
-        className={`mobile-nav-backdrop ${isOpen ? "mobile-nav-backdrop--active" : ""}`}
+        className={`mobile-nav-backdrop ${
+          isOpen ? "mobile-nav-backdrop--active" : ""
+        }`}
         onClick={onClose}
         aria-hidden="true"
       />
@@ -63,7 +70,11 @@ export default function MobileNav({ isOpen, onClose, activeLink, onLinkClick }: 
       <div className={`mobile-nav ${isOpen ? "mobile-nav--active" : ""}`}>
         {/* Header */}
         <div className="mobile-nav__header">
-          <Link href="/" className="mobile-nav__logo" onClick={() => handleLinkClick("home")}>
+          <Link
+            href="/"
+            className="mobile-nav__logo"
+            onClick={() => handleLinkClick("home")}
+          >
             <img width={100} src="/assets/image/Hamza_Logo.png" alt="Logo" />
           </Link>
           <button
@@ -104,25 +115,23 @@ export default function MobileNav({ isOpen, onClose, activeLink, onLinkClick }: 
             ))}
           </nav>
 
-
-
           {/* Actions */}
           <div className="mobile-nav__actions">
-
-            <div  className="flex justify-between ">
-              {ACTION_ITEMS.map((action, index) => (
-                action.label && (
-                  <Link
-                    key={index}
-                    href={action.href}
-                    className="dga-btn dga-btn--lg dga-btn--subtle"
-                    onClick={onClose}
-                  >
-                    <img src={action.icon} alt="" width={20} height={20} />
-                    <span>{action.label}</span>
-                  </Link>
-                )
-              ))}
+            <div className="flex justify-between ">
+              {ACTION_ITEMS.map(
+                (action, index) =>
+                  action.label && (
+                    <Link
+                      key={index}
+                      href={action.href}
+                      className="dga-btn dga-btn--lg dga-btn--subtle"
+                      onClick={onClose}
+                    >
+                      <img src={action.icon} alt="" width={20} height={20} />
+                      <span>{action.label}</span>
+                    </Link>
+                  )
+              )}
 
               {/* Translation Button */}
               <Link
@@ -130,12 +139,16 @@ export default function MobileNav({ isOpen, onClose, activeLink, onLinkClick }: 
                 className="dga-btn dga-btn--lg dga-btn--subtle"
                 onClick={onClose}
               >
-                <img src="/assets/icons/stroke-standard/translation-stroke-rounded.svg" alt="" width={20} height={20} />
+                <img
+                  src="/assets/icons/stroke-standard/translation-stroke-rounded.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                />
                 <span>English</span>
               </Link>
             </div>
           </div>
-
         </div>
       </div>
     </>
@@ -152,13 +165,25 @@ interface MobileNavItemProps {
   index: number;
 }
 
-function MobileNavItem({ item, isActive, isExpanded, onLinkClick, onToggleSubmenu, index }: MobileNavItemProps) {
+function MobileNavItem({
+  item,
+  isActive,
+  isExpanded,
+  onLinkClick,
+  onToggleSubmenu,
+  index,
+}: MobileNavItemProps) {
   if (item.hasSubmenu) {
     return (
-      <div className="mobile-nav__item-wrapper" style={{ animationDelay: `${index * 50}ms` }}>
+      <div
+        className="mobile-nav__item-wrapper"
+        style={{ animationDelay: `${index * 50}ms` }}
+      >
         <button
           onClick={onToggleSubmenu}
-          className={`mobile-nav__item ${isActive ? "mobile-nav__item--active" : ""}`}
+          className={`mobile-nav__item ${
+            isActive ? "mobile-nav__item--active" : ""
+          }`}
         >
           <span>{item.label}</span>
           <svg
@@ -170,14 +195,20 @@ function MobileNavItem({ item, isActive, isExpanded, onLinkClick, onToggleSubmen
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={`mobile-nav__arrow ${isExpanded ? "mobile-nav__arrow--rotated" : ""}`}
+            className={`mobile-nav__arrow ${
+              isExpanded ? "mobile-nav__arrow--rotated" : ""
+            }`}
           >
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
         </button>
 
         {/* Submenu */}
-        <div className={`mobile-nav__submenu ${isExpanded ? "mobile-nav__submenu--active" : ""}`}>
+        <div
+          className={`mobile-nav__submenu ${
+            isExpanded ? "mobile-nav__submenu--active" : ""
+          }`}
+        >
           {item.submenuColumns?.map((column, colIndex) => (
             <div key={colIndex} className="mobile-nav__submenu-column">
               <div className="mobile-nav__submenu-title">{column.title}</div>
@@ -200,11 +231,16 @@ function MobileNavItem({ item, isActive, isExpanded, onLinkClick, onToggleSubmen
   }
 
   return (
-    <div className="mobile-nav__item-wrapper" style={{ animationDelay: `${index * 50}ms` }}>
+    <div
+      className="mobile-nav__item-wrapper"
+      style={{ animationDelay: `${index * 50}ms` }}
+    >
       <Link
         href={item.href || "#"}
         onClick={() => onLinkClick(item.id)}
-        className={`mobile-nav__item ${isActive ? "mobile-nav__item--active" : ""}`}
+        className={`mobile-nav__item ${
+          isActive ? "mobile-nav__item--active" : ""
+        }`}
       >
         <span>{item.label}</span>
       </Link>

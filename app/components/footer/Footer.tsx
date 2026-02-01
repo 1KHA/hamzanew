@@ -13,8 +13,8 @@ function Footer() {
 
 
       <div style={{ backgroundColor: "#074D31" }}>
-        <div className="c-ontent">
-          <div className="c">
+        <div className="">
+          <div className="">
             <div className="grid gap-12 pt-10 pb-6 custom-container">
              
               <div className="footer-bottom ">

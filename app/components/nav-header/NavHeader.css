@@ -158,7 +158,8 @@
   }
 }
 
-.header-menu__item:focus, .header-menu__item:active, a:focus, a:active {
+.header-menu__item:focus a,
+.header-menu__item:active a {
     outline: 2px solid #161616 !important;
     outline-offset: 1px !important;
     border-radius: 6px;

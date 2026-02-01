@@ -94,8 +94,8 @@ export default function Feedback() {
 
   return (
     <>
-      <hr className="c-divider" />
-      <div className="c-ontent">
+      <hr className="" />
+      <div className=" content">
         <section className="!flex !flex-col !items-center !w-full !gap-4 !py-6">
           <div className="!w-full !flex !flex-col md:!flex-row md:!justify-between md:!items-center max-md:!gap-4">
             <div className="!flex md:!items-center !flex-col md:!flex-row !gap-4 md:!gap-6">

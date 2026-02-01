@@ -42,44 +42,38 @@ export default function Home() {
       id: 1,
       title: "إقبال واسع على منصة اختبارات همزة في مرحلتها الأولى",
       des: "شهدت المنصة تفاعلاً كبيراً من المتقدمين لقياس كفايات اللغة العربية، مع تحديثات مستمرة على تجربة المستخدم.",
-      image:
-        "/assets/image/photo2.jpg",
+      image: "/assets/image/photo2.jpg",
     },
     {
       id: 2,
       title: "اختبارات همزة توفر مؤشرات نوعية لدعم الباحثين وصنّاع القرار",
       des: "تم إطلاق لوحة مؤشرات تعرض نتائج تحليلية تساعد الجهات التعليمية على تحسين برامجها وتطوير مخرجاتها.",
-      image:
-        "/assets/image/photo1.jpg",
+      image: "/assets/image/photo1.jpg",
     },
     {
       id: 3,
       title:
         "منصة اختبارات همزة تطلق النسخة التجريبية الأولى لقياس كفايات العربية",
       des: "تتضمن النسخة التجريبية مسارات متعددة وأسئلة معيارية مصممة وفق أفضل الممارسات لضمان جودة القياس.",
-      image:
-        "/assets/image/photo4.jpg",
+      image: "/assets/image/photo4.jpg",
     },
     {
       id: 4,
       title: "تطوير بنوك أسئلة جديدة لرفع دقة القياس في مهارات اللغة",
       des: "يتم العمل على إثراء بنك الأسئلة وإضافة نماذج تقييم متنوعة لقياس الفهم والكتابة والاستيعاب.",
-      image:
-        "/assets/image/photo1.jpg",
+      image: "/assets/image/photo1.jpg",
     },
     {
       id: 5,
       title: "شراكات جديدة لتعزيز جودة المحتوى وتوسيع نطاق الاختبارات",
       des: "تسعى المنصة إلى التعاون مع جهات أكاديمية وخبراء لتطوير المحتوى وبناء معايير أكثر تخصصاً.",
-      image:
-        "/assets/image/photo1.jpg",
+      image: "/assets/image/photo1.jpg",
     },
     {
       id: 6,
       title: "تحسين تجربة التسجيل وإتاحة الوصول عبر الأجهزة المختلفة",
       des: "تم تحديث واجهة التسجيل وتحسين الأداء لضمان تجربة سلسة على الهاتف والكمبيوتر مع دعم كامل للاتجاه RTL.",
-      image:
-        "/assets/image/photo1.jpg",
+      image: "/assets/image/photo1.jpg",
     },
   ];
 
@@ -93,7 +87,8 @@ export default function Home() {
         icon={item.icon}
         showPrimaryAction={true}
         primaryActionLabel="التسجيل للاختبار"
-
+        showPrimaryIcon={true}
+        primaryTrailIconType="arrow-up-right-01"
         showSecondaryAction
         secondaryActionLabel="المزيد"
       />
@@ -145,7 +140,7 @@ export default function Home() {
         <section className="section-spacing-5xl custom-container gap-[32px] !flex flex-col">
           <div className="grid gap-[24px]">
             <div className="flex-between-center">
-              <h1 className="display-sm-bold"> تعرف على اختبارات همزة  </h1>
+              <h1 className="display-sm-bold"> تعرف على اختبارات همزة </h1>
               <button className="dga-btn dga-btn--md  text-warp dga-btn--secondary-outline">
                 <span className="dga-btn-label">عرض الكل</span>
               </button>
@@ -191,9 +186,7 @@ export default function Home() {
       {/* hamza in numbers section */}
 
       <div className="bg-neutral-50">
-
         <section className="section-spacing-5xl custom-container gap-[32px] !flex flex-col">
-
           <div className="grid gap-[24px]">
             <div className="flex-between-center">
               <h1 className="display-sm-bold"> همزة في أرقام</h1>
@@ -212,7 +205,6 @@ export default function Home() {
             <GlobalStatisticsSection />
           </div>
         </section>
-
       </div>
       <div className="bg-white">
         {/* partners section */}
@@ -222,9 +214,6 @@ export default function Home() {
               <h1 className="display-sm-bold">الشركاء</h1>
             </div>
             <div className=" flex-start-center gap-4">
-
-            
-
               <Tag
                 label="داخل المملكة العربية السعودية"
                 variant="success"
@@ -232,13 +221,14 @@ export default function Home() {
                 trailIcon={{ src: "/assets/image/Country Flags.svg" }}
               />
 
-                <Tag
+              <Tag
                 label="دول أخرى"
                 variant="neutral"
                 size="lg"
-                trailIcon={{ src: "/assets/icons/stroke-standard/flag-02-stroke-rounded.svg" }}
+                trailIcon={{
+                  src: "/assets/icons/stroke-standard/flag-02-stroke-rounded.svg",
+                }}
               />
-
             </div>
           </div>
           <div className="">
