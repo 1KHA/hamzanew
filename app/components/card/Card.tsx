@@ -268,7 +268,7 @@ const Card: React.FC<CardProps> = ({
 
           {buttonIconOnly && (
             <Button
-              onClick={handleIconOnlyClick}
+              onClick={handleSecondaryClick}
               variant="secondary"
               size="lg"
               iconOnly
