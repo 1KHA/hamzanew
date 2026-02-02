@@ -113,9 +113,11 @@ export default function page() {
 
           {/* Pie charts */}
           <section className="!grid !grid-cols-1 md:!grid-cols-2 !gap-y-8 md:!gap-y-8 !gap-x-0 md:!gap-x-6">
-            {chartsData.map((chart) => {
+            {chartsData.map((chart,index) => {
               return (
-                <div className="!w-full !border !border-[#d2d6db] !bg-white !p-4 !flex !flex-col !items-center !gap-6 !rounded-[16px] !relative !box-border !overflow-hidden  !text-center">
+                <div
+                key={index}
+                className="!w-full !border !border-[#d2d6db] !bg-white !p-4 !flex !flex-col !items-center !gap-6 !rounded-[16px] !relative !box-border !overflow-hidden  !text-center">
                   <h3 className="!text-[18px] mb-3">{chart.title}</h3>
                   <DgaChart
                     colors={[

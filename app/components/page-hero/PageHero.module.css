@@ -1,0 +1,99 @@
+.hero {
+  padding: 40px 0px;
+  background: #f7fdf9;
+}
+
+.heroContent {
+  max-width: 1280px;
+  padding: 0px 32px;
+  margin: auto;
+}
+
+/* NOTE:
+   You used min-width but called it "mobile default styles".
+   This version keeps your intent:
+   - mobile: 16px
+   - desktop+: 32px
+*/
+
+@media (max-width: 959px) {
+  .heroContent {
+    padding: 0px 16px;
+  }
+}
+
+@media (min-width: 960px) {
+  .heroContent {
+    padding: 0px 32px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .heroContent {
+    max-width: 1280px;
+    padding: 0px 32px;
+    margin: auto;
+  }
+}
+
+.inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  margin: 0;
+  color: var(--Text-text-default, #161616);
+  font-family: var(--Font-Family-font-family-display, "IBMPlexSansArabic");
+  font-size: var(--Size-Display-typo-size-display-md, 36px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: var(--Line-Height-Display-line-heights-display-md, 44px);
+  letter-spacing: -0.72px;
+}
+
+.desc {
+  margin: 0;
+  max-width: 860px;
+  color: var(--Text-text-default, #161616);
+  font-family: var(--Font-Family-font-family-text, "IBMPlexSansArabic");
+  font-size: var(--Size-Text-typo-size-text-md, 16px);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--Line-Height-Text-line-heights-text-md, 24px);
+}
+
+/* FIXED: apply text-align to each element */
+:dir(ltr) .title,
+:dir(ltr) .desc {
+  text-align: left;
+}
+:dir(rtl) .title,
+:dir(rtl) .desc {
+  text-align: right;
+}
+
+/* actions */
+.actions {
+  margin-top: 16px;
+  width: 100%;
+  display: flex;
+}
+
+/* LTR */
+:dir(ltr) .actions {
+  justify-content: flex-end;
+}
+
+/* RTL */
+:dir(rtl) .actions {
+  justify-content: flex-start;
+}
+
+@media (max-width: 768px) {
+  .desc {
+    max-width: 100%;
+  }
+}
