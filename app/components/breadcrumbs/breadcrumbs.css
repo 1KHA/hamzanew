@@ -1,3 +1,129 @@
+/* ============================================================
+   NEUTRAL LINK COMPONENT (NEW - for other components)
+   ============================================================
+   Usage: Add class "link-neutral" to <a> tags
+   This is separate from the .link class used in breadcrumbs below
+   ============================================================ */
+
+/* ── CSS Variables ── */
+:root {
+  /* Link Colors */
+  --link-primary: #384250;           /* Default dark gray */
+  --link-primary-hovered: #6C737F;   /* Medium gray on hover */
+  --link-primary-pressed: #9DA4AE;   /* Light gray when pressed */
+  --link-primary-focused: #384250;   /* Same as default */
+  --link-primary-visited: #384250;   /* Dark gray for visited */
+  --link-disabled: #9DA4AE;          /* Gray for disabled */
+  
+  /* Border Colors */
+  --border-black: #161616;
+  --border-white: #FFFFFF;
+}
+
+.link-neutral {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  
+  /* Typography */
+  font: 400 16px/24px "IBMPlexSansArabic";
+  text-decoration: none;
+  
+  /* Colors */
+  color: var(--link-primary, #384250);
+  
+  /* Interaction */
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+/* ── Icon (optional) ── */
+.link-neutral__icon {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Label ── */
+.link-neutral__label {
+  /* The text inside the link */
+}
+
+/* ── Hover State ── */
+.link-neutral:hover {
+  color: var(--link-primary-hovered, #6C737F);
+}
+
+.link-neutral:hover .link-neutral__label {
+  text-decoration: underline;
+}
+
+/* ── Active/Pressed State ── */
+.link-neutral.active,
+.link-neutral:active {
+  color: var(--link-primary-pressed, #9DA4AE);
+}
+
+/* ── Focus State ── */
+.link-neutral:focus,
+.link-neutral.focus {
+  color: var(--link-primary-focused, #384250);
+  outline: 2px solid var(--border-black, #161616);
+  border-radius: 4px;
+}
+
+/* ── Visited State ── */
+.link-neutral:visited {
+  color: var(--link-primary-visited, #384250) !important;
+}
+
+/* ── Disabled State ── */
+.link-neutral--disabled {
+  color: var(--link-disabled, #9DA4AE);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.link-neutral--disabled:hover .link-neutral__label {
+  text-decoration: none;
+}
+
+/* ── Inline Variant (always underlined) ── */
+.link-neutral--inline .link-neutral__label {
+  text-decoration: underline;
+}
+
+/* ── Size Variants ── */
+/* Medium (default - 20px icon) */
+.link-neutral--md .link-neutral__icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Small (16px icon) */
+.link-neutral--sm {
+  font: 400 14px/20px "IBMPlexSansArabic";
+}
+
+.link-neutral--sm .link-neutral__icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ── RTL Support (Arabic) ── */
+:is(html[lang="ar"], html[dir="rtl"]) .link-neutral {
+  flex-direction: row-reverse;
+}
+
+
+/* ============================================================
+   EXISTING BREADCRUMB STYLES (kept as-is)
+   ============================================================ */
+
 .breadcrumb-link {
   font-size: 14px;
   font-family: "IBMPlexSansArabic", sans-serif;

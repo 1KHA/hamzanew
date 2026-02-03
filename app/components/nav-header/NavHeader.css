@@ -761,8 +761,8 @@ width: auto;
   overflow: clip;
 }
 
-/* Special styles ONLY between 1100px and 960px */
-@media only screen and (max-width: 1100px) and (min-width: 960px) {
+/* Special styles ONLY between 1115px and 960px */
+@media only screen and (max-width: 1120px) and (min-width: 960px) {
   .header-nav__menu-wrapper {
     width: 400px;
     padding: 0px 50px;

@@ -28,53 +28,33 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
   arrowBgColor = "white",
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isRTL, setIsRTL] = useState(true); // Default to true as per project context
+  const [isRTL, setIsRTL] = useState(true);
 
-  /* Responsive itemsPerSlide logic */
-  const [effectiveItems, setEffectiveItems] = useState(1); // Default to 1 for mobile-first
+  /* effectiveItems is only used for JS logic (dots count, maxSlide, arrows visibility).
+     The actual item sizing is handled purely by CSS variables + media queries. */
+  const getItemsForWidth = (width: number) => {
+    if (width < 600) return 1;
+    if (width < 1280) return 2;
+    return itemsPerSlide;
+  };
+
+  const [effectiveItems, setEffectiveItems] = useState(itemsPerSlide);
 
   useEffect(() => {
-    const updateItemsPerSlide = () => {
-      const width = window.innerWidth;
-      let newItems;
+    setEffectiveItems(getItemsForWidth(window.innerWidth));
+    setIsRTL(
+      document.dir === "rtl" ||
+      getComputedStyle(document.body).direction === "rtl"
+    );
 
-      // Responsive breakpoints:
-      // Mobile (< 600px): 1 card
-      // Medium (600px - 1280px): 2 cards
-      // Extra Large (>= 1280px): original itemsPerSlide value
-      if (width < 600) {
-        newItems = 1;
-      } else if (width < 1280) {
-        newItems = 2;
-      } else {
-        newItems = itemsPerSlide;
-      }
-
-      setEffectiveItems(newItems);
-    };
-
-    // Run on mount
-    updateItemsPerSlide();
-
-    // Run on resize
-    window.addEventListener("resize", updateItemsPerSlide);
-    return () => window.removeEventListener("resize", updateItemsPerSlide);
+    const onResize = () => setEffectiveItems(getItemsForWidth(window.innerWidth));
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, [itemsPerSlide]);
 
   const items = Children.toArray(children);
   const totalItems = items.length;
-  // Ensure we don't slide past the end
   const maxSlide = Math.max(0, totalItems - effectiveItems);
-
-  useEffect(() => {
-    // Detect RTL
-    if (typeof document !== "undefined") {
-      setIsRTL(
-        document.dir === "rtl" ||
-        getComputedStyle(document.body).direction === "rtl",
-      );
-    }
-  }, []);
 
   useEffect(() => {
     if (!autoPlay || totalItems <= effectiveItems) return;
@@ -96,15 +76,20 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
     setCurrentSlide((prev) => (prev <= 0 ? maxSlide : prev - 1));
   };
 
-  // Calculate the width of each item based on effectiveItems and gap
-  const itemWidth = `calc((100% - ${(effectiveItems - 1) * gap}px) / ${effectiveItems})`;
-
-  // In RTL, translateX positive moves content to the right (showing items on the left)
-  // In LTR, translateX negative moves content to the left (showing items on the right)
   const translationMultiplier = isRTL ? 1 : -1;
 
+  // CSS variable: item width = calc((100% - (N-1)*gap) / N)
+  // Transform uses the same formula so it stays in sync with CSS
+  const itemWidthCalc = `calc((100% - (var(--items-per-slide) - 1) * var(--gap)) / var(--items-per-slide))`;
+
   return (
-    <div className="custom-carousel flex flex-col gap-[24px]">
+    <div
+      className="custom-carousel flex flex-col gap-[24px]"
+      style={{
+        "--items-per-slide": itemsPerSlide,
+        "--gap": `${gap}px`,
+      } as React.CSSProperties}
+    >
       <div className="flex flex-row items-center gap-[16px]">
         {showArrows && totalItems > effectiveItems && (
           <Button
@@ -120,20 +105,11 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
           <div
             className="carousel-container"
             style={{
-              transform: `translateX(calc(${translationMultiplier} * ${currentSlide} * (${itemWidth} + ${gap}px)))`,
-              gap: `${gap}px`,
-              flexDirection: isRTL ? "row" : "row",
+              transform: `translateX(calc(${translationMultiplier} * ${currentSlide} * (${itemWidthCalc} + var(--gap))))`,
             }}
           >
             {items.map((item, index) => (
-              <div
-                key={index}
-                className="carousel-item"
-                style={{
-                  flex: `0 0 ${itemWidth}`,
-                  minWidth: itemWidth,
-                }}
-              >
+              <div key={index} className="carousel-item">
                 {item}
               </div>
             ))}

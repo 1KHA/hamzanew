@@ -6,6 +6,19 @@
 }
 
 :root {
+
+    /* Link Colors */
+  --link-primary: #1B8354;           /* Default green */
+  --link-primary-hovered: #54C08A;   /* Lighter green on hover */
+  --link-primary-pressed: #88D8AD;   /* Darker green when pressed */
+  --link-primary-focused: #1B8354;   /* Same as default */
+  --link-primary-visited: #1B8354;   /* dark green for visited */
+  --link-disabled: #9DA4AE;          /* Gray for disabled */
+  
+  /* Border Colors */
+  --border-black: #000000;
+  --border-white: #FFFFFF;
+
   --background: #ffffff;
   --foreground: #171717;
 
@@ -206,7 +219,7 @@ body {
 .content {
   max-width: 1280px;
   width: -webkit-fill-available;
-  padding: 0px 32px;
+  padding: 0px 16px;
   margin: auto;
 }
 
@@ -866,4 +879,118 @@ div.table-wrapper .azm-table thead th span span.text {
 }
 .text-2xs-bold {
   font: 700 var(--font-size-text-2xs) / var(--line-height-text-2xs) "IBMPlexSansArabic" !important;
+}
+
+
+
+
+.link,
+.link--primary {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  
+  /* Typography */
+  font: 400 16px/24px "IBMPlexSansArabic";
+  text-decoration: none;
+  
+  /* Colors */
+  color: var(--link-primary, #00A170); /* Primary green */
+  
+  /* Interaction */
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+/* ── Icon (optional) ── */
+.link__icon,
+.link--primary .link__icon {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Label ── */
+.link__label,
+.link--primary .link__label {
+  /* The text inside the link */
+}
+
+/* ── Hover State ── */
+.link--primary:hover {
+  color: var(--link-primary-hovered, #54C08A); /* Lighter green on hover */
+}
+
+.link:hover .link__label,
+.link--primary:hover .link__label {
+  text-decoration: underline;
+}
+
+/* ── Active/Pressed State ── */
+.link.active,
+.link--primary.active,
+.link:active,
+.link--primary:active {
+  color: var(--link-primary-pressed, #007A54); /* Darker green when pressed */
+}
+
+/* ── Focus State ── */
+.link:focus,
+.link--primary:focus,
+.link.focus,
+.link--primary.focus {
+  color: var(--link-primary-focused, #00A170);
+  outline: 2px solid var(--border-black, #000);
+  border-radius: 2px;
+}
+
+/* ── Visited State ── */
+.link:visited,
+.link--primary:visited {
+  color: #1B8354 !important; /* Purple for visited links */
+}
+
+/* ── Disabled State ── */
+.link--disabled,
+.link--primary.link--disabled {
+  color: var(--link-disabled, #999);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.link--disabled:hover .link__label,
+.link--primary.link--disabled:hover .link__label {
+  text-decoration: none;
+}
+
+/* ── Inline Variant (always underlined) ── */
+.link--inline .link__label {
+  text-decoration: underline;
+}
+
+/* ── Size Variants ── */
+/* Medium (default - 20px icon) */
+.link--md .link__icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Small (16px icon) */
+.link--sm {
+  font: 400 14px/20px "IBMPlexSansArabic";
+}
+
+.link--sm .link__icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ── RTL Support (Arabic) ── */
+:is(html[lang="ar"], html[dir="rtl"]) .link,
+:is(html[lang="ar"], html[dir="rtl"]) .link--primary {
+  flex-direction: row-reverse;
 }

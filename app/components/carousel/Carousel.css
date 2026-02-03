@@ -2,7 +2,22 @@
   position: relative;
   width: 100%;
   max-width: 100%;
-  /* overflow: hidden; */
+
+  /* CSS variables set by the component via inline style:
+     --items-per-slide, --gap */
+}
+
+/* Responsive overrides — applied instantly, no JS needed */
+@media (max-width: 599px) {
+  .custom-carousel {
+    --items-per-slide: 1 !important;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1279px) {
+  .custom-carousel {
+    --items-per-slide: 2 !important;
+  }
 }
 
 .carousel-viewport {
@@ -19,11 +34,12 @@
   will-change: transform;
   width: 100%;
   max-width: 100%;
+  gap: var(--gap);
 }
 
 .carousel-item {
-  flex-shrink: 0;
-  min-width: 0;
+  flex: 0 0 calc((100% - (var(--items-per-slide) - 1) * var(--gap)) / var(--items-per-slide));
+  min-width: calc((100% - (var(--items-per-slide) - 1) * var(--gap)) / var(--items-per-slide));
   max-width: 100%;
   box-sizing: border-box;
 }
@@ -32,20 +48,6 @@
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-}
-
-/* Mobile: Gap handled by component, just ensure 100% width */
-@media (max-width: 599px) {
-  .carousel-item {
-    max-width: 100% !important;
-  }
-}
-
-/* Tablet: Let component handle calculations */
-@media (min-width: 600px) and (max-width: 1279px) {
-  .carousel-item {
-    max-width: 50% !important;
-  }
 }
 
 /* Arrows */

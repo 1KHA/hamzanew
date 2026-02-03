@@ -31,11 +31,15 @@ export default function Home() {
       icon: "book-01",
     },
   ] as const;
-  const partners = Array.from({ length: 12 }, (_, i) => ({
-    id: i + 1,
-    title: `شريك ${i + 1}`,
-    image: "/assets/image/Palm_Swords.svg", // put your image path here
-  }));
+  const partners = [
+    { id: 1, image: "/assets/image/institutions1.png" },
+    { id: 2, image: "/assets/image/institutions2.png" },
+    { id: 3, image: "/assets/image/institutions3.png" },
+    { id: 4, image: "/assets/image/institutions1.png" },
+    { id: 5, image: "/assets/image/institutions2.png" },
+    { id: 6, image: "/assets/image/institutions3.png" },
+    { id: 7, image: "/assets/image/institutions1.png" },
+  ];
 
   const fakeNews = [
     {
@@ -99,7 +103,6 @@ export default function Home() {
     <Card
       key={p.id}
       image={p.image}
-      title={p.title}
       logoImage={true}
       isImgCenter={true}
       style={{
@@ -111,8 +114,8 @@ export default function Home() {
         textAlign: "center",
         padding: 16,
       }}
-      imageWidth={42}
-      imageHeight={42}
+      imageWidth={162}
+      imageHeight={162}
     />
   ));
 
@@ -234,7 +237,7 @@ export default function Home() {
           </div>
           <div className="">
             <Carousel
-              itemsPerSlide={partners.length - 6}
+              itemsPerSlide={6}
               gap={20}
               showArrows={true}
               arrowRadius="20%"

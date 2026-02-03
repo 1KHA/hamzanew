@@ -38,7 +38,7 @@ function Footer() {
                   </div>
                 </div>
 
-                <div className="footer_logos">
+                <div className="footer_logos justify-center md:justify-end">
                   <img
                     src="/assets/image/king-salman-global.svg"
                     alt=""

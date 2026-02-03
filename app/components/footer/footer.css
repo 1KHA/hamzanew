@@ -199,9 +199,12 @@ a.border-green:focus {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: end;
+  
   gap: 16px;
 }
+
+
+
 
 /* @media (min-width: 768px) {
   .footer_logos {

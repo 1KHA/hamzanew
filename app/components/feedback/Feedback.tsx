@@ -4,7 +4,6 @@ import {
   DgaCheckbox,
   DgaRadioButton,
   DgaIcon,
-  DgaLink,
   DgaNotification,
 } from "platformscode-new-react";
 
@@ -97,8 +96,15 @@ export default function Feedback() {
       <hr className="" />
       <div className=" content">
         <section className="!flex !flex-col !items-center !w-full !gap-4 !py-6">
-          <div className="!w-full !flex !flex-col md:!flex-row md:!justify-between md:!items-center max-md:!gap-4">
-            <div className="!flex md:!items-center !flex-col md:!flex-row !gap-4 md:!gap-6 !order-2 md:!order-1">
+
+<div className="flex md:flex-row flex-col w-full gap-4 justify-between">
+
+
+  <div className="!w-full !flex  !flex-row !justify-between !items-center max-!gap-4">
+
+
+
+            <div className="!flex md:!items-center !flex-col md:!flex-row !gap-4 md:!gap-6  ">
               {/* {submitted && (
                 // <DgaIcon
                 //   icon="checkmark-circle-04"
@@ -144,13 +150,7 @@ export default function Feedback() {
                 </div>
               )}
             </div>
-            <div className="!order-1 md:!order-2">
-              {(!openQuestions || submitted) && stats.totalCount > 0 && (
-                <p className="text-sm-regular text-[#161616] text-start md:text-end">
-                  {stats.yesPercentage}% من المستخدمين قالوا نعم من
-                  {stats.totalCount} تعليقًا
-                </p>
-              )}
+            <div>
               {openQuestions && !submitted && (
                 <button
                   className="dga-btn dga-btn--lg dga-btn--subtle   !flex !justify-center !items-center !p-4 !cursor-pointer"
@@ -171,6 +171,17 @@ export default function Feedback() {
             </div>
           </div>
 
+ {(!openQuestions || submitted) && stats.totalCount > 0 && (
+            <p className="text-sm-regular text-[#161616] text-start md:text-end !w-full">
+              {stats.yesPercentage}% من المستخدمين قالوا نعم من
+              {stats.totalCount} تعليقًا
+            </p>
+          )}
+
+</div>
+
+        
+         
           <div
             className={`grid transition-[grid-template-rows,opacity,margin,transform] duration-300 ease-in-out !w-full ${
               openQuestions && !submitted
@@ -178,7 +189,7 @@ export default function Feedback() {
                 : "grid-rows-[0fr] opacity-0 mt-0 translate-y-8"
             }`}
           >
-            <div className="overflow-hidden min-h-0">
+            <div className="overflow-hidden !px-4 min-h-0 gap-[24px] flex flex-col">
               {answer.isUseful && (
                 <>
                   {(errors.gender || errors.reasons) && (
@@ -298,59 +309,61 @@ export default function Feedback() {
                   </div>
 
                   <div className="w-full flex justify-between md:items-center max-md:flex-col gap-[24px]">
-                    <div className="flex text-md-regular text-[#161616]gap-[2px] ">
+                    <div className="flex text-md-regular text-[#161616]gap-[2px]  flex-col md:flex-row gap-2">
                       <p className="text-md-regular text-[#161616] py-2">
                         لمزيد من المعلومات، يمكنك مراجعة&nbsp;
                       </p>
-                      <div className="flex justify-center gap-[2px]">
-                        <DgaLink
-                          external={true}
-                          label="بيان المشاركة الإلكترونية"
-                          size="lg"
-                          variant="primary"
-                          onClick={() => {
-                            window.open(
-                              "https://my.gov.sa/ar/content/e-participation#section-1",
-                              "_blank",
-                              "noopener,noreferrer",
-                            );
-                          }}
-                        />
-                        {/* <DgaIcon
-                      color="#1b8354"
-                      icon="link-square-02"
-                      size={16}
-                      type=""
-                      variant="stroke"
-                    /> */}
-                        <img
+
+                      <div className="flex">
+
+
+                   
+                      <div className="flex justify-start gap-[2px]">
+                        <a href="https://my.gov.sa/ar/content/e-participation#section-1" target="_blank" rel="noopener noreferrer" className="link link--primary">
+                         بيان المشاركة الإلكترونية
+                        
+                       
+                         </a>
+
+                           
+                          <img
                           alt=""
                           width={16}
                           height={16}
                           className="inline-block green-icon"
                           src={`/assets/icons/stroke-standard/link-square-02-stroke-rounded.svg`}
                         />
+
+
+
+                        
+                       
                       </div>
-                      &nbsp;و&nbsp;
-                      <div className="flex justify-center gap-[2px]">
-                        <DgaLink
-                          external={true}
-                          label="قواعد الاشتراك"
-                          size="lg"
-                          target="_blank"
-                          onClick={() => {
-                            window.open("#", "_blank", "noopener,noreferrer");
-                          }}
-                          variant="primary"
-                        ></DgaLink>
-                        <img
+                    
+                      <div className="flex justify-start gap-[2px]">
+                          &nbsp;و&nbsp;
+                        
+                        <a href="#" target="_blank" rel="noopener noreferrer" className="link link--primary">
+
+                          قواعد الاشتراك
+
+                      
+
+                          </a>
+
+                              <img
                           alt=""
                           width={16}
                           height={16}
                           className="inline-block green-icon"
                           src={`/assets/icons/stroke-standard/link-square-02-stroke-rounded.svg`}
                         />
+                          
+                        
                       </div>
+
+
+                         </div>
                     </div>
 
                     <Button

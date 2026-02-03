@@ -213,11 +213,10 @@
 // }
 
 // export default DgaBreadcrumbs;
-
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation"; // ✅ CHANGED: added Next.js router
+import { useRouter } from "next/navigation";
 import "./breadcrumbs.css";
 
 export interface BreadcrumbItem {
@@ -246,7 +245,7 @@ export function DgaBreadcrumbs({
   max = 5,
   onBreadcrumbClick,
 }: DgaBreadcrumbsProps) {
-  const router = useRouter(); // ✅ CHANGED: initialize router
+  const router = useRouter();
   const rootRef = useRef<HTMLDivElement | null>(null);
 
   const [breadcrumbItems, setBreadcrumbItems] = useState<
@@ -262,7 +261,7 @@ export function DgaBreadcrumbs({
     if (itemsList.length <= maxNum) return itemsList.slice();
 
     const effectiveMax = Math.max(3, maxNum);
-    const visibleCount = effectiveMax - 1; // reserve one spot for ellipsis
+    const visibleCount = effectiveMax - 1;
     const firstHalf = Math.max(1, Math.floor(visibleCount / 2));
     const secondHalf = Math.max(1, visibleCount - firstHalf);
 
@@ -295,22 +294,18 @@ export function DgaBreadcrumbs({
   }, [isMenuOpen]);
 
   function handleClick(e: React.MouseEvent, item: BreadcrumbItem) {
-    // keep disabled behavior
     if (item.disabled) {
       e.preventDefault();
       return;
     }
 
-    // ✅ SAME: allow parent hook (analytics etc.)
     onBreadcrumbClick?.(item, e);
 
-    // ✅ CHANGED: if parent prevented default, do NOT navigate
     if (e.defaultPrevented) return;
 
-    // ✅ CHANGED: do Next.js SPA navigation (redirect user without reload)
     if (item.path) {
-      e.preventDefault();      // prevent normal <a> full page reload
-      router.push(item.path);  // redirect user
+      e.preventDefault();
+      router.push(item.path);
     }
   }
 
@@ -371,9 +366,9 @@ export function DgaBreadcrumbs({
                             href={it.disabled ? undefined : it.path}
                             onClick={(e) => {
                               setIsMenuOpen(false);
-                              handleClick(e, it); // ✅ uses router.push inside
+                              handleClick(e, it);
                             }}
-                            className={`link ${it.disabled ? "disabled-link" : ""}`}
+                            className={`link-neutral ${it.disabled ? "link-neutral--disabled" : ""}`}
                             aria-disabled={it.disabled}
                           >
                             {it.label}
@@ -402,9 +397,9 @@ export function DgaBreadcrumbs({
                 {b.path ? (
                   <a
                     href={b.disabled ? undefined : b.path}
-                    onClick={(e) => handleClick(e, b)} // ✅ uses router.push inside
-                    className={`link ${b.disabled ? "disabled-link" : ""} ${
-                      isLast ? "link_current" : ""
+                    onClick={(e) => handleClick(e, b)}
+                    className={`link-neutral ${b.disabled ? "link-neutral--disabled" : ""} ${
+                      isLast ? "link-neutral_current" : ""
                     }`}
                     aria-disabled={b.disabled}
                   >
@@ -412,8 +407,8 @@ export function DgaBreadcrumbs({
                   </a>
                 ) : (
                   <span
-                    className={`link link_empty ${b.disabled ? "disabled-link" : ""} ${
-                      isLast ? "link_current" : ""
+                    className={`link-neutral link-neutral_empty ${b.disabled ? "link-neutral--disabled" : ""} ${
+                      isLast ? "link-neutral_current" : ""
                     }`}
                     aria-disabled={b.disabled}
                   >
