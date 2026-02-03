@@ -7,7 +7,7 @@
 }
 
 .animate-spin-slow {
-  animation: spin-slow 20s linear infinite;
+  animation: spin-slow 60s linear infinite;
 }
 
 @theme {
@@ -434,6 +434,8 @@ li {
   right: -120px;
   z-index: 0;
   opacity: 1.4;
+  pointer-events: none;
+  user-select: none;
 }
 
 .banner-logo img {
