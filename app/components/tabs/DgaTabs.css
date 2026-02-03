@@ -169,6 +169,7 @@ content: "";
   outline: 2px solid var(--colors-base-black);
   position: relative;
   color: var(--text-default);
+  z-index: 1;
 }
 
 .dga-tabs-list__item:focus::before {

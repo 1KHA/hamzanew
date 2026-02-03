@@ -8,19 +8,21 @@ export const metadata: Metadata = {
   title: "المشاركة الإلكترونية",
 };
 
-export default function EParticipationLayout({ children }: { children: ReactNode }) {
+export default function EParticipationLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
     <>
       {/* <EParticipationHero/> */}
-        <PageHero
-      heroMap={heroMap}
-      defaultRoute="/e-participation"
-      // breadcrumbsMax={(p) => (p === "/e-participation" ? 3 : 4)}
-      breadcrumbsMax={4}
-    />
+      <PageHero
+        heroMap={heroMap}
+        defaultRoute="/e-participation"
+        breadcrumbsMax={{ default: 4, overrides: { "/e-participation": 4 } }}
+        // breadcrumbsMax={4}
+      />
       <main>{children}</main>
     </>
   );
 }
-
-

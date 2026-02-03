@@ -20,7 +20,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
       { label: "الرئيسية", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
-      { label: "عن الجهة", disabled: true },
+      { label: "عن الجهة", path: "/about" },
       { label: "المشاركة الإلكترونية", disabled: true },
     ],
   },

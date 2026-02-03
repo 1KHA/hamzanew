@@ -19,10 +19,10 @@ export default function page() {
                 boxShadow:
                   "0 4px 8px -2px rgba(16, 24, 40, 0.10), 0 2px 4px -2px rgba(16, 24, 40, 0.06)",
               }}
-              primaryTrailIconType="arrow"
-              buttonIconOnly={true}
-              linkSecondaryAction= "https://eparticipation.my.gov.sa/"
+              linkSecondaryAction="https://eparticipation.my.gov.sa/"
               external={true}
+              primaryTrailIconType="link-square-01"
+              buttonIconOnly={true}
             />
           </div>
         </div>
