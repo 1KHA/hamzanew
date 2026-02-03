@@ -1,6 +1,15 @@
 @import "tailwindcss";
 /* @import "../node_modules/platformscode-new-react/dist/style.css"; */
 
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
 @theme {
   /* --font-sans: var(--font-ibm-plex-arabic), "IBMPlexSansArabic", sans-serif; */
 }

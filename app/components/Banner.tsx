@@ -11,7 +11,7 @@ const slides = [
     buttonText: "المزيد",
   },
   {
-    image: "/assets/image/hero1.png",
+    image: "/assets/image/hero.jpg",
     alt: "اختبارات همزة",
     title: "اختبارات همزة",
     description:
@@ -19,7 +19,7 @@ const slides = [
     buttonText: "المزيد",
   },
   {
-    image: "/assets/image/hero1.png",
+    image: "/assets/image/hero.jpg",
     alt: "اختبارات همزة",
     title: "اختبارات همزة",
     description:
@@ -27,7 +27,7 @@ const slides = [
     buttonText: "المزيد",
   },
   {
-    image: "/assets/image/hero1.png",
+    image: "/assets/image/hero.jpg",
     alt: "اختبارات همزة",
     title: "اختبارات همزة",
     description:
@@ -39,12 +39,12 @@ const slides = [
 function Banner() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setCurrentSlide((prev) => (prev + 1) % slides.length);
-  //   }, 5000);
-  //   return () => clearInterval(timer);
-  // }, []);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="relative c-mask h-[560px] w-full">
@@ -52,7 +52,7 @@ function Banner() {
         {/* الصور فقط - بدون overlay */}
         <div
           className="embla-container"
-          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+          style={{ transform: `translateX(${currentSlide * 100}%)` }}
         >
           {slides.map((slide, index) => (
             <div className="embla-custom__slide" key={index}>
@@ -84,7 +84,7 @@ function Banner() {
 
           {/* الشعار */}
           <div className="banner-logo">
-            <img src="/assets/image/logo-stroke.png" alt="Logo" />
+            <img src="/assets/image/logo-stroke.png" alt="Logo" className="animate-spin-slow" />
           </div>
         </div>
 
