@@ -87,6 +87,17 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   "/about/benefits-of-hamza-test": {
     title: "أهمية اختبارات همزة",
     bgColor: "#F9FAFB",
+    breadcrumbs: [
+      { label: "الرئيسية", path: "/" },
+      { label: "عن الجهة", disabled: true },
+      { label: "عن همزة", disabled: true },
+      { label: "عن الجهة", path: "/about" },
+      {
+        label: "أهمية اختبارات همزة",
+        path: "/about/benefits-of-hamza-test",
+        disabled: true,
+      },
+    ]
   },
   "/about/institutions-and-countries-that-accept-the-hamza": {
     title: "المؤسسات و الدول التي تقبل همزة",
