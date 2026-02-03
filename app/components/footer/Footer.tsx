@@ -30,7 +30,7 @@ function Footer() {
                     </a>
                   </div>
 
-                  <div className="footer-copyright">
+                  <div className="footer-copyright text-center md:text-start">
                     <div className="footer-link footer-copyright-text">
                       جميع الحقوق محفوظة لمجمع الملك سلمان العالمي للغة العربية
                       © 2026

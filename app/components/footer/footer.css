@@ -248,6 +248,7 @@ a.border-green:focus {
 .footer-copyright {
   display: grid;
   gap: 8px;
+  
 }
 
 .footer-copyright-text {
