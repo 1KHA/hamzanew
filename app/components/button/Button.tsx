@@ -4,7 +4,7 @@ import React from "react";
 interface ButtonProps {
   label?: string;
   onClick?: () => void;
-  variant?: "primary-brand" | "secondary-outline" | "secondary" | string;
+  variant?: "primary-brand" | "secondary-outline" | "secondary" |"secondary-solid" | string;
   size?: "sm" | "md" | "lg";
   disabled?: boolean;
   tabIndex?: number;

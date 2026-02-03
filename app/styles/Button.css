@@ -183,7 +183,7 @@ dga-button {
   color: var(--colors-text-primary);
 }
 .dga-btn--secondary:hover {
-  background: var(--button-background-neutral-default-hoverd);
+  background: #E5E7EB !important ;
 }
 .dga-btn--secondary:visited {
   background: var(--button-background-neutral-default-pressed);

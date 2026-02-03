@@ -1,5 +1,5 @@
 "use client";
-import { DgaTag } from "platformscode-new-react";
+// import { DgaTag } from "platformscode-new-react"; // TEMPORARILY DISABLED
 import Banner from "./components/Banner";
 import Tag from "./components/tag/Tag";
 
@@ -91,6 +91,7 @@ export default function Home() {
         primaryTrailIconType="arrow-up-right-01"
         showSecondaryAction
         secondaryActionLabel="المزيد"
+        showSecondaryIcon={false}
       />
     );
   });
@@ -196,8 +197,8 @@ export default function Home() {
             </div>
 
             <p className="text-md-regular ">
-              نوفر خدمات إلكترونية للتسجيل في الاختبارات، مع تقديم معلومات واضحة
-              ومبسطة عن كل اختبار
+              يعرض قسم إحصائيات همزة بيانات عن عدد المختبرين عالميًا، وتنوّع الجنسيات والدول، إضافة إلى أعداد المختبرين في مراكز الاختبار.
+
             </p>
           </div>
 

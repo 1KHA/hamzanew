@@ -1,6 +1,7 @@
 "use client";
 import React, { ReactNode } from "react";
-import { DgaTag } from "platformscode-new-react";
+// import { DgaTag } from "platformscode-new-react"; // TEMPORARILY DISABLED
+import Tag from "../tag/Tag";
 import Button from "../button/Button";
 import "./card.css";
 import { useRouter } from "next/navigation";
@@ -27,7 +28,8 @@ interface CardProps {
   showSecondaryAction?: boolean;
   secondaryActionLabel?: string;
   linkSecondaryAction?: string;
-  buttonColor?: "primary-brand" | "secondary-outline" | string;
+  showSecondaryIcon?: boolean;
+  buttonColor?: "primary-brand" | "secondary-outline" | "secondary" | string;
   tagLable?: string;
   children?: ReactNode;
   isImgCenter?: boolean;
@@ -71,6 +73,7 @@ const Card: React.FC<CardProps> = ({
   showSecondaryAction = false,
   secondaryActionLabel,
   linkSecondaryAction,
+  showSecondaryIcon = true,
   buttonColor = "primary-brand",
   tagLable,
   children,
@@ -148,7 +151,7 @@ const Card: React.FC<CardProps> = ({
     } else if (iconPosition === "right") {
       return "flex flex-row-reverse gap-3 items-start";
     }
-    return "flex flex-col";
+    return "flex flex-col gap-[24px]";
   };
 
   const iconAndContentSection = (
@@ -234,7 +237,7 @@ const Card: React.FC<CardProps> = ({
 
       <div className={getLayoutClass()}>{iconAndContentSection}</div>
 
-      {tagLable && <DgaTag label={tagLable} size="md" variant="neutral" />}
+      {tagLable && <Tag label={tagLable} size="md" variant="neutral" />}
 
       {(showSecondaryAction || showPrimaryAction || buttonIconOnly) && (
         <div
@@ -248,7 +251,7 @@ const Card: React.FC<CardProps> = ({
               onClick={handleSecondaryClick}
               variant="secondary-outline"
               size="md"
-              icon="arrow-right-02"
+              icon={showSecondaryIcon ? "arrow-right-02" : undefined}
               iconSize={16}
             />
           )}
@@ -268,7 +271,7 @@ const Card: React.FC<CardProps> = ({
 
           {buttonIconOnly && (
             <Button
-              onClick={handleIconOnlyClick}
+              onClick={handleSecondaryClick}
               variant="secondary"
               size="lg"
               iconOnly

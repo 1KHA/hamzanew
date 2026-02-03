@@ -2,14 +2,16 @@
   position: relative;
   width: 100%;
   max-width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .carousel-viewport {
   width: 100%;
   overflow: hidden;
   max-width: 100%;
- }
+  padding-block: 4px;
+  margin-block: -4px;
+}
 
 .carousel-container {
   display: flex;
@@ -99,8 +101,8 @@
 }
 
 .carousel-dot {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   border: none;
   background-color: #e5e7eb;

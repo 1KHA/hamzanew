@@ -214,17 +214,17 @@ function NavHeader() {
         </header>
 
         {/* Submenu */}
-        {openSubmenus.length > 0 && (() => {
+        {(() => {
           const active = MENU_DATA.find((i) =>
             openSubmenus.includes(i.id)
           );
-          return active?.submenuColumns ? (
+          return (
             <NavigationSubmenu
-              isOpen
-              columns={active.submenuColumns}
-              onLinkClick={() => handleLinkClick(active.id)}
+              isOpen={!!active?.submenuColumns}
+              columns={active?.submenuColumns}
+              onLinkClick={() => active && handleLinkClick(active.id)}
             />
-          ) : null;
+          );
         })()}
       </div>
     </>

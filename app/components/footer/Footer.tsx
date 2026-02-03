@@ -1,7 +1,6 @@
 "use client";
-import { DgaButton, DgaRadioButton,DgaCheckbox } from "platformscode-new-react";
+// import { DgaButton, DgaRadioButton,DgaCheckbox } from "platformscode-new-react"; // TEMPORARILY DISABLED
 import "./footer.css";
-import { useState } from "react";
 import Feedback from "../feedback/Feedback";
 // import { DgaSearchBox, DgaTextInput } from "platformscode-new-react";
 

@@ -98,7 +98,7 @@ export default function Feedback() {
       <div className=" content">
         <section className="!flex !flex-col !items-center !w-full !gap-4 !py-6">
           <div className="!w-full !flex !flex-col md:!flex-row md:!justify-between md:!items-center max-md:!gap-4">
-            <div className="!flex md:!items-center !flex-col md:!flex-row !gap-4 md:!gap-6">
+            <div className="!flex md:!items-center !flex-col md:!flex-row !gap-4 md:!gap-6 !order-2 md:!order-1">
               {/* {submitted && (
                 // <DgaIcon
                 //   icon="checkmark-circle-04"
@@ -144,9 +144,9 @@ export default function Feedback() {
                 </div>
               )}
             </div>
-            <div>
+            <div className="!order-1 md:!order-2">
               {(!openQuestions || submitted) && stats.totalCount > 0 && (
-                <p className="text-sm-regular text-[#161616] text-end">
+                <p className="text-sm-regular text-[#161616] text-start md:text-end">
                   {stats.yesPercentage}% من المستخدمين قالوا نعم من
                   {stats.totalCount} تعليقًا
                 </p>

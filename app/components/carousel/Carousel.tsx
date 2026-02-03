@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, ReactNode, Children } from "react";
 import "./Carousel.css";
+import Button from "../button/Button";
 
 interface CustomCarouselProps {
   children: ReactNode;
@@ -70,7 +71,7 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
     if (typeof document !== "undefined") {
       setIsRTL(
         document.dir === "rtl" ||
-          getComputedStyle(document.body).direction === "rtl",
+        getComputedStyle(document.body).direction === "rtl",
       );
     }
   }, []);
@@ -103,75 +104,52 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
   const translationMultiplier = isRTL ? 1 : -1;
 
   return (
-    <div className="custom-carousel" >
-      <div className="carousel-viewport">
-        <div
-          className="carousel-container"
-          style={{
-            transform: `translateX(calc(${translationMultiplier} * ${currentSlide} * (${itemWidth} + ${gap}px)))`,
-            gap: `${gap}px`,
-            flexDirection: isRTL ? "row" : "row", // row-reverse could be used but standard row with RTL dir is better
-          }}
-        >
-          {items.map((item, index) => (
-            <div
-              key={index}
-              className="carousel-item"
-              style={{
-                flex: `0 0 ${itemWidth}`,
-                minWidth: itemWidth,
-              }}
-            >
-              {item}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {showArrows && totalItems > effectiveItems && (
-        <>
-          <button
-            className="carousel-arrow prev"
+    <div className="custom-carousel flex flex-col gap-[24px]">
+      <div className="flex flex-row items-center gap-[16px]">
+        {showArrows && totalItems > effectiveItems && (
+          <Button
             onClick={prevSlide}
-            style={{ borderRadius: arrowRadius, backgroundColor: arrowBgColor }}
-            aria-label="Previous slide"
+            variant="secondary"
+            size="lg"
+            icon="arrow-right-01"
+            iconSize={16}
+          />
+        )}
+
+        <div className="carousel-viewport flex-1">
+          <div
+            className="carousel-container"
+            style={{
+              transform: `translateX(calc(${translationMultiplier} * ${currentSlide} * (${itemWidth} + ${gap}px)))`,
+              gap: `${gap}px`,
+              flexDirection: isRTL ? "row" : "row",
+            }}
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={{ transform: isRTL ? "rotate(180deg)" : "none" }}
-            >
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
-          <button
-            className="carousel-arrow next"
+            {items.map((item, index) => (
+              <div
+                key={index}
+                className="carousel-item"
+                style={{
+                  flex: `0 0 ${itemWidth}`,
+                  minWidth: itemWidth,
+                }}
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {showArrows && totalItems > effectiveItems && (
+          <Button
             onClick={nextSlide}
-            style={{ borderRadius: arrowRadius, backgroundColor: arrowBgColor }}
-            aria-label="Next slide"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={{ transform: isRTL ? "rotate(180deg)" : "none" }}
-            >
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-        </>
-      )}
+            variant="secondary"
+            size="lg"
+            icon="arrow-left-01"
+            iconSize={16}
+          />
+        )}
+      </div>
 
       {/* Dots Navigation */}
       {showDots && totalItems > effectiveItems && (

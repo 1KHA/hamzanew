@@ -33,23 +33,23 @@ function GlobalStatisticsSection() {
 
   const statsCard = stats.map((stat) => {
     return (
-   <Card
-  style={{
-    border: "none",
-    boxShadow:
-      "0 4px 8px -2px rgba(16, 24, 40, 0.10), 0 2px 4px -2px rgba(16, 24, 40, 0.06)",
-  }}
-  key={stat.id}
-  title={stat.value}
-  description={stat.label}
-  icon={stat.icon}
-  iconPosition="left"
-  contentAlignment="center"
-  titleClass="display-md-bold"
-  titleColor="#14573A"
-  descriptionClass="text-sm-medium"
-  descriptionColor="#667085"
-/>
+      <Card
+        style={{
+          border: "none",
+          boxShadow:
+            "0 4px 8px -2px rgba(16, 24, 40, 0.10), 0 2px 4px -2px rgba(16, 24, 40, 0.06)",
+        }}
+        key={stat.id}
+        title={stat.value}
+        description={stat.label}
+        icon={stat.icon}
+        iconPosition="left"
+        contentAlignment="center"
+        titleClass="display-md-bold"
+        titleColor="#14573A"
+        descriptionClass="text-sm-medium"
+        descriptionColor="#667085"
+      />
     );
   });
 
@@ -149,6 +149,12 @@ function GlobalStatisticsSection() {
             />
           </div>
         </div>
+
+        <img
+          src="/assets/image/global.png"
+          alt="Global Statistics Background"
+          className="w-full md:w-[70%]"
+        />
         {/* statistics section */}
         <div className="cards-wrapper">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-[24px] w-full">{statsCard}</div>

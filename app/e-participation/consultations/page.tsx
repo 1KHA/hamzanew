@@ -37,7 +37,7 @@ export default function page() {
                       boxShadow:
                         "0 4px 8px -2px rgba(16, 24, 40, 0.10), 0 2px 4px -2px rgba(16, 24, 40, 0.06)",
                     }}
-                    primaryTrailIconType="arrow"
+                    primaryTrailIconType="link-square-01"
                     buttonIconOnly={true}
                     linkSecondaryAction={content.path}
                     external={true} 

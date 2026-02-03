@@ -67,11 +67,6 @@ function Banner() {
 
         {/* الـ Overlay ثابت فوق الكل */}
         <div className="overlay">
-          {/* الشعار */}
-          <div className="banner-logo">
-            <img src="/assets/image/logo-stroke.png" alt="Logo" />
-          </div>
-
           {/* المحتوى */}
           <div className="hero w-[-webkit-fill-available] content !text-start">
             <h1 className="display-xl-semibold">{slides[currentSlide].title}</h1>
@@ -85,6 +80,11 @@ function Banner() {
             <button className="dga-btn dga-btn--md dga-btn--primary-neutral--on-color">
               <span className="dga-btn-label">{slides[currentSlide].buttonText}</span>
             </button>
+          </div>
+
+          {/* الشعار */}
+          <div className="banner-logo">
+            <img src="/assets/image/logo-stroke.png" alt="Logo" />
           </div>
         </div>
 

@@ -1,3 +1,4 @@
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import type { SubmenuColumn as SubmenuColumnType, SubmenuItem } from "./menuData";
 
@@ -44,24 +45,56 @@ interface NavigationSubmenuProps {
 }
 
 export default function NavigationSubmenu({ isOpen, columns, onLinkClick }: NavigationSubmenuProps) {
-  if (!columns) return null;
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [shouldRender, setShouldRender] = useState(false);
+  const [animating, setAnimating] = useState(false);
+  const lastColumnsRef = useRef<SubmenuColumnType[] | undefined>(undefined);
+
+  // Keep a snapshot of the last valid columns so content stays visible during close animation
+  if (columns) {
+    lastColumnsRef.current = columns;
+  }
+
+  const renderColumns = columns || lastColumnsRef.current;
+
+  useEffect(() => {
+    if (isOpen) {
+      setShouldRender(true);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setAnimating(true));
+      });
+    } else {
+      setAnimating(false);
+    }
+  }, [isOpen]);
+
+  const handleTransitionEnd = () => {
+    if (!isOpen) {
+      setShouldRender(false);
+    }
+  };
+
+  if (!shouldRender || !renderColumns) return null;
 
   return (
     <div
-      className={`sub-navs sub-navs-fixed transition-all duration-150 ease-out ${
-        isOpen ? "opacity-100 visible" : "opacity-0 invisible"
-      }`}
+      ref={contentRef}
+      className="sub-navs sub-navs-fixed"
+      onTransitionEnd={handleTransitionEnd}
       style={{
         position: "absolute",
         top: "72px",
         left: 0,
         right: 0,
         zIndex: 1,
-        transition: "opacity 0.15s ease-out, visibility 0.15s ease-out",
+        overflow: "hidden",
+        opacity: animating ? 1 : 0,
+        transform: animating ? "translateY(0)" : "translateY(-12px)",
+        transition: "opacity 0.25s ease, transform 0.25s ease",
       }}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-[24px] content">
-        {columns.map((column, index) => (
+        {renderColumns.map((column, index) => (
           <SubmenuColumn key={index} column={column} onLinkClick={onLinkClick} />
         ))}
       </div>
