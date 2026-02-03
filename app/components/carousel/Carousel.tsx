@@ -29,6 +29,7 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isRTL, setIsRTL] = useState(true);
+  const [ready, setReady] = useState(false);
 
   /* effectiveItems is only used for JS logic (dots count, maxSlide, arrows visibility).
      The actual item sizing is handled purely by CSS variables + media queries. */
@@ -46,6 +47,8 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
       document.dir === "rtl" ||
       getComputedStyle(document.body).direction === "rtl"
     );
+    // Enable transitions only after hydration to prevent flash
+    requestAnimationFrame(() => setReady(true));
 
     const onResize = () => setEffectiveItems(getItemsForWidth(window.innerWidth));
     window.addEventListener("resize", onResize);
@@ -106,6 +109,7 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({
             className="carousel-container"
             style={{
               transform: `translateX(calc(${translationMultiplier} * ${currentSlide} * (${itemWidthCalc} + var(--gap))))`,
+              transition: ready ? "transform 0.5s ease-in-out" : "none",
             }}
           >
             {items.map((item, index) => (

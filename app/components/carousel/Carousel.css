@@ -30,7 +30,6 @@
 
 .carousel-container {
   display: flex;
-  transition: transform 0.5s ease-in-out;
   will-change: transform;
   width: 100%;
   max-width: 100%;
