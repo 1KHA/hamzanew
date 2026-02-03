@@ -265,7 +265,7 @@ const Card: React.FC<CardProps> = ({
               disabled={disablePrimaryAction}
               icon={showPrimaryIcon ? resolvedTrailIconType : undefined}
               iconSize={16}
-              iconClass="white-icon"
+              iconClass={buttonColor === "primary-brand" ? "white-icon" : undefined}
             />
           )}
 
