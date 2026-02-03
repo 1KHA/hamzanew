@@ -52,7 +52,7 @@ export default function page() {
   backgroundImage: `url(${bg.src})`,
   backgroundRepeat: "no-repeat",
   backgroundPosition: "1233.365px 0px",
-  backgroundSize: "36.905% 100%",
+ 
 }}
 
       >

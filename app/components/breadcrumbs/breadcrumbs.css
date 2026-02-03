@@ -78,7 +78,7 @@
 
 /* ── Visited State ── */
 .link-neutral:visited {
-  color: var(--link-primary-visited, #384250) !important;
+  color: #384250 !important;
 }
 
 /* ── Disabled State ── */
