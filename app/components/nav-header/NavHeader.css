@@ -623,7 +623,7 @@ a:not(.header-menu__item--active):hover {
 .header-menu__item:focus,
 .header-menu__item:focus-visible {
   outline: 2px solid currentColor;
-  outline-offset: 2px;
+  outline-offset: -3px;
   border-radius: 4px;
 }
 
