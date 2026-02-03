@@ -17,7 +17,10 @@ export type HeroData = {
 
 type HeroMap = Record<string, HeroData>;
 
-type BreadcrumbsMax = number | ((pathname: string) => number);
+type BreadcrumbsMax =
+  | number
+  | ((pathname: string) => number)
+  | { default: number; overrides?: Record<string, number> };
 
 type PageHeroProps = {
   heroMap: HeroMap;
@@ -28,11 +31,17 @@ type PageHeroProps = {
 };
 
 function normalizePathname(pathname: string) {
-  if (pathname.length > 1 && pathname.endsWith("/")) return pathname.slice(0, -1);
+  if (pathname.length > 1 && pathname.endsWith("/"))
+    return pathname.slice(0, -1);
   return pathname;
 }
 
-function resolveHero(heroMap: HeroMap, pathnameRaw: string, defaultRoute: string, matchNested: boolean) {
+function resolveHero(
+  heroMap: HeroMap,
+  pathnameRaw: string,
+  defaultRoute: string,
+  matchNested: boolean,
+) {
   const pathname = normalizePathname(pathnameRaw);
 
   // exact match
@@ -74,24 +83,40 @@ export default function PageHero({
     [heroMap, pathname, defaultRoute, matchNested],
   );
 
-  const max = typeof breadcrumbsMax === "function" ? breadcrumbsMax(pathname) : breadcrumbsMax;
+  const max =
+    typeof breadcrumbsMax === "function"
+      ? breadcrumbsMax(pathname)
+      : typeof breadcrumbsMax === "object"
+        ? (breadcrumbsMax.overrides?.[pathname] ?? breadcrumbsMax.default)
+        : breadcrumbsMax;
 
   return (
-    <section className={styles.hero} style={{ background: hero.bgColor ?? defaultBgColor }}>
+    <section
+      className={styles.hero}
+      style={{ background: hero.bgColor ?? defaultBgColor }}
+    >
       <div className={styles.heroContent}>
         <div className={styles.inner}>
           <DgaBreadcrumbs items={hero.breadcrumbs ?? []} max={max} />
 
-          <h1 className={styles.title}>{hero.title}</h1>
+          <h1 className="display-sm-bold">{hero.title}</h1>
 
-          {hero.description ? <p className={styles.desc}>{hero.description}</p> : null}
+          {hero.description ? (
+            <p className="text-md-regular">{hero.description}</p>
+          ) : null}
 
           {hero.externalLink ? (
             <div className={styles.actions}>
               <button
                 type="button"
                 className="dga-btn dga-btn--lg dga-btn--primary-brand"
-                onClick={() => window.open(hero.externalLink!.href, "_blank", "noopener,noreferrer")}
+                onClick={() =>
+                  window.open(
+                    hero.externalLink!.href,
+                    "_blank",
+                    "noopener,noreferrer",
+                  )
+                }
               >
                 {hero.externalLink.label}
                 <img

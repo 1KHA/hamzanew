@@ -290,9 +290,15 @@ align-self: anchor-center !important;
   display: inline-block;
 }
 
-/* .dga-breadcrumb-root * {
-  border: 1px solid #111827;
+
+
+@media (max-width: 559px) {
+  .dga-breadcrumb-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .link-neutral {
+    font: 400 12px/18px "IBMPlexSansArabic";
+  }
 }
-.dga-breadcrumb-item * {
-  border: 1px solid #2e4f96;
-} */
