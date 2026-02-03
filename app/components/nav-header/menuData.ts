@@ -53,7 +53,7 @@ export const MENU_DATA: MenuItemType[] = [
             icon: "/assets/icons/stroke-standard/checkmark-badge-02-stroke-rounded.svg",
           },
           {
-            label: "اللجنة الاستشارية الدولية",
+            label: "اللجنة الاستشارية الدورية",
             href: "/about/periodic-advisory-committee",
             icon: "/assets/icons/stroke-standard/school-01-stroke-rounded.svg",
           },

@@ -74,11 +74,11 @@ export default function page() {
           />
 
           <div className="mb-[40px] head">
-            <div className="!mt-[40px] !space-y-[16px]">
+            <div className="!space-y-[16px]">
               {/* ✅ Tab 1 */}
               {activeTab === 1 && (
                 <div className="!grid !gap-[16px]">
-                  <p className="mb-0">
+                  <p className="text-md-regular mb-0">
                     البيانات المفتوحة في منصة اختبار همزة هي بيانات متاحة
                     للاستخدام العام بما يتيح الاطلاع عليها والاستفادة منها
                     لأغراض تعليمية وبحثية، وفق الأطر النظامية المعتمدة. وتهدف
@@ -90,16 +90,19 @@ export default function page() {
                     itemText="تعزيز الشفافية ومشاركة المستفيدين في تطوير منصة اختبار همزة."
                     level="one"
                     type="unordered"
+                    className="text-md-regular"
                   />
                   <DgaListItem
                     itemText="تحسين كفاءة الخدمات التعليمية وجودة الاختبارات المقدّمة."
                     level="one"
                     type="unordered"
+                    className="text-md-regular"
                   />
                   <DgaListItem
                     itemText="إتاحة الفرص لتطوير خدمات وأدوات تعليمية جديدة تعتمد على تحليل البيانات."
                     level="one"
                     type="unordered"
+                    className="text-md-regular"
                   />
                 </div>
               )}

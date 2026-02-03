@@ -110,7 +110,7 @@ function NavHeader() {
         return item.id;
       }
     }
-    return "home"; // Fallback
+    return ""; // Fallback
   };
 
   // Set active link based on pathname
