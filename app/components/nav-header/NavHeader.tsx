@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import DigitalSignature from "../digital-signature/DigitalSignature";
 import MenuItem from "./MenuItem";
 import MobileNav from "./MobileNav";
@@ -15,7 +16,9 @@ const IconImage = ({ src, alt = "" }: { src: string; alt?: string }) => (
 );
 
 // Horizontal scroll hook
-const useHorizontalScroll = (menuRef: React.RefObject<HTMLUListElement | null>) => {
+const useHorizontalScroll = (
+  menuRef: React.RefObject<HTMLUListElement | null>,
+) => {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
@@ -39,7 +42,7 @@ const useHorizontalScroll = (menuRef: React.RefObject<HTMLUListElement | null>) 
           }
         });
       },
-      { root: menu, threshold: 0.1 }
+      { root: menu, threshold: 0.1 },
     );
 
     observer.observe(startSentinel);
@@ -73,6 +76,7 @@ const useHorizontalScroll = (menuRef: React.RefObject<HTMLUListElement | null>) 
 // MAIN COMPONENT
 // =========================
 function NavHeader() {
+  const pathname = usePathname();
   const [activeLink, setActiveLink] = useState("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openSubmenus, setOpenSubmenus] = useState<string[]>([]);
@@ -83,21 +87,61 @@ function NavHeader() {
   const { canScrollLeft, canScrollRight, scrollLeft, scrollRight } =
     useHorizontalScroll(menuScrollRef);
 
+  // Helper to determine active ID from pathname
+  const getActiveId = (currentPath: string) => {
+    if (currentPath === "/") return "home";
+
+    for (const item of MENU_DATA) {
+      if (item.submenuColumns) {
+        const hasMatch = item.submenuColumns.some((col) =>
+          col.items.some(
+            (sub) => sub.href !== "#" && currentPath.startsWith(sub.href),
+          ),
+        );
+        if (hasMatch) return item.id;
+      }
+
+      if (
+        item.href &&
+        item.href !== "#" &&
+        item.href !== "/" &&
+        currentPath.startsWith(item.href)
+      ) {
+        return item.id;
+      }
+    }
+    return "home"; // Fallback
+  };
+
+  // Set active link based on pathname
+  useEffect(() => {
+    setActiveLink(getActiveId(pathname));
+  }, [pathname]);
+
   // Close submenu on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(event.target as Node)) {
         setOpenSubmenus([]);
+        // Revert active link to whatever matches the URL
+        setActiveLink(getActiveId(pathname));
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [pathname]);
 
   const toggleSubmenu = (id: string) => {
-    setOpenSubmenus((prev) => (prev.includes(id) ? [] : [id]));
-    setActiveLink(id);
+    const isOpening = !openSubmenus.includes(id);
+    setOpenSubmenus(isOpening ? [id] : []);
+
+    if (isOpening) {
+      setActiveLink(id);
+    } else {
+      // If closing manually, revert to URL match
+      setActiveLink(getActiveId(pathname));
+    }
   };
 
   const handleLinkClick = (id: string) => {
@@ -116,17 +160,15 @@ function NavHeader() {
         onLinkClick={handleLinkClick}
       />
 
-   
-
       {/* STICKY WRAPPER for header and submenu */}
       <div
         ref={navRef}
         style={{
-          position: 'sticky',
+          position: "sticky",
           top: 0,
-          zIndex: 9999
+          zIndex: 9999,
         }}
-        className={`nav-sticky-wrapper ${isMenuOpen ? 'nav-sticky-wrapper--hidden' : ''}`}
+        className={`nav-sticky-wrapper ${isMenuOpen ? "nav-sticky-wrapper--hidden" : ""}`}
       >
         {/* HEADER */}
         <header className="header header--divider">
@@ -146,7 +188,11 @@ function NavHeader() {
               {/* Logo */}
               <div className="header-nav__branding">
                 <Link href="/" className="header__logo">
-                  <img width={120} src="/assets/image/Hamza_Logo.png" alt="Logo" />
+                  <img
+                    width={120}
+                    src="/assets/image/Hamza_Logo.png"
+                    alt="Logo"
+                  />
                 </Link>
               </div>
 
@@ -159,7 +205,7 @@ function NavHeader() {
                 {canScrollLeft && (
                   <button
                     className="dga-btn dga-btn--md dga-btn--secondary-outline scroll-button scroll-button--left"
-                    style={{height:"80%"}}
+                    style={{ height: "80%" }}
                     onClick={scrollLeft}
                     aria-label="Scroll left"
                   >
@@ -185,7 +231,7 @@ function NavHeader() {
                 {canScrollRight && (
                   <button
                     className="dga-btn dga-btn--md dga-btn--secondary-outline scroll-button scroll-button--right"
-                    style={{height:"80%"}}
+                    style={{ height: "80%" }}
                     onClick={scrollRight}
                     aria-label="Scroll right"
                   >
@@ -215,9 +261,7 @@ function NavHeader() {
 
         {/* Submenu */}
         {(() => {
-          const active = MENU_DATA.find((i) =>
-            openSubmenus.includes(i.id)
-          );
+          const active = MENU_DATA.find((i) => openSubmenus.includes(i.id));
           return (
             <NavigationSubmenu
               isOpen={!!active?.submenuColumns}
