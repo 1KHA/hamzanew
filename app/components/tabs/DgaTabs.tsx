@@ -180,33 +180,44 @@ export const DgaTabs: React.FC<DgaTabsProps> = ({
     }
   };
 
-  const visibleTabs = tabsList.slice(0, 5);
+  // Determine items.
+  // We want ALL items in the main DOM for mobile scrolling.
+  // But on desktop, we want to visually hide items > 5 and show them in the dropdown.
+  // We will apply a CSS class to items > 5 to hide them on desktop.
+
+  const showOverflow = orientation === "horizontal" && tabsList.length > 5;
   const overflowTabs = tabsList.slice(5);
-  const showOverflow = orientation === "horizontal" && overflowTabs.length > 0;
 
   return (
     <ul
       className={`dga-tabs-list dga-tabs-list--${orientation} ${divider ? "dga-tabs-list--divider" : ""} ${flush ? "flush" : ""} ${className}`}
     >
-      {visibleTabs.map((tab, index) => (
-        <li
-          key={index}
-          style={{ width: orientation === "vertical" ? "100%" : "auto" }}
-        >
-          <a
-            href={tab.link || "#"}
-            className={`dga-tabs-list__item dga-tabs-list__item--${size} ${activeTab === index ? "dga-tabs-list__item--active" : ""} ${disabled ? "disabled" : ""}`}
-            onClick={(e) => handleTabClick(e, index, tab)}
+      {tabsList.map((tab, index) => {
+        // For horizontal tabs, items beyond index 4 (0-4 = 5 items) should be hidden on desktop
+        // but visible on mobile/tablet (scrollable).
+        const isOverflowItem = orientation === "horizontal" && index >= 5;
+
+        return (
+          <li
+            key={index}
+            className={isOverflowItem ? "dga-tab-item--desktop-hidden" : ""}
+            style={{ width: orientation === "vertical" ? "100%" : "auto" }}
           >
-            {tab.tabIcon && (
-              <div className="dga-tabs-list__icon">
-                <DgaIcon name={tab.tabIcon} {...tab.iconProps} />
-              </div>
-            )}
-            <div className="dga-tabs-list__label">{tab.label}</div>
-          </a>
-        </li>
-      ))}
+            <a
+              href={tab.link || "#"}
+              className={`dga-tabs-list__item dga-tabs-list__item--${size} ${activeTab === index ? "dga-tabs-list__item--active" : ""} ${disabled ? "disabled" : ""}`}
+              onClick={(e) => handleTabClick(e, index, tab)}
+            >
+              {tab.tabIcon && (
+                <div className="dga-tabs-list__icon">
+                  <DgaIcon name={tab.tabIcon} {...tab.iconProps} />
+                </div>
+              )}
+              <div className="dga-tabs-list__label">{tab.label}</div>
+            </a>
+          </li>
+        );
+      })}
 
       {showOverflow && (
         <li className="breadcrumb-item ellipsis" ref={menuRef}>

@@ -110,39 +110,39 @@ export default function page() {
               {/* ✅ Tab 2 */}
               {activeTab === 2 && (
                 <div className="!grid !gap-[16px]">
-                  <p className="!mb-0">ستتوفر البيانات قريبــــــاً</p>
+                  <p className="text-md-regular !mb-0">ستتوفر البيانات قريبــــــاً</p>
                 </div>
               )}
 
               {/* ✅ Tab 3 */}
               {activeTab === 3 && (
                 <div className="!grid !gap-[16px]">
-                  <p className="!mb-0">ستتوفر البيانات قريبــــــاً</p>
+                  <p className="text-md-regular !mb-0">ستتوفر البيانات قريبــــــاً</p>
                 </div>
               )}
 
               {/* ✅ Tab 4 */}
               {activeTab === 4 && (
                 <div className="!grid !gap-[16px]">
-                  <p className="!mb-0">ستتوفر البيانات قريبــــــاً</p>
+                  <p className="text-md-regular !mb-0">ستتوفر البيانات قريبــــــاً</p>
                 </div>
               )}
               {/* ✅ Tab 5 */}
               {activeTab === 5 && (
                 <div className="!grid !gap-[16px]">
-                  <p className="!mb-0">ستتوفر البيانات قريبــــــاً</p>
+                  <p className="text-md-regular !mb-0">ستتوفر البيانات قريبــــــاً</p>
                 </div>
               )}
               {/* ✅ Tab 6 */}
               {activeTab === 6 && (
                 <div className="!grid !gap-[16px]">
-                  <p className="!mb-0"> ستتوفر البيانات قريبــــــاً</p>
+                  <p className="text-md-regular !mb-0"> ستتوفر البيانات قريبــــــاً</p>
                 </div>
               )}
               {/* ✅ Tab 7 */}
               {activeTab === 7 && (
                 <div className="!grid !gap-[16px]">
-                  <p className="!mb-0"> ستتوفر البيانات قريبــــــاً</p>
+                  <p className="text-md-regular !mb-0"> ستتوفر البيانات قريبــــــاً</p>
                 </div>
               )}
             </div>
