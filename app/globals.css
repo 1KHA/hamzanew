@@ -345,6 +345,16 @@ li {
   filter: invert(24%) sepia(86%) saturate(642%) hue-rotate(112deg)
     brightness(92%) contrast(96%);
 }
+.circel {
+  margin-bottom: 24px;
+  background-color: #f3fcf6;
+  width: 56px;
+  height: 56px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /* Home banner */
 
 .c-mask {

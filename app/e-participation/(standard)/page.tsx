@@ -1,5 +1,5 @@
 "use client";
-import Card from "../components/card/Card";
+import Card from "@/app/components/card/Card";
 
 export default function page() {
   const pageContent = [
@@ -21,7 +21,7 @@ export default function page() {
     },
     {
       title: "الشكاوى والمقترحات",
-      link: "#",
+      link: "/e-participation/feedback-and-suggestion",
     },
     {
       title: "تقارير صوت المستفيد",
@@ -29,7 +29,7 @@ export default function page() {
     },
     {
       title: "إحصائيات الموقع والخدمات",
-      link: "#",
+      link: "/e-participation/services-statistics",
     },
     {
       title: "وسائل التواصل الاجتماعي",
