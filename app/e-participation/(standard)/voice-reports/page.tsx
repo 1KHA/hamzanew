@@ -45,8 +45,10 @@ export default function page() {
                     title={data.name}
                     linkPrimaryAction={data.path}
                     primaryActionLabel="تحميل الملف"
-                    buttonColor="btn-secondary-solid"
+                    buttonColor="secondary"
                     showPrimaryAction={true}
+                    primaryTrailIconType="download-04"
+                    showPrimaryIcon
                   />
                 ))}
               </div>
