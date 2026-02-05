@@ -64,27 +64,27 @@ export const MENU_DATA: MenuItemType[] = [
         items: [
           {
             label: "أنواع اختبارات همزة",
-            href: "#",
+            href: "/types-of-tests",
             icon: "/assets/icons/stroke-standard/right-to-left-list-bullet-stroke-rounded.svg",
           },
           {
             label: "همزة الأكاديمي",
-            href: "#",
+            href: "/types-of-tests/hamza-academic-test",
             icon: "/assets/icons/stroke-standard/mortarboard-01-stroke-rounded.svg",
           },
           {
             label: "همزة العام",
-            href: "#",
+            href: "/types-of-tests/hamza-general-test",
             icon: "/assets/icons/stroke-standard/glasses-stroke-rounded.svg",
           },
           {
             label: "همزة لتحديد المستوى",
-            href: "#",
+            href: "/types-of-tests/hamza-placement-test",
             icon: "/assets/icons/stroke-standard/star-stroke-rounded.svg",
           },
           {
             label: "همزة للمفردات",
-            href: "#",
+            href: "/types-of-tests/hamza-vocabulary-test",
             icon: "/assets/icons/stroke-standard/book-02-stroke-rounded.svg",
           },
         ],
