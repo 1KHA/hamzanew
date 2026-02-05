@@ -1,4 +1,5 @@
 import Card from "@/app/components/card/Card";
+import LastModified from "@/app/components/last-modified/LastModified";
 
 export default function page() {
   const pageContent = [
@@ -19,6 +20,7 @@ export default function page() {
     },
   ];
   return (
+    <>
     <div className="content">
       <div className=" section-spacing-5xl">
         {pageContent.map((content) => {
@@ -48,6 +50,16 @@ export default function page() {
           );
         })}
       </div>
+    
     </div>
+    
+    {/* Last update Date and time */}
+
+      <LastModified
+        date="31/12/2025"
+        time="2:00 م"
+        className="custom-container"
+      />
+      </>
   );
 }

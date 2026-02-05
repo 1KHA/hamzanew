@@ -1,5 +1,6 @@
 "use client";
 import ScrollFrame from "@/app/components/scroll-frame/ScrollFrame";
+import LastModified from "@/app/components/last-modified/LastModified";
 import "../about.css";
 export default function page() {
   const benefits = [
@@ -109,8 +110,14 @@ export default function page() {
           {/* bottom section */}
           <ScrollFrame slides={myData} />
         </div>
-        
       </div>
+      {/* Last update Date and time */}
+
+      <LastModified
+        date="31/12/2025"
+        time="2:00 م"
+        className="custom-container"
+      />
     </>
   );
 }

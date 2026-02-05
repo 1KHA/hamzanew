@@ -1,3 +1,4 @@
+import LastModified from "@/app/components/last-modified/LastModified";
 import { DgaChart } from "platformscode-new-react";
 import { title } from "process";
 export default function page() {
@@ -110,14 +111,14 @@ export default function page() {
             ))}
           </section>
 
-
           {/* Pie charts */}
           <section className="!grid !grid-cols-1 md:!grid-cols-2 !gap-y-8 md:!gap-y-8 !gap-x-0 md:!gap-x-6">
-            {chartsData.map((chart,index) => {
+            {chartsData.map((chart, index) => {
               return (
                 <div
-                key={index}
-                className="!w-full !border !border-[#d2d6db] !bg-white !p-4 !flex !flex-col !items-center !gap-6 !rounded-[16px] !relative !box-border !overflow-hidden  !text-center">
+                  key={index}
+                  className="!w-full !border !border-[#d2d6db] !bg-white !p-4 !flex !flex-col !items-center !gap-6 !rounded-[16px] !relative !box-border !overflow-hidden  !text-center"
+                >
                   <h3 className="!text-[18px] mb-3">{chart.title}</h3>
                   <DgaChart
                     colors={[
@@ -252,6 +253,13 @@ export default function page() {
           </section>
         </div>
       </div>
+      {/* Last update Date and time */}
+
+      <LastModified
+        date="31/12/2025"
+        time="2:00 م"
+        className="custom-container"
+      />
     </>
   );
 }

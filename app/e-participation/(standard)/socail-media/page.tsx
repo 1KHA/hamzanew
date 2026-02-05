@@ -1,5 +1,6 @@
 "use client";
 import Card from "@/app/components/card/Card";
+import LastModified from "@/app/components/last-modified/LastModified";
 
 export default function page() {
   const socialMedia = [
@@ -54,12 +55,21 @@ export default function page() {
     );
   });
   return (
-    <div className="custom-container">
-      <div className="section-spacing-5xl">
-        <div className="!grid !grid-cols-1 md:!grid-cols-3 !gap-8">
-          {socailMediaCards}
+    <>
+      <div className="custom-container">
+        <div className="section-spacing-5xl">
+          <div className="!grid !grid-cols-1 md:!grid-cols-3 !gap-8">
+            {socailMediaCards}
+          </div>
         </div>
       </div>
-    </div>
+      {/* Last update Date and time */}
+
+      <LastModified
+        date="31/12/2025"
+        time="2:00 م"
+        className="custom-container"
+      />
+    </>
   );
 }

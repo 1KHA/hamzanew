@@ -13,7 +13,7 @@ export default function AboutLayout({ children }: { children: ReactNode }) {
     <>
       {/* <AboutHero /> */}
             <PageHero heroMap={heroMap} defaultRoute="/about" breadcrumbsMax={5} />
-      <main>{children}</main>
+      <section>{children}</section>
     </>
   );
 }

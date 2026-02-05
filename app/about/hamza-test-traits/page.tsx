@@ -1,5 +1,6 @@
 "use client";
 import Card from "@/app/components/card/Card";
+import LastModified from "@/app/components/last-modified/LastModified";
 import bg from "@/public/assets/image/bg-image.png";
 import "../about.css";
 export default function page() {
@@ -34,10 +35,9 @@ export default function page() {
     <Card
       key={trait.number}
       style={{
-
         alignSelf: "stretch",
         flex: "1 0 0",
-        border: "none"
+        border: "none",
       }}
       number={trait.number}
       title={trait.title}
@@ -46,23 +46,25 @@ export default function page() {
   ));
   return (
     <>
-      <div className="block-padding-10xl bg-color-grey-50"
- style={{
-  backgroundColor: "#f9fafb",
-  backgroundImage: `url(${bg.src})`,
-  backgroundRepeat: "no-repeat",
-  backgroundPosition: "1233.365px 0px",
- 
-}}
-
+      <div
+        className="block-padding-10xl bg-color-grey-50"
+        style={{
+          backgroundColor: "#f9fafb",
+          backgroundImage: `url(${bg.src})`,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "1233.365px 0px",
+        }}
       >
         <div className="stack-xl custom-container">
           <h1 className="section-header">السمات</h1>
-          <div className="grid-cols-4-gap-24">
-            {traitsCards}
-          </div>
+          <div className="grid-cols-4-gap-24">{traitsCards}</div>
         </div>
       </div>
+      <LastModified
+        date="31/12/2025"
+        time="2:00 م"
+        className="custom-container"
+      />
     </>
   );
 }

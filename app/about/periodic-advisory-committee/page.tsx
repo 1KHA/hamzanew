@@ -1,5 +1,6 @@
 "use client";
 import Card from "@/app/components/card/Card";
+import LastModified from "@/app/components/last-modified/LastModified";
 import "../about.css";
 export default function page() {
   const mainTasks = [
@@ -94,7 +95,7 @@ export default function page() {
           //   padding: "var(--Global-spacing-xl, 16px)",
           //   flexDirection: "column",
           //   alignItems: "flex-end",
-        //   gap: "var(--Card-card-lg-gap, 24px)",
+          //   gap: "var(--Card-card-lg-gap, 24px)",
           //   flex: "1 0 0",
           //   alignSelf: "stretch",
           borderRadius: "var(--radius-lg, 16px)",
@@ -116,7 +117,7 @@ export default function page() {
         key={member.id}
         style={{
           padding: "var(--Global-spacing-xl, 16px)",
-        //   gap: "var(--Card-card-lg-gap, 24px)",
+          //   gap: "var(--Card-card-lg-gap, 24px)",
           borderRadius: "var(--radius-lg, 16px)",
           border: "1px solid var(--Border-border-neutral-primary, #D2D6DB)",
           //   background: "var(--Background-background-card, #FFF)",
@@ -146,6 +147,11 @@ export default function page() {
           </div>
         </div>
       </div>
+      <LastModified
+        date="31/12/2025"
+        time="2:00 م"
+        className="custom-container"
+      />
     </>
   );
 }

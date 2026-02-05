@@ -1,5 +1,6 @@
 "use client";
 import Card from "@/app/components/card/Card";
+import LastModified from "@/app/components/last-modified/LastModified";
 import "../about.css";
 export default function page() {
   const cardsContent = [
@@ -101,8 +102,6 @@ export default function page() {
         key={index}
         style={{
           borderRadius: "16px",
-          display: "flex",
-
           border: "none",
         }}
         title={content.title}
@@ -152,14 +151,14 @@ export default function page() {
             </div>
           </div>
         </div>
-
-        <section className="!items-center !gap-2 !self-stretch !py-4 content">
-        <p className="!w-full">
-          تاريخ آخر تعديل: 31/12/2025 - 2:00 م بتوقيت السعودية
-        </p>
-      </section>
-    
       </div>
+      {/* Last update Date and time */}
+
+      <LastModified
+        date="31/12/2025"
+        time="2:00 م"
+        className="custom-container"
+      />
     </>
   );
 }

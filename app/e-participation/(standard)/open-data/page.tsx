@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { DgaListItem } from "platformscode-new-react";
 import { DgaTabs } from "@/app/components/tabs/DgaTabs";
+import LastModified from "@/app/components/last-modified/LastModified";
 export default function page() {
   const [activeTab, setActiveTab] = useState(1); //  default tab 1
 
@@ -110,45 +111,66 @@ export default function page() {
               {/* ✅ Tab 2 */}
               {activeTab === 2 && (
                 <div className="!grid !gap-[16px]">
-                  <p className="text-md-regular !mb-0">ستتوفر البيانات قريبــــــاً</p>
+                  <p className="text-md-regular !mb-0">
+                    ستتوفر البيانات قريبــــــاً
+                  </p>
                 </div>
               )}
 
               {/* ✅ Tab 3 */}
               {activeTab === 3 && (
                 <div className="!grid !gap-[16px]">
-                  <p className="text-md-regular !mb-0">ستتوفر البيانات قريبــــــاً</p>
+                  <p className="text-md-regular !mb-0">
+                    ستتوفر البيانات قريبــــــاً
+                  </p>
                 </div>
               )}
 
               {/* ✅ Tab 4 */}
               {activeTab === 4 && (
                 <div className="!grid !gap-[16px]">
-                  <p className="text-md-regular !mb-0">ستتوفر البيانات قريبــــــاً</p>
+                  <p className="text-md-regular !mb-0">
+                    ستتوفر البيانات قريبــــــاً
+                  </p>
                 </div>
               )}
               {/* ✅ Tab 5 */}
               {activeTab === 5 && (
                 <div className="!grid !gap-[16px]">
-                  <p className="text-md-regular !mb-0">ستتوفر البيانات قريبــــــاً</p>
+                  <p className="text-md-regular !mb-0">
+                    ستتوفر البيانات قريبــــــاً
+                  </p>
                 </div>
               )}
               {/* ✅ Tab 6 */}
               {activeTab === 6 && (
                 <div className="!grid !gap-[16px]">
-                  <p className="text-md-regular !mb-0"> ستتوفر البيانات قريبــــــاً</p>
+                  <p className="text-md-regular !mb-0">
+                    {" "}
+                    ستتوفر البيانات قريبــــــاً
+                  </p>
                 </div>
               )}
               {/* ✅ Tab 7 */}
               {activeTab === 7 && (
                 <div className="!grid !gap-[16px]">
-                  <p className="text-md-regular !mb-0"> ستتوفر البيانات قريبــــــاً</p>
+                  <p className="text-md-regular !mb-0">
+                    {" "}
+                    ستتوفر البيانات قريبــــــاً
+                  </p>
                 </div>
               )}
             </div>
           </div>
         </section>
       </div>
+      {/* Last update Date and time */}
+
+      <LastModified
+        date="31/12/2025"
+        time="2:00 م"
+        className="custom-container"
+      />
     </>
   );
 }

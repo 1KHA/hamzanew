@@ -5,6 +5,7 @@ import DgaBreadcrumbs from "@/app/components/breadcrumbs/BreadCrumbs";
 import { DgaDivider, DgaLink } from "platformscode-new-react";
 import Image from "next/image";
 import copyIcon from "@/public/assets/icons/stroke-standard/copy-01-stroke-rounded.svg";
+import LastModified from "@/app/components/last-modified/LastModified";
 export default function Layout({ children }: { children: ReactNode }) {
   const [showTooltip, setShowTooltip] = useState(false);
 
@@ -341,6 +342,13 @@ export default function Layout({ children }: { children: ReactNode }) {
           />
         </div>
       )}
+      {/* Last update Date and time */}
+
+      <LastModified
+        date="31/12/2025"
+        time="2:00 م"
+        className="custom-container"
+      />
     </>
   );
 }

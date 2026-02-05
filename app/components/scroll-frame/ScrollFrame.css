@@ -36,19 +36,19 @@
   line-height: 1.3;
 } */
 .subtitle {
-  color: var(--Text-text-primary, #1b8354);
+    color: var(--Text-text-primary, #1b8354);
   text-align: right;
 
   /* Text lg/Medium */
   font-family: var(--Font-Family-font-family-text, "IBMPlexSansArabic");
-  /* font-size: var(--Size-Text-typo-size-text-lg, 18px); */
-  font-size: var(--Size-Text-typo-size-text-lg, 1.125rem);
+  font-size: var(--Size-Text-typo-size-text-lg, 18px);
   font-style: normal;
   font-weight: 500;
   line-height: var(
     --Line-Height-Text-line-heights-text-lg,
     28px
   ); /* 155.556% */
+
 }
 .main-title {
   color: var(--Text-text-default, #161616);

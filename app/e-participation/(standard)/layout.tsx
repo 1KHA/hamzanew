@@ -22,7 +22,7 @@ export default function EParticipationLayout({
         breadcrumbsMax={{ default: 4, overrides: { "/e-participation": 4 } }}
         // breadcrumbsMax={4}
       />
-      <main>{children}</main>
+      <section>{children}</section>
     </>
   );
 }
