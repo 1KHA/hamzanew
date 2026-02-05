@@ -1,12 +1,18 @@
-import type { ReactNode } from "react";
+"use client";
+
+import { useState, type ReactNode } from "react";
 import DgaBreadcrumbs from "@/app/components/breadcrumbs/BreadCrumbs";
 import { DgaDivider, DgaLink } from "platformscode-new-react";
 import Image from "next/image";
 import copyIcon from "@/public/assets/icons/stroke-standard/copy-01-stroke-rounded.svg";
 export default function Layout({ children }: { children: ReactNode }) {
+  const [showTooltip, setShowTooltip] = useState(false);
+
   async function copyToClipboard(text: string) {
     try {
       await navigator.clipboard.writeText(text);
+      setShowTooltip(true);
+      setTimeout(() => setShowTooltip(false), 2000);
       return true;
     } catch (error) {
       return false;
@@ -80,7 +86,8 @@ export default function Layout({ children }: { children: ReactNode }) {
                             alt="copy-icon"
                             width={20}
                             height={20}
-                            className="icon-green"
+                            className="icon-green !cursor-pointer"
+                            onClick={() => copyToClipboard("9200343222")}
                           />
                         </div>
                       </div>
@@ -108,7 +115,8 @@ export default function Layout({ children }: { children: ReactNode }) {
                             alt="copy-icon"
                             width={20}
                             height={20}
-                            className="icon-green"
+                            className="icon-green !cursor-pointer"
+                            onClick={() => copyToClipboard("199099")}
                           />
                         </div>
                       </div>
@@ -136,7 +144,8 @@ export default function Layout({ children }: { children: ReactNode }) {
                             alt="copy-icon"
                             width={20}
                             height={20}
-                            className="icon-green"
+                            className="icon-green !cursor-pointer"
+                            onClick={() => copyToClipboard("help@hamza.sa")}
                           />
                         </div>
                       </div>
@@ -164,7 +173,8 @@ export default function Layout({ children }: { children: ReactNode }) {
                             alt="copy-icon"
                             width={20}
                             height={20}
-                            className="icon-green"
+                            className="icon-green !cursor-pointer"
+                            onClick={() => copyToClipboard("00966-11-434-6654")}
                           />
                         </div>
                       </div>
@@ -246,7 +256,6 @@ export default function Layout({ children }: { children: ReactNode }) {
 
                       {/* 1 */}
                       <div className="!flex !flex-row !justify-start !items-start !gap-2">
-                  
                         <div className="!flex !flex-row !justify-start !gap-2">
                           <h3 className="text-md-bold">الدفاع المدني</h3>
                           <div className="!flex !flex-row !justify-start !gap-2 ">
@@ -261,14 +270,14 @@ export default function Layout({ children }: { children: ReactNode }) {
                               alt="copy-icon"
                               width={20}
                               height={20}
-                              className="icon-green"
+                              className="icon-green !cursor-pointer"
+                              onClick={() => copyToClipboard("998")}
                             />
                           </div>
                         </div>
                       </div>
                       {/* 2 */}
                       <div className="!flex !flex-row !justify-start !items-start !gap-2">
-                  
                         <div className="!flex !flex-row !justify-start !gap-2">
                           <h3 className="text-md-bold">الشرطة</h3>
                           <div className="!flex !flex-row !justify-start !gap-2 ">
@@ -283,14 +292,14 @@ export default function Layout({ children }: { children: ReactNode }) {
                               alt="copy-icon"
                               width={20}
                               height={20}
-                              className="icon-green"
+                              className="icon-green !cursor-pointer"
+                              onClick={() => copyToClipboard("999")}
                             />
                           </div>
                         </div>
                       </div>
                       {/* 3 */}
                       <div className="!flex !flex-row !justify-start !items-start !gap-2">
-                  
                         <div className="!flex !flex-row !justify-start !gap-2">
                           <h3 className="text-md-bold">الإسعاف</h3>
                           <div className="!flex !flex-row !justify-start !gap-2 ">
@@ -305,13 +314,12 @@ export default function Layout({ children }: { children: ReactNode }) {
                               alt="copy-icon"
                               width={20}
                               height={20}
-                              className="icon-green"
+                              className="icon-green !cursor-pointer"
+                              onClick={() => copyToClipboard("997")}
                             />
                           </div>
                         </div>
                       </div>
-
-
                     </div>
                   </div>
                 </div>
@@ -320,7 +328,19 @@ export default function Layout({ children }: { children: ReactNode }) {
           </div>
         </section>
       </div>
-      {/* <main>{children}</main> */}
+      {/* tooltip notification */}
+      {showTooltip && (
+        <div className="!fixed !bottom-10 !left-1/2 !-translate-x-1/2 !bg-[#101828] !text-white !px-4 !py-2 !rounded-lg !shadow-lg !z-[9999] !flex !items-center !gap-2 !animate-in !fade-in !slide-in-from-bottom-4 !duration-300">
+          <span className="!text-sm !font-medium">تم نسخ النص بنجاح</span>
+          <Image
+            src="/assets/icons/stroke-standard/checkmark-circle-02-stroke-rounded.svg"
+            alt="success"
+            width={20}
+            height={20}
+            className="icon-green"
+          />
+        </div>
+      )}
     </>
   );
 }

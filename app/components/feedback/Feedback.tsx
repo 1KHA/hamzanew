@@ -10,7 +10,6 @@ import {
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
-
 export default function Feedback() {
   const location = usePathname();
   const textareaRef = useRef(null);
@@ -96,16 +95,10 @@ export default function Feedback() {
       <hr className="" />
       <div className=" content">
         <section className="!flex !flex-col !items-center !w-full !gap-4 !py-6">
-
-<div className="flex md:flex-row flex-col w-full gap-4 justify-between">
-
-
-  <div className="!w-full !flex  !flex-row !justify-between !items-center max-!gap-4">
-
-
-
-            <div className="!flex md:!items-center !flex-col md:!flex-row !gap-4 md:!gap-6  ">
-              {/* {submitted && (
+          <div className="flex md:flex-row flex-col w-full gap-4 justify-between">
+            <div className="!w-full !flex  !flex-row !justify-between !items-center max-!gap-4">
+              <div className="!flex md:!items-center !flex-col md:!flex-row !gap-4 md:!gap-6  ">
+                {/* {submitted && (
                 // <DgaIcon
                 //   icon="checkmark-circle-04"
                 //   variant="stroke"
@@ -114,74 +107,71 @@ export default function Feedback() {
                 //   size="24px"
                 // />
               )} */}
-              <p className="text-md-regular text-[#161616]">
-                {!submitted
-                  ? "هل كانت هذه الصفحة مفيدة؟"
-                  : "تم إرسال ملاحظاتك!"}
+                <p className="text-md-regular text-[#161616]">
+                  {!submitted
+                    ? "هل كانت هذه الصفحة مفيدة؟"
+                    : "تم إرسال ملاحظاتك!"}
+                </p>
+                {!submitted && (
+                  <div className="flex gap-4">
+                    <Button
+                      label="نعم"
+                      variant="primary-brand"
+                      size="lg"
+                      onClick={() => {
+                        setAnswer((prev) => ({
+                          ...prev,
+                          isUseful: "yes",
+                          reasons: [],
+                        }));
+                        setOpenQuestions(true);
+                      }}
+                    />
+                    <Button
+                      label="لا"
+                      variant="primary-brand"
+                      size="lg"
+                      onClick={() => {
+                        setAnswer((prev) => ({
+                          ...prev,
+                          isUseful: "no",
+                          reasons: [],
+                        }));
+                        setOpenQuestions(true);
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+              <div>
+                {openQuestions && !submitted && (
+                  <button
+                    className="dga-btn dga-btn--lg dga-btn--subtle   !flex !justify-center !items-center !p-4 !cursor-pointer"
+                    onClick={() => {
+                      setOpenQuestions(false);
+                    }}
+                  >
+                    <span>إغلاق</span>
+                    <img
+                      alt=""
+                      width={24}
+                      height={24}
+                      className="inline-block"
+                      src={`/assets/icons/stroke-standard/cancel-circle-stroke-rounded.svg`}
+                    />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {(!openQuestions || submitted) && stats.totalCount > 0 && (
+              <p className="text-sm-regular text-[#161616] text-start md:text-end !w-full">
+                {stats.yesPercentage}% من المستخدمين قالوا نعم من
+                {stats.totalCount} تعليقًا
               </p>
-              {!submitted && (
-                <div className="flex gap-4">
-                  <Button
-                    label="نعم"
-                    variant="primary-brand"
-                    size="lg"
-                    onClick={() => {
-                      setAnswer((prev) => ({
-                        ...prev,
-                        isUseful: "yes",
-                        reasons: [],
-                      }));
-                      setOpenQuestions(true);
-                    }}
-                  />
-                  <Button
-                    label="لا"
-                    variant="primary-brand"
-                    size="lg"
-                    onClick={() => {
-                      setAnswer((prev) => ({
-                        ...prev,
-                        isUseful: "no",
-                        reasons: [],
-                      }));
-                      setOpenQuestions(true);
-                    }}
-                  />
-                </div>
-              )}
-            </div>
-            <div>
-              {openQuestions && !submitted && (
-                <button
-                  className="dga-btn dga-btn--lg dga-btn--subtle   !flex !justify-center !items-center !p-4 !cursor-pointer"
-                  onClick={() => {
-                    setOpenQuestions(false);
-                  }}
-                >
-                  <span>إغلاق</span>
-                  <img
-                    alt=""
-                    width={24}
-                    height={24}
-                    className="inline-block"
-                    src={`/assets/icons/stroke-standard/cancel-circle-stroke-rounded.svg`}
-                  />
-                </button>
-              )}
-            </div>
+            )}
           </div>
 
- {(!openQuestions || submitted) && stats.totalCount > 0 && (
-            <p className="text-sm-regular text-[#161616] text-start md:text-end !w-full">
-              {stats.yesPercentage}% من المستخدمين قالوا نعم من
-              {stats.totalCount} تعليقًا
-            </p>
-          )}
-
-</div>
-
-        
-         
           <div
             className={`grid transition-[grid-template-rows,opacity,margin,transform] duration-300 ease-in-out !w-full ${
               openQuestions && !submitted
@@ -315,55 +305,44 @@ export default function Feedback() {
                       </p>
 
                       <div className="flex">
-
-
-                   
-                      <div className="flex justify-start gap-[2px]">
-                        <a href="https://my.gov.sa/ar/content/e-participation#section-1" target="_blank" rel="noopener noreferrer" className="link link--primary">
-                         بيان المشاركة الإلكترونية
-                        
-                       
-                         </a>
-
-                           
-                          <img
-                          alt=""
-                          width={16}
-                          height={16}
-                          className="inline-block green-icon"
-                          src={`/assets/icons/stroke-standard/link-square-02-stroke-rounded.svg`}
-                        />
-
-
-
-                        
-                       
-                      </div>
-                    
-                      <div className="flex justify-start gap-[2px]">
-                          &nbsp;و&nbsp;
-                        
-                        <a href="#" target="_blank" rel="noopener noreferrer" className="link link--primary">
-
-                          قواعد الاشتراك
-
-                      
-
+                        <div className="flex justify-start gap-[2px]">
+                          <a
+                            href="https://my.gov.sa/ar/content/e-participation#section-1"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="link link--primary"
+                          >
+                            بيان المشاركة الإلكترونية
                           </a>
 
-                              <img
-                          alt=""
-                          width={16}
-                          height={16}
-                          className="inline-block green-icon"
-                          src={`/assets/icons/stroke-standard/link-square-02-stroke-rounded.svg`}
-                        />
-                          
-                        
+                          <img
+                            alt=""
+                            width={16}
+                            height={16}
+                            className="inline-block green-icon"
+                            src={`/assets/icons/stroke-standard/link-square-02-stroke-rounded.svg`}
+                          />
+                        </div>
+
+                        <div className="flex justify-start gap-[2px]">
+                          &nbsp;و&nbsp;
+                          <a
+                            href="#"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="link link--primary"
+                          >
+                            قواعد الاشتراك
+                          </a>
+                          <img
+                            alt=""
+                            width={16}
+                            height={16}
+                            className="inline-block green-icon"
+                            src={`/assets/icons/stroke-standard/link-square-02-stroke-rounded.svg`}
+                          />
+                        </div>
                       </div>
-
-
-                         </div>
                     </div>
 
                     <Button
@@ -381,4 +360,4 @@ export default function Feedback() {
       </div>
     </>
   );
-};
+}
