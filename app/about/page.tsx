@@ -52,10 +52,15 @@ function AboutPage() {
   });
 
   return (
-    <div>
-      <div className="section-spacing-5xl responsive-cards-grid content">
+    <div className="content">
+      <div className="section-spacing-5xl responsive-cards-grid ">
         {aboutPagesCard}
       </div>
+      <section className="!items-center !gap-2 !self-stretch !py-4">
+        <p className="!w-full">
+          تاريخ آخر تعديل: 31/12/2025 - 2:00 م بتوقيت السعودية
+        </p>
+      </section>
     </div>
   );
 }

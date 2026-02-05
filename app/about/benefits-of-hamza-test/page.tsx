@@ -109,6 +109,7 @@ export default function page() {
           {/* bottom section */}
           <ScrollFrame slides={myData} />
         </div>
+        
       </div>
     </>
   );

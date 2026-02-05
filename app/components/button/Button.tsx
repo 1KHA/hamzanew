@@ -4,7 +4,12 @@ import React from "react";
 interface ButtonProps {
   label?: string;
   onClick?: () => void;
-  variant?: "primary-brand" | "secondary-outline" | "secondary" |"secondary-solid" | string;
+  variant?:
+    | "primary-brand"
+    | "secondary-outline"
+    | "secondary"
+    | "secondary-solid"
+    | string;
   size?: "sm" | "md" | "lg";
   disabled?: boolean;
   tabIndex?: number;
@@ -14,6 +19,7 @@ interface ButtonProps {
   iconSize?: number;
   iconClass?: string;
   className?: string;
+  type?: "button" | "submit" | "reset";
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -29,13 +35,14 @@ const Button: React.FC<ButtonProps> = ({
   iconSize = 16,
   iconClass = "",
   className = "",
+  type = "button",
 }) => {
   const baseClass = `dga-btn dga-btn--${size} dga-btn--${variant} !flex !justify-center !items-center !p-4 !cursor-pointer`;
   const combinedClass = `${baseClass} ${className}`.trim();
 
   const renderIcon = () => {
     if (!icon) return null;
-    
+
     return (
       <img
         alt=""
@@ -49,6 +56,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
+      type={type}
       tabIndex={tabIndex}
       disabled={disabled}
       className={combinedClass}

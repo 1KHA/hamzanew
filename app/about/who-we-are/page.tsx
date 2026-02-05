@@ -71,7 +71,8 @@ export default function page() {
       <Card
         key={index}
         style={{
-          borderRadius: "16px",        }}
+          borderRadius: "16px",
+        }}
         title={card.title}
         description={card.description}
         icon={card.icon}
@@ -94,8 +95,6 @@ export default function page() {
     );
   });
 
-
-  
   const mortakazatCards = mortakazatCardsContents.map((content, index) => {
     return (
       <Card
@@ -103,8 +102,8 @@ export default function page() {
         style={{
           borderRadius: "16px",
           display: "flex",
-        
-          border: "none"
+
+          border: "none",
         }}
         title={content.title}
         description={content.description}
@@ -114,10 +113,6 @@ export default function page() {
   });
   return (
     <>
-
-
-    
-
       <div className="stack">
         {/* first section */}
         <div className="about-us-cards-container custom-container">
@@ -151,10 +146,19 @@ export default function page() {
             </div>
 
             <div className="about-cards">
-              <div className="about-cards__row !items-stretch">{mortakazatCards}</div>
+              <div className="about-cards__row !items-stretch">
+                {mortakazatCards}
+              </div>
             </div>
           </div>
         </div>
+
+        <section className="!items-center !gap-2 !self-stretch !py-4 content">
+        <p className="!w-full">
+          تاريخ آخر تعديل: 31/12/2025 - 2:00 م بتوقيت السعودية
+        </p>
+      </section>
+    
       </div>
     </>
   );
