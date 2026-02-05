@@ -1,5 +1,5 @@
 "use client";
-// import { DgaTag } from "platformscode-new-react"; // TEMPORARILY DISABLED
+import { DgaTextInput } from "platformscode-new-react"; // TEMPORARILY DISABLED
 import Banner from "./components/Banner";
 import Tag from "./components/tag/Tag";
 
@@ -247,7 +247,58 @@ export default function Home() {
             </Carousel>
           </div>
         </section>
+
+
+
+       
       </div>
+
+       {/* share mail section */}
+        <section className="content gap-[32px] ">
+          <div className="grid gap-[24px] !flex flex-col bg-[#074D31] rounded-[16px] md:rounded-[24px] !px-[24px] md:!px-[80px] custom-container section-spacing-5xl ">
+            <div className="flex flex-col lg:flex-row md:justify-between lg:items-center gap-6">
+
+              <div className="flex flex-col md:flex-row items-center gap-[32px] text-center md:text-start">
+                <img alt="" width="56" height="56" className="inline-block" src="/assets/image/small-logo.png" />
+
+                <div className="flex flex-col gap-4">
+                  <h1 className="display-sm-bold !text-white">سجل اهتمامك</h1>
+
+                  <p className="text-md-regular !text-white md:text-start !text-center">
+                    سجل اهتمامك بالاختبارات المعيارية للغة العربية واحصل على أحدث التحديثات والأخبار.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 w-full md:w-auto">
+                <DgaTextInput
+                  feedbackIconType="error"
+                  name="textInput"
+                  onBlur={function vu() { }}
+                  onChange={function vu() { }}
+                  onInput={function vu() { }}
+                  placeholder="ادخل بريدك الإلكتروني"
+                  size="lg"
+                  type="text"
+                  value=""
+                  variant="default"
+                />
+
+                <button className="dga-btn dga-btn--lg dga-btn--primary-neutral--on-color w-full md:w-auto !flex !justify-center !items-center !p-4 !cursor-pointer gap-2">
+                  <span className="dga-btn-label">مشاركة
+                   
+                  </span>
+
+                   <img alt="" width="16" height="16" className="inline-block" src="/assets/icons/stroke-standard/arrow-up-right-01-stroke-rounded.svg" />
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+
     </>
   );
 }

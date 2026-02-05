@@ -1045,3 +1045,42 @@ div.table-wrapper .azm-table thead th span span.text {
 :is(html[lang="ar"], html[dir="rtl"]) .link--primary {
   flex-direction: row-reverse;
 }
+
+
+
+
+.icon-critical {
+filter:
+  invert(18%)
+  sepia(96%)
+  saturate(7460%)
+  hue-rotate(357deg)
+  brightness(75%)
+  contrast(54%);
+}
+
+
+/* Warning — #f59e0b */
+.icon-warning {
+  filter: brightness(0) saturate(100%) invert(63%) sepia(94%) saturate(2100%) hue-rotate(2deg) brightness(100%) contrast(102%);
+}
+
+/* Success — #10b981 */
+.icon-success {
+  filter: brightness(80) saturate(60%) invert(45%) sepia(87%) saturate(3200%) hue-rotate(132deg) brightness(67%) contrast(226%);
+}
+
+/* Info — #3b82f6 */
+.icon-info {
+  filter: brightness(50) saturate(160%) invert(26%) sepia(86%) saturate(2650%) hue-rotate(210deg) brightness(100%) contrast(78%)
+}
+
+/* Neutral — #111827 */
+.icon-neutral {
+  filter: brightness(0) saturate(100%) invert(8%) sepia(24%) saturate(700%) hue-rotate(200deg) brightness(90%) contrast(100%);
+}
+
+
+.white-text {
+  color: #ffffff !important;
+}
