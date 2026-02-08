@@ -1,6 +1,6 @@
 "use client";
 import Card from "@/app/components/card/Card";
-import LastModified from "@/app/components/last-modified/LastModified";
+import bg from "@/public/assets/image/bg-image.png";
 import "../about.css";
 export default function page() {
   const traits = [
@@ -59,11 +59,7 @@ export default function page() {
           <div className="grid-cols-4-gap-24">{traitsCards}</div>
         </div>
       </div>
-      <LastModified
-        date="31/12/2025"
-        time="2:00 م"
-        className="custom-container"
-      />
+  
     </>
   );
 }

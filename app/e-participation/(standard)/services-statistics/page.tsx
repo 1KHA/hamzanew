@@ -1,4 +1,3 @@
-import LastModified from "@/app/components/last-modified/LastModified";
 import { DgaChart } from "platformscode-new-react";
 import { title } from "process";
 export default function page() {
@@ -253,13 +252,6 @@ export default function page() {
           </section>
         </div>
       </div>
-      {/* Last update Date and time */}
-
-      <LastModified
-        date="31/12/2025"
-        time="2:00 م"
-        className="custom-container"
-      />
     </>
   );
 }

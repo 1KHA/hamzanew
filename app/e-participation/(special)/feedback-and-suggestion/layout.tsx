@@ -4,9 +4,7 @@ import { useState, type ReactNode } from "react";
 import DgaBreadcrumbs from "@/app/components/breadcrumbs/BreadCrumbs";
 import { DgaDivider, DgaLink } from "platformscode-new-react";
 import Image from "next/image";
-import LastModified from "@/app/components/last-modified/LastModified";
-
-const COPY_ICON_PATH = "/assets/icons/stroke-standard/copy-01-stroke-rounded.svg";
+import copyIcon from "@/public/assets/icons/stroke-standard/copy-01-stroke-rounded.svg";
 export default function Layout({ children }: { children: ReactNode }) {
   const [showTooltip, setShowTooltip] = useState(false);
 
@@ -84,7 +82,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                             // onOnClick={(e) =>copyToClipboard(e.currentTarget.textContent || "")}
                           />
                           <Image
-                            src={COPY_ICON_PATH}
+                            src={copyIcon}
                             alt="copy-icon"
                             width={20}
                             height={20}
@@ -113,7 +111,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                             // onOnClick={(e) =>copyToClipboard(e.currentTarget.textContent || "")}
                           />
                           <Image
-                            src={COPY_ICON_PATH}
+                            src={copyIcon}
                             alt="copy-icon"
                             width={20}
                             height={20}
@@ -142,7 +140,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                             // onOnClick={(e) =>copyToClipboard(e.currentTarget.textContent || "")}
                           />
                           <Image
-                            src={COPY_ICON_PATH}
+                            src={copyIcon}
                             alt="copy-icon"
                             width={20}
                             height={20}
@@ -171,7 +169,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                             // onOnClick={(e) =>copyToClipboard(e.currentTarget.textContent || "")}
                           />
                           <Image
-                            src={COPY_ICON_PATH}
+                            src={copyIcon}
                             alt="copy-icon"
                             width={20}
                             height={20}
@@ -268,7 +266,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                               // onOnClick={(e) =>copyToClipboard(e.currentTarget.textContent || "")}
                             />
                             <Image
-                              src={COPY_ICON_PATH}
+                              src={copyIcon}
                               alt="copy-icon"
                               width={20}
                               height={20}
@@ -290,7 +288,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                               // onOnClick={(e) =>copyToClipboard(e.currentTarget.textContent || "")}
                             />
                             <Image
-                              src={COPY_ICON_PATH}
+                              src={copyIcon}
                               alt="copy-icon"
                               width={20}
                               height={20}
@@ -312,7 +310,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                               // onOnClick={(e) =>copyToClipboard(e.currentTarget.textContent || "")}
                             />
                             <Image
-                              src={COPY_ICON_PATH}
+                              src={copyIcon}
                               alt="copy-icon"
                               width={20}
                               height={20}
@@ -343,13 +341,6 @@ export default function Layout({ children }: { children: ReactNode }) {
           />
         </div>
       )}
-      {/* Last update Date and time */}
-
-      <LastModified
-        date="31/12/2025"
-        time="2:00 م"
-        className="custom-container"
-      />
     </>
   );
 }

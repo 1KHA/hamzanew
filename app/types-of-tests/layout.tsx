@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { heroMap } from "./heroMap";
 import PageHero from "@/app/components/page-hero/PageHero";
 export const metadata: Metadata = {
-  title: "الاختبارات",
+  title: "أنواع اختبارات همزة",
 };
 
 export default function TypesOfTestsLayout({

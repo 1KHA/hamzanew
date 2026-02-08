@@ -1,8 +1,7 @@
 "use client";
 import Card from "@/app/components/card/Card";
-import LastModified from "@/app/components/last-modified/LastModified";
 import "../about.css";
-// import { DgaButton, DgaTag } from "platformscode-new-react"; // TEMPORARILY DISABLED
+import "../../styles/Button.css";
 import Tag from "../../components/tag/Tag";
 
 export default function page() {
@@ -135,11 +134,7 @@ export default function page() {
           </button>
         </div>
       </div>
-      <LastModified
-        date="31/12/2025"
-        time="2:00 م"
-        className="custom-container"
-      />
+    
     </>
   );
 }

@@ -1,5 +1,4 @@
 "use client";
-import LastModified from "@/app/components/last-modified/LastModified";
 import { DgaLink } from "platformscode-new-react";
 export default function page() {
   return (
@@ -59,13 +58,6 @@ export default function page() {
           </div>
         </div>
       </div>
-      {/* Last update Date and time */}
-
-      <LastModified
-        date="31/12/2025"
-        time="2:00 م"
-        className="custom-container"
-      />
     </>
   );
 }

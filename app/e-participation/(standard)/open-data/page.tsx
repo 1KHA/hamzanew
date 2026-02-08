@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { DgaListItem } from "platformscode-new-react";
 import { DgaTabs } from "@/app/components/tabs/DgaTabs";
-import LastModified from "@/app/components/last-modified/LastModified";
 export default function page() {
   const [activeTab, setActiveTab] = useState(1); //  default tab 1
 
@@ -164,13 +163,6 @@ export default function page() {
           </div>
         </section>
       </div>
-      {/* Last update Date and time */}
-
-      <LastModified
-        date="31/12/2025"
-        time="2:00 م"
-        className="custom-container"
-      />
     </>
   );
 }

@@ -391,6 +391,30 @@ li {
   filter: invert(15%) sepia(95%) saturate(4449%) hue-rotate(351deg)
     brightness(92%) contrast(99%);
 }
+.circular-border-green {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  /* margin-bottom: 4px; */
+  border-radius: 100%;
+  border: 1px solid  #067647;
+  box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
+}
+.square-green {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  /* margin-bottom: 4px; */
+border-radius: var(--radius-md, 8px);
+background: var(--Background-background-success, #079455);
+
+}
 .circel {
   margin-bottom: 24px;
   background-color: #f3fcf6;
