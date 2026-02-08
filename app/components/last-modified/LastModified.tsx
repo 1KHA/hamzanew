@@ -2,15 +2,19 @@ interface LastModifiedProps {
   date: string;
   time: string;
   className?: string;
+  variant?: "light" | "dark";
+  label?: string;
 }
 
-const LastModified = ({ date, time, className = "" }: LastModifiedProps) => {
+const LastModified = ({ date, time, className = "", variant = "light", label = "آخر تعديل للصفحة" }: LastModifiedProps) => {
+  const textColor = variant === "dark" ? "!text-white" : "";
+
   return (
     <section
-      className={`!flex !items-start !gap-2 !py-4 !mt-4 !h-[52px] ${className}`}
+      className={`${className}`}
     >
-      <p className="!w-full text-md-regular">
-        تاريخ آخر تعديل: {date} - {time} بتوقيت السعودية
+      <p className={`!w-full text-sm-regular ${textColor}`}>
+        {label}: {date} - {time} بتوقيت السعودية
       </p>
     </section>
   );

@@ -6,6 +6,7 @@ import {
   DgaIcon,
   DgaNotification,
 } from "platformscode-new-react";
+import Notification from "../notification/Notification";
 
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
@@ -94,7 +95,7 @@ export default function Feedback() {
     <>
       <hr className="" />
       <div className=" content">
-        <section className="!flex !flex-col !items-center !w-full !gap-4 !py-6">
+        <section className="!flex !flex-col !items-center !w-full   !py-6">
           <div className="flex md:flex-row flex-col w-full gap-4 justify-between">
             <div className="!w-full !flex  !flex-row !justify-between !items-center max-!gap-4">
               <div className="!flex md:!items-center !flex-col md:!flex-row !gap-4 md:!gap-6  ">
@@ -107,10 +108,24 @@ export default function Feedback() {
                 //   size="24px"
                 // />
               )} */}
-                <p className="text-md-regular text-[#161616]">
-                  {!submitted
-                    ? "هل كانت هذه الصفحة مفيدة؟"
-                    : "تم إرسال ملاحظاتك!"}
+                <p className="text-md-regular text-[#161616] flex items-center gap-4">
+                  {!submitted ? (
+                    "هل كانت هذه الصفحة مفيدة؟"
+                  ) : (
+                    <>
+
+<img
+                        alt=""
+                        width={24}
+                        height={24}
+                        className="inline-block green-icon"
+                        src={`/assets/icons/stroke-standard/checkmark-circle-04-stroke-rounded.svg`}
+                      />
+
+                      تم إرسال ملاحظاتك!
+                      
+                    </>
+                  )}
                 </p>
                 {!submitted && (
                   <div className="flex gap-4">
@@ -165,7 +180,7 @@ export default function Feedback() {
             </div>
 
             {(!openQuestions || submitted) && stats.totalCount > 0 && (
-              <p className="text-sm-regular text-[#161616] text-start md:text-end !w-full">
+              <p className="text-sm-regular text-[#161616] text-start md:text-end !w-full content-center">
                 {stats.yesPercentage}% من المستخدمين قالوا نعم من
                 {stats.totalCount} تعليقًا
               </p>
@@ -173,27 +188,27 @@ export default function Feedback() {
           </div>
 
           <div
-            className={`grid transition-[grid-template-rows,opacity,margin,transform] duration-300 ease-in-out !w-full ${
-              openQuestions && !submitted
+            className={`grid transition-[grid-template-rows,opacity,margin,transform] duration-300 ease-in-out !w-full ${openQuestions && !submitted
                 ? "grid-rows-[1fr] opacity-100 mt-8 translate-y-0"
                 : "grid-rows-[0fr] opacity-0 mt-0 translate-y-8"
-            }`}
+              }`}
           >
-            <div className="overflow-hidden !px-4 min-h-0 gap-[24px] flex flex-col">
+            <div className="overflow-hidden !px-4 min-h-0 gap-[24px] flex flex-col ">
               {answer.isUseful && (
                 <>
                   {(errors.gender || errors.reasons) && (
-                    <DgaNotification
-                      content="نرجو منك  استكمال الاستبيان لإرسال التقييم"
-                      icon
-                      leadText="مهم"
-                      link
+
+
+                    <Notification
+                    className="!mt-4"
                       variant="critical"
-                      className="!w-full !mb-4"
+                      leadText="مهم"
+                      content="نرجو منك  استكمال الاستبيان لإرسال التقييم"
                     />
+
                   )}
 
-                  <div className="!w-full !flex !justify-between max-md:!flex-col max-md:!gap-8">
+                  <div className="!w-full !flex !justify-between max-md:!flex-col max-md:!gap-8 pt-4">
                     <div>
                       <div className="!flex !flex-col !gap-4">
                         <h4 className="!text-md-semibold !text-[#161616]">
@@ -218,20 +233,12 @@ export default function Feedback() {
                             translate="yes"
                             lang="ar"
                           >
-                            {/* <DgaIcon
-                          color="#B42318"
-                          icon="alert-circle"
-                          size={16}
-                          type=""
-                          variant="stroke"
-                          translate="yes" 
-                          lang="ar"
-                        /> */}
+                           
                             <img
                               alt=""
                               width={16}
                               height={16}
-                              className="inline-block"
+                              className="inline-block icon-critical"
                               src={`/assets/icons/stroke-standard/alert-circle-stroke-rounded.svg`}
                             />
                             يرجى اختيار سبب واحد على الأقل
@@ -290,7 +297,7 @@ export default function Feedback() {
                           alt=""
                           width={16}
                           height={16}
-                          className="inline-block"
+                          className="inline-block icon-critical"
                           src={`/assets/icons/stroke-standard/alert-circle-stroke-rounded.svg`}
                         />
                         يرجى تحديد الجنس
