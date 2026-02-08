@@ -40,7 +40,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
       { label: "عن الجهة", disabled: true },
       { label: "الاختبارات", path: "/types-of-tests" },
       {
-        label: "من نحن ",
+        label: "اختبار همزة العام",
         path: "/types-of-tests/hamza-general-test",
         disabled: true,
       },
@@ -102,7 +102,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
       { label: "عن الجهة", disabled: true },
       { label: "الاختبارات", path: "/types-of-tests" },
       {
-        label: "أهمية اختبارات همزة",
+        label: "اختبار همزة الأكاديمي",
         path: "/types-of-tests/hamza-academic-test",
         disabled: true,
       },
