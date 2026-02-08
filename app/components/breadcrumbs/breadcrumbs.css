@@ -8,11 +8,11 @@
 /* ── CSS Variables ── */
 :root {
   /* Link Colors */
-  --link-primary: #384250;           /* Default dark gray */
-  --link-primary-hovered: #6C737F;   /* Medium gray on hover */
-  --link-primary-pressed: #9DA4AE;   /* Light gray when pressed */
-  --link-primary-focused: #384250;   /* Same as default */
-  --link-primary-visited: #384250;   /* Dark gray for visited */
+  --link-neutral: #384250;           /* Default dark gray */
+  --link-neutral-hovered: #6C737F;   /* Medium gray on hover */
+  --link-neutral-pressed: #9DA4AE;   /* Light gray when pressed */
+  --link-neutral-focused: #384250;   /* Same as default */
+  --link-neutral-visited: #384250;   /* Dark gray for visited */
   --link-disabled: #9DA4AE;          /* Gray for disabled */
   
   /* Border Colors */
@@ -32,7 +32,7 @@
   text-decoration: none;
   
   /* Colors */
-  color: var(--link-primary, #384250);
+  color: var(--link-neutral, #384250);
   
   /* Interaction */
   cursor: pointer;
@@ -55,7 +55,7 @@
 
 /* ── Hover State ── */
 .link-neutral:hover {
-  color: var(--link-primary-hovered, #6C737F);
+  color: var(--link-neutral-hovered, #6C737F);
 }
 
 .link-neutral:hover .link-neutral__label {
@@ -65,22 +65,18 @@
 /* ── Active/Pressed State ── */
 .link-neutral.active,
 .link-neutral:active {
-  color: var(--link-primary-pressed, #9DA4AE);
+  color: var(--link-neutral-pressed, #9DA4AE);
 }
 
 /* ── Focus State ── */
 .link-neutral:focus,
 .link-neutral.focus {
-  color: var(--link-primary-focused, #384250);
+  color: var(--link-neutral-focused, #384250);
   outline: 2px solid var(--border-black, #161616);
   border-radius: 4px;
 }
 
-/* ── Visited State ── */
-.link-neutral:visited {
-  color: #384250 !important;
-}
-
+ 
 /* ── Disabled State ── */
 .link-neutral--disabled {
   color: var(--link-disabled, #9DA4AE);

@@ -1,7 +1,6 @@
 "use client";
 import Card from "@/app/components/card/Card";
 import LastModified from "@/app/components/last-modified/LastModified";
-import bg from "@/public/assets/image/bg-image.png";
 import "../about.css";
 export default function page() {
   const traits = [
@@ -50,7 +49,7 @@ export default function page() {
         className="block-padding-10xl bg-color-grey-50"
         style={{
           backgroundColor: "#f9fafb",
-          backgroundImage: `url(${bg.src})`,
+          backgroundImage: `url(/assets/image/bg-image.png)`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "1233.365px 0px",
         }}
