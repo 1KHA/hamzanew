@@ -1,6 +1,5 @@
 "use client";
 import Card from "@/app/components/card/Card";
-import LastModified from "@/app/components/last-modified/LastModified";
 import "../about.css";
 export default function page() {
   const mainTasks = [
@@ -147,11 +146,7 @@ export default function page() {
           </div>
         </div>
       </div>
-      <LastModified
-        date="31/12/2025"
-        time="2:00 م"
-        className="custom-container"
-      />
+
     </>
   );
 }

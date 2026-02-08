@@ -1,6 +1,5 @@
 "use client";
 
-import LastModified from "../components/last-modified/LastModified";
 import Card from "../components/card/Card";
 
 function AboutPage() {
@@ -57,11 +56,7 @@ function AboutPage() {
       <div className="section-spacing-5xl responsive-cards-grid ">
         {aboutPagesCard}
       </div>
-      {/* Last update Date and time */}
-      <LastModified
-        date="31/12/2025"
-        time="2:00 م"
-      />
+
     </div>
   );
 }
