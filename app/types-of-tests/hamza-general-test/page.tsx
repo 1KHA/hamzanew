@@ -1,152 +1,350 @@
 "use client";
-import Image from "next/image";
-import WideCard from "@/app/components/card/WideCard";
-import MiniCard from "@/app/components/card/MiniCard";
-// import LastModified from "@/app/components/last-modified/LastModified";
-import bg from "@/public/assets/image/bg-image.png";
-import CtaSection from "@/app/components/CtaSection";
 
-export default function page() {
-  const testinformation = [
-    {
-      icon: "time-02",
-      title: "مدة الاختبار",
-      description: "(115) دقيقة",
-    },
-    {
-      icon: "right-to-left-list-bullet",
-      title: "عدد فقرات الاختبار",
-      description: "(57) فقرة",
-    },
-    {
-      icon: "cursor-in-window",
-      title: "يطبيق الاختبار",
-      description: "عند بعد",
-    },
-    {
-      icon: "building-06",
-      title: "يطبيق الاختبار",
-      description: "في مراكز الاختبار",
-    },
-  ];
-  const testSections = [
-    {
-      icon: "ear",
-      title: "الفهم المسموع",
-      description: "قياس قدرتك على متابعة المحادثات والحوارات اليومية.",
-      tagLable: "عدد الاسئلة  25 فقرة",
-      trailIcon: "message-question",
-    },
-    {
-      icon: "book-open-02",
-      title: "استيعاب المقروء",
-      description: "اختبار فهمك للنصوص العامة والمتنوعة.",
-      tagLable: "عدد الاسئلة  25 فقرة",
-      trailIcon: "message-question",
-    },
-    {
-      icon: "edit-01",
-      title: "الكتابة",
-      description: "تقييم قدرتك على التعبير بلغة دقيقة ومنظمة في موضوعات عامة.",
-      tagLable: "عدد الاسئلة  2 فقرة",
-      trailIcon: "message-question",
-    },
-    {
-      icon: "comment-01",
-      title: "التحدث",
-      description:
-        "قياس دقة لغتك وطلاقتك في استخدام اللغة في المحادثات العامة.",
-      tagLable: "عدد الاسئلة  5 فقرة",
-      trailIcon: "message-question",
-    },
-  ];
+/**
+ * Hamza General Test Page
+ *
+ * This page displays comprehensive information about the Hamza General Test,
+ * including test sections and registration information.
+ *
+ * @accessibility
+ * - All images have descriptive alt text
+ * - Proper heading hierarchy (h1, h2, h3)
+ * - Screen reader support with role and aria attributes
+ */
+
+import "@/app/components/card/Card.css";
+import "@/app/styles/Button.css";
+import Button from "../../components/button/Button";
+import Tag from "../../components/tag/Tag";
+
+/* ==========================================================================
+   Types & Interfaces
+   ========================================================================== */
+
+/**
+ * Interface for test section data
+ */
+interface TestSection {
+  id: number;
+  icon: string;
+  iconAlt: string;
+  title: string;
+  description: string;
+  questionCount: number;
+  questionUnit: string;
+}
+
+/**
+ * Interface for info card data
+ */
+interface InfoCard {
+  icon: string;
+  iconAlt: string;
+  title: string;
+  description: string;
+}
+
+/* ==========================================================================
+   Static Data
+   ========================================================================== */
+
+/**
+ * Data for the four question types
+ */
+const QUESTION_TYPES: TestSection[] = [
+  {
+    id: 1,
+    icon: "headphones",
+    iconAlt: "أيقونة سماعات - قسم الفهم المسموع",
+    title: "الفهم المسموع",
+    description: "قياس قدرتك على متابعة المحادثات والحوارات اليومية.",
+    questionCount: 25,
+    questionUnit: "فقرة",
+  },
+  {
+    id: 2,
+    icon: "book-open-01",
+    iconAlt: "أيقونة كتاب مفتوح - قسم استيعاب المقروء",
+    title: "استيعاب المقروء",
+    description: "اختبار فهمك للنصوص العامة والمتنوعة.",
+    questionCount: 25,
+    questionUnit: "فقرة",
+  },
+  {
+    id: 3,
+    icon: "pencil-edit-02",
+    iconAlt: "أيقونة قلم - قسم الكتابة",
+    title: "الكتابة",
+    description: "تقييم قدرتك على التعبير بلغة دقيقة ومنظمة في موضوعات عامة.",
+    questionCount: 2,
+    questionUnit: "فقرة",
+  },
+  {
+    id: 4,
+    icon: "message-01",
+    iconAlt: "أيقونة محادثة - قسم التحدث",
+    title: "التحدث",
+    description: "قياس دقة لغتك وطلاقتك في استخدام اللغة في المحادثات العامة.",
+    questionCount: 5,
+    questionUnit: "فقرات",
+  },
+];
+
+/**
+ * Data for test info (duration, questions count, etc.)
+ */
+const TEST_INFO: InfoCard[] = [
+  {
+    icon: "time-02",
+    iconAlt: "أيقونة ساعة - مدة الاختبار",
+    title: "مدة الاختبار",
+    description: "(115) دقيقة",
+  },
+  {
+    icon: "right-to-left-list-bullet",
+    iconAlt: "أيقونة قائمة - عدد فقرات الاختبار",
+    title: "عدد فقرات الاختبار",
+    description: "(57) فقرة",
+  },
+  {
+    icon: "cursor-in-window",
+    iconAlt: "أيقونة شاشة - تطبيق الاختبار عن بُعد",
+    title: "تطبيق الاختبار",
+    description: "عن بُعد",
+  },
+  {
+    icon: "building-06",
+    iconAlt: "أيقونة مبنى - تطبيق الاختبار في مراكز الاختبار",
+    title: "تطبيق الاختبار",
+    description: "في مراكز الاختبار",
+  },
+];
+
+/* ==========================================================================
+   Sub Components
+   ========================================================================== */
+
+/**
+ * Test Info Card Component
+ * Displays test metadata like duration and question count
+ */
+function TestInfoCard({ icon, iconAlt, title, description }: InfoCard) {
+  return (
+    <article className="card !border-none">
+      <div className="flex flex-row gap-[24px] items-start">
+        {/* Card Icon */}
+        <span className="square-green">
+          <img
+            alt={iconAlt}
+            width={28}
+            height={28}
+            loading="lazy"
+            className="inline-block white-icon"
+            src={`/assets/icons/stroke-standard/${icon}-stroke-rounded.svg`}
+          />
+        </span>
+
+        {/* Card Content */}
+        <div className="card-content flex-1 flex flex-col items-start text-start">
+          <h3 className="text-lg-semibold">{title}</h3>
+          <p className="text-md-regular">{description}</p>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+/**
+ * Test Section Card Component
+ * Displays individual test section details
+ */
+function TestSectionCard({ section }: { section: TestSection }) {
+  return (
+    <article className="card !border-none">
+      <div className="flex flex-row gap-[24px] items-center w-full">
+        {/* Section Icon */}
+        <div className="circular-green w-[56px] h-[56px] !mb-0 flex-shrink-0">
+          <img
+            alt={section.iconAlt}
+            width={28}
+            height={28}
+            loading="lazy"
+            className="inline-block green-icon"
+            src={`/assets/icons/stroke-standard/${section.icon}-stroke-rounded.svg`}
+          />
+        </div>
+
+        {/* Section Content */}
+        <div className="flex flex-col gap-[12px] flex-1 text-start">
+          <h3 className="text-lg-bold">{section.title}</h3>
+          <p className="text-md-regular text-[#475467]">{section.description}</p>
+
+          {/* Question Count Badge */}
+
+          <div>
+            <Tag
+              variant="neutral"
+              size="md"
+              label={`عدد الأسئلة ${section.questionCount} ${section.questionUnit}`}
+              trailIcon={{
+                src: "/assets/icons/stroke-standard/message-question-stroke-rounded.svg",
+                alt: "أيقونة عدد الأسئلة",
+              }}
+            />
+          </div>
+
+        </div>
+      </div>
+    </article>
+  );
+}
+
+/* ==========================================================================
+   Main Page Component
+   ========================================================================== */
+
+/**
+ * Hamza General Test Page Component
+ * Main entry point for the test information page
+ */
+export default function HamzaGeneralTestPage() {
   return (
     <>
-      <div
-        className="bg-color-grey-50"
-        style={{
-          backgroundColor: "#f9fafb",
-          backgroundImage: `url(${bg.src})`,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "1260px 0px",
-        }}
-      >
-        <div className="custom-container !py-[128px] !grid !grid-cols-1 lg:!grid-cols-2 !gap-[70px]">
-          <div className="!flex !flex-col !gap-[14px]">
-            {/* 1 */}
-            <div className="flex! justify-start! gap-[5px]!">
-              <div className="circular-border-green">
-                <Image
-                  src={
-                    "/assets/icons/stroke-standard/glasses-stroke-rounded.svg"
-                  }
-                  alt="glasses"
-                  width={16}
-                  height={16}
-                  className="green-icon"
-                />
+
+
+       {/* ====================================================================
+          Section 1:Title and Introduction
+          ==================================================================== */}
+
+
+
+      {/* ====================================================================
+          Section 2: Test Information and Sections
+          ==================================================================== */}
+      <section className="bg-color-grey-50 cta-bg-logo" aria-labelledby="test-sections-title">
+        <div className="content !py-[40px] xl:!py-[128px] flex flex-col gap-[24px] md:gap-[32px]">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-[80px]">
+
+            {/* Left Column: Test Information */}
+            <div className="flex flex-col gap-[32px]">
+
+              {/* Section Header */}
+              <header className="">
+                <div className="flex flex-col gap-[14px]">
+
+                  {/* Test Type Badge */}
+                  <p className="!text-[#1B8354] !text-[18px] flex gap-[8px] items-center !text-semibold">
+                    <span className="circular-green-outline">
+                      <img
+                        alt="أيقونة نظارة - اختبار همزة العام"
+                        width={16}
+                        height={16}
+                        loading="eager"
+                        className="inline-block green-icon"
+                        src="/assets/icons/stroke-standard/glasses-stroke-rounded.svg"
+                      />
+                    </span>
+                    اختبار همزة العام
+                  </p>
+
+                  {/* Main Title - Visible on large screens */}
+                  <h1
+                    id="test-sections-title"
+                    className="display-sm-bold hidden xl:block"
+                  >
+                    أقسام الاختبار
+                    <img
+                      alt="سهم يشير إلى أقسام الاختبار"
+                      width={38}
+                      height={38}
+                      loading="eager"
+                      className="inline-block flip-rtl"
+                      src="/assets/icons/stroke-standard/arrow-left-02-stroke-rounded.svg"
+                    />
+                  </h1>
+
+                  {/* Test Description */}
+                  <p className="text-md-regular">
+                    صُمّم اختبار "همزة" ليقدّم تقييمًا شاملًا لمستوى الكفاءة اللغوية
+                    في اللغة العربية من خلال أربعة أقسام رئيسية:
+                  </p>
+                </div>
+
+              </header>
+
+              {/* Test Info Cards Grid */}
+              <div
+                className="grid grid-cols-1 md:grid-cols-2 gap-[24px]"
+                role="list"
+                aria-label="معلومات الاختبار"
+              >
+                {TEST_INFO.map((card, index) => (
+                  <div key={index} role="listitem">
+                    <TestInfoCard {...card} />
+                  </div>
+                ))}
               </div>
-
-              <p className="text-lg-medium text-[#1b8354]">اختبار همزة العام</p>
             </div>
-            {/* 2 */}
-            <div className="!flex !items-center !justify-start !gap-[14px]">
-              <h1 className="display-md-bold">أقسام الاختبار</h1>
-              <span>
-                <Image
-                  src={
-                    "/assets/icons/stroke-standard/arrow-left-02-stroke-rounded.svg"
-                  }
-                  alt="arrow-left-02-stroke-rounded"
-                  width={38}
-                  height={38}
-                />
-              </span>
+
+            {/* Right Column: Test Sections */}
+            <div className="flex flex-col gap-[16px]">
+              {/* Title - Visible on small and medium screens */}
+              <h2 className="display-sm-bold block xl:hidden">أقسام الاختبار</h2>
+
+              {/* Test Sections Cards Grid */}
+              <div
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-[16px]"
+                role="list"
+                aria-label="أقسام اختبار همزة الأربعة"
+              >
+                {QUESTION_TYPES.map((section) => (
+                  <div key={section.id} role="listitem">
+                    <TestSectionCard section={section} />
+                  </div>
+                ))}
+              </div>
             </div>
-            {/* 3 */}
 
-            <p className="text-md-regular">
-              صُمّم اختبار همزة ليقدّم تقييمًا شاملًا لمستوى الكفاءة اللغوية في
-              اللغة العربية من خلال أربعة أقسام رئيسية:
-            </p>
+          </div>
+        </div>
+      </section>
 
-            <div className="grid! grid-cols-1! md:grid-cols-2! gap-[24px]!">
-              {testinformation.map((info, index) => (
-                <MiniCard
-                  key={index}
-                  icon={info.icon}
-                  title={info.title}
-                  description={info.description}
-                />
-              ))}
+      {/* ====================================================================
+          Section 2: Call to Action - Test Preparation
+          ==================================================================== */}
+      <section
+        className="content gap-[32px] !py-[40px]"
+        aria-labelledby="cta-title"
+      >
+        <div className="flex flex-col gap-[24px] bg-[#074D31] rounded-[16px] md:rounded-[24px] px-[24px] md:px-[80px] custom-container section-spacing-5xl cta-bg-pattern">
+
+          {/* CTA Content */}
+          <div className="flex flex-col md:flex-row items-center gap-[32px] text-center md:text-start">
+            <div className="flex flex-col gap-4">
+              <h2 id="cta-title" className="display-sm-bold !text-white">
+                هل أنت مستعد لاختبار همزة العام؟
+              </h2>
+              <p className="text-md-regular !text-white md:text-start text-center max-w-[500px]">
+                نوفّر برامج إعداد مرنة يمكنك دراستها بالوتيرة التي تناسبك،
+                وبأساليب متنوعة تلائم احتياجاتك. عزّز تجربتك وجهودك الدراسية،
+                واستعد ليوم الاختبار بثقة واطمئنان.
+              </p>
             </div>
           </div>
 
-          <div className="!grid !grid-cols-1 !gap-5">
-            {testSections.map((section, index) => (
-              <WideCard
-                key={index}
-                icon={section.icon}
-                title={section.title}
-                description={section.description}
-                tagLable={section.tagLable}
-                trailIcon={section.trailIcon}
-              />
-            ))}
+          {/* CTA Button */}
+          <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 w-full md:w-auto">
+            <Button
+              label="التحضير للاختبار"
+              variant="primary-neutral--on-color"
+              size="lg"
+              icon="arrow-up-right-01"
+              className="w-full md:w-auto"
+            />
           </div>
+
         </div>
-      </div>
-      <div className="bg-color-grey-50">
-        <div className="content !relative !h-[148px] !mb-[165px]">
-          {/* <div className="!py-[40px] !px-[80px] !h-full"> */}
-              <CtaSection
-            title="هل أنت مستعد لاختبار همزة العام؟"
-            link="#"
-          />
-          {/* </div> */}
-        
-        </div>
-      </div>
+      </section>
     </>
   );
 }

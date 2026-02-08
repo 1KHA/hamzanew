@@ -49,7 +49,7 @@ export default function page() {
         className="block-padding-10xl bg-color-grey-50"
         style={{
           backgroundColor: "#f9fafb",
-          backgroundImage: `url(${bg.src})`,
+          backgroundImage: `url(/assets/image/bg-image.png)`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "1233.365px 0px",
         }}

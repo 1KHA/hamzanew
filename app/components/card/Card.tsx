@@ -163,7 +163,8 @@ const Card: React.FC<CardProps> = ({
           }`}
         >
           <img
-            alt=""
+            alt={icon}
+            aria-hidden="true"
             width={24}
             height={24}
             className="inline-block green-icon"
