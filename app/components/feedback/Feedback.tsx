@@ -317,7 +317,7 @@ export default function Feedback() {
                             href="https://my.gov.sa/ar/content/e-participation#section-1"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="link link--primary"
+                            className=" link--primary"
                           >
                             بيان المشاركة الإلكترونية
                           </a>
@@ -337,7 +337,7 @@ export default function Feedback() {
                             href="#"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="link link--primary"
+                            className=" link--primary"
                           >
                             قواعد الاشتراك
                           </a>

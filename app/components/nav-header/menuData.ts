@@ -167,7 +167,7 @@ export const ACTION_ITEMS = [
   // },
   {
     label: "البحث",
-    href: "#",
+    href: "/search",
     icon: "/assets/icons/stroke-standard/search-01-stroke-standard.svg",
     className: "action-btn-reversed translate-btn",
   },
