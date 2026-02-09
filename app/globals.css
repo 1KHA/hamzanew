@@ -19,8 +19,8 @@
   display: inline-block;
 }
 
-html[dir='ltr'] .flip-rtl,
-html[lang='en'] .flip-rtl {
+html[dir="ltr"] .flip-rtl,
+html[lang="en"] .flip-rtl {
   transform: scaleX(-1);
 }
 
@@ -362,7 +362,7 @@ body {
 
 .text-md-regular {
   color: var(--Text-text-default, #161616);
- 
+
   /* Text md / Regular */
   font-family: var(--Font-Family-font-family-text, "IBMPlexSansArabic");
   font-size: var(--Size-Text-typo-size-text-md, 16px);
@@ -391,6 +391,11 @@ li {
   filter: invert(15%) sepia(95%) saturate(4449%) hue-rotate(351deg)
     brightness(92%) contrast(99%);
 }
+
+.gray-icon {
+  filter: invert(40%) sepia(18%) saturate(976%) hue-rotate(161deg)
+    brightness(49%) contrast(54%);
+}
 .circular-border-green {
   width: 32px;
   height: 32px;
@@ -400,7 +405,7 @@ li {
   padding: 8px;
   /* margin-bottom: 4px; */
   border-radius: 100%;
-  border: 1px solid  #067647;
+  border: 1px solid #067647;
   box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
 }
 .square-green {
@@ -411,9 +416,8 @@ li {
   justify-content: center;
   padding: 10px;
   /* margin-bottom: 4px; */
-border-radius: var(--radius-md, 8px);
-background: var(--Background-background-success, #079455);
-
+  border-radius: var(--radius-md, 8px);
+  background: var(--Background-background-success, #079455);
 }
 .circel {
   margin-bottom: 24px;
@@ -1079,51 +1083,42 @@ div.table-wrapper .azm-table thead th span span.text {
   flex-direction: row-reverse;
 }
 
-
-
-
 .icon-critical {
-filter:
-  invert(18%)
-  sepia(96%)
-  saturate(7460%)
-  hue-rotate(357deg)
-  brightness(75%)
-  contrast(54%);
+  filter: invert(18%) sepia(96%) saturate(7460%) hue-rotate(357deg)
+    brightness(75%) contrast(54%);
 }
-
 
 /* Warning — #f59e0b */
 .icon-warning {
-  filter: brightness(0) saturate(100%) invert(63%) sepia(94%) saturate(2100%) hue-rotate(2deg) brightness(100%) contrast(102%);
+  filter: brightness(0) saturate(100%) invert(63%) sepia(94%) saturate(2100%)
+    hue-rotate(2deg) brightness(100%) contrast(102%);
 }
 
 /* Success — #10b981 */
 .icon-success {
-  filter: brightness(80) saturate(60%) invert(45%) sepia(87%) saturate(3200%) hue-rotate(132deg) brightness(67%) contrast(226%);
+  filter: brightness(80) saturate(60%) invert(45%) sepia(87%) saturate(3200%)
+    hue-rotate(132deg) brightness(67%) contrast(226%);
 }
 
 /* Info — #3b82f6 */
 .icon-info {
-  filter: brightness(50) saturate(160%) invert(26%) sepia(86%) saturate(2650%) hue-rotate(210deg) brightness(100%) contrast(78%)
+  filter: brightness(50) saturate(160%) invert(26%) sepia(86%) saturate(2650%)
+    hue-rotate(210deg) brightness(100%) contrast(78%);
 }
 
 /* Neutral — #111827 */
 .icon-neutral {
-  filter: brightness(0) saturate(100%) invert(8%) sepia(24%) saturate(700%) hue-rotate(200deg) brightness(90%) contrast(100%);
+  filter: brightness(0) saturate(100%) invert(8%) sepia(24%) saturate(700%)
+    hue-rotate(200deg) brightness(90%) contrast(100%);
 }
-
 
 .white-text {
   color: #ffffff !important;
 }
 
-
-
-hr{
-  border-color: #D2D6DB !important;
+hr {
+  border-color: #d2d6db !important;
 }
-
 
 .cta-bg-pattern {
   position: relative;
@@ -1136,7 +1131,7 @@ hr{
   top: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/assets/image/bg-test.png');
+  background-image: url("/assets/image/bg-test.png");
   background-repeat: no-repeat;
   background-size: auto 100%;
   opacity: 0.3;
@@ -1144,19 +1139,16 @@ hr{
 }
 
 /* RTL (Arabic) - pattern on right */
-html[dir='rtl'] .cta-bg-pattern::before,
-html[lang='ar'] .cta-bg-pattern::before {
-    left: 0;
+html[dir="rtl"] .cta-bg-pattern::before,
+html[lang="ar"] .cta-bg-pattern::before {
+  left: 0;
   right: auto;
   background-position: left center;
-
 }
 
 /* LTR - pattern on left */
-html[dir='ltr'] .cta-bg-pattern::before {
-
-    transform: scaleX(-1);
- 
+html[dir="ltr"] .cta-bg-pattern::before {
+  transform: scaleX(-1);
 }
 
 @media (max-width: 768px) {
@@ -1164,8 +1156,6 @@ html[dir='ltr'] .cta-bg-pattern::before {
     opacity: 0.2;
   }
 }
-
-
 
 .cta-bg-logo {
   position: relative;
@@ -1178,7 +1168,7 @@ html[dir='ltr'] .cta-bg-pattern::before {
   top: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/assets/image/bg-logo.png');
+  background-image: url("/assets/image/bg-logo.png");
   background-repeat: no-repeat;
   background-size: auto 100%;
   opacity: 0.5;
@@ -1186,15 +1176,15 @@ html[dir='ltr'] .cta-bg-pattern::before {
 }
 
 /* RTL (Arabic) - logo on right */
-html[dir='rtl'] .cta-bg-logo::before,
-html[lang='ar'] .cta-bg-logo::before {
+html[dir="rtl"] .cta-bg-logo::before,
+html[lang="ar"] .cta-bg-logo::before {
   right: -420px;
   left: auto;
   background-position: right center;
 }
 
 /* LTR - logo on left */
-html[dir='ltr'] .cta-bg-logo::before {
+html[dir="ltr"] .cta-bg-logo::before {
   left: -420px;
   right: auto;
   background-position: left center;

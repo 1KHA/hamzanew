@@ -148,7 +148,7 @@ export const MENU_DATA: MenuItemType[] = [
   {
     id: "news",
     label: "الاخبار",
-    href: "#",
+    href: "/news",
   },
 ];
 
