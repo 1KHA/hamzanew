@@ -9,69 +9,66 @@ export default function DigitalSignature() {
     <div className=" bg-[#f5f5f5]">
       {/* <div className="m-5"> */}
       <div className="digital_wrapper border-2 custom-container">
+        <div className="flex justify-between ">
+          <div className="digital_container digital_heads">
+            {/* Header */}
 
+            <div className="flex flex-row gap-[8px] justify-center items-center">
+              <div className="digital_icon_container">
+                <img
+                  src="/assets/image/Country Flags.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                  className="inline-block"
+                />
+              </div>
 
-     <div className="flex justify-between ">
-
-       <div className="digital_container digital_heads">
-          {/* Header */}
-
-          <div className="flex flex-row gap-[8px] justify-center items-center">
-            <div className="digital_icon_container">
-              <img
-                src="/assets/image/Country Flags.svg"
-                alt=""
-                width={20}
-                height={20}
-                className="inline-block"
-              />
+              <p>موقع حكومي مسجل لدى هيئة الحكومة الرقمية</p>
             </div>
 
-            <p>موقع حكومي مسجل لدى هيئة الحكومة الرقمية</p>
+            <a
+              href="#"
+              className="digital_link   !items-start link_label"
+              onClick={(e) => {
+                e.preventDefault();
+                setIsOpen((prev) => !prev);
+              }}
+            >
+              كيف تتحقق
+              <div className="digital_link_icon">
+                <img
+                  src={
+                    isOpen
+                      ? "/assets/icons/stroke-standard/arrow-up-01-stroke-rounded.svg"
+                      : "/assets/icons/stroke-standard/arrow-down-01-stroke-rounded.svg"
+                  }
+                  alt=""
+                  width={20}
+                  height={20}
+                  className="inline-block"
+                />
+              </div>
+            </a>
           </div>
 
-          <a
+          {/* Translation Button */}
+          <Link
             href="#"
-            className="digital_link   !items-start link_label"
-            onClick={(e) => {
-              e.preventDefault();
-              setIsOpen((prev) => !prev);
-            }}
+            className="dga-btn dga-btn--sm dga-btn--subtle !hidden lg:!flex"
           >
-
-
-            
-            كيف تتحقق
-            <div className="digital_link_icon">
-              <img
-                src={
-                  isOpen
-                    ? '/assets/icons/stroke-standard/arrow-up-01-stroke-rounded.svg'
-                    : '/assets/icons/stroke-standard/arrow-down-01-stroke-rounded.svg'
-                }
-                alt=""
-                width={20}
-                height={20}
-                className="inline-block"
-              />
-            </div>
-          </a>
+            <img
+              src="/assets/icons/stroke-standard/translation-stroke-rounded.svg"
+              alt="translation-icon"
+              width={20}
+              height={20}
+            />
+            <span>English</span>
+          </Link>
         </div>
 
-{/* Translation Button */}
-              <Link
-                href="#"
-                className="dga-btn dga-btn--sm dga-btn--subtle !hidden lg:!flex"
-
-              >
-                <img src="/assets/icons/stroke-standard/translation-stroke-rounded.svg" alt="translation-icon" width={20} height={20} />
-                <span>English</span>
-              </Link>
-     </div>
-       
-
         {/* Content */}
-        <div className={`digital_collapsible ${isOpen ? 'open' : ''}`}>
+        <div className={`digital_collapsible ${isOpen ? "open" : ""}`}>
           <div className="min-h-0">
             <div className="digital_content">
               <div className="digital_content_container">
@@ -102,7 +99,6 @@ export default function DigitalSignature() {
                 {/* Item 2 */}
                 <div className="digital_content_item">
                   <div className="digital_content_item_icon">
-
                     <img
                       src="/assets/icons/square-lock-password.png"
                       alt=""
@@ -110,7 +106,6 @@ export default function DigitalSignature() {
                       height={24}
                       className="inline-block"
                     />
-
                   </div>
 
                   <div className="digital_content_item_content">

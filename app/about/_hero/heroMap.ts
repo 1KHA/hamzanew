@@ -116,4 +116,20 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
       },
     ],
   },
+  "/about/hamza-ambassadors": {
+    title: "سفراء همزة",
+    description:"تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية لمختلف الفئات.",
+    bgColor: "#F9FAFB",
+    breadcrumbs: [
+      { label: "الرئيسية", path: "/" },
+      { label: "عن الجهة", disabled: true },
+      { label: "عن همزة", disabled: true },
+      { label: "عن الجهة", path: "/about" },
+      {
+        label: "سفراء همزة",
+        path: "/about/hamza-ambassadors",
+        disabled: true,
+      },
+    ],
+  },
 };

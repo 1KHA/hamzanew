@@ -5,6 +5,7 @@ import Tag from "../tag/Tag";
 import Button from "../button/Button";
 import "./card.css";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface CardProps {
   style?: React.CSSProperties;
@@ -13,8 +14,8 @@ interface CardProps {
   title?: string;
   description?: string;
   image?: string;
-  imageWidth?: string | number;
-  imageHeight?: string | number;
+  imageWidth?: number;
+  imageHeight?: number;
   external?: boolean;
   showPrimaryAction?: boolean;
   primaryActionLabel?: string;
@@ -31,6 +32,7 @@ interface CardProps {
   showSecondaryIcon?: boolean;
   buttonColor?: "primary-brand" | "secondary-outline" | "secondary" | string;
   tagLable?: string;
+  date?: string;
   children?: ReactNode;
   isImgCenter?: boolean;
 
@@ -76,6 +78,7 @@ const Card: React.FC<CardProps> = ({
   showSecondaryIcon = true,
   buttonColor = "primary-brand",
   tagLable,
+  date,
   children,
   isImgCenter = false,
 
@@ -199,6 +202,9 @@ const Card: React.FC<CardProps> = ({
               {title}
             </div>
           )}
+          {date && (
+            <div className="text-sm-regular text-gray-500 mb-2">{date}</div>
+          )}
           {description && (
             <div
               className={descriptionClass || "disc"}
@@ -221,12 +227,12 @@ const Card: React.FC<CardProps> = ({
     <div className="card" style={style}>
       {image && (
         <div className="card-img-container">
-          <img
+          <Image
             className={logoImage ? "" : "card-img"}
             src={image}
-            width={imageWidth}
-            height={imageHeight}
-            alt={title}
+            width={imageWidth || 300}
+            height={imageHeight || 200}
+            alt={title || "Card image"}
             style={{
               objectFit: "cover",
               margin: isImgCenter ? "0 auto" : "unset",
@@ -266,7 +272,9 @@ const Card: React.FC<CardProps> = ({
               disabled={disablePrimaryAction}
               icon={showPrimaryIcon ? resolvedTrailIconType : undefined}
               iconSize={16}
-              iconClass={buttonColor === "primary-brand" ? "white-icon" : undefined}
+              iconClass={
+                buttonColor === "primary-brand" ? "white-icon" : undefined
+              }
             />
           )}
 

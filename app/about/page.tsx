@@ -78,13 +78,20 @@ const ABOUT_PAGES: AboutPageItem[] = [
     link: "/about/periodic-advisory-committee",
     ariaLabel: "معلومات عن اللجنة الاستشارية الدورية",
   },
+   {
+    id: "hamza-ambassadors",
+    icon: "share-08",
+    title: "السفير همزة",
+    link: "/about/hamza-ambassadors",
+    ariaLabel: "تعرف على سفير همزة",
+  },
   {
     id: "e-participation",
     icon: "share-08",
     title: "المشاركة الالكترونية",
     link: "/e-participation",
     ariaLabel: "المشاركة الالكترونية والتواصل معنا",
-  },
+  }
 ];
 
 /* ==========================================================================

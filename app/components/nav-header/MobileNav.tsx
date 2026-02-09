@@ -130,7 +130,7 @@ export default function MobileNav({
                       <img src={action.icon} alt="" width={20} height={20} />
                       <span>{action.label}</span>
                     </Link>
-                  )
+                  ),
               )}
 
               {/* Translation Button */}

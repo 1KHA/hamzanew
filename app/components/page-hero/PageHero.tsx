@@ -13,6 +13,7 @@ export type HeroData = {
   bgColor?: string;
   breadcrumbs?: Crumb[];
   externalLink?: { href: string; label: string };
+  date?: string;
 };
 
 type HeroMap = Record<string, HeroData>;
@@ -24,7 +25,7 @@ type BreadcrumbsMax =
 
 type PageHeroProps = {
   heroMap: HeroMap;
-  defaultRoute: string; // "/e-participation" or "/about"
+  defaultRoute: string;
   matchNested?: boolean;
   breadcrumbsMax?: BreadcrumbsMax;
   defaultBgColor?: string;
@@ -125,6 +126,21 @@ export default function PageHero({
                   alt=""
                 />
               </button>
+            </div>
+          ) : null}
+
+          {hero.date ? (
+            <div className="!flex !justify-start !items-center !gap-[3px]">
+              <img
+                src="/assets/icons/stroke-standard/calendar-03-stroke-rounded.svg"
+                width={20}
+                height={20}
+                alt="calendar-icon"
+                className="gray-icon"
+              />
+              <p className="text-sm-medium !text-[#4d5761] !font-normal">
+                {hero.date}
+              </p>
             </div>
           ) : null}
         </div>
