@@ -1,0 +1,84 @@
+/* ==========================================================================
+   Filter Component Styles
+   ========================================================================== */
+
+/* Dropdown Animation */
+@keyframes dropdownShow {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dropdown Menu Container */
+.filter-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 12px;
+  min-width: 240px;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #d2d6db;
+  z-index: 50;
+  padding: 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: dropdownShow 0.2s ease-out forwards;
+}
+
+/* Dropdown Title */
+.filter-dropdown__title {
+  padding:  8px ;
+  border-bottom: 1px solid #eaecf0;
+}
+
+/* Options List */
+.filter-dropdown__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Option Item */
+.filter-dropdown__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.filter-dropdown__option:hover,
+.filter-dropdown__option:focus {
+  background-color: #f9fafb;
+  outline: none;
+}
+
+/* Checkmark Icon */
+.filter-dropdown__checkmark {
+  flex-shrink: 0;
+}
+
+/* Divider */
+.filter-dropdown__divider {
+  border: none;
+  border-top: 1px solid #eaecf0;
+  margin: 12px 0;
+}
+
+/* Action Buttons */
+.filter-dropdown__actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 8px;
+}

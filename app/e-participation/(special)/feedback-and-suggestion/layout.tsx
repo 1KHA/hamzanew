@@ -59,7 +59,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                 {children}
               </div>
 
-              <aside className=" !p-6 !shadow-sm !rounded-[16px] !border !border-[#D2D6DB] !bg-white">
+              <aside className="!h-fit !p-6 !shadow-sm !rounded-[16px] !border !border-[#D2D6DB] !bg-white">
                 <div>
                   <div className="!flex !flex-col !gap-4">
                     <h1 className="text-xl-bold">تواصل معنا</h1>

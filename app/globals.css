@@ -230,6 +230,7 @@ body {
 } */
 body {
   font-family: "IBMPlexSansArabic";
+  color: #161616;
 }
 
 /* @theme inline {
@@ -361,7 +362,7 @@ body {
 /* text in sections */
 
 .text-md-regular {
-  color: var(--Text-text-default, #161616);
+  /* color: var(--Text-text-default, #161616); */
  
   /* Text md / Regular */
   font-family: var(--Font-Family-font-family-text, "IBMPlexSansArabic");
@@ -1206,3 +1207,4 @@ html[dir='ltr'] .cta-bg-logo::before {
     display: none;
   }
 }
+ 
