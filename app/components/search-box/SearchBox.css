@@ -1,0 +1,234 @@
+/**
+ * SearchBox Component Styles
+ */
+
+/* Form Control */
+.dga-form-control {
+  display: flex;
+  flex-direction: column;
+}
+
+.dga-form-control--fullwidth {
+  width: 100%;
+}
+
+.dga-form-control > .dga-label {
+  font: 500 14px/20px "IBM Plex Sans Arabic", sans-serif;
+  margin-bottom: 0px;
+  color: #344054;
+}
+
+/* Search Box Container */
+.dga-search-box {
+  display: flex;
+  width: 100%;
+  min-width: 200px;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 8px;
+  border-radius: 4px;
+  gap: 8px;
+  border: 1px solid var(--form-field-border-default, #d2d6db);
+  background: var(--form-field-background-default, #ffffff);
+  position: relative;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Size Variants */
+.dga-search-box--lg {
+  height: 40px;
+}
+
+.dga-search-box--md {
+  height: 32px;
+}
+
+/* Hover State */
+.dga-search-box:hover {
+  border-color: var(--form-field-border-hovered, #9da4ae);
+}
+
+.dga-search-box:hover > input {
+  color: var(--form-field-text-hovered, #384250);
+}
+
+/* Focus Underline Animation */
+.dga-search-box::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0%;
+  height: 2px;
+  transform: translateX(-50%);
+  background-color: var(--form-field-border-pressed, #1b4d3e);
+  transition: width 0.2s ease-in-out;
+}
+
+.dga-search-box.focus::after {
+  width: 100%;
+}
+
+.dga-search-box.active::after {
+  width: 50%;
+}
+
+/* Focus Shadow */
+.dga-search-box.focus {
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.06),
+    0px 1px 3px 0px rgba(16, 24, 40, 0.1);
+}
+
+/* Input Field */
+.dga-search-box__field {
+  font: 400 16px/24px "IBM Plex Sans Arabic", sans-serif;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  height: 100%;
+  width: 100%;
+  color: var(--form-field-text-focused, #161616);
+}
+
+.dga-search-box--md .dga-search-box__field {
+  font: 400 14px/20px "IBM Plex Sans Arabic", sans-serif;
+}
+
+.dga-search-box__field::placeholder {
+  font: 400 16px/24px "IBM Plex Sans Arabic", sans-serif;
+  color: var(--form-field-text-placeholder, #9da4ae);
+}
+
+.dga-search-box--md .dga-search-box__field::placeholder {
+  font: 400 14px/20px "IBM Plex Sans Arabic", sans-serif;
+}
+
+/* Search Icon */
+.dga-search-box__icon {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.dga-search-box__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.dga-search-box__icon span {
+  color: var(--form-field-border-hovered, #9da4ae);
+  font-size: 20px;
+}
+
+/* Actions Container */
+.dga-search-box__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Action Buttons */
+.dga-search-box__action-btn {
+  background: transparent;
+  outline: none;
+  border: none;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.dga-search-box__action-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dga-search-box__action-btn:focus {
+  outline: 2px solid var(--form-field-border-pressed, #1b4d3e);
+  outline-offset: 2px;
+}
+
+/* Variant: Lighter */
+.dga-search-box--lighter {
+  border: 0;
+  background: var(--form-field-background-lighter, #f9fafb);
+}
+
+.dga-search-box--lighter:hover {
+  border: 1px solid var(--form-field-border-default, #d2d6db);
+}
+
+.dga-search-box--lighter.focus {
+  border: 1px solid var(--form-field-border-default, #d2d6db);
+}
+
+/* Variant: Darker */
+.dga-search-box--darker {
+  border: 0;
+  background-color: var(--form-field-background-darker, #f3f4f6);
+}
+
+.dga-search-box--darker:hover {
+  border: 1px solid var(--form-field-border-default, #d2d6db);
+}
+
+.dga-search-box--darker.focus {
+  border: 1px solid var(--form-field-border-default, #d2d6db);
+  background-color: var(--form-field-background-default, #ffffff) !important;
+}
+
+/* Error State */
+.dga-search-box--error,
+.dga-search-box--error:hover {
+  border-color: var(--form-field-border-error, #f04438);
+}
+
+.dga-search-box--error::after {
+  background-color: var(--form-field-border-error, #f04438);
+}
+
+/* Disabled State */
+.dga-search-box--disabled,
+.dga-search-box--disabled:hover {
+  border-color: var(--border-disabled, #e5e7eb);
+  cursor: not-allowed;
+  box-shadow: none !important;
+}
+
+.dga-search-box--disabled::after {
+  display: none;
+}
+
+.dga-search-box--disabled .dga-search-box__field {
+  color: var(--text-default-disabled, #9da4ae);
+  cursor: not-allowed;
+}
+
+.dga-search-box--disabled .dga-search-box__field::placeholder {
+  color: var(--text-default-disabled, #9da4ae);
+}
+
+.dga-search-box--disabled .dga-search-box__icon svg path {
+  fill: var(--text-default-disabled, #9da4ae);
+}
+
+/* Readonly State */
+.dga-search-box.readOnly,
+.dga-search-box.readOnly:hover {
+  border: 1px solid var(--border-neutral-primary, #e5e7eb) !important;
+  background-color: var(--form-field-background-default, #ffffff) !important;
+  box-shadow: none !important;
+}
+
+.dga-search-box.readOnly::after {
+  content: none;
+}
+
+.dga-search-box.readOnly .dga-search-box__field,
+.dga-search-box.readOnly .dga-search-box__field::placeholder {
+  color: var(--form-field-text-readonly, #6c737f);
+}

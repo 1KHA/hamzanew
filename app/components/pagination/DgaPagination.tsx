@@ -145,14 +145,14 @@ const DgaPagination: React.FC<DgaPaginationProps> = ({
           <button
             onClick={onPrevious}
             disabled={currentPage === 1}
-            aria-label="Go to previous page"
+            aria-label="الذهاب الى الصفحة السابقة"
             type="button"
           >
             <img
               src="/assets/icons/stroke-standard/arrow-right-01-stroke-rounded.svg"
               width={24}
               height={24}
-              alt="arrow-left"
+              alt="سهم يشير الى الصفحة السابقة"
               className="flip-rtl"
             />
           </button>
@@ -178,7 +178,7 @@ const DgaPagination: React.FC<DgaPaginationProps> = ({
               <button
                 onClick={() => handlePageClick(pageNumber)}
                 aria-current={isCurrent ? "page" : undefined}
-                aria-label={`Go to page ${pageNumber}`}
+                aria-label={`الذهاب الى الصفحة ${pageNumber}`}
                 type="button"
               >
                 {pageNumber}
@@ -192,14 +192,14 @@ const DgaPagination: React.FC<DgaPaginationProps> = ({
           <button
             onClick={onNext}
             disabled={currentPage === totalPageCount}
-            aria-label="Go to next page"
+            aria-label="الذهاب الى الصفحة التالية"
             type="button"
           >
             <img
               src="/assets/icons/stroke-standard/arrow-left-01-stroke-rounded.svg"
               width={24}
               // height={24}
-              alt="arrow-left"
+              alt="سهم يشير الى الصفحة التالية"
               // className="flip-rtl"
             />
           </button>

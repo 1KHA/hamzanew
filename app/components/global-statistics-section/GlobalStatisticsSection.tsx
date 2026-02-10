@@ -1,5 +1,6 @@
-import { DgaDropdown, DgaSearchBox } from "platformscode-new-react";
+import { DgaDropdown } from "platformscode-new-react";
 import Card from "../card/Card";
+import SearchBox from "@/app/components/search-box/SearchBox";
 import "./GlobalStatisticsSection.css";
 
 function GlobalStatisticsSection() {
@@ -58,9 +59,9 @@ function GlobalStatisticsSection() {
       <div className="global-statistics-section">
         {/* Search section */}
         <div className="search-container">
-          <DgaSearchBox
+          <SearchBox
             label="ابحث عن الدولة"
-            showTrailingIcon={false}
+            placeholder="ابحث عن الدولة..."
             size="lg"
             variant="default"
           />

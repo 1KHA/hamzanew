@@ -133,12 +133,12 @@ export const MENU_DATA: MenuItemType[] = [
         items: [
           {
             label: "مكتبة الأبحاث",
-            href: "#",
+            href: "/research-library",
             icon: "/assets/icons/stroke-standard/book-04-stroke-standard.svg",
           },
           {
-            label: "الإحصائيات",
-            href: "#",
+            label: "التقارير والإحصائيات",
+            href: "/statistics-and-reports",
             icon: "/assets/icons/stroke-standard/chart-bar-line-stroke-standard.svg",
           },
         ],
@@ -159,14 +159,14 @@ export const ACTION_ITEMS = [
   //   icon: "/assets/icons/stroke-standard/translation-stroke-rounded.svg",
   //   className: "action-btn-reversed",
   // },
-  // {
-  //   label: "تسجيل الدخول",
-  //   href: "#",
-  //   icon: "/assets/icons/stroke-standard/user-03-stroke-standard.svg",
-  //   className: "action-btn-reversed",
-  // },
   {
-    label: "البحث",
+    label: "تسجيل الدخول",
+    href: "#",
+    icon: "/assets/icons/stroke-standard/user-03-stroke-standard.svg",
+    className: "action-btn-reversed",
+  },
+  {
+    label: "",
     href: "/search",
     icon: "/assets/icons/stroke-standard/search-01-stroke-standard.svg",
     className: "action-btn-reversed translate-btn",
