@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
-import type { ReactElement } from "react";
-import { DgaSearchBox } from "platformscode-new-react";
-import Button from "../components/button/Button";
+import { useState, useEffect, useMemo, type ReactElement } from "react";
 import Card from "../components/card/Card";
+import SearchBox from "@/app/components/search-box/SearchBox";
+import Button from "../components/button/Button";
 import DgaPagination from "../components/pagination/DgaPagination";
+import { normalizeArabic } from "@/lib/utils/arabic";
 import { news } from "./_data/newsData";
 
 /* ==========================================================================
@@ -50,6 +50,7 @@ export default function NewsListing({
   // State Management
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [appliedSearchQuery, setAppliedSearchQuery] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
   const [direction, setDirection] = useState<string>("rtl");
 
@@ -76,17 +77,20 @@ export default function NewsListing({
   /**
    * Memoized filtered and sorted news data
    * Optimized to prevent recalculation on every render
+   * Uses Arabic normalization for accurate search
    */
   const processedNews = useMemo(() => {
-    // 1. Filter by search query
-    const query = searchQuery.toLowerCase().trim();
-    const filtered = initialArticles.filter((article) => {
-      return (
-        article.title.toLowerCase().includes(query) ||
-        article.excerpt.toLowerCase().includes(query) ||
-        article.content.toLowerCase().includes(query)
-      );
-    });
+    // 1. Filter by search query with Arabic normalization
+    const query = normalizeArabic(appliedSearchQuery.trim());
+    const filtered = query
+      ? initialArticles.filter((article) => {
+          return (
+            normalizeArabic(article.title).includes(query) ||
+            normalizeArabic(article.excerpt).includes(query) ||
+            normalizeArabic(article.content).includes(query)
+          );
+        })
+      : [...initialArticles];
 
     // 2. Sort by date
     return filtered.sort((a, b) => {
@@ -94,7 +98,7 @@ export default function NewsListing({
       const dateB = new Date(b.date).getTime();
       return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
     });
-  }, [searchQuery, sortOrder, initialArticles]);
+  }, [appliedSearchQuery, sortOrder, initialArticles]);
 
   // Pagination Logic
   const totalPages = Math.ceil(processedNews.length / ITEMS_PER_PAGE);
@@ -106,8 +110,12 @@ export default function NewsListing({
   /**
    * Event Handlers
    */
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+  };
+
+  const handleSearch = () => {
+    setAppliedSearchQuery(searchQuery);
     setCurrentPage(1); // Reset to first page
   };
 
@@ -132,16 +140,15 @@ export default function NewsListing({
         {/* Search Input */}
         <div className="!flex !flex-row !gap-4 !w-full md:!w-auto">
           <div className="!w-full !flex !flex-row !gap-4" role="search">
-            <DgaSearchBox
+            <SearchBox
               value={searchQuery}
-              onInput={(e: any) => setSearchQuery(e.target.value)}
+              onChange={handleSearchChange}
               placeholder="بحث في الأخبار..."
               size="lg"
-              speechLang="ar"
             />
             <Button
               label="بحث"
-              onClick={() => setSearchQuery(searchQuery)}
+              onClick={handleSearch}
               variant="secondary-outline"
               size="lg"
             />
@@ -203,7 +210,10 @@ export default function NewsListing({
           <Button
             label="مسح البحث"
             variant="secondary-outline"
-            onClick={() => setSearchQuery("")}
+            onClick={() => {
+              setSearchQuery("");
+              setAppliedSearchQuery("");
+            }}
           />
         </div>
       )}
