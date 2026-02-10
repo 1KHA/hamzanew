@@ -13,12 +13,14 @@
 
 "use client";
 
-import { useState, type ReactElement } from "react";
+import { useState, useMemo, useEffect, type ReactElement } from "react";
 import Link from "next/link";
-import { DgaSearchBox, DgaPagination } from "platformscode-new-react";
+import DgaPagination from "@/app/components/pagination/DgaPagination";
 import Button from "@/app/components/button/Button";
 import Tag from "@/app/components/tag/Tag";
 import Filter from "@/app/components/filter/Filter";
+import SearchBox from "@/app/components/search-box/SearchBox";
+import { normalizeArabic } from "@/lib/utils/arabic";
 
 /* ==========================================================================
    Types & Interfaces
@@ -36,14 +38,12 @@ interface SearchResult {
   link: string;
 }
 
-/**
- * Interface for pagination state
- */
-interface PaginationState {
-  currentPage: number;
-  totalPages: number;
-  totalResults: number;
-}
+/* ==========================================================================
+   Constants
+   ========================================================================== */
+
+/** Number of items to display per page */
+const ITEMS_PER_PAGE = 4;
 
 /* ==========================================================================
    Static Data (Mock Data for Demo)
@@ -64,27 +64,91 @@ const MOCK_RESULTS: SearchResult[] = [
   },
   {
     id: "2",
-    category: "الأخبار",
-    title: "منصة اختبارات همزة تطلق النسخة التجريبية الأولى للقياس المعياري للغة العربية",
-    description: "أعلنت منصة همزة المتخصصة في تطوير أدوات تقييم اللغة العربية، اليوم عن إطلاق النسخة التجريبية الأولى لنظامها الجديد للقياس المعياري للغة العربية، والذي يهدف إلى توفير تقييم شامل ودقيق",
-    date: "20-Nov-2026",
-    link: "/news/2",
+    category: "الفعاليات",
+    title: "ورشة عمل حول تطوير اختبارات اللغة العربية",
+    description: "تنظم منصة همزة ورشة عمل متخصصة للمعلمين والباحثين حول أحدث أساليب تطوير اختبارات اللغة العربية وفق المعايير الدولية",
+    date: "15-Nov-2026",
+    link: "/events/1",
   },
   {
     id: "3",
-    category: "الأخبار",
-    title: "منصة اختبارات همزة تطلق النسخة التجريبية الأولى للقياس المعياري للغة العربية",
-    description: "أعلنت منصة همزة المتخصصة في تطوير أدوات تقييم اللغة العربية، اليوم عن إطلاق النسخة التجريبية الأولى لنظامها الجديد للقياس المعياري للغة العربية، والذي يهدف إلى توفير تقييم شامل ودقيق",
-    date: "20-Nov-2026",
-    link: "/news/3",
+    category: "المقالات",
+    title: "أهمية القياس المعياري في تعليم اللغة العربية",
+    description: "مقال علمي يتناول أهمية استخدام أدوات القياس المعيارية في تقييم مستوى المتعلمين وتحسين مخرجات التعليم",
+    date: "10-Nov-2026",
+    link: "/articles/1",
   },
   {
     id: "4",
     category: "الأخبار",
-    title: "منصة اختبارات همزة تطلق النسخة التجريبية الأولى للقياس المعياري للغة العربية",
-    description: "أعلنت منصة همزة المتخصصة في تطوير أدوات تقييم اللغة العربية، اليوم عن إطلاق النسخة التجريبية الأولى لنظامها الجديد للقياس المعياري للغة العربية، والذي يهدف إلى توفير تقييم شامل ودقيق",
-    date: "20-Nov-2026",
+    title: "شراكة جديدة بين همزة ووزارة التعليم",
+    description: "وقعت منصة همزة اتفاقية شراكة استراتيجية مع وزارة التعليم لتطوير منظومة اختبارات اللغة العربية في المدارس",
+    date: "05-Nov-2026",
+    link: "/news/2",
+  },
+  {
+    id: "5",
+    category: "الفعاليات",
+    title: "مؤتمر همزة السنوي للغة العربية",
+    description: "يسر منصة همزة دعوتكم لحضور المؤتمر السنوي الذي يجمع خبراء اللغة العربية من مختلف أنحاء العالم",
+    date: "01-Nov-2026",
+    link: "/events/2",
+  },
+  {
+    id: "6",
+    category: "المقالات",
+    title: "تقنيات الذكاء الاصطناعي في تقييم اللغة",
+    description: "استعراض لأحدث تقنيات الذكاء الاصطناعي المستخدمة في تطوير اختبارات اللغة العربية وتحليل نتائجها",
+    date: "28-Oct-2026",
+    link: "/articles/2",
+  },
+  {
+    id: "7",
+    category: "الأخبار",
+    title: "إطلاق تطبيق همزة للهواتف الذكية",
+    description: "أعلنت منصة همزة عن إطلاق تطبيقها الجديد للهواتف الذكية والذي يتيح للمستخدمين الوصول إلى الاختبارات في أي وقت ومكان",
+    date: "25-Oct-2026",
+    link: "/news/3",
+  },
+  {
+    id: "8",
+    category: "الفعاليات",
+    title: "ندوة افتراضية: مستقبل تعليم اللغة العربية",
+    description: "ندوة افتراضية تناقش التحديات والفرص في تعليم اللغة العربية للناطقين بغيرها في العصر الرقمي",
+    date: "20-Oct-2026",
+    link: "/events/3",
+  },
+  {
+    id: "9",
+    category: "المقالات",
+    title: "معايير جودة الاختبارات اللغوية",
+    description: "دراسة شاملة حول معايير الجودة التي يجب أن تتوفر في الاختبارات اللغوية لضمان صدقها وثباتها",
+    date: "15-Oct-2026",
+    link: "/articles/3",
+  },
+  {
+    id: "10",
+    category: "الأخبار",
+    title: "همزة تحصل على اعتماد دولي",
+    description: "حصلت منصة همزة على اعتماد دولي من هيئة الاعتماد الأوروبية للاختبارات اللغوية تقديراً لجودة اختباراتها",
+    date: "10-Oct-2026",
     link: "/news/4",
+  },
+  {
+    id: "11",
+    category: "الفعاليات",
+    title: "دورة تدريبية للمقيّمين اللغويين",
+    description: "دورة تدريبية مكثفة لإعداد مقيّمين معتمدين في اختبارات همزة للغة العربية",
+    date: "05-Oct-2026",
+    link: "/events/4",
+  },
+  {
+    id: "12",
+    category: "المقالات",
+    title: "تحليل نتائج اختبارات همزة 2026",
+    description: "تقرير تحليلي شامل لنتائج اختبارات همزة خلال العام الحالي مع رؤى حول مستوى المتقدمين",
+    date: "01-Oct-2026",
+    link: "/articles/4",
   },
 ];
 
@@ -148,6 +212,7 @@ function FilterControls({
         buttonLabel="ترتيب حسب"
         buttonIcon="sorting-01"
         buttonVariant="secondary-outline"
+        buttonIconClass=""
       />
     </div>
   );
@@ -214,37 +279,85 @@ function SearchResultCard({ result }: { result: SearchResult }) {
 export default function SearchPage(): ReactElement {
   /* State Management */
   const [searchQuery, setSearchQuery] = useState<string>("الاختبار الأكاديمي");
-  const [results] = useState<SearchResult[]>(MOCK_RESULTS);
+  const [appliedSearchQuery, setAppliedSearchQuery] = useState<string>("الاختبار الأكاديمي");
+  const [allResults] = useState<SearchResult[]>(MOCK_RESULTS);
   const [filterValue, setFilterValue] = useState<string>("all");
   const [sortValue, setSortValue] = useState<string>("newest");
-  const [pagination, setPagination] = useState<PaginationState>({
-    currentPage: 1,
-    totalPages: 999,
-    totalResults: 50,
-  });
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  /* Filtered and Sorted Results */
+  const filteredAndSortedResults = useMemo(() => {
+    let filtered = [...allResults];
+
+    // Apply search filter with Arabic normalization
+    if (appliedSearchQuery.trim()) {
+      const query = normalizeArabic(appliedSearchQuery.trim());
+      filtered = filtered.filter(
+        (result) =>
+          normalizeArabic(result.title).includes(query) ||
+          normalizeArabic(result.description).includes(query) ||
+          normalizeArabic(result.category).includes(query)
+      );
+    }
+
+    // Apply category filter
+    if (filterValue !== "all") {
+      const categoryMap: Record<string, string> = {
+        news: "الأخبار",
+        events: "الفعاليات",
+        articles: "المقالات",
+      };
+      filtered = filtered.filter(
+        (result) => result.category === categoryMap[filterValue]
+      );
+    }
+
+    // Apply sorting
+    if (sortValue === "newest") {
+      filtered.sort((a, b) => Number(b.id) - Number(a.id));
+    } else if (sortValue === "oldest") {
+      filtered.sort((a, b) => Number(a.id) - Number(b.id));
+    }
+
+    return filtered;
+  }, [allResults, appliedSearchQuery, filterValue, sortValue]);
+
+  /* Calculated Values */
+  const totalPages = Math.ceil(filteredAndSortedResults.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedResults = filteredAndSortedResults.slice(startIndex, endIndex);
+
+  /* Reset page if current page exceeds total pages after filtering */
+  useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(1);
+    }
+  }, [currentPage, totalPages]);
 
   /* Event Handlers */
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+  };
+
   const handleSearch = () => {
-    // In production, this would trigger an API call
-    console.log("Searching for:", searchQuery);
+    setAppliedSearchQuery(searchQuery);
+    setCurrentPage(1);
   };
 
   const handleFilterChange = (value: string) => {
     setFilterValue(value);
-    // In production, this would filter results
-    console.log("Filter changed to:", value);
+    setCurrentPage(1);
   };
 
   const handleSortChange = (value: string) => {
     setSortValue(value);
-    // In production, this would sort results
-    console.log("Sort changed to:", value);
+    setCurrentPage(1);
   };
 
   const handlePageChange = (page: number) => {
-    if (page >= 1 && page <= pagination.totalPages) {
-      setPagination((prev) => ({ ...prev, currentPage: page }));
-      // In production, this would fetch new results
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
     }
   };
 
@@ -253,18 +366,14 @@ export default function SearchPage(): ReactElement {
       <div className="custom-container ">
         {/* Search Input Section */}
         <section className="!py-[40px]" aria-label="البحث">
-          <div className="flex   gap-[16px] w-full">
-            {/* DgaSearchBox Component */}
-            <div className="flex-1">
-              <DgaSearchBox
-                showTrailingIcon={false}
-                size="lg"
-                variant="default"
-                value={searchQuery}
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                onInput={(e: any) => setSearchQuery(e.target?.value || e.detail || "")}
-              />
-            </div>
+          <div className="flex gap-[16px] w-full">
+            {/* SearchBox Component */}
+            <SearchBox
+              size="lg"
+              placeholder="ابحث..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
 
             {/* Search Button */}
             <Button
@@ -283,10 +392,10 @@ export default function SearchPage(): ReactElement {
             {/* Title and Count */}
             <div className="flex flex-col gap-[8px] text-start">
               <h2 className="display-sm-bold">
-                نتيجة البحث عن "{searchQuery}"
+                نتيجة البحث عن "{appliedSearchQuery}"
               </h2>
               <p className="text-md-regular text-[#6C737F]">
-                {pagination.totalResults} نتيجة وجدت
+                {filteredAndSortedResults.length} نتيجة وجدت
               </p>
             </div>
 
@@ -304,11 +413,11 @@ export default function SearchPage(): ReactElement {
             role="feed"
             aria-label="قائمة نتائج البحث"
           >
-            {results.length > 0 ? (
-              results.map((result, index) => (
+            {paginatedResults.length > 0 ? (
+              paginatedResults.map((result, index) => (
                 <div key={result.id}>
                   <SearchResultCard result={result} />
-                  {index < results.length - 1 && <hr className="!my-[24px]" />}
+                  {index < paginatedResults.length - 1 && <hr className="!my-[24px]" />}
                 </div>
               ))
             ) : (
@@ -321,13 +430,14 @@ export default function SearchPage(): ReactElement {
           </div>
 
           {/* Pagination */}
-          {results.length > 0 && (
+          {filteredAndSortedResults.length > 0 && totalPages > 1 && (
             <div className="flex justify-center py-[32px]">
               <DgaPagination
-                onChange={(e: any) => handlePageChange(e.detail?.page || 1)}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
                 siblingCount={1}
                 size="large"
-                totalPageCount={pagination.totalPages}
+                totalPageCount={totalPages}
               />
             </div>
           )}

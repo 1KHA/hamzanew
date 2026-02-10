@@ -47,6 +47,8 @@ interface FilterProps {
   buttonIcon?: string;
   /** Button variant */
   buttonVariant?: string;
+  /** Button icon class */
+  buttonIconClass?: string;
 }
 
 /* ==========================================================================
@@ -66,6 +68,7 @@ export default function Filter({
   buttonLabel = "تصفية",
   buttonIcon = "filter",
   buttonVariant = "primary-neutral",
+  buttonIconClass = "white-icon",
 }: FilterProps) {
   /* State */
   const [isOpen, setIsOpen] = useState(false);
@@ -215,16 +218,18 @@ export default function Filter({
           {/* Action Buttons */}
           <div className="filter-dropdown__actions">
             <Button
-              label="تطبيق الاختيارات"
-              variant="primary-brand"
+              label="تطبيق "
+              variant="primary-neutral"
               size="lg"
               onClick={handleApply}
+              className="w-full"
             />
             <Button
               label="إزالة التصفية"
               variant="secondary-outline"
               size="lg"
               onClick={handleClear}
+              className="w-full"
             />
           </div>
         </div>

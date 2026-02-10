@@ -42,9 +42,9 @@
   opacity: 0.5;
 }
 
-.dga-pagination__item--active button {
+/* .dga-pagination__item--active button {
   font-weight: bold;
-}
+} */
 
 /* Active Indicator */
 .dga-pagination__item--active::after {

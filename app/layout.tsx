@@ -31,7 +31,7 @@ export default function RootLayout({
         <ClientOnly>
           <NavHeader />
           {/* </ClientOnly> */}
-          <main className="flex-1 w-full bg-white">{children}</main>
+          <main className="flex-1 w-full bg-white ">{children}</main>
           {/* <ClientOnly> */}
           <Footer />
         </ClientOnly>
