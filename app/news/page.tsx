@@ -11,19 +11,28 @@
  * - Maintains proper focus management and heading hierarchy
  */
 
-
 import type { ReactElement } from "react";
 import PageHero from "@/app/components/page-hero/PageHero";
 import NewsListing from "./NewsListing";
 import { news } from "./_data/newsData";
+import { Metadata } from "next";
 
+/* ==========================================================================
+   Metadata
+   ========================================================================== */
+
+export const metadata: Metadata = {
+  title: "الاخبار",
+  description:
+    "نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير الاختبارات المعيارية للغة العربية",
+};
 /* ==========================================================================
    Static Configuration
    ========================================================================== */
 
 const HERO_CONFIG = {
   title: "الاخبار",
-  content:
+  description:
     "نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير الاختبارات المعيارية للغة العربية",
   bgColor: "#FFF",
   breadcrumbs: [
