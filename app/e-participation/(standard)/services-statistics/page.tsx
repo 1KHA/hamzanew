@@ -1,5 +1,4 @@
 import { DgaChart } from "platformscode-new-react";
-import { title } from "process";
 export default function page() {
   // General Number Statistics
   const servicesStatisticsData = [

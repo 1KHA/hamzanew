@@ -16,7 +16,17 @@ import type { ReactElement } from "react";
 import PageHero from "../components/page-hero/PageHero";
 import ResearchLibraryListing from "./ResearchLibraryListing";
 import { researchData } from "./_data/researchData";
+import { Metadata } from "next";
 
+/* ==========================================================================
+   Metadata
+   ========================================================================== */
+
+export const metadata: Metadata = {
+  title: "مكتبة الابحاث",
+  description:
+    "يمكنك هنا العثور على مجموعة من أحدث الأبحاث التي أجراها شركاء اختبار همزة وأكاديميون مدعومون من اختبار همزة من مختلف أنحاء العالم. ، يُمَوِّل اختبار همزة الأبحاث في ثلاثة مجالات رئيسية تتعلق بتعلم وتقييم اللغة العربية",
+};
 /* ==========================================================================
    Hero Configuration
    ========================================================================== */
