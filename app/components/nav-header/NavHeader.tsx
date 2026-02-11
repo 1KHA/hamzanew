@@ -7,6 +7,7 @@ import DigitalSignature from "../digital-signature/DigitalSignature";
 import MenuItem from "./MenuItem";
 import MobileNav from "./MobileNav";
 import NavigationSubmenu from "./NavigationSubmenu";
+import SignInModal from "../signInModal/SignInModal";
 import { MENU_DATA, ACTION_ITEMS } from "./menuData";
 import "./NavHeader.css";
 
@@ -79,6 +80,7 @@ function NavHeader() {
   const pathname = usePathname();
   const [activeLink, setActiveLink] = useState("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSignInOpen, setIsSignInOpen] = useState(false);
   const [openSubmenus, setOpenSubmenus] = useState<string[]>([]);
 
   const navRef = useRef<HTMLDivElement>(null);
@@ -243,16 +245,32 @@ function NavHeader() {
 
             {/* Actions */}
             <ul className="header-nav__actions">
-              {ACTION_ITEMS.map((action, i) => (
-                <li key={i} className={action.className}>
-                  <Link href={action.href} className="header-menu__item">
-                    {action.label && (
-                      <span className="header-menu__item-label">
-                        {action.label}
-                      </span>
-                    )}
-                    <IconImage src={action.icon} />
-                  </Link>
+              {ACTION_ITEMS.map((action) => (
+                <li key={action.id} className={action.className}>
+                  {action.id === "sign-in" ? (
+                    <button
+                      type="button"
+                      className="header-menu__item"
+                      onClick={() => setIsSignInOpen(true)}
+                      aria-label="تسجيل الدخول"
+                    >
+                      {action.label && (
+                        <span className="header-menu__item-label">
+                          {action.label}
+                        </span>
+                      )}
+                      <IconImage src={action.icon} />
+                    </button>
+                  ) : (
+                    <Link href={action.href} className="header-menu__item">
+                      {action.label && (
+                        <span className="header-menu__item-label">
+                          {action.label}
+                        </span>
+                      )}
+                      <IconImage src={action.icon} />
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -271,6 +289,12 @@ function NavHeader() {
           );
         })()}
       </div>
+
+      {/* Sign In Modal */}
+      <SignInModal
+        isOpen={isSignInOpen}
+        onClose={() => setIsSignInOpen(false)}
+      />
     </>
   );
 }

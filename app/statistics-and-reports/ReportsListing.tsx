@@ -132,6 +132,11 @@ export default function ReportsListing({
     setCurrentPage(1);
   };
 
+  const handleSearchClear = () => {
+    setAppliedSearchQuery("");
+    setCurrentPage(1);
+  };
+
   const handleSortChange = (value: string) => {
     setSortValue(value);
     setCurrentPage(1);
@@ -155,6 +160,8 @@ export default function ReportsListing({
               placeholder="ابحث عن تقرير..."
               value={searchQuery}
               onChange={handleSearchChange}
+              onClear={handleSearchClear}
+              onSearch={handleSearch}
             />
             <Button
               label="بحث"

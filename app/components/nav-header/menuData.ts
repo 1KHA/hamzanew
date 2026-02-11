@@ -154,18 +154,21 @@ export const MENU_DATA: MenuItemType[] = [
 
 export const ACTION_ITEMS = [
   // {
+  //   id: "translate",
   //   label: "الترجمة",
   //   href: "#",
   //   icon: "/assets/icons/stroke-standard/translation-stroke-rounded.svg",
   //   className: "action-btn-reversed",
   // },
   {
+    id: "sign-in",
     label: "تسجيل الدخول",
     href: "#",
     icon: "/assets/icons/stroke-standard/user-03-stroke-standard.svg",
     className: "action-btn-reversed",
   },
   {
+    id: "search",
     label: "",
     href: "/search",
     icon: "/assets/icons/stroke-standard/search-01-stroke-standard.svg",

@@ -152,6 +152,11 @@ export default function ResearchLibraryListing({
     setCurrentPage(1);
   };
 
+  const handleSearchClear = () => {
+    setAppliedSearchQuery("");
+    setCurrentPage(1);
+  };
+
   const handleFilterChange = (value: string) => {
     setFilterValue(value);
     setCurrentPage(1);
@@ -181,6 +186,8 @@ export default function ResearchLibraryListing({
                 placeholder="ابحث عن بحث..."
                 value={searchQuery}
                 onChange={handleSearchChange}
+                onClear={handleSearchClear}
+                onSearch={handleSearch}
               />
 
               <Button
