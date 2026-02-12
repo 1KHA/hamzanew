@@ -71,7 +71,8 @@ const TESTS_DATA: TestCard[] = [
     icon: "glasses",
     iconAlt: "أيقونة نظارات - اختبار همزة العام",
     title: "اختبار همزة العام",
-    description: "اختبار لقياس كفايات اللغة العربية للناطقين بغيرها للأغراض العامة.",
+    description:
+      "اختبار لقياس كفايات اللغة العربية للناطقين بغيرها للأغراض العامة.",
     targetAudience: "الناطقين بغير اللغة العربية",
     questions: {
       listening: 25,
@@ -92,8 +93,10 @@ const TESTS_DATA: TestCard[] = [
     icon: "star",
     iconAlt: "أيقونة نجمة - اختبار تحديد مستوى",
     title: "تحديد مستوى",
-    description: "اختبار لتحديد مستوى الكفاية اللغوية العامة للناطقين بغير العربية، يُستخدم للالتحاق بالبرامج الأكاديمية",
-    targetAudience: "الطلاب الناطقين بغير اللغة العربية الراغبون في تحديد مستواهم اللغوي لأغراض عامة",
+    description:
+      "اختبار لتحديد مستوى الكفاية اللغوية العامة للناطقين بغير العربية، يُستخدم للالتحاق بالبرامج الأكاديمية",
+    targetAudience:
+      "الطلاب الناطقين بغير اللغة العربية الراغبون في تحديد مستواهم اللغوي لأغراض عامة",
     questions: {
       listening: 20,
       reading: 20,
@@ -113,9 +116,11 @@ const TESTS_DATA: TestCard[] = [
     icon: "book-02",
     iconAlt: "أيقونة كتاب - اختبار همزة المفردات",
     title: "همزة المفردات",
-    description: "اختبار معياري لقياس مستويات المفردات العربية لدى الناطقين بغيرها",
+    description:
+      "اختبار معياري لقياس مستويات المفردات العربية لدى الناطقين بغيرها",
     targetAudience: "الناطقين بغير اللغة العربية",
-    questionsText: "يحتوي نموذج الاختبار على (150) فقرة، موزعة على خمسة مستويات من الصعوبة والشيوع.",
+    questionsText:
+      "يحتوي نموذج الاختبار على (150) فقرة، موزعة على خمسة مستويات من الصعوبة والشيوع.",
     duration: {
       minutes: 150,
       hours: "02:30",
@@ -128,7 +133,8 @@ const TESTS_DATA: TestCard[] = [
     icon: "mortarboard-01",
     iconAlt: "أيقونة قبعة تخرج - اختبار همزة الأكاديمي",
     title: "همزة الأكاديمي",
-    description: "اختبار محوسب مُقنّن يقيس كفايات اللغة العربية للناطقين بغيرها للأغراض الأكاديمية.",
+    description:
+      "اختبار محوسب مُقنّن يقيس كفايات اللغة العربية للناطقين بغيرها للأغراض الأكاديمية.",
     targetAudience: "الناطقين بغير اللغة العربية",
     questions: {
       listening: 30,
@@ -167,7 +173,11 @@ function QuestionRow({ label, count }: { label: string; count: number }) {
  * Question Breakdown List Component
  * Displays the full breakdown of questions by skill type
  */
-function QuestionBreakdownList({ questions }: { questions: QuestionBreakdown }) {
+function QuestionBreakdownList({
+  questions,
+}: {
+  questions: QuestionBreakdown;
+}) {
   return (
     <>
       <QuestionRow label="أسئلة الاستماع" count={questions.listening} />
@@ -260,7 +270,9 @@ function TestCardComponent({ test }: { test: TestCard }) {
           {test.questionsText ? (
             <p className="text-md-semibold">{test.questionsText}</p>
           ) : (
-            test.questions && <QuestionBreakdownList questions={test.questions} />
+            test.questions && (
+              <QuestionBreakdownList questions={test.questions} />
+            )
           )}
         </InfoSection>
 
@@ -313,10 +325,7 @@ export default function TypesOfTestsPage() {
       {/* ====================================================================
           Section 1: Test Comparison Cards
           ==================================================================== */}
-      <section
-        className="bg-color-grey-50"
-        aria-labelledby="comparison-title"
-      >
+      <section className="bg-color-grey-50" aria-labelledby="comparison-title">
         <div className="content !py-[40px] md:!py-[80px] flex flex-col gap-[24px] md:gap-[32px]">
           {/* Section Title */}
           <h1 id="comparison-title" className="display-sm-bold">
@@ -356,13 +365,15 @@ export default function TypesOfTestsPage() {
                 preload="metadata"
                 aria-label="فيديو شرح آلية التسجيل في اختبارات همزة"
               >
-                <source src="/assets/video/registration-guide.mp4" type="video/mp4" />
-                <source src="/assets/video/registration-guide.webm" type="video/webm" />
-                <track
-                  kind="captions"
-                  srcLang="ar"
-                  label="العربية"
+                <source
+                  src="/assets/video/registration-guide.mp4"
+                  type="video/mp4"
                 />
+                <source
+                  src="/assets/video/registration-guide.webm"
+                  type="video/webm"
+                />
+                <track kind="captions" srcLang="ar" label="العربية" />
                 متصفحك لا يدعم تشغيل الفيديو.
               </video>
             </div>

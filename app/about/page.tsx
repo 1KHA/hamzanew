@@ -1,5 +1,5 @@
-/**
- * About Page Component
+/*
+ * About Page Component (Server Component)
  *
  * This page serves as the main navigation hub for all "About" sections,
  * displaying a grid of cards linking to various informational pages.
@@ -9,10 +9,25 @@
  * - Navigation cards have descriptive labels for screen readers
  * - Grid layout is responsive and maintains proper focus order
  * - All interactive elements are keyboard accessible
+ *
+ * @performance
+ * - Optimized for server-side rendering
+ * - Static data is fetched and rendered server-side
  */
 
-import type { ReactElement } from "react";
+import type { Metadata } from "next";
 import Card from "../components/card/Card";
+
+export const metadata: Metadata = {
+  title: "عن همزة",
+  description:
+    "تعرف على مشروع همزة، أهدافه، والخدمات التي يقدمها في مجال قياس الكفاية اللغوية.",
+  openGraph: {
+    title: "عن همزة",
+    description:
+      "تعرف على مشروع همزة، أهدافه، والخدمات التي يقدمها في مجال قياس الكفاية اللغوية.",
+  },
+};
 
 /* ==========================================================================
    Types & Interfaces
@@ -78,12 +93,12 @@ const ABOUT_PAGES: AboutPageItem[] = [
     link: "/about/periodic-advisory-committee",
     ariaLabel: "معلومات عن اللجنة الاستشارية الدورية",
   },
-   {
+  {
     id: "hamza-ambassadors",
     icon: "share-08",
-    title: "السفير همزة",
+    title: "سفراء همزة",
     link: "/about/hamza-ambassadors",
-    ariaLabel: "تعرف على سفير همزة",
+    ariaLabel: "تعرف على سفراء همزة",
   },
   {
     id: "e-participation",
@@ -91,7 +106,7 @@ const ABOUT_PAGES: AboutPageItem[] = [
     title: "المشاركة الالكترونية",
     link: "/e-participation",
     ariaLabel: "المشاركة الالكترونية والتواصل معنا",
-  }
+  },
 ];
 
 /* ==========================================================================
@@ -106,7 +121,7 @@ const ABOUT_PAGES: AboutPageItem[] = [
  *
  * @returns {JSX.Element} The about page with navigation cards
  */
-function AboutPage(): ReactElement {
+export default function AboutPage() {
   return (
     <main className="content">
       {/*
@@ -134,5 +149,3 @@ function AboutPage(): ReactElement {
     </main>
   );
 }
-
-export default AboutPage;

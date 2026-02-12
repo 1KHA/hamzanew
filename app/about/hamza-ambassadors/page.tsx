@@ -1,19 +1,27 @@
-export default function page() {
+/**
+ * Hamza Ambassadors Page
+ *
+ * This page displays information about the Hamza Ambassadors program.
+ *
+ * @accessibility
+ * - Uses semantic HTML (<section>) for structure
+ * - Uses aria-labelledby for section identification
+ *
+ * @returns {JSX.Element} The rendered Hamza Ambassadors page.
+ */
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "سفراء همزة",
+  description:
+   "تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية لمختلف الفئات."
+}
+export default function HamzaAmbassadorsPage() {
   return (
-    <>
-      <div className="content">
-        {/* <div className="section-spacing-8xl">
-          <div className="flex flex-row items-center gap-2">
-            <img
-              src="/assets/icons/stroke-standard/help-circle-stroke-rounded.svg"
-              alt="help-icon"
-              width={24}
-              height={24}
-              className="green-icon"
-            />
-          </div>
-        </div> */}
-      </div>
-    </>
+      <section
+        className="section-spacing-8xl custom-container"
+        aria-labelledby="ambassadors-heading"
+      >
+      </section>
   );
 }
