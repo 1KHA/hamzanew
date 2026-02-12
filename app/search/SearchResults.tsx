@@ -221,6 +221,11 @@ export default function SearchResults({
     setCurrentPage(1);
   };
 
+  const handleSearchClear = () => {
+    setAppliedSearchQuery("");
+    setCurrentPage(1);
+  };
+
   const handleFilterChange = (value: string) => {
     setFilterValue(value);
     setCurrentPage(1);
@@ -248,6 +253,8 @@ export default function SearchResults({
             placeholder="ابحث..."
             value={searchQuery}
             onChange={handleSearchChange}
+            onClear={handleSearchClear}
+            onSearch={handleSearch}
           />
 
           {/* Search Button */}

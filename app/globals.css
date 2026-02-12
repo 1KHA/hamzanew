@@ -1010,8 +1010,10 @@ div.table-wrapper .azm-table thead th span span.text {
 }
 
 /* ── Hover State ── */
-.link--primary:hover {
+.link--primary:hover,
+.link:hover {
   color: var(--link-primary-hovered, #54c08a); /* Lighter green on hover */
+  text-decoration: underline;
 }
 
 .link:hover .link__label,
@@ -1040,7 +1042,14 @@ div.table-wrapper .azm-table thead th span span.text {
 /* ── Visited State ── */
 .link:visited,
 .link--primary:visited {
-  color: #1b8354 !important; /* Purple for visited links */
+  color: #1b8354 !important;
+}
+
+/* Ensure hover still works on visited links */
+.link:visited:hover,
+.link--primary:visited:hover {
+  color: var(--link-primary-hovered, #54c08a) !important;
+  text-decoration: underline;
 }
 
 /* ── Disabled State ── */

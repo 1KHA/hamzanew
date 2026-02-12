@@ -119,6 +119,11 @@ export default function NewsListing({
     setCurrentPage(1); // Reset to first page
   };
 
+  const handleSearchClear = () => {
+    setAppliedSearchQuery("");
+    setCurrentPage(1);
+  };
+
   const toggleSortOrder = () => {
     setSortOrder((prev) => (prev === "asc" ? "desc" : "asc"));
     setCurrentPage(1); // Reset to first page
@@ -143,6 +148,8 @@ export default function NewsListing({
             <SearchBox
               value={searchQuery}
               onChange={handleSearchChange}
+              onClear={handleSearchClear}
+              onSearch={handleSearch}
               placeholder="بحث في الأخبار..."
               size="lg"
             />

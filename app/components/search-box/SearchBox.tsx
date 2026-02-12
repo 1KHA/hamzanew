@@ -35,6 +35,10 @@ interface SearchBoxProps {
   value?: string;
   /** Change handler */
   onChange?: (value: string) => void;
+  /** Clear handler - called when X button is clicked */
+  onClear?: () => void;
+  /** Search handler - called when Enter key is pressed */
+  onSearch?: () => void;
   /** Input name */
   name?: string;
   /** Label text */
@@ -115,6 +119,8 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   placeholder = "بحث...",
   value = "",
   onChange,
+  onClear,
+  onSearch,
   name,
   label,
   showIcon = true,
@@ -137,10 +143,21 @@ const SearchBox: React.FC<SearchBoxProps> = ({
     [onChange]
   );
 
+  /* Handle Enter key */
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") {
+        onSearch?.();
+      }
+    },
+    [onSearch]
+  );
+
   /* Handle clear */
   const handleClear = useCallback(() => {
     onChange?.("");
-  }, [onChange]);
+    onClear?.();
+  }, [onChange, onClear]);
 
   /* Build class names */
   const containerClasses = [
@@ -188,6 +205,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
           disabled={disabled}
           readOnly={readonly}
           className="dga-search-box__field"
+          onKeyDown={handleKeyDown}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onMouseDown={() => setIsActive(true)}
