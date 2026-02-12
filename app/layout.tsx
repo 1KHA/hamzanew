@@ -17,7 +17,17 @@ import Footer from "./components/footer/Footer";
 // });
 
 export const metadata: Metadata = {
-  title: "Hamza",
+  title:"همزة",
+  description:
+    "منصة همزة التابعة لمجمع الملك سلمان العالمي للغة العربية، تقدم اختبارات قياس الكفاية اللغوية للناطقين بغيرها.",
+  keywords: [
+    "همزة",
+    "اختبار",
+    "لغة عربية",
+    "مجمع الملك سلمان",
+    "قياس",
+    "كفاية لغوية",
+  ]
 };
 
 export default function RootLayout({

@@ -1,5 +1,11 @@
-"use client";
 import Card from "@/app/components/card/Card";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "المشاركة الإلكترونية",
+  description:
+    "شارك في صنع القرار وتحسين الخدمات من خلال أدوات المشاركة الإلكترونية المختلفة مثل الاستشارات، التطوير المشترك، والمقترحات.",
+};
 
 export default function page() {
   const pageContent = [
@@ -42,7 +48,7 @@ export default function page() {
       <Card
         key={index}
         style={{
-          border:"none",
+          border: "none",
           boxShadow:
             "0 4px 8px -2px rgba(16, 24, 40, 0.10), 0 2px 4px -2px rgba(16, 24, 40, 0.06)",
         }}
@@ -50,8 +56,6 @@ export default function page() {
         primaryTrailIconType="arrow"
         buttonIconOnly={true}
         linkSecondaryAction={item.link}
-       
-        
       />
     );
   });
@@ -71,8 +75,7 @@ export default function page() {
           <div className="!grid !grid-cols-1 md:!grid-cols-4 !gap-8">
             {participationCards}
           </div>
-        </div> 
-       
+        </div>
       </div>
     </>
   );
