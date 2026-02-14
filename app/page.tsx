@@ -19,6 +19,7 @@ import NewsSection from "./(landing)/_components/NewsSection";
 import GlobalStatisticsSection from "./components/global-statistics-section/GlobalStatisticsSection";
 import PartnersSection from "./(landing)/_components/PartnersSection";
 import SubscriptionSection from "./(landing)/_components/SubscriptionSection";
+import ClientOnly from "./components/ClientOnly";
 
 /**
  * Metadata for the Landing Page
@@ -62,7 +63,9 @@ export default function LandingPage(): ReactElement {
             </p>
           </div>
           <div aria-label="الإحصائيات العامة">
+            <ClientOnly>
             <GlobalStatisticsSection />
+            </ClientOnly>
           </div>
         </section>
       </div>
@@ -71,7 +74,9 @@ export default function LandingPage(): ReactElement {
       <PartnersSection partners={PARTNERS} />
 
       {/* Email Subscription Section (Client Leaf due to Form Handling) */}
+      <ClientOnly>
       <SubscriptionSection />
+      </ClientOnly>
     </>
   );
 }

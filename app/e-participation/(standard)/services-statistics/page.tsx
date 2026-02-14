@@ -1,88 +1,22 @@
-import { DgaChart } from "platformscode-new-react";
-export default function page() {
-  // General Number Statistics
-  const servicesStatisticsData = [
-    {
-      id: 1,
-      icon: "user-group",
-      number: "000,000",
-      title: "المستخدمون",
-    },
-    { id: 2, icon: "view", number: "000,000", title: "الزيارات" },
-    {
-      id: 3,
-      icon: "web-design-01",
-      number: "000,000",
-      title: "عدد مرات عرض الصفحة",
-    },
-    {
-      id: 4,
-      icon: "bounce-right",
-      number: "00%",
-      title: "معدل الارتداد Bounce Rate",
-    },
-  ];
+import {
+  servicesStatisticsData,
+  chartsData,
+  countriesVisits,
+  citiesVisits,
+} from "./_data/statsData";
+import StatsCharts from "./_components/StatsCharts";
+import ClientOnly from "@/app/components/ClientOnly";
 
-  const chartsData = [
-    {
-      id: 1,
-      title: "أنظمة التشغيل",
-      labels: ["قيمة 1", "قيمة 2", "قيمة 3", "قيمة 4"],
-      series: [20000, 16000, 11000, 4600, 987],
-    },
-    {
-      id: 2,
-      title: "أنواع الاجهزة",
-      labels: ["قيمة 1", "قيمة 2", "قيمة 3", "قيمة 4"],
-      series: [20000, 16000, 11000, 4600, 987],
-    },
-    {
-      id: 3,
-      title: "اجهزة الجوال",
-      labels: ["قيمة 1", "قيمة 2", "قيمة 3", "قيمة 4"],
-      series: [20000, 16000, 11000, 4600, 987],
-    },
-    {
-      id: 4,
-      title: "نوع المتصفح",
-      labels: ["قيمة 1", "قيمة 2", "قيمة 3", "قيمة 4"],
-      series: [20000, 16000, 11000, 4600, 987],
-    },
-    {
-      id: 5,
-      title: "أكثر كلمات البحث استخداما (حتى 10 كلمات بحث)",
-      labels: ["قيمة 1", "قيمة 2", "قيمة 3", "قيمة 4"],
-      series: [20000, 16000, 11000, 4600, 987],
-    },
-  ];
-
-  // ✅ بيانات زيارات حسب الدول (مع رمز الدولة)
-  const countriesVisits = [
-    { country: "الدولة", code: "", visits: "10 آلاف", percent: "50%" },
-    { country: "الدولة", code: "", visits: "10 آلاف", percent: "50%" },
-    { country: "الدولة", code: "", visits: "10 آلاف", percent: "50%" },
-    { country: "الدولة", code: "", visits: "10 آلاف", percent: "50%" },
-    { country: "الدولة", code: "", visits: "10 آلاف", percent: "50%" },
-  ];
-
-  // ✅ بيانات زيارات حسب المدن
-  const citiesVisits = [
-    { city: "المدينة", visits: "10 آلاف", percent: "50%" },
-    { city: "المدينة", visits: "10 آلاف", percent: "50%" },
-    { city: "المدينة", visits: "10 آلاف", percent: "50%" },
-    { city: "المدينة", visits: "10 آلاف", percent: "50%" },
-    { city: "المدينة", visits: "10 آلاف", percent: "50%" },
-  ];
-
+export default function ServicesStatisticsPage() {
   return (
     <>
-      {/* ✅ Main Content */}
       <div className="custom-container">
         <div className="section-spacing-5xl !grid !grid-cols-1 !gap-[32px]">
-          <h1 className="display-xs-medium  text-[#161616]">
+          <h1 className="display-xs-medium text-[#161616]">
             إحصائيات أداء البوابة (100% | 100,000)
           </h1>
-          {/* General Number Statistics*/}
+
+          {/* General Number Statistics */}
           <section className="!grid 1grid-cols-1 md:!grid-cols-4 !gap-[24px] lg:!px-35">
             {servicesStatisticsData.map((item) => (
               <div
@@ -99,7 +33,7 @@ export default function page() {
                   />
                 </div>
 
-                <h4 className="display-lg-medium  text-[#14573A] mt-[24px]">
+                <h4 className="display-lg-medium text-[#14573A] mt-[24px]">
                   {item.number}
                 </h4>
                 <p className="text-md-regular text-[#1d2228] mt-[8px] text-center">
@@ -108,69 +42,11 @@ export default function page() {
               </div>
             ))}
           </section>
-
-          {/* Pie charts */}
-          <section className="!grid !grid-cols-1 md:!grid-cols-2 !gap-y-8 md:!gap-y-8 !gap-x-0 md:!gap-x-6">
-            {chartsData.map((chart, index) => {
-              return (
-                <div
-                  key={index}
-                  className="!w-full !border !border-[#d2d6db] !bg-white !p-4 !flex !flex-col !items-center !gap-6 !rounded-[16px] !relative !box-border !overflow-hidden  !text-center"
-                >
-                  <h3 className="!text-[18px] mb-3">{chart.title}</h3>
-                  <DgaChart
-                    colors={[
-                      "#1B8354",
-                      "#079455",
-                      "#B8EACB",
-                      "#54C08A",
-                      "#2c684aff",
-                    ]}
-                    height="400px"
-                    labels={chart.labels}
-                    series={chart.series}
-                    type="pie"
-                    width="100%"
-                    options={{
-                      dataLabels: {
-                        enabled: false, // hides the label on the chart
-                      },
-                      legend: {
-                        show: false, // hides the legend list
-                      },
-                    }}
-                  />
-
-                  <div
-                    className="flex flex-row justify-center gap-4 mt-4 text-[#161616]"
-                    // dir="rtl"
-                  >
-                    {[
-                      { color: "#1B8354", label: chart.labels[0] },
-                      { color: "#079455", label: chart.labels[1] },
-                      { color: "#B8EACB", label: chart.labels[2] },
-                      { color: "#54C08A", label: chart.labels[3] },
-                      { color: "#2c684aff", label: chart.labels[4] },
-                    ].map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center gap-2 !w-auto"
-                      >
-                        <span
-                          className="inline-block w-4 h-4 rounded-full"
-                          style={{ backgroundColor: item.color }}
-                        ></span>
-                        <span className="text-[14px]">{item.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </section>
-
+          <ClientOnly>
+            {/* Pie charts */}
+            <StatsCharts data={chartsData} />
+          </ClientOnly>
           {/* Table */}
-
           <section className="!grid !grid-cols-1 md:!grid-cols-2 !gap-y-8 md:!gap-y-8 !gap-x-0 md:!gap-x-6">
             {/* Table 1 - country */}
             <div className="!w-full !border !border-[#d2d6db] !bg-white !p-4 !flex !flex-col !items-center !gap-6 !rounded-[16px] !relative !box-border !overflow-hidden !items-center">
@@ -193,13 +69,6 @@ export default function page() {
                   {countriesVisits.map((row, i) => (
                     <tr key={i}>
                       <td className="!px-4 !py-4 !text-sm !text-[#161616] !text-center">
-                        {/* {row.code && (
-                          <img
-                            src={`https://flagcdn.com/w40/${row.code}.png`}
-                            alt={row.country}
-                            className="!w-6 h-4 rounded-sm border border-gray-200"
-                          />
-                        )} */}
                         {row.country}
                       </td>
                       <td className="!px-4 !py-4 !text-sm !text-[#161616] !text-center">

@@ -1,3 +1,4 @@
+"use client";
 import { DgaDropdown } from "platformscode-new-react";
 import Card from "../card/Card";
 import SearchBox from "@/app/components/search-box/SearchBox";

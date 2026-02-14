@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { usePathname } from "next/navigation";
 import styles from "./PageHero.module.css";
 import DgaBreadcrumbs from "@/app/components/breadcrumbs/BreadCrumbs";
+import ClientOnly from "../ClientOnly";
 
 export type Crumb = { label: string; path?: string; disabled?: boolean };
 
@@ -98,8 +99,9 @@ export default function PageHero({
     >
       <div className={styles.heroContent}>
         <div className={styles.inner}>
+          <ClientOnly>
           <DgaBreadcrumbs items={hero.breadcrumbs ?? []} max={max} />
-
+</ClientOnly>
           <h1 className="display-sm-bold">{hero.title}</h1>
 
           {hero.description ? (
