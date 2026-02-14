@@ -1,5 +1,5 @@
 /**
- * Home Page (Server Component)
+ * Landing Page (Server Component)
  *
  * Main landing page for the Hamza website.
  * Follows the Leaf Design Pattern by keeping the page as a Server Component
@@ -21,7 +21,7 @@ import PartnersSection from "./(landing)/_components/PartnersSection";
 import SubscriptionSection from "./(landing)/_components/SubscriptionSection";
 
 /**
- * Metadata for the Home Page
+ * Metadata for the Landing Page
  */
 export const metadata: Metadata = {
   title: "الرئيسية | همزة",
@@ -30,11 +30,11 @@ export const metadata: Metadata = {
 };
 
 /**
- * Home Page Component
+ * Landing Page Component
  *
  * Renders the home page structure using a collection of server and client components.
  */
-export default function Home(): ReactElement {
+export default function LandingPage(): ReactElement {
   return (
     <>
       {/* Hero Banner (Client Leaf due to Carousel/Timer) */}

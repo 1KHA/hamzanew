@@ -1,21 +1,18 @@
+"use client";
 import {
   DgaButton as Button,
   DgaTextarea as Textarea,
   DgaCheckbox,
   DgaRadioButton,
-  DgaIcon,
-  DgaNotification,
 } from "platformscode-new-react";
 import Notification from "../notification/Notification";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 export default function Feedback() {
-  const location = usePathname();
+  const pathname = usePathname();
   const textareaRef = useRef(null);
-
-  console.log(location);
 
   const [answer, setAnswer] = useState<{
     isUseful: null | "yes" | "no";
@@ -56,16 +53,12 @@ export default function Feedback() {
     totalCount: 100,
   });
 
+  // Calculate page name
   const getPageName = () => {
-    const hash = window.location.hash;
-
-    if (hash && hash.startsWith("#/")) {
-      let pageName = hash.substring(2);
-      pageName = pageName.split("?")[0];
-      return pageName;
-    }
-
-    return window.location.pathname.substring(1) || "home";
+    // Ensure pathname is defined before slicing
+    const name = pathname ? pathname.slice(1) : "";
+    // If empty (root), return "/"
+    return name || "/";
   };
 
   const handleReasonChange = (reasonId: string) => {
@@ -99,31 +92,19 @@ export default function Feedback() {
           <div className="flex md:flex-row flex-col w-full gap-4 justify-between">
             <div className="!w-full !flex  !flex-row !justify-between !items-center max-!gap-4">
               <div className="!flex md:!items-center !flex-col md:!flex-row !gap-4 md:!gap-6  ">
-                {/* {submitted && (
-                // <DgaIcon
-                //   icon="checkmark-circle-04"
-                //   variant="stroke"
-                //   type="rounded"
-                //   color="#1B8354"
-                //   size="24px"
-                // />
-              )} */}
                 <p className="text-md-regular text-[#161616] flex items-center gap-4">
                   {!submitted ? (
                     "هل كانت هذه الصفحة مفيدة؟"
                   ) : (
                     <>
-
-<img
+                      <img
                         alt=""
                         width={24}
                         height={24}
                         className="inline-block green-icon"
                         src={`/assets/icons/stroke-standard/checkmark-circle-04-stroke-rounded.svg`}
                       />
-
                       تم إرسال ملاحظاتك!
-                      
                     </>
                   )}
                 </p>
@@ -188,24 +169,22 @@ export default function Feedback() {
           </div>
 
           <div
-            className={`grid transition-[grid-template-rows,opacity,margin,transform] duration-300 ease-in-out !w-full ${openQuestions && !submitted
+            className={`grid transition-[grid-template-rows,opacity,margin,transform] duration-300 ease-in-out !w-full ${
+              openQuestions && !submitted
                 ? "grid-rows-[1fr] opacity-100 mt-8 translate-y-0"
                 : "grid-rows-[0fr] opacity-0 mt-0 translate-y-8"
-              }`}
+            }`}
           >
             <div className="overflow-hidden !px-4 min-h-0 gap-[24px] flex flex-col ">
               {answer.isUseful && (
                 <>
                   {(errors.gender || errors.reasons) && (
-
-
                     <Notification
-                    className="!mt-4"
+                      className="!mt-4"
                       variant="critical"
                       leadText="مهم"
                       content="نرجو منك  استكمال الاستبيان لإرسال التقييم"
                     />
-
                   )}
 
                   <div className="!w-full !flex !justify-between max-md:!flex-col max-md:!gap-8 pt-4">
@@ -233,7 +212,6 @@ export default function Feedback() {
                             translate="yes"
                             lang="ar"
                           >
-                           
                             <img
                               alt=""
                               width={16}
