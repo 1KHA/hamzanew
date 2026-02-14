@@ -188,13 +188,11 @@ export const DgaTabs: React.FC<DgaTabsProps> = ({
   const showOverflow = orientation === "horizontal" && tabsList.length > 5;
   const overflowTabs = tabsList.slice(5);
 
-  return (
+  const tabList = (
     <ul
       className={`dga-tabs-list dga-tabs-list--${orientation} ${divider ? "dga-tabs-list--divider" : ""} ${flush ? "flush" : ""} ${className}`}
     >
       {tabsList.map((tab, index) => {
-        // For horizontal tabs, items beyond index 4 (0-4 = 5 items) should be hidden on desktop
-        // but visible on mobile/tablet (scrollable).
         const isOverflowItem = orientation === "horizontal" && index >= 5;
 
         return (
@@ -226,7 +224,6 @@ export const DgaTabs: React.FC<DgaTabsProps> = ({
             onClick={toggleMenu}
             aria-haspopup="true"
             aria-expanded={isMenuOpen}
-            // disabled={disabled}
           >
             <Image
               src="/assets/icons/stroke-standard/more-horizontal-stroke-rounded.svg"
@@ -239,9 +236,6 @@ export const DgaTabs: React.FC<DgaTabsProps> = ({
 
           {isMenuOpen && (
             <div className="breadcrumb-dropdown">
-              {/* 
-                  Recursive usage for overflow menu.
-               */}
               <DgaTabs
                 size="md"
                 orientation="vertical"
@@ -267,4 +261,10 @@ export const DgaTabs: React.FC<DgaTabsProps> = ({
       )}
     </ul>
   );
+
+  if (orientation === "horizontal") {
+    return <div className="dga-tabs-scroll-wrapper">{tabList}</div>;
+  }
+
+  return tabList;
 };

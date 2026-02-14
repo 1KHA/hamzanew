@@ -160,6 +160,7 @@ function NavHeader() {
         onClose={() => setIsMenuOpen(false)}
         activeLink={activeLink}
         onLinkClick={handleLinkClick}
+        onSignInClick={() => setIsSignInOpen(true)}
       />
 
       {/* STICKY WRAPPER for header and submenu */}

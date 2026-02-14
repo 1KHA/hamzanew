@@ -1,0 +1,136 @@
+/* ==========================================================================
+   Sitemap Page — categorized hierarchical list
+   Fully direction-aware: RTL → right-aligned, LTR → left-aligned
+   ========================================================================== */
+
+.sitemap {
+  background-color: #fff;
+  padding-block: 48px;
+}
+
+.sitemap__container {
+  max-width: var(--container-max-width-desktop, 1280px);
+  margin: 0 auto;
+  padding-inline: var(--container-padding-desktop, 32px);
+  text-align: start;
+}
+
+/* ── Main list ── */
+
+.sitemap__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* ── Category group ── */
+
+.sitemap__group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Category title — plain text, not a link */
+.sitemap__title {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  color: #000;
+}
+
+.sitemap__title::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  border-radius: 50%;
+  background-color: var(--background-primary, #1b8354);
+  flex-shrink: 0;
+  position: relative;
+  top: -1px;
+}
+
+/* ── Standalone item (● bullet) ── */
+
+.sitemap__item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sitemap__item > a {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 10px;
+  width: fit-content;
+}
+
+.sitemap__item > a::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  border-radius: 50%;
+  background-color: var(--background-primary, #1b8354);
+  flex-shrink: 0;
+  position: relative;
+  top: -1px;
+}
+
+/* ── Children list ── */
+
+.sitemap__sublist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding-inline-start: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ── Child item (○ hollow bullet) ── */
+
+.sitemap__subitem > a {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 10px;
+  width: fit-content;
+}
+
+.sitemap__subitem > a::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  min-width: 7px;
+  border-radius: 50%;
+  border: 1.5px solid var(--background-primary, #1b8354);
+  background-color: transparent;
+  flex-shrink: 0;
+  position: relative;
+  top: -1px;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .sitemap {
+    padding-block: 32px;
+  }
+
+  .sitemap__sublist {
+    padding-inline-start: 24px;
+  }
+}

@@ -25,13 +25,13 @@ function Footer() {
               <div className="footer-bottom ">
                 <div className="footer-bottom-content">
                   <div className="footer-legal-links">
-                    <a href="#" className="footer-link">
+                    <a href="/terms-and-conditions" className="footer-link">
                       الشروط و الأحكام{" "}
                     </a>
                     <a href="#" className="footer-link">
                       سياسة المنصة
                     </a>
-                    <a href="#" className="footer-link">
+                    <a href="/sitemap-page" className="footer-link">
                       خريطة الموقع{" "}
                     </a>
                   </div>

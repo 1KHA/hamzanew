@@ -1,0 +1,81 @@
+/* ==========================================================================
+   Terms and Conditions Page
+   ========================================================================== */
+
+.terms {
+  background-color: #fff;
+  padding-block: 48px;
+}
+
+.terms__container {
+  display: flex;
+  gap: 48px;
+  max-width: var(--container-max-width-desktop, 1280px);
+  margin: 0 auto;
+  padding-inline: var(--container-padding-desktop, 32px);
+}
+
+/* ── Sidebar ── */
+
+.terms__sidebar {
+  position: sticky;
+  top: 24px;
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+/* ── Main content ── */
+
+.terms__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.terms__section {
+  padding-bottom: 32px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.terms__section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.terms__section-title {
+  color: var(--Text-text-default, #161616);
+  margin-bottom: 16px;
+}
+
+.terms__paragraph {
+  color: var(--text-primary-paragraph, #384250);
+  margin-bottom: 12px;
+  line-height: 1.8;
+}
+
+.terms__paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+/* Tablet and below: stack vertically, hide sidebar */
+@media (max-width: 768px) {
+  .terms__container {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .terms__sidebar {
+    position: static;
+    width: 100%;
+  }
+
+  .terms__section {
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+  }
+}

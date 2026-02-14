@@ -10,6 +10,7 @@ interface MobileNavProps {
   onClose: () => void;
   activeLink: string;
   onLinkClick: (linkId: string) => void;
+  onSignInClick: () => void;
 }
 
 export default function MobileNav({
@@ -17,6 +18,7 @@ export default function MobileNav({
   onClose,
   activeLink,
   onLinkClick,
+  onSignInClick,
 }: MobileNavProps) {
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
 
@@ -120,7 +122,21 @@ export default function MobileNav({
             <div className="flex justify-between ">
               {ACTION_ITEMS.map(
                 (action, index) =>
-                  action.label && (
+                  action.label &&
+                  (action.id === "sign-in" ? (
+                    <button
+                      key={index}
+                      type="button"
+                      className="dga-btn dga-btn--lg dga-btn--subtle"
+                      onClick={() => {
+                        onClose();
+                        onSignInClick();
+                      }}
+                    >
+                      <img src={action.icon} alt="" width={20} height={20} />
+                      <span>{action.label}</span>
+                    </button>
+                  ) : (
                     <Link
                       key={index}
                       href={action.href}
@@ -130,7 +146,7 @@ export default function MobileNav({
                       <img src={action.icon} alt="" width={20} height={20} />
                       <span>{action.label}</span>
                     </Link>
-                  ),
+                  )),
               )}
 
               {/* Translation Button */}
