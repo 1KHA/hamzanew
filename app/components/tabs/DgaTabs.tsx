@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import "./DgaTabs.css";
 
 // Interface for Icon Props
 interface IconProps {
+  name?: string;
   variant?: string;
   size?: number;
   [key: string]: any;
@@ -35,67 +35,78 @@ export interface DgaTabsProps {
 }
 
 // Mock Icon Component
-const DgaIcon: React.FC<
-  { name: string; size?: number; variant?: string } & IconProps
-> = ({ name, ...props }) => {
+const DgaIcon: React.FC<IconProps> = ({ name, ...props }) => {
   // In a real app, this would dynamically load icons or map them
-  if (name === "CircleIcon") {
-    return (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        {...props}
-      >
-        <circle
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          strokeWidth={props.variant === "stroke" ? "2" : "0"}
-          fill={props.variant === "solid" ? "currentColor" : "none"}
-        />
-      </svg>
-    );
-  } else if (name === "MoreHorizontalCircle01Icon") {
-    return (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        {...props}
-      >
-        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-        <path
-          d="M8 12H8.01"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M12 12H12.01"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M16 12H16.01"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    );
-  }
+  // if (name === "CircleIcon") {
+  //   return (
+  //     <svg
+  //       width="24"
+  //       height="24"
+  //       viewBox="0 0 24 24"
+  //       fill="none"
+  //       xmlns="http://www.w3.org/2000/svg"
+  //       {...props}
+  //     >
+  //       <circle
+  //         cx="12"
+  //         cy="12"
+  //         r="10"
+  //         stroke="currentColor"
+  //         strokeWidth={props.variant === "stroke" ? "2" : "0"}
+  //         fill={props.variant === "solid" ? "currentColor" : "none"}
+  //       />
+  //     </svg>
+  //   );
+  // } else if (name === "MoreHorizontalCircle01Icon") {
+  //   return (
+  //     <svg
+  //       width="24"
+  //       height="24"
+  //       viewBox="0 0 24 24"
+  //       fill="none"
+  //       xmlns="http://www.w3.org/2000/svg"
+  //       {...props}
+  //     >
+  //       <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+  //       <path
+  //         d="M8 12H8.01"
+  //         stroke="currentColor"
+  //         strokeWidth="2"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M12 12H12.01"
+  //         stroke="currentColor"
+  //         strokeWidth="2"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //       <path
+  //         d="M16 12H16.01"
+  //         stroke="currentColor"
+  //         strokeWidth="2"
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //       />
+  //     </svg>
+  //   );
+  // }
 
-  return <span className="dga-icon-placeholder">{name}</span>;
+  return (
+    name && (
+      <span className="dga-icon-placeholder">
+        <img
+          alt={name}
+          aria-hidden="true"
+          width={24}
+          height={24}
+          className="inline-block"
+          src={`/assets/icons/stroke-standard/${name}-stroke-rounded.svg`}
+        />
+      </span>
+    )
+  );
 };
 
 export const DgaTabs: React.FC<DgaTabsProps> = ({
@@ -181,26 +192,26 @@ export const DgaTabs: React.FC<DgaTabsProps> = ({
   };
 
   // Determine items.
-  // We want ALL items in the main DOM for mobile scrolling.
-  // But on desktop, we want to visually hide items > 5 and show them in the dropdown.
-  // We will apply a CSS class to items > 5 to hide them on desktop.
-
-  const showOverflow = orientation === "horizontal" && tabsList.length > 5;
-  const overflowTabs = tabsList.slice(5);
+  // When orientation is horizontal and tabsList length > 5, we show 4 items and the rest in "More"
+  const isHorizontal = orientation === "horizontal";
+  const MAX_BEFORE_OVERFLOW = 5;
+  const VISIBLE_LIMIT = 5;
+  const showOverflow = isHorizontal && tabsList.length > MAX_BEFORE_OVERFLOW;
+  const displayLimit = showOverflow ? VISIBLE_LIMIT : tabsList.length;
+  const overflowTabs = showOverflow ? tabsList.slice(VISIBLE_LIMIT) : [];
 
   return (
     <ul
       className={`dga-tabs-list dga-tabs-list--${orientation} ${divider ? "dga-tabs-list--divider" : ""} ${flush ? "flush" : ""} ${className}`}
     >
       {tabsList.map((tab, index) => {
-        // For horizontal tabs, items beyond index 4 (0-4 = 5 items) should be hidden on desktop
-        // but visible on mobile/tablet (scrollable).
-        const isOverflowItem = orientation === "horizontal" && index >= 5;
+        // Items beyond displayLimit should be hidden when showOverflow is true
+        const isOverflowItem = showOverflow && index >= displayLimit;
 
         return (
           <li
             key={index}
-            className={isOverflowItem ? "dga-tab-item--desktop-hidden" : ""}
+            className={isOverflowItem ? "dga-tab-item--hidden" : ""}
             style={{ width: orientation === "vertical" ? "100%" : "auto" }}
           >
             <a
@@ -228,20 +239,16 @@ export const DgaTabs: React.FC<DgaTabsProps> = ({
             aria-expanded={isMenuOpen}
             // disabled={disabled}
           >
-            <Image
+            <img
               src="/assets/icons/stroke-standard/more-horizontal-stroke-rounded.svg"
               alt="more icon"
               width={17}
               height={17}
-              priority
             />
           </span>
 
           {isMenuOpen && (
             <div className="breadcrumb-dropdown">
-              {/* 
-                  Recursive usage for overflow menu.
-               */}
               <DgaTabs
                 size="md"
                 orientation="vertical"
@@ -249,9 +256,11 @@ export const DgaTabs: React.FC<DgaTabsProps> = ({
                 external={true}
                 divider={true}
                 tabsList={overflowTabs}
-                activeTab={activeTab - 5}
+                activeTab={
+                  activeTab >= displayLimit ? activeTab - displayLimit : -1
+                }
                 onTabChange={(index) => {
-                  const newIndex = index + 5;
+                  const newIndex = index + displayLimit;
                   if (controlledActiveTab === undefined) {
                     setInternalActiveTab(newIndex);
                   }

@@ -35,9 +35,7 @@
   --icon-default: currentColor;
   --unselected-tab-icon: #666;
 
- --colors-primary-sa-flag-600-primary:#1b8354
-
-
+  --colors-primary-sa-flag-600-primary: #1b8354;
 }
 
 .dga-tabs-list {
@@ -65,10 +63,9 @@
 
   /* Hide scrollbar for cleaner look if desired, or keep it. user asked for scroll. */
   .dga-tabs-list--horizontal::-webkit-scrollbar {
-    display: none; 
+    display: none;
   }
-}    
-
+}
 
 .dga-tabs-list--horizontal::-webkit-scrollbar-track {
   background-color: transparent;
@@ -156,9 +153,9 @@
   background-color: var(--colors-primary-sa-flag-600-primary);
   z-index: 1;
 }
-.dga-tabs-list__item:hover::after{
-background-color: #161616;
-content: "";
+.dga-tabs-list__item:hover::after {
+  background-color: #161616;
+  content: "";
   display: block;
   position: absolute;
   bottom: 1px;
@@ -169,7 +166,6 @@ content: "";
   border-radius: var(--radius-full);
   /* background-color: var(--colors-primary-sa-flag-600-primary); */
   z-index: 1;
-
 }
 
 /* .dga-tabs-list__item:focus {
@@ -331,4 +327,8 @@ content: "";
 }
 .more-button:hover {
   background-color: var(--button-background-neutral-hovered);
+}
+
+.dga-tab-item--hidden {
+  display: none !important;
 }

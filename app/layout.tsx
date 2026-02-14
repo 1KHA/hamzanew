@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   title:"همزة",
   description:
     "منصة همزة التابعة لمجمع الملك سلمان العالمي للغة العربية، تقدم اختبارات قياس الكفاية اللغوية للناطقين بغيرها.",
+    icons: {
+    icon: "/icon.png",    
+  },
   keywords: [
     "همزة",
     "اختبار",
@@ -40,9 +43,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col">
         <ClientOnly>
           <NavHeader />
-          {/* </ClientOnly> */}
           <main className="flex-1 w-full bg-white ">{children}</main>
-          {/* <ClientOnly> */}
           <Footer />
         </ClientOnly>
       </body>
