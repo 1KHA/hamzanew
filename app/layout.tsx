@@ -17,11 +17,11 @@ import Footer from "./components/footer/Footer";
 // });
 
 export const metadata: Metadata = {
-  title:"همزة",
+  title: "همزة",
   description:
     "منصة همزة التابعة لمجمع الملك سلمان العالمي للغة العربية، تقدم اختبارات قياس الكفاية اللغوية للناطقين بغيرها.",
-    icons: {
-    icon: "/icon.png",    
+  icons: {
+    icon: "/icon.png",
   },
   keywords: [
     "همزة",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     "مجمع الملك سلمان",
     "قياس",
     "كفاية لغوية",
-  ]
+  ],
 };
 
 export default function RootLayout({
@@ -43,10 +43,9 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col">
         <ClientOnly>
           <NavHeader />
-           </ClientOnly>
           <main className="flex-1 w-full bg-white ">{children}</main>
           <Footer />
-       
+        </ClientOnly>
       </body>
     </html>
   );

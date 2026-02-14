@@ -1,7 +1,7 @@
 import "./footer.css";
-import Feedback from "../feedback/Feedback";
 import LastModified from "../last-modified/LastModified";
 import Image from "next/image";
+import Feedback from "../feedback/Feedback";
 
 function Footer() {
   return (
@@ -9,9 +9,7 @@ function Footer() {
       <div className="content !flex !items-start !gap-2 !py-4 !mt-4 !h-[52px] ">
         <LastModified date="31/12/2026" time="2:00 م" variant="light" />
       </div>
-
       <Feedback />
-
       <div style={{ backgroundColor: "#074D31" }}>
         <div className="">
           <div className="">

@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import "./DigitalSignature.css";
 
@@ -75,7 +76,7 @@ export default function DigitalSignature() {
                 {/* Item 1 */}
                 <div className="digital_content_item">
                   <div className="digital_content_item_icon">
-                    <img
+                    <Image
                       src="/assets/icons/link-04.png"
                       alt=""
                       width={24}
@@ -99,7 +100,7 @@ export default function DigitalSignature() {
                 {/* Item 2 */}
                 <div className="digital_content_item">
                   <div className="digital_content_item_icon">
-                    <img
+                    <Image
                       src="/assets/icons/square-lock-password.png"
                       alt=""
                       width={24}
