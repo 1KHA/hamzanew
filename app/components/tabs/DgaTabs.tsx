@@ -39,63 +39,73 @@ const DgaIcon: React.FC<
   { name: string; size?: number; variant?: string } & IconProps
 > = ({ name, ...props }) => {
   // In a real app, this would dynamically load icons or map them
-  if (name === "CircleIcon") {
-    return (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        {...props}
-      >
-        <circle
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="currentColor"
-          strokeWidth={props.variant === "stroke" ? "2" : "0"}
-          fill={props.variant === "solid" ? "currentColor" : "none"}
-        />
-      </svg>
-    );
-  } else if (name === "MoreHorizontalCircle01Icon") {
-    return (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        {...props}
-      >
-        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-        <path
-          d="M8 12H8.01"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M12 12H12.01"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M16 12H16.01"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    );
-  }
+  // if (name === "CircleIcon") {
+  //   return (
+  //     <svg
+  //       width="24"
+  //       height="24"
+  //       viewBox="0 0 24 24"
+  //       fill="none"
+  //       xmlns="http://www.w3.org/2000/svg"
+  //       {...props}
+  //     >
+  //       <circle
+  //         cx="12"
+  //         cy="12"
+  //         r="10"
+  //         stroke="currentColor"
+  //         strokeWidth={props.variant === "stroke" ? "2" : "0"}
+  //         fill={props.variant === "solid" ? "currentColor" : "none"}
+  //       />
+  //     </svg>
+  //   );
+  // } else if (name === "MoreHorizontalCircle01Icon") {
+  //   return (
+  //     // <svg
+  //     //   width="24"
+  //     //   height="24"
+  //     //   viewBox="0 0 24 24"
+  //     //   fill="none"
+  //     //   xmlns="http://www.w3.org/2000/svg"
+  //     //   {...props}
+  //     // >
+  //     //   <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+  //     //   <path
+  //     //     d="M8 12H8.01"
+  //     //     stroke="currentColor"
+  //     //     strokeWidth="2"
+  //     //     strokeLinecap="round"
+  //     //     strokeLinejoin="round"
+  //     //   />
+  //     //   <path
+  //     //     d="M12 12H12.01"
+  //     //     stroke="currentColor"
+  //     //     strokeWidth="2"
+  //     //     strokeLinecap="round"
+  //     //     strokeLinejoin="round"
+  //     //   />
+  //     //   <path
+  //     //     d="M16 12H16.01"
+  //     //     stroke="currentColor"
+  //     //     strokeWidth="2"
+  //     //     strokeLinecap="round"
+  //     //     strokeLinejoin="round"
+  //     //   />
+  //     // </svg>
+  //   );
+  // }
 
-  return <span className="dga-icon-placeholder">{name}</span>;
+  return (
+     <img
+            alt={name}
+            aria-hidden="true"
+            width={24}
+            height={24}
+            className="inline-block"
+            src={`/assets/icons/stroke-standard/${name}-stroke-rounded.svg`}
+          />
+  )
+
 };
 
 export const DgaTabs: React.FC<DgaTabsProps> = ({
