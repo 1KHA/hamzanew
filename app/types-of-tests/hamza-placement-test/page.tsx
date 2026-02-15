@@ -1,5 +1,3 @@
-"use client";
-
 /**
  * Hamza Placement Test Page
  *
@@ -13,11 +11,19 @@
  * - Semantic HTML structure with landmark elements
  */
 
-import "@/app/components/card/Card.css";
+import "@/app/components/card/card.css";
 import "@/app/styles/Button.css";
 import Button from "../../components/button/Button";
 import Tag from "../../components/tag/Tag";
+import { Metadata } from "next";
 
+/**
+ * Metadata configuration for the User Profile page
+ * Provides SEO optimization with title, description, and Open Graph tags
+ */
+export const metadata: Metadata = {
+  title: "اختبار همزة لتحديد المستوى",
+};
 /* ==========================================================================
    Types & Interfaces
    ========================================================================== */
@@ -58,7 +64,8 @@ const QUESTION_TYPES: TestSection[] = [
     icon: "headphones",
     iconAlt: "أيقونة سماعات - قسم الفهم المسموع",
     title: "الفهم المسموع",
-    description: "يقيــس قدرتــك علــى متابعـــة المحادثات والحــوارات اليومية.",
+    description:
+      "يقيــس قدرتــك علــى متابعـــة المحادثات والحــوارات اليومية.",
     questionCount: 20,
     questionUnit: "فقرة",
   },
@@ -164,7 +171,10 @@ function TestSectionCard({ section }: { section: TestSection }) {
     <article className="card !border-none">
       <div className="flex flex-row gap-[24px] items-center w-full">
         {/* Section Icon */}
-        <div className="circular-green w-[56px] h-[56px] !mb-0 flex-shrink-0" aria-hidden="true">
+        <div
+          className="circular-green w-[56px] h-[56px] !mb-0 flex-shrink-0"
+          aria-hidden="true"
+        >
           <img
             alt=""
             width={28}
@@ -178,7 +188,9 @@ function TestSectionCard({ section }: { section: TestSection }) {
         {/* Section Content */}
         <div className="flex flex-col gap-[12px] flex-1 text-start">
           <h3 className="text-lg-bold">{section.title}</h3>
-          <p className="text-md-regular text-[#475467]">{section.description}</p>
+          <p className="text-md-regular text-[#475467]">
+            {section.description}
+          </p>
 
           {/* Question Count Badge */}
           <div>
@@ -212,17 +224,17 @@ export default function HamzaPlacementTestPage() {
       {/* ====================================================================
           Section 1: Test Information and Sections
           ==================================================================== */}
-      <section className="bg-color-grey-50 cta-bg-logo" aria-labelledby="test-sections-title">
+      <section
+        className="bg-color-grey-50 cta-bg-logo"
+        aria-labelledby="test-sections-title"
+      >
         <div className="content !py-[40px] xl:!py-[128px] flex flex-col gap-[24px] md:gap-[32px]">
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-[80px]">
-
             {/* Right Column: Test Information */}
             <div className="flex flex-col gap-[32px]">
-
               {/* Section Header */}
               <header>
                 <div className="flex flex-col gap-[14px]">
-
                   {/* Test Type Badge */}
                   <p className="!text-[#1B8354] !text-[18px] flex gap-[8px] items-center !font-semibold">
                     <span className="circular-green-outline" aria-hidden="true">
@@ -239,10 +251,7 @@ export default function HamzaPlacementTestPage() {
                   </p>
 
                   {/* Section Title */}
-                  <h1
-                    id="test-sections-title"
-                    className="display-sm-bold"
-                  >
+                  <h1 id="test-sections-title" className="display-sm-bold">
                     أقسام الاختبار
                     <img
                       alt=""
@@ -257,8 +266,8 @@ export default function HamzaPlacementTestPage() {
 
                   {/* Test Description */}
                   <p className="text-md-regular">
-                    صُمّم اختبار "همزة" ليقدّم تقييمًا شاملًا لمستوى الكفاءة اللغوية
-                    في اللغة العربية من خلال أربعة أقسام رئيسية:
+                    صُمّم اختبار "همزة" ليقدّم تقييمًا شاملًا لمستوى الكفاءة
+                    اللغوية في اللغة العربية من خلال أربعة أقسام رئيسية:
                   </p>
                 </div>
               </header>
@@ -292,7 +301,6 @@ export default function HamzaPlacementTestPage() {
                 ))}
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -305,7 +313,6 @@ export default function HamzaPlacementTestPage() {
         aria-labelledby="cta-title"
       >
         <div className="flex flex-col gap-[24px] bg-[#074D31] rounded-[16px] md:rounded-[24px] px-[24px] md:px-[80px] custom-container section-spacing-5xl cta-bg-pattern">
-
           {/* CTA Content */}
           <div className="flex flex-col md:flex-row items-center gap-[32px] text-center md:text-start">
             <div className="flex flex-col gap-4">
@@ -330,7 +337,6 @@ export default function HamzaPlacementTestPage() {
               className="w-full md:w-auto"
             />
           </div>
-
         </div>
       </section>
     </>

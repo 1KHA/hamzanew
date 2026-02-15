@@ -1,5 +1,3 @@
-"use client";
-
 /**
  * Hamza Vocabulary Test Page
  *
@@ -13,10 +11,18 @@
  * - Semantic HTML structure with landmark elements
  */
 
-import "@/app/components/card/Card.css";
+import "@/app/components/card/card.css";
 import "@/app/styles/Button.css";
 import Button from "../../components/button/Button";
+import { Metadata } from "next";
 
+/**
+ * Metadata configuration for the User Profile page
+ * Provides SEO optimization with title, description, and Open Graph tags
+ */
+export const metadata: Metadata = {
+  title: "اختبار همزة المفردات",
+};
 /* ==========================================================================
    Types & Interfaces
    ========================================================================== */
@@ -103,13 +109,14 @@ export default function HamzaVocabularyTestPage() {
       {/* ====================================================================
           Section 1: Test Information
           ==================================================================== */}
-      <section className="bg-color-grey-50 cta-bg-logo" aria-labelledby="test-sections-title">
+      <section
+        className="bg-color-grey-50 cta-bg-logo"
+        aria-labelledby="test-sections-title"
+      >
         <div className="content !py-[40px] xl:!py-[128px] flex flex-col gap-[24px] md:gap-[32px]">
-
           {/* Section Header */}
           <header>
             <div className="flex flex-col gap-[14px]">
-
               {/* Test Type Badge */}
               <p className="!text-[#1B8354] !text-[18px] flex gap-[8px] items-center !font-semibold">
                 <span className="circular-green-outline" aria-hidden="true">
@@ -126,16 +133,17 @@ export default function HamzaVocabularyTestPage() {
               </p>
 
               {/* Section Title */}
-              <h1
-                id="test-sections-title"
-                className="display-sm-bold"
-              >
+              <h1 id="test-sections-title" className="display-sm-bold">
                 أقسام الاختبار
               </h1>
 
               {/* Test Description */}
               <p className="text-md-regular max-w-[900px]">
-                يقيس هذا الاختبار مستويات المفردات اللغوية لدى المتعلمين، ويُعد امتدادًا مطوّرًا للاختبار الأصلي الخاص بمستويات المفردات. ويعتمد على منهجية الاختبار من متعدد، مما يتيح قياسًا دقيقًا ومنهجيًا لقدرة المتعلمين على فهم المفردات واستخدامها عبر مستويات مختلفة، ويسهم في تشخيص كفاءتهم اللغوية بشكل موضوعي وموثوق.
+                يقيس هذا الاختبار مستويات المفردات اللغوية لدى المتعلمين، ويُعد
+                امتدادًا مطوّرًا للاختبار الأصلي الخاص بمستويات المفردات. ويعتمد
+                على منهجية الاختبار من متعدد، مما يتيح قياسًا دقيقًا ومنهجيًا
+                لقدرة المتعلمين على فهم المفردات واستخدامها عبر مستويات مختلفة،
+                ويسهم في تشخيص كفاءتهم اللغوية بشكل موضوعي وموثوق.
               </p>
             </div>
           </header>
@@ -152,7 +160,6 @@ export default function HamzaVocabularyTestPage() {
               </div>
             ))}
           </div>
-
         </div>
       </section>
 
@@ -164,7 +171,6 @@ export default function HamzaVocabularyTestPage() {
         aria-labelledby="cta-title"
       >
         <div className="flex flex-col gap-[24px] bg-[#074D31] rounded-[16px] md:rounded-[24px] px-[24px] md:px-[80px] custom-container section-spacing-5xl cta-bg-pattern">
-
           {/* CTA Content */}
           <div className="flex flex-col md:flex-row items-center gap-[32px] text-center md:text-start">
             <div className="flex flex-col gap-4">
@@ -189,7 +195,6 @@ export default function HamzaVocabularyTestPage() {
               className="w-full md:w-auto"
             />
           </div>
-
         </div>
       </section>
     </>

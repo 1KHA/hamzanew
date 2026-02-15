@@ -1,5 +1,3 @@
-"use client";
-
 /**
  * Types of Tests Comparison Page
  *
@@ -13,7 +11,7 @@
  * - Semantic HTML structure
  */
 
-import "@/app/components/card/Card.css";
+import "@/app/components/card/card.css";
 import "@/app/styles/Button.css";
 import Button from "../components/button/Button";
 import Link from "next/link";
