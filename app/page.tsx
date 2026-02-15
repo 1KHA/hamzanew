@@ -63,9 +63,9 @@ export default function LandingPage(): ReactElement {
             </p>
           </div>
           <div aria-label="الإحصائيات العامة">
-            <ClientOnly>
+            {/* <ClientOnly> */}
             <GlobalStatisticsSection />
-            </ClientOnly>
+            {/* </ClientOnly> */}
           </div>
         </section>
       </div>
@@ -74,9 +74,9 @@ export default function LandingPage(): ReactElement {
       <PartnersSection partners={PARTNERS} />
 
       {/* Email Subscription Section (Client Leaf due to Form Handling) */}
-      <ClientOnly>
+      {/* <ClientOnly> */}
       <SubscriptionSection />
-      </ClientOnly>
+      {/* </ClientOnly> */}
     </>
   );
 }

@@ -1,3 +1,4 @@
+import ClientOnly from "../components/ClientOnly";
 import PageHero from "../components/page-hero/PageHero";
 import UserProfile from "./UserProfile";
 import { Metadata } from "next";
@@ -62,7 +63,9 @@ export default function ProfilePage() {
 
         {/* Content wrapper with proper width constraints */}
         <div className="content" role="main">
-          <UserProfile />
+        
+            <UserProfile />
+      
         </div>
       </section>
     </div>

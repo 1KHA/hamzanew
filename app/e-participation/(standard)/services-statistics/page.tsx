@@ -42,10 +42,10 @@ export default function ServicesStatisticsPage() {
               </div>
             ))}
           </section>
-          <ClientOnly>
+   
             {/* Pie charts */}
             <StatsCharts data={chartsData} />
-          </ClientOnly>
+   
           {/* Table */}
           <section className="!grid !grid-cols-1 md:!grid-cols-2 !gap-y-8 md:!gap-y-8 !gap-x-0 md:!gap-x-6">
             {/* Table 1 - country */}

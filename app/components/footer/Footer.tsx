@@ -10,8 +10,10 @@ function Footer() {
       <div className="content !flex !items-start !gap-2 !py-4 !mt-4 !h-[52px] ">
         <LastModified date="31/12/2026" time="2:00 م" variant="light" />
       </div>
-         <ClientOnly><Feedback /></ClientOnly>
-      
+      {/* <ClientOnly> */}
+        <Feedback />
+      {/* </ClientOnly> */}
+
       <div style={{ backgroundColor: "#074D31" }}>
         <div className="">
           <div className="">

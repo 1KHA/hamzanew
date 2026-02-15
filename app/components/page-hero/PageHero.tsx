@@ -99,9 +99,9 @@ export default function PageHero({
     >
       <div className={styles.heroContent}>
         <div className={styles.inner}>
-          <ClientOnly>
+          {/* <ClientOnly> */}
           <DgaBreadcrumbs items={hero.breadcrumbs ?? []} max={max} />
-</ClientOnly>
+          {/* </ClientOnly> */}
           <h1 className="display-sm-bold">{hero.title}</h1>
 
           {hero.description ? (

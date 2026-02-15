@@ -16,7 +16,6 @@ import Footer from "./components/footer/Footer";
 //   subsets: ["latin"],
 // });
 
-
 export const metadata: Metadata = {
   title: "همزة",
   description:
@@ -43,10 +42,11 @@ export default function RootLayout({
     <html lang="ar" dir="rtl">
       <body className="min-h-screen flex flex-col">
         <ClientOnly>
-        <NavHeader />
+          <NavHeader />
+
+          <main className="flex-1 w-full bg-white ">{children}</main>
+          <Footer />
         </ClientOnly>
-        <main className="flex-1 w-full bg-white ">{children}</main>
-        <Footer />
       </body>
     </html>
   );
