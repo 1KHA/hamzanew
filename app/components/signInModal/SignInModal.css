@@ -92,8 +92,8 @@
 .sign-in-modal__close {
   position: absolute;
   top: 16px;
-  left: 16px;
-  z-index: 2;
+  inset-inline-end: 16px;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,9 +108,9 @@
   transition: all 0.2s ease;
 }
 
-[dir="ltr"] .sign-in-modal__close {
-  left: auto;
-  right: 16px;
+/* Mobile close button: hidden on desktop */
+.sign-in-modal__close--mobile {
+  display: none;
 }
 
 .sign-in-modal__close:hover {
@@ -246,8 +246,25 @@
     max-height: 95vh;
   }
 
+  /* Hide image panel on mobile */
   .sign-in-modal__image {
-    flex: 0 0 200px;
+    display: none;
+  }
+
+  /* Show mobile close button on content panel */
+  .sign-in-modal__close--mobile {
+    display: flex;
+    color: #384250;
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .sign-in-modal__close--mobile:hover {
+    color: #384250;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .sign-in-modal__close--mobile:focus-visible {
+    outline-color: #024E28;
   }
 
   .sign-in-modal__content {
@@ -256,10 +273,6 @@
 }
 
 @media (max-width: 480px) {
-  .sign-in-modal__image {
-    flex: 0 0 150px;
-  }
-
   .sign-in-modal__content {
     padding: 20px;
   }

@@ -44,28 +44,32 @@
   margin: 0;
 }
 
+/* Scroll wrapper — handles overflow scrolling so the <ul> can be full content width */
+.dga-tabs-scroll-wrapper {
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .dga-tabs-scroll-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .dga-tabs-scroll-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .dga-tabs-list--horizontal {
   display: inline-flex;
   flex-direction: row;
   align-items: center;
   gap: 3px;
   position: relative;
-  width: 100%;
+  min-width: 100%;
+  padding: 3px 0;
 }
 
-@media (max-width: 1024px) {
-  .dga-tabs-list--horizontal {
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
-    padding-bottom: 0; /* remove if scrollbar adds spacing */
-  }
-
-  /* Hide scrollbar for cleaner look if desired, or keep it. user asked for scroll. */
-  .dga-tabs-list--horizontal::-webkit-scrollbar {
-    display: none;
-  }
-}
 
 .dga-tabs-list--horizontal::-webkit-scrollbar-track {
   background-color: transparent;
@@ -84,7 +88,7 @@
 .dga-tabs-list--horizontal.dga-tabs-list--divider::after {
   content: "";
   position: absolute;
-  bottom: 1px;
+  bottom: 2px;
   left: 0;
   z-index: 0;
   height: 3px;
@@ -144,7 +148,7 @@
   content: "";
   display: block;
   position: absolute;
-  bottom: 1px;
+  bottom: -1px;
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - var(--spacing-xl) * 2);
@@ -158,7 +162,7 @@
   content: "";
   display: block;
   position: absolute;
-  bottom: 1px;
+  bottom: -1px;
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - var(--spacing-xl) * 2);
@@ -174,6 +178,7 @@
 
 .dga-tabs-list__item:focus {
   outline: 2px solid var(--colors-base-black);
+  outline-offset: 1px;
   position: relative;
   color: var(--text-default);
   z-index: 1;
@@ -193,6 +198,7 @@
 }
 .dga-tabs-list__item:focus-visible {
   outline: 2px solid var(--colors-base-black);
+  outline-offset: -2px;
   position: relative;
   color: var(--text-default);
 }
@@ -288,11 +294,24 @@
   color: var(--icon-default);
 }
 
+/* Hide overflow tabs on desktop, show them on mobile (scrollable) */
+@media (min-width: 1025px) {
+  .dga-tab-item--desktop-hidden {
+    display: none;
+  }
+}
+
+/* Hide the more button on mobile/tablet (tabs scroll instead) */
+@media (max-width: 1024px) {
+  .breadcrumb-item.ellipsis {
+    display: none;
+  }
+}
+
 .breadcrumb-item.ellipsis {
   position: relative;
   display: flex;
   align-items: center;
-  /* justify-content: center; */
   padding: 4px;
 }
 

@@ -200,13 +200,12 @@ export const DgaTabs: React.FC<DgaTabsProps> = ({
   const displayLimit = showOverflow ? VISIBLE_LIMIT : tabsList.length;
   const overflowTabs = showOverflow ? tabsList.slice(VISIBLE_LIMIT) : [];
 
-  return (
+  const tabList = (
     <ul
       className={`dga-tabs-list dga-tabs-list--${orientation} ${divider ? "dga-tabs-list--divider" : ""} ${flush ? "flush" : ""} ${className}`}
     >
       {tabsList.map((tab, index) => {
-        // Items beyond displayLimit should be hidden when showOverflow is true
-        const isOverflowItem = showOverflow && index >= displayLimit;
+        const isOverflowItem = orientation === "horizontal" && index >= 5;
 
         return (
           <li
@@ -237,7 +236,6 @@ export const DgaTabs: React.FC<DgaTabsProps> = ({
             onClick={toggleMenu}
             aria-haspopup="true"
             aria-expanded={isMenuOpen}
-            // disabled={disabled}
           >
             <img
               src="/assets/icons/stroke-standard/more-horizontal-stroke-rounded.svg"
@@ -276,4 +274,10 @@ export const DgaTabs: React.FC<DgaTabsProps> = ({
       )}
     </ul>
   );
+
+  if (orientation === "horizontal") {
+    return <div className="dga-tabs-scroll-wrapper">{tabList}</div>;
+  }
+
+  return tabList;
 };

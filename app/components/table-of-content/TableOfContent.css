@@ -1,0 +1,215 @@
+/* ==========================================================================
+   TableOfContent Component
+   React implementation of dga-table-of-content
+   Uses CSS logical properties — works for both RTL and LTR automatically.
+   ========================================================================== */
+
+/* ── Root ── */
+
+.table-of-content {
+  display: flex;
+  width: 228px;
+  padding: var(--container-padding-desktop, 32px) var(--spacing-none, 0px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-md, 8px);
+}
+
+/* ── Header ── */
+
+.table-of-content__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-md, 8px);
+}
+
+/* ── Lists ── */
+
+.table-of-content__tab-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.table-of-content__tab-sublist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.table-of-content__tab-sub-sublist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ── Tab (link item) ── */
+
+.table-of-content__tab {
+  display: flex;
+  min-width: 140px;
+  padding-inline-start: var(--spacing-xl, 16px);
+  padding-inline-end: var(--spacing-md, 8px);
+  padding-block: 0;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius-xs, 2px);
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* ── Tab label ── */
+
+.table-of-content__tab-label {
+  font: 400 14px/20px "IBMPlexSansArabic";
+  padding-block: var(--spacing-sm, 6px);
+  flex: 1;
+  color: var(--text-primary-paragraph, #384250);
+}
+
+/* ── Vertical indicator line (::before)
+   Positioned at the inline-start edge of each tab.
+   Hidden by default, shown on active.
+   ── */
+
+.table-of-content__tab::before {
+  display: none;
+  content: "";
+  width: 2px;
+  height: 100%;
+  background-color: var(--background-neutral-300, #d1d5db);
+  border-radius: var(--radius-full, 9999px);
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+}
+
+/* ==========================================================================
+   Interaction states
+   ========================================================================== */
+
+/* ── Hover ── */
+
+.table-of-content__tab:hover {
+  background-color: var(--background-neutral-100, #f3f4f6);
+}
+
+.table-of-content__tab:hover::before {
+  display: block;
+  background-color: var(--background-neutral-400, #9ca3af);
+}
+
+.table-of-content__tab:hover .table-of-content__tab-label {
+  color: var(--background-neutral-800, #1f2937);
+}
+
+/* ── Focus state ── */
+
+.table-of-content__tab:focus {
+  outline: 2px solid var(--border-black, #000);
+  outline-offset: 0px;
+  background-color: transparent;
+  z-index: 1;
+}
+
+.table-of-content__tab:focus .table-of-content__tab-label {
+  color: var(--background-neutral-800, #1f2937);
+}
+
+.table-of-content__tab:focus::after,
+.table-of-content__tab:focus::before {
+  display: none;
+}
+
+/* ── Active (current section) ── */
+
+.table-of-content__tab.active::before {
+  display: block;
+  background-color: var(--background-primary, #1b8354);
+}
+
+.table-of-content__tab.active,
+.table-of-content__tab.selected {
+  color: var(--background-neutral-800, #1f2937);
+}
+
+.table-of-content__tab.active .table-of-content__tab-label,
+.table-of-content__tab.selected .table-of-content__tab-label {
+  font: 600 14px/20px "IBMPlexSansArabic";
+}
+
+/* ── Pressed (mouse down) ── */
+
+.table-of-content__tab.pressed {
+  outline: none;
+  background-color: var(--button-background-neutral-pressed, #e5e7eb);
+}
+
+.table-of-content__tab.pressed::before {
+  display: block;
+  background-color: var(--background-neutral-800, #1f2937);
+}
+
+.table-of-content__tab.pressed .table-of-content__tab-label {
+  color: var(--background-neutral-800, #1f2937);
+}
+
+/* ==========================================================================
+   Sub-list indentation & vertical lines
+   Uses logical properties so lines appear on the correct side in RTL / LTR.
+   ========================================================================== */
+
+/* ── Sub-list (level 2) ── */
+
+.table-of-content__tab-sublist .table-of-content__tab {
+  position: relative;
+  padding-inline-start: calc(var(--spacing-xl, 16px) * 2);
+}
+
+.table-of-content__tab-sublist .table-of-content__tab::before {
+  content: "";
+  width: 2px;
+  height: 100%;
+  background-color: var(--background-neutral-300, #d1d5db);
+  display: block;
+  position: absolute;
+  inset-inline-start: 16px;
+  top: 0;
+}
+
+.table-of-content__tab-sublist .table-of-content__tab.active::before,
+.table-of-content__tab-sublist .table-of-content__tab.active::after {
+  background-color: var(--background-primary, #1b8354);
+}
+
+/* ── Sub-sub-list (level 3) ── */
+
+.table-of-content__tab-sub-sublist .table-of-content__tab {
+  position: relative;
+  padding-inline-start: calc(var(--spacing-xl, 16px) * 3);
+}
+
+.table-of-content__tab-sub-sublist .table-of-content__tab::before {
+  content: "";
+  width: 2px;
+  height: 100%;
+  background-color: var(--background-neutral-300, #d1d5db);
+  display: block;
+  position: absolute;
+  inset-inline-start: 16px;
+  top: 0;
+}
+
+.table-of-content__tab-sub-sublist .table-of-content__tab::after {
+  content: "";
+  width: 2px;
+  height: 100%;
+  background-color: var(--background-neutral-300, #d1d5db);
+  display: block;
+  position: absolute;
+  inset-inline-start: 32px;
+  top: 0;
+}

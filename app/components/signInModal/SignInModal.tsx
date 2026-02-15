@@ -243,6 +243,16 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
         
         {/* Right Panel: Form Content */}
         <div className="sign-in-modal__content">
+          {/* Close Button (mobile only — image panel is hidden on mobile) */}
+          <button
+            type="button"
+            className="sign-in-modal__close sign-in-modal__close--mobile"
+            onClick={onClose}
+            aria-label="إغلاق نافذة تسجيل الدخول"
+          >
+            <CloseIcon />
+          </button>
+
           {/* Header */}
           <div className="sign-in-modal__header">
             <h2 id="sign-in-modal-title" className="display-sm-bold">

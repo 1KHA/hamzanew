@@ -1087,11 +1087,7 @@ div.table-wrapper .azm-table thead th span span.text {
   height: 16px;
 }
 
-/* ── RTL Support (Arabic) ── */
-:is(html[lang="ar"], html[dir="rtl"]) .link,
-:is(html[lang="ar"], html[dir="rtl"]) .link--primary {
-  flex-direction: row-reverse;
-}
+
 
 .icon-critical {
   filter: invert(18%) sepia(96%) saturate(7460%) hue-rotate(357deg)
