@@ -2,7 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import DgaBreadcrumbs from "@/app/components/breadcrumbs/BreadCrumbs";
-import { DgaDivider, DgaLink } from "platformscode-new-react";
+import { DgaLink } from "platformscode-new-react";
 import Image from "next/image";
 import copyIcon from "@/public/assets/icons/stroke-standard/copy-01-stroke-rounded.svg";
 export default function Layout({ children }: { children: ReactNode }) {

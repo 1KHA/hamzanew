@@ -1,5 +1,3 @@
-"use client";
-
 /**
  * Hamza Academic Test Page
  *
@@ -13,11 +11,19 @@
  * - Semantic HTML structure with landmark elements
  */
 
-import "@/app/components/card/Card.css";
+import "@/app/components/card/card.css";
 import "@/app/styles/Button.css";
 import Button from "../../components/button/Button";
 import Tag from "../../components/tag/Tag";
+import { Metadata } from "next";
 
+/**
+ * Metadata configuration for the User Profile page
+ * Provides SEO optimization with title, description, and Open Graph tags
+ */
+export const metadata: Metadata = {
+  title: "اختبار همزة الأكاديمي",
+};
 /* ==========================================================================
    Types & Interfaces
    ========================================================================== */
@@ -58,7 +64,8 @@ const QUESTION_TYPES: TestSection[] = [
     icon: "headphones",
     iconAlt: "أيقونة سماعات - قسم الفهم المسموع",
     title: "الفهم المسموع",
-    description: "الاستماع إلى مقاطع صوتية عامة ومتنوعة، والإجابة عن أسئلة (الاختيار من متعدد) - (30) فقرة.",
+    description:
+      "الاستماع إلى مقاطع صوتية عامة ومتنوعة، والإجابة عن أسئلة (الاختيار من متعدد) - (30) فقرة.",
     questionCount: 30,
     questionUnit: "فقرة",
   },
@@ -67,7 +74,8 @@ const QUESTION_TYPES: TestSection[] = [
     icon: "book-open-01",
     iconAlt: "أيقونة كتاب مفتوح - قسم استيعاب المقروء",
     title: "استيعاب المقروء",
-    description: "قراءة نصوص عامة ومتنوعة، والإجابة عن أسئلة (الاختيار من متعدد) - (40) فقرة.",
+    description:
+      "قراءة نصوص عامة ومتنوعة، والإجابة عن أسئلة (الاختيار من متعدد) - (40) فقرة.",
     questionCount: 40,
     questionUnit: "فقرة",
   },
@@ -76,7 +84,8 @@ const QUESTION_TYPES: TestSection[] = [
     icon: "pencil-edit-02",
     iconAlt: "أيقونة قلم - قسم الكتابة",
     title: "الكتابة",
-    description: "كتابة مقال واحد في موضوع عام تتراوح عدد كلماته من (200) إلى (250) كلمة - فقرة واحدة.",
+    description:
+      "كتابة مقال واحد في موضوع عام تتراوح عدد كلماته من (200) إلى (250) كلمة - فقرة واحدة.",
     questionCount: 1,
     questionUnit: "فقرة",
   },
@@ -164,7 +173,10 @@ function TestSectionCard({ section }: { section: TestSection }) {
     <article className="card !border-none">
       <div className="flex flex-row gap-[24px] items-center w-full">
         {/* Section Icon */}
-        <div className="circular-green w-[56px] h-[56px] !mb-0 flex-shrink-0" aria-hidden="true">
+        <div
+          className="circular-green w-[56px] h-[56px] !mb-0 flex-shrink-0"
+          aria-hidden="true"
+        >
           <img
             alt=""
             width={28}
@@ -178,7 +190,9 @@ function TestSectionCard({ section }: { section: TestSection }) {
         {/* Section Content */}
         <div className="flex flex-col gap-[12px] flex-1 text-start">
           <h3 className="text-lg-bold">{section.title}</h3>
-          <p className="text-md-regular text-[#475467]">{section.description}</p>
+          <p className="text-md-regular text-[#475467]">
+            {section.description}
+          </p>
 
           {/* Question Count Badge */}
           <div>
@@ -215,12 +229,13 @@ export default function HamzaAcademicTestPage() {
       <section className="bg-[#F3FCF6]" aria-labelledby="levels-title">
         <div className="content !py-[40px] xl:!py-0">
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-[24px] xl:gap-0">
-
             {/* Right Column: Section Info */}
             <div className="flex flex-col gap-[16px] justify-center items-center text-center py-0 xl:py-[80px] px-0 xl:px-[80px]">
-
               {/* Icon */}
-              <div className="circular-green-outline !w-[64px] !h-[64px]" aria-hidden="true">
+              <div
+                className="circular-green-outline !w-[64px] !h-[64px]"
+                aria-hidden="true"
+              >
                 <img
                   alt=""
                   width={32}
@@ -253,7 +268,6 @@ export default function HamzaAcademicTestPage() {
                 loading="lazy"
               />
             </div>
-
           </div>
         </div>
       </section>
@@ -261,17 +275,17 @@ export default function HamzaAcademicTestPage() {
       {/* ====================================================================
           Section 2: Test Information and Sections
           ==================================================================== */}
-      <section className="bg-color-grey-50 cta-bg-logo" aria-labelledby="test-sections-title">
+      <section
+        className="bg-color-grey-50 cta-bg-logo"
+        aria-labelledby="test-sections-title"
+      >
         <div className="content !py-[40px] xl:!py-[128px] flex flex-col gap-[24px] md:gap-[32px]">
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-[80px]">
-
             {/* Right Column: Test Information */}
             <div className="flex flex-col gap-[32px]">
-
               {/* Section Header */}
               <header>
                 <div className="flex flex-col gap-[14px]">
-
                   {/* Test Type Badge */}
                   <p className="!text-[#1B8354] !text-[18px] flex gap-[8px] items-center !text-semibold">
                     <span className="circular-green-outline" aria-hidden="true">
@@ -303,8 +317,8 @@ export default function HamzaAcademicTestPage() {
 
                   {/* Test Description */}
                   <p className="text-md-regular">
-                    صُمّم اختبار "همزة" ليقدّم تقييمًا شاملًا لمستوى الكفاءة اللغوية
-                    في اللغة العربية من خلال أربعة أقسام رئيسية:
+                    صُمّم اختبار "همزة" ليقدّم تقييمًا شاملًا لمستوى الكفاءة
+                    اللغوية في اللغة العربية من خلال أربعة أقسام رئيسية:
                   </p>
                 </div>
               </header>
@@ -338,7 +352,6 @@ export default function HamzaAcademicTestPage() {
                 ))}
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -351,7 +364,6 @@ export default function HamzaAcademicTestPage() {
         aria-labelledby="cta-title"
       >
         <div className="flex flex-col gap-[24px] bg-[#074D31] rounded-[16px] md:rounded-[24px] px-[24px] md:px-[80px] custom-container section-spacing-5xl cta-bg-pattern">
-
           {/* CTA Content */}
           <div className="flex flex-col md:flex-row items-center gap-[32px] text-center md:text-start">
             <div className="flex flex-col gap-4">
@@ -376,7 +388,6 @@ export default function HamzaAcademicTestPage() {
               className="w-full md:w-auto"
             />
           </div>
-
         </div>
       </section>
     </>

@@ -1,27 +1,23 @@
-"use client";
-// import { DgaButton, DgaRadioButton,DgaCheckbox } from "platformscode-new-react"; // TEMPORARILY DISABLED
 import "./footer.css";
-import Feedback from "../feedback/Feedback";
 import LastModified from "../last-modified/LastModified";
-// import { DgaSearchBox, DgaTextInput } from "platformscode-new-react";
+import Image from "next/image";
+import Feedback from "../feedback/Feedback";
+import ClientOnly from "../ClientOnly";
 
 function Footer() {
-
   return (
     <>
-
       <div className="content !flex !items-start !gap-2 !py-4 !mt-4 !h-[52px] ">
         <LastModified date="31/12/2026" time="2:00 م" variant="light" />
       </div>
-
-
-      <Feedback />
+      {/* <ClientOnly> */}
+        <Feedback />
+      {/* </ClientOnly> */}
 
       <div style={{ backgroundColor: "#074D31" }}>
         <div className="">
           <div className="">
             <div className="grid gap-12 pt-10 pb-6 custom-container">
-
               <div className="footer-bottom ">
                 <div className="footer-bottom-content">
                   <div className="footer-legal-links">
@@ -41,21 +37,29 @@ function Footer() {
                       جميع الحقوق محفوظة لمجمع الملك سلمان العالمي للغة العربية
                       © 2026
                     </div>
-                    <LastModified  label="آخر تعديل للموقع" date="31/12/2026" time="2:00 م" variant="dark" />
-
+                    <LastModified
+                      label="آخر تعديل للموقع"
+                      date="31/12/2026"
+                      time="2:00 م"
+                      variant="dark"
+                    />
                   </div>
                 </div>
 
                 <div className="footer_logos justify-center md:justify-end">
-                  <img
+                  <Image
                     src="/assets/image/king-salman-global.svg"
                     alt=""
-                    className="w-[100px]"
+                    width={100}
+                    height={100}
+                    loading="lazy"
                   />
-                  <img
+                  <Image
                     src="/assets/image/footer-logo.svg"
                     alt=""
-                    className="w-[100px]"
+                    width={100}
+                    height={100}
+                    loading="lazy"
                   />
                 </div>
               </div>
