@@ -18,6 +18,8 @@ import ResearchLibraryListing from "./ResearchLibraryListing";
 import { researchData } from "./_data/researchData";
 import { Metadata } from "next";
 
+import NotificationToast from "@/app/components/notification-toast/NotificationToast";
+
 /* ==========================================================================
    Metadata
    ========================================================================== */
@@ -62,6 +64,22 @@ export default function ResearchLibraryPage(): ReactElement {
       />
 
       <ResearchLibraryListing initialPapers={researchData} />
+
+
+      <div className="content !pb-[40px]">
+        <NotificationToast
+          type="info"
+          leadText="الشروط والأحكام لإعداد دراسة"
+          helperText="حرصًا منا على تقديم خدمات بحثية موثوقة واحترافية، أنشأنا هذا القسم لتوضيح الشروط والأحكام التي تنظم عملية إعداد الدراسات. الهدف هو ضمان وضوح الحقوق والالتزامات بين الطرفين،"
+          open
+          variant="stroke"
+          inline
+          actionLabel="عرض الشروط والأحكام"
+          actionHref="/terms-and-conditions"
+        />
+      </div>
+
+
     </>
   );
 }

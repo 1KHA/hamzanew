@@ -151,6 +151,13 @@ function NavHeader() {
     setOpenSubmenus([]);
   };
 
+  const handleTranslate = () => {
+    const html = document.documentElement;
+    const isArabic = html.lang === "ar";
+    html.lang = isArabic ? "en" : "ar";
+    html.dir = isArabic ? "ltr" : "rtl";
+  };
+
   return (
     <>
       <DigitalSignature />
@@ -161,6 +168,7 @@ function NavHeader() {
         activeLink={activeLink}
         onLinkClick={handleLinkClick}
         onSignInClick={() => setIsSignInOpen(true)}
+        onTranslateClick={handleTranslate}
       />
 
       {/* STICKY WRAPPER for header and submenu */}

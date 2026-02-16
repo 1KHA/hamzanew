@@ -316,7 +316,7 @@ body {
 /* section title */
 .section-title {
   color: var(--Text-text-default, #161616);
-  text-align: right;
+  text-align: start;
 
   /* Display sm / Bold */
   font-family: var(--Font-Family-font-family-display, "IBMPlexSansArabic");

@@ -53,18 +53,26 @@ export default function DigitalSignature() {
           </div>
 
           {/* Translation Button */}
-          <Link
-            href="#"
+          <button
+            type="button"
             className="dga-btn dga-btn--sm dga-btn--subtle !hidden lg:!flex"
+            onClick={() => {
+              const html = document.documentElement;
+              const isArabic = html.lang === "ar";
+              html.lang = isArabic ? "en" : "ar";
+              html.dir = isArabic ? "ltr" : "rtl";
+            }}
+            aria-label="تبديل اللغة"
           >
             <img
               src="/assets/icons/stroke-standard/translation-stroke-rounded.svg"
-              alt="translation-icon"
+              alt=""
+              aria-hidden="true"
               width={20}
               height={20}
             />
             <span>English</span>
-          </Link>
+          </button>
         </div>
 
         {/* Content */}

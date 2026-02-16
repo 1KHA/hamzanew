@@ -175,7 +175,7 @@ align-self: stretch;
 }
 .section-title {
   color: var(--Text-text-primary, #1b8354);
-  text-align: right;
+  text-align: start;
 
   /* Text lg/Medium */
   font-family: var(--Font-Family-font-family-text, "IBMPlexSansArabic");

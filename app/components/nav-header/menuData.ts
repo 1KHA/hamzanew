@@ -153,13 +153,6 @@ export const MENU_DATA: MenuItemType[] = [
 ];
 
 export const ACTION_ITEMS = [
-  // {
-  //   id: "translate",
-  //   label: "الترجمة",
-  //   href: "#",
-  //   icon: "/assets/icons/stroke-standard/translation-stroke-rounded.svg",
-  //   className: "action-btn-reversed",
-  // },
   {
     id: "sign-in",
     label: "تسجيل الدخول",

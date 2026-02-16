@@ -1,0 +1,263 @@
+/* ==========================================================================
+   NotificationToast — Fixed-position slide-in toast
+   Uses CSS logical properties for automatic RTL/LTR support
+   ========================================================================== */
+
+.notification-toast {
+  position: fixed;
+  z-index: 10000;
+  display: flex;
+  width: 484px;
+  padding: var(--spacing-xl, 16px) var(--spacing-3xl, 24px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-xl, 16px);
+  border-radius: var(--radius-md, 8px);
+  background: var(--colors-base-white, #fff);
+  box-shadow: var(--shadow-3xl, 0 25px 50px -12px rgba(0, 0, 0, 0.25));
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+/* ── Colored side stripe ── */
+
+.notification-toast::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  height: 100%;
+  width: 8px;
+  background-color: var(--colors-error-400, #f87171);
+}
+
+/* ── Close button ── */
+
+.notification-toast__close-btn {
+  position: absolute;
+  top: var(--spacing-xl, 16px);
+  inset-inline-end: var(--spacing-3xl, 24px);
+}
+
+.notification-toast__close-btn button:focus-visible {
+  outline: 2px solid var(--focus-ring, #2563eb);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm, 6px);
+}
+
+/* ── Header (icon + text) ── */
+
+.notification-toast__header {
+  display: flex;
+  padding: 0;
+  align-items: flex-start;
+  gap: var(--spacing-lg, 12px);
+}
+
+/* ── Icon circle ── */
+
+.notification-toast__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full, 9999px);
+}
+
+/* ── Body text ── */
+
+.notification-toast__title {
+  margin-bottom: var(--spacing-xs, 4px);
+  color: var(--text-default, #1b2533);
+}
+
+.notification-toast__content {
+  color: #384250;
+}
+
+/* ── Action buttons (desktop: inline) ── */
+
+.notification-toast__action {
+  padding: 0 var(--spacing-5xl, 40px);
+  display: flex;
+  gap: var(--spacing-md, 8px);
+}
+
+/* ── Action link styled as button ── */
+
+.notification-toast__action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.notification-toast__action-link:focus-visible {
+  outline: 2px solid var(--focus-ring, #2563eb);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm, 6px);
+}
+
+/* ── Action buttons (mobile: stacked, hidden on desktop) ── */
+
+.notification-toast__action-mobile {
+  display: none;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  gap: var(--spacing-md, 8px);
+}
+
+/* ==========================================================================
+   Stroke variant — border instead of shadow
+   ========================================================================== */
+
+.notification-toast--stroke {
+  box-shadow: none;
+  border: 1px solid var(--border-neutral-secondary, #e5e7eb);
+}
+
+/* ==========================================================================
+   Inline variant — in page flow, not fixed
+   ========================================================================== */
+
+.notification-toast--inline {
+  position: relative;
+  width: 100%;
+  transform: none;
+}
+
+/* ==========================================================================
+   Type variants — stripe color + icon background
+   ========================================================================== */
+
+/* Neutral */
+.notification-toast--neutral::after {
+  background-color: var(--background-neutral-200, #e5e7eb);
+}
+.notification-toast--neutral .notification-toast__icon {
+  background-color: var(--background-neutral-50, #f9fafb);
+}
+
+/* Info */
+.notification-toast--info::after {
+  background-color: var(--background-info, #3b82f6);
+}
+.notification-toast--info .notification-toast__icon {
+  background-color: var(--background-info-50, #eff6ff);
+}
+
+/* Error */
+.notification-toast--error::after {
+  background-color: var(--background-error, #dc2626);
+}
+.notification-toast--error .notification-toast__icon {
+  background-color: var(--background-error-50, #fef2f2);
+}
+
+/* Warning */
+.notification-toast--warning::after {
+  background-color: var(--background-warning, #f59e0b);
+}
+.notification-toast--warning .notification-toast__icon {
+  background-color: var(--background-warning-50, #fffbeb);
+}
+
+/* Success */
+.notification-toast--success::after {
+  background-color: var(--background-success, #10b981);
+}
+.notification-toast--success .notification-toast__icon {
+  background-color: var(--background-success-50, #ecfdf5);
+}
+
+/* ==========================================================================
+   Positioning
+   ========================================================================== */
+
+.notification-toast--v-top {
+  top: 16px;
+}
+
+.notification-toast--v-bottom {
+  bottom: 16px;
+}
+
+/* Horizontal: use logical properties so RTL flips automatically */
+.notification-toast--h-left {
+  inset-inline-start: 16px;
+  transform: translate3d(calc(-1 * (100% + 32px)), 0, 0);
+}
+.notification-toast--h-left.notification-toast--active {
+  transform: translate3d(0, 0, 0);
+}
+
+.notification-toast--h-right {
+  inset-inline-end: 16px;
+  transform: translate3d(calc(100% + 32px), 0, 0);
+}
+.notification-toast--h-right.notification-toast--active {
+  transform: translate3d(0, 0, 0);
+}
+
+/* ==========================================================================
+   Reduced motion — disable slide animation
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .notification-toast {
+    transition: none;
+  }
+
+  .notification-toast--h-left,
+  .notification-toast--h-right {
+    transform: none;
+    opacity: 0;
+  }
+
+  .notification-toast--h-left.notification-toast--active,
+  .notification-toast--h-right.notification-toast--active {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   Responsive — Mobile (≤ 600px)
+   ========================================================================== */
+
+@media only screen and (max-width: 37.5em) {
+  .notification-toast {
+    width: calc(100% - 32px);
+    padding: var(--spacing-xl, 16px);
+  }
+
+  /* Stripe moves to bottom */
+  .notification-toast::after {
+    width: 100%;
+    height: 8px;
+    top: auto;
+    bottom: 0;
+    inset-inline-start: 0;
+  }
+
+  .notification-toast__close-btn {
+    inset-inline-end: var(--spacing-xl, 16px);
+  }
+
+  .notification-toast__header {
+    flex-direction: column;
+    gap: var(--spacing-xl, 16px);
+  }
+
+  /* Swap button layouts */
+  .notification-toast__action {
+    display: none;
+  }
+
+  .notification-toast__action-mobile {
+    display: flex;
+  }
+}

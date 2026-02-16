@@ -11,6 +11,7 @@ interface MobileNavProps {
   activeLink: string;
   onLinkClick: (linkId: string) => void;
   onSignInClick: () => void;
+  onTranslateClick: () => void;
 }
 
 export default function MobileNav({
@@ -19,6 +20,7 @@ export default function MobileNav({
   activeLink,
   onLinkClick,
   onSignInClick,
+  onTranslateClick,
 }: MobileNavProps) {
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
 
@@ -150,10 +152,14 @@ export default function MobileNav({
               )}
 
               {/* Translation Button */}
-              <Link
-                href="#"
+              <button
+                type="button"
                 className="dga-btn dga-btn--lg dga-btn--subtle"
-                onClick={onClose}
+                onClick={() => {
+                  onClose();
+                  onTranslateClick();
+                }}
+                aria-label="تبديل اللغة"
               >
                 <img
                   src="/assets/icons/stroke-standard/translation-stroke-rounded.svg"
@@ -162,7 +168,7 @@ export default function MobileNav({
                   height={20}
                 />
                 <span>English</span>
-              </Link>
+              </button>
             </div>
           </div>
         </div>

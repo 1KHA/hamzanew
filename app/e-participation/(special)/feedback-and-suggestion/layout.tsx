@@ -48,7 +48,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                   <h1 className="section-title">الشكاوى والمقترحات</h1>
                   <p className="text-md-regular !leading-[32px] max-w-3xl">
                     نحرص في منصة همزة على تحسين تجربتك بشكل مستمر.
-                    <br />
+                  
                     من خلال هذا النموذج يمكنك إرسال شكوى، ملاحظة، أو اقتراح بكل
                     سهولة، وسيتم مراجعتها من قبل الفريق المختص في أقرب وقت ممكن.
                     <br />
