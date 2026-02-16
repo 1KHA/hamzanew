@@ -1,5 +1,6 @@
+"use client"
 import { useState, useEffect } from "react";
-import "../styles/Button.css";
+import "../../styles/Button.css";
 
 const slides = [
   {

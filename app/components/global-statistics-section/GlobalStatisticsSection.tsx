@@ -1,3 +1,4 @@
+"use client";
 import { DgaDropdown } from "platformscode-new-react";
 import Card from "../card/Card";
 import SearchBox from "@/app/components/search-box/SearchBox";
@@ -158,7 +159,9 @@ function GlobalStatisticsSection() {
         />
         {/* statistics section */}
         <div className="cards-wrapper">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-[24px] w-full">{statsCard}</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-[24px] w-full">
+            {statsCard}
+          </div>
         </div>
       </div>
     </>
