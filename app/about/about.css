@@ -290,17 +290,15 @@ align-self: stretch;
 }
 
 .about-value-card__badge {
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 40px;
   border-radius: 6px;
   background: #0a7a3a;
-  color: #fff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
   flex: 0 0 auto;
+  color: #fff;
 }
 
 @media (max-width: 800px) {

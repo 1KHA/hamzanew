@@ -19,12 +19,12 @@ import type { Metadata } from "next";
 import Card from "../components/card/Card";
 
 export const metadata: Metadata = {
-  title: "عن همزة",
+  title: "عن الجهة",
   description:
     "تعرف على مشروع همزة، أهدافه، والخدمات التي يقدمها في مجال قياس الكفاية اللغوية.",
   openGraph: {
-    title: "عن همزة",
-    description:
+    title: "عن الجهة",
+    description:  
       "تعرف على مشروع همزة، أهدافه، والخدمات التي يقدمها في مجال قياس الكفاية اللغوية.",
   },
 };

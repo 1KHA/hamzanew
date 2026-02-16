@@ -125,7 +125,15 @@ export function DgaBreadcrumbs({
 
               return (
                 <li key={`ell-${idx}`} className="dga-breadcrumb-item ellipsis">
-                  <span className="dga-breadcrumb-icon">{arrow}</span>
+                  <span className="dga-breadcrumb-icon">
+                    <img
+                      src="/assets/icons/stroke-standard/arrow-left-01-stroke-rounded.svg"
+                      alt={isRTL() ? "arrow-left" : "arrow-right"}
+                      width={24}
+                      height={24}
+                      className="inline-block flip-rtl"
+                    />
+                  </span>
 
                   <button
                     type="button"
@@ -183,7 +191,15 @@ export function DgaBreadcrumbs({
                 aria-current={isLast ? "page" : undefined}
               >
                 {!isFirst && (
-                  <span className="dga-breadcrumb-icon">{arrow}</span>
+                  <span className="dga-breadcrumb-icon">
+                    <img
+                      src="/assets/icons/stroke-standard/arrow-left-01-stroke-rounded.svg"
+                      alt={isRTL() ? "arrow-left" : "arrow-right"}
+                      width={24}
+                      height={24}
+                      className="inline-block flip-rtl"
+                    />
+                  </span>
                 )}
 
                 {b.path ? (

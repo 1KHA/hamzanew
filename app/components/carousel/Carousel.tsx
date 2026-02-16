@@ -296,6 +296,7 @@ const Carousel: React.FC<CarouselProps> = ({
             size="lg"
             icon="arrow-right-01"
             iconSize={16}
+            iconClass="flip-rtl"
             ariaLabel="الانتقال إلى العنصر السابق"
             disabled={currentSlide === 0 && !autoPlay}
           />
@@ -350,6 +351,7 @@ const Carousel: React.FC<CarouselProps> = ({
             size="lg"
             icon="arrow-left-01"
             iconSize={16}
+            iconClass="flip-rtl"
             ariaLabel="الانتقال إلى العنصر التالي"
             disabled={currentSlide === maxSlide && !autoPlay}
           />

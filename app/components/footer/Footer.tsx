@@ -3,6 +3,7 @@ import LastModified from "../last-modified/LastModified";
 import Image from "next/image";
 import Feedback from "../feedback/Feedback";
 import ClientOnly from "../ClientOnly";
+import Link from "next/link";
 
 function Footer() {
   return (
@@ -21,14 +22,14 @@ function Footer() {
               <div className="footer-bottom ">
                 <div className="footer-bottom-content">
                   <div className="footer-legal-links">
-                    <a href="/terms-and-conditions" className="footer-link">
-                      الشروط و الأحكام{" "}
-                    </a>
-                    <a href="#" className="footer-link">
-                      سياسة المنصة
-                    </a>
+                    <Link href="/terms-and-conditions" className="footer-link">
+                      الشروط و الأحكام
+                    </Link>
+                    <Link href="#" className="footer-link">
+                   الاسئلة الشائعة
+                    </Link>
                     <a href="/sitemap-page" className="footer-link">
-                      خريطة الموقع{" "}
+                      خريطة الموقع
                     </a>
                   </div>
 

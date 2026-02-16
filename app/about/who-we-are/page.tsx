@@ -155,7 +155,7 @@ export default function WhoWeArePage() {
               {valuesCardsContents.slice(0, 3).map((content, index) => (
                 <li key={index} className="about-value-card">
                   <div className="about-value-card__header">
-                    <span className="about-value-card__badge">
+                    <span className="about-value-card__badge text-xl-bold ">
                       {content.number}
                     </span>
                     <div className="about-value-card__content">
@@ -178,7 +178,7 @@ export default function WhoWeArePage() {
               {valuesCardsContents.slice(3, 5).map((content, index) => (
                 <li key={index} className="about-value-card">
                   <div className="about-value-card__header">
-                    <span className="about-value-card__badge">
+                    <span className="about-value-card__badge text-xl-bold ">
                       {content.number}
                     </span>
                     <div className="about-value-card__content">

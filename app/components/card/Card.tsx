@@ -287,6 +287,7 @@ const Card: React.FC<CardProps> = ({
               icon={resolvedTrailIconType}
               iconSize={24}
               className="dir-start"
+              iconClass="flip-rtl"
             />
           )}
         </div>

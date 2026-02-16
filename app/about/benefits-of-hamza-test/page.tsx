@@ -141,7 +141,7 @@ export default function BenefitsOfHamzaTestPage() {
                 }}
               >
                 <div className="about-value-card__header">
-                  <span className="about-value-card__badge">
+                  <span className="about-value-card__badge text-xl-bold ">
                     {benefit.number}
                   </span>
                   <div className="about-value-card__content">
