@@ -155,6 +155,7 @@ export default function InstitutionsPage() {
               description={item.description}
               icon={item.icon}
               showPrimaryAction={true}
+              showPrimaryIcon={true}
               primaryActionLabel={item.primaryActionLabel}
               primaryTrailIconType="arrow-up-right-01"
               buttonColor="primary-brand"
