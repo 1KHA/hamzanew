@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 // import AboutHero from "./_hero/AboutHero";
 import { Metadata } from "next";
-import EParticipationHero from "./_hero/EParticipationHero";
 import { heroMap } from "./_hero/heroMap";
 import PageHero from "@/app/components/page-hero/PageHero";
 export const metadata: Metadata = {
@@ -15,12 +14,10 @@ export default function EParticipationLayout({
 }) {
   return (
     <>
-      {/* <EParticipationHero/> */}
       <PageHero
         heroMap={heroMap}
         defaultRoute="/e-participation"
         breadcrumbsMax={{ default: 4, overrides: { "/e-participation": 4 } }}
-        // breadcrumbsMax={4}
       />
       <section>{children}</section>
     </>
