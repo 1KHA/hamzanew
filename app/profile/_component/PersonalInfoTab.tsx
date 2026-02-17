@@ -1,6 +1,6 @@
 import { DgaTextInput } from "platformscode-new-react";
 import FileUpload from "../../components/FileUpload/FileUpload";
-import FormField from "./FormField";
+import FormField from "@/app/components/form-field/FormField";
 
 interface PersonalInfoTabProps {
   userInfo: any;

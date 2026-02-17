@@ -1,6 +1,6 @@
 import { DgaDropdown, DgaTextInput } from "platformscode-new-react";
 import Button from "../../components/button/Button";
-import FormField from "./FormField";
+import FormField from "@/app/components/form-field/FormField";
 
 interface LocationTabProps {
   userInfo: any;

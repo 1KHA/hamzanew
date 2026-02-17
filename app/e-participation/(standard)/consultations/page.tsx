@@ -1,5 +1,9 @@
 import Card from "@/app/components/card/Card";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "الإستشارات الإلكترونية"
+};
 export default function page() {
   const pageContent = [
     {

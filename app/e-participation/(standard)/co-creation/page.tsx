@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import Card from "@/app/components/card/Card";
+
+export const metadata: Metadata = {
+  title: "التطوير المشترك والافكار"
+};
 
 export default function page() {
   return (

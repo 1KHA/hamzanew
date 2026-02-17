@@ -7,6 +7,11 @@ import {
 import StatsCharts from "./_components/StatsCharts";
 import ClientOnly from "@/app/components/ClientOnly";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "إحصائيات الموقع والخدمات"
+};
 export default function ServicesStatisticsPage() {
   return (
     <>
@@ -17,7 +22,7 @@ export default function ServicesStatisticsPage() {
           </h1>
 
           {/* General Number Statistics */}
-          <section className="!grid 1grid-cols-1 md:!grid-cols-4 !gap-[24px] lg:!px-35">
+          <section className="!grid !grid-cols-1 md:!grid-cols-4 !gap-[24px] lg:!px-35">
             {servicesStatisticsData.map((item) => (
               <div
                 key={item.id}
