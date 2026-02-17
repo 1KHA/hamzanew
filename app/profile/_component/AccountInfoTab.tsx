@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { DgaTextInput } from "platformscode-new-react";
-import FormField from "./FormField";
+import FormField from "@/app/components/form-field/FormField";
 
 interface AccountInfoTabProps {
   userInfo: any;
