@@ -15,7 +15,9 @@
   border-radius: var(--radius-md, 8px);
   background: var(--colors-base-white, #fff);
   box-shadow: var(--shadow-3xl, 0 25px 50px -12px rgba(0, 0, 0, 0.25));
-  transition: transform 0.3s ease;
+  transition:
+    transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+    opacity 0.3s ease;
   overflow: hidden;
 }
 

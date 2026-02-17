@@ -1,0 +1,22 @@
+{
+  "email": "ahmed.ali@example.com",
+  "password": "password123",
+  "phone": "501234567",
+  "fullName_ar": "أحمد محمد علي",
+  "fullName_en": "Ahmed Mohammed Ali",
+  "birthDate": "1990-01-01",
+  "nationality": "سعودي",
+  "motherTongue": "العربية",
+  "identity": "هوية وطنية",
+  "identityNumber": "1012345678",
+  "education": "بكالوريوس",
+  "basicLanguageInEducation": "العربية",
+  "institution": "جامعة الملك سعود",
+  "specialization": "علوم الحاسب",
+  "timezone": "اختيار 1",
+  "country": "اختيار 1",
+  "state": "اختيار 1",
+  "city": "اختيار 1",
+  "postalAddress": "شارع الملك فهد",
+  "zipCode": "12345"
+}

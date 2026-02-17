@@ -28,6 +28,7 @@ import {
   DgaTextInput,
 } from "platformscode-new-react";
 import FileUpload, { UploadedFile } from "@/app/components/FileUpload/FileUpload";
+import ErrorMessage from "@/app/components/error-message/ErrorMessage";
 import "./feedback-form.css";
 
 /* ==========================================================================
@@ -526,18 +527,18 @@ export default function FeedbackAndSuggestionPage() {
    Inline Error Message
    ========================================================================== */
 
-function ErrorMessage({ message }: { message: string }) {
-  return (
-    <div className="invalid-feedback feedback-error" role="alert">
-      <Image
-        alt="help icon"
-        aria-hidden="true"
-        width={16}
-        height={16}
-        className="inline-block icon-critical"
-        src="/assets/icons/stroke-standard/help-circle-stroke-rounded.svg"
-      />
-      <span>{message}</span>
-    </div>
-  );
-}
+// function ErrorMessage({ message }: { message: string }) {
+//   return (
+//     <div className="invalid-feedback feedback-error" role="alert">
+//       <Image
+//         alt="help icon"
+//         aria-hidden="true"
+//         width={16}
+//         height={16}
+//         className="inline-block icon-critical"
+//         src="/assets/icons/stroke-standard/help-circle-stroke-rounded.svg"
+//       />
+//       <span>{message}</span>
+//     </div>
+//   );
+// }
