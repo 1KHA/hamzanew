@@ -23,7 +23,7 @@ function Footer() {
                     <Link href="/terms-and-conditions" className="footer-link">
                       الشروط و الأحكام
                     </Link>
-                    <Link href="#" className="footer-link">
+                    <Link href="/faq" className="footer-link">
                       الاسئلة الشائعة
                     </Link>
                     <a href="/sitemap-page" className="footer-link">
