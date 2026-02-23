@@ -1,85 +1,147 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, memo } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import type { SubmenuColumn as SubmenuColumnType, SubmenuItem } from "./menuData";
+import type {
+  SubmenuColumn as SubmenuColumnType,
+  SubmenuItem,
+} from "./menuData";
 
-// Icon Component
-const IconImage = ({ src, alt = "" }: { src: string; alt?: string }) => (
-  <img src={src} alt={alt} width={24} height={24} className="inline-block" />
-);
+// =============================================
+// TYPES
+// =============================================
 
-// Submenu Link Component
-const SubmenuLink = ({ item, onClick }: { item: SubmenuItem; onClick: () => void }) => (
-  <li>
-    <Link href={item.href} onClick={onClick} className="sub-link sub-menu__link">
-      <div className="flex gap-[16px] items-center">
-        <IconImage src={item.icon} />
-        <span>{item.label}</span>
-      </div>
-    </Link>
-  </li>
-);
-
-// Submenu Column Component
-const SubmenuColumn = ({
-  column,
-  onLinkClick,
-}: {
-  column: SubmenuColumnType;
-  onLinkClick: () => void;
-}) => (
-  <div className="sub-nav-title">
-    <div className="p-[12px]">{column.title}</div>
-    <ul className="grid gap-[4px]">
-      {column.items.map((item, index) => (
-        <SubmenuLink key={index} item={item} onClick={onLinkClick} />
-      ))}
-    </ul>
-  </div>
-);
-
-// Main Submenu Component
 interface NavigationSubmenuProps {
+  /** Whether the submenu panel is currently open */
   isOpen: boolean;
+  /** Columns of links to render — may be undefined while closing */
   columns?: SubmenuColumnType[];
+  /** Called when any link inside the submenu is clicked */
   onLinkClick: () => void;
 }
 
-export default function NavigationSubmenu({ isOpen, columns, onLinkClick }: NavigationSubmenuProps) {
+// =============================================
+// SUB-COMPONENTS
+// =============================================
+
+/**
+ * Renders a single submenu link with an icon and a text label.
+ * Uses item.href as key at the call site for stable reconciliation.
+ *
+ * The icon alt text mirrors the item label so screen readers announce
+ * a meaningful description instead of the raw file path.
+ */
+const SubmenuLink = memo<{ item: SubmenuItem; onClick: () => void }>(
+  ({ item, onClick }) => (
+    <li>
+      <Link href={item.href} onClick={onClick} className="sub-link sub-menu__link">
+        <div className="flex gap-[16px] items-center">
+          <Image
+            src={item.icon}
+            alt={`أيقونة ${item.label}`}
+            width={24}
+            height={24}
+            className="inline-block"
+          />
+          <span>{item.label}</span>
+        </div>
+      </Link>
+    </li>
+  ),
+);
+
+SubmenuLink.displayName = "SubmenuLink";
+
+/**
+ * Renders a labeled column of SubmenuLinks.
+ * Uses column.title as key at the call site for stable reconciliation.
+ */
+const SubmenuColumn = memo<{
+  column: SubmenuColumnType;
+  onLinkClick: () => void;
+}>(({ column, onLinkClick }) => (
+  <div className="sub-nav-title">
+    {/* Column heading */}
+    <div className="p-[12px]">{column.title}</div>
+
+    {/* List of links — href used as key for stable reconciliation */}
+    <ul className="grid gap-[4px]">
+      {column.items.map((item) => (
+        <SubmenuLink key={item.label} item={item} onClick={onLinkClick} />
+      ))}
+    </ul>
+  </div>
+));
+
+SubmenuColumn.displayName = "SubmenuColumn";
+
+// =============================================
+// MAIN COMPONENT
+// =============================================
+/**
+ * Animated dropdown submenu that slides in below the main header bar.
+ *
+ * Animation strategy:
+ * — shouldRender gates DOM presence (mount / unmount)
+ * — animating drives the CSS opacity + translateY transition
+ * — Double requestAnimationFrame on open ensures the element is painted
+ *   before the transition starts, preventing a flash of the end state
+ * — onTransitionEnd unmounts the panel after the closing animation
+ *   finishes so it does not block pointer events while invisible
+ *
+ * Snapshot pattern:
+ * — lastColumnsRef stores the most recent valid columns so that content
+ *   stays visible during the closing animation (avoids a content flash)
+ *
+ * Accessibility:
+ * — role="navigation" + aria-label make this region a named landmark
+ *   that screen reader users can jump to directly
+ */
+export default function NavigationSubmenu({
+  isOpen,
+  columns,
+  onLinkClick,
+}: NavigationSubmenuProps) {
   const contentRef = useRef<HTMLDivElement>(null);
+
+  // Controls whether the panel exists in the DOM at all
   const [shouldRender, setShouldRender] = useState(false);
+
+  // Controls the animated CSS state (true = fully visible)
   const [animating, setAnimating] = useState(false);
+
+  // Holds the last valid columns snapshot for use during close animation
   const lastColumnsRef = useRef<SubmenuColumnType[] | undefined>(undefined);
+  if (columns) lastColumnsRef.current = columns;
 
-  // Keep a snapshot of the last valid columns so content stays visible during close animation
-  if (columns) {
-    lastColumnsRef.current = columns;
-  }
+  // Use live columns when open; fall back to snapshot while closing
+  const renderColumns = columns ?? lastColumnsRef.current;
 
-  const renderColumns = columns || lastColumnsRef.current;
-
+  // ── Mount / unmount with entrance + exit animation ───────────────────
   useEffect(() => {
     if (isOpen) {
       setShouldRender(true);
+      // Two rAF frames: first paints the element at opacity 0,
+      // second triggers the CSS transition to opacity 1
       requestAnimationFrame(() => {
         requestAnimationFrame(() => setAnimating(true));
       });
     } else {
-      setAnimating(false);
+      setAnimating(false); // Begin exit transition
     }
   }, [isOpen]);
 
+  // Unmount from the DOM after the exit transition completes
   const handleTransitionEnd = () => {
-    if (!isOpen) {
-      setShouldRender(false);
-    }
+    if (!isOpen) setShouldRender(false);
   };
 
   if (!shouldRender || !renderColumns) return null;
 
   return (
-    <div
+    <nav
       ref={contentRef}
       className="sub-navs sub-navs-fixed"
+      aria-label="القائمة الفرعية"
       onTransitionEnd={handleTransitionEnd}
       style={{
         position: "absolute",
@@ -94,10 +156,15 @@ export default function NavigationSubmenu({ isOpen, columns, onLinkClick }: Navi
       }}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-[24px] content">
+        {/* Use column.title as key — more stable than array index */}
         {renderColumns.map((column, index) => (
-          <SubmenuColumn key={index} column={column} onLinkClick={onLinkClick} />
+          <SubmenuColumn
+            key={column.title || index}
+            column={column}
+            onLinkClick={onLinkClick}
+          />
         ))}
       </div>
-    </div>
+    </nav>
   );
 }

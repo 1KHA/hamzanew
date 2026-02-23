@@ -392,6 +392,9 @@
   text-decoration: underline;
 }
 
+.sub-navs a:focus {
+  outline: 2px solid #000000;
+}
 
 .sub-navs a:visited{
    color: #1f2a37 !important;
