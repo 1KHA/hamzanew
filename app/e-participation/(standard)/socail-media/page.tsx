@@ -26,32 +26,32 @@ export default function page() {
     {
       logo: "new-twitter",
       name: "منصة اكس",
-      link: "#",
+      link: "https://google.com",
     },
     {
       logo: "youtube",
       name: "يوتيوب",
-      link: "#",
+      link: "https://google.com",
     },
     {
       logo: "facebook-02",
       name: "فيسبوك",
-      link: "#",
+      link: "https://google.com",
     },
     {
       logo: "snapchat",
       name: "سناب شات",
-      link: "#",
+      link: "https://google.com",
     },
     {
       logo: "linkedin-02",
       name: "لينكدان",
-      link: "#",
+      link: "https://google.com",
     },
     {
       logo: "instagram",
       name: "انستقرام",
-      link: "#",
+      link: "https://google.com",
     },
   ];
 
@@ -78,7 +78,7 @@ export default function page() {
                   }}
                   title={item.name}
                   icon={item.logo}
-                  primaryTrailIconType="arrow"
+                  primaryTrailIconType="link-square-01"
                   buttonIconOnly={true}
                   linkSecondaryAction={item.link}
                   external={true}

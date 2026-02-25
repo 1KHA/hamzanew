@@ -1,5 +1,7 @@
 "use client";
-
+import { useForm, FormProvider } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { useState, useEffect } from "react";
 import { DgaTabs } from "../components/tabs/DgaTabs";
 import "@/app/e-participation/(special)/feedback-and-suggestion/feedback-form.css";
@@ -8,7 +10,62 @@ import PersonalInfoTab from "./_component/PersonalInfoTab";
 import EducationTab from "./_component/EducationTab";
 import LocationTab from "./_component/LocationTab";
 import NotificationToast from "../components/notification-toast/NotificationToast";
-import mockUserInfo from "./mockUserInfo.json";
+import mockUserInfo from "./_data/mockUserInfo.json";
+import {
+  getPrefixFromPhone,
+  DEFAULT_PREFIX,
+  getDigitsFromPhone,
+} from "./_data/phonePrefixes";
+
+// ─────────────────────────────────────────
+//   Schema defined here, inside this file
+// ─────────────────────────────────────────
+const userProfileSchema = z.object({
+  // Account Info
+  email: z
+    .string()
+    .min(1, "البريد الإلكتروني مطلوب")
+    .email("البريد الإلكتروني غير صحيح"),
+  password: z.string().min(8, "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل"),
+  phone: z.string().refine(
+    (val) => {
+      // Use getDigitsFromPhone to correctly strip the prefix based on the
+      // actual PHONE_PREFIXES list — handles variable-length prefixes
+      // (e.g. +1 vs +1787) correctly, unlike a generic regex.
+      const digits = getDigitsFromPhone(val);
+      return digits.length >= 7;
+    },
+    { message: "رقم الجوال غير صحيح (7 أرقام على الأقل بعد رمز الدولة)" },
+  ),
+  // Personal Info
+  firstName_ar: z.string().min(1, "الاسم الأول مطلوب"),
+  secondName_ar: z.string().min(1, "الاسم الثاني مطلوب"),
+  lastName_ar: z.string().min(1, "الاسم الأخير مطلوب"),
+  firstName_en: z.string().min(1, "First name is required"),
+  secondName_en: z.string().min(1, "Second name is required"),
+  lastName_en: z.string().min(1, "Last name is required"),
+  birthDate: z.string().min(1, "تاريخ الميلاد مطلوب"),
+  nationality: z.string().min(1, "الجنسية مطلوبة"),
+  motherTongue: z.string().min(1, "اللغة الأم مطلوبة"),
+  identity: z.string().min(1, "الإثبات مطلوب"),
+  identityNumber: z.string().min(1, "رقم الإثبات مطلوب"),
+  // Education
+  education: z.string().min(1, "المؤهل الدراسي مطلوب"),
+  basicLanguageInEducation: z.string().min(1, "لغة التعليم مطلوبة"),
+  institution: z.string().min(1, "المؤسسة مطلوبة"),
+  specialization: z.string().min(1, "التخصص مطلوب"),
+  // Location
+  timezone: z.string().min(1, "المنطقة الزمنية مطلوبة"),
+  country: z.string().min(1, "الدولة مطلوبة"),
+  state: z.string().min(1, "المنطقة مطلوبة"),
+  city: z.string().min(1, "المدينة مطلوبة"),
+  postalAddress: z.string().min(1, "العنوان البريدي مطلوب"),
+  zipCode: z.string().min(1, "الرمز البريدي مطلوب"),
+});
+
+// Export the type so tab components can use it with useFormContext<UserProfileFormValues>()
+export type UserProfileFormValues = z.infer<typeof userProfileSchema>;
+
 /**
  * UserProfile Component (Client Component)
  *
@@ -20,97 +77,65 @@ import mockUserInfo from "./mockUserInfo.json";
  * @returns {JSX.Element} The complete user profile form with tabs
  */
 export default function UserProfile() {
-  /**
-   * Active tab state
-   * @type {number}
-   * @default 1
-   *
-   * Tab IDs:
-   * 1 = Account Information (معلومات الحساب)
-   * 2 = Personal Information (المعلومات الشخصية)
-   * 3 = Educational Qualifications (المؤهلات الدراسية)
-   * 4 = Location (الموقع)
-   */
-
-  const [userInfo, setUserInfo] = useState<any>({
-    email: mockUserInfo.email || "",
-    password: mockUserInfo.password || "",
-    phone: mockUserInfo.phone || "",
-
-    fullName_ar: mockUserInfo.fullName_ar || "",
-    fullName_en: mockUserInfo.fullName_en || "",
-    birthDate: mockUserInfo.birthDate || "",
-    nationality: mockUserInfo.nationality || "",
-    motherTongue: mockUserInfo.motherTongue || "",
-    identity: mockUserInfo.identity || "",
-    identityNumber: mockUserInfo.identityNumber || "",
-    identityProof: File,
-
-    education: mockUserInfo.education || "",
-    basicLanguageInEducation: mockUserInfo.basicLanguageInEducation || "",
-    institution: mockUserInfo.institution || "",
-    specialization: mockUserInfo.specialization || "",
-
-    timezone: mockUserInfo.timezone || "",
-    country: mockUserInfo.country || "",
-    state: mockUserInfo.state || "",
-    city: mockUserInfo.city || "",
-    postalAddress: mockUserInfo.postalAddress || "",
-    zipCode: mockUserInfo.zipCode || "",
-  });
-
+  const [activeTab, setActiveTab] = useState<number>(1);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target;
-    setUserInfo((prev: any) => ({
-      ...prev,
-      [name]: value,
-    }));
+  // Single hook replaces: useState(userInfo), useState(errors),
+  //    handleInputChange, handleBlur, validateField, and handleSubmit
+  const methods = useForm<UserProfileFormValues>({
+    resolver: zodResolver(userProfileSchema),
+    defaultValues: {
+      email: mockUserInfo.email || "",
+      password: mockUserInfo.password || "",
+      // Ensure a prefix is always stored — use DEFAULT_PREFIX if the
+      // stored value doesn't already start with a known country code
+      phone: (() => {
+        const raw = mockUserInfo.phone || "";
+        const hasPrefix =
+          getPrefixFromPhone(raw).value !== DEFAULT_PREFIX.value ||
+          raw.startsWith(DEFAULT_PREFIX.value);
+        return hasPrefix ? raw : DEFAULT_PREFIX.value + raw;
+      })(),
+      firstName_ar: mockUserInfo.fullName_ar?.split(" ")[0] || "",
+      secondName_ar: mockUserInfo.fullName_ar?.split(" ")[1] || "",
+      lastName_ar: mockUserInfo.fullName_ar?.split(" ")[2] || "",
+      firstName_en: mockUserInfo.fullName_en?.split(" ")[0] || "",
+      secondName_en: mockUserInfo.fullName_en?.split(" ")[1] || "",
+      lastName_en: mockUserInfo.fullName_en?.split(" ")[2] || "",
+      birthDate: mockUserInfo.birthDate || "",
+      nationality: mockUserInfo.nationality || "",
+      motherTongue: mockUserInfo.motherTongue || "",
+      identity: mockUserInfo.identity || "",
+      identityNumber: mockUserInfo.identityNumber || "",
+      education: mockUserInfo.education || "",
+      basicLanguageInEducation: mockUserInfo.basicLanguageInEducation || "",
+      institution: mockUserInfo.institution || "",
+      specialization: mockUserInfo.specialization || "",
+      timezone: mockUserInfo.timezone || "",
+      country: mockUserInfo.country || "",
+      state: mockUserInfo.state || "",
+      city: mockUserInfo.city || "",
+      postalAddress: mockUserInfo.postalAddress || "",
+      zipCode: mockUserInfo.zipCode || "",
+    },
+    mode: "all",
+  });
+
+  const onSubmit = (data: UserProfileFormValues) => {
+    console.log("Form Submitted ✅", data);
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 5000);
   };
-
-  /* ── Validation State ── */
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const validateField = (name: string, value: any) => {
-    let error = "";
-
-    if (!value || (typeof value === "string" && !value.trim())) {
-      error = "هذا الحقل مطلوب";
-    }
-
-    if (name === "email" && value) {
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-        error = "البريد الإلكتروني غير صحيح";
-      }
-    }
-
-    if (name === "password" && value) {
-      if (value.length < 8) {
-        error = "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل";
-      }
-    }
-
-    setErrors((prev) => ({ ...prev, [name]: error }));
-  };
-
-  const handleBlur = (e: any) => {
-    const { name, value } = e.target;
-    validateField(name, value);
-  };
-
-  const [activeTab, setActiveTab] = useState<number>(1);
 
   useEffect(() => {
-    const activateFirstTab = () => {
+    const timeoutId = setTimeout(() => {
       const firstTab = document.querySelector(
         ".dga-tabs-list__item:first-child",
       );
       if (firstTab) {
         firstTab.classList.add("dga-tabs-list__item--active");
       }
-    };
-    const timeoutId = setTimeout(activateFirstTab, 300);
+    }, 300);
     return () => clearTimeout(timeoutId);
   }, []);
 
@@ -123,54 +148,6 @@ export default function UserProfile() {
     const activeTabElement = allTabs[tabId - 1];
     if (activeTabElement) {
       activeTabElement.classList.add("dga-tabs-list__item--active");
-    }
-  };
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    const newErrors: Record<string, string> = {};
-    let hasError = false;
-
-    Object.keys(userInfo).forEach((key) => {
-      const value = userInfo[key];
-      let error = "";
-
-      // Skip validation for File constructor (initial state)
-      if (key === "identityProof" && value === File) {
-        // Treat as empty if it matches initial File constructor
-        // Or just ignore for now as 'File' is truthy
-        // Let's stick to standard checks, assuming File constructor is a placeholder.
-      }
-
-      if (!value || (typeof value === "string" && !value.trim())) {
-        error = "هذا الحقل مطلوب";
-      }
-
-      if (key === "email" && value) {
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-          error = "البريد الإلكتروني غير صحيح";
-        }
-      }
-
-      if (key === "password" && value) {
-        if (value.length < 8) {
-          error = "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل";
-        }
-      }
-
-      if (error) {
-        newErrors[key] = error;
-        hasError = true;
-      }
-    });
-
-    setErrors(newErrors);
-
-    if (!hasError) {
-      console.log("Form Submitted", userInfo);
-      setShowSuccess(true);
-      // Hide notification after 5 seconds
-      setTimeout(() => setShowSuccess(false), 5000);
     }
   };
 
@@ -225,47 +202,15 @@ export default function UserProfile() {
       {/* Tab Content Container */}
       <div className="mb-[40px] head" role="region" aria-live="polite">
         <div className="!space-y-[16px]">
-          <form onSubmit={handleSubmit}>
-            {activeTab === 1 && (
-              <AccountInfoTab
-                userInfo={userInfo}
-                setUserInfo={setUserInfo}
-                errors={errors}
-                handleInputChange={handleInputChange}
-                handleBlur={handleBlur}
-              />
-            )}
-
-            {activeTab === 2 && (
-              <PersonalInfoTab
-                userInfo={userInfo}
-                setUserInfo={setUserInfo}
-                errors={errors}
-                handleInputChange={handleInputChange}
-                handleBlur={handleBlur}
-              />
-            )}
-
-            {activeTab === 3 && (
-              <EducationTab
-                userInfo={userInfo}
-                errors={errors}
-                handleInputChange={handleInputChange}
-                handleBlur={handleBlur}
-              />
-            )}
-
-            {activeTab === 4 && (
-              <LocationTab
-                userInfo={userInfo}
-                setUserInfo={setUserInfo}
-                errors={errors}
-                handleInputChange={handleInputChange}
-                handleBlur={handleBlur}
-                validateField={validateField}
-              />
-            )}
-          </form>
+          {/* FormProvider shares form context to all child tab components */}
+          <FormProvider {...methods}>
+            <form onSubmit={methods.handleSubmit(onSubmit)}>
+              {activeTab === 1 && <AccountInfoTab />}
+              {activeTab === 2 && <PersonalInfoTab />}
+              {activeTab === 3 && <EducationTab />}
+              {activeTab === 4 && <LocationTab />}
+            </form>
+          </FormProvider>
         </div>
       </div>
     </section>

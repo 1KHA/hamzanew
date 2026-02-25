@@ -1,54 +1,32 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import Image from "next/image";
-import { DgaTextInput } from "platformscode-new-react";
+import { Controller, useFormContext } from "react-hook-form";
 import FormField from "@/app/components/form-field/FormField";
+import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
+import type { UserProfileFormValues } from "../UserProfile";
+import {
+  PHONE_PREFIXES,
+  getPrefixFromPhone,
+  getDigitsFromPhone,
+  type PrefixOption,
+} from "../_data/phonePrefixes";
 
-interface AccountInfoTabProps {
-  userInfo: any;
-  setUserInfo: (info: any) => void;
-  errors: Record<string, string>;
-  handleInputChange: (e: any) => void;
-  handleBlur: (e: any) => void;
-}
+export default function AccountInfoTab() {
+  const {
+    setValue,
+    watch,
+    control,
+    trigger,
+    formState: { errors },
+  } = useFormContext<UserProfileFormValues>();
 
-interface PrefixOption {
-  label: string;
-  value: string;
-}
-
-const PREFIX_OPTIONS: PrefixOption[] = [
-  { label: "+966", value: "966" },
-  { label: "+971", value: "971" },
-  { label: "+965", value: "965" },
-];
-
-export default function AccountInfoTab({
-  userInfo,
-  setUserInfo,
-  errors,
-  handleInputChange,
-  handleBlur,
-}: AccountInfoTabProps) {
   const [prefixOpen, setPrefixOpen] = useState(false);
-  const [prefix, setPrefix] = useState<PrefixOption>(PREFIX_OPTIONS[0]);
   const prefixRef = useRef<HTMLDivElement>(null);
 
-  /* ── Helpers for Phone Management ── */
-  const getPhoneNumber = () => {
-    if (!userInfo.phone) return "";
-    if (userInfo.phone.startsWith(prefix.value)) {
-      return userInfo.phone.slice(prefix.value.length);
-    }
-    return userInfo.phone;
-  };
-
-  const handlePhoneChange = (e: any) => {
-    const val = e.target.value;
-    setUserInfo((prev: any) => ({
-      ...prev,
-      phone: prefix.value + val,
-    }));
-  };
+  //  phone input state
+  const fullPhoneWithPrefix = watch("phone") || "";
+  const selectedCountryPrefix = getPrefixFromPhone(fullPhoneWithPrefix);
+  const phoneDigitsOnly = getDigitsFromPhone(fullPhoneWithPrefix);
 
   /* ── Close prefix dropdown on outside click / Escape ── */
   useEffect(() => {
@@ -72,14 +50,10 @@ export default function AccountInfoTab({
     };
   }, [prefixOpen]);
 
-  /* ── Prefix handlers ── */
+  /* ── When user selects a different country code ── */
   const handlePrefixSelect = (opt: PrefixOption) => {
-    const currentNumber = getPhoneNumber();
-    setPrefix(opt);
-    setUserInfo((prev: any) => ({
-      ...prev,
-      phone: opt.value + currentNumber,
-    }));
+    // Replace old prefix with new one, keeping the digits intact
+    setValue("phone", opt.value + phoneDigitsOnly, { shouldValidate: true });
     setPrefixOpen(false);
   };
 
@@ -127,144 +101,149 @@ export default function AccountInfoTab({
         قم بإدخال معلومات تسجيل الدخول الخاصة بك بما في ذلك البريد الإلكتروني
         وكلمة المرور ورقم الهاتف
       </p>
+
       <div className="!grid !grid-cols-1 md:!grid-cols-3 !gap-8">
+        {/* Email */}
         <FormField
           label="البريد الالكتروني"
           required
-          error={errors.email}
+          error={errors.email?.message}
           htmlFor="input-email"
         >
-          <DgaTextInput
-            id="input-email"
-            name="email"
-            placeholder="مثال: user@example.com"
-            size="lg"
-            type="text"
-            value={userInfo.email}
-            onChange={handleInputChange}
-            onBlur={handleBlur}
-            error={!!errors.email}
-            variant="darker"
-            aria-required="true"
-            aria-describedby="email-help"
-          />
+          <ControlledTextInput name="email" />
           <span id="email-help" className="sr-only">
             أدخل عنوان بريدك الإلكتروني المستخدم لتسجيل الدخول
           </span>
         </FormField>
 
+        {/* Password */}
         <FormField
           label="كلمة المرور"
           required
-          error={errors.password}
+          error={errors.password?.message}
           htmlFor="input-password"
         >
-          <DgaTextInput
-            id="input-password"
-            name="password"
-            placeholder="أدخل كلمة المرور"
-            size="lg"
-            type="password"
-            value={userInfo.password}
-            onChange={handleInputChange}
-            onBlur={handleBlur}
-            error={!!errors.password}
-            variant="darker"
-            aria-required="true"
-            aria-describedby="password-help"
-          />
+          <ControlledTextInput name="password" type="password" />
           <span id="password-help" className="sr-only">
             يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل
           </span>
         </FormField>
 
+        {/* Phone — Controller wraps the full phone UI (input + prefix dropdown) */}
         <FormField
           label="رقم الجوال"
           required
-          error={errors.phone}
+          error={errors.phone?.message}
           htmlFor="phone-input"
         >
-          <div
-            className={`input input--lg input--darker phone-input-wrapper ${
-              errors.phone ? "input--error" : ""
-            }`}
-          >
-            <input
-              id="phone-input"
-              placeholder="00 000 0000"
-              type="tel"
-              inputMode="numeric"
-              value={getPhoneNumber()}
-              name="phone"
-              className="input__field"
-              onChange={handlePhoneChange}
-              onBlur={handleBlur}
-              aria-required="true"
-              aria-invalid={!!errors.phone}
-            />
-
-            <div ref={prefixRef} className="prefix-container">
-              <input type="hidden" name="countryCode" value={prefix.value} />
-
-              <button
-                type="button"
-                onClick={() => setPrefixOpen((v) => !v)}
-                className={prefixBtnClass}
-                aria-haspopup="listbox"
-                aria-expanded={prefixOpen}
-                aria-label={`رمز الدولة: ${prefix.label}`}
+          <Controller
+            name="phone"
+            control={control}
+            render={({ field }) => (
+              <div
+                className={`input input--lg input--darker phone-input-wrapper ${
+                  errors.phone?.message ? "input--error" : ""
+                }`}
               >
-                <span className="input__prefix-icon" />
-                <span className="dropdown__label" />
-                <span className="input__prefix-label">{prefix.label}</span>
-                <span className="input__prefix-chevron">
-                  <Image
-                    src="/assets/icons/stroke-standard/arrow-down-01-stroke-rounded.svg"
-                    alt="arrow down icon"
-                    width={20}
-                    height={20}
-                    aria-hidden="true"
-                    className="prefix-chevron-icon"
-                  />
-                </span>
-              </button>
-
-              <ul
-                role="listbox"
-                className={prefixListClass}
-                aria-label="رمز الدولة"
-              >
-                <div className="prefix-list__scroll">
-                  {PREFIX_OPTIONS.map((opt) => {
-                    const isActive = opt.value === prefix.value;
-                    return (
-                      <li
-                        key={opt.value}
-                        role="option"
-                        aria-selected={isActive}
-                        tabIndex={prefixOpen ? 0 : -1}
-                        onClick={() => handlePrefixSelect(opt)}
-                        onKeyDown={(e) => handlePrefixKeyDown(e, opt)}
-                        className={`prefix-option ${
-                          isActive ? "prefix-option--active" : ""
-                        }`}
-                      >
-                        <span>{opt.label}</span>
-                        {isActive && (
-                          <span
-                            className="prefix-option__check"
-                            aria-hidden="true"
-                          >
-                            ✓
-                          </span>
-                        )}
-                      </li>
+                {/* Digits-only input — prefix is stored separately in RHF */}
+                <input
+                  id="phone-input"
+                  placeholder="00 000 0000"
+                  type="tel"
+                  inputMode="numeric"
+                  value={phoneDigitsOnly}
+                  name="phone"
+                  className="input__field"
+                  onChange={(e) => {
+                    // Store full value (active prefix + digits) in RHF
+                    field.onChange(
+                      selectedCountryPrefix.value + e.target.value,
                     );
-                  })}
+                  }}
+                  onBlur={() => {
+                    field.onBlur(); // marks field as touched
+                    trigger("phone"); // re-runs Zod refine() explicitly
+                  }}
+                  aria-required="true"
+                  aria-invalid={!!errors.phone?.message}
+                />
+
+                {/* Country code prefix dropdown */}
+                <div ref={prefixRef} className="prefix-container">
+                  <input
+                    type="hidden"
+                    name="countryCode"
+                    value={selectedCountryPrefix.value}
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => setPrefixOpen((v) => !v)}
+                    className={prefixBtnClass}
+                    aria-haspopup="listbox"
+                    aria-expanded={prefixOpen}
+                    aria-label={`رمز الدولة: ${selectedCountryPrefix.label}`}
+                  >
+                    <span className="input__prefix-icon" />
+                    <span className="dropdown__label" />
+                    <span className="input__prefix-label">
+                      {selectedCountryPrefix.label}
+                    </span>
+                    <span className="input__prefix-chevron">
+                      <Image
+                        src="/assets/icons/stroke-standard/arrow-down-01-stroke-rounded.svg"
+                        alt="arrow down icon"
+                        width={20}
+                        height={20}
+                        aria-hidden="true"
+                        className="prefix-chevron-icon"
+                      />
+                    </span>
+                  </button>
+
+                  <ul
+                    role="listbox"
+                    className={prefixListClass}
+                    aria-label="رمز الدولة"
+                  >
+                    <div className="prefix-list__scroll">
+                      {PHONE_PREFIXES.map((opt) => {
+                        const isActive =
+                          opt.value === selectedCountryPrefix.value;
+                        return (
+                          <li
+                            key={opt.value}
+                            role="option"
+                            aria-selected={isActive}
+                            tabIndex={prefixOpen ? 0 : -1}
+                            onClick={() => handlePrefixSelect(opt)}
+                            onKeyDown={(e) => handlePrefixKeyDown(e, opt)}
+                            className={`prefix-option ${isActive ? "prefix-option--active" : ""}`}
+                          >
+                            {/* {opt.flag && (
+                              <span aria-hidden="true">{opt.flag} </span>
+                            )} */}
+                            <span>{opt.label}</span>
+                            {/* <span className="prefix-option__country">
+                              {opt.country}
+                            </span> */}
+                            {isActive && (
+                              <span
+                                className="prefix-option__check"
+                                aria-hidden="true"
+                              >
+                                ✓
+                              </span>
+                            )}
+                          </li>
+                        );
+                      })}
+                    </div>
+                  </ul>
                 </div>
-              </ul>
-            </div>
-          </div>
+              </div>
+            )}
+          />
         </FormField>
       </div>
     </div>
