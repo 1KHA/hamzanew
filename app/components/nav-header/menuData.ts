@@ -121,7 +121,7 @@ export const MENU_DATA: MenuItemType[] = [
   {
     id: "organizations",
     label: "المنظمات",
-    href: "#",
+    href: "/hamza-org",
   },
   {
     id: "research",
