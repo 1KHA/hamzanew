@@ -1,0 +1,202 @@
+/* ==========================================================================
+   Sign In Page Styles
+
+   Split-layout page: left image panel + right form panel.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Page wrapper (centers the card)
+   -------------------------------------------------------------------------- */
+
+.sign-in-page-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+/* --------------------------------------------------------------------------
+   Page container (split layout card)
+   -------------------------------------------------------------------------- */
+
+.sign-in-page {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 978px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 24px 48px -12px rgba(16, 24, 40, 0.18);
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   Left panel: Image
+   -------------------------------------------------------------------------- */
+
+.sign-in-page__image {
+  flex: 0 0 45%;
+  position: relative;
+  overflow: hidden;
+}
+
+.sign-in-page__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sign-in-page__image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(2, 78, 40, 0.49) 0%,
+    rgba(2, 78, 40, 0.49) 100%
+  );
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Right panel: Form content
+   -------------------------------------------------------------------------- */
+
+.sign-in-page__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 80px;
+  gap: 32px;
+  max-width: 600px;
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+
+.sign-in-page__header {
+  text-align: right;
+}
+
+[dir="ltr"] .sign-in-page__header {
+  text-align: left;
+}
+
+.sign-in-page__subtitle {
+  margin-top: 8px;
+  color: #6c737f;
+}
+
+/* --------------------------------------------------------------------------
+   Form
+   -------------------------------------------------------------------------- */
+
+.sign-in-page__form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* --------------------------------------------------------------------------
+   Required asterisk
+   -------------------------------------------------------------------------- */
+
+.sign-in-page__required {
+  color: #d92d20;
+  font-weight: bold;
+}
+
+/* --------------------------------------------------------------------------
+   Options row (Forgot password + Remember me)
+   -------------------------------------------------------------------------- */
+
+.sign-in-page__options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* --------------------------------------------------------------------------
+   Submit button
+   -------------------------------------------------------------------------- */
+
+.sign-in-page__submit {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Divider ("أو")
+   -------------------------------------------------------------------------- */
+
+.sign-in-page__divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sign-in-page__divider::before,
+.sign-in-page__divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: #eaecf0;
+}
+
+.sign-in-page__divider-text {
+  color: #6c737f;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   SSO Button (النفاذ الوطني الموحد)
+   -------------------------------------------------------------------------- */
+
+.sign-in-page__sso-btn {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Hide "last page update" and "feedback" on sign-in page
+   -------------------------------------------------------------------------- */
+
+/* LastModified wrapper */
+body.page-sign-in .content:has(> section > .text-sm-regular) {
+  display: none !important;
+}
+
+/* Feedback section and its hr divider */
+body.page-sign-in .content:has(> section[aria-label="تقييم الصفحة"]),
+body.page-sign-in hr[aria-hidden="true"] {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive: stack on small screens
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .sign-in-page-wrapper {
+    padding: 24px 16px;
+  }
+
+  .sign-in-page {
+    flex-direction: column;
+  }
+
+  .sign-in-page__image {
+    display: none;
+  }
+
+  .sign-in-page__content {
+    padding: 24px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .sign-in-page__content {
+    padding: 20px;
+  }
+}

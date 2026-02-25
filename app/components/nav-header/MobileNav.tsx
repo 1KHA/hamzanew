@@ -16,7 +16,6 @@ interface MobileNavProps {
   onClose: () => void;
   activeLink: string;
   onLinkClick: (linkId: string) => void;
-  onSignInClick: () => void;
   onTranslateClick: () => void;
 }
 
@@ -168,7 +167,6 @@ export default function MobileNav({
   onClose,
   activeLink,
   onLinkClick,
-  onSignInClick,
   onTranslateClick,
 }: MobileNavProps) {
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
@@ -293,14 +291,11 @@ export default function MobileNav({
               {ACTION_ITEMS.map((action) =>
                 action.label ? (
                   action.id === "sign-in" ? (
-                    <button
+                    <Link
                       key={action.id}
-                      type="button"
+                      href="/sign-in"
                       className="dga-btn dga-btn--lg dga-btn--subtle"
-                      onClick={() => {
-                        onClose();
-                        onSignInClick();
-                      }}
+                      onClick={onClose}
                       aria-label="تسجيل الدخول"
                     >
                       <Image
@@ -310,7 +305,7 @@ export default function MobileNav({
                         height={20}
                       />
                       <span>{action.label}</span>
-                    </button>
+                    </Link>
                   ) : (
                     <Link
                       key={action.id}

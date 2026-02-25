@@ -15,12 +15,10 @@ import "@/app/styles/Button.css";
 import Button from "../../components/button/Button";
 import { Metadata } from "next";
 
-/**
- * Metadata configuration for the User Profile page
- * Provides SEO optimization with title, description, and Open Graph tags
- */
 export const metadata: Metadata = {
   title: "دورة مران همزة",
+  description:
+    "تهدف الدورة إلى تهيئة الطلاب الناطقين بغير اللغة العربية لاختبار همزة الأكاديمي الذي يقيس كفاية اللغة العربية من خلال المهارات الأربع الأساسية",
 };
 /* ==========================================================================
    Types & Interfaces
@@ -394,10 +392,7 @@ export default function HamzaGeneralTestPage() {
                 </article>
               ))}
             </div>
-
-
           </div>
-
         </div>
 
         {/* 3 Week Progress Items */}
@@ -418,27 +413,41 @@ export default function HamzaGeneralTestPage() {
               <p className="text-md-semibold font-bold text-center text-[#101828]">
                 {week.title}
               </p>
-              {/* Progress Bar */}
-              <div className="w-full h-[8px] rounded-full bg-[#D1FADF] overflow-hidden">
+              {/* Progress Bars */}
+              <div
+                className="w-full h-[8px] rounded-full bg-[#D1FADF] overflow-hidden"
+                role="progressbar"
+                aria-label={`تقدم ${week.title}`}
+                aria-valuenow={100}
+                aria-valuemin={0}
+                aria-valuemax={100}
+              >
                 <div className="h-full w-full bg-[#1B8354] rounded-full" />
               </div>
-
-
               <div className="flex flex-row gap-[12px] items-center w-full">
-
-                <div className="w-full h-[8px] rounded-full bg-[#D1FADF] overflow-hidden">
+                <div
+                  className="w-full h-[8px] rounded-full bg-[#D1FADF] overflow-hidden"
+                  role="progressbar"
+                  aria-label={`تقدم إضافي ${week.title}`}
+                  aria-valuenow={0}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                >
                   <div className="h-full w-full bg-[#E5E7EB] rounded-full" />
                 </div>
-
-
-                <div className="w-full h-[8px] rounded-full bg-[#D1FADF] overflow-hidden">
+                <div
+                  className="w-full h-[8px] rounded-full bg-[#D1FADF] overflow-hidden"
+                  role="progressbar"
+                  aria-label={`تقدم إضافي ${week.title}`}
+                  aria-valuenow={0}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                >
                   <div className="h-full w-full bg-[#E5E7EB] rounded-full" />
                 </div>
               </div>
             </div>
           ))}
-
-
         </div>
       </section>
 
@@ -451,6 +460,7 @@ export default function HamzaGeneralTestPage() {
       >
         <div
           className="absolute inset-0 opacity-[0.2]"
+          aria-hidden="true"
           style={{ backgroundImage: "url('/assets/image/bg-pattern.png')", backgroundSize: "inherit", backgroundPosition: "center" }}
         />
         <div className="content !py-[40px] xl:!py-[80px] !flex flex-col gap-[24px] md:gap-[32px] relative z-10">
@@ -510,7 +520,7 @@ export default function HamzaGeneralTestPage() {
               <article
                 key={feature.id}
                 role="listitem"
-                className="card  "
+                className="card"
               >
                 <div className="circular-green !mb-0">
                   <img
@@ -542,7 +552,7 @@ export default function HamzaGeneralTestPage() {
               <article
                 key={feature.id}
                 role="listitem"
-                className="card "
+                className="card"
               >
                 <div className="circular-green !mb-0">
                   <img
