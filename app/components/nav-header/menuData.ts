@@ -106,7 +106,7 @@ export const MENU_DATA: MenuItemType[] = [
           },
           {
             label: "دورة مران همزة",
-            href: "#",
+            href: "/test-takers/preparation-resource",
             icon: "/assets/icons/stroke-standard/course-stroke-standard.svg",
           },
           {
