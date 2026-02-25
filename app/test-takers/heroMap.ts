@@ -14,6 +14,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   "/test-takers/hamza-training-course": {
     title: "دورة مران همزة",
     description:"",
+    bgColor: "#fff",
 
    
     breadcrumbs: [
