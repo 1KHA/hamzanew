@@ -142,7 +142,7 @@ export default function WhoWeArePage() {
         <div className="stack-8xl custom-container">
           <header className="section-head">
             <p className="section-title">استكشاف القيم الأساسية للمنظمة</p>
-            <h2 id="values" className="section-header">
+            <h2 id="values" className="display-sm-bold">
               الــقـــيـــم
             </h2>
           </header>
@@ -204,7 +204,7 @@ export default function WhoWeArePage() {
       >
         <div className="stack-4xl custom-container">
           <header className="section-head">
-            <h2 id="core-principles" className="section-header">
+            <h2 id="core-principles" className="display-sm-bold">
               مرتكزات اختبارات همزة؟
             </h2>
           </header>

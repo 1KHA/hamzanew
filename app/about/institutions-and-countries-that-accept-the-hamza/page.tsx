@@ -97,7 +97,7 @@ export default function InstitutionsPage() {
         >
           <div className="section-head">
             <p className="section-title">كن جزءًا من مجتمع همزة</p>
-            <h2 id="institutions-heading" className="section-header">
+            <h2 id="institutions-heading" className="display-sm-bold">
               الجهات التي طبقت اختبار همزة
             </h2>
           </div>
