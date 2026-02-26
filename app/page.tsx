@@ -35,16 +35,16 @@ export const metadata: Metadata = {
 export default function LandingPage(): ReactElement {
   return (
     <>
-      {/* Hero Banner (Client Leaf due to Carousel/Timer) */}
+      {/* Hero Banner  */}
       <Banner />
 
-      {/* Services Section (Client Leaf due to Carousel) */}
+      {/* Services Section */}
       <ServicesSection services={SERVICES} />
 
       {/* News Section (Client Leaf due to Carousel) */}
       <NewsSection articles={NEWS_ARTICLES} />
 
-      {/* Statistics Section (Static/Server Wrapper with Client Data visualization) */}
+      {/* Statistics Section */}
       <div className="bg-neutral-50">
         <section
           className="section-spacing-5xl custom-container gap-[32px] !flex flex-col"
@@ -60,17 +60,17 @@ export default function LandingPage(): ReactElement {
             </p>
           </div>
           <div aria-label="الإحصائيات العامة">
-            {/* <ClientOnly> */}
+        
             <GlobalStatisticsSection />
-            {/* </ClientOnly> */}
+        
           </div>
         </section>
       </div>
 
-      {/* Partners Section (Client Leaf due to Carousel/Filtering) */}
+      {/* Partners Section */}
       <PartnersSection partners={PARTNERS} />
 
-      {/* Email Subscription Section (Client Leaf due to Form Handling) */}
+      {/* Email Subscription Section  */}
       {/* <ClientOnly> */}
       <SubscriptionSection />
       {/* </ClientOnly> */}
