@@ -111,7 +111,7 @@ export const MENU_DATA: MenuItemType[] = [
           },
           {
             label: "آلية الإختبار (محوسب حضوري، محوسب عن بعد)",
-            href: "#",
+            href: "/test-takers/test-mechanism",
             icon: "/assets/icons/stroke-standard/task-daily-02-stroke-standard.svg",
           },
         ],

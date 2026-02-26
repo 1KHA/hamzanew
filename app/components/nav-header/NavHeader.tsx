@@ -8,7 +8,6 @@ import DigitalSignature from "../digital-signature/DigitalSignature";
 import MenuItem from "./MenuItem";
 import MobileNav from "./MobileNav";
 import NavigationSubmenu from "./NavigationSubmenu";
-import SignInModal from "../signInModal/SignInModal";
 import { MENU_DATA, ACTION_ITEMS } from "./menuData";
 import "./NavHeader.css";
 
@@ -139,9 +138,6 @@ function NavHeader() {
   // Mobile off-canvas drawer visibility
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Sign-in modal visibility
-  const [isSignInOpen, setIsSignInOpen] = useState(false);
-
   // Only one submenu can be open at a time — stored as an array
   // to make the API compatible with multi-submenu if needed later
   const [openSubmenus, setOpenSubmenus] = useState<string[]>([]);
@@ -237,7 +233,6 @@ function NavHeader() {
         onClose={() => setIsMenuOpen(false)}
         activeLink={activeLink}
         onLinkClick={handleLinkClick}
-        onSignInClick={() => setIsSignInOpen(true)}
         onTranslateClick={handleTranslate}
       />
 
@@ -372,27 +367,10 @@ function NavHeader() {
             <ul className="header-nav__actions" role="list">
               {ACTION_ITEMS.map((action) => (
                 <li key={action.id} className={action.className}>
-                  {action.id === "sign-in" ? (
-                    // Sign-in opens a modal overlay instead of navigating
-                    <button
-                      type="button"
+                  <Link
+                      href={action.id === "sign-in" ? "/sign-in" : action.href}
                       className="header-menu__item"
-                      onClick={() => setIsSignInOpen(true)}
-                      aria-label="تسجيل الدخول"
-                    >
-                      {action.label && (
-                        <span className="header-menu__item-label">
-                          {action.label}
-                        </span>
-                      )}
-                      <IconImage src={action.icon} alt="أيقونة المستخدم" />
-                    </button>
-                  ) : (
-                    // All other actions navigate to a page
-                    <Link
-                      href={action.href}
-                      className="header-menu__item"
-                      aria-label={action.label || "البحث"}
+                      aria-label={action.id === "sign-in" ? "تسجيل الدخول" : (action.label || "البحث")}
                     >
                       {action.label && (
                         <span className="header-menu__item-label">
@@ -401,10 +379,9 @@ function NavHeader() {
                       )}
                       <IconImage
                         src={action.icon}
-                        alt="أيقونة البحث"
+                        alt={action.id === "sign-in" ? "أيقونة المستخدم" : "أيقونة البحث"}
                       />
                     </Link>
-                  )}
                 </li>
               ))}
             </ul>
@@ -419,11 +396,6 @@ function NavHeader() {
         />
       </div>
 
-      {/* ── Sign-in modal ─────────────────────────────────────────────── */}
-      <SignInModal
-        isOpen={isSignInOpen}
-        onClose={() => setIsSignInOpen(false)}
-      />
     </>
   );
 }
