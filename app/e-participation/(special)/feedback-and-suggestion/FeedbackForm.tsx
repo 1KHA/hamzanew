@@ -61,13 +61,16 @@ const feedbackSchema = z.object({
     .string()
     .min(1, "البريد الإلكتروني مطلوب")
     .email("البريد الإلكتروني غير صحيح"),
-  phone: z.string().refine(
-    (val) => {
-      const digits = getDigitsFromPhone(val);
-      return digits.length >= 7;
-    },
-    { message: "رقم الجوال غير صحيح (7 أرقام على الأقل بعد رمز الدولة)" },
-  ),
+  phone: z
+    .string()
+    .regex(/^\d+$/, "يجب أن يحتوي رقم الجوال على أرقام فقط")
+    .refine(
+      (val) => {
+        const digits = getDigitsFromPhone(val);
+        return digits.length >= 7;
+      },
+      { message: "رقم الجوال غير صحيح (7 أرقام على الأقل بعد رمز الدولة)" },
+    ),
   subject: z.string().optional(),
   category: z.string().optional(),
   message: z.string().optional(),

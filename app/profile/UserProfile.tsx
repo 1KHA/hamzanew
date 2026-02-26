@@ -27,23 +27,23 @@ const userProfileSchema = z.object({
     .min(1, "البريد الإلكتروني مطلوب")
     .email("البريد الإلكتروني غير صحيح"),
   password: z.string().min(8, "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل"),
-  phone: z.string().refine(
-    (val) => {
-      // Use getDigitsFromPhone to correctly strip the prefix based on the
-      // actual PHONE_PREFIXES list — handles variable-length prefixes
-      // (e.g. +1 vs +1787) correctly, unlike a generic regex.
-      const digits = getDigitsFromPhone(val);
-      return digits.length >= 7;
-    },
-    { message: "رقم الجوال غير صحيح (7 أرقام على الأقل بعد رمز الدولة)" },
-  ),
+  phone: z
+    .string()
+    .regex(/^\d+$/, "يجب أن يحتوي رقم الجوال على أرقام فقط")
+    .refine(
+      (val) => {
+        const digits = getDigitsFromPhone(val);
+        return digits.length >= 7;
+      },
+      { message: "رقم الجوال غير صحيح (7 أرقام على الأقل بعد رمز الدولة)" },
+    ),
   // Personal Info
   firstName_ar: z.string().min(1, "الاسم الأول مطلوب"),
   secondName_ar: z.string().min(1, "الاسم الثاني مطلوب"),
   lastName_ar: z.string().min(1, "الاسم الأخير مطلوب"),
-  firstName_en: z.string().min(1, "First name is required"),
-  secondName_en: z.string().min(1, "Second name is required"),
-  lastName_en: z.string().min(1, "Last name is required"),
+  firstName_en: z.string().min(1, "الاسم الأول باللغة الإنجليزية مطلوب"),
+  secondName_en: z.string().min(1, "الاسم الثاني باللغة الإنجليزية مطلوب"),
+  lastName_en: z.string().min(1, "الاسم الأخير باللغة الإنجليزية مطلوب"),
   birthDate: z.string().min(1, "تاريخ الميلاد مطلوب"),
   nationality: z.string().min(1, "الجنسية مطلوبة"),
   motherTongue: z.string().min(1, "اللغة الأم مطلوبة"),
