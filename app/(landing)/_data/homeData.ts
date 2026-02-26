@@ -6,6 +6,7 @@ export interface Service {
   title: string;
   description: string;
   icon: string;
+  link?: string;
 }
 
 export interface Partner {
@@ -27,24 +28,28 @@ export const SERVICES: Service[] = [
     description:
       "اختبار لقياس كفايات اللغة العربية للناطقين بغيرها لأغراض عامة.",
     icon: "glasses",
+    link: "/types-of-tests/hamza-general-test",
   },
   {
     title: "اختبار همزة الأكاديمي",
     description:
       "اختبار محوسب، دقيق، يقيس كفايات اللغة العربية للناطقين بغيرها لأغراض أكاديمية.",
     icon: "mortarboard-01",
+    link: "/types-of-tests/hamza-academic-test",
   },
   {
     title: "اختبار تحديد المستوى",
     description:
       "اختبار لتحديد مستوى الكفاءة اللغوية العامة باللغة العربية لغير الناطقين بها لاستخدامه في البرامج الأكاديمية.",
     icon: "star",
+    link: "/types-of-tests/hamza-placement-test",
   },
   {
     title: "اختبار همزة المفردات",
     description:
       "اختبار معياري لقياس مستويات المفردات لدى الناطقين بغير العربية لأغراض مختلفة.",
     icon: "book-01",
+    link: "/types-of-tests/hamza-vocabulary-test",
   },
 ];
 

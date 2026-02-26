@@ -40,6 +40,7 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
                 showSecondaryAction
                 secondaryActionLabel="المزيد"
                 showSecondaryIcon={false}
+                linkSecondaryAction={service.link}
               />
             ))}
           </Carousel>
