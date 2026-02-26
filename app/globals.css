@@ -363,7 +363,7 @@ body {
 
 .text-md-regular {
   /* color: var(--Text-text-default, #161616); */
- 
+
   /* Text md / Regular */
   font-family: var(--Font-Family-font-family-text, "IBMPlexSansArabic");
   font-size: var(--Size-Text-typo-size-text-md, 16px);
@@ -378,6 +378,10 @@ body {
 
 .bg-white {
   background: var(--Background-background-white, #ffffff);
+}
+
+.bg-brand-light {
+  background: #f7fdf9;
 }
 
 li {
@@ -396,6 +400,11 @@ li {
 .gray-icon {
   filter: invert(40%) sepia(18%) saturate(976%) hue-rotate(161deg)
     brightness(49%) contrast(54%);
+}
+
+.white-icon {
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg)
+    brightness(100%) contrast(100%);
 }
 .circular-border-green {
   width: 32px;
@@ -1087,8 +1096,6 @@ div.table-wrapper .azm-table thead th span span.text {
   height: 16px;
 }
 
-
-
 .icon-critical {
   filter: invert(18%) sepia(96%) saturate(7460%) hue-rotate(357deg)
     brightness(75%) contrast(54%);
@@ -1202,4 +1209,3 @@ html[dir="ltr"] .cta-bg-logo::before {
     display: none;
   }
 }
- 
