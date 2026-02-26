@@ -3,6 +3,7 @@
 import Card from "@/app/components/card/Card";
 import Carousel from "@/app/components/carousel/Carousel";
 import Button from "@/app/components/button/Button";
+import { useRouter } from "next/navigation";
 import { NewsArticle } from "../_data/homeData";
 
 interface NewsSectionProps {
@@ -10,6 +11,7 @@ interface NewsSectionProps {
 }
 
 export default function NewsSection({ articles }: NewsSectionProps) {
+  const router = useRouter();
   return (
     <section
       className="section-spacing-5xl custom-container gap-[32px] !flex flex-col"
@@ -18,7 +20,14 @@ export default function NewsSection({ articles }: NewsSectionProps) {
       <div className="grid gap-[24px]">
         <div className="flex-between-center">
           <h2 className="display-sm-bold">الاخبار والمقالات</h2>
-          <Button label="عرض الكل" variant="secondary-outline" size="md" />
+          <Button
+            label="عرض الكل"
+            variant="secondary-outline"
+            size="md"
+            onClick={() => {
+              router.push("/news");
+            }}
+          />
         </div>
         <p className="text-md-regular">
           نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير

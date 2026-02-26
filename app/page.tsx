@@ -2,8 +2,6 @@
  * Landing Page (Server Component)
  *
  * Main landing page for the Hamza website.
- * Follows the Leaf Design Pattern by keeping the page as a Server Component
- * and pushing interactivity to client-side "leaf" components.
  */
 
 import type { ReactElement } from "react";
@@ -19,7 +17,6 @@ import NewsSection from "./(landing)/_components/NewsSection";
 import GlobalStatisticsSection from "./components/global-statistics-section/GlobalStatisticsSection";
 import PartnersSection from "./(landing)/_components/PartnersSection";
 import SubscriptionSection from "./(landing)/_components/SubscriptionSection";
-import ClientOnly from "./components/ClientOnly";
 
 /**
  * Metadata for the Landing Page
