@@ -19,7 +19,6 @@
   padding-inline: var(--container-padding-desktop);
 }
 
-
 .stack {
   display: flex;
   flex-direction: column;
@@ -41,10 +40,9 @@
   flex-direction: column;
   gap: 32px;
 
-    flex: 1;      /* take remaining space */
+  flex: 1; /* take remaining space */
   min-width: 0; /* IMPORTANT: allow text to wrap instead of overflowing */
 }
-
 
 .stack-4xl {
   display: flex;
@@ -82,15 +80,15 @@
 
 .flex-start-gap-80 {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: flex-start;
-    flex: 1 1 0;
-    /* align-items: stretch; */
+  flex: 1 1 0;
+  /* align-items: stretch; */
   /* flex-grow: 1; */
   gap: var(--Global-spacing-8xl, 80px);
   /* border: 1px solid #0a7a3a; */
 }
-.description{
+.description {
   color: var(--Text-text-default, #161616);
 
   /* Text md/Regular */
@@ -105,10 +103,10 @@
 }
 .flex-end-gap-24 {
   display: flex;
-justify-content: flex-end;
-align-items: center;
-gap: 24px;
-align-self: stretch;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 24px;
+  align-self: stretch;
   /* border: 1px solid #0a7a3a; */
 }
 
@@ -120,22 +118,21 @@ align-self: stretch;
   gap: var(--Global-spacing-3xl, 24px);
 }
 
-
 .section-bg-bottom-image {
   position: relative;
-  background-color: #074D31;
+  background-color: #074d31;
   overflow: hidden;
 }
 
 .section-bg-bottom-image::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: url(/assets/image/bg-image-2.png) no-repeat;
-    background-position: center;
-    opacity: 0.07;
-    z-index: 0;
-    pointer-events: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url(/assets/image/bg-image-2.png) no-repeat;
+  background-position: center;
+  opacity: 0.07;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .section-bg-bottom-image::after {
@@ -143,7 +140,7 @@ align-self: stretch;
   position: absolute;
   inset: 0;
 
-  background: #074D31;      /* tint color */
+  background: #074d31; /* tint color */
   mix-blend-mode: multiply; /* try: multiply / overlay / screen */
   opacity: 0;
 
@@ -155,10 +152,6 @@ align-self: stretch;
   position: relative;
   z-index: 1;
 }
-
-
-
-
 
 @media screen and (max-width: 800px) {
   .about-us-cards-container {
@@ -186,7 +179,6 @@ align-self: stretch;
     --Line-Height-Text-line-heights-text-lg,
     28px
   ); /* 155.556% */
-
 }
 .section-header {
   color: var(--Text-text-default, #161616);
@@ -218,7 +210,6 @@ align-self: stretch;
   line-height: var(--Line-Height-Display-line-heights-display-sm, 38px);
 }
 
-
 .about-cards {
   display: flex;
   flex-direction: column;
@@ -231,7 +222,7 @@ align-self: stretch;
 
 .about-cards__row {
   gap: var(--Global-spacing-3xl, 24px);
-    display: grid;
+  display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: stretch;
 }
@@ -311,21 +302,20 @@ align-self: stretch;
 }
 
 @media (max-width: 960px) {
-.flex-start-gap-80{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-}
-
+  .flex-start-gap-80 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* periodic Advisory Committee */
 
 .upper-section {
   display: flex;
-     padding-top: 48px;
-    padding-bottom: 48px;
+  padding-top: 48px;
+  padding-bottom: 48px;
   gap: 70px;
- }
+}
 .content-stack {
   display: flex;
   flex-direction: column;
@@ -385,19 +375,18 @@ align-self: stretch;
   .custom-container {
     padding-inline: var(--container-padding-mobile, 16px);
   }
-  .flex-start-gap-80{
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  .flex-start-gap-80 {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .grid-cols-5-gap-24 {
+    grid-template-columns: repeat(1, 1fr);
+    inline-size: 100%;
+  }
+  .row-center-gap-3xl {
+    flex-direction: column;
+  }
 }
-.grid-cols-5-gap-24{
-  grid-template-columns: repeat(1, 1fr);
-  inline-size: 100%;
-}
-.row-center-gap-3xl{
-  flex-direction: column;
-}
-}
-
 
 /* Default (desktop: 960+) */
 .section-cta {
@@ -488,5 +477,3 @@ align-self: stretch;
     max-width: 40ch;
   }
 }
-
-
