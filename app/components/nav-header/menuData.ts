@@ -21,7 +21,7 @@ export type SubmenuItem = {
 export const MENU_DATA: MenuItemType[] = [
   {
     id: "home",
-    label: "الرئيسية",
+    label: "الرئيسة",
     href: "/",
   },
   {

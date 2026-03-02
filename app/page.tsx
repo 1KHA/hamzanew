@@ -23,7 +23,7 @@ import SubscriptionSection from "./(landing)/_components/SubscriptionSection";
  * Metadata for the Landing Page
  */
 export const metadata: Metadata = {
-  title: "همزة",
+  title: "اختبار همزة - الرئيسة",
   description:
     "منصة همزة التابعة لمجمع الملك سلمان العالمي للغة العربية لتمكين متعلمي اللغة العربية والمهنيين.",
 };
