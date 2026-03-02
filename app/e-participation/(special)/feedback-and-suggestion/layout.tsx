@@ -29,7 +29,6 @@ export default function Layout({ children }: { children: ReactNode }) {
                   { label: "الرئيسة", path: "/" },
                   { label: "عن الجهة", disabled: true },
                   { label: "عن همزة", disabled: true },
-                  { label: "عن الجهة", disabled: true },
                   { label: "المشاركة الإلكترونية", path: "/e-participation" },
                   { label: " الشكاوى والمقترحات", disabled: true },
                 ]}

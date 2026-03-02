@@ -12,7 +12,7 @@ export type Crumb = { label: string; path?: string; disabled?: boolean };
 
 export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   "/about": {
-    title: "عن الجهة",
+    title: "عن همزة",
     description: `منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها.
 وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة.`,
     bgColor: "#F7FDF9",
@@ -24,7 +24,6 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
       { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
-      { label: "عن الجهة", disabled: true },
     ],
   },
 
@@ -36,8 +35,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     breadcrumbs: [
       { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
-      { label: "عن همزة", disabled: true },
-      { label: "عن الجهة", path: "/about" },
+      { label: "عن همزة", path: "/about" },
       { label: "من نحن ", path: "/about/who-we-are", disabled: true },
     ],
   },
@@ -53,8 +51,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     breadcrumbs: [
       { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
-      { label: "عن همزة", disabled: true },
-      { label: "عن الجهة", path: "/about" },
+      { label: "عن همزة", path: "/about" },
       {
         label: "اللجنة الاستشارية الدورية",
         path: "/about/periodic-advisory-committee",
@@ -75,8 +72,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     breadcrumbs: [
       { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
-      { label: "عن همزة", disabled: true },
-      { label: "عن الجهة", path: "/about" },
+      { label: "عن همزة", path: "/about" },
       {
         label: "سمات إختبار همزة",
         path: "/about/hamza-test-traits",
@@ -90,14 +86,13 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     breadcrumbs: [
       { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
-      { label: "عن همزة", disabled: true },
-      { label: "عن الجهة", path: "/about" },
+      { label: "عن همزة", path: "/about" },
       {
         label: "أهمية اختبارات همزة",
         path: "/about/benefits-of-hamza-test",
         disabled: true,
       },
-    ]
+    ],
   },
   "/about/institutions-and-countries-that-accept-the-hamza": {
     title: "المؤسسات و الدول التي تقبل همزة",
@@ -107,8 +102,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     breadcrumbs: [
       { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
-      { label: "عن همزة", disabled: true },
-      { label: "عن الجهة", path: "/about" },
+      { label: "عن همزة", path: "/about" },
       {
         label: "المؤسسات و الدول التي تقبل همزة",
         path: "/about/institutions-and-countries-that-accept-the-hamza",
@@ -118,13 +112,13 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   },
   "/about/hamza-ambassadors": {
     title: "سفراء همزة",
-    description:"تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية لمختلف الفئات.",
+    description:
+      "تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية لمختلف الفئات.",
     bgColor: "#F9FAFB",
     breadcrumbs: [
       { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
-      { label: "عن همزة", disabled: true },
-      { label: "عن الجهة", path: "/about" },
+      { label: "عن همزة", path: "/about" },
       {
         label: "سفراء همزة",
         path: "/about/hamza-ambassadors",

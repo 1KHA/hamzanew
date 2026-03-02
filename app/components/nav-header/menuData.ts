@@ -30,10 +30,10 @@ export const MENU_DATA: MenuItemType[] = [
     hasSubmenu: true,
     submenuColumns: [
       {
-        title: "عن همزة",
+        title: "عن الجهة",
         items: [
           {
-            label: "عن الجهة",
+            label: "عن همزة",
             href: "/about",
             icon: "/assets/icons/stroke-standard/user-group-stroke-rounded.svg",
           },
