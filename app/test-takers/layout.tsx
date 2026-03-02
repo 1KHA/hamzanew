@@ -11,7 +11,7 @@ export default function TestTakersLayout({
     <>
       <PageHero
         heroMap={heroMap}
-        defaultRoute="/test-takers/hamza-training-course"
+        defaultRoute="/"
         breadcrumbsMax={4}
       />
       <section>{children}</section>

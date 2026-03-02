@@ -82,7 +82,7 @@ export default function HamzaTestTraitsPage() {
         className="stack-xl custom-container"
         aria-labelledby="traits-heading"
       >
-        <h2 id="traits-heading" className="section-header">
+        <h2 id="traits-heading" className="display-sm-bold">
           السمات
         </h2>
         <ul className="grid-cols-4-gap-24" role="list">

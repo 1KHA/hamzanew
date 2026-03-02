@@ -123,7 +123,7 @@ const ABOUT_PAGES: AboutPageItem[] = [
  */
 export default function AboutPage() {
   return (
-    <main className="content">
+    <section className="content">
       {/*
         Navigation Grid Section
         - Uses responsive grid layout for different screen sizes
@@ -146,6 +146,6 @@ export default function AboutPage() {
           />
         ))}
       </nav>
-    </main>
+    </section>
   );
 }

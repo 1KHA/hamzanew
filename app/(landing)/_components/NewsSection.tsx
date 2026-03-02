@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { NewsArticle } from "../_data/homeData";
 
 interface NewsSectionProps {
-  articles: NewsArticle[];
+  articles: any[];
 }
 
 export default function NewsSection({ articles }: NewsSectionProps) {
@@ -36,7 +36,7 @@ export default function NewsSection({ articles }: NewsSectionProps) {
       </div>
       <div className="section-spacing-4xl" aria-label="آخر الأخبار">
         <Carousel itemsPerSlide={3} gap={20}>
-          {articles.map((article) => (
+          {articles.slice(0, 6).map((article) => (
             <Card
               key={`news-${article.id}`}
               title={article.title}
@@ -46,7 +46,7 @@ export default function NewsSection({ articles }: NewsSectionProps) {
               primaryActionLabel="قراءة المزيد"
               buttonColor="secondary"
               showPrimaryIcon={false}
-              linkPrimaryAction="#"
+              linkPrimaryAction={`/news/details/${article.id}`}
             />
           ))}
         </Carousel>

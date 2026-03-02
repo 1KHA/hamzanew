@@ -100,8 +100,13 @@ export const MENU_DATA: MenuItemType[] = [
         title: "الإستعداد للإختبار",
         items: [
           {
+            label: "اكتشف اختبارات همزة",
+            href: "/test-takers/discover-hamza-tests",
+            icon: "/assets/icons/stroke-standard/menu-square-stroke-rounded.svg",
+          },
+          {
             label: "مصادر التحضير",
-            href: "#",
+            href: "/test-takers/preparation-resource",
             icon: "/assets/icons/stroke-standard/book-04-stroke-standard.svg",
           },
           {

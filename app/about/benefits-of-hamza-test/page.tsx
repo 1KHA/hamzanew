@@ -116,7 +116,7 @@ export default function BenefitsOfHamzaTestPage() {
           <div className="stack-xl">
             <header className="section-head">
               <p className="section-title">كيفية الإستفادة من همزة</p>
-              <h2 id="takers-heading" className="section-header">
+              <h2 id="takers-heading" className="display-sm-bold">
                 فوائد اختبارات همزة للمختبرين
               </h2>
             </header>

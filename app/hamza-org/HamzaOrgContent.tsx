@@ -1,5 +1,25 @@
 "use client";
 
+/**
+ * HamzaOrgContent Component
+ *
+ * Client Component that renders the main content for the Hamza Organizations page,
+ * detailing the benefits, certification verification, and standard organizations.
+ *
+ * @features
+ * - Displays different types of organizations in a responsive grid.
+ * - Showcases reasons to take the Hamza test using descriptive cards.
+ * - Interactive certificate verification form.
+ * - Lists standard organizations with associated descriptions and icons.
+ *
+ * @accessibility
+ * - Proper heading hierarchy (h1 -> h2 -> h3) for clear document structure.
+ * - Semantic <form> element for certificate verification with an `aria-label`.
+ * - Inputs are linked to labels via `id` and `htmlFor` attributes.
+ * - Form instructions are programmatically associated to inputs via `aria-describedby` for screen reader users.
+ * - Decorative icons use `alt=""` and `aria-hidden="true"` to prevent screen reader noise.
+ * - Buttons have explicit `type="submit"` and aria-labels for clarity.
+ */
 import { DgaTextInput } from "platformscode-new-react";
 import Card from "../components/card/Card";
 import Button from "../components/button/Button";
@@ -61,7 +81,7 @@ export default function HamzaOrgContent({
   SANDERD_ORG,
 }: HamzaOrgContentProps) {
   return (
-    <section className="">
+    <section aria-label="تفاصيل خدمات المنظمات">
       {/* Types of Organizations */}
       <div className="custom-container !py-8 !grid !grid-cols-1 md:!grid-cols-4 !gap-6 !mb-10">
         {TYPES_OF_ORG.map((type) => (
@@ -72,7 +92,7 @@ export default function HamzaOrgContent({
       {/* Why Hamza Test */}
       <div className="bg-neutral-50">
         <div className="custom-container !py-[128px]">
-          <h1 className="display-md-semibold !mb-[32px]">لماذا اختبار همزة؟</h1>
+          <h2 className="display-sm-bold !mb-[32px]">لماذا اختبار همزة؟</h2>
           <ul className="!grid !grid-cols-1 md:!grid-cols-3 !gap-6">
             {WHY_HAMZA_TEST.map((item) => (
               <li key={item.id}>
@@ -103,11 +123,9 @@ export default function HamzaOrgContent({
               </span>
 
               <div className="!flex !flex-row !items-center !gap-4">
-                <h1 className="display-md-semibold">
-                  التحقق من موثوقية الشهادات
-                </h1>
+                <h2 className="display-sm-bold">التحقق من موثوقية الشهادات</h2>
                 <img
-                  alt=""
+                  alt="arrow-icon"
                   width={38}
                   height={38}
                   loading="eager"
@@ -122,35 +140,60 @@ export default function HamzaOrgContent({
               </p>
             </div>
             <div className="!flex !items-end">
-              <div className="!w-full !flex !flex-col md:!flex-row !justify-between !items-center md:!items-center !gap-8">
-                <div className="!w-full !flex !flex-col !gap-5">
-                  <DgaTextInput
-                    label="رقم الشهادة"
-                    placeholder="أدخل رقم الشهادة"
-                    size="lg"
-                    className="!w-full"
-                  />
-                  <div className="!flex !flex-row !items-center !gap-2">
-                    <img
-                      width={14}
-                      height={14}
-                      src="/assets/icons/stroke-standard/help-circle-stroke-rounded.svg"
-                      alt="help-icon"
+              <form
+                className="!w-full !flex !flex-col !gap-4"
+                aria-label="نموذج التحقق من موثوقية الشهادات"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  // TODO: submit handler
+                }}
+              >
+                <div className="!w-full !flex !flex-col md:!flex-row md:!items-end !gap-4 md:!gap-8">
+                  <div className="dga-form-control dga-form-control--fullwidth flex-1">
+                    <label
+                      htmlFor="certificate-number"
+                      className="dga-label dga-label--lg font-normal!"
+                    >
+                      رقم الشهادة
+                    </label>
+
+                    <DgaTextInput
+                      id="certificate-number"
+                      aria-describedby="certificate-number-help"
+                      placeholder="أدخل رقم الشهادة"
+                      size="lg"
+                      className="!w-full"
+                      aria-required="true"
                     />
-                    <p className="text-sm-medium !font-normal !text-[#384250]">
-                      ادخل رقم الشهادة للتحقق من موثوقية الشهادة واعتمادها
-                    </p>
                   </div>
+                  <Button
+                    type="submit"
+                    aria-label="تحقق من الشهادة"
+                    label="تحقق"
+                    variant="primary-brand"
+                    size="lg"
+                    icon="search-02"
+                    iconClass="white-icon"
+                    className="!px-24 !w-full md:!w-auto"
+                  />
                 </div>
-                <Button
-                  label="تحقق"
-                  variant="primary-brand"
-                  size="lg"
-                  icon="search-02"
-                  iconClass="white-icon"
-                  className="!px-24 !w-full md:!w-auto"
-                />
-              </div>
+
+                <div className="!flex !flex-row !items-center !gap-2">
+                  <img
+                    width={14}
+                    height={14}
+                    src="/assets/icons/stroke-standard/help-circle-stroke-rounded.svg"
+                    alt="help-icon"
+                    aria-hidden="true"
+                  />
+                  <p
+                    id="certificate-number-help"
+                    className="text-sm-medium !font-normal !text-[#384250]"
+                  >
+                    ادخل رقم الشهادة للتحقق من موثوقية الشهادة واعتمادها
+                  </p>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -160,7 +203,7 @@ export default function HamzaOrgContent({
       <div className="bg-neutral-50">
         <div className="custom-container !py-[128px] !grid !grid-cols-1 md:!grid-cols-2 !gap-18">
           <div>
-            <h1 className="display-md-semibold !mb-[32px]">المنظمات</h1>
+            <h2 className="display-sm-bold !mb-[32px]">المنظمات</h2>
             <p className="!text-[16px] !leading-[24px] !font-normal !text-black">
               بفضل معياريته واعتماده على الإطار الأوروبي المرجعي المشترك للغات
               (CEFR)، يوفّر اختبار همزة للمؤسسات حول العالم أداة دقيقة وموثوقة

@@ -142,7 +142,7 @@ export default function PeriodicAdvisoryCommitteePage() {
     <div className="stack upper-section custom-container">
       {/* Main Tasks Section */}
       <section className="content-stack" aria-labelledby="main-tasks-heading">
-        <h2 id="main-tasks-heading" className="section-header">
+        <h2 id="main-tasks-heading" className="display-sm-bold">
           المهام الرئيسة
         </h2>
         <ul className="tasks-cards-container" role="list">
@@ -167,7 +167,7 @@ export default function PeriodicAdvisoryCommitteePage() {
 
       {/* Committee Members Section */}
       <section className="content-stack" aria-labelledby="members-heading">
-        <h2 id="members-heading" className="section-header">
+        <h2 id="members-heading" className="display-sm-bold">
           أعضاء اللجنة الاستشارية الدورية
         </h2>
         <ul className="members-cards-container" role="list">
