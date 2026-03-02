@@ -132,7 +132,7 @@ export default function SignUpPage() {
             email: "testuser@example.com",
             password: "Password123",
             confirmPassword: "Password123",
-            phone: "+966555123456",
+            phone: "966555123456",
             firstName_ar: "أحمد",
             secondName_ar: "محمد",
             lastName_ar: "علي",
