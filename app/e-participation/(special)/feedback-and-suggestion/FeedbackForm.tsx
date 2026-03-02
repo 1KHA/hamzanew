@@ -242,7 +242,7 @@ export default function FeedbackForm() {
 
           {/* Email */}
           <FormField
-            label="البريد الالكتروني"
+            label="البريد الشبكي"
             required
             error={errors.email?.message}
             htmlFor="email"
@@ -250,7 +250,7 @@ export default function FeedbackForm() {
             <ControlledTextInput
               name="email"
               id="email"
-              placeholder="أدخل البريد الالكتروني"
+              placeholder="أدخل البريد الشبكي"
               aria-required={true}
               aria-describedby={errors.email ? "email-error" : "email-help"}
             />

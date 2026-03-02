@@ -99,7 +99,7 @@ export default function PreparationResourcePage() {
         className="relative !py-[32px] linear-gradient-074d31"
         aria-labelledby="registration-cta-heading"
         style={{
-          backgroundImage: `url('/assets/image/bg-image-3.png')`,
+          backgroundImage: `url('/assets/image/bg-image-4.png')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

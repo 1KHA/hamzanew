@@ -105,7 +105,7 @@ export default function AccountInfoTab() {
       <div className="!grid !grid-cols-1 md:!grid-cols-3 !gap-8">
         {/* Email */}
         <FormField
-          label="البريد الالكتروني"
+          label="البريد الشبكي"
           required
           error={errors.email?.message}
           htmlFor="input-email"

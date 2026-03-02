@@ -37,11 +37,11 @@ const tabsContent: TabContent[] = [
   },
   {
     title_icon: "star",
-    header: "اختبار همزة لتحديد المستوى",
+    header: "اختبار همزة لتحديد المستوى!!",
     description:
       "ضمم الاختبار ليقيس معرفة المتعلم باللغة العربية من خلال أربعة أقسام رئيسية: الاستماع، القراءة، المفردات، والقواعد، وذلك بهدف اختيار المستوى المناسب للمختبر عند التحاقه بالبرنامج المستهدف.",
     link: "/test-takers/hamza-placement-test",
-    image: "/assets/image/hero.png",
+    image: "/assets/image/placement-test.png",
   },
   {
     title_icon: "book-02",
@@ -49,7 +49,7 @@ const tabsContent: TabContent[] = [
     description:
       "اختبار معياري لقياس مفردات العربية لدى غير الناطقين بها، يصنّف الكلمات إلى خمسة مستويات من الشيوع، من الأكثر إلى الأقل. طُوَّر وفق إجراءات علمية دقيقة بمراجعة خبراء واختبارات صدق لضمان التدرج في الصعوبة. وتكمن أهميته في تشخيص المستوى اللغوي للمتعلمين في جانب المفردات، بوصفها أساس النجاح اللغوي.",
     link: "/test-takers/hamza-vocabulary-test",
-    image: "/assets/image/academic-test.png",
+    image: "/assets/image/vocabulary-test.png",
   },
 ];
 

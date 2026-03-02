@@ -18,7 +18,7 @@ import {
 } from "./_data/phonePrefixes";
 
 // ─────────────────────────────────────────
-//   Schema defined here, inside this file
+//   Schema defined
 // ─────────────────────────────────────────
 const userProfileSchema = z.object({
   // Account Info

@@ -4,7 +4,7 @@ import { DgaTabs } from "@/app/components/tabs/DgaTabs";
 import Button from "@/app/components/button/Button";
 import Image from "next/image";
 import "@/app/components/card/card.css";
-import CtaSection from "@/app/components/CtaSection";
+import { useRouter } from "next/navigation";
 
 interface TabContentProp {
   title_icon: string;
@@ -98,7 +98,7 @@ export default function DiscoverHamzaTestsContent({
   tabsContent: TabContentProp[];
 }) {
   const [activeTab, setActiveTab] = useState<number>(1);
-
+  const router = useRouter();
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       const firstTab = document.querySelector(
@@ -197,7 +197,7 @@ export default function DiscoverHamzaTestsContent({
           <div className="flex flex-col md:flex-row items-center gap-[32px] text-center md:text-start">
             <div className="flex flex-col gap-4">
               <h2 id="cta-title" className="display-sm-bold !text-white">
-                هل أنت مستعد لاختبار همزة الأكاديمي؟
+                هل أنت مستعد لاختبار همزة؟
               </h2>
               <p className="text-md-regular !text-white md:text-start text-center max-w-[500px]">
                 نوفّر برامج إعداد مرنة يمكنك دراستها بالوتيرة التي تناسبك،
@@ -215,6 +215,9 @@ export default function DiscoverHamzaTestsContent({
               size="lg"
               icon="arrow-up-right-01"
               className="w-full md:w-auto"
+              onClick={() => {
+                router.push("/test-takers/hamza-meran-course");
+              }}
             />
           </div>
         </div>
