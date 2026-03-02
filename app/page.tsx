@@ -8,7 +8,8 @@ import type { ReactElement } from "react";
 import type { Metadata } from "next";
 
 // Data
-import { SERVICES, PARTNERS, NEWS_ARTICLES } from "./(landing)/_data/homeData";
+import { SERVICES, PARTNERS } from "./(landing)/_data/homeData";
+import {news} from "@/app/news/_data/newsData";
 
 // Components
 import Banner from "./(landing)/_components/Banner";
@@ -41,8 +42,8 @@ export default function LandingPage(): ReactElement {
       {/* Services Section */}
       <ServicesSection services={SERVICES} />
 
-      {/* News Section (Client Leaf due to Carousel) */}
-      <NewsSection articles={NEWS_ARTICLES} />
+      {/* News Section */}
+      <NewsSection articles={news} />
 
       {/* Statistics Section */}
       <div className="bg-neutral-50">
