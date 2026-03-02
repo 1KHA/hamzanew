@@ -1214,9 +1214,9 @@ html[dir="ltr"] .cta-bg-logo::before {
   position: absolute;
   inset: 0;
   background: url(/assets/image/bg-image-2.png) no-repeat;
-  background-size: 1700px auto; 
-  background-position: calc(100% + 770px) -680px; 
-  opacity: 0.1; 
+  background-size: 1700px auto;
+  background-position: calc(100% + 770px) -680px;
+  opacity: 0.1;
   z-index: 0;
   pointer-events: none;
 }
@@ -1243,18 +1243,48 @@ html[dir="ltr"] .cta-bg-logo::before {
   z-index: 1;
 }
 .linear-gradient-074d31 {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Gradient overlay rendered above the background image via ::before */
+.linear-gradient-074d31::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0) 24.44%, #074d31 99.77%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* RTL — color on the right */
+[dir="rtl"] .linear-gradient-074d31::before,
+html[lang="ar"] .linear-gradient-074d31::before {
   background: linear-gradient(
     to right,
     rgba(0, 0, 0, 0) 24.44%,
     #074d31 99.77%
   );
-  z-index: 1;
 }
 
-[dir="rtl"] .linear-gradient-074d31 {
-  background: linear-gradient(to left, rgba(0, 0, 0, 0) 24.44%, #074d31 99.77%);
+/* Content must sit above the gradient overlay */
+.linear-gradient-074d31 > * {
+  position: relative;
+  z-index: 2;
 }
 
+.bg-image-preparation::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/assets/image/bg-preparation.png") no-repeat center / cover;
+  z-index: 0;
+  pointer-events: none;
+}
+
+[dir="ltr"] .bg-image-preparation::after {
+  transform: scaleX(-1);
+}
 /* Responsive - hide on mobile */
 @media (max-width: 768px) {
   .cta-bg-logo::before {
@@ -1263,5 +1293,11 @@ html[dir="ltr"] .cta-bg-logo::before {
   .cta-bg-image::before {
     display: none;
   }
-}
 
+  /* On md and below — gradient comes from the top */
+  .linear-gradient-074d31::before,
+  [dir="rtl"] .linear-gradient-074d31::before,
+  html[lang="ar"] .linear-gradient-074d31::before {
+    background: linear-gradient(to bottom, #074d31 0%, rgba(0, 0, 0, 0) 75.56%);
+  }
+}

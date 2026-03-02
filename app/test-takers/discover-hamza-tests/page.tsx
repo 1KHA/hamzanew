@@ -55,8 +55,8 @@ const tabsContent: TabContent[] = [
 
 export default function DiscoverHamzaTestsPage() {
   return (
-    <section className="bg-[#F9FAFB] !py-[20px] lg:!py-[40px]">
-      <div className="custom-container">
+    <section className="bg-[#F9FAFB] !py-[20px] lg:!py-[40px] cta-bg-logo">
+      <div className="custom-container relative z-10">
         <DiscoverHamzaTestsContent tabsContent={tabsContent} />
       </div>
     </section>
