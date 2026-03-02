@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   description:
     "منصة همزة التابعة لمجمع الملك سلمان العالمي للغة العربية، تقدم اختبارات قياس الكفاية اللغوية للناطقين بغيرها.",
   icons: {
-    icon: "/icon.png",
+    icon: "/assets/image/logo tap.svg",
   },
   keywords: [
     "همزة",
