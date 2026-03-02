@@ -70,7 +70,7 @@ export default async function NewsDetailsPage({ params }: PageProps) {
     bgColor: "#F9FAFB",
     date: article.date,
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "الاخبار", path: "/news" },
       { label: "تفاصيل الخبر", disabled: true },
     ],

@@ -229,7 +229,7 @@ export default function MobileNav({
             href="/"
             className="mobile-nav__logo"
             onClick={() => handleLinkClick("home")}
-            aria-label="الصفحة الرئيسية - همزة"
+            aria-label="الصفحة الرئيسة - همزة"
           >
             {/* priority preloads the logo since it appears immediately
                 when the drawer opens                                   */}

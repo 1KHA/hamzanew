@@ -276,7 +276,7 @@ function NavHeader() {
                 <Link
                   href="/"
                   className="header__logo"
-                  aria-label="الصفحة الرئيسية - همزة"
+                  aria-label="الصفحة الرئيسة - همزة"
                 >
                   <Image
                     src="/assets/image/Hamza_Logo.png"

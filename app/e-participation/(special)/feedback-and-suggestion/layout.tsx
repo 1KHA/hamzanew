@@ -26,7 +26,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             <nav aria-label="مسار التنقل">
               <DgaBreadcrumbs
                 items={[
-                  { label: "الرئيسية", path: "/" },
+                  { label: "الرئيسة", path: "/" },
                   { label: "عن الجهة", disabled: true },
                   { label: "عن همزة", disabled: true },
                   { label: "عن الجهة", disabled: true },

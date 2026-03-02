@@ -37,7 +37,7 @@ export default function ProfilePage() {
     title: "الملف الشخصي",
     bgColor: "#F9FAFB",
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "الملف الشخصي", disabled: true },
     ],
   };

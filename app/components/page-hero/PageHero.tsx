@@ -66,7 +66,7 @@ function resolveHero(
     title: "",
     description: "",
     bgColor: "#fff",
-    breadcrumbs: [{ label: "الرئيسية", path: "/" }],
+    breadcrumbs: [{ label: "الرئيسة", path: "/" }],
   } satisfies HeroData;
 }
 

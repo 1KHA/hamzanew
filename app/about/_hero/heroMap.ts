@@ -21,7 +21,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     //   label: "",
     // },
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
       { label: "عن الجهة", disabled: true },
@@ -34,7 +34,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
 وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة.`,
     bgColor: "#FFF",
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
       { label: "عن الجهة", path: "/about" },
@@ -51,7 +51,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     //   label: "",
     // },
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
       { label: "عن الجهة", path: "/about" },
@@ -73,7 +73,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
       label: "التسجيل في الاختبار",
     },
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
       { label: "عن الجهة", path: "/about" },
@@ -88,7 +88,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     title: "أهمية اختبارات همزة",
     bgColor: "#F9FAFB",
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
       { label: "عن الجهة", path: "/about" },
@@ -105,7 +105,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
       "تعتمد بعض المؤسسات حول العالم على اختبار همزة لتقييم الكفاءة في اللغة العربية تشمل هذه المؤسسات: الجامعات، الجهات الحكومية، الهيئات المهنية، شركات التوظيف، وجهات الهجرة في الدول الناطقة بالعربية أو المهتمة بها.",
     bgColor: "#FFF",
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
       { label: "عن الجهة", path: "/about" },
@@ -121,7 +121,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     description:"تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية لمختلف الفئات.",
     bgColor: "#F9FAFB",
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
       { label: "عن الجهة", path: "/about" },

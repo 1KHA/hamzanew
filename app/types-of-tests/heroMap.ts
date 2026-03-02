@@ -19,7 +19,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     //   label: "",
     // },
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "الاختبارات", disabled: true },
       { label: "أنواع اختبارات همزة", disabled: true },
@@ -36,7 +36,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
       label: "التسجيل في الاختبار",
     },
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "الاختبارات", path: "/types-of-tests" },
       {
@@ -57,7 +57,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
       label: "التسجيل في الاختبار",
     },
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "الاختبارات", path: "/types-of-tests" },
       {
@@ -78,7 +78,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
       label: "التسجيل في الاختبار",
     },
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "الاختبارات", path: "/types-of-tests" },
       {
@@ -98,7 +98,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
       label: "التسجيل في الاختبار",
     },
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "الاختبارات", path: "/types-of-tests" },
       {

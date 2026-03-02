@@ -29,6 +29,9 @@ function Footer() {
                     <a href="/sitemap-page" className="footer-link">
                       خريطة الموقع
                     </a>
+                    <Link href="/e-participation/feedback-and-suggestion" className="footer-link">
+                      الشكاوى و المقترحات
+                    </Link>
                   </div>
 
                   <div className="footer-copyright text-center md:text-start">

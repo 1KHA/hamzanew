@@ -16,7 +16,7 @@ const HERO_CONFIG = {
     "تصفّح جميع صفحات وأقسام منصة همزة من مكان واحد للوصول السريع إلى المحتوى الذي تبحث عنه.",
   bgColor: "#F9FAFB",
   breadcrumbs: [
-    { label: "الرئيسية", path: "/" },
+    { label: "الرئيسة", path: "/" },
     { label: "خريطة الموقع", disabled: true },
   ],
 };
@@ -40,7 +40,7 @@ function isCategory(entry: SitemapEntry): entry is SitemapCategory {
 }
 
 const SITEMAP_DATA: SitemapEntry[] = [
-  { label: "الرئيسية", href: "/" },
+  { label: "الرئيسة", href: "/" },
   {
     title: "عن همزة",
     children: [

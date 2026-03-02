@@ -17,7 +17,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     //   label: "",
     // },
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
       { label: "عن الجهة", path: "/about" },
@@ -32,7 +32,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     //   label: "",
     // },
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
       { label: "عن الجهة", disabled: true },
@@ -48,7 +48,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     //   label: "",
     // },
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
       { label: "عن الجهة", disabled: true },
@@ -64,7 +64,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     //   label: "",
     // },
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
       { label: "عن الجهة", disabled: true },
@@ -80,7 +80,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     //   label: "",
     // },
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
       { label: "عن الجهة", disabled: true },
@@ -96,7 +96,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     //   label: "",
     // },
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
       { label: "عن الجهة", disabled: true },
@@ -112,7 +112,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     //   label: "",
     // },
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
       { label: "عن الجهة", disabled: true },
@@ -128,7 +128,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     //   label: "",
     // },
     breadcrumbs: [
-      { label: "الرئيسية", path: "/" },
+      { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", disabled: true },
       { label: "عن الجهة", disabled: true },
