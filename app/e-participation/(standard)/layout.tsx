@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-// import AboutHero from "./_hero/AboutHero";
 import { Metadata } from "next";
 import { heroMap } from "./_hero/heroMap";
 import PageHero from "@/app/components/page-hero/PageHero";
