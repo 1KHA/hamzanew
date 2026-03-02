@@ -42,7 +42,7 @@ export default function SignInPage() {
 
   return (
     <div className="sign-in-page-wrapper">
-      <div className="sign-in-page" dir="rtl">
+      <div className="sign-in-page">
 
         {/* Right Panel: Form Content */}
         <main className="sign-in-page__content" aria-labelledby="sign-in-heading">

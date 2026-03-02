@@ -109,6 +109,8 @@ const SITEMAP_DATA: SitemapEntry[] = [
       { label: "الملف الشخصي", href: "/profile" },
       { label: "الشروط والأحكام", href: "/terms-and-conditions" },
       { label: "خريطة الموقع", href: "/sitemap-page" },
+      { label: "تسجيل الدخول", href: "/sign-in" },
+      { label: "إنشاء حساب", href: "/sign-up" },
     ],
   },
 ];

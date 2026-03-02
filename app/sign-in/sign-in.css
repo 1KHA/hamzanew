@@ -77,11 +77,7 @@
    -------------------------------------------------------------------------- */
 
 .sign-in-page__header {
-  text-align: right;
-}
-
-[dir="ltr"] .sign-in-page__header {
-  text-align: left;
+  text-align: start;
 }
 
 .sign-in-page__subtitle {
