@@ -59,8 +59,8 @@ const feedbackSchema = z.object({
   lastName: z.string().min(1, "الاسم الأخير مطلوب"),
   email: z
     .string()
-    .min(1, "البريد الإلكتروني مطلوب")
-    .email("البريد الإلكتروني غير صحيح"),
+    .min(1, "البريد الشبكي مطلوب")
+    .email("البريد الشبكي غير صحيح"),
   phone: z
     .string()
     .regex(/^\d+$/, "يجب أن يحتوي رقم الجوال على أرقام فقط")

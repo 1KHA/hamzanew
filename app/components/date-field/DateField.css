@@ -1,0 +1,224 @@
+/* DateField */
+
+.df-form-control {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  width: 320px;
+  min-width: 200px;
+}
+
+.df-form-control--fullwidth {
+  width: 100%;
+}
+
+/* Label */
+
+.df-label {
+  color: var(--text-default, #161616);
+  font: 500 14px/20px "IBMPlexSansArabic", sans-serif;
+}
+
+.df-label__required {
+  color: var(--text-error, #d92d20);
+}
+
+/* Input wrapper */
+
+.df-input {
+  display: flex;
+  height: 40px;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 var(--spacing-2, 12px);
+  border-radius: var(--radius-sm, 4px);
+  gap: var(--spacing-xs, 4px);
+  border: 1px solid var(--form-field-border-default, #d0d5dd);
+  background: var(--form-field-background-default, #fff);
+  position: relative;
+  transition: border-color 0.15s;
+}
+
+.df-input::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0%;
+  height: 2px;
+  transform: translateX(-50%);
+  background-color: var(--form-field-border-pressed, #024e28);
+  transition: width 0.2s ease-in-out;
+}
+
+.df-input:hover {
+  border-color: var(--form-field-border-hovered, #98a2b3);
+}
+
+.df-input--focused::after {
+  width: 100%;
+}
+
+.df-input--active::after {
+  width: 50%;
+}
+
+/* Sizes */
+
+.df-input--lg {
+  height: 44px;
+}
+
+.df-input--md {
+  height: 36px;
+}
+
+/* Variants */
+
+.df-input--lighter {
+  border: 0;
+  background: var(--form-field-background-lighter, #fcfcfd);
+}
+
+.df-input--lighter:hover,
+.df-input--lighter.df-input--focused,
+.df-input--lighter.df-input--active {
+  border: 1px solid var(--form-field-border-default, #d0d5dd);
+}
+
+.df-input--darker {
+  border: 0;
+  background-color: var(--form-field-background-darker, #f3f4f6);
+}
+
+.df-input--darker:hover {
+  border: 1px solid var(--form-field-border-default, #d0d5dd);
+}
+
+.df-input--darker.df-input--focused,
+.df-input--darker.df-input--active {
+  border: 1px solid var(--form-field-border-default, #d0d5dd);
+  background-color: var(--form-field-background-default, #fff) !important;
+}
+
+/* States */
+
+.df-input--error,
+.df-input--error:hover {
+  border: 1px solid var(--form-field-border-error, #d92d20) !important;
+}
+
+.df-input--error::after {
+  background-color: var(--form-field-border-error, #d92d20);
+}
+
+.df-input--disabled,
+.df-input--disabled:hover {
+  border-color: var(--border-disabled, #e5e7eb);
+  cursor: not-allowed;
+}
+
+.df-input--disabled::after {
+  display: none;
+}
+
+.df-input--readonly,
+.df-input--readonly:hover {
+  border: 1px solid var(--border-neutral-primary, #d0d5dd) !important;
+  background-color: var(--form-field-background-default, #fff) !important;
+  box-shadow: none !important;
+}
+
+.df-input--readonly::after {
+  display: none;
+}
+
+/* Native input */
+
+.df-input__field {
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  flex: 1;
+  height: 100%;
+  color: var(--form-field-text-focused, #101828);
+  font: 400 16px/24px "IBMPlexSansArabic", sans-serif;
+}
+
+.df-input__field::placeholder {
+  color: var(--form-field-text-placeholder, #98a2b3);
+}
+
+.df-input--disabled .df-input__field,
+.df-input--disabled .df-input__field::placeholder {
+  color: var(--text-default-disabled, #98a2b3);
+  cursor: not-allowed;
+}
+
+/* Calendar button */
+
+.df-calendar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-xs, 2px);
+  background: transparent;
+  cursor: pointer;
+  color: var(--form-field-border-hovered, #667085);
+}
+
+.df-calendar-btn:hover {
+  background: var(--button-background-neutral-hovered, #f3f4f6);
+  color: var(--text-default, #161616);
+}
+
+.df-calendar-btn:focus-visible {
+  outline: 2px solid var(--text-success, #024e28);
+  outline-offset: 2px;
+}
+
+.df-calendar-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Feedback icon */
+
+.df-feedback-icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.df-feedback-icon--error {
+  color: var(--text-error, #d92d20);
+}
+
+/* Helper text */
+
+.df-helper-text {
+  margin: 0;
+  font: 400 14px/20px "IBMPlexSansArabic", sans-serif;
+  color: var(--text-subtle, #6c737f);
+}
+
+.df-helper-text--error {
+  color: var(--text-error, #d92d20);
+}
+
+/* Picker dropdown */
+
+.df-picker-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  inset-inline-start: 0;
+  z-index: 100;
+  width: fit-content;
+}

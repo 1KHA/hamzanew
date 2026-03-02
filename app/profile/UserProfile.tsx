@@ -24,8 +24,8 @@ const userProfileSchema = z.object({
   // Account Info
   email: z
     .string()
-    .min(1, "البريد الإلكتروني مطلوب")
-    .email("البريد الإلكتروني غير صحيح"),
+    .min(1, "البريد الشبكي مطلوب")
+    .email("البريد الشبكي غير صحيح"),
   password: z.string().min(8, "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل"),
   phone: z
     .string()

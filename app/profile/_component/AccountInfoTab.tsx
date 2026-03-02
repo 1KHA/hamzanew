@@ -98,7 +98,7 @@ export default function AccountInfoTab() {
         معلومات الدخول
       </h2>
       <p className="text-sm text-gray-600 sr-only">
-        قم بإدخال معلومات تسجيل الدخول الخاصة بك بما في ذلك البريد الإلكتروني
+        قم بإدخال معلومات تسجيل الدخول الخاصة بك بما في ذلك البريد الشبكي
         وكلمة المرور ورقم الهاتف
       </p>
 
@@ -112,7 +112,7 @@ export default function AccountInfoTab() {
         >
           <ControlledTextInput name="email" />
           <span id="email-help" className="sr-only">
-            أدخل عنوان بريدك الإلكتروني المستخدم لتسجيل الدخول
+            أدخل عنوان بريدك الشبكي المستخدم لتسجيل الدخول
           </span>
         </FormField>
 

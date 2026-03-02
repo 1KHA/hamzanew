@@ -1,0 +1,262 @@
+/* ==========================================================================
+   Sign Up Page Styles — إنشاء حساب جديد
+
+   Split layout: left sidebar (progress indicator) + right form panel.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Page wrapper
+   -------------------------------------------------------------------------- */
+
+.sign-up-page-wrapper {
+  padding: 40px 16px;
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Page layout (sidebar + content)
+   -------------------------------------------------------------------------- */
+
+.sign-up-page {
+  display: grid;
+  gap: 32px; /* gap-8 */
+  grid-template-columns: 1fr; /* mobile: single column */
+}
+
+@media (min-width: 1024px) {
+  .sign-up-page {
+    grid-template-columns: 1fr 360px; /* lg:grid-cols-[1fr_360px] */
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Left panel: Progress Indicator sidebar
+   -------------------------------------------------------------------------- */
+
+.sign-up-page__sidebar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background-color: #F9FAFB;
+  padding: 40px;
+  height: fit-content;
+}
+
+/* --------------------------------------------------------------------------
+   Right panel: Form content
+   -------------------------------------------------------------------------- */
+
+.sign-up-page__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+
+.sign-up-page__header {
+  text-align: right;
+}
+
+[dir="ltr"] .sign-up-page__header {
+  text-align: left;
+}
+
+.sign-up-page__subtitle {
+  margin-top: 8px;
+  color: #6c737f;
+  line-height: 1.7;
+}
+
+/* --------------------------------------------------------------------------
+   Required note
+   -------------------------------------------------------------------------- */
+
+.sign-up-page__required-note {
+  color: #6c737f;
+}
+
+.sign-up-page__required {
+  color: #d92d20;
+  font-weight: bold;
+}
+
+/* --------------------------------------------------------------------------
+   Section title (e.g. "معلومات الحساب")
+   -------------------------------------------------------------------------- */
+
+.sign-up-page__section-title {
+  margin-bottom: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   Form
+   -------------------------------------------------------------------------- */
+
+.sign-up-page__form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   2-column grid for fields
+   -------------------------------------------------------------------------- */
+
+.sign-up-page__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
+}
+
+/* Span both columns */
+.sign-up-page__field--full {
+  grid-column: 1 / -1;
+}
+
+/* Native date input styled like DGA inputs */
+.sign-up-page__date-input {
+  width: 100%;
+  display: block;
+  padding-inline: var(--spacing-3, 12px);
+}
+
+/* --------------------------------------------------------------------------
+   Field wrapper — reserves space for error without shifting layout
+   -------------------------------------------------------------------------- */
+
+.sign-up-page__field {
+  position: relative;
+  padding-bottom: 28px;
+}
+
+.sign-up-page__error {
+  position: absolute;
+  bottom: 4px;
+  inset-inline-start: 0;
+  min-height: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   Phone input — same styles as feedback-form
+   -------------------------------------------------------------------------- */
+
+.phone-input-wrapper {
+  position: relative !important;
+}
+
+[dir="ltr"] .phone-input-wrapper .input__field {
+  padding-left: 104px !important;
+  text-align: left !important;
+}
+
+[dir="rtl"] .phone-input-wrapper .input__field {
+  padding-right: 104px !important;
+  text-align: right !important;
+}
+
+.prefix-container {
+  position: absolute !important;
+  top: 0 !important;
+  height: 100% !important;
+  z-index: 10 !important;
+  display: flex !important;
+  align-items: stretch !important;
+}
+
+[dir="ltr"] .prefix-container { left: 0 !important; }
+[dir="rtl"] .prefix-container { right: 0 !important; }
+
+.prefix-btn {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.prefix-btn:active       { background-color: #e5e7eb !important; }
+.prefix-btn:focus-visible { outline: 2px solid #384250 !important; outline-offset: -2px; }
+.prefix-btn--open        { background-color: #384250 !important; color: #fff !important; }
+.prefix-btn--open .prefix-chevron-icon { transform: rotate(180deg); filter: brightness(0) invert(1); }
+
+.prefix-list {
+  position: absolute !important;
+  top: 100% !important;
+  margin-top: 0.25rem !important;
+  width: 100% !important;
+  z-index: 20 !important;
+  overflow: hidden !important;
+  border: 1px solid #e5e7eb !important;
+  background-color: #fff !important;
+  box-shadow: var(--shadow-xl, 0 20px 25px -5px rgb(0 0 0 / 0.1)) !important;
+  border-radius: 0 !important;
+  transform-origin: top !important;
+  transition: opacity 200ms ease-out, transform 200ms ease-out !important;
+}
+
+[dir="rtl"] .prefix-list { right: 0 !important; }
+[dir="ltr"] .prefix-list { left: 0 !important; }
+
+.prefix-list--open   { opacity: 1 !important; transform: translateY(0) scale(1) !important; pointer-events: auto; }
+.prefix-list--closed { opacity: 0 !important; transform: translateY(-0.25rem) scale(0.95) !important; pointer-events: none; }
+
+.prefix-list__scroll { max-height: 14rem !important; overflow: auto !important; }
+
+.prefix-option {
+  cursor: pointer !important;
+  user-select: none !important;
+  padding: 0.625rem 0.75rem !important;
+  font-size: 0.875rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  color: #111827 !important;
+}
+
+.prefix-option:hover     { background-color: #f3f4f6 !important; }
+.prefix-option--active   { background-color: #f3f4f6 !important; font-weight: 500 !important; }
+.prefix-option__check    { font-size: 0.75rem !important; color: #111827 !important; }
+
+/* --------------------------------------------------------------------------
+   Actions row (Next / Prev buttons)
+   -------------------------------------------------------------------------- */
+
+.sign-up-page__actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+[dir="rtl"] .sign-up-page__actions {
+  justify-content: flex-start;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .sign-up-page__sidebar {
+    flex: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .sign-up-page-wrapper {
+    padding: 16px;
+  }
+
+  .sign-up-page__grid {
+    grid-template-columns: 1fr;
+  }
+}

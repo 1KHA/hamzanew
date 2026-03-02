@@ -46,12 +46,12 @@ export default function SubscriptionSection() {
               onBlur={() => {}}
               onChange={() => {}}
               onInput={() => {}}
-              placeholder="ادخل بريدك الإلكتروني"
+              placeholder="ادخل البريد الشبكي"
               size="lg"
               type="text"
               value=""
               variant="default"
-              aria-label="البريد الإلكتروني"
+              aria-label="البريد الشبكي للاشتراك في النشرة البريدية"
             />
             <Button
               label="مشاركة"
