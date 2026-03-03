@@ -23,7 +23,8 @@
 .filter-dropdown {
   position: absolute;
   top: 100%;
-  right: 0;
+  left: auto;
+  right:  0;
   margin-top: 12px;
   min-width: 240px;
   background-color: #fff;
@@ -78,6 +79,19 @@
   border: none;
   border-top: 1px solid #eaecf0;
   margin: 12px 0;
+}
+
+/* LTR: flip dropdown alignment to the right */
+[dir="ltr"] .filter-dropdown {
+  left:0;
+  right: auto;
+}
+
+/* Tablet and mobile: narrower dropdown */
+@media (max-width: 1024px) {
+  .filter-dropdown {
+    min-width: 200px;
+  }
 }
 
 /* Action Buttons */

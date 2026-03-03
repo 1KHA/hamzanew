@@ -24,6 +24,7 @@
 
 import React from "react";
 import ErrorMessage from "@/app/components/error-message/ErrorMessage";
+import "./phone-input.css";
 
 interface FormFieldProps {
   label: string;

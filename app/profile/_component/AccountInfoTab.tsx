@@ -145,54 +145,50 @@ export default function AccountInfoTab() {
                   errors.phone?.message ? "input--error" : ""
                 }`}
               >
-                {/* Digits-only input — prefix is stored separately in RHF */}
                 <input
                   id="phone-input"
                   placeholder="00 000 0000"
                   type="tel"
                   inputMode="numeric"
                   value={phoneDigitsOnly}
-                  name="phone"
                   className="input__field"
                   onChange={(e) => {
-                    // Store full value (active prefix + digits) in RHF
                     field.onChange(
                       selectedCountryPrefix.value + e.target.value,
                     );
                   }}
                   onBlur={() => {
-                    field.onBlur(); // marks field as touched
-                    trigger("phone"); // re-runs Zod refine() explicitly
+                    field.onBlur();
+                    trigger("phone");
                   }}
                   aria-required="true"
                   aria-invalid={!!errors.phone?.message}
+                  aria-describedby={
+                    errors.phone ? "phone-input-error" : "phone-help"
+                  }
                 />
+                <span id="phone-help" className="sr-only">
+                  أدخل رقم جوالك مسبوقاً برمز الدولة
+                </span>
 
-                {/* Country code prefix dropdown */}
+                {/* Prefix Dropdown */}
                 <div ref={prefixRef} className="prefix-container">
-                  <input
-                    type="hidden"
-                    name="countryCode"
-                    value={selectedCountryPrefix.value}
-                  />
-
                   <button
                     type="button"
                     onClick={() => setPrefixOpen((v) => !v)}
                     className={prefixBtnClass}
                     aria-haspopup="listbox"
                     aria-expanded={prefixOpen}
-                    aria-label={`رمز الدولة: ${selectedCountryPrefix.label}`}
+                    aria-label={`رمز الدولة الحالي: ${selectedCountryPrefix.label}. اضغط لتغيير رمز الدولة`}
                   >
                     <span className="input__prefix-icon" />
-                    <span className="dropdown__label" />
                     <span className="input__prefix-label">
                       {selectedCountryPrefix.label}
                     </span>
                     <span className="input__prefix-chevron">
                       <Image
                         src="/assets/icons/stroke-standard/arrow-down-01-stroke-rounded.svg"
-                        alt="arrow down icon"
+                        alt=""
                         width={20}
                         height={20}
                         aria-hidden="true"
@@ -204,7 +200,7 @@ export default function AccountInfoTab() {
                   <ul
                     role="listbox"
                     className={prefixListClass}
-                    aria-label="رمز الدولة"
+                    aria-label="اختر رمز الدولة"
                   >
                     <div className="prefix-list__scroll">
                       {PHONE_PREFIXES.map((opt) => {
@@ -220,13 +216,8 @@ export default function AccountInfoTab() {
                             onKeyDown={(e) => handlePrefixKeyDown(e, opt)}
                             className={`prefix-option ${isActive ? "prefix-option--active" : ""}`}
                           >
-                            {/* {opt.flag && (
-                              <span aria-hidden="true">{opt.flag} </span>
-                            )} */}
                             <span>{opt.label}</span>
-                            {/* <span className="prefix-option__country">
-                              {opt.country}
-                            </span> */}
+                            <span className="sr-only">{opt.country}</span>
                             {isActive && (
                               <span
                                 className="prefix-option__check"

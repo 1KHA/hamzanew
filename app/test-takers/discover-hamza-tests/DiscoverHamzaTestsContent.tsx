@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { DgaTabs } from "@/app/components/tabs/DgaTabs";
 import Button from "@/app/components/button/Button";
 import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
 import "@/app/components/card/card.css";
 import { useRouter } from "next/navigation";
 
@@ -170,17 +171,17 @@ export default function DiscoverHamzaTestsContent({
           id={`tab-content-${activeTab}`}
         >
           <div className="!space-y-[16px]">
-            <div>
-              {[1, 2, 3, 4].map(
-                (tabId) =>
-                  activeTab === tabId && (
-                    <TabContentCard
-                      key={tabId}
-                      tabContent={tabsContent[tabId - 1]}
-                    />
-                  ),
-              )}
-            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+              >
+                <TabContentCard tabContent={tabsContent[activeTab - 1]} />
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </section>
