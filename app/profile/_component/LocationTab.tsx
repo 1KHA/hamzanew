@@ -4,7 +4,35 @@ import Button from "../../components/button/Button";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import type { UserProfileFormValues } from "../UserProfile";
+const TIMEZONE_OPTIONS = [
+  { name: "توقيت الرياض (GMT+3)", value: "Asia/Riyadh" },
+  { name: "توقيت القاهرة (GMT+2)", value: "Africa/Cairo" },
+  { name: "توقيت دبي (GMT+4)", value: "Asia/Dubai" },
+  { name: "توقيت لندن (GMT+0)", value: "Europe/London" },
+];
 
+const COUNTRY_OPTIONS = [
+  { name: "المملكة العربية السعودية", value: "SA" },
+  { name: "مصر", value: "EG" },
+  { name: "الأردن", value: "JO" },
+  { name: "الإمارات", value: "AE" },
+  { name: "الكويت", value: "KW" },
+];
+
+const REGION_OPTIONS = [
+  { name: "منطقة الرياض", value: "riyadh" },
+  { name: "منطقة مكة المكرمة", value: "makkah" },
+  { name: "المنطقة الشرقية", value: "eastern" },
+  { name: "منطقة المدينة المنورة", value: "madinah" },
+];
+
+const CITY_OPTIONS = [
+  { name: "الرياض", value: "riyadh_city" },
+  { name: "جدة", value: "jeddah" },
+  { name: "مكة المكرمة", value: "makkah_city" },
+  { name: "المدينة المنورة", value: "madinah_city" },
+  { name: "الدمام", value: "dammam" },
+];
 export default function LocationTab() {
   const {
     control,
@@ -47,12 +75,7 @@ export default function LocationTab() {
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
                 error={!!errors.timezone}
-                options={[
-                  { name: "اختيار 1", value: "اختيار 1" },
-                  { name: "اختيار 2", value: "اختيار 2" },
-                  { name: "اختيار 3", value: "اختيار 3" },
-                  { name: "اختيار 4", value: "اختيار 4" },
-                ]}
+                options={TIMEZONE_OPTIONS}
               />
             )}
           />
@@ -74,12 +97,7 @@ export default function LocationTab() {
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
                 error={!!errors.country}
-                options={[
-                  { name: "اختيار 1", value: "اختيار 1" },
-                  { name: "اختيار 2", value: "اختيار 2" },
-                  { name: "اختيار 3", value: "اختيار 3" },
-                  { name: "اختيار 4", value: "اختيار 4" },
-                ]}
+                options={COUNTRY_OPTIONS}
               />
             )}
           />
@@ -105,12 +123,7 @@ export default function LocationTab() {
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
                 error={!!errors.state}
-                options={[
-                  { name: "اختيار 1", value: "اختيار 1" },
-                  { name: "اختيار 2", value: "اختيار 2" },
-                  { name: "اختيار 3", value: "اختيار 3" },
-                  { name: "اختيار 4", value: "اختيار 4" },
-                ]}
+                options={REGION_OPTIONS}
               />
             )}
           />
@@ -132,12 +145,7 @@ export default function LocationTab() {
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
                 error={!!errors.city}
-                options={[
-                  { name: "اختيار 1", value: "اختيار 1" },
-                  { name: "اختيار 2", value: "اختيار 2" },
-                  { name: "اختيار 3", value: "اختيار 3" },
-                  { name: "اختيار 4", value: "اختيار 4" },
-                ]}
+                options={CITY_OPTIONS}
               />
             )}
           />

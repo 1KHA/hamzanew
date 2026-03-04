@@ -1,10 +1,25 @@
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import type { UserProfileFormValues } from "../UserProfile";
+import { DgaDropdown } from "platformscode-new-react";
+const DEGREE_OPTIONS = [
+  { name: "ثانوية عامة", value: "high_school" },
+  { name: "دبلوم", value: "diploma" },
+  { name: "بكالوريوس", value: "bachelor" },
+  { name: "ماجستير", value: "master" },
+  { name: "دكتوراه", value: "phd" },
+];
 
+const LANGUAGE_OPTIONS = [
+  { name: "العربية", value: "ar" },
+  { name: "الإنجليزية", value: "en" },
+  { name: "الفرنسية", value: "fr" },
+  { name: "أخرى", value: "other" },
+];
 export default function EducationTab() {
   const {
+    control,
     formState: { errors },
   } = useFormContext<UserProfileFormValues>();
 
@@ -30,7 +45,24 @@ export default function EducationTab() {
           error={errors.education?.message}
           className="md:!col-span-2"
         >
-          <ControlledTextInput name="education" />
+          <Controller
+            name="education"
+            control={control}
+            render={({ field }) => (
+              <DgaDropdown
+                placeholder="اختر المؤهل"
+                size="lg"
+                variant="darker"
+                className="w-full"
+                optionLabel="name"
+                trackBy="value"
+                options={DEGREE_OPTIONS}
+                value={field.value}
+                onChange={(value) => field.onChange(value)}
+                error={!!errors.education}
+              />
+            )}
+          />
         </FormField>
 
         <FormField
@@ -60,7 +92,23 @@ export default function EducationTab() {
           error={errors.basicLanguageInEducation?.message}
           className="md:!col-span-2"
         >
-          <ControlledTextInput name="basicLanguageInEducation" />
+          <Controller
+            name="basicLanguageInEducation"
+            control={control}
+            render={({ field }) => (
+              <DgaDropdown
+                placeholder="اختر اللغة"
+                size="lg"
+                variant="darker"
+                optionLabel="name"
+                trackBy="value"
+                options={LANGUAGE_OPTIONS}
+                className="w-full"
+                value={field.value}
+                getSelectedOptions={(opt: any) => field.onChange(opt.value)}
+              />
+            )}
+          />
         </FormField>
 
         {/* spacer */}

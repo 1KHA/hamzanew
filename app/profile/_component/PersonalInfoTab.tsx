@@ -1,11 +1,34 @@
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import FileUpload from "../../components/FileUpload/FileUpload";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import type { UserProfileFormValues } from "../UserProfile";
+import DateField from "@/app/components/date-field/DateField";
+import { DgaDropdown } from "platformscode-new-react";
+const ID_TYPE_OPTIONS = [
+  { name: "هوية وطنية", value: "national_id" },
+  { name: "إقامة", value: "iqama" },
+  { name: "جواز سفر", value: "passport" },
+];
 
+const NATIONALITY_OPTIONS = [
+  { name: "سعودي", value: "SA" },
+  { name: "مصري", value: "EG" },
+  { name: "أردني", value: "JO" },
+  { name: "إماراتي", value: "AE" },
+  { name: "كويتي", value: "KW" },
+  { name: "أخرى", value: "OTHER" },
+];
+
+const LANGUAGE_OPTIONS = [
+  { name: "العربية", value: "ar" },
+  { name: "الإنجليزية", value: "en" },
+  { name: "الفرنسية", value: "fr" },
+  { name: "أخرى", value: "other" },
+];
 export default function PersonalInfoTab() {
   const {
+    control,
     formState: { errors },
   } = useFormContext<UserProfileFormValues>();
 
@@ -85,11 +108,42 @@ export default function PersonalInfoTab() {
           required
           error={errors.birthDate?.message}
         >
-          <ControlledTextInput name="birthDate" />
+          <Controller
+            name="birthDate"
+            control={control}
+            render={({ field }) => (
+              <DateField
+                rtl
+                fullwidth
+                size="lg"
+                variant="darker"
+                error={!!errors.birthDate}
+                onChange={(date: any) => {
+                  field.onChange(date ? String(date) : "");
+                }}
+              />
+            )}
+          />
         </FormField>
 
         <FormField label="الجنسية" required error={errors.nationality?.message}>
-          <ControlledTextInput name="nationality" />
+          <Controller
+            name="nationality"
+            control={control}
+            render={({ field }) => (
+              <DgaDropdown
+                placeholder="اختر الجنسية"
+                size="lg"
+                variant="darker"
+                optionLabel="name"
+                trackBy="value"
+                options={NATIONALITY_OPTIONS}
+                className="w-full"
+                value={field.value}
+                getSelectedOptions={(opt: any) => field.onChange(opt.value)}
+              />
+            )}
+          />
         </FormField>
 
         <FormField
@@ -97,14 +151,46 @@ export default function PersonalInfoTab() {
           required
           error={errors.motherTongue?.message}
         >
-          <ControlledTextInput name="motherTongue" />
+          <Controller
+            name="motherTongue"
+            control={control}
+            render={({ field }) => (
+              <DgaDropdown
+                placeholder="اختر اللغة الام"
+                size="lg"
+                variant="darker"
+                optionLabel="name"
+                trackBy="value"
+                options={LANGUAGE_OPTIONS}
+                className="w-full"
+                value={field.value}
+                getSelectedOptions={(opt: any) => field.onChange(opt.value)}
+              />
+            )}
+          />
         </FormField>
       </div>
 
       {/* Identity */}
       <div className="!grid !grid-cols-1 md:!grid-cols-3 !gap-8">
         <FormField label="الاثبات" required error={errors.identity?.message}>
-          <ControlledTextInput name="identity" />
+          <Controller
+            name="identity"
+            control={control}
+            render={({ field }) => (
+              <DgaDropdown
+                placeholder="اختر نوع الاثبات"
+                size="lg"
+                variant="darker"
+                optionLabel="name"
+                trackBy="value"
+                options={ID_TYPE_OPTIONS}
+                className="w-full"
+                value={field.value}
+                getSelectedOptions={(opt: any) => field.onChange(opt.value)}
+              />
+            )}
+          />
         </FormField>
 
         <FormField
