@@ -1,169 +1,34 @@
-.frame-container {
-  position: relative;
-  width: 100%;
-  height: 258px;
-  background: #fff;
-  overflow: hidden;
-  direction: rtl; /* Proper Arabic alignment */
-
-  display: flex;
-}
-
-/* Static Titles: Positioned absolutely over the scroll frame */
-.fixed-labels-overlay {
-  position: absolute;
-  /* right: 40px; Adjust based on your padding */
-  /* top: 50px; */
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  width: 300px;
-  z-index: 10;
-  pointer-events: none; /* Allows scroll through the text */
-}
-
-/* 
-.subtitle {
-  color: #2ba57e;
-  font-size: 0.9rem;
-  display: block;
-}
-
-.main-title {
-  font-size: 1.4rem;
-  margin: 5px 0 0 0;
-  color: #333;
-  line-height: 1.3;
-} */
-.subtitle {
-    color: var(--Text-text-primary, #1b8354);
-  text-align: right;
-
-  /* Text lg/Medium */
-  font-family: var(--Font-Family-font-family-text, "IBMPlexSansArabic");
-  font-size: var(--Size-Text-typo-size-text-lg, 18px);
-  font-style: normal;
-  font-weight: 500;
-  line-height: var(
-    --Line-Height-Text-line-heights-text-lg,
-    28px
-  ); /* 155.556% */
-
-}
-.main-title {
-  color: var(--Text-text-default, #161616);
-  text-align: right;
-
-  /* Display md/Semibold */
-  font-family: var(--Font-Family-font-family-display, "IBMPlexSansArabic");
-  /* font-size: var(--Size-Display-typo-size-display-md, 36px); */
-  font-size: var(--Size-Display-typo-size-display-md, 2.25rem);
-  font-style: normal;
-  font-weight: 600;
-  line-height: var(
-    --Line-Height-Display-line-heights-display-md,
-    44px
-  ); /* 122.222% */
-  /* letter-spacing: 12px; */
-  margin-top: 1.25rem;
-}
-/* Scroll Frame: Fills the whole parent so you can scroll anywhere */
-.scroll-frame {
-  width: 100%;
-  height: 258px;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  scrollbar-width: none;
-
-  flex: 1;
-}
-
-.scroll-frame::-webkit-scrollbar {
-  display: none;
-}
-
-.slide {
-  height: 258px;
-  width: 100%;
-  display: flex;
-  flex-direction: row-reverse; /* Card left, Number right */
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--Global-spacing-8xl, 80px);
-  scroll-snap-align: start;
-  position: relative;
-}
-
-/* THE MAGIC: Card stays in place while scrolling */
 .sticky-card {
   position: sticky;
-  top: 29px; /* Centering (258px - 200px) / 2 */
+  top: 29px;
   width: 65%;
   height: 100%;
-  /* margin-right: auto; */ /* Pushes card to the left */
-  /* margin-left: 40px; */
-  background: #f8fbfa;
+
+  background: #f9fafb;
   border-radius: 16px;
   display: flex;
   align-items: center;
   gap: 24px;
-  padding: var(--Global-spacing-6xl, 48px);
+  padding: 24px;
   z-index: 1;
-  /* Add shadow to make the overlay look distinct */
   box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.02);
-  /* border: 2px solid #7a0a4d; */
 }
 
 .card-content {
   display: flex;
-  /* justify-content: flext-co; */
   flex-direction: column;
-  /* align-items: center; */
   gap: 24px;
   align-self: stretch;
-  /* border: 1px solid #0a227a; */
+  justify-content: start;
 }
 
-/* Number Container: Moves naturally with the scroll */
-.number-container {
-  width: 300px; /* Matches fixed-labels width */
-  height: 100%;
-  display: flex;
-  align-items: flex-end; /* Aligns number below the static titles */
-  /* padding: 0 40px 40px 0; */
-  /* border: 1px solid #12809b; */
-}
-
-.moving-number {
-  color: var(--Text-text-primary, #1b8354);
-  text-align: right;
-
-  /* Display lg/Regular */
-  font-family: var(--Font-Family-font-family-display, "IBMPlexSansArabic");
-  font-size: var(--Size-Display-typo-size-display-lg, 48px);
-  font-style: normal;
-  font-weight: 400;
-  line-height: var(
-    --Line-Height-Display-line-heights-display-lg,
-    60px
-  ); /* 125% */
-  letter-spacing: -0.96px;
-}
-
-/* Internal Card Styling */
 .card-inner {
-  /* display: flex; */
   width: 100%;
   align-items: center;
-  /* gap: 20px; */
   display: flex;
-  /* padding: 0 var(--Global-spacing-6xl, 48px); */
-  /* align-items: flex-end; */
   flex-direction: row-reverse;
   justify-content: space-between;
   gap: var(--Card-card-lg-gap, 24px);
-  /* align-self: stretch; */
-  /* border: 3px solid #0a7a1b; */
 }
 
 .icon-wrapper {
@@ -171,131 +36,67 @@
   width: 222px;
   height: 172.827px;
   aspect-ratio: 16 / 9;
-  overflow: hidden; /* Ensures the image doesn't bleed out */
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  /* border: #7a0a4d 2px solid; */
 }
 
 .icon-img {
   width: 100%;
   height: 100%;
 
-  /* This is the CSS equivalent of "background-size: cover" for <img> tags */
-  /* object-fit: cover; */
-object-fit: contain;
-  /* This is the CSS equivalent of "background-position: 50% 50%" */
+  object-fit: contain;
   object-position: center;
 
-  /* Optional: If the icon has a transparent background, 
-     this ensures it looks clean over your background-image */
   display: block;
 }
-.card-text {
-  color: var(--Text-text-display, #1f2a37);
-  text-align: right;
 
-  /* Text lg/Semibold */
-  font-family: var(--Font-Family-font-family-text, "IBMPlexSansArabic");
-  font-size: var(--Size-Text-typo-size-text-Ig, 18px);
-  font-style: normal;
-  font-weight: 600;
-  line-height: var(
-    --Line-Height-Text-line-heights-text-Ig,
-    28px
-  ); /* 155.556% */
-}
 .card-bg-id {
-  /* position: absolute;
-  top: 15px;
-  right: 20px; */
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: rgba(0, 0, 0, 0.05);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--Text-text-primary, #9da4ae);
+  border-radius: 4px;
+  flex-shrink: 0;
+  color: #fff;
+  font-family: var(--Font-Family-font-family-display, "IBMPlexSansArabic");
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
 }
-
-
 
 /* --- Tablet Breakpoint (e.g., iPad) --- */
 @media (max-width: 1024px) {
-  .fixed-labels-overlay {
-    width: 220px;
-    right: 20px;
-  }
-  
-  .main-title {
-    font-size: 1.75rem; /* Scale down title */
-  }
-
-  .slide {
-    gap: 40px;
-    padding: 0 20px;
-  }
-
   .sticky-card {
     width: 60%;
     padding: 24px;
   }
 
   .icon-wrapper {
-    width: 160px; /* Scale down icon box */
+    width: 160px;
     height: auto;
-  }
-  .card-bg-id {
-    display: none;
   }
 }
 
 /* --- Mobile Breakpoint --- */
 @media (max-width: 768px) {
-  .frame-container {
-    flex-direction: column; /* Stack vertically */
-    height: auto; /* Let it grow */
-    min-height: 500px;
-    overflow: visible;
-  }
-
-  .fixed-labels-overlay {
-    position: relative; /* Remove absolute positioning */
-    right: 0;
-    top: 0;
-    width: 100%;
-    padding: 20px;
-    pointer-events: auto;
-    gap: 8px;
-  }
-
-  .main-title {
-    font-size: 1.5rem;
-    line-height: 1.2;
-    margin-top: 5px;
-  }
-
-  .scroll-frame {
-    height: 320px; /* Specific height for the card view area */
-    border-top: 1px solid #f0f0f0;
-  }
-
-  .slide {
-    height: 320px; /* Match scroll-frame */
-    flex-direction: column-reverse; /* Put number above or below card */
-    gap: 10px;
-    padding: 15px;
-  }
-
   .sticky-card {
     width: 100%;
     height: 240px;
-    top: 40px; /* Sticky offset for mobile */
-    flex-direction: column; /* Content stacks inside card */
+    top: 40px;
+    flex-direction: column;
     padding: 20px;
     text-align: center;
   }
 
   .card-inner {
-    flex-direction: column; /* Image top, text bottom */
+    flex-direction: column;
     text-align: center;
     gap: 12px;
   }
@@ -305,22 +106,47 @@ object-fit: contain;
     height: 100px;
   }
 
-  .number-container {
-    width: 100%;
-    justify-content: center;
-    height: 40px;
-    align-items: center;
-  }
-
-  .moving-number {
-    font-size: 2.5rem; /* Smaller number */
-  }
-
-  .card-text {
-    font-size: 0.95rem;
-    text-align: center;
-  }
   .card-bg-id {
-    display: none;
+    width: 40px;
+    height: 40px;
+    font-size: 0.875rem;
   }
+}
+
+.org-benefits-section {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.static-slide-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+
+.static-slide-card .sticky-card {
+  position: static !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 24px;
+  flex: 1;
+}
+
+.static-slide-card .card-inner {
+  height: 100%;
+}
+
+[dir="ltr"] .static-slide-card .card-inner {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .static-slide-card .card-inner {
+  flex-direction: row-reverse;
+}
+
+.static-slide-card .card-content {
+  flex: 1;
+  justify-content: flex-start;
 }

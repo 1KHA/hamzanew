@@ -1,13 +1,11 @@
-import ScrollFrame, {
-  HamzaSlide,
-} from "@/app/components/scroll-frame/ScrollFrame";
+import "@/app/components/scroll-frame/ScrollFrame.css";
 import "../about.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "أهمية اختبارات همزة",
-  description:""
-}
+  description: "",
+};
 /**
  * Interface representing a benefit item for test takers.
  */
@@ -18,6 +16,12 @@ interface BenefitItem {
   title: string;
   /** The description of the benefit */
   description: string;
+}
+
+interface HamzaSlide {
+  number: string;
+  content: string;
+  icon: string;
 }
 
 /* ==========================================================================
@@ -75,9 +79,68 @@ const organizationBenefits: HamzaSlide[] = [
   {
     number: "05",
     content: "الإعفاء من بعض المقررات الجامعية.",
+    // content: "Hello there, this is testing text for english content",
     icon: "../assets/image/image 9.png",
   },
 ];
+
+/**
+ * BenefitsFrame
+ *
+ * Renders a single organization benefit card with full accessibility support.
+ *
+ * @accessibility
+ * - `<article>` with descriptive `aria-label` conveying both the sequence number
+ *   and the benefit text — screen readers announce the full context in one pass.
+ * - Decorative number badges have `aria-hidden="true"` (already in aria-label).
+ * - Illustrative icon images have `alt=""` + `aria-hidden="true"` (purely decorative).
+ */
+function BenefitsFrame({ slide }: { slide: HamzaSlide }) {
+  const ariaLabel = `الفائدة ${slide.number}: ${slide.content}`;
+
+  return (
+    <article
+      aria-label={ariaLabel}
+    >
+      <div
+        className="sticky-card"
+        style={{ position: "static", width: "100%", height: "auto" }}
+        role="presentation"
+      >
+        <p
+          className="card-bg-id text-xl-bold lg:!hidden !me-auto"
+          aria-hidden="true"
+        >
+          {slide.number}
+        </p>
+
+        <div className="card-inner">
+          <div className="icon-wrapper" role="presentation">
+            <img
+              src={slide.icon}
+              alt=""
+              aria-hidden="true"
+              className="icon-img"
+            />
+          </div>
+
+          <div className="card-content">
+            <p
+              className="card-bg-id text-xl-bold !hidden lg:!inline-flex"
+              aria-hidden="true"
+            >
+              {slide.number}
+            </p>
+
+            <p className="text-lg-bold" lang="ar">
+              {slide.content}
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
 
 /**
  * BenefitsOfHamzaTestPage Component
@@ -129,11 +192,16 @@ export default function BenefitsOfHamzaTestPage() {
             </p>
           </div>
 
-          <ul className="stack-lg" role="list">
-            {benefits.map((benefit, index) => (
+          <ul
+            className="stack-lg"
+            role="list"
+            aria-label="قائمة فوائد الاختبار للمختبرين"
+          >
+            {benefits.map((benefit) => (
               <li
-                key={index}
+                key={benefit.number}
                 className="about-value-card"
+                aria-label={`الفائدة ${benefit.number}: ${benefit.title} - ${benefit.description}`}
                 style={{
                   borderRadius: "var(--radius-lg, 16px)",
                   background: "#F9FAFB",
@@ -141,7 +209,10 @@ export default function BenefitsOfHamzaTestPage() {
                 }}
               >
                 <div className="about-value-card__header">
-                  <span className="about-value-card__badge text-xl-bold ">
+                  <span
+                    className="about-value-card__badge text-xl-bold"
+                    aria-hidden="true"
+                  >
                     {benefit.number}
                   </span>
                   <div className="about-value-card__content">
@@ -156,9 +227,19 @@ export default function BenefitsOfHamzaTestPage() {
           </ul>
         </section>
 
-        {/* Bottom Section: Benefits for Organizations (Scroll Frame) */}
-        <section aria-label="فوائد اختبارات همزة للجهات">
-          <ScrollFrame slides={organizationBenefits} />
+        {/* Bottom Section: Benefits for Organizations (Static) */}
+        <section aria-labelledby="org-heading" className="org-benefits-section">
+          <header className="section-head">
+            <p className="section-title">كيفية الاستفادة من همزة</p>
+            <h2 id="org-heading" className="display-sm-bold">
+              فوائد اختبارات همزة للجهات
+            </h2>
+          </header>
+          <div className="!grid !grid-cols-1 md:!grid-cols-2 !gap-[24px]">
+            {organizationBenefits.map((slide, index) => (
+              <BenefitsFrame key={index} slide={slide} />
+            ))}
+          </div>
         </section>
       </div>
     </div>
