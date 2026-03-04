@@ -60,7 +60,7 @@ export const MENU_DATA: MenuItemType[] = [
         ],
       },
       {
-        title: "الاختبارات",
+        title: "أنواع اختبارات همزة",
         items: [
           {
             label: "أنواع اختبارات همزة",

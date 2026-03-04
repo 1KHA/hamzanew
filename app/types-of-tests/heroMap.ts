@@ -14,15 +14,10 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   "/types-of-tests": {
     title: "أنواع اختبارات همزة",
     bgColor: "#FFF",
-    // externalLink: {
-    //   href: "",
-    //   label: "",
-    // },
     breadcrumbs: [
       { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
-      { label: "الاختبارات", disabled: true },
-      { label: "أنواع اختبارات همزة", disabled: true },
+      { label:"أنواع اختبارات همزة", disabled: true },
     ],
   },
 
@@ -38,7 +33,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     breadcrumbs: [
       { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
-      { label: "الاختبارات", path: "/types-of-tests" },
+      { label: "أنواع اختبارات همزة", path: "/types-of-tests" },
       {
         label: "اختبار همزة العام",
         path: "/types-of-tests/hamza-general-test",
@@ -59,7 +54,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     breadcrumbs: [
       { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
-      { label: "الاختبارات", path: "/types-of-tests" },
+      { label: "أنواع اختبارات همزة", path: "/types-of-tests" },
       {
         label: "اختبار همزة  لتحديد المستوى",
         path: "/types-of-tests/hamza-placement-test",
@@ -80,7 +75,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     breadcrumbs: [
       { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
-      { label: "الاختبارات", path: "/types-of-tests" },
+      { label: "أنواع اختبارات همزة", path: "/types-of-tests" },
       {
         label: "اختبار همزة المفردات",
         path: "/types-of-tests/hamza-vocabulary-test",
@@ -100,7 +95,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     breadcrumbs: [
       { label: "الرئيسة", path: "/" },
       { label: "عن الجهة", disabled: true },
-      { label: "الاختبارات", path: "/types-of-tests" },
+      { label: "أنواع اختبارات همزة", path: "/types-of-tests" },
       {
         label: "اختبار همزة الأكاديمي",
         path: "/types-of-tests/hamza-academic-test",

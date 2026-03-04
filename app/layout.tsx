@@ -42,7 +42,11 @@ export default function RootLayout({
     <html lang="ar" dir="rtl">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
           rel="stylesheet"
@@ -55,7 +59,6 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col">
         <ClientOnly>
           <NavHeader />
-
           <main className="flex-1 w-full bg-white ">{children}</main>
           <Footer />
         </ClientOnly>
