@@ -1,49 +1,103 @@
 "use client";
 
-import { motion } from "framer-motion";
+/**
+ * ScrollReveal
+ *
+ * Generic entrance-animation wrapper powered by Framer Motion.
+ * Drop it around any element on any page — no repeated animation code needed.
+ *
+ * Usage examples
+ * ─────────────
+ * // Simple fade-up (default)
+ * <ScrollReveal><MyCard /></ScrollReveal>
+ *
+ * // Slide in from left, with delay and custom duration
+ * <ScrollReveal direction="left" delay={0.4} duration={0.9}>
+ *   <MyCard />
+ * </ScrollReveal>
+ *
+ * // Inside a role="list" parent — forward the listitem role
+ * {items.map((item, i) => (
+ *   <ScrollReveal key={i} delay={i * 0.22} role="listitem">
+ *     <ItemCard item={item} />
+ *   </ScrollReveal>
+ * ))}
+ *
+ * Props
+ * ─────
+ * direction  "up" | "down" | "left" | "right"   default "up"
+ *            The side the element enters from.
+ * distance   number (px)                          default per direction
+ *            How far the element travels.
+ * delay      number (s)                           default 0
+ * duration   number (s)                           default 0.65
+ * ease       Framer Motion Easing string/array    default "easeInOut"
+ * amount     0–1  fraction of element visible     default 0.4
+ *            before the animation fires.
+ *            Higher = user must scroll further in before it starts.
+ * className  forwarded to the motion.div
+ * role       forwarded to the motion.div  (e.g. "listitem")
+ */
+
+import { motion, type Easing } from "framer-motion";
+
+type Direction = "up" | "down" | "left" | "right";
 
 interface ScrollRevealProps {
   children: React.ReactNode;
   className?: string;
-  delay?: number;
-  direction?: "up" | "down" | "left" | "right";
+  role?: string;
+  direction?: Direction;
   distance?: number;
+  delay?: number;
   duration?: number;
+  ease?: Easing | Easing[];
+  amount?: number;
 }
 
-const directionMap = {
-  up:    { y: 50,   x: 0   },
-  down:  { y: -50,  x: 0   },
-  left:  { y: 0,    x: 60  },
-  right: { y: 0,    x: -60 },
+/** Default travel distance per direction (px). */
+const DEFAULT_DISTANCE: Record<Direction, number> = {
+  up:    40,
+  down:  40,
+  left:  50,
+  right: 50,
+};
+
+/** Axis + sign for each direction. */
+const AXIS: Record<Direction, { axis: "x" | "y"; sign: 1 | -1 }> = {
+  up:    { axis: "y", sign:  1 },  // starts below  → moves up
+  down:  { axis: "y", sign: -1 },  // starts above  → moves down
+  left:  { axis: "x", sign: -1 },  // starts left   → moves right
+  right: { axis: "x", sign:  1 },  // starts right  → moves left
 };
 
 export default function ScrollReveal({
   children,
   className,
-  delay = 0,
-  direction = "up",
+  role,
+  direction  = "up",
   distance,
-  duration = 0.65,
+  delay      = 0,
+  duration   = 0.65,
+  ease       = "easeInOut",
+  amount     = 0.4,
 }: ScrollRevealProps) {
-  const offset = directionMap[direction];
+  const { axis, sign } = AXIS[direction];
+  const travel = (distance ?? DEFAULT_DISTANCE[direction]) * sign;
+
   const initial = {
     opacity: 0,
-    y: distance !== undefined ? (direction === "up" ? distance : direction === "down" ? -distance : 0) : offset.y,
-    x: distance !== undefined ? (direction === "left" ? distance : direction === "right" ? -distance : 0) : offset.x,
+    [axis]: travel,
   };
 
   return (
     <motion.div
       className={className}
+      role={role}
       initial={initial}
-      whileInView={{ opacity: 1, y: 0, x: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{
-        duration,
-        delay,
-        ease: [0.25, 0.1, 0.25, 1],
-      }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, amount }}
+      transition={{ duration, delay, ease }}
     >
       {children}
     </motion.div>

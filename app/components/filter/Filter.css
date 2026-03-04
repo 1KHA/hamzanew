@@ -23,8 +23,8 @@
 .filter-dropdown {
   position: absolute;
   top: 100%;
-  left: auto;
-  right:  0;
+  left: 0;
+  right:  auto;
   margin-top: 12px;
   min-width: 240px;
   background-color: #fff;

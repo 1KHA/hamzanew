@@ -9,6 +9,31 @@ import "./sign-in.css";
 
 const noop = () => {};
 
+type FormErrors = { username?: string; password?: string };
+
+const RULES = {
+  username: { minLength: 3 },
+  password: { minLength: 8 },
+};
+
+function validateFields(username: string, password: string): FormErrors {
+  const errors: FormErrors = {};
+
+  if (!username.trim()) {
+    errors.username = "اسم المستخدم مطلوب";
+  } else if (username.trim().length < RULES.username.minLength) {
+    errors.username = `اسم المستخدم يجب أن يكون ${RULES.username.minLength} أحرف على الأقل`;
+  }
+
+  if (!password) {
+    errors.password = "كلمة المرور مطلوبة";
+  } else if (password.length < RULES.password.minLength) {
+    errors.password = `كلمة المرور يجب أن تكون ${RULES.password.minLength} أحرف على الأقل`;
+  }
+
+  return errors;
+}
+
 export default function SignInPage() {
   useEffect(() => {
     document.body.classList.add("page-sign-in");
@@ -18,22 +43,52 @@ export default function SignInPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleUsernameChange = useCallback((e: any) => setUsername(e.target.value), []);
-  const handlePasswordChange = useCallback((e: any) => setPassword(e.target.value), []);
-  const handleRememberMeChange = useCallback(() => setRememberMe(v => !v), []);
+  const handleUsernameChange = useCallback((e: any) => {
+    setUsername(e.target.value);
+    setErrors((prev) => ({ ...prev, username: undefined }));
+  }, []);
 
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    try {
-      // TODO: Replace with actual authentication API call
-      console.log("Sign in:", { username, password, rememberMe });
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, [username, password, rememberMe]);
+  const handlePasswordChange = useCallback((e: any) => {
+    setPassword(e.target.value);
+    setErrors((prev) => ({ ...prev, password: undefined }));
+  }, []);
+
+  const handleRememberMeChange = useCallback(() => setRememberMe((v) => !v), []);
+
+  const handleUsernameBlur = useCallback(() => {
+    const { username: err } = validateFields(username, password);
+    setErrors((prev) => ({ ...prev, username: err }));
+  }, [username, password]);
+
+  const handlePasswordBlur = useCallback(() => {
+    const { password: err } = validateFields(username, password);
+    setErrors((prev) => ({ ...prev, password: err }));
+  }, [username, password]);
+
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      const newErrors = validateFields(username, password);
+      if (Object.keys(newErrors).length > 0) {
+        setErrors(newErrors);
+        return;
+      }
+
+      setIsSubmitting(true);
+      try {
+        // TODO: Replace with actual authentication API call
+        console.log("Sign in:", { username, password, rememberMe });
+      } catch {
+        setErrors({ username: "حدث خطأ أثناء تسجيل الدخول، حاول مرة أخرى" });
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [username, password, rememberMe]
+  );
 
   const handleSSOClick = useCallback(() => {
     // TODO: Implement National SSO redirect
@@ -61,40 +116,76 @@ export default function SignInPage() {
             noValidate
           >
             {/* Username Field */}
-            <label className="sign-in-page__field-label">
-              <span className="dga-label dga-label--lg">
-                اسم المستخدم <span aria-hidden="true">*</span>
-              </span>
-              <DgaTextInput
-                name="username"
-                placeholder="أدخل اسم المستخدم"
-                size="lg"
-                type="text"
-                value={username}
-                onChange={handleUsernameChange}
-                onBlur={noop}
-                variant="default"
-                fullwidth
-              />
-            </label>
+            <div className="dga-form-control dga-form-control--fullwidth">
+              <label className="sign-in-page__field-label">
+                <span className="dga-label dga-label--lg">
+                  اسم المستخدم <span aria-hidden="true">*</span>
+                </span>
+                <DgaTextInput
+                  name="username"
+                  placeholder="أدخل اسم المستخدم"
+                  size="lg"
+                  type="text"
+                  value={username}
+                  onChange={handleUsernameChange}
+                  onBlur={handleUsernameBlur}
+                  error={!!errors.username}
+                  variant="default"
+                  fullwidth
+                />
+              </label>
+              {errors.username && (
+                <div
+                  className="invalid-feedback !flex !justify-start !gap-2 !mt-1"
+                  role="alert"
+                >
+                  <img
+                    alt=""
+                    width="16"
+                    height="16"
+                    className="inline-block icon-critical"
+                    src="/assets/icons/stroke-standard/alert-circle-stroke-rounded.svg"
+                  />
+                  {errors.username}
+                </div>
+              )}
+            </div>
 
             {/* Password Field */}
-            <label className="sign-in-page__field-label">
-              <span className="dga-label dga-label--lg">
-                كلمة المرور <span aria-hidden="true">*</span>
-              </span>
-              <DgaTextInput
-                name="password"
-                placeholder="أدخل كلمة المرور"
-                size="lg"
-                type="password"
-                value={password}
-                onChange={handlePasswordChange}
-                onBlur={noop}
-                variant="default"
-                fullwidth
-              />
-            </label>
+            <div className="dga-form-control dga-form-control--fullwidth">
+              <label className="sign-in-page__field-label">
+                <span className="dga-label dga-label--lg">
+                  كلمة المرور <span aria-hidden="true">*</span>
+                </span>
+                <DgaTextInput
+                  name="password"
+                  placeholder="أدخل كلمة المرور"
+                  size="lg"
+                  type="password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  onBlur={handlePasswordBlur}
+                  error={!!errors.password}
+                  variant="default"
+                  fullwidth
+                />
+              </label>
+              {errors.password && (
+                <div
+                  className="invalid-feedback !flex !justify-start !gap-2 !mt-1"
+                  role="alert"
+                >
+                  <img
+                    alt=""
+                    width="16"
+                    height="16"
+                    className="inline-block icon-critical"
+                    src="/assets/icons/stroke-standard/alert-circle-stroke-rounded.svg"
+                  />
+                  {errors.password}
+                </div>
+              )}
+            </div>
 
             {/* Remember Me & Forgot Password */}
             <div className="sign-in-page__options">
