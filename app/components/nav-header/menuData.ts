@@ -153,7 +153,24 @@ export const MENU_DATA: MenuItemType[] = [
   {
     id: "news",
     label: "الاخبار",
-    href: "/news",
+    hasSubmenu: true,
+    submenuColumns: [
+      {
+        title: "الاخبار",
+        items: [
+          {
+            label: "آخر الأخبار",
+            href: "/news/latest",
+            icon: "/assets/icons/stroke-standard/book-04-stroke-standard.svg",
+          },
+          {
+            label: "الأخبار",
+            href: "/news",
+            icon: "/assets/icons/stroke-standard/book-04-stroke-standard.svg",
+          },
+        ],
+      },
+    ],
   },
 ];
 

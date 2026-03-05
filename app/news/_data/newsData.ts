@@ -213,3 +213,11 @@ export const news = [
     date: "2026-01-15",
   },
 ];
+
+// Mock data for latest coverage
+export const latestCoverage: string[] = [
+  "/assets/image/photo4.jpg",
+  "/assets/image/photo4.jpg",
+  "/assets/image/photo4.jpg",
+  "/assets/image/photo4.jpg",
+];
