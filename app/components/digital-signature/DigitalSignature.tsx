@@ -32,7 +32,7 @@ export default function DigitalSignature() {
 
   return (
     <div className="bg-[#f5f5f5]">
-      <div className="digital_wrapper border-2 custom-container">
+      <div className="digital_wrapper custom-container">
         <div className="flex justify-between">
 
           {/* Site badge + toggle button */}

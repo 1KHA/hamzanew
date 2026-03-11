@@ -1,0 +1,119 @@
+import { Controller, useFormContext } from "react-hook-form";
+import FormField from "@/app/components/form-field/FormField";
+import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
+import type { UserProfileFormValues } from "../update/ProfileForm";
+import { DgaDropdown } from "platformscode-new-react";
+const DEGREE_OPTIONS = [
+  { name: "ثانوية عامة", value: "high_school" },
+  { name: "دبلوم", value: "diploma" },
+  { name: "بكالوريوس", value: "bachelor" },
+  { name: "ماجستير", value: "master" },
+  { name: "دكتوراه", value: "phd" },
+];
+
+const LANGUAGE_OPTIONS = [
+  { name: "العربية", value: "ar" },
+  { name: "الإنجليزية", value: "en" },
+  { name: "الفرنسية", value: "fr" },
+  { name: "أخرى", value: "other" },
+];
+export default function EducationTab() {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext<UserProfileFormValues>();
+
+  return (
+    <div
+      className="!grid !gap-[16px]"
+      role="tabpanel"
+      aria-labelledby="tab-education"
+      id="panel-education"
+    >
+      <h2 id="tab-education" className="sr-only">
+        المؤهلات الدراسية
+      </h2>
+      <p className="text-sm text-gray-600 sr-only">
+        قم بإدخال معلوماتك التعليمية بما في ذلك المؤهل الدراسي والمؤسسة
+        التعليمية والتخصص
+      </p>
+
+      <div className="!grid !grid-cols-1 md:!grid-cols-6 !gap-8">
+        <FormField
+          label="آخر مؤهل دراسي"
+          required
+          error={errors.education?.message}
+          className="md:!col-span-2"
+        >
+          <Controller
+            name="education"
+            control={control}
+            render={({ field }) => (
+              <DgaDropdown
+                placeholder="اختر المؤهل"
+                size="lg"
+                variant="darker"
+                className="w-full"
+                optionLabel="name"
+                trackBy="value"
+                options={DEGREE_OPTIONS}
+                value={field.value}
+                onChange={(value) => field.onChange(value)}
+                error={!!errors.education}
+              />
+            )}
+          />
+        </FormField>
+
+        <FormField
+          label="المؤسسة التعلمية"
+          required
+          error={errors.institution?.message}
+          className="md:!col-span-2"
+        >
+          <ControlledTextInput name="institution" />
+        </FormField>
+
+        {/* spacer */}
+        <div className="hidden md:block md:!col-span-2" />
+
+        <FormField
+          label="التخصص الدراسي"
+          required
+          error={errors.specialization?.message}
+          className="md:!col-span-2"
+        >
+          <ControlledTextInput name="specialization" />
+        </FormField>
+
+        <FormField
+          label="اللغة الأساسية في التعليم"
+          required
+          error={errors.basicLanguageInEducation?.message}
+          className="md:!col-span-2"
+        >
+          <Controller
+            name="basicLanguageInEducation"
+            control={control}
+            render={({ field }) => (
+              <DgaDropdown
+                placeholder="اختر اللغة"
+                size="lg"
+                variant="darker"
+                optionLabel="name"
+                trackBy="value"
+                options={LANGUAGE_OPTIONS}
+                className="w-full"
+                value={field.value}
+                getSelectedOptions={(opt: any) => field.onChange(opt.value)}
+              />
+            )}
+          />
+        </FormField>
+
+        {/* spacer */}
+        <div className="hidden md:block md:!col-span-2" />
+      </div>
+    </div>
+  );
+}
