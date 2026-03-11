@@ -146,114 +146,106 @@ export default function Feedback() {
           className="!flex !flex-col !items-center !w-full !py-6"
           aria-label="تقييم الصفحة"
         >
-          {/* Top row: question + Yes/No + close + stats */}
-          <div className="flex md:flex-row flex-col w-full gap-4 justify-between">
-            <div className="!w-full !flex !flex-row !justify-between !items-center max-!gap-4">
-              <div className="!flex md:!items-center !flex-col md:!flex-row !gap-4 md:!gap-6">
-                {submitted ? (
-                  // role="status" announces the confirmation without interrupting AT
-                  <p
-                    className="text-md-regular text-[#161616] flex items-center gap-4"
-                    role="status"
-                    aria-live="polite"
-                  >
-                    <Image
-                      src="/assets/icons/stroke-standard/checkmark-circle-04-stroke-rounded.svg"
-                      alt=""
-                      aria-hidden="true"
-                      width={24}
-                      height={24}
-                      className="inline-block green-icon"
-                    />
-                    تم إرسال ملاحظاتك!
-                  </p>
-                ) : (
-                  <>
-                    <p id={questionId} className="text-md-regular text-[#161616]">
-                      هل كانت هذه الصفحة مفيدة؟
-                    </p>
+          {/* Top row: question + Yes/No (right in RTL) | stats or close (left in RTL) */}
+          <div className="flex md:flex-row flex-col w-full gap-4 justify-between items-center">
 
-                    {/* role="group" ties both buttons to the question via aria-labelledby */}
-                    <div role="group" aria-labelledby={questionId} className="flex gap-4">
-                      <button
-                        type="button"
-                        className="dga-btn dga-btn--lg dga-btn--primary-brand !flex !justify-center !items-center !p-4 !cursor-pointer"
-                        onClick={() => handleUsefulChange("yes")}
-                        aria-pressed={answer.isUseful === "yes"}
-                        aria-controls={surveyPanelId}
-                        aria-expanded={openQuestions && answer.isUseful === "yes"}
-                      >
-                        <span>نعم</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        className="dga-btn dga-btn--lg dga-btn--primary-brand !flex !justify-center !items-center !p-4 !cursor-pointer"
-                        onClick={() => handleUsefulChange("no")}
-                        aria-pressed={answer.isUseful === "no"}
-                        aria-controls={surveyPanelId}
-                        aria-expanded={openQuestions && answer.isUseful === "no"}
-                      >
-                        <span>لا</span>
-                      </button>
-                    </div>
-                  </>
-                )}
-              </div>
-
-              {/* Close button — visible while the survey is open */}
-              {openQuestions && !submitted && (
-                <button
-                  type="button"
-                  className="dga-btn dga-btn--lg dga-btn--subtle !flex !justify-center !items-center !p-4 !cursor-pointer"
-                  onClick={handleClose}
-                  aria-label="إغلاق نموذج التقييم"
-                  aria-controls={surveyPanelId}
-                  aria-expanded={openQuestions}
+            {/* RTL right side: question + Yes/No buttons */}
+            <div className="flex md:items-center flex-col md:flex-row gap-4 md:gap-6">
+              {submitted ? (
+                <p
+                  className="text-md-regular text-[#161616] flex items-center gap-4"
+                  role="status"
+                  aria-live="polite"
                 >
-                  <span aria-hidden="true">إغلاق</span>
                   <Image
-                    src="/assets/icons/stroke-standard/cancel-circle-stroke-rounded.svg"
+                    src="/assets/icons/stroke-standard/checkmark-circle-04-stroke-rounded.svg"
                     alt=""
                     aria-hidden="true"
                     width={24}
                     height={24}
-                    className="inline-block"
+                    className="inline-block green-icon"
                   />
-                </button>
+                  تم إرسال ملاحظاتك!
+                </p>
+              ) : (
+                <>
+                  <p id={questionId} className="text-md-regular text-[#161616]">
+                    هل كانت هذه الصفحة مفيدة؟
+                  </p>
+                  <div role="group" aria-labelledby={questionId} className="flex gap-4">
+                    <button
+                      type="button"
+                      className="dga-btn dga-btn--lg dga-btn--primary-brand"
+                      onClick={() => handleUsefulChange("yes")}
+                      aria-pressed={answer.isUseful === "yes"}
+                      aria-controls={surveyPanelId}
+                      aria-expanded={openQuestions && answer.isUseful === "yes"}
+                    >
+                      <span className="dga-btn-label">نعم</span>
+                    </button>
+                    <button
+                      type="button"
+                      className="dga-btn dga-btn--lg dga-btn--primary-brand"
+                      onClick={() => handleUsefulChange("no")}
+                      aria-pressed={answer.isUseful === "no"}
+                      aria-controls={surveyPanelId}
+                      aria-expanded={openQuestions && answer.isUseful === "no"}
+                    >
+                      <span className="dga-btn-label">لا</span>
+                    </button>
+                  </div>
+                </>
               )}
             </div>
 
-            {/* Stats — visible when the survey is collapsed or after submission */}
-            {(!openQuestions || submitted) && stats.totalCount > 0 && (
-              <p
-                className="text-sm-regular text-[#161616] text-start md:text-end !w-full content-center"
-                aria-label={`${stats.yesPercentage} بالمئة من المستخدمين قالوا نعم، من أصل ${stats.totalCount} تعليق`}
+            {/* RTL left side: stats and close button share the same grid cell — no layout shift */}
+            <div style={{ display: "grid", flexShrink: 0 }}>
+              {stats.totalCount > 0 && (
+                <p
+                  className="text-sm-regular text-[#161616] text-start md:text-end content-center"
+                  style={{ gridArea: "1/1", visibility: !openQuestions || submitted ? "visible" : "hidden" }}
+                  aria-label={`${stats.yesPercentage} بالمئة من المستخدمين قالوا نعم، من أصل ${stats.totalCount} تعليق`}
+                >
+                  {stats.yesPercentage}% من المستخدمين قالوا نعم من{" "}
+                  {stats.totalCount} تعليقًا
+                </p>
+              )}
+              <button
+                type="button"
+                className="dga-btn dga-btn--lg dga-btn--subtle"
+                onClick={handleClose}
+                aria-label="إغلاق نموذج التقييم"
+                aria-controls={surveyPanelId}
+                aria-expanded={openQuestions}
+                style={{
+                  gridArea: "1/1",
+                  visibility: openQuestions && !submitted ? "visible" : "hidden",
+                  pointerEvents: openQuestions && !submitted ? "auto" : "none",
+                }}
               >
-                {stats.yesPercentage}% من المستخدمين قالوا نعم من{" "}
-                {stats.totalCount} تعليقًا
-              </p>
-            )}
+                <span className="dga-btn-label" aria-hidden="true">إغلاق</span>
+                <Image
+                  src="/assets/icons/stroke-standard/cancel-circle-stroke-rounded.svg"
+                  alt=""
+                  aria-hidden="true"
+                  width={24}
+                  height={24}
+                  className="inline-block"
+                />
+              </button>
+            </div>
+
           </div>
 
-          {/*
-           * Animated survey panel.
-           * grid-rows trick animates height without JS-measured pixels.
-           * aria-hidden removes it from the AT tree when collapsed so
-           * keyboard users cannot Tab into invisible controls.
-           */}
           <div
             id={surveyPanelId}
             role="region"
             aria-label="نموذج التقييم التفصيلي"
             aria-hidden={!openQuestions || submitted ? true : undefined}
-            className={`grid transition-[grid-template-rows,opacity,margin,transform] duration-300 ease-in-out !w-full ${
-              openQuestions && !submitted
-                ? "grid-rows-[1fr] opacity-100 mt-8 translate-y-0"
-                : "grid-rows-[0fr] opacity-0 mt-0 translate-y-8"
-            }`}
+            className={`feedback-survey-panel${openQuestions && !submitted ? " feedback-survey-panel--open" : ""}`}
           >
-            <div className="overflow-hidden !px-4 min-h-0 gap-[24px] flex flex-col">
+            <div className="feedback-survey-panel__inner">
+            <div className="!px-4 gap-[24px] flex flex-col pb-4">
               {answer.isUseful && (
                 <>
                   {/* Error summary — Notification carries role="alert" internally */}
@@ -270,43 +262,45 @@ export default function Feedback() {
                   <div className="!w-full !flex !justify-between max-md:!flex-col max-md:!gap-8 pt-4">
                     {/* fieldset + legend is the correct semantic for grouped checkboxes */}
                     <fieldset
-                      className="!flex !flex-col !gap-4 border-none p-0 m-0"
+                      className="border-none p-0 m-0"
                       aria-describedby={errors.reasons ? reasonsErrorId : undefined}
                     >
-                      <legend className="!text-md-semibold !text-[#161616]">
+                      <legend className="!text-md-semibold !text-[#161616] !mb-4">
                         يرجى إخبارنا بالسبب
                         <span className="!text-sm-regular !text-[#6C737F]">
                           &nbsp;(يمكنك تحديد خيارات متعددة)
                         </span>
                       </legend>
 
-                      {currentOptions.map((option) => (
-                        <DgaCheckbox
-                          key={option.id}
-                          label={option.text}
-                          value={option.id}
-                          checked={answer.reasons.includes(option.id)}
-                          onChange={() => handleReasonChange(option.id)}
-                        />
-                      ))}
-
-                      {errors.reasons && (
-                        <div
-                          id={reasonsErrorId}
-                          role="alert"
-                          className="invalid-feedback !flex !justify-start !gap-2 !mt-1"
-                        >
-                          <Image
-                            src="/assets/icons/stroke-standard/alert-circle-stroke-rounded.svg"
-                            alt=""
-                            aria-hidden="true"
-                            width={16}
-                            height={16}
-                            className="inline-block icon-critical"
+                      <div className="flex flex-col gap-4">
+                        {currentOptions.map((option) => (
+                          <DgaCheckbox
+                            key={option.id}
+                            label={option.text}
+                            value={option.id}
+                            checked={answer.reasons.includes(option.id)}
+                            onChange={() => handleReasonChange(option.id)}
                           />
-                          يرجى اختيار سبب واحد على الأقل
-                        </div>
-                      )}
+                        ))}
+
+                        {errors.reasons && (
+                          <div
+                            id={reasonsErrorId}
+                            role="alert"
+                            className="invalid-feedback !flex !justify-start !gap-2 !mt-1"
+                          >
+                            <Image
+                              src="/assets/icons/stroke-standard/alert-circle-stroke-rounded.svg"
+                              alt=""
+                              aria-hidden="true"
+                              width={16}
+                              height={16}
+                              className="inline-block icon-critical"
+                            />
+                            يرجى اختيار سبب واحد على الأقل
+                          </div>
+                        )}
+                      </div>
                     </fieldset>
 
                     <Textarea
@@ -416,15 +410,16 @@ export default function Feedback() {
 
                     <button
                       type="button"
-                      className="dga-btn dga-btn--lg dga-btn--primary-brand !flex !justify-center !items-center !p-4 !cursor-pointer"
+                      className="dga-btn dga-btn--lg dga-btn--primary-brand"
                       onClick={handleSubmit}
                       aria-label="إرسال التقييم"
                     >
-                      <span>إرسال</span>
+                      <span className="dga-btn-label">إرسال</span>
                     </button>
                   </div>
                 </>
               )}
+            </div>
             </div>
           </div>
         </section>

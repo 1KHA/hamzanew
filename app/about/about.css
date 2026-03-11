@@ -237,13 +237,11 @@
   flex-direction: column;
   align-items: flex-end;
   gap: var(--Card-card-lg-gap, 24px);
-  align-self: stretch;
 
   border-radius: var(--radius-lg, 16px);
   background: var(--Background-background-card, #fff);
-  flex: 1 0 0;
-  /* nice optional */
   box-sizing: border-box;
+  height: 100%;
 }
 
 /* new */
@@ -276,8 +274,8 @@
 .about-value-card__desc {
   margin: 0;
   color: var(--Text-text-secondary, #1f2a37);
-  font-size: 14px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .about-value-card__badge {

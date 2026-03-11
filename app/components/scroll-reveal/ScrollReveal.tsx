@@ -53,6 +53,9 @@ interface ScrollRevealProps {
   duration?: number;
   ease?: Easing | Easing[];
   amount?: number;
+  margin?: string;
+  /** Fire on mount instead of on scroll (for above-the-fold content) */
+  immediate?: boolean;
 }
 
 /** Default travel distance per direction (px). */
@@ -81,22 +84,36 @@ export default function ScrollReveal({
   duration   = 0.65,
   ease       = "easeInOut",
   amount     = 0.4,
+  margin,
+  immediate  = false,
 }: ScrollRevealProps) {
   const { axis, sign } = AXIS[direction];
   const travel = (distance ?? DEFAULT_DISTANCE[direction]) * sign;
 
-  const initial = {
-    opacity: 0,
-    [axis]: travel,
-  };
+  const initial = { opacity: 0, [axis]: travel };
+  const visible = { opacity: 1, x: 0, y: 0 };
+
+  if (immediate) {
+    return (
+      <motion.div
+        className={className}
+        role={role}
+        initial={initial}
+        animate={visible}
+        transition={{ duration, delay, ease }}
+      >
+        {children}
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
       className={className}
       role={role}
       initial={initial}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, amount }}
+      whileInView={visible}
+      viewport={{ once: true, amount, margin }}
       transition={{ duration, delay, ease }}
     >
       {children}

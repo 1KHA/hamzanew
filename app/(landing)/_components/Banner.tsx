@@ -174,7 +174,7 @@ function Banner() {
           {/* Pause/play satisfies WCAG 2.1 AA SC 2.2.2 for auto-moving content */}
           <button
             type="button"
-            className="embla__dot embla__pause"
+            className="dga-btn dga-btn--sm dga-btn--primary-neutral--on-color"
             onClick={togglePause}
             aria-label={isPaused ? "تشغيل العرض التلقائي" : "إيقاف العرض التلقائي"}
           >
@@ -186,8 +186,8 @@ function Banner() {
               }
               alt=""
               aria-hidden="true"
-              width={16}
-              height={16}
+              width={20}
+              height={20}
             />
           </button>
 

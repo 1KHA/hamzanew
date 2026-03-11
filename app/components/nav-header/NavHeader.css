@@ -139,6 +139,10 @@
   -ms-user-select: none;
   user-select: none;
 }
+
+.header-nav__actions {
+  flex-shrink: 0;
+}
 @media only screen and (max-width: 960px) {
   .header-nav__menu,
   .header-nav__actions {
@@ -776,11 +780,10 @@ width: auto;
   overflow: clip;
 }
 
-/* Special styles ONLY between 1115px and 960px */
-@media only screen and (max-width: 1120px) and (min-width: 960px) {
+/* Constrain menu wrapper to force overflow + scroll buttons below 1232px */
+@media only screen and (max-width: 1232px) and (min-width: 961px) {
   .header-nav__menu-wrapper {
-    width: 400px;
-    padding: 0px 50px;
+    max-width: calc(100vw - 440px);
     overflow: clip;
   }
 }
@@ -791,3 +794,4 @@ width: auto;
     display: none;
   }
 }
+

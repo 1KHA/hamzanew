@@ -134,21 +134,20 @@ export default function SignInPage() {
                   fullwidth
                 />
               </label>
-              {errors.username && (
-                <div
-                  className="invalid-feedback !flex !justify-start !gap-2 !mt-1"
-                  role="alert"
-                >
-                  <img
-                    alt=""
-                    width="16"
-                    height="16"
-                    className="inline-block icon-critical"
-                    src="/assets/icons/stroke-standard/alert-circle-stroke-rounded.svg"
-                  />
-                  {errors.username}
-                </div>
-              )}
+              <div
+                className="invalid-feedback !flex !justify-start !gap-2 !mt-1"
+                role="alert"
+                style={{ visibility: errors.username ? "visible" : "hidden", minHeight: "20px" }}
+              >
+                <img
+                  alt=""
+                  width="16"
+                  height="16"
+                  className="inline-block icon-critical"
+                  src="/assets/icons/stroke-standard/alert-circle-stroke-rounded.svg"
+                />
+                {errors.username ?? "\u00A0"}
+              </div>
             </div>
 
             {/* Password Field */}
@@ -170,21 +169,20 @@ export default function SignInPage() {
                   fullwidth
                 />
               </label>
-              {errors.password && (
-                <div
-                  className="invalid-feedback !flex !justify-start !gap-2 !mt-1"
-                  role="alert"
-                >
-                  <img
-                    alt=""
-                    width="16"
-                    height="16"
-                    className="inline-block icon-critical"
-                    src="/assets/icons/stroke-standard/alert-circle-stroke-rounded.svg"
-                  />
-                  {errors.password}
-                </div>
-              )}
+              <div
+                className="invalid-feedback !flex !justify-start !gap-2 !mt-1"
+                role="alert"
+                style={{ visibility: errors.password ? "visible" : "hidden", minHeight: "20px" }}
+              >
+                <img
+                  alt=""
+                  width="16"
+                  height="16"
+                  className="inline-block icon-critical"
+                  src="/assets/icons/stroke-standard/alert-circle-stroke-rounded.svg"
+                />
+                {errors.password ?? "\u00A0"}
+              </div>
             </div>
 
             {/* Remember Me & Forgot Password */}
@@ -196,7 +194,7 @@ export default function SignInPage() {
                 checked={rememberMe}
                 onChange={handleRememberMeChange}
               />
-              <a href="/forgot-password" className="link--primary text-sm-regular">
+              <a href="/forgot-password" className="link--primary text-md-regular">
                 هل نسيت كلمة المرور؟
               </a>
             </div>

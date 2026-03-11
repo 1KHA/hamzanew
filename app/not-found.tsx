@@ -18,7 +18,7 @@ export default function notFound() {
             <p className="text-lg-medium !font-normal">عذراً، لم نستطع إيجاد الصفحة التي تبحث عنها</p>
           </div>
           <Button
-            label="الرجوع للرئيسية"
+            label="الرجوع للصفحة الرئيسة"
             variant="primary-brand"
             size="lg"
             onClick={() => router.push("/")}

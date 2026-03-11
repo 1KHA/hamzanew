@@ -16,6 +16,7 @@ import {
   DEFAULT_PREFIX,
   getDigitsFromPhone,
 } from "./_data/phonePrefixes";
+import SideNav from "@/app/components/side-nav/SideNav";
 
 // ─────────────────────────────────────────
 //   Schema defined
@@ -76,6 +77,7 @@ export type UserProfileFormValues = z.infer<typeof userProfileSchema>;
  * @component
  * @returns {JSX.Element} The complete user profile form with tabs
  */
+
 export default function UserProfile() {
   const [activeTab, setActiveTab] = useState<number>(1);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -152,41 +154,7 @@ export default function UserProfile() {
   };
 
   return (
-    <section
-      className="section-spacing-5xl !bg-white !p-[32px] !rounded-[8px] !h-fit !mb-[80px]"
-      aria-label="نموذج الملف الشخصي"
-      role="form"
-    >
-      {/* Tabbed Navigation Interface */}
-      <DgaTabs
-        className="!mb-[32px] max-md:!overflow-auto"
-        orientation="horizontal"
-        divider
-        size="lg"
-        tabsList={[
-          {
-            label: "معلومات الحساب",
-            tabIcon: "square-lock-02",
-            onClick: () => handleTabChange(1),
-          },
-          {
-            label: "المعلومات الشخصية",
-            tabIcon: "user",
-            onClick: () => handleTabChange(2),
-          },
-          {
-            label: "المؤهلات الدراسية",
-            tabIcon: "mortarboard-02",
-            onClick: () => handleTabChange(3),
-          },
-          {
-            label: "الموقع",
-            tabIcon: "location-01",
-            onClick: () => handleTabChange(4),
-          },
-        ]}
-      />
-
+    <>
       {showSuccess && (
         <NotificationToast
           type="success"
@@ -199,20 +167,66 @@ export default function UserProfile() {
         />
       )}
 
-      {/* Tab Content Container */}
-      <div className="mb-[40px] head" role="region" aria-live="polite">
-        <div className="!space-y-[16px]">
-          {/* FormProvider shares form context to all child tab components */}
-          <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>
-              {activeTab === 1 && <AccountInfoTab />}
-              {activeTab === 2 && <PersonalInfoTab />}
-              {activeTab === 3 && <EducationTab />}
-              {activeTab === 4 && <LocationTab />}
-            </form>
-          </FormProvider>
-        </div>
+      <div className="flex flex-row-reverse gap-6 items-start mb-[80px]">
+       
+        {/* Col 1 — Form content */}
+        <section
+          className="section-spacing-5xl !bg-white !p-[32px] !rounded-[8px] !h-fit flex-1 min-w-0"
+          aria-label="نموذج الملف الشخصي"
+          role="form"
+        >
+          {/* Tabbed Navigation Interface */}
+          <DgaTabs
+            className="!mb-[32px] max-md:!overflow-auto"
+            orientation="horizontal"
+            divider
+            size="lg"
+            tabsList={[
+              {
+                label: "معلومات الحساب",
+                tabIcon: "square-lock-02",
+                onClick: () => handleTabChange(1),
+              },
+              {
+                label: "المعلومات الشخصية",
+                tabIcon: "user",
+                onClick: () => handleTabChange(2),
+              },
+              {
+                label: "المؤهلات الدراسية",
+                tabIcon: "mortarboard-02",
+                onClick: () => handleTabChange(3),
+              },
+              {
+                label: "الموقع",
+                tabIcon: "location-01",
+                onClick: () => handleTabChange(4),
+              },
+            ]}
+          />
+
+          {/* Tab Content */}
+          <div className="mb-[40px]" role="region" aria-live="polite">
+            <FormProvider {...methods}>
+              <form onSubmit={methods.handleSubmit(onSubmit)}>
+                {activeTab === 1 && <AccountInfoTab />}
+                {activeTab === 2 && <PersonalInfoTab />}
+                {activeTab === 3 && <EducationTab />}
+                {activeTab === 4 && <LocationTab />}
+              </form>
+            </FormProvider>
+          </div>
+        </section>
+
+        {/* Col 2 — Sidebar nav */}
+        <SideNav
+          activePath="/profile"
+          userName={mockUserInfo.fullName_ar}
+          userEmail={mockUserInfo.email}
+          userAvatar={mockUserInfo.avatar}
+        />
+
       </div>
-    </section>
+    </>
   );
 }

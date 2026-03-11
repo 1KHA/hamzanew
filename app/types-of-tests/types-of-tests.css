@@ -107,7 +107,7 @@
     grid-row: 1 / -1;
     grid-template-rows: subgrid;
     align-items: start;
-    gap: 20px;
+    gap: 24px;
   }
 
   /* Info wrapper becomes transparent; its 3 children fill rows 2–4 */
