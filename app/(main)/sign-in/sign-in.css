@@ -23,7 +23,7 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  max-width: 978px;
+  max-width: 1200px;
   background-color: #fff;
   border-radius: 16px;
   box-shadow: 0 24px 48px -12px rgba(16, 24, 40, 0.18);
@@ -35,7 +35,8 @@
    -------------------------------------------------------------------------- */
 
 .sign-in-page__image {
-  flex: 0 0 45%;
+  flex: 1;
+  max-width: 600px;
   position: relative;
   overflow: hidden;
 }
@@ -93,6 +94,8 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  position: relative;
+  z-index: 1;
 }
 
 /* --------------------------------------------------------------------------
@@ -113,6 +116,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.sign-in-page__options dga-checkbox {
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 /* --------------------------------------------------------------------------

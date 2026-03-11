@@ -17,6 +17,7 @@ import {
   DEFAULT_PREFIX,
   getDigitsFromPhone,
 } from "../_data/phonePrefixes";
+import SideNav from "@/app/components/side-nav/SideNav";
 
 // ─────────────────────────────────────────
 //   Schema defined
@@ -140,42 +141,7 @@ function ProfileFormContent() {
   };
 
   return (
-    <section
-      className="section-spacing-5xl !bg-white !p-[32px] !rounded-[8px] !h-fit !mb-[80px]"
-      aria-label="نموذج الملف الشخصي"
-      role="form"
-    >
-      {/* Tabbed Navigation Interface */}
-      <DgaTabs
-        className="!mb-[32px] max-md:!overflow-auto"
-        orientation="horizontal"
-        divider
-        size="lg"
-        activeTab={activeTab - 1} // Maps 1-4 state to 0-3 index
-        tabsList={[
-          {
-            label: "معلومات الحساب",
-            tabIcon: "square-lock-02",
-            onClick: () => handleTabChange(1),
-          },
-          {
-            label: "المعلومات الشخصية",
-            tabIcon: "user",
-            onClick: () => handleTabChange(2),
-          },
-          {
-            label: "المؤهلات الدراسية",
-            tabIcon: "mortarboard-02",
-            onClick: () => handleTabChange(3),
-          },
-          {
-            label: "الموقع",
-            tabIcon: "location-01",
-            onClick: () => handleTabChange(4),
-          },
-        ]}
-      />
-
+    <>
       {showSuccess && (
         <NotificationToast
           type="success"
@@ -188,21 +154,67 @@ function ProfileFormContent() {
         />
       )}
 
-      {/* Tab Content Container */}
-      <div className="mb-[40px] head" role="region" aria-live="polite">
-        <div className="!space-y-[16px]">
-          {/* FormProvider shares form context to all child tab components */}
-          <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>
-              {activeTab === 1 && <AccountInfoTab />}
-              {activeTab === 2 && <PersonalInfoTab />}
-              {activeTab === 3 && <EducationTab />}
-              {activeTab === 4 && <LocationTab />}
-            </form>
-          </FormProvider>
-        </div>
+      <div className="flex flex-row-reverse gap-6 items-start mb-[80px]">
+       
+        {/* Col 1 — Form content */}
+        <section
+          className="section-spacing-5xl !bg-white !p-[32px] !rounded-[8px] !h-fit flex-1 min-w-0"
+          aria-label="نموذج الملف الشخصي"
+          role="form"
+        >
+          {/* Tabbed Navigation Interface */}
+          <DgaTabs
+            className="!mb-[32px] max-md:!overflow-auto"
+            orientation="horizontal"
+            divider
+            size="lg"
+            tabsList={[
+              {
+                label: "معلومات الحساب",
+                tabIcon: "square-lock-02",
+                onClick: () => handleTabChange(1),
+              },
+              {
+                label: "المعلومات الشخصية",
+                tabIcon: "user",
+                onClick: () => handleTabChange(2),
+              },
+              {
+                label: "المؤهلات الدراسية",
+                tabIcon: "mortarboard-02",
+                onClick: () => handleTabChange(3),
+              },
+              {
+                label: "الموقع",
+                tabIcon: "location-01",
+                onClick: () => handleTabChange(4),
+              },
+            ]}
+          />
+
+          {/* Tab Content */}
+          <div className="mb-[40px]" role="region" aria-live="polite">
+            <FormProvider {...methods}>
+              <form onSubmit={methods.handleSubmit(onSubmit)}>
+                {activeTab === 1 && <AccountInfoTab />}
+                {activeTab === 2 && <PersonalInfoTab />}
+                {activeTab === 3 && <EducationTab />}
+                {activeTab === 4 && <LocationTab />}
+              </form>
+            </FormProvider>
+          </div>
+        </section>
+
+        {/* Col 2 — Sidebar nav */}
+        <SideNav
+          activePath="/profile"
+          userName={mockUserInfo.firstName_ar+" "+mockUserInfo.lastName_ar}
+          userEmail={mockUserInfo.email}
+          userAvatar={mockUserInfo.avatar}
+        />
+
       </div>
-    </section>
+    </>
   );
 }
 

@@ -22,7 +22,7 @@ export default function NotFound() {
             </p>
           </div>
           <Button
-            label="الرجوع للرئيسية"
+            label="الرجوع للصفحة الرئيسة"
             variant="primary-brand"
             size="lg"
             onClick={() => router.push("/")}

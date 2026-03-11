@@ -152,6 +152,7 @@ function NavHeader() {
   const { canScrollLeft, canScrollRight, scrollLeft, scrollRight } =
     useHorizontalScroll(menuScrollRef);
 
+
   // Memoised class string for the sticky wrapper — avoids string
   // concatenation on every render
   const stickyClass = useMemo(
@@ -311,7 +312,7 @@ function NavHeader() {
                   handled via CSS on the wrapper class.               */}
               <div className={menuWrapperClass}>
 
-                {/* Left scroll button — shown only when overflowing */}
+                {/* Left scroll button — shown when overflowing or screen ≤ 1265px */}
                 {canScrollLeft && (
                   <button
                     type="button"
@@ -348,7 +349,7 @@ function NavHeader() {
                   <li className="scroll-sentinel-end" aria-hidden="true" />
                 </ul>
 
-                {/* Right scroll button — shown only when overflowing */}
+                {/* Right scroll button — shown when overflowing or screen ≤ 1265px */}
                 {canScrollRight && (
                   <button
                     type="button"

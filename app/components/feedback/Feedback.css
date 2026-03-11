@@ -1,0 +1,22 @@
+.feedback-survey-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  margin-top: 0px;
+  width: 100%;
+  transition:
+    grid-template-rows 0.35s ease-in-out,
+    opacity 0.35s ease-in-out,
+    margin-top 0.35s ease-in-out;
+}
+
+.feedback-survey-panel--open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 32px;
+}
+
+.feedback-survey-panel__inner {
+  overflow: hidden;
+  min-height: 0;
+}
