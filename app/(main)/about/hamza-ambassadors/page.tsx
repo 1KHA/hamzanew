@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function HamzaAmbassadorsPage() {
   return (
       <section
-        className="section-spacing-8xl custom-container"
+        className="section-spacing-8xl custom-container !my-54"
         aria-labelledby="ambassadors-heading"
       >
       </section>

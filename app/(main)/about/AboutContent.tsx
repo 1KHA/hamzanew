@@ -1,7 +1,7 @@
 "use client";
 
-import Card from "../components/card/Card";
-import ScrollReveal from "../components/scroll-reveal/ScrollReveal";
+import Card from "@/app/components/card/Card";
+import ScrollReveal from "@/app/components/scroll-reveal/ScrollReveal";
 
 const STAGGER  = 0.08;
 const DURATION = 0.7;

@@ -1,5 +1,4 @@
 import NavHeader from "../components/nav-header/NavHeader";
-import ClientOnly from "../components/ClientOnly";
 import Footer from "../components/footer/Footer";
 import "@/app/globals.css";
 import type { Metadata } from "next";
@@ -26,7 +25,7 @@ export default function MainLayout({
   return (
     <>
       <NavHeader />
-      <main>{children}</main>
+      <main className="flex-1 flex flex-col">{children}</main>
       <Footer />
     </>
   );

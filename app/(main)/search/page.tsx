@@ -22,7 +22,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "البحث",
-  description: "البحث في موقع همزة"
+  description: "البحث في موقع همزة",
 };
 
 /* ==========================================================================
@@ -36,11 +36,11 @@ export const metadata: Metadata = {
  */
 export default function SearchPage(): ReactElement {
   return (
-    <main className="content" aria-label="صفحة البحث">
+    <section className="content" aria-label="صفحة البحث">
       <SearchResults
         initialResults={searchResultsData}
         initialQuery="الاختبار الأكاديمي"
       />
-    </main>
+    </section>
   );
 }

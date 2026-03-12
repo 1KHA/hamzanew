@@ -164,6 +164,8 @@ export default function HamzaOrgContent({
                       size="lg"
                       className="!w-full"
                       aria-required="true"
+                      onBlur={() => {}}
+                      onChange={() => {}}
                     />
                   </div>
                   <Button

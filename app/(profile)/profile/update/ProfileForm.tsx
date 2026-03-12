@@ -155,7 +155,6 @@ function ProfileFormContent() {
       )}
 
       <div className="flex flex-row-reverse gap-6 items-start mb-[80px]">
-       
         {/* Col 1 — Form content */}
         <section
           className="section-spacing-5xl !bg-white !p-[32px] !rounded-[8px] !h-fit flex-1 min-w-0"
@@ -207,12 +206,11 @@ function ProfileFormContent() {
 
         {/* Col 2 — Sidebar nav */}
         <SideNav
-          activePath="/profile"
-          userName={mockUserInfo.firstName_ar+" "+mockUserInfo.lastName_ar}
+          activePath="/profile/update"
+          userName={mockUserInfo.firstName_ar + " " + mockUserInfo.lastName_ar}
           userEmail={mockUserInfo.email}
           userAvatar={mockUserInfo.avatar}
         />
-
       </div>
     </>
   );

@@ -55,9 +55,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col">
         <ClientOnly>
-          {/* <NavHeader /> */}
-          <main className="flex-1 w-full bg-white">{children}</main>
-          {/* <Footer /> */}
+          <main className="flex-1 flex flex-col w-full bg-white min-h-screen">{children}</main>
         </ClientOnly>
       </body>
     </html>
