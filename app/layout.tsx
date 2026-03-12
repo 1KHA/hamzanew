@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 // import localFont from "next/font/local";
 import "./globals.css";
-import NavHeader from "./components/nav-header/NavHeader";
+// import NavHeader from "./components/nav-header/NavHeader";
 import ClientOnly from "./components/ClientOnly";
-import Footer from "./components/footer/Footer";
+// import Footer from "./components/footer/Footer";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -17,9 +17,6 @@ import Footer from "./components/footer/Footer";
 // });
 
 export const metadata: Metadata = {
-  title: "همزة",
-  description:
-    "منصة همزة التابعة لمجمع الملك سلمان العالمي للغة العربية، تقدم اختبارات قياس الكفاية اللغوية للناطقين بغيرها.",
   icons: {
     icon: "/assets/image/logo tap.svg",
   },
@@ -58,9 +55,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col">
         <ClientOnly>
-          <NavHeader />
-          <main className="flex-1 w-full bg-white ">{children}</main>
-          <Footer />
+          <main className="flex-1 flex flex-col w-full bg-white min-h-screen">{children}</main>
         </ClientOnly>
       </body>
     </html>
