@@ -43,13 +43,20 @@
 
 
 
+.nav-sticky-wrapper {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
 .header {
   position: relative;
   width: 100%;
   min-height: 72px;
   display: flex;
   height: 72px;
-  background-color: var(--background-menu);
+  background-color: var(--background-menu, #fff);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -714,7 +721,7 @@ a:not(.header-menu__item--active):hover {
   left: 0;
      background: #fff;
     height: 71px;
-    
+  opacity: 0;
 }
 
 /* LTR fades */

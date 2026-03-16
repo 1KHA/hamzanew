@@ -218,7 +218,7 @@ a.border-green:focus {
   grid-template-columns: 1fr;
   padding-block: 16px;
   gap: 24px;
-  text-align: center;
+  text-align: start;
 }
 
 @media (min-width: 768px) {
@@ -235,8 +235,9 @@ a.border-green:focus {
 
 .footer-legal-links {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 @media (min-width: 768px) {
