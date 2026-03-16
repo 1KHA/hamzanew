@@ -3,6 +3,7 @@ import Button from "@/app/components/button/Button";
 import { useRouter } from "next/navigation";
 import mockUserInfo from "./_data/mockUserInfo.json";
 import SideNav from "@/app/components/side-nav/SideNav";
+import "./ProfileView.css";
 
 interface InfoField {
   label: string;
@@ -18,14 +19,14 @@ interface InfoTableProps {
 function InfoTable({ title, rows, editTabId }: InfoTableProps) {
   const router = useRouter();
   return (
-    <div className="!border !border-[#D2D6DB] !rounded-[8px] !bg-white !mb-6">
+    <div className="info-table">
       {/* Header */}
-      <div className="!flex !justify-between !items-center !py-[12px] !px-[24px] !border-b !border-[#D2D6DB] !bg-[#FCFCFD]">
-        <h3 className="text-sm-bold !text-neutral-900">{title}</h3>
+      <div className="info-table__header">
+        <h3 className="text-md-bold !text-neutral-900">{title}</h3>
         <Button
           label="تعديل"
           icon="edit-02"
-          variant="primary-brand"
+          variant="secondary-outline"
           size="sm"
           onClick={() => {
             // Include the tabId in the URL query parameters
@@ -39,21 +40,17 @@ function InfoTable({ title, rows, editTabId }: InfoTableProps) {
         {rows.map((row, rowIndex) => (
           <div
             key={rowIndex}
-            className={`!grid !grid-cols-1 md:!grid-cols-3 !gap-6 !p-6 ${
-              rowIndex !== rows.length - 1
-                ? "!border-b !border-neutral-100"
-                : ""
-            }`}
+            className="!grid !grid-cols-1 md:!grid-cols-4 !gap-6 !p-6 !border-b !border-neutral-100"
           >
             {row.map((field, colIndex) => (
               <div
                 key={colIndex}
-                className="!flex !flex-col !gap-[8px] !items-start !text-start"
+                className="info-table__field"
               >
-                <span className="text-xs-regular !text-[#6C737F]">
+                <span className="text-sm-regular !text-[#6C737F]">
                   {field.label}
                 </span>
-                <span className="text-sm-medium !text-[#1F2A37] flex items-center justify-start gap-2">
+                <span className="text-md-medium !text-[#1F2A37] flex items-center justify-start gap-2">
                   {field.value}
                 </span>
               </div>
@@ -198,9 +195,15 @@ export default function ProfileView() {
   ];
 
   return (
-    <div className="flex flex-row-reverse gap-6 items-start mb-[80px]">
-      {/* Col 1 — Info tables */}
-      <div className="flex flex-col gap-6 flex-1 min-w-0">
+    <>
+      <SideNav
+        activePath="/profile"
+        userName={mockUserInfo.firstName_ar + " " + mockUserInfo.lastName_ar}
+        userEmail={mockUserInfo.email}
+        userAvatar={mockUserInfo.avatar}
+      />
+
+      <div className="flex flex-col gap-6 mb-[80px]">
         <InfoTable
           title="المعلومات الشخصية"
           rows={personalInfoRows}
@@ -217,14 +220,6 @@ export default function ProfileView() {
           editTabId={4}
         />
       </div>
-
-      {/* Col 2 — Sidebar nav */}
-      <SideNav
-        activePath="/profile"
-        userName={mockUserInfo.firstName_ar + " " + mockUserInfo.lastName_ar}
-        userEmail={mockUserInfo.email}
-        userAvatar={mockUserInfo.avatar}
-      />
-    </div>
+    </>
   );
 }

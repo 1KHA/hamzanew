@@ -152,7 +152,6 @@ html {
   height: 100%;
   width: 100%;
   max-width: 100%;
-  scrollbar-gutter: stable;
 }
 
 body {
@@ -846,8 +845,7 @@ li {
 
 /* ── Regular ── */
 .text-xs-regular {
-  font: 400 var(--font-size-text-xs) / var(--line-height-text-xs)
-    "IBMPlexSansArabic" !important;
+  font: 400 12px / 18px "IBMPlexSansArabic" !important;
 }
 .text-2xs-regular {
   font: 400 var(--font-size-text-2xs) / var(--line-height-text-2xs)
@@ -895,7 +893,9 @@ li {
   font: 500 var(--font-size-text-md) / var(--line-height-text-md)
     "IBMPlexSansArabic" !important;
 }
-.text-sm-medium,
+.text-sm-medium {
+  font: 500 14px / 20px "IBMPlexSansArabic" !important;
+}
 .dga-btn--md {
   font: 500 var(--font-size-text-sm) / var(--line-height-text-sm)
     "IBMPlexSansArabic" !important;
@@ -1006,8 +1006,7 @@ div.table-wrapper .azm-table thead th span span.text {
     "IBMPlexSansArabic" !important;
 }
 .text-sm-bold {
-  font: 700 var(--font-size-text-sm) / var(--line-height-text-sm)
-    "IBMPlexSansArabic" !important;
+  font: 700 14px / 20px "IBMPlexSansArabic" !important;
 }
 .text-xs-bold,
 .menu-group__label {

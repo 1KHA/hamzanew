@@ -42,7 +42,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="bg-neutral-50 !pb-20 !min-h-screen!">
+    <div className="bg-neutral-50 !pb-20 min-h-screen!">
       {/* Page Header with breadcrumb navigation */}
       <PageHero
         heroMap={{ "/profile": HERO_CONFIG }}

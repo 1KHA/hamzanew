@@ -176,3 +176,38 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Step transition animation ──────────────────────────────────── */
+@keyframes step-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sign-up-page__form,
+.sign-up-page__acknowledgment {
+  animation: step-enter 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Acknowledgment screen ──────────────────────────────────────── */
+.sign-up-page__acknowledgment {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 16px;
+    flex: 1;
+}
+
+.sign-up-page__acknowledgment-icon {
+  margin-bottom: 8px;
+}
+
+.sign-up-page__acknowledgment-text {
+  color: var(--text-secondary, #6C737F);
+  max-width: 400px;
+}

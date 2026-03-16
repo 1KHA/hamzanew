@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 import { Metadata } from "next";
+import "platformscode-new-react/dist/style.css";
+import "@/app/components/side-nav/SideNav.css";
 
 /**
  * Metadata configuration for the Profile
@@ -12,5 +14,9 @@ export default function ProfileLayout({
 }: {
   children: ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <div className="sidenav-layout">
+      {children}
+    </div>
+  );
 }

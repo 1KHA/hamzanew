@@ -1,6 +1,7 @@
 "use client";
 import Button from "@/app/components/button/Button";
 import "@/app/styles/Button.css";
+import "platformscode-new-react/dist/style.css";
 import { useRouter } from "next/navigation";
 
 export default function NotFound() {
