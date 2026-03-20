@@ -1,0 +1,255 @@
+/* ── Layout ─────────────────────────────────────────────────────────────── */
+.course-player {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: var(--spacing-3xl);
+  padding-block: var(--spacing-3xl);
+  align-items: start;
+}
+
+/* ── Video Area ─────────────────────────────────────────────────────────── */
+.course-player__video-area {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.course-player__video-wrapper {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+
+.course-player__video {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.course-player__lesson-title {
+  font: 600 20px/28px "IBMPlexSansArabic", sans-serif;
+  color: var(--text-default);
+}
+
+/* ── Sidebar ────────────────────────────────────────────────────────────── */
+.course-player__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+/* ── Progress Card ──────────────────────────────────────────────────────── */
+.course-player__progress-card {
+  background: #fff;
+  border: 1px solid var(--border-neutral-primary);
+  border-radius: 12px;
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.course-player__progress-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.course-player__progress-text {
+  font: 600 14px/20px "IBMPlexSansArabic", sans-serif;
+  color: var(--text-default);
+}
+
+.course-player__progress-pct {
+  font: 400 14px/20px "IBMPlexSansArabic", sans-serif;
+  color: var(--text-primary-paragraph);
+}
+
+.course-player__progress-bar {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.course-player__progress-fill {
+  height: 100%;
+  background: #1b8354;
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+.course-player__progress-count {
+  font: 400 13px/18px "IBMPlexSansArabic", sans-serif;
+  color: var(--text-primary-paragraph);
+}
+
+/* ── Chapter List ───────────────────────────────────────────────────────── */
+.course-player__chapters {
+  background: #fff;
+  border: 1px solid var(--border-neutral-primary);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.course-player__chapters-title {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  font: 600 16px/24px "IBMPlexSansArabic", sans-serif;
+  color: var(--text-default);
+  border-bottom: 1px solid var(--border-neutral-primary);
+  margin: 0;
+}
+
+/* ── Chapter Accordion ──────────────────────────────────────────────────── */
+.course-player__chapter {
+  border-bottom: 1px solid var(--border-neutral-primary);
+}
+
+.course-player__chapter:last-child {
+  border-bottom: none;
+}
+
+.course-player__chapter-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  width: 100%;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: start;
+  transition: background 0.2s;
+}
+
+.course-player__chapter-header:hover {
+  background: #f9fafb;
+}
+
+.course-player__chapter-title {
+  flex: 1;
+  font: 500 14px/20px "IBMPlexSansArabic", sans-serif;
+  color: var(--text-default);
+  text-align: start;
+}
+
+.course-player__chapter-meta {
+  font: 400 12px/16px "IBMPlexSansArabic", sans-serif;
+  color: var(--text-primary-paragraph);
+  white-space: nowrap;
+}
+
+.course-player__chapter-arrow {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.course-player__chapter-header.open .course-player__chapter-arrow {
+  transform: rotate(180deg);
+}
+
+/* ── Lesson List ────────────────────────────────────────────────────────── */
+.course-player__lesson-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--border-neutral-primary);
+}
+
+/* ── Lesson Item ────────────────────────────────────────────────────────── */
+.lesson-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-xl);
+  width: 100%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: start;
+  transition: background 0.2s;
+}
+
+.lesson-item:hover {
+  background: #f9fafb;
+}
+
+.lesson-item--active {
+  background: #f0fdf4;
+}
+
+/* ── Lesson Checkmark ───────────────────────────────────────────────────── */
+.lesson-item__check {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.lesson-item__check--done {
+  background: #1b8354;
+  border-color: #1b8354;
+}
+
+.lesson-item__check--active {
+  border-color: #1b8354;
+}
+
+/* ── Lesson Info ────────────────────────────────────────────────────────── */
+.lesson-item__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.lesson-item__title {
+  font: 400 13px/18px "IBMPlexSansArabic", sans-serif;
+  color: var(--text-default);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lesson-item__title--active {
+  font-weight: 600;
+  color: #1b8354;
+}
+
+.lesson-item__duration {
+  font: 400 11px/16px "IBMPlexSansArabic", sans-serif;
+  color: var(--text-primary-paragraph);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .course-player {
+    grid-template-columns: 1fr;
+  }
+
+  .course-player__sidebar {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+  }
+}

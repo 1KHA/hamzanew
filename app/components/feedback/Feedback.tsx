@@ -130,7 +130,9 @@ export default function Feedback() {
                   <p id={questionId} className="text-md-regular feedback-question">
                     هل كانت هذه الصفحة مفيدة؟
                   </p>
-                  <div role="group" aria-labelledby={questionId} className="feedback-actions">
+
+                  <div className="flex flex-1 flex-row justify-between items-center  ">
+ <div role="group" aria-labelledby={questionId} className="feedback-actions">
                     <button type="button" className="dga-btn dga-btn--lg dga-btn--primary-brand"
                       onClick={() => handleUsefulChange("yes")}
                       aria-pressed={answer.isUseful === "yes"}
@@ -146,33 +148,37 @@ export default function Feedback() {
                       <span className="dga-btn-label">لا</span>
                     </button>
                   </div>
-                </>
-              )}
-            </div>
 
-            {/* Stats + close share the same grid cell — no layout shift */}
-            <div style={{ display: "grid", flexShrink: 0 }}>
-              {stats.totalCount > 0 && (
-                <p className="text-sm-regular feedback-stats"
-                  style={{ gridArea: "1/1", visibility: !openQuestions || submitted ? "visible" : "hidden" }}
-                  aria-label={`${stats.yesPercentage} بالمئة من المستخدمين قالوا نعم، من أصل ${stats.totalCount} تعليق`}>
-                  {stats.yesPercentage}% من المستخدمين قالوا نعم من {stats.totalCount} تعليقًا
-                </p>
-              )}
-              <button type="button" className="dga-btn dga-btn--lg dga-btn--subtle"
+                   <button type="button" className="dga-btn dga-btn--lg dga-btn--subtle"
                 onClick={handleClose}
                 aria-label="إغلاق نموذج التقييم"
                 aria-controls={surveyPanelId}
                 aria-expanded={openQuestions}
                 style={{
                   gridArea:     "1/1",
-                  visibility:   openQuestions && !submitted ? "visible" : "hidden",
+                  display:   openQuestions && !submitted ? "flex" : "none",
                   pointerEvents: openQuestions && !submitted ? "auto" : "none",
                 }}>
                 <span className="dga-btn-label" aria-hidden="true">إغلاق</span>
                 <Image src="/assets/icons/stroke-standard/cancel-circle-stroke-rounded.svg"
                   alt="" aria-hidden="true" width={24} height={24} />
               </button>
+                  </div>
+                 
+                </>
+              )}
+            </div>
+
+            {/* Stats + close share the same grid cell — no layout shift */}
+            <div  >
+              {stats.totalCount > 0 && (
+                <p className="text-sm-regular feedback-stats"
+                  style={{ gridArea: "1/1", display: !openQuestions || submitted ? "block" : "none" }}
+                  aria-label={`${stats.yesPercentage} بالمئة من المستخدمين قالوا نعم، من أصل ${stats.totalCount} تعليق`}>
+                  {stats.yesPercentage}% من المستخدمين قالوا نعم من {stats.totalCount} تعليقًا
+                </p>
+              )}
+             
             </div>
 
           </div>
