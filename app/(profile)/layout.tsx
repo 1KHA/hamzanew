@@ -1,16 +1,26 @@
+"use client";
 import type { ReactNode } from "react";
-import { Metadata } from "next";
+import { usePathname } from "next/navigation";
+import SideNav from "../components/side-nav/SideNav";
+import mockUserInfo from "./profile/_data/mockUserInfo.json";
 
-/**
- * Metadata configuration for the Profile
- */
-export const metadata: Metadata = {
-  title: "الملف الشخصي",
-};
-export default function ProfileLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
-  return <>{children}</>;
+export default function ProfileLayout({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+
+  return (
+    <div className="bg-neutral-50 flex flex-row-reverse">
+      {/* Left column — page content (PageHero + section + form/view) */}
+      <div className="flex-1 min-w-0">
+        {children}
+      </div>
+
+      {/* Right column — SideNav starts at the very top of the page */}
+      <SideNav
+        activePath={pathname}
+        userName={mockUserInfo.firstName_ar + " " + mockUserInfo.lastName_ar}
+        userEmail={mockUserInfo.email}
+        userAvatar={mockUserInfo.avatar}
+      />
+    </div>
+  );
 }

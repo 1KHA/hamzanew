@@ -198,32 +198,21 @@ export default function ProfileView() {
   ];
 
   return (
-    <div className="flex flex-row-reverse gap-6 items-start mb-[80px]">
-      {/* Col 1 — Info tables */}
-      <div className="flex flex-col gap-6 flex-1 min-w-0">
-        <InfoTable
-          title="المعلومات الشخصية"
-          rows={personalInfoRows}
-          editTabId={2}
-        />
-        <InfoTable
-          title="المعلومات الدراسية"
-          rows={educationInfoRows}
-          editTabId={3}
-        />
-        <InfoTable
-          title="معلومات الموقع"
-          rows={locationInfoRows}
-          editTabId={4}
-        />
-      </div>
-
-      {/* Col 2 — Sidebar nav */}
-      <SideNav
-        activePath="/profile"
-        userName={mockUserInfo.firstName_ar + " " + mockUserInfo.lastName_ar}
-        userEmail={mockUserInfo.email}
-        userAvatar={mockUserInfo.avatar}
+    <div className="flex flex-col gap-6">
+      <InfoTable
+        title="المعلومات الشخصية"
+        rows={personalInfoRows}
+        editTabId={2}
+      />
+      <InfoTable
+        title="المعلومات الدراسية"
+        rows={educationInfoRows}
+        editTabId={3}
+      />
+      <InfoTable
+        title="معلومات الموقع"
+        rows={locationInfoRows}
+        editTabId={4}
       />
     </div>
   );
