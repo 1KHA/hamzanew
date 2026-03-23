@@ -48,7 +48,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url('/assets/image/bg-test.png');
+  background-image: url("/assets/image/bg-test.png");
   background-size: cover;
   background-position: center;
   opacity: 0.15;
@@ -80,6 +80,7 @@
 /* ── Nav ────────────────────────────────────────────────────────── */
 .sidenav__nav {
   flex: 1;
+  overflow-y: auto;
 }
 
 /* ── Logout area ────────────────────────────────────────────────── */

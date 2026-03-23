@@ -2,7 +2,6 @@
 import Button from "@/app/components/button/Button";
 import { useRouter } from "next/navigation";
 import mockUserInfo from "./_data/mockUserInfo.json";
-import SideNav from "@/app/components/side-nav/SideNav";
 import "./ProfileView.css";
 
 interface InfoField {
@@ -27,6 +26,7 @@ function InfoTable({ title, rows, editTabId }: InfoTableProps) {
           label="تعديل"
           icon="edit-02"
           variant="secondary-outline"
+          iconPosition="left"
           size="sm"
           onClick={() => {
             // Include the tabId in the URL query parameters
@@ -146,7 +146,7 @@ export default function ProfileView() {
               className="gray-icon"
               alt=""
             />
-            <span dir="ltr">{mockUserInfo.identityNumber || "-"}</span>
+            <span>{mockUserInfo.identityNumber || "-"}</span>
           </>
         ),
       },
@@ -195,31 +195,22 @@ export default function ProfileView() {
   ];
 
   return (
-    <>
-      <SideNav
-        activePath="/profile"
-        userName={mockUserInfo.firstName_ar + " " + mockUserInfo.lastName_ar}
-        userEmail={mockUserInfo.email}
-        userAvatar={mockUserInfo.avatar}
+    <div className="flex flex-col gap-6">
+      <InfoTable
+        title="المعلومات الشخصية"
+        rows={personalInfoRows}
+        editTabId={1}
       />
-
-      <div className="flex flex-col gap-6 mb-[80px]">
-        <InfoTable
-          title="المعلومات الشخصية"
-          rows={personalInfoRows}
-          editTabId={2}
-        />
-        <InfoTable
-          title="المعلومات الدراسية"
-          rows={educationInfoRows}
-          editTabId={3}
-        />
-        <InfoTable
-          title="معلومات الموقع"
-          rows={locationInfoRows}
-          editTabId={4}
-        />
-      </div>
-    </>
+      <InfoTable
+        title="المعلومات الدراسية"
+        rows={educationInfoRows}
+        editTabId={2}
+      />
+      <InfoTable
+        title="معلومات الموقع"
+        rows={locationInfoRows}
+        editTabId={3}
+      />
+    </div>
   );
 }

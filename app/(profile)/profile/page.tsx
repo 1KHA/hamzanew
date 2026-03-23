@@ -42,7 +42,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="bg-neutral-50 !pb-20 min-h-screen!">
+    <>
       {/* Page Header with breadcrumb navigation */}
       <PageHero
         heroMap={{ "/profile": HERO_CONFIG }}
@@ -50,21 +50,18 @@ export default function ProfilePage() {
         breadcrumbsMax={2}
       />
 
-      {/* Main content section containing the user profile form */}
+      {/* Main content section */}
       <section
         aria-labelledby="profile-heading"
         className="profile-main-section"
       >
-        {/* Visually hidden heading for accessibility */}
         <h1 id="profile-heading" className="sr-only">
           إدارة الملف الشخصي
         </h1>
-
-        {/* Content wrapper with proper width constraints */}
-        <div className="content" role="main">
+        <div className="content !px-16 !py-8" role="main">
           <ProfileView />
         </div>
       </section>
-    </div>
+    </>
   );
 }

@@ -38,7 +38,7 @@ export default function SideNav({
   userAvatar,
 }: SideNavProps) {
   const [isOpen, setIsOpen] = useState(false);
-
+console.log(activePath);
   return (
     <>
       {/* Mobile header bar — visible only on mobile */}
@@ -85,7 +85,7 @@ export default function SideNav({
                   html.dir = isArabic ? "ltr" : "rtl";
                 }}
               >
-                <Image
+                <img
                   src="/assets/icons/stroke-standard/translation-stroke-rounded.svg"
                   alt="أيقونة تغيير اللغة"
                   width={24}
@@ -153,7 +153,10 @@ export default function SideNav({
         <nav className="sidenav__nav">
           <ul className="sidepanel__menu-list" role="list">
             {PROFILE_ROUTES.map((route) => {
-              const isActive = route.path === activePath;
+              const isActive =
+                route.path === "/"
+                  ? activePath === "/"
+                  : activePath === route.path || activePath.startsWith(route.path + "/") || activePath.startsWith(route.path + "?");
               return (
                 <li key={route.path}>
                   <a
