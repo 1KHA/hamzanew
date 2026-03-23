@@ -27,6 +27,21 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
       },
     ],
   },
+  "/test-takers/hamza-meran-course/player": {
+    title: "",
+    bgColor: "#fff",
+    breadcrumbs: [
+      { label: "الرئيسة", path: "/" },
+      { label: "المتقدمون للإختبار", disabled: true },
+      { label: "الإستعداد للإختبار", disabled: true },
+      { label: "دورة مران همزة", path: "/test-takers/hamza-meran-course" },
+      {
+        label: "مشاهدة الدروس",
+        path: "/test-takers/hamza-meran-course/player",
+        disabled: true,
+      },
+    ],
+  },
   "/test-takers/test-mechanism": {
     title: "آلية الاختبار",
     description:

@@ -1,0 +1,26 @@
+/* ── InfoTable ─────────────────────────────────────────────────── */
+.info-table {
+  border: 1px solid #D2D6DB;
+  border-radius: 8px;
+  background-color: #fff;
+  margin-bottom: 24px;
+}
+
+.info-table__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  border-bottom: 1px solid #D2D6DB;
+  background-color: #FCFCFD;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.info-table__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  text-align: start;
+}

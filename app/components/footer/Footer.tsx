@@ -34,7 +34,7 @@ function Footer() {
                     </Link>
                   </div>
 
-                  <div className="footer-copyright text-center md:text-start">
+                  <div className="footer-copyright text-start">
                     <div className="footer-link footer-copyright-text">
                       جميع الحقوق محفوظة لمجمع الملك سلمان العالمي للغة العربية
                       © 2026
@@ -48,20 +48,22 @@ function Footer() {
                   </div>
                 </div>
 
-                <div className="footer_logos justify-center md:justify-end">
+                <div className="footer_logos justify-start md:justify-end">
                   <Image
                     src="/assets/image/king-salman-global.svg"
                     alt=""
-                    width={100}
-                    height={100}
+                    width={200}
+                    height={200}
                     loading="lazy"
+                    className="w-24 h-auto md:w-[200px]"
                   />
                   <Image
                     src="/assets/image/footer-logo.svg"
                     alt=""
-                    width={100}
-                    height={100}
+                    width={200}
+                    height={200}
                     loading="lazy"
+                    className="w-24 h-auto md:w-[200px]"
                   />
                 </div>
               </div>

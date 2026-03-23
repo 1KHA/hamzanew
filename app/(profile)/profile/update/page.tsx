@@ -7,7 +7,7 @@ import { Metadata } from "next";
  * Provides SEO optimization with title, description, and Open Graph tags
  */
 export const metadata: Metadata = {
-  title: "الملف الشخصي - تحديث",
+  title: "الملف الشخصي - تعديل",
 };
 
 /**
@@ -38,7 +38,7 @@ export default function ProfilePage() {
     breadcrumbs: [
       { label: "الرئيسة", path: "/" },
       { label: "الملف الشخصي", path: "/profile" },
-      { label: "تحديث", disabled: true },
+      { label: "تعديل", disabled: true },
     ],
   };
 

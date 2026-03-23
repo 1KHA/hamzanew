@@ -173,7 +173,7 @@ export default function LocationTab() {
       <div className="!flex !justify-center !mt-4 md:!justify-end">
         <Button
           type="submit"
-          label="تحديث"
+          label="حفظ التغييرات"
           variant="primary-brand"
           size="md"
           className="md:w-[100px] w-full"

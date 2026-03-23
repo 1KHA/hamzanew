@@ -4,18 +4,21 @@
 
 /* ── Sidebar shell ──────────────────────────────────────────────── */
 .sidenav {
-  position: sticky;
+  position: fixed;
+  inset-inline-start: 0;
   top: 0;
-  flex-shrink: 0;
-  width: 256px;
+  width: 320px;
+  height: 100dvh;
   border-radius: 0;
-  overflow: hidden;
-  align-self: flex-start;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   gap: 24px;
   padding: 24px;
-  height: 100vh;
+  z-index: 50;
+  transition: transform 0.3s ease-in-out;
 }
 
 /* ── Logo area ──────────────────────────────────────────────────── */
@@ -83,4 +86,165 @@
 /* ── Logout area ────────────────────────────────────────────────── */
 .sidenav__logout {
   padding: 0 12px 8px;
+}
+
+.sidenav__actions-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sidenav__actions-row > * {
+  flex: 1;
+}
+
+/* ── Close button (inside sidebar, mobile only) ─────────────────── */
+.sidenav__close {
+  display: none;
+  align-self: flex-end;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  line-height: 0;
+}
+
+.sidenav__close:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ── Mobile header bar (mobile only) ───────────────────────────── */
+.sidenav__mobile-header {
+  display: none;
+  position: fixed;
+  top: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  z-index: 48;
+}
+
+.sidenav__mobile-header .header {
+  position: relative;
+  width: 100%;
+  min-height: 72px;
+  height: 72px;
+  display: flex;
+  background-color: var(--background-menu, #fff);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidenav__mobile-header .header--divider::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  display: block;
+  background-color: var(--background-neutral-300, #e5e7eb);
+}
+
+.sidenav__mobile-header .header-nav--full {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: var(--spacing-4xl, 32px);
+}
+
+.sidenav__mobile-header .header-nav__main {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl, 20px);
+  width: 100%;
+  flex: 1;
+}
+
+.sidenav__mobile-header .header-menu__btn {
+  display: inline-flex;
+}
+
+.sidenav__mobile-header .header-nav__branding {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.sidenav__mobile-header .header__logo {
+  display: flex;
+  align-items: center;
+}
+
+.sidenav__mobile-header .header__logo img {
+  height: 57px;
+  width: 120px;
+  object-fit: contain;
+}
+
+
+/* ── Backdrop (mobile only) ─────────────────────────────────────── */
+.sidenav__backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 49;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sidenav__backdrop.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── Layout content offset ──────────────────────────────────────── */
+.sidenav-layout {
+  padding-inline-start: 320px;
+}
+
+/* ── Responsive — mobile ────────────────────────────────────────── */
+@media (max-width: 1023px) {
+  .sidenav__translate {
+    display: none;
+  }
+
+  /* Hide sidebar off-screen to the inline-start side */
+  .sidenav {
+    transform: translateX(100%); /* right-to-left: push off right edge */
+  }
+
+  [dir="ltr"] .sidenav {
+    transform: translateX(-100%);
+  }
+
+  .sidenav.open {
+    transform: translateX(0);
+  }
+
+  /* Show mobile header bar */
+  .sidenav__mobile-header {
+    display: block;
+  }
+
+  /* Remove sidebar offset, add top padding for fixed header */
+  .sidenav-layout {
+    padding-inline-start: 0;
+    padding-top: 64px;
+  }
+
+  .sidenav__backdrop {
+    display: block;
+    pointer-events: none;
+  }
+
+  .sidenav__close {
+    display: flex;
+  }
 }

@@ -2,6 +2,7 @@
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import SideNav from "../components/side-nav/SideNav";
+import "platformscode-new-react/dist/style.css";
 import mockUserInfo from "./profile/_data/mockUserInfo.json";
 
 export default function ProfileLayout({ children }: { children: ReactNode }) {
@@ -15,12 +16,14 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
       </div>
 
       {/* Right column — SideNav starts at the very top of the page */}
-      <SideNav
-        activePath={pathname}
-        userName={mockUserInfo.firstName_ar + " " + mockUserInfo.lastName_ar}
-        userEmail={mockUserInfo.email}
-        userAvatar={mockUserInfo.avatar}
-      />
+      <div className="sidenav-layout">
+        <SideNav
+          activePath={pathname}
+          userName={mockUserInfo.firstName_ar + " " + mockUserInfo.lastName_ar}
+          userEmail={mockUserInfo.email}
+          userAvatar={mockUserInfo.avatar}
+        />
+      </div>
     </div>
   );
 }

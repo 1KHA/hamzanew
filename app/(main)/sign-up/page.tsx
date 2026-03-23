@@ -129,31 +129,31 @@ export default function SignUpPage() {
     defaultValues:
       process.env.NODE_ENV === "development"
         ? {
-            email: "testuser@example.com",
+            email: "sophia.williams@example.com",
             password: "Password123",
             confirmPassword: "Password123",
-            phone: "966555123456",
-            firstName_ar: "أحمد",
-            secondName_ar: "محمد",
-            lastName_ar: "علي",
-            firstName_en: "Ahmed",
-            secondName_en: "Mohammed",
-            lastName_en: "Ali",
-            birthDate: "1995-05-15",
-            nationality: "SA",
-            motherTongue: "ar",
-            identity: "national_id",
-            identityNumber: "1055555555",
+            phone: "1501234567",
+            firstName_ar: "صوفيا",
+            secondName_ar: "جيمس",
+            lastName_ar: "وليامز",
+            firstName_en: "Sophia",
+            secondName_en: "Jamce",
+            lastName_en: "Williams",
+            birthDate: "1998-09-11",
+            nationality: "US",
+            motherTongue: "en",
+            identity: "passport",
+            identityNumber: "313059213",
             education: "bachelor",
-            basicLanguageInEducation: "ar",
-            institution: "جامعة الملك سعود",
-            specialization: "هندسة برمجيات",
-            timezone: "Asia/Riyadh",
-            country: "SA",
-            state: "riyadh",
-            city: "riyadh_city",
-            postalAddress: "طريق الملك فهد",
-            zipCode: "12211",
+            basicLanguageInEducation: "en",
+            institution: "جامعة كاليفورنيا",
+            specialization: "بكالوريوس في اللغويات التطبيقية",
+            timezone: "America/Los_Angeles",
+            country: "US",
+            state: "California",
+            city: "Los Angeles",
+            postalAddress: "123 Main St",
+            zipCode: "90001",
           }
         : {
             email: "",
@@ -193,8 +193,8 @@ export default function SignUpPage() {
 
   const onSubmit = (data: NewUserFormValues) => {
     console.log("Form Submitted ✅", data);
+    setActiveStep(STEPS.length + 1);
     setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
   };
 
   const handleNext = () => {
@@ -225,72 +225,77 @@ export default function SignUpPage() {
             </p>
           </div>
 
-          <p className="text-sm-regular sign-up-page__required-note">
-            <span className="sign-up-page__required" aria-hidden="true">
-              *
-            </span>
-            &nbsp;المعلومات المطلوبة
-          </p>
+          {activeStep <= STEPS.length && (
+            <p className="text-sm-regular sign-up-page__required-note">
+              <span className="sign-up-page__required" aria-hidden="true">
+                *
+              </span>
+              &nbsp;المعلومات المطلوبة
+            </p>
+          )}
 
           {/* ══════════════════════════════════════
               Dynamic Form Steps
           ══════════════════════════════════════ */}
-          <FormProvider {...methods}>
-            {STEP_CONFIG.map((config, index) => {
-              const stepNumber = index + 1;
-              if (activeStep !== stepNumber) return null;
+          {activeStep <= STEPS.length && (
+            <FormProvider {...methods}>
+              {STEP_CONFIG.map((config, index) => {
+                const stepNumber = index + 1;
+                if (activeStep !== stepNumber) return null;
 
-              const CurrentComponent = config.component;
-              const isLastStep = stepNumber === STEPS.length;
+                const CurrentComponent = config.component;
+                const isLastStep = stepNumber === STEPS.length;
 
-              const handleStepSubmit = isLastStep
-                ? methods.handleSubmit(onSubmit)
-                : async (e: React.FormEvent) => {
-                    e.preventDefault();
-                    const isValid = await methods.trigger(config.fields as any);
-                    if (isValid) {
-                      handleNext();
-                    }
-                  };
+                const handleStepSubmit = isLastStep
+                  ? methods.handleSubmit(onSubmit)
+                  : async (e: React.FormEvent) => {
+                      e.preventDefault();
+                      const isValid = await methods.trigger(config.fields as any);
+                      if (isValid) {
+                        handleNext();
+                      }
+                    };
 
-              return (
-                <form
-                  key={stepNumber}
-                  className="sign-up-page__form"
-                  onSubmit={handleStepSubmit}
-                >
-                  <h2 className="text-md-bold sign-up-page__section-title">
-                    {STEPS[index].title}
-                  </h2>
+                return (
+                  <form
+                    key={stepNumber}
+                    className="sign-up-page__form"
+                    onSubmit={handleStepSubmit}
+                  >
+                    <h2 className="text-md-bold sign-up-page__section-title">
+                      {STEPS[index].title}
+                    </h2>
 
-                  <CurrentComponent />
+                    <CurrentComponent />
 
-                  <div className="sign-up-page__actions">
-                    <Button
-                      label={isLastStep ? "إنشاء الحساب" : "التالي"}
-                      variant="primary-brand"
-                      size="lg"
-                      type="submit"
-                    />
-                    {stepNumber > 1 && (
+                    <div className="sign-up-page__actions">
                       <Button
-                        label="رجوع"
-                        variant="secondary"
+                        label={isLastStep ? "إنشاء الحساب" : "التالي"}
+                        variant="primary-brand"
                         size="lg"
-                        type="button"
-                        onClick={handleBack}
+                        type="submit"
                       />
-                    )}
-                  </div>
-                </form>
-              );
-            })}
-          </FormProvider>
+                      {stepNumber > 1 && (
+                        <Button
+                          label="رجوع"
+                          variant="secondary"
+                          size="lg"
+                          type="button"
+                          onClick={handleBack}
+                        />
+                      )}
+                    </div>
+                  </form>
+                );
+              })}
+            </FormProvider>
+          )}
+
           {/* ══════════════════════════════════════
               Success: تم إنشاء الحساب
           ══════════════════════════════════════ */}
           {submitted && (
-            <div role="status" aria-live="polite">
+            <div className="sign-up-page__acknowledgment" role="status" aria-live="polite">
               <NotificationToast
                 type="success"
                 leadText="تم إنشاء حسابك بنجاح"
@@ -298,6 +303,12 @@ export default function SignUpPage() {
                 open
                 variant="stroke"
                 inline
+              />
+              <Button
+                label="الذهاب إلى تسجيل الدخول"
+                variant="primary-brand"
+                size="lg"
+                onClick={() => window.location.href = "/sign-in"}
               />
             </div>
           )}

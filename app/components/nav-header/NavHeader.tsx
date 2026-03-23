@@ -243,7 +243,6 @@ function NavHeader() {
       <div
         ref={navRef}
         className={stickyClass}
-        style={{ position: "sticky", top: 0, zIndex: 9999 }}
       >
         {/* ─── Main header bar ──────────────────────────────────────── */}
         <header className="header header--divider">
