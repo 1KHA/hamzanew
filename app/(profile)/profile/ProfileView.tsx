@@ -26,6 +26,7 @@ function InfoTable({ title, rows, editTabId }: InfoTableProps) {
           label="تعديل"
           icon="edit-02"
           variant="secondary-outline"
+          iconPosition="left"
           size="sm"
           onClick={() => {
             // Include the tabId in the URL query parameters
@@ -145,7 +146,7 @@ export default function ProfileView() {
               className="gray-icon"
               alt=""
             />
-            <span dir="ltr">{mockUserInfo.identityNumber || "-"}</span>
+            <span>{mockUserInfo.identityNumber || "-"}</span>
           </>
         ),
       },
@@ -198,17 +199,17 @@ export default function ProfileView() {
       <InfoTable
         title="المعلومات الشخصية"
         rows={personalInfoRows}
-        editTabId={2}
+        editTabId={1}
       />
       <InfoTable
         title="المعلومات الدراسية"
         rows={educationInfoRows}
-        editTabId={3}
+        editTabId={2}
       />
       <InfoTable
         title="معلومات الموقع"
         rows={locationInfoRows}
-        editTabId={4}
+        editTabId={3}
       />
     </div>
   );

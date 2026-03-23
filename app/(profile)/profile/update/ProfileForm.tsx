@@ -2,9 +2,9 @@
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { DgaTabs } from "../../../components/tabs/DgaTabs";
+import { useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { DgaTabs } from "@/app/components/tabs/DgaTabs";
 import "@/app/(main)/e-participation/(special)/feedback-and-suggestion/feedback-form.css";
 import AccountInfoTab from "../_component/AccountInfoTab";
 import PersonalInfoTab from "../_component/PersonalInfoTab";
@@ -80,11 +80,12 @@ export type UserProfileFormValues = z.infer<typeof userProfileSchema>;
  */
 function ProfileFormContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   console.log(searchParams);
   const rawTab = searchParams.get("tab");
   const parsedTab = rawTab ? parseInt(rawTab, 10) : 1;
   const initialTabId =
-    !isNaN(parsedTab) && parsedTab >= 1 && parsedTab <= 4 ? parsedTab : 1;
+    !isNaN(parsedTab) && parsedTab >= 1 && parsedTab <= 3 ? parsedTab : 1;
   const [activeTab, setActiveTab] = useState<number>(initialTabId);
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -157,7 +158,7 @@ function ProfileFormContent() {
       )}
 
       <section
-        className="section-spacing-5xl !bg-white !p-[32px] !rounded-[8px] !h-fit"
+        className="section-spacing-5xl !bg-white !p-[32px] !rounded-[8px] !h-fit !mb-16"
         aria-label="نموذج الملف اشخصي"
         role="form"
       >
@@ -167,28 +168,28 @@ function ProfileFormContent() {
           orientation="horizontal"
           divider
           size="lg"
-          activeTab={activeTab-1}
+          activeTab={activeTab - 1}
           onTabChange={handleTabChange}
           tabsList={[
-            {
-              label: "معلومات الحساب",
-              tabIcon: "square-lock-02",
-              onClick: () => handleTabChange(1),
-            },
+            // {
+            //   label: "معلومات الحساب",
+            //   tabIcon: "square-lock-02",
+            //   onClick: () => handleTabChange(1),
+            // },
             {
               label: "المعلومات الشخصية",
               tabIcon: "user",
-              onClick: () => handleTabChange(2),
+              onClick: () => handleTabChange(1),
             },
             {
               label: "المؤهلات الدراسية",
               tabIcon: "mortarboard-02",
-              onClick: () => handleTabChange(3),
+              onClick: () => handleTabChange(2),
             },
             {
               label: "الموقع",
               tabIcon: "location-01",
-              onClick: () => handleTabChange(4),
+              onClick: () => handleTabChange(3),
             },
           ]}
         />
@@ -196,20 +197,46 @@ function ProfileFormContent() {
         {/* Tab Content */}
         <div className="mb-[40px]" role="region" aria-live="polite">
           <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>
-              {activeTab === 1 && <AccountInfoTab />}
-              {activeTab === 2 && <PersonalInfoTab />}
-              {activeTab === 3 && <EducationTab />}
-              {activeTab === 4 && <LocationTab />}
+            <form id="profile-form" onSubmit={methods.handleSubmit(onSubmit)}>
+              {/* {activeTab === 1 && <AccountInfoTab />} */}
+              {activeTab === 1 && <PersonalInfoTab />}
+              {activeTab === 2 && <EducationTab />}
+              {activeTab === 3 && <LocationTab />}
             </form>
           </FormProvider>
         </div>
+        {/* Form Actions — linked via form id */}
+        <div className="flex gap-[12px] justify-end !pt-[24px]">
+          <Button
+            form="profile-form"
+            type="submit"
+            label="حفظ التغييرات"
+            variant="primary-brand"
+            size="md"
+            className="md:w-[100px] w-full"
+          />
+          <Button
+            form="profile-form"
+          type="button"
+          label="إلغاء"
+          variant="secondary-outline"
+          size="md"
+          className="md:w-[100px] w-full"
+          onClick={() => {
+            methods.reset();
+            router.push("/profile");
+          }}
+        />
+      </div>
       </section>
+
+     
     </>
   );
 }
 
 import { Suspense } from "react";
+import Button from "@/app/components/button/Button";
 
 export default function ProfileForm() {
   return (

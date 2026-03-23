@@ -9,9 +9,9 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <div className="bg-neutral-50 flex flex-row-reverse">
+    <div className="bg-neutral-50 flex flex-row-reverse flex-1">
       {/* Left column — page content (PageHero + section + form/view) */}
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 ">
         {children}
       </div>
 

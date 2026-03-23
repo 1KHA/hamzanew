@@ -2,38 +2,28 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { DgaTextInput, DgaCheckbox } from "platformscode-new-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormProvider, useForm } from "react-hook-form";
+import { z } from "zod";
 import Button from "@/app/components/button/Button";
 import "@/app/components/card/card.css";
 import "@/app/styles/Button.css";
 import "./sign-in.css";
 import Image from "next/image";
+import FormField from "@/app/components/form-field/FormField";
+import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 
-const noop = () => {};
+const formSchema = z.object({
+  username: z.string().min(1, "اسم المستخدم مطلوب"),
+  password: z.string().min(1, "كلمة المرور مطلوبة"),
+});
 
-type FormErrors = { username?: string; password?: string };
+export type FormSchema = z.infer<typeof formSchema>;
 
-const RULES = {
-  username: { minLength: 3 },
-  password: { minLength: 8 },
+const INITIAL_VALUES: FormSchema = {
+  username: "",
+  password: "",
 };
-
-function validateFields(username: string, password: string): FormErrors {
-  const errors: FormErrors = {};
-
-  if (!username.trim()) {
-    errors.username = "اسم المستخدم مطلوب";
-  } else if (username.trim().length < RULES.username.minLength) {
-    errors.username = `اسم المستخدم يجب أن يكون ${RULES.username.minLength} أحرف على الأقل`;
-  }
-
-  if (!password) {
-    errors.password = "كلمة المرور مطلوبة";
-  } else if (password.length < RULES.password.minLength) {
-    errors.password = `كلمة المرور يجب أن تكون ${RULES.password.minLength} أحرف على الأقل`;
-  }
-
-  return errors;
-}
 
 export default function SignInPage() {
   useEffect(() => {
@@ -41,55 +31,31 @@ export default function SignInPage() {
     return () => document.body.classList.remove("page-sign-in");
   }, []);
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleUsernameChange = useCallback((e: any) => {
-    setUsername(e.target.value);
-    setErrors((prev) => ({ ...prev, username: undefined }));
-  }, []);
+  const methods = useForm<FormSchema>({
+    resolver: zodResolver(formSchema),
+    defaultValues: INITIAL_VALUES,
+    mode: "all",
+  });
+  const {
+    formState: { errors },
+  } = methods;
 
-  const handlePasswordChange = useCallback((e: any) => {
-    setPassword(e.target.value);
-    setErrors((prev) => ({ ...prev, password: undefined }));
-  }, []);
+  const onSubmit = async (data: FormSchema) => {
+    setIsSubmitting(true);
+    try {
+      // TODO: Replace with actual authentication API call
+      console.log("Sign in:", data);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  const handleRememberMeChange = useCallback(() => setRememberMe((v) => !v), []);
-
-  const handleUsernameBlur = useCallback(() => {
-    const { username: err } = validateFields(username, password);
-    setErrors((prev) => ({ ...prev, username: err }));
-  }, [username, password]);
-
-  const handlePasswordBlur = useCallback(() => {
-    const { password: err } = validateFields(username, password);
-    setErrors((prev) => ({ ...prev, password: err }));
-  }, [username, password]);
-
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
-      const newErrors = validateFields(username, password);
-      if (Object.keys(newErrors).length > 0) {
-        setErrors(newErrors);
-        return;
-      }
-
-      setIsSubmitting(true);
-      try {
-        // TODO: Replace with actual authentication API call
-        console.log("Sign in:", { username, password, rememberMe });
-      } catch {
-        setErrors({ username: "حدث خطأ أثناء تسجيل الدخول، حاول مرة أخرى" });
-      } finally {
-        setIsSubmitting(false);
-      }
-    },
-    [username, password, rememberMe]
-  );
+      setRememberMe(false);
+    } catch {
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const handleSSOClick = useCallback(() => {
     // TODO: Implement National SSO redirect
@@ -99,118 +65,103 @@ export default function SignInPage() {
   return (
     <div className="sign-in-page-wrapper">
       <div className="sign-in-page">
-
         {/* Right Panel: Form Content */}
-        <main className="sign-in-page__content" aria-labelledby="sign-in-heading">
-
+        <main
+          className="sign-in-page__content"
+          aria-labelledby="sign-in-heading"
+        >
           {/* Header */}
           <header className="sign-in-page__header">
-            <h1 id="sign-in-heading" className="display-sm-bold">اهلا بك</h1>
-            <p className="text-md-regular sign-in-page__subtitle">قم بتسجيل الدخول</p>
+            <h1 id="sign-in-heading" className="display-sm-bold">
+              اهلا بك
+            </h1>
+            <p className="text-md-regular sign-in-page__subtitle">
+              قم بتسجيل الدخول
+            </p>
           </header>
 
           {/* Form */}
-          <form
-            onSubmit={handleSubmit}
-            className="sign-in-page__form"
-            aria-label="نموذج تسجيل الدخول"
-            noValidate
-          >
-            {/* Username Field */}
-            <div className="dga-form-control dga-form-control--fullwidth">
-              <label className="sign-in-page__field-label">
-                <span className="dga-label dga-label--lg">
-                  اسم المستخدم <span aria-hidden="true">*</span>
-                </span>
-                <DgaTextInput
+          <FormProvider {...methods}>
+            <form
+              onSubmit={methods.handleSubmit(onSubmit)}
+              className="sign-in-page__form"
+              aria-label="نموذج تسجيل الدخول"
+              // noValidate
+            >
+              {/* Username Field */}
+
+              <FormField
+                label="اسم المستخدم"
+                required
+                error={errors.username?.message}
+                htmlFor="username"
+              >
+                <ControlledTextInput
                   name="username"
+                  id="username"
                   placeholder="أدخل اسم المستخدم"
-                  size="lg"
-                  type="text"
-                  value={username}
-                  onChange={handleUsernameChange}
-                  onBlur={handleUsernameBlur}
-                  error={!!errors.username}
                   variant="default"
-                  fullwidth
+                  aria-required={true}
+                  aria-describedby={
+                    errors.username ? "username-error" : "username-help"
+                  }
                 />
-              </label>
-              <div
-                className="invalid-feedback !flex !justify-start !gap-2 !mt-1"
-                role="alert"
-                style={{ visibility: errors.username ? "visible" : "hidden", minHeight: "20px" }}
-              >
-                <img
-                  alt=""
-                  width="16"
-                  height="16"
-                  className="inline-block icon-critical"
-                  src="/assets/icons/stroke-standard/alert-circle-stroke-rounded.svg"
-                />
-                {errors.username ?? "\u00A0"}
-              </div>
-            </div>
-
-            {/* Password Field */}
-            <div className="dga-form-control dga-form-control--fullwidth">
-              <label className="sign-in-page__field-label">
-                <span className="dga-label dga-label--lg">
-                  كلمة المرور <span aria-hidden="true">*</span>
+                <span id="username-help" className="sr-only">
+                  أدخل اسم المستخدم الخاص بك
                 </span>
-                <DgaTextInput
-                  name="password"
-                  placeholder="أدخل كلمة المرور"
-                  size="lg"
-                  type="password"
-                  value={password}
-                  onChange={handlePasswordChange}
-                  onBlur={handlePasswordBlur}
-                  error={!!errors.password}
-                  variant="default"
-                  fullwidth
-                />
-              </label>
-              <div
-                className="invalid-feedback !flex !justify-start !gap-2 !mt-1"
-                role="alert"
-                style={{ visibility: errors.password ? "visible" : "hidden", minHeight: "20px" }}
+              </FormField>
+
+              {/* Password Field */}
+              <FormField
+                label="كلمة المرور"
+                required
+                error={errors.password?.message}
+                htmlFor="password"
               >
-                <img
-                  alt=""
-                  width="16"
-                  height="16"
-                  className="inline-block icon-critical"
-                  src="/assets/icons/stroke-standard/alert-circle-stroke-rounded.svg"
+                <ControlledTextInput
+                  name="password"
+                  id="password"
+                  placeholder="أدخل كلمة المرور"
+                  variant="default"
+                  aria-required={true}
+                  aria-describedby={
+                    errors.password ? "password-error" : "password-help"
+                  }
                 />
-                {errors.password ?? "\u00A0"}
+                <span id="password-help" className="sr-only">
+                  أدخل كلمة المرور الخاصة بك
+                </span>
+              </FormField>
+
+              {/* Remember Me & Forgot Password */}
+              <div className="sign-in-page__options">
+                <DgaCheckbox
+                  label="تذكرني"
+                  size="md"
+                  color="brand"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe((v) => !v)}
+                />
+                <a
+                  href="/forgot-password"
+                  className="link--primary text-md-regular"
+                >
+                  هل نسيت كلمة المرور؟
+                </a>
               </div>
-            </div>
 
-            {/* Remember Me & Forgot Password */}
-            <div className="sign-in-page__options">
-              <DgaCheckbox
-                label="تذكرني"
-                size="md"
-                color="brand"
-                checked={rememberMe}
-                onChange={handleRememberMeChange}
+              {/* Submit */}
+              <Button
+                label={isSubmitting ? "جاري تسجيل الدخول..." : "تسجيل الدخول"}
+                variant="primary-brand"
+                size="lg"
+                type="submit"
+                disabled={isSubmitting}
+                className="sign-in-page__submit"
+                aria-busy={isSubmitting}
               />
-              <a href="/forgot-password" className="link--primary text-md-regular">
-                هل نسيت كلمة المرور؟
-              </a>
-            </div>
-
-            {/* Submit */}
-            <Button
-              label={isSubmitting ? "جاري تسجيل الدخول..." : "تسجيل الدخول"}
-              variant="primary-brand"
-              size="lg"
-              type="submit"
-              disabled={isSubmitting}
-              className="sign-in-page__submit"
-              aria-busy={isSubmitting}
-            />
-          </form>
+            </form>
+          </FormProvider>
 
           {/* National SSO Button */}
           <button
@@ -230,8 +181,14 @@ export default function SignInPage() {
           </button>
 
           {/* Divider */}
-          <div className="sign-in-page__divider" role="separator" aria-hidden="true">
-            <span className="sign-in-page__divider-text text-sm-regular">أو</span>
+          <div
+            className="sign-in-page__divider"
+            role="separator"
+            aria-hidden="true"
+          >
+            <span className="sign-in-page__divider-text text-sm-regular">
+              أو
+            </span>
           </div>
 
           {/* Create Account */}
@@ -241,18 +198,18 @@ export default function SignInPage() {
               إنشاء حساب جديد
             </a>
           </p>
-
         </main>
 
         {/* Left Panel: Background Image */}
         <div className="sign-in-page__image" aria-hidden="true">
-          <Image src="/assets/image/bg-signin.jpg"
+          <Image
+            src="/assets/image/bg-signin.jpg"
             width={1920}
             height={1080}
-            alt="" />
+            alt=""
+          />
           <div className="sign-in-page__image-overlay" />
         </div>
-
       </div>
     </div>
   );
