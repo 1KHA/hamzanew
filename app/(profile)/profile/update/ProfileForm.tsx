@@ -6,11 +6,10 @@ import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { DgaTabs } from "@/app/components/tabs/DgaTabs";
 import "@/app/(main)/e-participation/(special)/feedback-and-suggestion/feedback-form.css";
-import AccountInfoTab from "../_component/AccountInfoTab";
 import PersonalInfoTab from "../_component/PersonalInfoTab";
 import EducationTab from "../_component/EducationTab";
 import LocationTab from "../_component/LocationTab";
-import NotificationToast from "../../../components/notification-toast/NotificationToast";
+import NotificationToast from "@/app/components/notification-toast/NotificationToast";
 import mockUserInfo from "../_data/mockUserInfo.json";
 import {
   getPrefixFromPhone,
@@ -217,20 +216,18 @@ function ProfileFormContent() {
           />
           <Button
             form="profile-form"
-          type="button"
-          label="إلغاء"
-          variant="secondary-outline"
-          size="md"
-          className="md:w-[100px] w-full"
-          onClick={() => {
-            methods.reset();
-            router.push("/profile");
-          }}
-        />
-      </div>
+            type="button"
+            label="إلغاء"
+            variant="secondary-outline"
+            size="md"
+            className="md:w-[100px] w-full"
+            onClick={() => {
+              methods.reset();
+              router.push("/profile");
+            }}
+          />
+        </div>
       </section>
-
-     
     </>
   );
 }

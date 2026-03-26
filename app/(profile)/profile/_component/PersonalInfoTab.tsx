@@ -1,3 +1,5 @@
+import { useState, useRef, useEffect, useMemo } from "react";
+import Image from "next/image";
 import { Controller, useFormContext } from "react-hook-form";
 import FileUpload from "@/app/components/FileUpload/FileUpload";
 import FormField from "@/app/components/form-field/FormField";
@@ -5,6 +7,12 @@ import ControlledTextInput from "@/app/components/form-field/ControlledTextInput
 import type { UserProfileFormValues } from "../update/ProfileForm";
 import DateField from "@/app/components/date-field/DateField";
 import { DgaDropdown } from "platformscode-new-react";
+import {
+  PHONE_PREFIXES,
+  getPrefixFromPhone,
+  getDigitsFromPhone,
+  type PrefixOption,
+} from "../_data/phonePrefixes";
 const ID_TYPE_OPTIONS = [
   { name: "هوية وطنية", value: "national_id" },
   { name: "إقامة", value: "iqama" },
@@ -29,8 +37,78 @@ const LANGUAGE_OPTIONS = [
 export default function PersonalInfoTab() {
   const {
     control,
+    setValue,
+    watch,
+    trigger,
     formState: { errors },
   } = useFormContext<UserProfileFormValues>();
+
+  const [prefixOpen, setPrefixOpen] = useState(false);
+  const prefixRef = useRef<HTMLDivElement>(null);
+
+  //  phone input state
+  const fullPhoneWithPrefix = watch("phone") || "";
+  const selectedCountryPrefix = getPrefixFromPhone(fullPhoneWithPrefix);
+  const phoneDigitsOnly = getDigitsFromPhone(fullPhoneWithPrefix);
+
+  /* ── Close prefix dropdown on outside click / Escape ── */
+  useEffect(() => {
+    if (!prefixOpen) return;
+
+    function handleClickOutside(e: MouseEvent) {
+      if (prefixRef.current && !prefixRef.current.contains(e.target as Node)) {
+        setPrefixOpen(false);
+      }
+    }
+
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === "Escape") setPrefixOpen(false);
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [prefixOpen]);
+
+  /* ── When user selects a different country code ── */
+  const handlePrefixSelect = (opt: PrefixOption) => {
+    // Replace old prefix with new one, keeping the digits intact
+    setValue("phone", opt.value + phoneDigitsOnly, { shouldValidate: true });
+    setPrefixOpen(false);
+  };
+
+  const handlePrefixKeyDown = (e: React.KeyboardEvent, opt: PrefixOption) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handlePrefixSelect(opt);
+    }
+  };
+
+  /* ── Prefix button class ── */
+  const prefixBtnClass = useMemo(
+    () =>
+      [
+        "input__prefix input__prefix--solid input__dropdown-btn",
+        "prefix-btn",
+        prefixOpen ? "prefix-btn--open" : "",
+      ]
+        .filter(Boolean)
+        .join(" "),
+    [prefixOpen],
+  );
+
+  /* ── Prefix list class ── */
+  const prefixListClass = useMemo(
+    () =>
+      [
+        "input__dropdown-list prefix-list",
+        prefixOpen ? "prefix-list--open" : "prefix-list--closed",
+      ].join(" "),
+    [prefixOpen],
+  );
 
   return (
     <div
@@ -103,6 +181,125 @@ export default function PersonalInfoTab() {
 
       {/* Other Personal Fields */}
       <div className="!grid !grid-cols-1 md:!grid-cols-3 !gap-8">
+           <FormField
+          label="البريد الشبكي"
+          required
+          error={errors.email?.message}
+          htmlFor="input-email"
+        >
+          <ControlledTextInput name="email" />
+          <span id="email-help" className="sr-only">
+            أدخل عنوان بريدك الشبكي المستخدم لتسجيل الدخول
+          </span>
+        </FormField>
+
+        {/* Phone — Controller wraps the full phone UI (input + prefix dropdown) */}
+        <FormField
+          label="رقم الجوال"
+          required
+          error={errors.phone?.message}
+          htmlFor="phone-input"
+        >
+          <Controller
+            name="phone"
+            control={control}
+            render={({ field }) => (
+              <div
+                className={`input input--lg input--darker phone-input-wrapper ${
+                  errors.phone?.message ? "input--error" : ""
+                }`}
+              >
+                <input
+                  id="phone-input"
+                  placeholder="00 000 0000"
+                  type="tel"
+                  inputMode="numeric"
+                  value={phoneDigitsOnly}
+                  className="input__field"
+                  onChange={(e) => {
+                    field.onChange(
+                      selectedCountryPrefix.value + e.target.value,
+                    );
+                  }}
+                  onBlur={() => {
+                    field.onBlur();
+                    trigger("phone");
+                  }}
+                  aria-required="true"
+                  aria-invalid={!!errors.phone?.message}
+                  aria-describedby={
+                    errors.phone ? "phone-input-error" : "phone-help"
+                  }
+                />
+                <span id="phone-help" className="sr-only">
+                  أدخل رقم جوالك مسبوقاً برمز الدولة
+                </span>
+
+                {/* Prefix Dropdown */}
+                <div ref={prefixRef} className="prefix-container">
+                  <button
+                    type="button"
+                    onClick={() => setPrefixOpen((v) => !v)}
+                    className={prefixBtnClass}
+                    aria-haspopup="listbox"
+                    aria-expanded={prefixOpen}
+                    aria-label={`رمز الدولة الحالي: ${selectedCountryPrefix.label}. اضغط لتغيير رمز الدولة`}
+                  >
+                    <span className="input__prefix-icon" />
+                    <span className="input__prefix-label">
+                      {selectedCountryPrefix.label}
+                    </span>
+                    <span className="input__prefix-chevron">
+                      <Image
+                        src="/assets/icons/stroke-standard/arrow-down-01-stroke-rounded.svg"
+                        alt=""
+                        width={20}
+                        height={20}
+                        aria-hidden="true"
+                        className="prefix-chevron-icon"
+                      />
+                    </span>
+                  </button>
+
+                  <ul
+                    role="listbox"
+                    className={prefixListClass}
+                    aria-label="اختر رمز الدولة"
+                  >
+                    <div className="prefix-list__scroll">
+                      {PHONE_PREFIXES.map((opt) => {
+                        const isActive =
+                          opt.value === selectedCountryPrefix.value;
+                        return (
+                          <li
+                            key={opt.value}
+                            role="option"
+                            aria-selected={isActive}
+                            tabIndex={prefixOpen ? 0 : -1}
+                            onClick={() => handlePrefixSelect(opt)}
+                            onKeyDown={(e) => handlePrefixKeyDown(e, opt)}
+                            className={`prefix-option ${isActive ? "prefix-option--active" : ""}`}
+                          >
+                            <span>{opt.label}</span>
+                            <span className="sr-only">{opt.country}</span>
+                            {isActive && (
+                              <span
+                                className="prefix-option__check"
+                                aria-hidden="true"
+                              >
+                                ✓
+                              </span>
+                            )}
+                          </li>
+                        );
+                      })}
+                    </div>
+                  </ul>
+                </div>
+              </div>
+            )}
+          />
+        </FormField>
         <FormField
           label="تاريخ الميلاد"
           required

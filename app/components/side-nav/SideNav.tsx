@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Button from "@/app/components/button/Button";
 import { IRoute } from "@/app/components/drawer";
@@ -11,13 +12,37 @@ import "./SideNav.css";
 // ─── Routes ───────────────────────────────────────────────────────────────────
 
 const PROFILE_ROUTES: IRoute[] = [
-  { name: "الرئيسة",             path: "/",                        icon: "home-01",        divider: true },
-  { name: "الملف الشخصي",        path: "/profile",                 icon: "user-02",        divider: true },
-  { name: "تغيير كلمة المرور",   path: "/profile/change-password", icon: "square-lock-02", divider: true },
-  { name: "الاختبارات",          path: "/profile/tests",           icon: "book-open-01",   divider: true },
-  { name: "الشهادات",            path: "/profile/certificates",    icon: "certificate-01", divider: true },
-  { name: "الفواتير",            path: "/profile/invoices",        icon: "invoice-03",     divider: true },
-  { name: "التنبيهات",           path: "/profile/notifications",   icon: "notification-01"               },
+  { name: "الرئيسة", path: "/", icon: "home-01", divider: true },
+  { name: "الملف الشخصي", path: "/profile", icon: "user-02", divider: true },
+  {
+    name: "تغيير كلمة المرور",
+    path: "/profile?view=security",
+    icon: "square-lock-02",
+    divider: true,
+  },
+  {
+    name: "الاختبارات",
+    path: "/profile/tests",
+    icon: "book-open-01",
+    divider: true,
+  },
+  {
+    name: "الشهادات",
+    path: "/profile/certificates",
+    icon: "certificate-01",
+    divider: true,
+  },
+  {
+    name: "الفواتير",
+    path: "/profile/invoices",
+    icon: "invoice-03",
+    divider: true,
+  },
+  {
+    name: "التنبيهات",
+    path: "/profile/notifications",
+    icon: "notification-01",
+  },
 ];
 
 // ─── Props ────────────────────────────────────────────────────────────────────
@@ -38,13 +63,37 @@ export default function SideNav({
   userAvatar,
 }: SideNavProps) {
   const [isOpen, setIsOpen] = useState(false);
-console.log(activePath);
+  const searchParams = useSearchParams();
+
+  const checkIsActive = (routePath: string) => {
+    if (routePath === "/") return activePath === "/";
+
+    if (routePath === "/profile?view=security") {
+      return activePath === "/profile" && searchParams.get("view") === "security";
+    }
+
+    if (routePath === "/profile") {
+      const isMainProfile = activePath === "/profile" && searchParams.get("view") !== "security";
+      const isProfileUpdate = activePath.startsWith("/profile/update");
+      return isMainProfile || isProfileUpdate;
+    }
+
+    return (
+      activePath === routePath ||
+      activePath.startsWith(routePath + "/") ||
+      activePath.startsWith(routePath + "?")
+    );
+  };
+
   return (
     <>
       {/* Mobile header bar — visible only on mobile */}
       <div className="sidenav__mobile-header">
         <header className="header header--divider">
-          <nav className="header-nav--full custom-container" aria-label="قائمة الملف الشخصي">
+          <nav
+            className="header-nav--full custom-container"
+            aria-label="قائمة الملف الشخصي"
+          >
             <div className="header-nav__main">
               <div className="header-menu__btn">
                 <button
@@ -64,7 +113,11 @@ console.log(activePath);
                 </button>
               </div>
               <div className="header-nav__branding">
-                <Link href="/" className="header__logo" aria-label="الصفحة الرئيسة - همزة">
+                <Link
+                  href="/"
+                  className="header__logo"
+                  aria-label="الصفحة الرئيسة - همزة"
+                >
                   <Image
                     src="/assets/image/Hamza_Logo.png"
                     alt="شعار همزة"
@@ -153,20 +206,20 @@ console.log(activePath);
         <nav className="sidenav__nav">
           <ul className="sidepanel__menu-list" role="list">
             {PROFILE_ROUTES.map((route) => {
-              const isActive =
-                route.path === "/"
-                  ? activePath === "/"
-                  : activePath === route.path || activePath.startsWith(route.path + "/") || activePath.startsWith(route.path + "?");
+              const isActive = checkIsActive(route.path);
               return (
                 <li key={route.path}>
-                  <a
+                  <Link
                     href={route.path}
                     className={`sidepanel__menu-tab${isActive ? " active" : ""}`}
                     aria-current={isActive ? "page" : undefined}
                     onClick={() => setIsOpen(false)}
                   >
                     {route.icon && (
-                      <span className="sidepanel__menu-tab-icon" aria-hidden="true">
+                      <span
+                        className="sidepanel__menu-tab-icon"
+                        aria-hidden="true"
+                      >
                         <img
                           src={`/assets/icons/stroke-standard/${route.icon}-stroke-rounded.svg`}
                           alt=""
@@ -176,10 +229,15 @@ console.log(activePath);
                         />
                       </span>
                     )}
-                    <span className="sidepanel__menu-tab-label">{route.name}</span>
-                  </a>
+                    <span className="sidepanel__menu-tab-label">
+                      {route.name}
+                    </span>
+                  </Link>
                   {route.divider && (
-                    <span className="sidepanel__menu-tab-divider" aria-hidden="true" />
+                    <span
+                      className="sidepanel__menu-tab-divider"
+                      aria-hidden="true"
+                    />
                   )}
                 </li>
               );

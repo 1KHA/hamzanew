@@ -11,7 +11,7 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
   return (
     <div className="bg-neutral-50 flex flex-row-reverse flex-1">
       {/* Left column — page content (PageHero + section + form/view) */}
-      <div className="flex-1 min-w-0 ">
+      <div className="flex-1 min-w-0 !pt-[68px] lg:!pt-0">
         {children}
       </div>
 
