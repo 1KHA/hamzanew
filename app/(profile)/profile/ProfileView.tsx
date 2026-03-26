@@ -1,8 +1,23 @@
 "use client";
 import Button from "@/app/components/button/Button";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import mockUserInfo from "./_data/mockUserInfo.json";
+import FormField from "@/app/components/form-field/FormField";
+import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
+import { useForm, FormProvider } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
 import "./ProfileView.css";
+
+const accountSchema = z.object({
+  oldPassword: z.string().min(1, "كلمة المرور الحالية مطلوبة"),
+  newPassword: z
+    .string()
+    .min(8, "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل"),
+});
+
+type AccountFormValues = z.infer<typeof accountSchema>;
 
 interface InfoField {
   label: string;
@@ -40,13 +55,10 @@ function InfoTable({ title, rows, editTabId }: InfoTableProps) {
         {rows.map((row, rowIndex) => (
           <div
             key={rowIndex}
-            className="!grid !grid-cols-1 md:!grid-cols-4 !gap-6 !p-6 !border-b !border-neutral-100"
+            className="!grid !grid-cols-1 md:!grid-cols-2 lg:!grid-cols-4 !gap-6 !p-6 !border-b !border-neutral-100"
           >
             {row.map((field, colIndex) => (
-              <div
-                key={colIndex}
-                className="info-table__field"
-              >
+              <div key={colIndex} className="info-table__field">
                 <span className="text-sm-regular !text-[#6C737F]">
                   {field.label}
                 </span>
@@ -63,6 +75,23 @@ function InfoTable({ title, rows, editTabId }: InfoTableProps) {
 }
 
 export default function ProfileView() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const currentView = searchParams.get("view");
+
+  const methods = useForm<AccountFormValues>({
+    resolver: zodResolver(accountSchema),
+    defaultValues: {
+      oldPassword: "",
+      newPassword: "",
+    },
+    mode: "onBlur",
+  });
+
+  const onSubmit = (data: AccountFormValues) => {
+    console.log("Form Submitted:", data);
+  };
+
   const nationalityMap: Record<string, string> = {
     KW: "كويتي",
     SA: "سعودي",
@@ -99,6 +128,11 @@ export default function ProfileView() {
         label: "الاسم الثالث بالانجليزي",
         value: mockUserInfo.lastName_en || "-",
       },
+      {
+        label: "البريد الالكتروني",
+        value: mockUserInfo.email || "-",
+      },
+      { label: "رقم الجوال", value: mockUserInfo.phone || "-" },
       {
         label: "تاريخ الميلاد",
         value: (
@@ -193,7 +227,75 @@ export default function ProfileView() {
       },
     ],
   ];
+  if (currentView === "security") {
+    return (
+      <div className="flex flex-col gap-6">
+        <FormProvider {...methods}>
+          <form
+            id="security-info-form"
+            onSubmit={methods.handleSubmit(onSubmit)}
+            className="info-table"
+          >
+            {/* Header */}
+            <div className="info-table__header">
+              <h3 className="text-md-bold !text-neutral-900">كلمة المرور</h3>
+            </div>
 
+            {/* Content */}
+            <div className="!grid !grid-cols-1 md:!grid-cols-3 !p-[32px]">
+              <div className="flex flex-col gap-8">
+                <FormField
+                  label="كلمة المرور القديمة"
+                  error={methods.formState.errors.oldPassword?.message}
+                >
+                  <ControlledTextInput
+                    name="oldPassword"
+                    type="password"
+                    size="lg"
+                    variant="darker"
+                  />
+                </FormField>
+                <FormField
+                  label="كلمة المرور الجديدة"
+                  error={methods.formState.errors.newPassword?.message}
+                >
+                  <ControlledTextInput
+                    name="newPassword"
+                    type="password"
+                    size="lg"
+                    variant="darker"
+                  />
+                </FormField>
+              </div>
+            </div>
+            {/* Form Actions — linked via form id */}
+            <div className="flex gap-[12px] justify-end !p-[24px]">
+              <Button
+                form="security-info-form"
+                type="submit"
+                label="حفظ التغييرات"
+                variant="primary-brand"
+                size="md"
+                className="md:w-[100px] w-full"
+              />
+              <Button
+                form="security-info-form"
+                type="button"
+                label="إلغاء"
+                variant="secondary-outline"
+                size="md"
+                className="md:w-[100px] w-full"
+                onClick={() => {
+                  methods.reset();
+                  router.push("/profile");
+                }}
+              />
+            </div>
+          </form>
+        </FormProvider>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col gap-6">
       <InfoTable
@@ -206,11 +308,7 @@ export default function ProfileView() {
         rows={educationInfoRows}
         editTabId={2}
       />
-      <InfoTable
-        title="معلومات الموقع"
-        rows={locationInfoRows}
-        editTabId={3}
-      />
+      <InfoTable title="معلومات الموقع" rows={locationInfoRows} editTabId={3} />
     </div>
   );
 }
