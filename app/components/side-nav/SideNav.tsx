@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Button from "@/app/components/button/Button";
 import { IRoute } from "@/app/components/drawer";
@@ -253,6 +254,7 @@ export default function SideNav({
             iconPosition="right"
             variant="primary-neutral--on-color"
             size="md"
+            onClick={() => signOut({ callbackUrl: "/sign-in" })}
           />
           <Button
             label="English"

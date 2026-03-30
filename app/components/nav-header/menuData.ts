@@ -178,7 +178,7 @@ export const ACTION_ITEMS = [
   {
     id: "sign-in",
     label: "تسجيل الدخول",
-    href: "#",
+    href: "/sign-in",
     icon: "/assets/icons/stroke-standard/user-03-stroke-standard.svg",
     className: "action-btn-reversed",
   },

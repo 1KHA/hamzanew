@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { DgaTextInput, DgaCheckbox } from "platformscode-new-react";
+import { signIn } from "next-auth/react";
+import { DgaCheckbox } from "platformscode-new-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -46,12 +47,24 @@ export default function SignInPage() {
   const onSubmit = async (data: FormSchema) => {
     setIsSubmitting(true);
     try {
-      // TODO: Replace with actual authentication API call
-      console.log("Sign in:", data);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
       setRememberMe(false);
+      const result = await signIn("credentials", {
+        redirect: false, // FALSE to stay on the page and get the error
+        username: data.username,
+        password: data.password,
+      });
+      console.log("result", result);
+
+      if (result?.error) {
+        methods.setError("root", { message: result.error });
+        setIsSubmitting(false);
+      } else if (result?.ok) {
+        // Because redirect is false, NextAuth won't redirect us!
+        // manually redirect if login was successful.
+        window.location.href = "/profile";
+      }
     } catch {
+      methods.setError("root", { message: "Something went wrong" });
     } finally {
       setIsSubmitting(false);
     }
@@ -120,6 +133,7 @@ export default function SignInPage() {
               >
                 <ControlledTextInput
                   name="password"
+                  type="password"
                   id="password"
                   placeholder="أدخل كلمة المرور"
                   variant="default"

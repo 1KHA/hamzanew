@@ -10,6 +10,7 @@ import MobileNav from "./MobileNav";
 import NavigationSubmenu from "./NavigationSubmenu";
 import { MENU_DATA, ACTION_ITEMS } from "./menuData";
 import "./NavHeader.css";
+import { useSession } from "next-auth/react";
 
 // =============================================
 // ICON COMPONENT
@@ -18,13 +19,7 @@ import "./NavHeader.css";
 // next/image automatically handles lazy-loading, WebP conversion,
 // and correct srcset generation for retina screens.
 const IconImage = ({ src, alt }: { src: string; alt: string }) => (
-  <Image
-    src={src}
-    alt={alt}
-    width={24}
-    height={24}
-    className="inline-block"
-  />
+  <Image src={src} alt={alt} width={24} height={24} className="inline-block" />
 );
 
 // =============================================
@@ -129,7 +124,8 @@ const useHorizontalScroll = (
 // =============================================
 function NavHeader() {
   const pathname = usePathname();
-
+  const { data: session } = useSession();
+  console.log("session", session);
   // Tracks which top-level nav item is visually highlighted
   const [activeLink, setActiveLink] = useState<string>(() =>
     resolveActiveId(pathname),
@@ -151,7 +147,6 @@ function NavHeader() {
 
   const { canScrollLeft, canScrollRight, scrollLeft, scrollRight } =
     useHorizontalScroll(menuScrollRef);
-
 
   // Memoised class string for the sticky wrapper — avoids string
   // concatenation on every render
@@ -240,10 +235,7 @@ function NavHeader() {
       {/* ── Sticky container — header + submenu scroll together ────────
            position:sticky keeps both elements pinned while avoiding
            a double z-index stacking context issue               ──── */}
-      <div
-        ref={navRef}
-        className={stickyClass}
-      >
+      <div ref={navRef} className={stickyClass}>
         {/* ─── Main header bar ──────────────────────────────────────── */}
         <header className="header header--divider">
           <nav
@@ -251,7 +243,6 @@ function NavHeader() {
             aria-label="التنقل الرئيسي"
           >
             <div className="header-nav__main">
-
               {/* Mobile hamburger button — visible only on small screens */}
               <div className="header-menu__btn">
                 <button
@@ -310,7 +301,6 @@ function NavHeader() {
                   Fade indicators (has-scroll-left / has-scroll-right) are
                   handled via CSS on the wrapper class.               */}
               <div className={menuWrapperClass}>
-
                 {/* Left scroll button — shown when overflowing or screen ≤ 1265px */}
                 {canScrollLeft && (
                   <button
@@ -365,25 +355,63 @@ function NavHeader() {
 
             {/* ─── Action buttons (sign-in, search, …) ─────────────── */}
             <ul className="header-nav__actions" role="list">
-              {ACTION_ITEMS.map((action) => (
-                <li key={action.id} className={action.className}>
-                  <Link
-                      href={action.id === "sign-in" ? "/sign-in" : action.href}
+              {ACTION_ITEMS.map((action) => {
+                // Determine if we should show this action item based on session
+                if (action.id === "sign-in") {
+                  return (
+                    <li key={action.id} className={action.className}>
+                      {session ? (
+                        // User IS logged in: Show Profile / Sign Out shortcut
+                        <Link
+                          href="/profile"
+                          className="header-menu__item"
+                          aria-label="الملف الشخصي"
+                        >
+                          <span className="header-menu__item-label">
+                            {session.user?.name || "حسابي"}
+                          </span>
+                          <IconImage
+                            src="/assets/icons/stroke-standard/user-03-stroke-standard.svg"
+                            alt="أيقونة المستخدم"
+                          />
+                        </Link>
+                      ) : (
+                        // User is NOT logged in: Show regular Sign In button
+                        <Link
+                          href="/sign-in"
+                          className="header-menu__item"
+                          aria-label="تسجيل الدخول"
+                        >
+                          {action.label && (
+                            <span className="header-menu__item-label">
+                              {action.label}
+                            </span>
+                          )}
+                          <IconImage src={action.icon} alt="أيقونة المستخدم" />
+                        </Link>
+                      )}
+                    </li>
+                  );
+                }
+
+                // Render other normal action items (like Search) regardless of session
+                return (
+                  <li key={action.id} className={action.className}>
+                    <Link
+                      href={action.href}
                       className="header-menu__item"
-                      aria-label={action.id === "sign-in" ? "تسجيل الدخول" : (action.label || "البحث")}
+                      aria-label={action.label || "بحث"}
                     >
                       {action.label && (
                         <span className="header-menu__item-label">
                           {action.label}
                         </span>
                       )}
-                      <IconImage
-                        src={action.icon}
-                        alt={action.id === "sign-in" ? "أيقونة المستخدم" : "أيقونة البحث"}
-                      />
+                      <IconImage src={action.icon} alt="أيقونة" />
                     </Link>
-                </li>
-              ))}
+                  </li>
+                );
+              })}
             </ul>
           </nav>
         </header>
@@ -395,7 +423,6 @@ function NavHeader() {
           onLinkClick={() => activeSubmenu && handleLinkClick(activeSubmenu.id)}
         />
       </div>
-
     </>
   );
 }
