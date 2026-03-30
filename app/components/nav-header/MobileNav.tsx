@@ -42,108 +42,103 @@ interface MobileNavItemProps {
  * Wrapped in React.memo to prevent the entire list from re-rendering
  * when only one item's expanded state changes.
  */
-const MobileNavItem = memo<MobileNavItemProps>(({
-  item,
-  isActive,
-  isExpanded,
-  onLinkClick,
-  onToggleSubmenu,
-  index,
-}) => {
-  const itemClass = `mobile-nav__item${isActive ? " mobile-nav__item--active" : ""}`;
+const MobileNavItem = memo<MobileNavItemProps>(
+  ({ item, isActive, isExpanded, onLinkClick, onToggleSubmenu, index }) => {
+    const itemClass = `mobile-nav__item${isActive ? " mobile-nav__item--active" : ""}`;
 
-  // ── Accordion item (has nested submenu) ───────────────────────────────
-  if (item.hasSubmenu) {
+    // ── Accordion item (has nested submenu) ───────────────────────────────
+    if (item.hasSubmenu) {
+      return (
+        <div
+          className="mobile-nav__item-wrapper"
+          style={{ animationDelay: `${index * 50}ms` }}
+        >
+          {/* Toggle button — aria-expanded communicates open/closed state */}
+          <button
+            type="button"
+            onClick={onToggleSubmenu}
+            className={itemClass}
+            aria-haspopup="true"
+            aria-expanded={isExpanded}
+            aria-label={`${item.label}، قائمة فرعية`}
+          >
+            <span>{item.label}</span>
+
+            {/* Animated chevron — rotates when the submenu opens.
+              aria-hidden keeps it invisible to screen readers since
+              aria-expanded already communicates the state.         */}
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className={`mobile-nav__arrow${isExpanded ? " mobile-nav__arrow--rotated" : ""}`}
+              aria-hidden="true"
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+
+          {/* Collapsible submenu region — role="region" + aria-label make it
+            discoverable as a landmark by screen reader users            */}
+          <div
+            className={`mobile-nav__submenu${isExpanded ? " mobile-nav__submenu--active" : ""}`}
+            role="region"
+            aria-label={`قائمة ${item.label} الفرعية`}
+          >
+            {item.submenuColumns?.map((column, colIndex) => (
+              <div
+                key={column.title || colIndex}
+                className="mobile-nav__submenu-column"
+              >
+                {/* Column heading */}
+                <div className="mobile-nav__submenu-title">{column.title}</div>
+
+                {/* Submenu links — use href as key for stability */}
+                {column.items.map((subItem) => (
+                  <Link
+                    key={subItem.label}
+                    href={subItem.href}
+                    onClick={() => onLinkClick(item.id)}
+                    className="mobile-nav__subitem"
+                  >
+                    <Image
+                      src={subItem.icon}
+                      alt={`أيقونة ${subItem.label}`}
+                      width={20}
+                      height={20}
+                    />
+                    <span>{subItem.label}</span>
+                  </Link>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    // ── Regular navigation link ────────────────────────────────────────────
     return (
       <div
         className="mobile-nav__item-wrapper"
         style={{ animationDelay: `${index * 50}ms` }}
       >
-        {/* Toggle button — aria-expanded communicates open/closed state */}
-        <button
-          type="button"
-          onClick={onToggleSubmenu}
+        <Link
+          href={item.href || "#"}
+          onClick={() => onLinkClick(item.id)}
           className={itemClass}
-          aria-haspopup="true"
-          aria-expanded={isExpanded}
-          aria-label={`${item.label}، قائمة فرعية`}
         >
           <span>{item.label}</span>
-
-          {/* Animated chevron — rotates when the submenu opens.
-              aria-hidden keeps it invisible to screen readers since
-              aria-expanded already communicates the state.         */}
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className={`mobile-nav__arrow${isExpanded ? " mobile-nav__arrow--rotated" : ""}`}
-            aria-hidden="true"
-          >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </button>
-
-        {/* Collapsible submenu region — role="region" + aria-label make it
-            discoverable as a landmark by screen reader users            */}
-        <div
-          className={`mobile-nav__submenu${isExpanded ? " mobile-nav__submenu--active" : ""}`}
-          role="region"
-          aria-label={`قائمة ${item.label} الفرعية`}
-        >
-          {item.submenuColumns?.map((column, colIndex) => (
-            <div
-              key={column.title || colIndex}
-              className="mobile-nav__submenu-column"
-            >
-              {/* Column heading */}
-              <div className="mobile-nav__submenu-title">{column.title}</div>
-
-              {/* Submenu links — use href as key for stability */}
-              {column.items.map((subItem) => (
-                <Link
-                  key={subItem.label}
-                  href={subItem.href}
-                  onClick={() => onLinkClick(item.id)}
-                  className="mobile-nav__subitem"
-                >
-                  <Image
-                    src={subItem.icon}
-                    alt={`أيقونة ${subItem.label}`}
-                    width={20}
-                    height={20}
-                  />
-                  <span>{subItem.label}</span>
-                </Link>
-              ))}
-            </div>
-          ))}
-        </div>
+        </Link>
       </div>
     );
-  }
-
-  // ── Regular navigation link ────────────────────────────────────────────
-  return (
-    <div
-      className="mobile-nav__item-wrapper"
-      style={{ animationDelay: `${index * 50}ms` }}
-    >
-      <Link
-        href={item.href || "#"}
-        onClick={() => onLinkClick(item.id)}
-        className={itemClass}
-      >
-        <span>{item.label}</span>
-      </Link>
-    </div>
-  );
-});
+  },
+);
 
 MobileNavItem.displayName = "MobileNavItem";
 
@@ -269,7 +264,6 @@ export default function MobileNav({
 
         {/* ── Scrollable content area ──────────────────────────────────── */}
         <div className="mobile-nav__content">
-
           {/* Main navigation items */}
           <nav className="mobile-nav__main" aria-label="قائمة الصفحات">
             {MENU_DATA.map((item, index) => (

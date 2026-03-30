@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 // import NavHeader from "./components/nav-header/NavHeader";
 import ClientOnly from "./components/ClientOnly";
+import AuthProvider from "@/lib/utils/AuthProvider";
 // import Footer from "./components/footer/Footer";
 
 // const geistSans = Geist({
@@ -55,7 +56,9 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col">
         <ClientOnly>
-          {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </ClientOnly>
       </body>
     </html>
