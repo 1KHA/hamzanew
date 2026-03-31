@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export const proxy = withAuth(
   function middleware(request) {
-    // Check if user has a token (withAuth automatically handles the secret decoding)
+    // Check if user has a token 
     const user = request.nextauth.token;
     
     // The path the user is trying to access
