@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { Controller, useFormContext } from "react-hook-form";
-import FileUpload from "@/app/components/FileUpload/FileUpload";
+import FileUpload, { UploadedFile } from "@/app/components/FileUpload/FileUpload";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import type { UserProfileFormValues } from "../update/ProfileForm";
@@ -42,6 +42,8 @@ export default function PersonalInfoTab() {
     trigger,
     formState: { errors },
   } = useFormContext<UserProfileFormValues>();
+
+  const [, setIdFile] = useState<UploadedFile[]>([]);
 
   const [prefixOpen, setPrefixOpen] = useState(false);
   const prefixRef = useRef<HTMLDivElement>(null);
@@ -401,14 +403,27 @@ export default function PersonalInfoTab() {
 
       {/* File Upload */}
       <div className="!grid !grid-cols-1 md:!grid-cols-3 !gap-8">
-        <FormField label="ارفق نسخة من الاثبات" required>
-          <FileUpload
-            name="identityProof"
-            fileTypesText="الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وصيغ الملفات المدعومة تشمل .jpg و .png و .pdf."
-            accept="image/*,.pdf"
-            actionName="تصفح الملفات"
-            showIcon={false}
-            getUploadedFile={() => {}}
+        <FormField label="ارفق نسخة من الاثبات" 
+        required
+        error={errors.identityFile?.message as string | undefined}
+        htmlFor="identity-file"
+        >
+          <Controller
+            name="identityFile"
+            control={control}
+            render={({ field }) => (
+              <FileUpload
+                name="identity-file"
+                fileTypesText="الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وصيغ الملفات المدعومة تشمل .pdf."
+                accept=".pdf"
+                actionName="تصفح الملفات"
+                showIcon={false}
+                getUploadedFile={(files: UploadedFile[]) => {
+                  setIdFile(files);
+                  field.onChange(files);
+                }}
+              />
+            )}
           />
         </FormField>
       </div>

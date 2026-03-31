@@ -184,6 +184,28 @@ export default function ProfileView() {
           </>
         ),
       },
+      {
+        label: "نسخة من الاثبات",
+        value: (
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="!flex !items-center !gap-2 !p-[8px] border! border-[#d0d5dd]! rounded-[4px]! bg-white! hover:bg-[#f9fafb]! transition-all no-underline! w-full max-w-[334px]"
+          >
+            <img
+              src="/assets/icons/stroke-standard/document-attachment-stroke-rounded.svg"
+              width={20}
+              height={20}
+              className="gray-icon"
+              alt=""
+            />
+            <span className="text-[#344054] text-sm-regular truncate flex-1">
+              {mockUserInfo.identityFile}
+            </span>
+          </a>
+        ),
+      },
     ],
   ];
 

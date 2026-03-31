@@ -50,6 +50,7 @@ const userProfileSchema = z.object({
   motherTongue: z.string().min(1, "اللغة الأم مطلوبة"),
   identity: z.string().min(1, "الإثبات مطلوب"),
   identityNumber: z.string().min(1, "رقم الإثبات مطلوب"),
+  identityFile: z.any().refine((files) => files?.length > 0, "نسخة من الإثبات مطلوبة"),
   // Education
   education: z.string().min(1, "المؤهل الدراسي مطلوب"),
   basicLanguageInEducation: z.string().min(1, "لغة التعليم مطلوبة"),
@@ -115,6 +116,7 @@ function ProfileFormContent() {
       motherTongue: mockUserInfo.motherTongue || "",
       identity: mockUserInfo.identity || "",
       identityNumber: mockUserInfo.identityNumber || "",
+      identityFile: mockUserInfo.identityFile || "",
       education: mockUserInfo.education || "",
       basicLanguageInEducation: mockUserInfo.basicLanguageInEducation || "",
       institution: mockUserInfo.institution || "",
@@ -197,7 +199,6 @@ function ProfileFormContent() {
         <div className="mb-[40px]" role="region" aria-live="polite">
           <FormProvider {...methods}>
             <form id="profile-form" onSubmit={methods.handleSubmit(onSubmit)}>
-              {/* {activeTab === 1 && <AccountInfoTab />} */}
               {activeTab === 1 && <PersonalInfoTab />}
               {activeTab === 2 && <EducationTab />}
               {activeTab === 3 && <LocationTab />}

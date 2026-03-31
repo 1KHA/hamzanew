@@ -45,6 +45,7 @@ const STEP_CONFIG = [
       "motherTongue",
       "identity",
       "identityNumber",
+      "identityFile",
     ],
   },
   {
@@ -99,6 +100,7 @@ const newUserSchema = z
     motherTongue: z.string().min(1, "اللغة الأم مطلوبة"),
     identity: z.string().min(1, "الإثبات مطلوب"),
     identityNumber: z.string().min(1, "رقم الإثبات مطلوب"),
+    identityFile: z.any().refine((files) => files?.length > 0, "نسخة من الإثبات مطلوبة"),
 
     /* ── Step 3 education info ── */
     education: z.string().min(1, "المؤهل الدراسي مطلوب"),
@@ -144,6 +146,7 @@ export default function SignUpPage() {
             motherTongue: "en",
             identity: "passport",
             identityNumber: "313059213",
+            identityFile: [],
             education: "bachelor",
             basicLanguageInEducation: "en",
             institution: "جامعة كاليفورنيا",
@@ -177,6 +180,7 @@ export default function SignUpPage() {
             motherTongue: "",
             identity: "",
             identityNumber: "",
+            identityFile: [],
             education: "",
             basicLanguageInEducation: "",
             institution: "",
