@@ -162,8 +162,7 @@
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
-  background: transparent;
-}
+ }
 
 .dga-btn--close {
   display: flex;

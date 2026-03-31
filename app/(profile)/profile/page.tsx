@@ -58,7 +58,7 @@ export default function ProfilePage() {
         <h1 id="profile-heading" className="sr-only">
           إدارة الملف الشخصي
         </h1>
-        <div className="content !px-16 !py-8" role="main">
+        <div className="content " role="main">
           <ProfileView />
         </div>
       </section>

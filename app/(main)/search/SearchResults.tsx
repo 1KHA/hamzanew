@@ -116,7 +116,7 @@ function SearchResultCard({ result }: { result: SearchResult }) {
       <div className="flex flex-col gap-[12px]">
         {/* Category Tag */}
         <div className="flex justify-start">
-          <Tag label={result.category} variant="neutral" size="sm" />
+          <Tag label={result.category} variant="neutral" size="md" />
         </div>
 
         {/* Title */}
@@ -222,6 +222,7 @@ export default function SearchResults({
   };
 
   const handleSearchClear = () => {
+    setSearchQuery("");
     setAppliedSearchQuery("");
     setCurrentPage(1);
   };
@@ -267,70 +268,108 @@ export default function SearchResults({
         </div>
       </section>
 
-      {/* Results Section */}
-      <section
-        aria-label="نتائج البحث"
-        aria-live="polite"
-        className="!flex !flex-col !gap-[32px]"
-      >
-        {/* Results Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-[24px] mb-[24px]">
-          {/* Title and Count */}
-          <div className="flex flex-col gap-[8px] text-start">
-            <h2 className="display-sm-bold">
-              نتيجة البحث عن "{appliedSearchQuery}"
-            </h2>
-            <p className="text-md-regular text-[#6C737F]">
-              {filteredAndSortedResults.length} نتيجة وجدت
-            </p>
-          </div>
-
-          {/* Filter Controls */}
-          <FilterControls
-            filterValue={filterValue}
-            sortValue={sortValue}
-            onFilterChange={handleFilterChange}
-            onSortChange={handleSortChange}
-          />
-        </div>
-
-        {/* Results List */}
-        <div
-          className="flex flex-col gap-[32px]"
-          role="feed"
-          aria-label="قائمة نتائج البحث"
-        >
-          {paginatedResults.length > 0 ? (
-            paginatedResults.map((result, index) => (
-              <div key={result.id}>
-                <SearchResultCard result={result} />
-                {index < paginatedResults.length - 1 && (
-                  <hr className="!my-[24px]" />
-                )}
-              </div>
-            ))
-          ) : (
-            <div className="py-[48px] text-center">
-              <p className="text-lg-medium text-[#6C737F]">
-                لم يتم العثور على نتائج
-              </p>
-            </div>
-          )}
-        </div>
-
-        {/* Pagination */}
-        {filteredAndSortedResults.length > 0 && totalPages > 1 && (
-          <div className="flex justify-center py-[32px]">
-            <DgaPagination
-              currentPage={currentPage}
-              onPageChange={handlePageChange}
-              siblingCount={1}
-              size="large"
-              totalPageCount={totalPages}
+      {/* Empty state — shown before any search is submitted */}
+      {!appliedSearchQuery.trim() && (
+        <div className="flex flex-col items-center justify-center py-[80px] gap-[16px] text-center">
+          <div style={{
+            width: 64,
+            height: 64,
+            borderRadius: "50%",
+            background: "#F0FDF4",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginBottom: 8,
+          }}>
+            <img
+              src="/assets/icons/stroke-standard/search-01-stroke-standard.svg"
+              alt=""
+              width={28}
+              height={28}
+              style={{ filter: "invert(33%) sepia(87%) saturate(438%) hue-rotate(95deg) brightness(95%) contrast(90%)" }}
             />
           </div>
-        )}
-      </section>
+          <h2 className="display-xs-bold" style={{ color: "#161616" }}>
+            ابدأ بحثك هنا
+          </h2>
+          <p className="text-md-regular" style={{ color: "#6C737F"  }}>
+            اكتب كلمة أو عبارة في مربع البحث أعلاه للعثور على المحتوى الذي تبحث عنه
+          </p>
+        </div>
+      )}
+
+      {/* Results Section — only visible after user submits a query */}
+      {appliedSearchQuery.trim() && (
+        <section
+          aria-label="نتائج البحث"
+          aria-live="polite"
+          className="!flex !flex-col !gap-[32px]"
+        >
+          {/* Results Header */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-[24px] mb-[24px]">
+            {/* Title and Count */}
+            <div className="flex flex-col gap-[8px] text-start">
+              <h2 className="display-sm-bold">
+                نتيجة البحث عن &quot;{appliedSearchQuery}&quot;
+              </h2>
+              <p className="text-md-regular text-[#6C737F]">
+                {filteredAndSortedResults.length} نتيجة وجدت
+              </p>
+            </div>
+
+            {/* Filter Controls */}
+            <FilterControls
+              filterValue={filterValue}
+              sortValue={sortValue}
+              onFilterChange={handleFilterChange}
+              onSortChange={handleSortChange}
+            />
+          </div>
+
+          {/* Results List */}
+          <div
+            className="flex flex-col gap-[32px]"
+            role="feed"
+            aria-label="قائمة نتائج البحث"
+          >
+            {paginatedResults.length > 0 ? (
+              paginatedResults.map((result, index) => (
+                <div key={result.id}>
+                  <SearchResultCard result={result} />
+                  {index < paginatedResults.length - 1 && (
+                    <hr className="!my-[24px]" />
+                  )}
+                </div>
+              ))
+            ) : (
+              <div className="py-[48px] flex flex-col items-center gap-[16px]">
+                <p className="text-lg-medium text-[#6C737F]">
+                  لم يتم العثور على نتائج لـ &quot;{appliedSearchQuery}&quot;
+                </p>
+                <Button
+                  label="مسح البحث"
+                  variant="secondary-outline"
+                  size="md"
+                  onClick={handleSearchClear}
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Pagination */}
+          {filteredAndSortedResults.length > 0 && totalPages > 1 && (
+            <div className="flex justify-center py-[32px]">
+              <DgaPagination
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+                siblingCount={1}
+                size="large"
+                totalPageCount={totalPages}
+              />
+            </div>
+          )}
+        </section>
+      )}
     </div>
   );
 }

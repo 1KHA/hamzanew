@@ -304,13 +304,15 @@ export default function HamzaGeneralTestPage() {
 
               {/* Register Button */}
               <div>
-                <Button
-                  label="سجل الآن"
-                  variant="primary-brand"
-                  size="lg"
-                  icon="arrow-up-right-01"
-                  iconClass="white-icon"
-                />
+                <a href="/test-takers/hamza-meran-course/player">
+                  <Button
+                    label="شاهد الدروس"
+                    variant="primary-brand"
+                    size="lg"
+                    icon="arrow-up-right-01"
+                    iconClass="white-icon"
+                  />
+                </a>
               </div>
             </div>
 

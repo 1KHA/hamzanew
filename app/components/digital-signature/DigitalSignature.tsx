@@ -83,7 +83,7 @@ export default function DigitalSignature() {
           {/* Language switcher */}
           <button
             type="button"
-            className="dga-btn dga-btn--sm dga-btn--subtle !hidden lg:!flex"
+            className="dga-btn dga-btn--sm dga-btn--subtle digital-lang-btn"
             onClick={switchLanguage}
             aria-label="تبديل اللغة إلى الإنجليزية"
           >

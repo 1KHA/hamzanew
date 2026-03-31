@@ -115,7 +115,7 @@ export const MENU_DATA: MenuItemType[] = [
             icon: "/assets/icons/stroke-standard/course-stroke-standard.svg",
           },
           {
-            label: "آلية الإختبار (محوسب حضوري، محوسب عن بعد)",
+            label: "آلية الإختبار   ",
             href: "/test-takers/test-mechanism",
             icon: "/assets/icons/stroke-standard/task-daily-02-stroke-standard.svg",
           },

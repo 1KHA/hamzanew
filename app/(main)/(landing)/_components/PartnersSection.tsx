@@ -63,6 +63,7 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
                   gap: 10,
                   textAlign: "center",
                   padding: 16,
+                  height: "120px",
                 }}
                 imageWidth={162}
                 imageHeight={162}

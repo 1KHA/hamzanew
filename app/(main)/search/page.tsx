@@ -39,7 +39,6 @@ export default function SearchPage(): ReactElement {
     <section className="content" aria-label="صفحة البحث">
       <SearchResults
         initialResults={searchResultsData}
-        initialQuery="الاختبار الأكاديمي"
       />
     </section>
   );

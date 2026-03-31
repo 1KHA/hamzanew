@@ -10,7 +10,7 @@ import MobileNav from "./MobileNav";
 import NavigationSubmenu from "./NavigationSubmenu";
 import { MENU_DATA, ACTION_ITEMS } from "./menuData";
 import "./NavHeader.css";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 // =============================================
 // ICON COMPONENT
@@ -18,8 +18,8 @@ import { useSession } from "next-auth/react";
 // Thin wrapper around next/image for uniform inline icon sizing.
 // next/image automatically handles lazy-loading, WebP conversion,
 // and correct srcset generation for retina screens.
-const IconImage = ({ src, alt }: { src: string; alt: string }) => (
-  <Image src={src} alt={alt} width={24} height={24} className="inline-block" />
+const IconImage = ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
+  <Image src={src} alt={alt} width={24} height={24} className={`inline-block${className ? ` ${className}` : ""}`} />
 );
 
 // =============================================
@@ -118,6 +118,78 @@ const useHorizontalScroll = (
 
   return { canScrollLeft, canScrollRight, scrollLeft, scrollRight };
 };
+
+// =============================================
+// USER MENU DROPDOWN
+// =============================================
+function UserMenuDropdown({ name }: { name: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    if (isOpen) document.addEventListener("mousedown", handleOutside);
+    return () => document.removeEventListener("mousedown", handleOutside);
+  }, [isOpen]);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Escape") setIsOpen(false);
+  };
+
+  return (
+    <div className="user-menu" ref={ref} onKeyDown={handleKeyDown}>
+      <button
+        type="button"
+        className="header-menu__item user-menu__trigger"
+        aria-haspopup="true"
+        aria-expanded={isOpen}
+        aria-label="قائمة المستخدم"
+        onClick={() => setIsOpen((v) => !v)}
+      >
+        <span className="header-menu__item-label">{name}</span>
+        <IconImage
+          src="/assets/icons/stroke-standard/user-03-stroke-standard.svg"
+          alt="أيقونة المستخدم"
+        />
+      </button>
+
+      {isOpen && (
+        <div className="user-menu__dropdown" role="menu">
+          <Link
+            href="/profile"
+            className="user-menu__item"
+            role="menuitem"
+            onClick={() => setIsOpen(false)}
+          >
+            <IconImage
+              src="/assets/icons/stroke-standard/user-03-stroke-standard.svg"
+              alt=""
+            />
+            الملف الشخصي
+          </Link>
+          <hr className="user-menu__divider" />
+          <button
+            type="button"
+            className="user-menu__item user-menu__item--danger"
+            role="menuitem"
+            onClick={() => signOut({ callbackUrl: "/" })}
+          >
+            <IconImage
+            className="icon-critical"
+              src="/assets/icons/stroke-standard/logout-01-stroke-rounded.svg"
+              alt=""
+            />
+            تسجيل الخروج
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
 
 // =============================================
 // MAIN COMPONENT
@@ -361,20 +433,10 @@ function NavHeader() {
                   return (
                     <li key={action.id} className={action.className}>
                       {session ? (
-                        // User IS logged in: Show Profile / Sign Out shortcut
-                        <Link
-                          href="/profile"
-                          className="header-menu__item"
-                          aria-label="الملف الشخصي"
-                        >
-                          <span className="header-menu__item-label">
-                            {session.user?.name || "حسابي"}
-                          </span>
-                          <IconImage
-                            src="/assets/icons/stroke-standard/user-03-stroke-standard.svg"
-                            alt="أيقونة المستخدم"
-                          />
-                        </Link>
+                        // User IS logged in: dropdown menu
+                        <UserMenuDropdown
+                          name={session.user?.name || "حسابي"}
+                        />
                       ) : (
                         // User is NOT logged in: Show regular Sign In button
                         <Link

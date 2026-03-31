@@ -254,26 +254,29 @@ export default function Feedback() {
 
                     {/* Footer */}
                     <div className="feedback-footer">
-                      <p className="text-md-regular feedback-footer-text">
-                        لمزيد من المعلومات، يمكنك مراجعة&nbsp;
-                        <a href="https://my.gov.sa/ar/content/e-participation#section-1"
-                          target="_blank" rel="noopener noreferrer"
-                          className="link--primary feedback-link"
-                          aria-label="بيان المشاركة الإلكترونية (يفتح في نافذة جديدة)">
-                          بيان المشاركة الإلكترونية
-                          <Image src="/assets/icons/stroke-standard/link-square-02-stroke-rounded.svg"
-                            alt="" aria-hidden="true" width={16} height={16} className="green-icon" />
-                        </a>
-                        <span aria-hidden="true">&nbsp;و&nbsp;</span>
-                        <a href="https://my.gov.sa/ar/content/subscribe#section-1"
-                          target="_blank" rel="noopener noreferrer"
-                          className="link--primary feedback-link"
-                          aria-label="قواعد الاشتراك (يفتح في نافذة جديدة)">
-                          قواعد الاشتراك
-                          <Image src="/assets/icons/stroke-standard/link-square-02-stroke-rounded.svg"
-                            alt="" aria-hidden="true" width={16} height={16} className="green-icon" />
-                        </a>
-                      </p>
+                      <div className="text-md-regular feedback-footer-text">
+                        لمزيد من المعلومات، يمكنك مراجعة
+
+                        <div className="flex ">
+                          <a href="https://my.gov.sa/ar/content/e-participation#section-1"
+                            target="_blank" rel="noopener noreferrer"
+                            className="link--primary feedback-link"
+                            aria-label="بيان المشاركة الإلكترونية (يفتح في نافذة جديدة)">
+                            بيان المشاركة الإلكترونية
+                            <Image src="/assets/icons/stroke-standard/link-square-02-stroke-rounded.svg"
+                              alt="" aria-hidden="true" width={16} height={16} className="green-icon" />
+                          </a>
+                          <span aria-hidden="true">&nbsp;و&nbsp;</span>
+                          <a href="https://my.gov.sa/ar/content/subscribe#section-1"
+                            target="_blank" rel="noopener noreferrer"
+                            className="link--primary feedback-link"
+                            aria-label="قواعد الاشتراك (يفتح في نافذة جديدة)">
+                            قواعد الاشتراك
+                            <Image src="/assets/icons/stroke-standard/link-square-02-stroke-rounded.svg"
+                              alt="" aria-hidden="true" width={16} height={16} className="green-icon" />
+                          </a>
+                        </div>
+                      </div>
                       <button type="button" className="dga-btn dga-btn--lg dga-btn--primary-brand"
                         onClick={handleSubmit} aria-label="إرسال التقييم">
                         <span className="dga-btn-label">إرسال</span>
