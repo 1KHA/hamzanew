@@ -199,7 +199,9 @@ export default function ContactSidebar() {
               <h3 className="text-md-bold">تابعنا على</h3>
               <div className="!flex !flex-row !justify-start !gap-2 ">
                 <a
-                  href="#"
+                  href="https://www.instagram.com/hamzatest"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="!flex flex-row! justify-start! gap-2! p-1! cursor-pointer! rounded items-center focus:ring-2 focus:ring-primary-500"
                   aria-label="تابعنا على انستقرام"
                 >
@@ -212,7 +214,9 @@ export default function ContactSidebar() {
                   />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/company/hamzatest"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="!flex flex-row! justify-start! gap-2! p-1! cursor-pointer! rounded items-center focus:ring-2 focus:ring-primary-500"
                   aria-label="تابعنا على لينكد إن"
                 >
@@ -225,7 +229,9 @@ export default function ContactSidebar() {
                   />
                 </a>
                 <a
-                  href="#"
+                  href="https://x.com/hamzatest"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="!flex flex-row! justify-start! gap-2! p-1! cursor-pointer! rounded items-center focus:ring-2 focus:ring-primary-500"
                   aria-label="تابعنا على تويتر/إكس"
                 >

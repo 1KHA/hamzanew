@@ -43,7 +43,6 @@ export default function SubscriptionSection() {
             <DgaTextInput
               feedbackIconType="error"
               name="email"
-              onBlur={() => {}}
               onChange={() => {}}
               onInput={() => {}}
               placeholder="ادخل البريد الشبكي"

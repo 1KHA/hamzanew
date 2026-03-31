@@ -22,6 +22,7 @@
  */
 import Card from "@/app/components/card/Card";
 import Button from "@/app/components/button/Button";
+import { DgaTextInput } from "platformscode-new-react";
 import "@/app/components/card/card.css";
 
 interface HamzaOrgContentProps {
@@ -149,23 +150,18 @@ export default function HamzaOrgContent({
               >
                 <div className="!w-full !flex !flex-col md:!flex-row md:!items-end !gap-4 md:!gap-8">
                   <div className="dga-form-control dga-form-control--fullwidth flex-1">
-                    <label
-                      htmlFor="certificate-number"
-                      className="dga-label dga-label--lg font-normal!"
-                    >
+                    <span className="dga-label dga-label--lg font-normal!">
                       رقم الشهادة
-                    </label>
+                    </span>
 
-                    <div className="input input--lg input--darker" style={{ width: "100%" }}>
-                      <input
-                        id="certificate-number"
-                        className="input__field"
-                        placeholder="أدخل رقم الشهادة"
-                        aria-describedby="certificate-number-help"
-                        aria-required="true"
-                        type="text"
-                      />
-                    </div>
+                    <DgaTextInput
+                      placeholder="أدخل رقم الشهادة"
+                      size="lg"
+                      variant="default"
+                      aria-label="رقم الشهادة"
+                      aria-describedby="certificate-number-help"
+                      aria-required={true}
+                    />
                   </div>
                   <Button
                     type="submit"

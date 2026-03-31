@@ -42,9 +42,11 @@ function isCategory(entry: SitemapEntry): entry is SitemapCategory {
 const SITEMAP_DATA: SitemapEntry[] = [
   { label: "الرئيسة", href: "/" },
   {
-    title: "عن همزة",
+    title: "عن الجهة",
     children: [
-      { label: "عن الجهة", href: "/about" },
+      { label: "عن همزة", href: "/about" },
+      { label: "من نحن", href: "/about/who-we-are" },
+
       { label: "سمات اختبار همزة", href: "/about/hamza-test-traits" },
       { label: "أهمية اختبارات همزة", href: "/about/benefits-of-hamza-test" },
       {
@@ -72,7 +74,7 @@ const SITEMAP_DATA: SitemapEntry[] = [
     ],
   },
   {
-    title: "الاختبارات",
+    title: "أنواع اختبارات همزة",
     children: [
       { label: "أنواع اختبارات همزة", href: "/types-of-tests" },
       { label: "همزة الأكاديمي", href: "/types-of-tests/hamza-academic-test" },
@@ -87,12 +89,14 @@ const SITEMAP_DATA: SitemapEntry[] = [
   {
     title: "الإستعداد للإختبار",
     children: [
-      { label: "مصادر التحضير", href: "#" },
-      { label: "دورة مران همزة", href: "#" },
-      { label: "آلية الإختبار", href: "#" },
+      { label: "اكتشف اختبارات همزة", href: "/test-takers/discover-hamza-tests" },
+
+      { label: "مصادر التحضير", href: "/test-takers/preparation-resource" },
+      { label: "دورة مران همزة", href: "/test-takers/hamza-meran-course" },
+      { label: "آلية الإختبار", href: "/test-takers/test-mechanism" },
     ],
   },
-  { label: "المنظمات", href: "#" },
+  { label: "المنظمات", href: "/hamza-org" },
   {
     title: "الأبحاث",
     children: [
@@ -100,7 +104,14 @@ const SITEMAP_DATA: SitemapEntry[] = [
       { label: "التقارير والإحصائيات", href: "/statistics-and-reports" },
     ],
   },
-  { label: "الأخبار", href: "/news" },
+
+    {
+    title: "الأخبار",
+    children: [
+      { label: "  آخر الأخبار", href: "/news/latest" },
+      { label: "   الأخبار", href: "/news" },
+    ],
+  },
   {
     title: "صفحات أخرى",
     children: [

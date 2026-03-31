@@ -77,7 +77,6 @@ export default function ControlledTextInput<TFieldValues extends FieldValues>({
           id={id}
           value={field.value ?? ""}
           onChange={field.onChange}
-          onBlur={field.onBlur}
           error={!!fieldError}
           type={type as any}
           placeholder={placeholder}
