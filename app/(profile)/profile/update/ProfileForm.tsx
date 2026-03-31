@@ -15,7 +15,7 @@ import {
   getPrefixFromPhone,
   DEFAULT_PREFIX,
   getDigitsFromPhone,
-} from "../_data/phonePrefixes";
+} from "@/lib/utils/phonePrefixes";
 import SideNav from "@/app/components/side-nav/SideNav";
 
 // ─────────────────────────────────────────
@@ -50,7 +50,9 @@ const userProfileSchema = z.object({
   motherTongue: z.string().min(1, "اللغة الأم مطلوبة"),
   identity: z.string().min(1, "الإثبات مطلوب"),
   identityNumber: z.string().min(1, "رقم الإثبات مطلوب"),
-  identityFile: z.any().refine((files) => files?.length > 0, "نسخة من الإثبات مطلوبة"),
+  identityFile: z
+    .any()
+    .refine((files) => files?.length > 0, "نسخة من الإثبات مطلوبة"),
   // Education
   education: z.string().min(1, "المؤهل الدراسي مطلوب"),
   basicLanguageInEducation: z.string().min(1, "لغة التعليم مطلوبة"),

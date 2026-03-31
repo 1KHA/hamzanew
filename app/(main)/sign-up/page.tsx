@@ -11,7 +11,7 @@ import {
   DEFAULT_PREFIX,
   getDigitsFromPhone,
   getPrefixFromPhone,
-} from "@/app/(profile)/profile/_data/phonePrefixes";
+} from "@/lib/utils/phonePrefixes";
 import "@/app/styles/Button.css";
 import "./sign-up.css";
 import AccountInfo from "./AccountInfo";
@@ -100,7 +100,9 @@ const newUserSchema = z
     motherTongue: z.string().min(1, "اللغة الأم مطلوبة"),
     identity: z.string().min(1, "الإثبات مطلوب"),
     identityNumber: z.string().min(1, "رقم الإثبات مطلوب"),
-    identityFile: z.any().refine((files) => files?.length > 0, "نسخة من الإثبات مطلوبة"),
+    identityFile: z
+      .any()
+      .refine((files) => files?.length > 0, "نسخة من الإثبات مطلوبة"),
 
     /* ── Step 3 education info ── */
     education: z.string().min(1, "المؤهل الدراسي مطلوب"),
@@ -254,7 +256,9 @@ export default function SignUpPage() {
                   ? methods.handleSubmit(onSubmit)
                   : async (e: React.FormEvent) => {
                       e.preventDefault();
-                      const isValid = await methods.trigger(config.fields as any);
+                      const isValid = await methods.trigger(
+                        config.fields as any,
+                      );
                       if (isValid) {
                         handleNext();
                       }
@@ -299,7 +303,11 @@ export default function SignUpPage() {
               Success: تم إنشاء الحساب
           ══════════════════════════════════════ */}
           {submitted && (
-            <div className="sign-up-page__acknowledgment" role="status" aria-live="polite">
+            <div
+              className="sign-up-page__acknowledgment"
+              role="status"
+              aria-live="polite"
+            >
               <NotificationToast
                 type="success"
                 leadText="تم إنشاء حسابك بنجاح"
@@ -312,7 +320,7 @@ export default function SignUpPage() {
                 label="الذهاب إلى تسجيل الدخول"
                 variant="primary-brand"
                 size="lg"
-                onClick={() => window.location.href = "/sign-in"}
+                onClick={() => (window.location.href = "/sign-in")}
               />
             </div>
           )}

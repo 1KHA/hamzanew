@@ -38,7 +38,7 @@ import {
   getPrefixFromPhone,
   PHONE_PREFIXES,
   PrefixOption,
-} from "@/app/(profile)/profile/_data/phonePrefixes";
+} from "@/lib/utils/phonePrefixes";
 import { DgaDropdown, DgaTextarea } from "platformscode-new-react";
 
 import "./feedback-form.css";

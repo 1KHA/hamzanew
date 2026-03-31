@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { Controller, useFormContext } from "react-hook-form";
-import FileUpload, { UploadedFile } from "@/app/components/FileUpload/FileUpload";
+import FileUpload, {
+  UploadedFile,
+} from "@/app/components/FileUpload/FileUpload";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import type { UserProfileFormValues } from "../update/ProfileForm";
@@ -12,7 +14,7 @@ import {
   getPrefixFromPhone,
   getDigitsFromPhone,
   type PrefixOption,
-} from "../_data/phonePrefixes";
+} from "@/lib/utils/phonePrefixes";
 const ID_TYPE_OPTIONS = [
   { name: "هوية وطنية", value: "national_id" },
   { name: "إقامة", value: "iqama" },
@@ -183,7 +185,7 @@ export default function PersonalInfoTab() {
 
       {/* Other Personal Fields */}
       <div className="!grid !grid-cols-1 md:!grid-cols-3 !gap-8">
-           <FormField
+        <FormField
           label="البريد الشبكي"
           required
           error={errors.email?.message}
@@ -403,10 +405,11 @@ export default function PersonalInfoTab() {
 
       {/* File Upload */}
       <div className="!grid !grid-cols-1 md:!grid-cols-3 !gap-8">
-        <FormField label="ارفق نسخة من الاثبات" 
-        required
-        error={errors.identityFile?.message as string | undefined}
-        htmlFor="identity-file"
+        <FormField
+          label="ارفق نسخة من الاثبات"
+          required
+          error={errors.identityFile?.message as string | undefined}
+          htmlFor="identity-file"
         >
           <Controller
             name="identityFile"

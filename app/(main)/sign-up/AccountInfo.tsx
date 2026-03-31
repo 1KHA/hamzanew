@@ -11,7 +11,7 @@ import {
   getPrefixFromPhone,
   PHONE_PREFIXES,
   PrefixOption,
-} from "@/app/(profile)/profile/_data/phonePrefixes";
+} from "@/lib/utils/phonePrefixes";
 import { NewUserFormValues } from "./page";
 
 export default function AccountInfo() {
