@@ -187,7 +187,7 @@ export default function PersonalInfoTab() {
           error={errors.email?.message}
           htmlFor="input-email"
         >
-          <ControlledTextInput name="email" />
+          <ControlledTextInput name="email" id="input-email" />
           <span id="email-help" className="sr-only">
             أدخل عنوان بريدك الشبكي المستخدم لتسجيل الدخول
           </span>

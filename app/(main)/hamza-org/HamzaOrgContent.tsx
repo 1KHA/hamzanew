@@ -20,7 +20,6 @@
  * - Decorative icons use `alt=""` and `aria-hidden="true"` to prevent screen reader noise.
  * - Buttons have explicit `type="submit"` and aria-labels for clarity.
  */
-import { DgaTextInput } from "platformscode-new-react";
 import Card from "@/app/components/card/Card";
 import Button from "@/app/components/button/Button";
 import "@/app/components/card/card.css";
@@ -157,16 +156,16 @@ export default function HamzaOrgContent({
                       رقم الشهادة
                     </label>
 
-                    <DgaTextInput
-                      id="certificate-number"
-                      aria-describedby="certificate-number-help"
-                      placeholder="أدخل رقم الشهادة"
-                      size="lg"
-                      className="!w-full"
-                      aria-required="true"
-                      onBlur={() => {}}
-                      onChange={() => {}}
-                    />
+                    <div className="input input--lg input--darker" style={{ width: "100%" }}>
+                      <input
+                        id="certificate-number"
+                        className="input__field"
+                        placeholder="أدخل رقم الشهادة"
+                        aria-describedby="certificate-number-help"
+                        aria-required="true"
+                        type="text"
+                      />
+                    </div>
                   </div>
                   <Button
                     type="submit"
