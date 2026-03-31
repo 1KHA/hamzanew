@@ -24,7 +24,7 @@ const tabsContent: TabContent[] = [
     header: "اختبار همزة الأكاديمي",
     description:
       "يعد متطلبا لدراسة في الجامعات أو المعاهد العليا، حيث يركّز على تقييم المهارات اللغة العربية الأكاديمية .",
-    link: "/test-takers/hamza-academic-test",
+    link: "/types-of-tests/hamza-academic-test",
     image: "/assets/image/academic-test.png",
   },
   {
@@ -32,7 +32,7 @@ const tabsContent: TabContent[] = [
     header: "اختبار همزة العام",
     description:
       "يُعد اختبار همزة العام أداة موثوقة لقياس كفاءة اللغة العربية للناطقين بغيرها للأغراض العامة.",
-    link: "/test-takers/hamza-general-test",
+    link: "/types-of-tests/hamza-general-test",
     image: "/assets/image/photo2.jpg",
   },
   {
@@ -40,7 +40,7 @@ const tabsContent: TabContent[] = [
     header: "اختبار همزة لتحديد المستوى!!",
     description:
       "ضمم الاختبار ليقيس معرفة المتعلم باللغة العربية من خلال أربعة أقسام رئيسية: الاستماع، القراءة، المفردات، والقواعد، وذلك بهدف اختيار المستوى المناسب للمختبر عند التحاقه بالبرنامج المستهدف.",
-    link: "/test-takers/hamza-placement-test",
+    link: "/types-of-tests/hamza-placement-test",
     image: "/assets/image/placement-test.png",
   },
   {
@@ -48,7 +48,7 @@ const tabsContent: TabContent[] = [
     header: "اختبار همزة المفردات",
     description:
       "اختبار معياري لقياس مفردات العربية لدى غير الناطقين بها، يصنّف الكلمات إلى خمسة مستويات من الشيوع، من الأكثر إلى الأقل. طُوَّر وفق إجراءات علمية دقيقة بمراجعة خبراء واختبارات صدق لضمان التدرج في الصعوبة. وتكمن أهميته في تشخيص المستوى اللغوي للمتعلمين في جانب المفردات، بوصفها أساس النجاح اللغوي.",
-    link: "/test-takers/hamza-vocabulary-test",
+    link: "/types-of-tests/hamza-vocabulary-test",
     image: "/assets/image/vocabulary-test.png",
   },
 ];
