@@ -62,11 +62,9 @@ export default function FormField({
 
         {children}
 
-        {error && (
-          <div aria-live="polite" id={errorId}>
-            <ErrorMessage message={error} />
-          </div>
-        )}
+        <div aria-live="polite" id={errorId} style={{ minHeight: "24px" }}>
+          {error && <ErrorMessage message={error} />}
+        </div>
       </div>
     </div>
   );
