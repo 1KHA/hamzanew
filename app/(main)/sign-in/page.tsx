@@ -113,7 +113,7 @@ export default function SignInPage() {
                   name="username"
                   id="username"
                   placeholder="أدخل اسم المستخدم"
-                  variant="default"
+                  variant="darker"
                   aria-required={true}
                   aria-describedby={
                     errors.username ? "username-error" : "username-help"
@@ -136,7 +136,7 @@ export default function SignInPage() {
                   type="password"
                   id="password"
                   placeholder="أدخل كلمة المرور"
-                  variant="default"
+                  variant="darker"
                   aria-required={true}
                   aria-describedby={
                     errors.password ? "password-error" : "password-help"

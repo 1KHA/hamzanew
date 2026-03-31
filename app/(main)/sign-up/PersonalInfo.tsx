@@ -228,16 +228,30 @@ export default function PersonalInfo() {
         />
       </FormField>
 
-      <div className="dga-form-control dga-form-control--fullwidth sign-up-page__field--full">
-        <span className="dga-label dga-label--lg">ارفق نسخة من الاثبات</span>
-        <FileUpload
-          fileTypesText="الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وتشمل الصيغ الدعومة .jpg و .png و .pdf."
-          accept="image/*,.pdf"
-          actionName="تصفح الملفات"
-          showIcon={false}
-          getUploadedFile={(files: UploadedFile[]) => setIdFile(files)}
+      <FormField
+        label="ارفق نسخة من الاثبات"
+        required
+        error={errors.identityFile?.message as string | undefined}
+        htmlFor="identity-file"
+      >
+        <Controller
+          name="identityFile"
+          control={control}
+          render={({ field }) => (
+            <FileUpload
+              name="identity-file"
+              fileTypesText="الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وتشمل الصيغ الدعومة .pdf."
+              accept=".pdf"
+              actionName="تصفح الملفات"
+              showIcon={false}
+              getUploadedFile={(files: UploadedFile[]) => {
+                setIdFile(files);
+                field.onChange(files);
+              }}
+            />
+          )}
         />
-      </div>
+      </FormField>
     </div>
   );
 }
