@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 // import localFont from "next/font/local";
 import "./globals.css";
-import NavHeader from "./components/nav-header/NavHeader";
+// import NavHeader from "./components/nav-header/NavHeader";
 import ClientOnly from "./components/ClientOnly";
-import Footer from "./components/footer/Footer";
+import AuthProvider from "@/lib/utils/AuthProvider";
+// import Footer from "./components/footer/Footer";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -17,11 +18,8 @@ import Footer from "./components/footer/Footer";
 // });
 
 export const metadata: Metadata = {
-  title: "همزة",
-  description:
-    "منصة همزة التابعة لمجمع الملك سلمان العالمي للغة العربية، تقدم اختبارات قياس الكفاية اللغوية للناطقين بغيرها.",
   icons: {
-    icon: "/icon.png",
+    icon: "/assets/image/logo tap.svg",
   },
   keywords: [
     "همزة",
@@ -40,12 +38,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className="min-h-screen flex flex-col">
         <ClientOnly>
-          <NavHeader />
-
-          <main className="flex-1 w-full bg-white ">{children}</main>
-          <Footer />
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </ClientOnly>
       </body>
     </html>

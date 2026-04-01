@@ -1,0 +1,234 @@
+/* DatePicker */
+
+.date-picker-root {
+  border-radius: var(--radius-8, 8px);
+  background: var(--colors-base-white, #fff);
+  width: fit-content;
+  display: flex;
+  gap: 15px;
+  padding: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.date-picker {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 392px;
+}
+
+/* Navigator */
+
+.date-picker__navigator {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.date-picker__navigator-label {
+  position: relative;
+  padding-inline-start: 20px;
+  flex: 1;
+  color: var(--text-default, #161616);
+  font: 500 16px/24px "IBMPlexSansArabic", sans-serif;
+}
+
+.date-picker__navigator-buttons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Year selector */
+
+.year-selector {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.year-selector:hover {
+  text-decoration: underline;
+}
+
+.year-selector:focus-visible {
+  outline: 2px solid var(--text-success, #024e28);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Year dropdown */
+
+.dga-breadcrumb-dropdown {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: var(--spacing-md, 8px);
+  gap: var(--spacing-xs, 4px);
+  position: absolute;
+  top: calc(100% + 4px);
+  inset-inline-start: 0;
+  min-width: 100px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--border-neutral-secondary, #e5e7eb);
+  border-radius: var(--radius-sm, 4px);
+  background: var(--background-white, #fff);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.dga-breadcrumb-dropdown-item {
+  display: flex;
+  padding: var(--spacing-md, 8px);
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: var(--radius-sm, 4px);
+  color: var(--link-neutral, #384250);
+  font: 400 14px/20px "IBMPlexSansArabic", sans-serif;
+}
+
+.dga-breadcrumb-dropdown-item:hover {
+  background: var(--button-background-neutral-hovered, #f3f4f6);
+}
+
+.dga-breadcrumb-dropdown-item:active,
+.dga-breadcrumb-dropdown-item.selected-year {
+  background: var(--button-background-neutral-pressed, #e5e7eb);
+}
+
+.dga-breadcrumb-dropdown-item:focus-visible {
+  outline: 2px solid var(--text-success, #024e28);
+  outline-offset: -2px;
+}
+
+/* Nav buttons */
+
+.dp-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm, 4px);
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-default, #161616);
+}
+
+.dp-nav-btn:hover {
+  background: var(--button-background-neutral-hovered, #f3f4f6);
+}
+
+.dp-nav-btn:focus-visible {
+  outline: 2px solid var(--text-success, #024e28);
+  outline-offset: 2px;
+}
+
+[dir="rtl"] .dp-nav-btn img {
+  transform: scaleX(-1);
+}
+
+/* Weekday headers */
+
+.date-picker__weekdays,
+.date-picker__date-grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: 392px;
+}
+
+.date-picker__weekday {
+  display: flex;
+  width: 56px;
+  height: 56px;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  color: var(--text-subtle, #6c737f);
+  font: 500 12px/16px "IBMPlexSansArabic", sans-serif;
+}
+
+/* Date cells */
+
+.date-cell {
+  display: flex;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.date-cell[disabled] {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.date-cell__label {
+  display: flex;
+  width: 100%;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  font: 400 14px/1.5 "IBMPlexSansArabic", sans-serif;
+  mix-blend-mode: multiply;
+  color: var(--text-default, #161616);
+}
+
+.date-cell__label span {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full, 9999px);
+}
+
+.date-cell:hover .date-cell__label span {
+  background: var(--form-datecell-today-background-hovered, #e6f4ed);
+}
+
+.date-cell:active .date-cell__label span {
+  background: var(--form-datecell-today-background-pressed, #c8e6d3);
+}
+
+/* Today */
+
+.date-cell--today .date-cell__label span {
+  border: 2px solid var(--text-success, #024e28);
+  color: var(--text-success, #024e28);
+}
+
+.date-cell--today:hover .date-cell__label span {
+  background: var(--form-datecell-background-100, #e6f4ed);
+}
+
+/* Selected */
+
+.date-cell--selected .date-cell__label span {
+  color: #fff !important;
+  background-color: var(--text-success, #024e28);
+}
+
+.date-cell--selected:hover .date-cell__label span {
+  background: var(--form-datecell-background-hovered, #02612f);
+}
+
+.date-cell--selected:active .date-cell__label span {
+  background: var(--form-datecell-background-pressed, #013d1e);
+}
+
+/* Focus ring on cells */
+
+.date-cell:focus-visible .date-cell__label span {
+  outline: 2px solid var(--text-success, #024e28);
+  outline-offset: 2px;
+}

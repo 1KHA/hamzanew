@@ -1,0 +1,40 @@
+/* ==========================================================================
+   Feedback & Suggestion Form
+   ========================================================================== */
+
+/* ── Layout ── */
+
+.feedback-form {
+  display: grid !important;
+  grid-template-columns: 1fr;
+  gap: 1.5rem !important;
+}
+
+@media (min-width: 768px) {
+  .feedback-form {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+.feedback-form .dga-label {
+  font-weight: 700 !important;
+}
+
+.feedback-form .required-mark {
+  color: #dc2626;
+}
+
+/* ── Success state ── */
+
+.feedback-success {
+  padding: var(--section-spacing-4xl);
+}
+
+/* ── Error message ── */
+
+.feedback-error {
+  display: flex !important;
+  justify-content: flex-start !important;
+  gap: 0.5rem !important;
+  margin-top: 0.25rem !important;
+}

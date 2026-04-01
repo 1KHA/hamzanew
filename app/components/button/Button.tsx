@@ -72,6 +72,8 @@ interface ButtonProps {
   className?: string;
   /** HTML button type attribute */
   type?: "button" | "submit" | "reset";
+  /** Associates button with a form element by its id (HTML form attribute) */
+  form?: string;
   /** Accessible label for icon-only buttons */
   ariaLabel?: string;
   /** Alt text for icon image (defaults to icon name) */
@@ -113,6 +115,7 @@ const Button: React.FC<ButtonProps> = ({
   iconClass = "",
   className = "",
   type = "button",
+  form,
   ariaLabel,
   altText,
 }) => {
@@ -144,6 +147,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       type={type}
+      form={form}
       tabIndex={disabled ? -1 : tabIndex}
       disabled={disabled}
       className={combinedClass}

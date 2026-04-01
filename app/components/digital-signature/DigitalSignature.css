@@ -2,6 +2,7 @@
 
 .digital_wrapper {
   padding: var(--spacing-sm, 6px) var(---section-padding, 32px)  var(--spacing-sm, 6px) var(--section-padding, 32px);
+  /* padding: var(--spacing-sm, 6px) 0 ; */
   background: var(--background-neutral-100, #f3f4f6);
 }
 .digital_wrapper.close {
@@ -348,3 +349,14 @@
     outline-offset: 1px !important;
     border-radius: 4px !important;
 }
+
+.digital-lang-btn {
+  display: none;
+}
+
+@media only screen and (max-width: 960px) {
+  .digital-lang-btn {
+    display: none !important;
+  }
+}
+

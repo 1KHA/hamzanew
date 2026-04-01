@@ -49,8 +49,8 @@ function GlobalStatisticsSection() {
         contentAlignment="center"
         titleClass="display-md-bold"
         titleColor="#14573A"
-        descriptionClass="text-sm-medium"
-        descriptionColor="#667085"
+        descriptionClass="text-sm-regular"
+        descriptionColor="#1F2A37"
       />
     );
   });

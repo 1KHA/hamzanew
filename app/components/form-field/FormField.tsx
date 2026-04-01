@@ -24,6 +24,7 @@
 
 import React from "react";
 import ErrorMessage from "@/app/components/error-message/ErrorMessage";
+import "./phone-input.css";
 
 interface FormFieldProps {
   label: string;
@@ -42,6 +43,8 @@ export default function FormField({
   className = "",
   htmlFor,
 }: FormFieldProps) {
+  const errorId = htmlFor ? `${htmlFor}-error` : undefined;
+
   return (
     <div className={`!grid !grid-cols-1 !gap-[16px] ${className}`}>
       <div className="dga-form-control dga-form-control--fullwidth">
@@ -59,11 +62,9 @@ export default function FormField({
 
         {children}
 
-        {error && (
-          <div aria-live="polite">
-            <ErrorMessage message={error} />
-          </div>
-        )}
+        <div aria-live="polite" id={errorId} style={{ minHeight: "24px" }}>
+          {error && <ErrorMessage message={error} />}
+        </div>
       </div>
     </div>
   );

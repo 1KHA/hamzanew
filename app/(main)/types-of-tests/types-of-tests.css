@@ -1,0 +1,155 @@
+/* ==========================================================================
+   Tests Comparison Grid
+   ========================================================================== */
+
+.tests-comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .tests-comparison-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .tests-comparison-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ==========================================================================
+   Video Section
+   ========================================================================== */
+
+.video-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-block: 40px;
+}
+
+@media (min-width: 768px) {
+  .video-section {
+    gap: 32px;
+  }
+}
+
+.video-player {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .video-player {
+    border-radius: 16px;
+  }
+}
+
+.video-player__element {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   Test Card — Info Sections
+   ========================================================================== */
+
+/* Mobile: info wrapper stacks vertically */
+.card-info-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ==========================================================================
+   Subgrid: align sections across cards (tablet and above)
+
+   Each card spans 5 shared row tracks in the outer grid:
+     1. Top section (icon + title + hr)
+     2. Target audience  ← same height across all cards
+     3. Questions        ← same height across all cards
+     4. Duration         ← same height across all cards
+     5. Buttons          ← always at the bottom
+   ========================================================================== */
+
+@media (min-width: 768px) {
+  /* Remove listitem wrappers from layout so cards become direct grid children */
+  .tests-comparison-grid > [role="listitem"] {
+    display: contents;
+  }
+
+  /* ScrollReveal wrapper: passthrough subgrid spanning 5 rows.
+     display:grid lets opacity/transform animations still work. */
+  .tests-comparison-grid > [role="listitem"] > * {
+    grid-row: span 5;
+    display: grid !important;
+    grid-template-rows: subgrid;
+  }
+
+  /* .card inside the ScrollReveal wrapper: visual box + subgrid */
+  .tests-comparison-grid > [role="listitem"] > * > .card {
+    display: grid !important;
+    grid-row: 1 / -1;
+    grid-template-rows: subgrid;
+    align-items: start;
+    gap: 24px;
+  }
+
+  /* Info wrapper becomes transparent; its 3 children fill rows 2–4 */
+  .tests-comparison-grid .card-info-sections {
+    display: contents;
+  }
+
+  /* Outer grid's row-gap provides uniform spacing between card sections */
+  .tests-comparison-grid {
+    row-gap: 24px;
+  }
+
+  /* Full-width inside subgrid (override any inline width) */
+  .tests-comparison-grid > [role="listitem"] > * > .card .info-section {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+
+.info-section__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.question-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.duration-row {
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+}
+.text-gray {
+  color: #6C737F;
+
+}
+
+.h-300px{
+      height: 300px;
+}

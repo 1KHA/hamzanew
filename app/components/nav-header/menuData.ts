@@ -21,7 +21,7 @@ export type SubmenuItem = {
 export const MENU_DATA: MenuItemType[] = [
   {
     id: "home",
-    label: "الرئيسية",
+    label: "الرئيسة",
     href: "/",
   },
   {
@@ -30,10 +30,10 @@ export const MENU_DATA: MenuItemType[] = [
     hasSubmenu: true,
     submenuColumns: [
       {
-        title: "عن همزة",
+        title: "عن الجهة",
         items: [
           {
-            label: "عن الجهة",
+            label: "عن همزة",
             href: "/about",
             icon: "/assets/icons/stroke-standard/user-group-stroke-rounded.svg",
           },
@@ -60,7 +60,7 @@ export const MENU_DATA: MenuItemType[] = [
         ],
       },
       {
-        title: "الاختبارات",
+        title: "أنواع اختبارات همزة",
         items: [
           {
             label: "أنواع اختبارات همزة",
@@ -100,18 +100,23 @@ export const MENU_DATA: MenuItemType[] = [
         title: "الإستعداد للإختبار",
         items: [
           {
+            label: "اكتشف اختبارات همزة",
+            href: "/test-takers/discover-hamza-tests",
+            icon: "/assets/icons/stroke-standard/menu-square-stroke-rounded.svg",
+          },
+          {
             label: "مصادر التحضير",
-            href: "#",
+            href: "/test-takers/preparation-resource",
             icon: "/assets/icons/stroke-standard/book-04-stroke-standard.svg",
           },
           {
             label: "دورة مران همزة",
-            href: "#",
+            href: "/test-takers/hamza-meran-course",
             icon: "/assets/icons/stroke-standard/course-stroke-standard.svg",
           },
           {
-            label: "آلية الإختبار (محوسب حضوري، محوسب عن بعد)",
-            href: "#",
+            label: "آلية الإختبار   ",
+            href: "/test-takers/test-mechanism",
             icon: "/assets/icons/stroke-standard/task-daily-02-stroke-standard.svg",
           },
         ],
@@ -121,7 +126,7 @@ export const MENU_DATA: MenuItemType[] = [
   {
     id: "organizations",
     label: "المنظمات",
-    href: "#",
+    href: "/hamza-org",
   },
   {
     id: "research",
@@ -148,7 +153,24 @@ export const MENU_DATA: MenuItemType[] = [
   {
     id: "news",
     label: "الاخبار",
-    href: "/news",
+    hasSubmenu: true,
+    submenuColumns: [
+      {
+        title: "الاخبار",
+        items: [
+          {
+            label: "آخر الأخبار",
+            href: "/news/latest",
+            icon: "/assets/icons/stroke-standard/book-04-stroke-standard.svg",
+          },
+          {
+            label: "الأخبار",
+            href: "/news",
+            icon: "/assets/icons/stroke-standard/book-04-stroke-standard.svg",
+          },
+        ],
+      },
+    ],
   },
 ];
 
@@ -156,7 +178,7 @@ export const ACTION_ITEMS = [
   {
     id: "sign-in",
     label: "تسجيل الدخول",
-    href: "#",
+    href: "/sign-in",
     icon: "/assets/icons/stroke-standard/user-03-stroke-standard.svg",
     className: "action-btn-reversed",
   },

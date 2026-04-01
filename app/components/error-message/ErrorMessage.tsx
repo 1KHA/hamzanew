@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import "./ErrorMessage.css";
 export default function ErrorMessage({ message }: { message: string }) {
   return (
     <div className="invalid-feedback feedback-error" role="alert">

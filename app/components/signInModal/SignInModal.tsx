@@ -288,7 +288,6 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
                 type="text"
                 value={username}
                 onChange={handleUsernameChange}
-                onBlur={() => {}}
                 error={!!errors.username}
                 variant="default"
               />
@@ -315,7 +314,6 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
                 type="password"
                 value={password}
                 onChange={handlePasswordChange}
-                onBlur={() => {}}
                 error={!!errors.password}
                 variant="default"
               />
@@ -339,9 +337,8 @@ export default function SignInModal({ isOpen, onClose }: SignInModalProps) {
               />
 
               <a
-                href="#"
+                href="/forgot-password"
                 className="link--primary text-sm-regular"
-                onClick={(e) => e.preventDefault()}
               >
                 هل نسيت كلمة المرور ؟
               </a>

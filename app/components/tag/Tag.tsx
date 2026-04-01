@@ -1,5 +1,7 @@
 "use client";
-import React from "react";
+
+import React, { memo, useMemo } from "react";
+import Image from "next/image";
 import "./tag.css";
 
 // =====================
@@ -35,16 +37,35 @@ interface TagProps {
   iconOnly?: boolean;
   leadIcon?: TagIconProps;
   trailIcon?: TagIconProps;
+  /** Accessible label — required when iconOnly is true */
+  ariaLabel?: string;
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
 }
 
 // =====================
+//   SUB-COMPONENTS
+// =====================
+
+const TagIcon = memo<{ icon: TagIconProps }>(({ icon }) => (
+  <span className="tag-icon" aria-hidden="true">
+    <Image
+      src={icon.src}
+      alt="أيقونة الوسم"
+      width={icon.width ?? 16}
+      height={icon.height ?? 16}
+    />
+  </span>
+));
+
+TagIcon.displayName = "TagIcon";
+
+// =====================
 //   COMPONENT
 // =====================
 
-const Tag: React.FC<TagProps> = ({
+const Tag = memo<TagProps>(({
   label,
   variant = "success",
   size = "md",
@@ -53,73 +74,54 @@ const Tag: React.FC<TagProps> = ({
   iconOnly = false,
   leadIcon,
   trailIcon,
+  ariaLabel,
   className = "",
   style,
   children,
 }) => {
-  const buildClass = () => {
-    const classes = [
-      "tag",
-      `tag--${variant}`,
-      outlined ? `tag--${variant}-outlined` : "",
-      `tag--${size}`,
-      rounded ? "tag--rounded" : "",
-      iconOnly ? "tag--icon" : "",
-      className,
-    ];
-    return classes.filter(Boolean).join(" ");
-  };
+  const computedClass = useMemo(
+    () =>
+      [
+        "tag",
+        `tag--${variant}`,
+        outlined && `tag--${variant}-outlined`,
+        `tag--${size}`,
+        rounded && "tag--rounded",
+        iconOnly && "tag--icon",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" "),
+    [variant, outlined, size, rounded, iconOnly, className]
+  );
 
-  // Icon only mode
   if (iconOnly) {
     return (
-      <span className={buildClass()} style={style}>
-        {leadIcon ? (
-          <span className="tag-icon">
-            <img
-              src={leadIcon.src}
-              alt={leadIcon.alt || ""}
-              width={leadIcon.width || 16}
-              height={leadIcon.height || 16}
-            />
-          </span>
-        ) : (
-          children
-        )}
+      <span
+        className={computedClass}
+        style={style}
+        role="img"
+        aria-label={ariaLabel ?? leadIcon?.alt ?? label}
+      >
+        {leadIcon ? <TagIcon icon={leadIcon} /> : children}
       </span>
     );
   }
 
-  // Default mode
   return (
-    <span className={buildClass()} style={style}>
-      {leadIcon && (
-        <span className="tag-icon">
-          <img
-            src={leadIcon.src}
-            alt={leadIcon.alt || ""}
-            width={leadIcon.width || 16}
-            height={leadIcon.height || 16}
-          />
-        </span>
-      )}
-
+    <span
+      className={computedClass}
+      style={style}
+      aria-label={ariaLabel}
+    >
+      {leadIcon && <TagIcon icon={leadIcon} />}
       {label}
-
-      {trailIcon && (
-        <span className="tag-icon">
-          <img
-            src={trailIcon.src}
-            alt={trailIcon.alt || ""}
-            width={trailIcon.width || 16}
-            height={trailIcon.height || 16}
-          />
-        </span>
-      )}
-
+      {trailIcon && <TagIcon icon={trailIcon} />}
       {children}
     </span>
   );
-};
+});
+
+Tag.displayName = "Tag";
 
 export default Tag;
