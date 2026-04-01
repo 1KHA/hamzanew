@@ -418,7 +418,7 @@ export default function PersonalInfoTab() {
               <FileUpload
                 name="identity-file"
                 fileTypesText="الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وصيغ الملفات المدعومة تشمل .pdf."
-                accept=".pdf"
+                accept=".pdf,.png,.jpg,.jpeg"
                 actionName="تصفح الملفات"
                 showIcon={false}
                 getUploadedFile={(files: UploadedFile[]) => {

@@ -86,6 +86,7 @@ export default function AccountInfo() {
         htmlFor="input-email"
       >
         <ControlledTextInput
+          placeholder="البريد الشبكي"
           name="email"
           id="input-email"
           size="lg"
@@ -115,7 +116,7 @@ export default function AccountInfo() {
               {/* Digits-only input — prefix is stored separately in RHF */}
               <input
                 id="phone-input"
-                placeholder="00 000 0000"
+                placeholder="رقم الجوال"
                 type="tel"
                 inputMode="numeric"
                 value={phoneDigitsOnly}
@@ -215,6 +216,7 @@ export default function AccountInfo() {
       >
         <ControlledTextInput
           name="password"
+          placeholder="كلمة السر"
           id="input-password"
           type="password"
           size="lg"
@@ -230,6 +232,7 @@ export default function AccountInfo() {
         htmlFor="input-confirm-password"
       >
         <ControlledTextInput
+          placeholder="تأكيد كلمة السر"
           name="confirmPassword"
           id="input-confirm-password"
           type="password"

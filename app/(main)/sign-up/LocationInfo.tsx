@@ -140,6 +140,7 @@ export default function LocationInfo() {
         htmlFor="input-street"
       >
         <ControlledTextInput
+          placeholder="اسم الشارع"
           name="postalAddress"
           id="input-street"
           size="lg"
@@ -154,6 +155,7 @@ export default function LocationInfo() {
         htmlFor="input-postal"
       >
         <ControlledTextInput
+          placeholder="الرمز البريدي"
           name="zipCode"
           id="input-postal"
           size="lg"

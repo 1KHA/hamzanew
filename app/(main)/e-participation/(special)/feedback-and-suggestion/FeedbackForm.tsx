@@ -208,7 +208,7 @@ export default function FeedbackForm() {
             <ControlledTextInput
               name="firstName"
               id="firstName"
-              placeholder="أدخل الاسم الاول"
+              placeholder="الاسم الاول"
               aria-required={true}
               aria-describedby={
                 errors.firstName ? "firstName-error" : "firstName-help"
@@ -229,7 +229,7 @@ export default function FeedbackForm() {
             <ControlledTextInput
               name="lastName"
               id="lastName"
-              placeholder="أدخل الاسم الاخير"
+              placeholder="الاسم الاخير"
               aria-required={true}
               aria-describedby={
                 errors.lastName ? "lastName-error" : "lastName-help"
@@ -250,7 +250,7 @@ export default function FeedbackForm() {
             <ControlledTextInput
               name="email"
               id="email"
-              placeholder="أدخل البريد الشبكي"
+              placeholder="البريد الشبكي"
               aria-required={true}
               aria-describedby={errors.email ? "email-error" : "email-help"}
             />
@@ -277,7 +277,7 @@ export default function FeedbackForm() {
                 >
                   <input
                     id="phone-input"
-                    placeholder="00 000 0000"
+                    placeholder="رقم الجوال"
                     type="tel"
                     inputMode="numeric"
                     value={phoneDigitsOnly}
@@ -376,7 +376,7 @@ export default function FeedbackForm() {
             <ControlledTextInput
               name="subject"
               id="subject"
-              placeholder="اكتب موضوعك"
+              placeholder="الموضوع"
               aria-describedby={errors.subject ? "subject-error" : undefined}
             />
           </FormField>
@@ -453,7 +453,7 @@ export default function FeedbackForm() {
               render={({ field }) => (
                 <FileUpload
                   fileTypesText="الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وصيغ الملفات المدعومة تشمل .jpg و .png و .pdf."
-                  accept="image/*,.pdf"
+                  accept=".pdf,.png,.jpg,.jpeg"
                   actionName="تصفح الملفات"
                   showIcon={false}
                   getUploadedFile={(files: UploadedFile[]) => {

@@ -60,6 +60,7 @@ export default function EducationInfo() {
         htmlFor="input-institution"
       >
         <ControlledTextInput
+          placeholder="المؤسسة التعليمية"
           name="institution"
           id="input-institution"
           size="lg"
@@ -74,6 +75,7 @@ export default function EducationInfo() {
         htmlFor="input-specialization"
       >
         <ControlledTextInput
+          placeholder="التخصص الدراسي"
           name="specialization"
           id="input-specialization"
           size="lg"
