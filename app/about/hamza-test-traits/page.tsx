@@ -1,12 +1,9 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Card from "@/app/components/card/Card";
 import "../about.css";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "سمات إختبار همزة",
-  description:
-      "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية، ويستخدمها أفراد يسعون إلى الدراسة أو العمل أو الهجرة إلى دول ناطقة بالعربية. تدعم هذه الاختبارات المؤسسات في اختيار الطلاب الأنسب، وبناء كوادر قادرة على التواصل بفاعلية في بيئات العمل والتعليم، واستقطاب الكفاءات إلى جهتك.",
-}
 /**
  * Interface representing a trait or characteristic of the Hamza test.
  */
@@ -14,19 +11,16 @@ interface Trait {
   /** The sequence number of the trait */
   number: string;
   /** The title of the trait */
-  title: string;
+  title?: string;
   /** The description of the trait */
   description: string;
 }
 
 /* ==========================================================================
-   Static Data
+   Static Data (used as initial/fallback values)
    ========================================================================== */
 
-/**
- * List of traits describing the Hamza test's features.
- */
-const traitsData: Trait[] = [
+const initialTraits: Trait[] = [
   {
     number: "1",
     title: "مصممة بأفضل معايير الأمان",
@@ -57,7 +51,7 @@ const traitsData: Trait[] = [
  * HamzaTestTraitsPage Component
  *
  * Displays the key traits and characteristics of the Hamza test.
- * Optimized for accessibility and performance.
+ * Fetches data from /api/traits and falls back to static data if unavailable.
  *
  * @accessibility
  * - Uses semantic HTML (<section>, <ul>, <li>)
@@ -68,6 +62,33 @@ const traitsData: Trait[] = [
  * @returns {JSX.Element} The rendered Hamza Test Traits page.
  */
 export default function HamzaTestTraitsPage() {
+  const [title, setTitle] = useState("السمات");
+  const [traits, setTraits] = useState<Trait[]>(initialTraits);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("/api/traits");
+        const data = await response.json();
+
+        if (data.title) {
+          setTitle(data.title);
+        }
+
+        if (data.traits && data.traits.length > 0) {
+          setTraits(data.traits);
+        }
+      } catch (error) {
+        console.error("Failed to fetch traits:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <div
       className="block-padding-10xl bg-color-grey-50"
@@ -83,23 +104,29 @@ export default function HamzaTestTraitsPage() {
         aria-labelledby="traits-heading"
       >
         <h2 id="traits-heading" className="section-header">
-          السمات
+          {title}
         </h2>
         <ul className="grid-cols-4-gap-24" role="list">
-          {traitsData.map((trait) => (
-            <li key={trait.number} style={{ listStyle: "none" }}>
-              <Card
-                style={{
-                  alignSelf: "stretch",
-                  flex: "1 0 0",
-                  border: "none",
-                }}
-                number={trait.number}
-                title={trait.title}
-                description={trait.description}
-              />
-            </li>
-          ))}
+          {isLoading ? (
+            <div>Loading...</div>
+          ) : (
+            traits.map((trait) => (
+              <li key={trait.number} style={{ listStyle: "none" }}>
+                <Card
+                  style={{
+                    alignSelf: "stretch",
+                    flex: "1 0 0",
+                    border: "none",
+                  }}
+                  number={trait.number}
+                  title={trait.title}
+                  titleStyle={{ fontWeight: "bold" }}
+                  description={trait.description}
+                  descriptionStyle={{ fontWeight: "bold" }}
+                />
+              </li>
+            ))
+          )}
         </ul>
       </section>
     </div>
