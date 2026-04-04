@@ -104,3 +104,43 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     ],
   },
 };
+
+// Function to fetch dynamic types of tests hero data
+export async function getTypesOfTestsHero(): Promise<HeroData & { breadcrumbs?: Crumb[] }> {
+  try {
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseURL}/api/types-of-tests`, {
+      cache: 'no-store',
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch types of tests data');
+    }
+    
+    const data = await response.json();
+    
+    return {
+      title: data.title || "أنواع اختبارات همزة",
+      description: data.descriptionText || "",
+      bgColor: "#FFF",
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "عن الجهة", disabled: true },
+        { label: data.title || "أنواع اختبارات همزة", disabled: true },
+      ],
+    };
+  } catch (error) {
+    console.error('Error fetching types of tests hero:', error);
+    // Return static fallback data
+    return {
+      title: "أنواع اختبارات همزة",
+      description: "",
+      bgColor: "#FFF",
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "عن الجهة", disabled: true },
+        { label: "أنواع اختبارات همزة", disabled: true },
+      ],
+    };
+  }
+}
