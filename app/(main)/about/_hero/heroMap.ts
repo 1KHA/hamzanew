@@ -10,7 +10,8 @@ export type HeroData = {
 
 export type Crumb = { label: string; path?: string; disabled?: boolean };
 
-export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
+// Static hero map for routes without dynamic data
+const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   "/about": {
     title: "عن همزة",
     description: `منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها.
@@ -127,3 +128,56 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     ],
   },
 };
+
+// Export the static hero map for non-dynamic routes
+export { staticHeroMap as heroMap };
+
+// Function to fetch dynamic periodic advisory committee hero data
+export async function getPeriodicAdvisoryCommitteeHero(): Promise<HeroData & { breadcrumbs?: Crumb[] }> {
+  try {
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseURL}/api/periodic-advisory-committee`, {
+      cache: 'no-store',
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch periodic advisory committee data');
+    }
+    
+    const data = await response.json();
+    
+    return {
+      title: data.title,
+      description: data.descriptionText,
+      bgColor: "#F9FAFB",
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "عن الجهة", disabled: true },
+        { label: "عن همزة", path: "/about" },
+        {
+          label: data.title,
+          path: "/about/periodic-advisory-committee",
+          disabled: true,
+        },
+      ],
+    };
+  } catch (error) {
+    console.error('Error fetching periodic advisory committee hero:', error);
+    // Return static fallback data
+    return {
+      title: "اللجنة الاستشارية الدولية",
+      description: `تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية.`,
+      bgColor: "#F9FAFB",
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "عن الجهة", disabled: true },
+        { label: "عن همزة", path: "/about" },
+        {
+          label: "اللجنة الاستشارية الدولية",
+          path: "/about/periodic-advisory-committee",
+          disabled: true,
+        },
+      ],
+    };
+  }
+}

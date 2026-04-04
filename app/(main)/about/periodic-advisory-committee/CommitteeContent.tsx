@@ -2,23 +2,76 @@
 
 import Card from "@/app/components/card/Card";
 import ScrollReveal from "@/app/components/scroll-reveal/ScrollReveal";
-import { MAIN_TASKS, COMMITTEE_MEMBERS } from "./data";
 
-const STAGGER  = 0.08;
+const STAGGER = 0.08;
 const DURATION = 0.8;
 
-export default function CommitteeContent() {
+interface TaskItem {
+  number: string;
+  content: string;
+}
+
+interface MemberItem {
+  id: string;
+  image: string;
+  name: string;
+  content: string;
+}
+
+interface CommitteeContentProps {
+  committeeTitle?: string;
+  description?: string;
+  viewAllButtonText?: string;
+  tasksTitle?: string;
+  mainTasksList?: TaskItem[];
+  membersTitle?: string;
+  membersList?: MemberItem[];
+}
+
+// Fallback static data
+const FALLBACK_TASKS: TaskItem[] = [
+  { number: "1", content: "مراجعة الأطر المنهجية والمعايير المرجعية لاختبارات همزة." },
+  { number: "2", content: "تقديم التوصيات العلمية لدعم السياسات التطويرية وضمان الجودة." },
+  { number: "3", content: "تغطي مهارات القراءة، الكتابة، الاستماع، والتراكيب اللغوية، لتقديم صورة متكاملة عن مستوى المتقدم." },
+  { number: "4", content: "تقييم تقارير الصلاحية والموثوقية وتقديم الملاحظات العلمية حولها." },
+  { number: "5", content: "الإسهام في ربط المشروع بخبرات وممارسات عالمية في مجال تعليم اللغات وقياسها." },
+  { number: "6", content: "دعم استدامة الاختبارات من خلال المشورة في القضايا العلمية والأكاديمية المستجدة." },
+];
+
+const FALLBACK_MEMBERS: MemberItem[] = [
+  { id: "1", image: "/assets/image/member2.png", name: "د. زايد العمري", content: "المعهد الوطني للتعلم الرقمي" },
+  { id: "2", image: "/assets/image/member1.png", name: "د. زايد العمري", content: "المعهد الوطني للتعلم الرقمي" },
+  { id: "3", image: "/assets/image/member.png", name: "د. زايد العمري", content: "المعهد الوطني للتعلم الرقمي" },
+  { id: "4", image: "/assets/image/member2.png", name: "د. زايد العمري", content: "المعهد الوطني للتعلم الرقمي" },
+  { id: "5", image: "/assets/image/member2.png", name: "د. زايد العمري", content: "المعهد الوطني للتعلم الرقمي" },
+  { id: "6", image: "/assets/image/member2.png", name: "د. زايد العمري", content: "المعهد الوطني للتعلم الرقمي" },
+  { id: "7", image: "/assets/image/member2.png", name: "د. زايد العمري", content: "المعهد الوطني للتعلم الرقمي" },
+  { id: "8", image: "/assets/image/member2.png", name: "د. زايد العمري", content: "المعهد الوطني للتعلم الرقمي" },
+];
+
+export default function CommitteeContent({
+  description,
+  viewAllButtonText = "عرض الكل",
+  tasksTitle = "المهام الرئيسة",
+  mainTasksList = FALLBACK_TASKS,
+  membersTitle = "أعضاء اللجنة الاستشارية الدورية",
+  membersList = FALLBACK_MEMBERS,
+}: CommitteeContentProps) {
+  // Use provided tasks list or fallback to static data
+  const tasks = mainTasksList && mainTasksList.length > 0 ? mainTasksList : FALLBACK_TASKS;
+  const members = membersList && membersList.length > 0 ? membersList : FALLBACK_MEMBERS;
+
   return (
     <div className="stack upper-section custom-container">
 
       {/* Main Tasks */}
       <section className="content-stack" aria-labelledby="main-tasks-heading">
         <ScrollReveal direction="up" duration={DURATION} delay={0} amount={0} margin="0px 0px -60px 0px">
-          <h2 id="main-tasks-heading" className="display-sm-bold">المهام الرئيسة</h2>
+          <h2 id="main-tasks-heading" className="display-sm-bold">{tasksTitle}</h2>
         </ScrollReveal>
 
         <ul className="tasks-cards-container" role="list">
-          {MAIN_TASKS.map((task, i) => (
+          {tasks.map((task, i) => (
             <ScrollReveal key={task.number} role="listitem" direction="up" delay={i * STAGGER} duration={DURATION} amount={0} margin="0px 0px -50px 0px">
               <Card
                 style={{ borderRadius: "var(--radius-lg, 16px)", background: "#F9FAFB", border: "none" }}
@@ -34,11 +87,11 @@ export default function CommitteeContent() {
       {/* Committee Members */}
       <section className="content-stack" aria-labelledby="members-heading">
         <ScrollReveal direction="up" duration={DURATION} delay={0} amount={0} margin="0px 0px -60px 0px">
-          <h2 id="members-heading" className="display-sm-bold">أعضاء اللجنة الاستشارية الدورية</h2>
+          <h2 id="members-heading" className="display-sm-bold">{membersTitle}</h2>
         </ScrollReveal>
 
         <ul className="members-cards-container" role="list">
-          {COMMITTEE_MEMBERS.map((member, i) => (
+          {members.map((member, i) => (
             <ScrollReveal key={member.id} role="listitem" direction="up" delay={i * STAGGER} duration={DURATION} amount={0} margin="0px 0px -50px 0px">
               <Card
                 style={{ padding: "var(--Global-spacing-xl, 16px)", borderRadius: "var(--radius-lg, 16px)", border: "1px solid var(--Border-border-neutral-primary, #D2D6DB)" }}
