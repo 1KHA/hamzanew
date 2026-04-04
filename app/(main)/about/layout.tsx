@@ -1,15 +1,19 @@
 import type { ReactNode } from "react";
-import { heroMap, getPeriodicAdvisoryCommitteeHero } from "./_hero/heroMap";
+import { heroMap, getPeriodicAdvisoryCommitteeHero, getHamzaAmbassadorsHero } from "./_hero/heroMap";
 import PageHero from "@/app/components/page-hero/PageHero";
 
 export default async function AboutLayout({ children }: { children: ReactNode }) {
   // Fetch dynamic hero data for periodic advisory committee
   const periodicHero = await getPeriodicAdvisoryCommitteeHero();
   
-  // Merge dynamic hero with static heroMap
+  // Fetch dynamic hero data for hamza ambassadors
+  const ambassadorsHero = await getHamzaAmbassadorsHero();
+  
+  // Merge dynamic heroes with static heroMap
   const dynamicHeroMap = {
     ...heroMap,
     "/about/periodic-advisory-committee": periodicHero,
+    "/about/hamza-ambassadors": ambassadorsHero,
   };
 
   return (

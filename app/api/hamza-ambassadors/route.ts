@@ -9,14 +9,14 @@ export async function GET() {
     const cookieStore = await cookies();
     const locale = cookieStore.get("lang")?.value || "ar-SA";
     
-    console.log("Periodic Advisory Committee API - Language:", locale);
+    console.log("Hamza Ambassadors API - Language:", locale);
     
     const content = await fetchContentWithKey(
-      "HAMZA_HOMEPAGE_WHO_WE_ARE_PERIODIC_ADVISORY_COMMITTEE_CONTENT_KEY"
+      "HAMZA_HOMEPAGE_WHO_WE_ARE_HAMZA_AMBASSADORS_CONTENT_KEY"
     );
 
-    console.log("Periodic Advisory Committee Content - Title:", content?.title);
-    console.log("Periodic Advisory Committee Content - Fields:", JSON.stringify(content?.contentFields));
+    console.log("Hamza Ambassadors Content - Title:", content?.title);
+    console.log("Hamza Ambassadors Content - Fields:", JSON.stringify(content?.contentFields));
 
     const fields = extractFields(
       content?.contentFields,
@@ -25,21 +25,21 @@ export async function GET() {
 
     // Use titleText (the custom localized field) as the primary title
     // Fall back to content.title if titleText is not available
-    const title = fields?.titleText || content?.title || "اللجنة الاستشارية الدورية";
+    const title = fields?.titleText || content?.title || "سفراء همزة";
 
     return NextResponse.json({
       title: title,
-      titleText: fields?.titleText || "اللجنة الاستشارية الدورية",
+      titleText: fields?.titleText || "سفراء همزة",
       descriptionText: fields?.descriptionText || "",
       viewAllButtonText: fields?.viewAllButtonText || "عرض الكل",
       locale: locale,
     });
   } catch (error) {
-    console.error("Error fetching periodic advisory committee content:", error);
+    console.error("Error fetching hamza ambassadors content:", error);
     return NextResponse.json(
       {
-        title: "اللجنة الاستشارية الدورية",
-        titleText: "اللجنة الاستشارية الدورية",
+        title: "سفراء همزة",
+        titleText: "سفراء همزة",
         descriptionText: "",
         viewAllButtonText: "عرض الكل",
       },

@@ -181,3 +181,53 @@ export async function getPeriodicAdvisoryCommitteeHero(): Promise<HeroData & { b
     };
   }
 }
+
+// Function to fetch dynamic hamza ambassadors hero data
+export async function getHamzaAmbassadorsHero(): Promise<HeroData & { breadcrumbs?: Crumb[] }> {
+  try {
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseURL}/api/hamza-ambassadors`, {
+      cache: 'no-store',
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch hamza ambassadors data');
+    }
+    
+    const data = await response.json();
+    
+    return {
+      title: data.title,
+      description: data.descriptionText,
+      bgColor: "#F9FAFB",
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "عن الجهة", disabled: true },
+        { label: "عن همزة", path: "/about" },
+        {
+          label: data.title,
+          path: "/about/hamza-ambassadors",
+          disabled: true,
+        },
+      ],
+    };
+  } catch (error) {
+    console.error('Error fetching hamza ambassadors hero:', error);
+    // Return static fallback data
+    return {
+      title: "سفراء همزة",
+      description: `تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية لمختلف الفئات.`,
+      bgColor: "#F9FAFB",
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "عن الجهة", disabled: true },
+        { label: "عن همزة", path: "/about" },
+        {
+          label: "سفراء همزة",
+          path: "/about/hamza-ambassadors",
+          disabled: true,
+        },
+      ],
+    };
+  }
+}
