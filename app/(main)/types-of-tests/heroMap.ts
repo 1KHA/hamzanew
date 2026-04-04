@@ -105,6 +105,57 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   },
 };
 
+// Function to fetch dynamic hamza academic test hero data
+export async function getHamzaAcademicTestHero(): Promise<HeroData & { breadcrumbs?: Crumb[] }> {
+  try {
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseURL}/api/hamza-academic-test`, {
+      cache: 'no-store',
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch hamza academic test data');
+    }
+    
+    const data = await response.json();
+    
+    return {
+      title: data.header?.title || "اختبار همزة الأكاديمي",
+      description: data.header?.descriptionText || "",
+      bgColor: "#FFF",
+      externalLink: {
+        href: "/sign-up",
+        label: data.header?.buttonText || "التسجيل في الاختبار",
+      },
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "عن الجهة", disabled: true },
+        { label: "أنواع اختبارات همزة", path: "/types-of-tests" },
+        { label: data.header?.title || "اختبار همزة الأكاديمي", disabled: true },
+      ],
+    };
+  } catch (error) {
+    console.error('Error fetching hamza academic test hero:', error);
+    // Return static fallback data
+    return {
+      title: "اختبار همزة الأكاديمي",
+      description:
+        "اختبار همزة الأكاديمي يمنحك فرصة لبدء مستقبلك الدراسي والمهني بخطوة واثقة ومستوى معتمد من الكفاءة اللغوية نبذه عن اختبار همزة الأكاديمي",
+      bgColor: "#FFF",
+      externalLink: {
+        href: "/sign-up",
+        label: "التسجيل في الاختبار",
+      },
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "عن الجهة", disabled: true },
+        { label: "أنواع اختبارات همزة", path: "/types-of-tests" },
+        { label: "اختبار همزة الأكاديمي", disabled: true },
+      ],
+    };
+  }
+}
+
 // Function to fetch dynamic types of tests hero data
 export async function getTypesOfTestsHero(): Promise<HeroData & { breadcrumbs?: Crumb[] }> {
   try {

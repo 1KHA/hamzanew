@@ -6,6 +6,52 @@ import ScrollReveal from "../../../components/scroll-reveal/ScrollReveal";
 import { QUESTION_TYPES, TEST_INFO, type TestSection, type InfoCard } from "./data";
 
 /* ==========================================================================
+   Types
+   ========================================================================== */
+
+interface TestSectionItem {
+  testNameText: string;
+  image: string;
+  testDescriptionText: string;
+  sidebarTopText: string;
+  sidebarBottomText1: string;
+  sidebarBottomText2: string;
+}
+
+interface TestSectionsData {
+  title: string;
+  descriptionText: string;
+  testDurationText: string;
+  testDurationValueText: string;
+  numberOfTestItemsText: string;
+  numberOfTestItemsValueText: string;
+  availableTestsTitleText: string;
+  inTestingCentersText: string;
+  atADistanceText: string;
+  testSectionsList: TestSectionItem[];
+}
+
+interface AcademicLevelsContentProps {
+  title?: string;
+  subtitle?: string;
+  image?: string;
+}
+
+interface LevelsMeasuredData {
+  title: string;
+  descriptionText: string;
+  buttonText: string;
+  image: string;
+}
+
+interface AcademicTestContentProps {
+  levelsMeasured?: LevelsMeasuredData;
+  testSections?: TestSectionsData;
+  questionTypes?: TestSection[];
+  testInfo?: InfoCard[];
+}
+
+/* ==========================================================================
    Timing helpers
    ========================================================================== */
 
@@ -84,7 +130,11 @@ function TestSectionCard({ section }: { section: TestSection }) {
    Section 1: Levels Content
    ========================================================================== */
 
-export function AcademicLevelsContent() {
+export function AcademicLevelsContent({ 
+  title = "المستويات التي يقيسها اختبار همزة الأكاديمي",
+  subtitle = "وفق الإطار الأوروبي المرجعي المشترك للغات",
+  image = "/assets/image/acadmic-pic.png"
+}: AcademicLevelsContentProps) {
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 gap-[24px] xl:gap-0">
 
@@ -103,12 +153,12 @@ export function AcademicLevelsContent() {
             />
           </div>
           <h1 id="levels-title" className="display-sm-bold !leading-[1.8]">
-            المستويات التي يقيسها
+            {title.split(" ").slice(0, 3).join(" ")}
             <br />
-            اختبار همزة الأكاديمي
+            {title.split(" ").slice(3).join(" ")}
           </h1>
           <p className="text-md-regular">
-            وفق الإطار الأوروبي المرجعي المشترك للغات
+            {subtitle}
           </p>
         </div>
       </ScrollReveal>
@@ -117,7 +167,7 @@ export function AcademicLevelsContent() {
       <ScrollReveal direction="left" delay={l(0)} duration={DURATION} amount={0}>
         <div className="bg-[#F0FDF4] flex items-center justify-center border border-[#D2D6DB] rounded-[16px] overflow-hidden">
           <Image
-            src="/assets/image/acadmic-pic.png"
+            src={image}
             alt="رسم بياني يوضح مستويات اختبار همزة الأكاديمي من A1 مبتدئ إلى C2 ماهر"
             width={600}
             height={400}
@@ -135,7 +185,65 @@ export function AcademicLevelsContent() {
    Section 2: Test Sections Content
    ========================================================================== */
 
-export default function AcademicTestContent() {
+export default function AcademicTestContent({ 
+  testSections,
+  questionTypes = QUESTION_TYPES,
+  testInfo = TEST_INFO
+}: AcademicTestContentProps) {
+  // Transform API data if provided
+  const transformedQuestionTypes = testSections?.testSectionsList?.length 
+    ? testSections.testSectionsList.map((section, index) => {
+        const iconMap: Record<string, string> = {
+          "الاستماع": "headphones",
+          "الفهم المسموع": "headphones",
+          "القراءة": "book-open-01",
+          "استيعاب المقروء": "book-open-01",
+          "الكتابة": "pencil-edit-02",
+          "المفردات": "book-02",
+          "التحدث": "message-01",
+        };
+        
+        return {
+          id: index + 1,
+          icon: iconMap[section.testNameText] || "star",
+          iconAlt: `أيقونة قسم ${section.testNameText}`,
+          title: section.testNameText,
+          description: section.testDescriptionText,
+          questionCount: parseInt(section.sidebarTopText.match(/\d+/)?.[0] || "0"),
+          questionUnit: section.sidebarTopText.includes("فقرات") ? "فقرات" : "فقرة",
+        };
+      })
+    : questionTypes;
+
+  const transformedTestInfo = testSections
+    ? [
+        {
+          icon: "time-02",
+          iconAlt: "أيقونة ساعة - مدة الاختبار",
+          title: testSections.testDurationText,
+          description: `(${testSections.testDurationValueText}) دقيقة`,
+        },
+        {
+          icon: "right-to-left-list-bullet",
+          iconAlt: "أيقونة قائمة - عدد فقرات الاختبار",
+          title: testSections.numberOfTestItemsText,
+          description: `(${testSections.numberOfTestItemsValueText})`,
+        },
+        {
+          icon: "cursor-in-window",
+          iconAlt: "أيقونة شاشة - تطبيق الاختبار عن بُعد",
+          title: testSections.availableTestsTitleText,
+          description: testSections.atADistanceText,
+        },
+        {
+          icon: "building-06",
+          iconAlt: "أيقونة مبنى - تطبيق الاختبار في مراكز الاختبار",
+          title: testSections.availableTestsTitleText,
+          description: testSections.inTestingCentersText,
+        },
+      ]
+    : testInfo;
+
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 gap-[80px]">
 
@@ -161,7 +269,7 @@ export default function AcademicTestContent() {
               </p>
 
               <h2 id="test-sections-title" className="display-sm-bold hidden xl:block">
-                أقسام الاختبار
+                {testSections?.title || "أقسام الاختبار"}
                 <Image
                   src="/assets/icons/stroke-standard/arrow-left-02-stroke-rounded.svg"
                   alt=""
@@ -174,8 +282,7 @@ export default function AcademicTestContent() {
               </h2>
 
               <p className="text-md-regular">
-                صُمّم اختبار "همزة" ليقدّم تقييمًا شاملًا لمستوى الكفاءة اللغوية في
-                اللغة العربية من خلال أربعة أقسام رئيسية:
+                {testSections?.descriptionText || "صُمّم اختبار \"همزة\" ليقدّم تقييمًا شاملًا لمستوى الكفاءة اللغوية في اللغة العربية من خلال أربعة أقسام رئيسية:"}
               </p>
             </div>
           </header>
@@ -186,7 +293,7 @@ export default function AcademicTestContent() {
           role="list"
           aria-label="معلومات الاختبار الأكاديمي"
         >
-          {TEST_INFO.map((card, i) => (
+          {transformedTestInfo.map((card, i) => (
             <ScrollReveal
               key={i}
               role="listitem"
@@ -206,7 +313,9 @@ export default function AcademicTestContent() {
 
         {/* Mobile-only title */}
         <ScrollReveal direction="up" delay={l(0)} duration={DURATION} amount={AMOUNT}>
-          <h2 className="display-sm-bold block xl:hidden">أقسام الاختبار</h2>
+          <h2 className="display-sm-bold block xl:hidden">
+            {testSections?.title || "أقسام الاختبار"}
+          </h2>
         </ScrollReveal>
 
         <div
@@ -214,7 +323,7 @@ export default function AcademicTestContent() {
           role="list"
           aria-label="أقسام اختبار همزة الأكاديمي الأربعة"
         >
-          {QUESTION_TYPES.map((section, i) => (
+          {transformedQuestionTypes.map((section, i) => (
             <ScrollReveal
               key={section.id}
               role="listitem"
