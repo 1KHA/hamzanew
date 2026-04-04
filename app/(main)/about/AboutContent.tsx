@@ -11,7 +11,7 @@ const ABOUT_PAGES = [
   { id: "hamza-test-traits",       icon: "geometric-shapes-01",  title: "سمات اختبار همزة",                    link: "/about/hamza-test-traits" },
   { id: "benefits-of-hamza-test",  icon: "file-star",            title: "أهمية اختبارات همزة",                 link: "/about/benefits-of-hamza-test" },
   { id: "institutions-acceptance", icon: "checkmark-badge-02",   title: "المؤسسات والدول التي تقبل همزة",      link: "/about/institutions-and-countries-that-accept-the-hamza" },
-  { id: "advisory-committee",      icon: "school-01",            title: "اللجنة الاستشارية الدورية",           link: "/about/periodic-advisory-committee" },
+  { id: "advisory-committee",      icon: "school-01",            title: "اللجنة الاستشارية الدولية",           link: "/about/periodic-advisory-committee" },
   { id: "hamza-ambassadors",       icon: "share-08",             title: "سفراء همزة",                          link: "/about/hamza-ambassadors" },
   { id: "e-participation",         icon: "share-08",             title: "المشاركة الالكترونية",                link: "/e-participation" },
 ] as const;

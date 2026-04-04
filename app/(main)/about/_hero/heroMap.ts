@@ -41,7 +41,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   },
 
   "/about/periodic-advisory-committee": {
-    title: "اللجنة الاستشارية الدورية",
+    title: "اللجنة الاستشارية الدولية",
     description: `تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية.`,
     bgColor: "#F9FAFB",
     // externalLink: {
@@ -53,7 +53,7 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
       { label: "عن الجهة", disabled: true },
       { label: "عن همزة", path: "/about" },
       {
-        label: "اللجنة الاستشارية الدورية",
+        label: "اللجنة الاستشارية الدولية",
         path: "/about/periodic-advisory-committee",
         disabled: true,
       },
