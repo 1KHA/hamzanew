@@ -117,8 +117,8 @@ export default async function PeriodicAdvisoryCommitteePage() {
       viewAllButtonText={viewAllButtonText}
       tasksTitle={tasksTitle}
       mainTasksList={mainTasksList}
-      membersTitle={membersTitle}
-      membersList={membersList.length > 0 ? membersList : fallbackMembers}
+      // membersTitle={membersTitle}
+      // membersList={membersList.length > 0 ? membersList : fallbackMembers}
     />
   );
 }

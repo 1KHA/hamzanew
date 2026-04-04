@@ -85,7 +85,7 @@ export default function CommitteeContent({
       </section>
 
       {/* Committee Members */}
-      <section className="content-stack" aria-labelledby="members-heading">
+      {/* <section className="content-stack" aria-labelledby="members-heading">
         <ScrollReveal direction="up" duration={DURATION} delay={0} amount={0} margin="0px 0px -60px 0px">
           <h2 id="members-heading" className="display-sm-bold">{membersTitle}</h2>
         </ScrollReveal>
@@ -102,7 +102,7 @@ export default function CommitteeContent({
             </ScrollReveal>
           ))}
         </ul>
-      </section>
+      </section> */}
 
     </div>
   );
