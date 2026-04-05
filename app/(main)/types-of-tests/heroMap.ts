@@ -156,6 +156,57 @@ export async function getHamzaAcademicTestHero(): Promise<HeroData & { breadcrum
   }
 }
 
+// Function to fetch dynamic hamza general test hero data
+export async function getHamzaGeneralTestHero(): Promise<HeroData & { breadcrumbs?: Crumb[] }> {
+  try {
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseURL}/api/types-of-tests/general-test`, {
+      cache: 'no-store',
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch hamza general test data');
+    }
+    
+    const data = await response.json();
+    
+    return {
+      title: data.header?.titleText || "اختبار همزة العام",
+      description: data.header?.descriptionText || "",
+      bgColor: "#FFF",
+      externalLink: {
+        href: "/sign-up",
+        label: data.header?.buttonText || "التسجيل في الاختبار",
+      },
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "عن الجهة", disabled: true },
+        { label: "أنواع اختبارات همزة", path: "/types-of-tests" },
+        { label: data.header?.titleText || "اختبار همزة العام", disabled: true },
+      ],
+    };
+  } catch (error) {
+    console.error('Error fetching hamza general test hero:', error);
+    // Return static fallback data
+    return {
+      title: "اختبار همزة العام",
+      description:
+        "يُعد اختبار همزة العام أداة موثوقة لقياس كفاءة اللغة العربية للناطقين بغيرها للأغراض العامة.",
+      bgColor: "#FFF",
+      externalLink: {
+        href: "/sign-up",
+        label: "التسجيل في الاختبار",
+      },
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "عن الجهة", disabled: true },
+        { label: "أنواع اختبارات همزة", path: "/types-of-tests" },
+        { label: "اختبار همزة العام", disabled: true },
+      ],
+    };
+  }
+}
+
 // Function to fetch dynamic types of tests hero data
 export async function getTypesOfTestsHero(): Promise<HeroData & { breadcrumbs?: Crumb[] }> {
   try {
