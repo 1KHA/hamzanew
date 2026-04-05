@@ -4,6 +4,36 @@ import Image from "next/image";
 import ScrollReveal from "../../../components/scroll-reveal/ScrollReveal";
 import { TEST_INFO, type InfoCard } from "./data";
 
+/* ==========================================================================
+   Type Definitions
+   ========================================================================== */
+
+interface TestSectionItem {
+  testTitleText: string;
+  testDetailsText: string;
+}
+
+interface TestSectionsData {
+  title?: string;
+  descriptionText?: string;
+  testSectionsList?: TestSectionItem[];
+}
+
+interface HeaderData {
+  titleText?: string;
+  descriptionText?: string;
+  buttonText?: string;
+}
+
+interface VocabularyTestContentProps {
+  header?: HeaderData;
+  testSections?: TestSectionsData;
+}
+
+/* ==========================================================================
+   Sub Components
+   ========================================================================== */
+
 const STAGGER  = 0.22;
 const DURATION = 0.9;
 const AMOUNT   = 0.4;
@@ -31,7 +61,26 @@ function TestInfoCard({ icon, title, description }: InfoCard) {
   );
 }
 
-export default function VocabularyTestContent() {
+/* ==========================================================================
+   Main Export
+   ========================================================================== */
+
+export default function VocabularyTestContent({ header, testSections }: VocabularyTestContentProps) {
+  // Use dynamic data if available, otherwise fallback to static data
+  const headerTitle = header?.titleText || "اختبار همزة المفردات";
+  const sectionTitle = testSections?.title || "أقسام الاختبار";
+  const sectionDescription = testSections?.descriptionText || "يقيس هذا الاختبار مستويات المفردات اللغوية لدى المتعلمين، ويُعد امتدادًا مطوّرًا للاختبار الأصلي الخاص بمستويات المفردات. ويعتمد على منهجية الاختبار من متعدد، مما يتيح قياسًا دقيقًا ومنهجيًا لقدرة المتعلمين على فهم المفردات واستخدامها عبر مستويات مختلفة، ويسهم في تشخيص كفاءتهم اللغوية بشكل موضوعي وموثوق.";
+
+  // Transform API data to component format if available
+  const dynamicTestInfo: InfoCard[] = testSections?.testSectionsList?.map((item, index) => ({
+    icon: getIconForIndex(index),
+    title: item.testTitleText,
+    description: item.testDetailsText,
+  })) || [];
+
+  // Use dynamic test info if available, otherwise fallback to static
+  const testInfo = dynamicTestInfo.length > 0 ? dynamicTestInfo : TEST_INFO;
+
   return (
     <>
       {/* Header */}
@@ -50,19 +99,15 @@ export default function VocabularyTestContent() {
                   className="inline-block green-icon"
                 />
               </span>
-              اختبار همزة المفردات
+              {headerTitle}
             </p>
 
             <h1 id="test-sections-title" className="display-sm-bold">
-              أقسام الاختبار
+              {sectionTitle}
             </h1>
 
             <p className="text-md-regular max-w-[900px]">
-              يقيس هذا الاختبار مستويات المفردات اللغوية لدى المتعلمين، ويُعد
-              امتدادًا مطوّرًا للاختبار الأصلي الخاص بمستويات المفردات. ويعتمد
-              على منهجية الاختبار من متعدد، مما يتيح قياسًا دقيقًا ومنهجيًا
-              لقدرة المتعلمين على فهم المفردات واستخدامها عبر مستويات مختلفة،
-              ويسهم في تشخيص كفاءتهم اللغوية بشكل موضوعي وموثوق.
+              {sectionDescription}
             </p>
           </div>
         </header>
@@ -74,7 +119,7 @@ export default function VocabularyTestContent() {
         role="list"
         aria-label="معلومات اختبار همزة المفردات"
       >
-        {TEST_INFO.map((card, i) => (
+        {testInfo.map((card, i) => (
           <ScrollReveal
             key={i}
             role="listitem"
@@ -89,4 +134,24 @@ export default function VocabularyTestContent() {
       </div>
     </>
   );
+}
+
+/* ==========================================================================
+   Helper Functions
+   ========================================================================== */
+
+/**
+ * Maps index to icon name for dynamic test info
+ */
+function getIconForIndex(index: number): string {
+  const iconMap: Record<number, string> = {
+    0: "chart-column",
+    1: "right-to-left-list-bullet",
+    2: "time-02",
+    3: "book-open-01",
+    4: "message-01",
+    // Add more mappings as needed
+  };
+  
+  return iconMap[index] || "chart-column"; // Default to chart icon
 }

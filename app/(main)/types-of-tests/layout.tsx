@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Metadata } from "next";
-import { heroMap, getTypesOfTestsHero, getHamzaAcademicTestHero, getHamzaGeneralTestHero, getHamzaPlacementTestHero } from "./heroMap";
+import { heroMap, getTypesOfTestsHero, getHamzaAcademicTestHero, getHamzaGeneralTestHero, getHamzaPlacementTestHero, getHamzaVocabularyTestHero } from "./heroMap";
 import PageHero from "@/app/components/page-hero/PageHero";
 
 export const metadata: Metadata = {
@@ -26,6 +26,9 @@ export default async function TypesOfTestsLayout({
   // Fetch dynamic hero data for hamza placement test (child page)
   const placementTestHero = await getHamzaPlacementTestHero();
   
+  // Fetch dynamic hero data for hamza vocabulary test (child page)
+  const vocabularyTestHero = await getHamzaVocabularyTestHero();
+  
   // Merge dynamic heroes with static heroMap
   const dynamicHeroMap = {
     ...heroMap,
@@ -33,6 +36,7 @@ export default async function TypesOfTestsLayout({
     "/types-of-tests/hamza-academic-test": academicTestHero,
     "/types-of-tests/hamza-general-test": generalTestHero,
     "/types-of-tests/hamza-placement-test": placementTestHero,
+    "/types-of-tests/hamza-vocabulary-test": vocabularyTestHero,
   };
 
   return (
