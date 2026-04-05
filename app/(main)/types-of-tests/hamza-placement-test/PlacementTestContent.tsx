@@ -6,6 +6,33 @@ import ScrollReveal from "../../../components/scroll-reveal/ScrollReveal";
 import { QUESTION_TYPES, TEST_INFO, type TestSection, type InfoCard } from "./data";
 
 /* ==========================================================================
+   Type Definitions
+   ========================================================================== */
+
+interface TestSectionItem {
+  testNameText: string;
+  image?: string;
+  testDescriptionText: string;
+}
+
+interface TestSectionsData {
+  title?: string;
+  descriptionText?: string;
+  testSectionsList?: TestSectionItem[];
+}
+
+interface HeaderData {
+  titleText?: string;
+  descriptionText?: string;
+  buttonText?: string;
+}
+
+interface PlacementTestContentProps {
+  header?: HeaderData;
+  testSections?: TestSectionsData;
+}
+
+/* ==========================================================================
    Sub Components
    ========================================================================== */
 
@@ -91,7 +118,26 @@ const l = (i: number) => 0.6 + i * STAGGER;     // 0.6, 0.82, 1.04, 1.26
    Main Export
    ========================================================================== */
 
-export default function PlacementTestContent() {
+export default function PlacementTestContent({ header, testSections }: PlacementTestContentProps) {
+  // Use dynamic data if available, otherwise fallback to static data
+  const sectionTitle = testSections?.title || "أقسام الاختبار";
+  const sectionDescription = testSections?.descriptionText || "صُمّم اختبار \"همزة\" ليقدّم تقييمًا شاملًا لمستوى الكفاءة اللغوية في اللغة العربية من خلال أربعة أقسام رئيسية:";
+  const headerTitle = header?.titleText || "اختبار همزة لتحديد المستوى";
+
+  // Transform API data to component format if available
+  const dynamicSections: TestSection[] = testSections?.testSectionsList?.map((item, index) => ({
+    id: index + 1,
+    icon: getIconForSection(item.testNameText),
+    iconAlt: `أيقونة ${item.testNameText}`,
+    title: item.testNameText,
+    description: item.testDescriptionText,
+    questionCount: 20,
+    questionUnit: "فقرة",
+  })) || [];
+
+  // Use dynamic sections if available, otherwise fallback to static
+  const sections = dynamicSections.length > 0 ? dynamicSections : QUESTION_TYPES;
+
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 gap-[80px]">
 
@@ -114,11 +160,11 @@ export default function PlacementTestContent() {
                     className="inline-block green-icon"
                   />
                 </span>
-                اختبار همزة لتحديد المستوى
+                {headerTitle}
               </p>
 
               <h1 id="test-sections-title" className="display-sm-bold">
-                أقسام الاختبار
+                {sectionTitle}
                 <Image
                   src="/assets/icons/stroke-standard/arrow-left-02-stroke-rounded.svg"
                   alt=""
@@ -131,8 +177,7 @@ export default function PlacementTestContent() {
               </h1>
 
               <p className="text-md-regular">
-                صُمّم اختبار "همزة" ليقدّم تقييمًا شاملًا لمستوى الكفاءة اللغوية في
-                اللغة العربية من خلال أربعة أقسام رئيسية:
+                {sectionDescription}
               </p>
             </div>
           </header>
@@ -165,7 +210,7 @@ export default function PlacementTestContent() {
         role="list"
         aria-label="أقسام اختبار همزة لتحديد المستوى الأربعة"
       >
-        {QUESTION_TYPES.map((section, i) => (
+        {sections.map((section, i) => (
           <ScrollReveal
             key={section.id}
             role="listitem"
@@ -181,4 +226,26 @@ export default function PlacementTestContent() {
 
     </div>
   );
+}
+
+/* ==========================================================================
+   Helper Functions
+   ========================================================================== */
+
+/**
+ * Maps section name to icon name
+ * This is a simple mapping that can be extended based on available icons
+ */
+function getIconForSection(sectionName: string): string {
+  const iconMap: Record<string, string> = {
+    "الفهم المسموع": "headphones",
+    "الاستماع": "headphones",
+    "استيعاب المقروء": "book-open-01",
+    "القراءة": "book-open-01",
+    "الكتابة": "pencil-edit-02",
+    "التحدث": "message-01",
+    // Add more mappings as needed
+  };
+  
+  return iconMap[sectionName] || "book-open-01"; // Default to book icon
 }

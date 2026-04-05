@@ -2,13 +2,12 @@
  * Hamza Placement Test Page
  *
  * Server component — owns metadata & page skeleton.
- * Animated two-column section is delegated to PlacementTestAnimated
- * (a "use client" component) so Framer Motion can run in the browser
- * without forcing the whole page into the client bundle.
+ * Animated two-column section is delegated to PlacementTestContent
+ * (a "use client" component) so animations can run in the browser.
  *
  * @accessibility
  * - Landmark regions: <main> handled by the layout, <section> + aria-labelledby here
- * - Heading hierarchy: h1 inside PlacementTestAnimated, h2 for CTA
+ * - Heading hierarchy: h1 inside PlacementTestContent, h2 for CTA
  * - All images: descriptive alt on meaningful ones, alt="" + aria-hidden on decorative
  * - Interactive elements have visible focus indicators (via global CSS)
  * - Colour contrast meets WCAG AA (dark green #074D31 on white)
@@ -26,7 +25,28 @@ export const metadata: Metadata = {
     "تعرّف على أقسام اختبار همزة لتحديد المستوى اللغوي وسجّل الآن للتحضير للاختبار.",
 };
 
-export default function HamzaPlacementTestPage() {
+async function getHamzaPlacementTestData() {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseUrl}/api/types-of-tests/placement-test`, {
+      cache: 'no-store',
+    });
+    
+    if (!response.ok) {
+      console.error("Failed to fetch hamza placement test data:", response.status);
+      return null;
+    }
+    
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching hamza placement test data:", error);
+    return null;
+  }
+}
+
+export default async function HamzaPlacementTestPage() {
+  const data = await getHamzaPlacementTestData();
+  
   return (
     <>
       {/* ====================================================================
@@ -37,11 +57,10 @@ export default function HamzaPlacementTestPage() {
         aria-labelledby="test-sections-title"
       >
         <div className="content !py-[40px] xl:!py-[128px] flex flex-col gap-[24px] md:gap-[32px]">
-          {/*
-           * PlacementTestAnimated owns the grid, the h1, all cards,
-           * and the Framer Motion entrance animations.
-           */}
-          <PlacementTestContent />
+          <PlacementTestContent 
+            header={data?.header}
+            testSections={data?.testSections}
+          />
         </div>
       </section>
 
@@ -57,12 +76,10 @@ export default function HamzaPlacementTestPage() {
           <div className="flex flex-col md:flex-row items-center gap-[32px] text-center md:text-start">
             <div className="flex flex-col gap-4">
               <h2 id="cta-title" className="display-sm-bold !text-white">
-                هل أنت مستعد لاختبار همزة لتحديد المستوى؟
+                {data?.areYouReady?.titleText || "هل أنت مستعد لاختبار همزة لتحديد المستوى؟"}
               </h2>
               <p className="text-md-regular !text-white md:text-start text-center max-w-[500px]">
-                نوفّر برامج إعداد مرنة يمكنك دراستها بالوتيرة التي تناسبك، وبأساليب
-                متنوعة تلائم احتياجاتك. عزّز تجربتك وجهودك الدراسية، واستعد ليوم
-                الاختبار بثقة واطمئنان.
+                {data?.areYouReady?.descriptionText || "نوفّر برامج إعداد مرنة يمكنك دراستها بالوتيرة التي تناسبك، وبأساليب متنوعة تلائم احتياجاتك. عزّز تجربتك وجهودك الدراسية، واستعد ليوم الاختبار بثقة واطمئنان."}
               </p>
             </div>
           </div>
@@ -70,7 +87,7 @@ export default function HamzaPlacementTestPage() {
           {/* CTA Button */}
           <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 w-full md:w-auto">
             <Button
-              label="التحضير للاختبار"
+              label={data?.areYouReady?.buttonText || "التحضير للاختبار"}
               variant="primary-neutral--on-color"
               size="lg"
               icon="arrow-up-right-01"

@@ -191,7 +191,7 @@ export async function getHamzaGeneralTestHero(): Promise<HeroData & { breadcrumb
     return {
       title: "اختبار همزة العام",
       description:
-        "يُعد اختبار همزة العام أداة موثوقة لقياس كفاءة اللغة العربية للناطقين بغيرها للأغراض العامة.",
+        "يُعد اختبار همزة العام أداة موثوقة لقياس كفاءة اللغة العربية للناطقين بغيرها للأغراض عامة.",
       bgColor: "#FFF",
       externalLink: {
         href: "/sign-up",
@@ -202,6 +202,57 @@ export async function getHamzaGeneralTestHero(): Promise<HeroData & { breadcrumb
         { label: "عن الجهة", disabled: true },
         { label: "أنواع اختبارات همزة", path: "/types-of-tests" },
         { label: "اختبار همزة العام", disabled: true },
+      ],
+    };
+  }
+}
+
+// Function to fetch dynamic hamza placement test hero data
+export async function getHamzaPlacementTestHero(): Promise<HeroData & { breadcrumbs?: Crumb[] }> {
+  try {
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseURL}/api/types-of-tests/placement-test`, {
+      cache: 'no-store',
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch hamza placement test data');
+    }
+    
+    const data = await response.json();
+    
+    return {
+      title: data.header?.titleText || "اختبار همزة لتحديد المستوى",
+      description: data.header?.descriptionText || "",
+      bgColor: "#FFF",
+      externalLink: {
+        href: "/sign-up",
+        label: data.header?.buttonText || "التسجيل في الاختبار",
+      },
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "عن الجهة", disabled: true },
+        { label: "أنواع اختبارات همزة", path: "/types-of-tests" },
+        { label: data.header?.titleText || "اختبار همزة لتحديد المستوى", disabled: true },
+      ],
+    };
+  } catch (error) {
+    console.error('Error fetching hamza placement test hero:', error);
+    // Return static fallback data
+    return {
+      title: "اختبار همزة لتحديد المستوى",
+      description:
+        "صُمم الاختبار ليقيس معرفة المتعلم باللغة العربية من خلال أربعة أقسام رئيسية: الاستماع، القراءة، المفردات، والقواعد، وذلك بهدف اختيار المستوى المناسب للمختبر عند التحاقه بالبرنامج المستهدف.",
+      bgColor: "#FFF",
+      externalLink: {
+        href: "/sign-up",
+        label: "التسجيل في الاختبار",
+      },
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "عن الجهة", disabled: true },
+        { label: "أنواع اختبارات همزة", path: "/types-of-tests" },
+        { label: "اختبار همزة لتحديد المستوى", disabled: true },
       ],
     };
   }
