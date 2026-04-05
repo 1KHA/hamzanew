@@ -190,6 +190,43 @@ export default function AcademicTestContent({
   questionTypes = QUESTION_TYPES,
   testInfo = TEST_INFO
 }: AcademicTestContentProps) {
+  // Helper function to extract number from Arabic or Western numerals
+  const extractNumber = (text: string | undefined | null): number => {
+    if (!text) return 0;
+    
+    // Check if text contains Arabic numerals (٠١٢٣٤٥٦٧٨٩)
+    const arabicNumerals = text.match(/[٠-٩]+/);
+    if (arabicNumerals) {
+      const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+      const num = parseInt(arabicNumerals[0].split('').map(d => arabicDigits.indexOf(d)).join('')) || 0;
+      if (num > 0) return num;
+    }
+    
+    // Check for Western numerals
+    const westernNumerals = text.match(/\d+/);
+    if (westernNumerals) {
+      return parseInt(westernNumerals[0]) || 0;
+    }
+    
+    return 0;
+  };
+  
+  // Helper function to determine if text refers to multiple items (فقرات vs فقرة)
+  const isPlural = (text: string | undefined | null): boolean => {
+    if (!text) return false;
+    return text.includes("فقرات");
+  };
+
+  // Map section names to fallback question counts
+  const sectionNameToFallback: Record<string, { count: number; unit: string }> = {
+    "الفهم المسموع": { count: 30, unit: "فقرة" },
+    "الاستماع": { count: 30, unit: "فقرة" },
+    "استيعاب المقروء": { count: 40, unit: "فقرة" },
+    "القراءة": { count: 40, unit: "فقرة" },
+    "الكتابة": { count: 1, unit: "فقرة" },
+    "التحدث": { count: 4, unit: "فقرات" },
+  };
+
   // Transform API data if provided
   const transformedQuestionTypes = testSections?.testSectionsList?.length 
     ? testSections.testSectionsList.map((section, index) => {
@@ -203,14 +240,33 @@ export default function AcademicTestContent({
           "التحدث": "message-01",
         };
         
+        // Try to extract number from sidebarTopText or sidebarBottomText1
+        // Don't use description text as it may contain word counts instead of question counts
+        const sidebarCount = extractNumber(section.sidebarTopText) || 
+                             extractNumber(section.sidebarBottomText1) ||
+                             extractNumber(section.sidebarBottomText2);
+        
+        const sidebarIsPlural = isPlural(section.sidebarTopText) || 
+                                isPlural(section.sidebarBottomText1) ||
+                                isPlural(section.sidebarBottomText2);
+        
+        // Use sidebar data if valid, otherwise use fallback
+        const sectionName = section.testNameText;
+        const fallback = sectionNameToFallback[sectionName] || { count: 0, unit: "فقرة" };
+        
+        const questionCount = sidebarCount > 0 ? sidebarCount : fallback.count;
+        const questionUnit = sidebarCount > 0 
+          ? (sidebarIsPlural ? "فقرات" : "فقرة") 
+          : fallback.unit;
+        
         return {
           id: index + 1,
-          icon: iconMap[section.testNameText] || "star",
-          iconAlt: `أيقونة قسم ${section.testNameText}`,
-          title: section.testNameText,
+          icon: iconMap[sectionName] || "star",
+          iconAlt: `أيقونة قسم ${sectionName}`,
+          title: sectionName,
           description: section.testDescriptionText,
-          questionCount: parseInt(section.sidebarTopText.match(/\d+/)?.[0] || "0"),
-          questionUnit: section.sidebarTopText.includes("فقرات") ? "فقرات" : "فقرة",
+          questionCount,
+          questionUnit,
         };
       })
     : questionTypes;

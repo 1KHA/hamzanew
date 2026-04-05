@@ -24,7 +24,7 @@ interface AccordionItemProps {
 }
 
 interface AccordionProps {
-  items: Omit<AccordionItemProps, "children"> & { content: React.ReactNode }[];
+  items: (Omit<AccordionItemProps, "children"> & { content: React.ReactNode })[];
   size?: AccordionItemProps["size"];
   iconAlignment?: AccordionItemProps["iconAlignment"];
   flush?: boolean;

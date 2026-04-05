@@ -22,7 +22,7 @@ async function getTypesOfTestsData() {
     const fields = extractFields(
       content?.contentFields,
       ["titleText", "descriptionText", "bookATestText"]
-    );
+    ) as { titleText?: string; descriptionText?: string; bookATestText?: string } | undefined;
 
     // Extract nested list with sub-lists
     const testQuestionsSetList = extractListWithSubListOriginalKeys(
