@@ -79,9 +79,8 @@
   grid-template-rows: 0fr;
   opacity: 0;
   transition:
-    grid-template-rows 0.3s ease-in-out,
-    opacity 0.3s ease-in-out,
-    padding 0.3s ease-in-out;
+    grid-template-rows 0.35s ease-in-out,
+    opacity 0.35s ease-in-out;
 }
 
 .dga-accordion-item__body-inner {
@@ -89,6 +88,7 @@
   color: var(--text-primary-paragraph);
   font: 400 16px/24px "IBMPlexSansArabic", sans-serif;
   padding: 0 var(--spacing-6xl) 0 var(--spacing-xl);
+  transition: padding 0.35s ease-in-out;
 }
 
 /* ── Open state ────────────────────────────────────────────────────────────── */
