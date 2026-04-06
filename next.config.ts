@@ -47,7 +47,22 @@ const nextConfig: NextConfig = {
   // optimizePackageImports: ["platformscode-new-react"],
   images: {
     formats: ["image/webp"],
-    domains: ["localhost"],
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "8080",
+        pathname: "/documents/**",
+      },
+      {
+        protocol: "http",
+        hostname: "127.0.0.1",
+        port: "8080",
+        pathname: "/documents/**",
+      },
+    ],
+    // Allow localhost/private IPs for dev environment
+    dangerouslyAllowLocalIP: true,
   },
   webpack(config, { webpack }) {
     config.plugins.push(new StripCssImportUrlsPlugin());

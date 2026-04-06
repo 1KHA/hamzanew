@@ -7,6 +7,15 @@ import { AnimatePresence, motion } from "framer-motion";
 import "@/app/components/card/card.css";
 import { useRouter } from "next/navigation";
 
+/**
+ * Check if image URL is from localhost/private IP
+ * If so, we need to use unoptimized to bypass Next.js SSRF protection
+ */
+function isLocalImage(url: string): boolean {
+  if (!url) return false;
+  return url.includes("localhost") || url.includes("127.0.0.1");
+}
+
 interface TabContentProp {
   title_icon: string;
   header: string;
@@ -77,7 +86,7 @@ function TabContentCard({ tabContent }: { tabContent: TabContentProp }) {
       </div>
 
       {/* Left Side Image */}
-      <figure className="card lg:!col-span-2">
+<figure className="card lg:!col-span-2">
         <div className="card-img-container">
           <Image
             src={tabContent.image}
@@ -85,6 +94,7 @@ function TabContentCard({ tabContent }: { tabContent: TabContentProp }) {
             width={700}
             height={400}
             className="card-img !h-full"
+            unoptimized={isLocalImage(tabContent.image)}
           />
         </div>
       </figure>
