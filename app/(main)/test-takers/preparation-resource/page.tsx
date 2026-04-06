@@ -95,12 +95,12 @@ export default function PreparationResourcePage() {
       </section>
 
       {/* --- Registration Conversion Section --- */}
-      <section
+      {/* <section
         className="relative !py-[32px] linear-gradient-074d31 bg-image-preparation"
         aria-labelledby="registration-cta-heading"
-      >
+      > */}
         {/* We use a container to constrain the content while the parent section holds the full-width background */}
-        <div className="custom-container !py-[48px] lg:!py-[96px]">
+        {/* <div className="custom-container !py-[48px] lg:!py-[96px]">
           <div className="!flex !justify-start !max-w-[100%] lg:!max-w-[40%]">
             <article className="!flex !flex-col !gap-[14px]">
               <h2
@@ -126,8 +126,8 @@ export default function PreparationResourcePage() {
               />
             </article>
           </div>
-        </div>
-      </section>
+        </div> */}
+      {/* </section> */}
     </section>
   );
 }
