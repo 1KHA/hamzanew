@@ -47,6 +47,7 @@ const nextConfig: NextConfig = {
   // optimizePackageImports: ["platformscode-new-react"],
   images: {
     formats: ["image/webp"],
+    domains: ["localhost"],
   },
   webpack(config, { webpack }) {
     config.plugins.push(new StripCssImportUrlsPlugin());

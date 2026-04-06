@@ -15,6 +15,12 @@ interface TabContentProp {
   image: string;
 }
 
+interface AreYouReadyProps {
+  titleText?: string;
+  descriptionText?: string;
+  buttonText?: string;
+}
+
 /**
  * A reusable card component that displays the content for an active tab.
  * Includes a text section with a title, header, description, and link button on the Right (RTL),
@@ -95,8 +101,10 @@ function TabContentCard({ tabContent }: { tabContent: TabContentProp }) {
 
 export default function DiscoverHamzaTestsContent({
   tabsContent,
+  areYouReady,
 }: {
   tabsContent: TabContentProp[];
+  areYouReady?: AreYouReadyProps;
 }) {
   const [activeTab, setActiveTab] = useState<number>(1);
   const router = useRouter();
@@ -198,12 +206,10 @@ export default function DiscoverHamzaTestsContent({
           <div className="flex flex-col md:flex-row items-center gap-[32px] text-center md:text-start">
             <div className="flex flex-col gap-4">
               <h2 id="cta-title" className="display-sm-bold !text-white">
-                هل أنت مستعد لاختبار همزة؟
+                {areYouReady?.titleText || "هل أنت مستعد لاختبار همزة؟"}
               </h2>
               <p className="text-md-regular !text-white md:text-start text-center max-w-[500px]">
-                نوفّر برامج إعداد مرنة يمكنك دراستها بالوتيرة التي تناسبك،
-                وبأساليب متنوعة تلائم احتياجاتك. عزّز تجربتك وجهودك الدراسية،
-                واستعد ليوم الاختبار بثقة واطمئنان.
+                {areYouReady?.descriptionText || "نوفّر برامج إعداد مرنة يمكنك دراستها بالوتيرة التي تناسبك، وبأساليب متنوعة تلائم احتياجاتك. عزّز تجربتك وجهودك الدراسية، واستعد ليوم الاختبار بثقة واطمئنان."}
               </p>
             </div>
           </div>
@@ -211,7 +217,7 @@ export default function DiscoverHamzaTestsContent({
           {/* CTA Button */}
           <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 w-full md:w-auto">
             <Button
-              label="التحضير للاختبار"
+              label={areYouReady?.buttonText || "التحضير للاختبار"}
               variant="primary-neutral--on-color"
               size="lg"
               icon="arrow-up-right-01"
