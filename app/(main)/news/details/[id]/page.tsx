@@ -44,7 +44,7 @@ export async function generateMetadata({
 
   return {
     title: article.title,
-    description: article.excerpt,
+    description: (article.content?.substring(0, 120) ?? "") + "...",
   };
 }
 
