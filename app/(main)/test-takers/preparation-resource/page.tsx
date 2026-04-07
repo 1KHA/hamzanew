@@ -1,4 +1,3 @@
-import Button from "@/app/components/button/Button";
 import Card from "@/app/components/card/Card";
 import { Metadata } from "next";
 
@@ -12,10 +11,9 @@ export const metadata: Metadata = {
 };
 
 /**
- * Resources Data
- * Static collection of preparation modules.
+ * Resources Data - Static fallback
  */
-const RESOURCES = [
+const STATIC_RESOURCES = [
   {
     title: "مران",
     description:
@@ -39,14 +37,34 @@ const RESOURCES = [
  * PreparationResourcePage
  *
  * Main landing page for test preparation resources.
- *
- * Accessibility Strategy:
- * - Semantic Landmarks: Uses <section> for logical divisions and root containment.
- * - Navigation: Resources are grouped in an ARIA-labeled list.
- * - Hierarchy: Provides a visually hidden <h1> for screen readers to establish page context.
- * - RTL Support: Uses direction-aware CSS classes for background gradients.
+ * Fetches dynamic content from Liferay API, with static fallback.
  */
-export default function PreparationResourcePage() {
+export default async function PreparationResourcePage() {
+  // Fetch dynamic content from API
+  let apiData = null;
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const response = await fetch(`${baseUrl}/api/test-takers/preparation-resource`, {
+      cache: "no-store",
+    });
+    if (response.ok) {
+      apiData = await response.json();
+    }
+  } catch (error) {
+    console.error("Error fetching preparation resource content:", error);
+  }
+
+  // Use dynamic details data or fallback to static
+  const details = apiData?.details || {
+    title: "نقدم لك",
+    topDescription:
+      "تمنحك مـــواردنـا التعليميـــة فرصـــة للاطـــلاع على أسئلة وأجوبة واقعية تساعدك على فهم طبيعة الاختبار وتوقّع أسلوبه.",
+    description: "",
+    resources: STATIC_RESOURCES,
+  };
+
+  const resources = details.resources || STATIC_RESOURCES;
+
   return (
     <section className="min-h-screen" aria-labelledby="main-prep-heading">
       {/* Visually hidden main heading for screen readers */}
@@ -67,11 +85,10 @@ export default function PreparationResourcePage() {
                 id="resources-introduction"
                 className="display-sm-bold !text-[#fff]"
               >
-                نقدم لك
+                {details.title}
               </h2>
               <p className="text-md-medium !font-normal !text-[#fff]">
-                تمنحك مـــواردنـا التعليميـــة فرصـــة للاطـــلاع على أسئلة
-                وأجوبة واقعية تساعدك على فهم طبيعة الاختبار وتوقّع أسلوبه.
+                {details.topDescription}
               </p>
             </header>
 
@@ -80,7 +97,7 @@ export default function PreparationResourcePage() {
               className="!grid !grid-cols-1 lg:!grid-cols-3 !gap-[24px] lg:!col-span-9"
               aria-label="قائمة مصادر التحضير المتاحة"
             >
-              {RESOURCES.map((resource, index) => (
+              {resources.map((resource: any, index: number) => (
                 <li key={index}>
                   <Card
                     title={resource.title}
@@ -93,41 +110,6 @@ export default function PreparationResourcePage() {
           </div>
         </div>
       </section>
-
-      {/* --- Registration Conversion Section --- */}
-      {/* <section
-        className="relative !py-[32px] linear-gradient-074d31 bg-image-preparation"
-        aria-labelledby="registration-cta-heading"
-      > */}
-        {/* We use a container to constrain the content while the parent section holds the full-width background */}
-        {/* <div className="custom-container !py-[48px] lg:!py-[96px]">
-          <div className="!flex !justify-start !max-w-[100%] lg:!max-w-[40%]">
-            <article className="!flex !flex-col !gap-[14px]">
-              <h2
-                id="registration-cta-heading"
-                className="display-sm-bold !text-[#fff]"
-              >
-                تقدم لاختبار همزة بسهولة
-              </h2>
-
-              <p className="text-md-medium !font-normal !text-[#fff]">
-                يمكنك التحضير للاختبار بسهولة باستخدام المواد التدريبية ومقاطع
-                الفيديو التي تساعدك على فهم محتوى الاختبار ومتطلباته.
-              </p>
-
-              <Button
-                label="التسجيل في الإختبار"
-                variant="secondary"
-                size="md"
-                icon="arrow-up-right-01"
-                iconPosition="right"
-                className="md:!max-w-[30%]"
-                ariaLabel="بدء عملية تسجيل الاختبار"
-              />
-            </article>
-          </div>
-        </div> */}
-      {/* </section> */}
     </section>
   );
 }

@@ -89,3 +89,61 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     ],
   },
 };
+
+// Function to fetch dynamic preparation resource hero data from Lifford
+export async function getPreparationResourceHero(): Promise<
+  HeroData & { breadcrumbs?: Crumb[] }
+> {
+  try {
+    const baseURL =
+      process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const response = await fetch(
+      `${baseURL}/api/test-takers/preparation-resource`,
+      { cache: "no-store" }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch preparation resource data");
+    }
+
+    const data = await response.json();
+
+    return {
+      title: data.header?.title || "مصادر التحضير",
+      description: data.header?.description || "",
+      bgColor: "#FFF",
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "المتقدمون للإختبار", disabled: true },
+        { label: "الاستعداد للاختبار", disabled: true },
+        {
+          label: data.header?.title || "مصادر التحضير",
+          path: "/test-takers/preparation-resource",
+          disabled: true,
+        },
+      ],
+    };
+  } catch (error) {
+    console.error(
+      "Error fetching preparation resource hero:",
+      error
+    );
+    // Return static fallback data
+    return {
+      title: "مصادر التحضير",
+      description:
+        "عزّز تجربتك وجهودك الدراسية، وادخل يوم الاختبار بثقة. نوفّر لك أسئلة عملية، ونماذج رسمية، ومواد تدريبية شاملة تساعدك على الاستعداد لاختبار همزة بكل كفاءة. يجتاز ملايين الأشخاص حول العالم هذا الاختبار كل عام — ويمكنك أن تكون أحدهم.",
+      bgColor: "#FFF",
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "المتقدمون للإختبار", disabled: true },
+        { label: "الاستعداد للاختبار", disabled: true },
+        {
+          label: "مصادر التحضير",
+          path: "/test-takers/preparation-resource",
+          disabled: true,
+        },
+      ],
+    };
+  }
+}
