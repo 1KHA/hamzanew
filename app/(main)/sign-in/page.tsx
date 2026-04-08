@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
-import { DgaCheckbox } from "platformscode-new-react";
+import { DgaCheckbox } from "@/lib/utils/platformscode";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";

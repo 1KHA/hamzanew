@@ -39,7 +39,7 @@ import {
   PHONE_PREFIXES,
   PrefixOption,
 } from "@/lib/utils/phonePrefixes";
-import { DgaDropdown, DgaTextarea } from "platformscode-new-react";
+import { DgaDropdown, DgaTextarea } from "@/lib/utils/platformscode";
 
 import "./feedback-form.css";
 

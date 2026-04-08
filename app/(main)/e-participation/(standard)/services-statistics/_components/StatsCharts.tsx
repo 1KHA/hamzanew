@@ -1,6 +1,6 @@
 "use client";
 
-import { DgaChart } from "platformscode-new-react";
+import { DgaChart } from "@/lib/utils/platformscode";
 import { ChartData } from "../_data/statsData";
 
 interface StatsChartsProps {

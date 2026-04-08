@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormContext, Controller } from "react-hook-form";
-import { DgaDropdown } from "platformscode-new-react";
+import { DgaDropdown } from "@/lib/utils/platformscode";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import { NewUserFormValues } from "./page";

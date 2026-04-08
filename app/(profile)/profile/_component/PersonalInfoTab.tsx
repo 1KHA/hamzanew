@@ -8,7 +8,7 @@ import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import type { UserProfileFormValues } from "../update/ProfileForm";
 import DateField from "@/app/components/date-field/DateField";
-import { DgaDropdown } from "platformscode-new-react";
+import { DgaDropdown } from "@/lib/utils/platformscode";
 import {
   PHONE_PREFIXES,
   getPrefixFromPhone,

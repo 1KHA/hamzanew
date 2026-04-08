@@ -4,7 +4,7 @@ import {
   FieldValues,
   FieldPath,
 } from "react-hook-form";
-import { DgaTextInput } from "platformscode-new-react";
+import { DgaTextInput } from "@/lib/utils/platformscode";
 
 /**
  * Props for the ControlledTextInput component.

@@ -1,5 +1,5 @@
 "use client";
-import { DgaDropdown } from "platformscode-new-react";
+import { DgaDropdown } from "@/lib/utils/platformscode";
 import Card from "../card/Card";
 import SearchBox from "@/app/components/search-box/SearchBox";
 import "./GlobalStatisticsSection.css";

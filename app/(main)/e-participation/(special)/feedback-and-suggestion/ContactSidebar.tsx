@@ -11,7 +11,7 @@
  */
 
 import Image from "next/image";
-import { DgaLink } from "platformscode-new-react";
+import { DgaLink } from "@/lib/utils/platformscode";
 
 /*
  * ── Icon Paths ──
