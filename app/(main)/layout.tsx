@@ -1,5 +1,5 @@
-import NavHeader from "../components/nav-header/NavHeader";
-import Footer from "../components/footer/Footer";
+import NavHeader from "@/app/components/nav-header/NavHeader";
+import Footer from "@/app/components/footer/Footer";
 import "@/app/globals.css";
 import type { Metadata } from "next";
 

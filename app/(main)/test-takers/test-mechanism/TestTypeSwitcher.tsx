@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { DgaContentSwitcher } from "platformscode-new-react";
+import { DgaContentSwitcher } from "@/lib/utils/platformscode";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import Button from "../../../components/button/Button";
@@ -55,9 +55,12 @@ export default function TestTypeSwitcher() {
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 gap-[40px] xl:gap-[80px] items-center w-full">
-
       {/* Right Column: Content */}
-      <div className="flex flex-col gap-[24px] items-start" role="tabpanel" aria-live="polite">
+      <div
+        className="flex flex-col gap-[24px] items-start"
+        role="tabpanel"
+        aria-live="polite"
+      >
         {/* Toggle Tabs */}
         <DgaContentSwitcher
           ref={switcherRef}

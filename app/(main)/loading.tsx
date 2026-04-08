@@ -1,4 +1,4 @@
-// import { DgaLoading } from "platformscode-new-react"; // TEMPORARILY DISABLED
+// import { DgaLoading } from "@/app/lib/platformscode"; // TEMPORARILY DISABLED
 
 export default function Loading() {
   return (

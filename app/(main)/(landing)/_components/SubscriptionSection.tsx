@@ -1,6 +1,6 @@
 "use client";
 
-import { DgaTextInput } from "platformscode-new-react";
+import { DgaTextInput } from "@/lib/utils/platformscode";
 import Button from "@/app/components/button/Button";
 
 /**

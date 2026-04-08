@@ -1,5 +1,5 @@
 import { useFormContext, Controller } from "react-hook-form";
-import { DgaDropdown } from "platformscode-new-react";
+import { DgaDropdown } from "@/lib/utils/platformscode";
 import Button from "@/app/components/button/Button";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";

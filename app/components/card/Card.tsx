@@ -1,6 +1,5 @@
 "use client";
 import React, { ReactNode } from "react";
-// import { DgaTag } from "platformscode-new-react"; // TEMPORARILY DISABLED
 import Tag from "../tag/Tag";
 import Button from "../button/Button";
 import "./card.css";

@@ -22,7 +22,7 @@
  */
 import Card from "@/app/components/card/Card";
 import Button from "@/app/components/button/Button";
-import { DgaTextInput } from "platformscode-new-react";
+import { DgaTextInput } from "@/lib/utils/platformscode";
 import "@/app/components/card/card.css";
 
 interface HamzaOrgContentProps {

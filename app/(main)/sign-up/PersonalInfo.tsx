@@ -2,7 +2,7 @@
 
 import { useFormContext, Controller } from "react-hook-form";
 import { useState } from "react";
-import { DgaDropdown } from "platformscode-new-react";
+import { DgaDropdown } from "@/lib/utils/platformscode";
 import DateField from "@/app/components/date-field/DateField";
 import FileUpload, {
   UploadedFile,

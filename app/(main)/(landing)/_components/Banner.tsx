@@ -16,7 +16,8 @@
 
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
-import "@/app/styles/Button.css";
+// import "@/app/styles/Button.css";
+import "@/app/components/button/Button.css";
 
 /* ── Slide data (module-level — allocated once, never re-created) ────────── */
 
@@ -106,7 +107,6 @@ function Banner() {
       aria-roledescription="carousel"
     >
       <div className="embla-custom">
-
         {/* Slide images strip */}
         <div
           className="embla-container"
@@ -140,7 +140,9 @@ function Banner() {
         {/* Fixed overlay: text content + decorative logo */}
         <div className="overlay">
           <div className="hero w-[-webkit-fill-available] content !text-start">
-            <h1 className="display-xl-semibold">{slides[currentSlide].title}</h1>
+            <h1 className="display-xl-semibold">
+              {slides[currentSlide].title}
+            </h1>
 
             {slides[currentSlide].description && (
               <p className="!mb-[32px] text-xl-regular max-w-[720px]">
@@ -152,7 +154,9 @@ function Banner() {
               type="button"
               className="dga-btn dga-btn--md dga-btn--primary-neutral--on-color"
             >
-              <span className="dga-btn-label">{slides[currentSlide].buttonText}</span>
+              <span className="dga-btn-label">
+                {slides[currentSlide].buttonText}
+              </span>
             </button>
           </div>
 
@@ -170,13 +174,14 @@ function Banner() {
 
         {/* Controls: pause/play + dot navigation */}
         <div className="embla__dots">
-
           {/* Pause/play satisfies WCAG 2.1 AA SC 2.2.2 for auto-moving content */}
           <button
             type="button"
             className="dga-btn dga-btn--sm dga-btn--primary-neutral--on-color"
             onClick={togglePause}
-            aria-label={isPaused ? "تشغيل العرض التلقائي" : "إيقاف العرض التلقائي"}
+            aria-label={
+              isPaused ? "تشغيل العرض التلقائي" : "إيقاف العرض التلقائي"
+            }
           >
             <Image
               src={
@@ -202,7 +207,6 @@ function Banner() {
             />
           ))}
         </div>
-
       </div>
     </section>
   );

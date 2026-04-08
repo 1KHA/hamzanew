@@ -18,8 +18,22 @@ import { useSession, signOut } from "next-auth/react";
 // Thin wrapper around next/image for uniform inline icon sizing.
 // next/image automatically handles lazy-loading, WebP conversion,
 // and correct srcset generation for retina screens.
-const IconImage = ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
-  <Image src={src} alt={alt} width={24} height={24} className={`inline-block${className ? ` ${className}` : ""}`} />
+const IconImage = ({
+  src,
+  alt,
+  className,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+}) => (
+  <Image
+    src={src}
+    alt={alt}
+    width={24}
+    height={24}
+    className={`inline-block${className ? ` ${className}` : ""}`}
+  />
 );
 
 // =============================================
@@ -179,7 +193,7 @@ function UserMenuDropdown({ name }: { name: string }) {
             onClick={() => signOut({ callbackUrl: "/" })}
           >
             <IconImage
-            className="icon-critical"
+              className="icon-critical"
               src="/assets/icons/stroke-standard/logout-01-stroke-rounded.svg"
               alt=""
             />

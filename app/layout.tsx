@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
 // import localFont from "next/font/local";
 import "./globals.css";
-import ClientOnly from "./components/ClientOnly";
+// import ClientOnly from "./components/ClientOnly";
 import AuthProvider from "@/lib/utils/AuthProvider";
 
 // const geistSans = Geist({
@@ -53,11 +53,11 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col">
-        <ClientOnly> 
-          <AuthProvider> {/*manage auth state for user*/}
-            {children}
-          </AuthProvider>
-        </ClientOnly>
+        {/* <ClientOnly>  */}
+        <AuthProvider>    {/*manage auth state for user*/}
+          {children}
+        </AuthProvider>
+        {/* </ClientOnly> */}
       </body>
     </html>
   );

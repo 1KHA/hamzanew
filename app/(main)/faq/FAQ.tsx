@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { DgaTabs } from "../../components/tabs/DgaTabs";
-import { DgaAccordion } from "platformscode-new-react";
+import { DgaAccordion } from "@/lib/utils/platformscode";
 import SearchBox from "../../components/search-box/SearchBox";
 import Button from "../../components/button/Button";
 import { normalizeArabic, arabicIncludes } from "@/lib/utils/arabic";
