@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState, useEffect } from "react";
 import Tag from "../tag/Tag";
 import Button from "../button/Button";
 import "./card.css";
@@ -98,7 +98,24 @@ const Card: React.FC<CardProps> = ({
   descriptionStyle,
 }) => {
   const router = useRouter();
-  const isRTL = typeof document !== "undefined" ? document.dir === "rtl" : true;
+  const [isRTL, setIsRTL] = useState(true);
+
+ useEffect(() => {
+    // Initial sync
+    const updateDir = () => {
+      setIsRTL(document.documentElement.dir !== "ltr");
+    };
+    updateDir();
+
+    // Watch the HTML tag for any direction changes so it flips instantly
+    const observer = new MutationObserver(updateDir);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["dir"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const resolvedTrailIconType =
     primaryTrailIconType === "arrow"
