@@ -39,8 +39,8 @@ export default async function RootLayout({
 
    // Read the cookie securely on the server
   const cookieStore = await cookies();
-  const locale = cookieStore.get("lang")?.value || "ar-SA"; // Default to Arabic
-  const direction = locale === "ar-SA" ? "rtl" : "ltr";
+  const locale = cookieStore.get("lang")?.value || "ar"; // Default to Arabic
+  const direction = locale === "ar" ? "rtl" : "ltr";
 
   return (
     <html lang={locale} dir={direction}>

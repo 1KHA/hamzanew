@@ -31,8 +31,8 @@ export default function DigitalSignature() {
     // html.lang = isArabic ? "en" : "ar";
     // html.dir = isArabic ? "ltr" : "rtl";
     const html = document.documentElement;
-    const isArabic = html.lang === "ar-SA";
-    const newLang = isArabic ? "en-US" : "ar-SA";
+    const isArabic = html.lang === "ar";
+    const newLang = isArabic ? "en" : "ar";
     // 'max-age=31536000' is for last one year
     document.cookie = `lang=${newLang}; path=/; max-age=31536000`;
     router.refresh();
