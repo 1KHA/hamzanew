@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 // import ClientOnly from "./components/ClientOnly";
 import AuthProvider from "@/lib/utils/AuthProvider";
+import { cookies } from "next/headers";
+
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -29,13 +31,19 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+   // Read the cookie securely on the server
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value || "ar-SA"; // Default to Arabic
+  const direction = locale === "ar-SA" ? "rtl" : "ltr";
+
   return (
-    <html lang="ar" dir="rtl">
+    <html lang={locale} dir={direction}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -53,11 +61,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col">
-        {/* <ClientOnly>  */}
-        <AuthProvider>    {/*manage auth state for user*/}
+        <AuthProvider>  {/*manage auth state for user*/}
           {children}
         </AuthProvider>
-        {/* </ClientOnly> */}
       </body>
     </html>
   );

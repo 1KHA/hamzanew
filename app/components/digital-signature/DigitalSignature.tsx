@@ -13,28 +13,35 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useCallback, useId } from "react";
 import "./DigitalSignature.css";
+import { useRouter } from "next/navigation";
 
 export default function DigitalSignature() {
   const [isOpen, setIsOpen] = useState(false);
-
+  // Inside your component:
+  const router = useRouter();
   // Stable ID for aria-controls / aria-labelledby relationship
   const panelId = useId();
 
   const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
 
   // Directly mutates <html> lang/dir — intentional, no React state needed
-  const switchLanguage = useCallback(() => {
+  const switchLanguage = () => {
+    // const html = document.documentElement;
+    // const isArabic = html.lang === "ar";
+    // html.lang = isArabic ? "en" : "ar";
+    // html.dir = isArabic ? "ltr" : "rtl";
     const html = document.documentElement;
-    const isArabic = html.lang === "ar";
-    html.lang = isArabic ? "en" : "ar";
-    html.dir = isArabic ? "ltr" : "rtl";
-  }, []);
+    const isArabic = html.lang === "ar-SA";
+    const newLang = isArabic ? "en-US" : "ar-SA";
+    // 'max-age=31536000' is for last one year
+    document.cookie = `lang=${newLang}; path=/; max-age=31536000`;
+    router.refresh();
+  };
 
   return (
     <div className="bg-[#f5f5f5]">
       <div className="digital_wrapper custom-container">
         <div className="flex justify-between">
-
           {/* Site badge + toggle button */}
           <div className="digital_container digital_heads">
             <div className="flex flex-row gap-[8px] justify-center items-center">
@@ -114,7 +121,6 @@ export default function DigitalSignature() {
           <div className="min-h-0">
             <div className="digital_content">
               <div className="digital_content_container">
-
                 {/* Trust item 1: .gov.sa domain */}
                 <div className="digital_content_item">
                   <div className="digital_content_item_icon">
@@ -197,7 +203,6 @@ export default function DigitalSignature() {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
