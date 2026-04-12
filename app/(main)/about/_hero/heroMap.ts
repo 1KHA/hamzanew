@@ -182,6 +182,52 @@ export async function getPeriodicAdvisoryCommitteeHero(): Promise<HeroData & { b
   }
 }
 
+// Function to fetch dynamic who-we-are hero data
+export async function getWhoWeAreHero(): Promise<HeroData & { breadcrumbs?: Crumb[] }> {
+  try {
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const response = await fetch(`${baseURL}/api/about/who-we-are`, {
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch who-we-are data");
+    }
+
+    const data = await response.json();
+
+    return {
+      title: data.hero?.title || "من نحن",
+      description: data.hero?.description || "",
+      bgColor: data.hero?.bgColor || "#FFF",
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "عن الجهة", disabled: true },
+        { label: "عن همزة", path: "/about" },
+        {
+          label: data.hero?.title || "من نحن",
+          path: "/about/who-we-are",
+          disabled: true,
+        },
+      ],
+    };
+  } catch (error) {
+    console.error("Error fetching who-we-are hero:", error);
+    return {
+      title: "من نحن",
+      description:
+        "منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها.",
+      bgColor: "#FFF",
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "عن الجهة", disabled: true },
+        { label: "عن همزة", path: "/about" },
+        { label: "من نحن", path: "/about/who-we-are", disabled: true },
+      ],
+    };
+  }
+}
+
 // Function to fetch dynamic hamza ambassadors hero data
 export async function getHamzaAmbassadorsHero(): Promise<HeroData & { breadcrumbs?: Crumb[] }> {
   try {

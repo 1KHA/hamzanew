@@ -8,7 +8,16 @@ const STAGGER  = 0.1;
 const DURATION = 0.8;
 const r = (i: number) => i * STAGGER;
 
-/* ── Sub-components ──────────────────────────────────────────────── */
+interface ValueItem {
+  number: string;
+  title: string;
+  description: string;
+}
+
+interface ApiData {
+  values?: { title?: string; list?: ValueItem[] };
+  pillars?: { title?: string; description?: string; list?: ValueItem[] };
+}
 
 function ValueCard({ number, title, description }: { number: string; title: string; description: string }) {
   return (
@@ -24,9 +33,29 @@ function ValueCard({ number, title, description }: { number: string; title: stri
   );
 }
 
-/* ── Main export ─────────────────────────────────────────────────── */
+export default function WhoWeAreContent({ apiData }: { apiData?: ApiData | null }) {
+  // Dynamic values from API, fallback to static data
+  const valuesTitle = apiData?.values?.title || "الــقـــيـــم";
+  const valuesList: ValueItem[] =
+    apiData?.values?.list && apiData.values.list.length > 0
+      ? apiData.values.list.map((v) => ({
+          number: v.number || "",
+          title: v.title || "",
+          description: v.description || "",
+        }))
+      : [...VALUES];
 
-export default function WhoWeAreContent() {
+  // Dynamic pillars from API, fallback to static data
+  const pillarsTitle = apiData?.pillars?.title || "مرتكزات اختبارات همزة؟";
+  const pillarsList: ValueItem[] =
+    apiData?.pillars?.list && apiData.pillars.list.length > 0
+      ? apiData.pillars.list.map((p) => ({
+          number: p.number || "",
+          title: p.title || "",
+          description: p.description || "",
+        }))
+      : [...MORTAKAZAT];
+
   return (
     <div className="stack">
 
@@ -48,20 +77,20 @@ export default function WhoWeAreContent() {
               <p className="section-title">استكشاف القيم الأساسية للمنظمة</p>
             </ScrollReveal>
             <ScrollReveal direction="up" duration={DURATION} amount={0} margin="0px 0px -80px 0px" delay={0.15}>
-              <h2 id="values" className="display-sm-bold">الــقـــيـــم</h2>
+              <h2 id="values" className="display-sm-bold">{valuesTitle}</h2>
             </ScrollReveal>
           </header>
 
           <div className="about-cards">
             <ul className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-[24px]" role="list">
-              {VALUES.slice(0, 3).map((v, i) => (
+              {valuesList.slice(0, 3).map((v, i) => (
                 <ScrollReveal key={v.number} role="listitem" className="h-full" direction="up" delay={r(i)} duration={DURATION} amount={0} margin="0px 0px -80px 0px">
                   <ValueCard {...v} />
                 </ScrollReveal>
               ))}
             </ul>
             <ul className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-[24px]" role="list">
-              {VALUES.slice(3).map((v, i) => (
+              {valuesList.slice(3).map((v, i) => (
                 <ScrollReveal key={v.number} role="listitem" className="h-full" direction="up" delay={r(i)} duration={DURATION} amount={0} margin="0px 0px -80px 0px">
                   <ValueCard {...v} />
                 </ScrollReveal>
@@ -71,18 +100,18 @@ export default function WhoWeAreContent() {
         </div>
       </section>
 
-      {/* Core Principles */}
+      {/* Core Principles (Pillars) */}
       <section className="stack bg-color-grey-50 section-spacing-10xl" aria-labelledby="core-principles">
         <div className="stack-4xl custom-container">
           <ScrollReveal direction="up" duration={DURATION} amount={0.3}>
             <header className="section-head">
-              <h2 id="core-principles" className="display-sm-bold">مرتكزات اختبارات همزة؟</h2>
+              <h2 id="core-principles" className="display-sm-bold">{pillarsTitle}</h2>
             </header>
           </ScrollReveal>
 
           <div className="about-cards">
             <div className="about-cards__row !items-stretch">
-              {MORTAKAZAT.map((card, i) => (
+              {pillarsList.map((card, i) => (
                 <ScrollReveal key={card.number} direction="up" delay={r(i)} duration={DURATION} amount={0.2}>
                   <Card style={{ borderRadius: "16px", border: "none" }} title={card.title} description={card.description} number={card.number} descriptionClass="text-md-regular" />
                 </ScrollReveal>
