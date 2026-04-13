@@ -12,6 +12,7 @@ import {
   getDigitsFromPhone,
   getPrefixFromPhone,
 } from "@/lib/utils/phonePrefixes";
+import { signUpUserSevice } from "@/app/_lib/user-service";
 import "@/app/styles/Button.css";
 import "./sign-up.css";
 import AccountInfo from "./AccountInfo";
@@ -127,6 +128,8 @@ export type NewUserFormValues = z.infer<typeof newUserSchema>;
 export default function SignUpPage() {
   const [activeStep, setActiveStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const methods = useForm<NewUserFormValues>({
     resolver: zodResolver(newUserSchema),
@@ -197,10 +200,77 @@ export default function SignUpPage() {
     mode: "all",
   });
 
-  const onSubmit = (data: NewUserFormValues) => {
-    console.log("Form Submitted ✅", data);
-    setActiveStep(STEPS.length + 1);
-    setSubmitted(true);
+  /**
+   * Final submit — called when the user clicks "إنشاء الحساب" on the last step.
+   * Builds the API payload, attaches the identity file, and calls signUpUserSevice.
+   */
+  const onSubmit = async (data: NewUserFormValues) => {
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      // ── Build the JSON payload ──────────────────────────────────────────
+      const payload = {
+        firstName: data.firstName_ar,
+        firstNameInEnglish: data.firstName_en,
+        secondName: data.secondName_ar,
+        secondNameInEnglish: data.secondName_en,
+        lastName: data.lastName_ar,
+        lastNameInEnglish: data.lastName_en,
+        emailAddress: data.email,
+        password: data.password,
+        phoneNumber: data.phone,
+        dateOfBirth: data.birthDate,
+        nationality: data.nationality,
+        motherTongue: data.motherTongue,
+        proofType: data.identity,
+        passportNumber: data.identityNumber,
+        latestEducationalQualification: data.education,
+        educationalInstitution: data.institution,
+        academicSpecialization: data.specialization,
+        primaryLanguageOfEducation: data.basicLanguageInEducation,
+        timeZone: data.timezone,
+        country: data.country,
+        state: data.state,
+        city: data.city,
+        streetAddress: data.postalAddress,
+        zipCode: data.zipCode,
+      };
+
+      // ── Build FormData (file + JSON) ────────────────────────────────────
+      const formData = new FormData();
+
+      // Extract the actual File object from the UploadedFile array
+      const uploadedFiles = data.identityFile as any[];
+      if (uploadedFiles && uploadedFiles.length > 0) {
+        const actualFile: File | undefined = uploadedFiles[0]?.file;
+        if (actualFile) {
+          formData.append("file", actualFile);
+        }
+      }
+
+      formData.append("data", JSON.stringify(payload));
+
+      // ── Call the API ────────────────────────────────────────────────────
+      const result = await signUpUserSevice(formData);
+      console.log("Sign-up result:", result);
+
+      if (result && result.status !== "FAIL") {
+        // Success — advance to the confirmation screen
+        setActiveStep(STEPS.length + 1);
+        setSubmitted(true);
+      } else {
+        setSubmitError(
+          result?.message ||
+            "حدث خطأ أثناء إنشاء الحساب. يرجى المحاولة مرة أخرى.",
+        );
+      }
+    } catch (error) {
+      console.error("Sign-up error:", error);
+      setSubmitError("حدث خطأ أثناء إنشاء الحساب. يرجى المحاولة مرة أخرى.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleNext = () => {
@@ -215,6 +285,7 @@ export default function SignUpPage() {
   const {
     formState: { errors },
   } = methods;
+
   return (
     <div className="sign-up-page-wrapper">
       <div className="sign-up-page">
@@ -276,12 +347,30 @@ export default function SignUpPage() {
 
                     <CurrentComponent />
 
+                    {/* API error on last step */}
+                    {isLastStep && submitError && (
+                      <p
+                        className="sign-up-page__api-error text-sm-regular"
+                        role="alert"
+                        aria-live="assertive"
+                      >
+                        {submitError}
+                      </p>
+                    )}
+
                     <div className="sign-up-page__actions">
                       <Button
-                        label={isLastStep ? "إنشاء الحساب" : "التالي"}
+                        label={
+                          isLastStep
+                            ? isSubmitting
+                              ? "جاري إنشاء الحساب..."
+                              : "إنشاء الحساب"
+                            : "التالي"
+                        }
                         variant="primary-brand"
                         size="lg"
                         type="submit"
+                        disabled={isSubmitting}
                       />
                       {stepNumber > 1 && (
                         <Button
@@ -290,6 +379,7 @@ export default function SignUpPage() {
                           size="lg"
                           type="button"
                           onClick={handleBack}
+                          disabled={isSubmitting}
                         />
                       )}
                     </div>

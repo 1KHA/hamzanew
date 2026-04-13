@@ -1,14 +1,14 @@
 "use server";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../../pages/api/auth/[...nextauth]";
+import { authOptions } from "@/lib/auth";
 
-export const signUpUserSevice = async function name(formData) {
+export const signUpUserSevice = async function signUpUser(formData) {
   const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_SIGN_UP_API_URL}`;
 
   const authorization =
     "Basic " +
     btoa(
-      `${process.env.BASIC_AUTH_USERNAME} : ${process.env.BASIC_AUTH_PASSWORD}`
+      `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
     );
 
   const res = await fetch(serviceUrl, {
@@ -39,7 +39,7 @@ export async function getUserProfileInfo() {
     const authorization =
       "Basic " +
       btoa(
-        `${process.env.BASIC_AUTH_USERNAME} : ${process.env.BASIC_AUTH_PASSWORD}`
+        `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
       );
 
     // If you have a custom API endpoint to validate/get user data from token
@@ -68,13 +68,13 @@ export async function getUserProfileInfo() {
   }
 }
 
-export const updateUserProfileService = async function name(formData) {
+export const updateUserProfileService = async function updateUserProfile(formData) {
   const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_UPDATE_USER_PROFILE_API_URL}`;
 
   const authorization =
     "Basic " +
     btoa(
-      `${process.env.BASIC_AUTH_USERNAME} : ${process.env.BASIC_AUTH_PASSWORD}`
+      `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
     );
 
   const res = await fetch(serviceUrl, {

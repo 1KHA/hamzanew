@@ -1,6 +1,6 @@
 "use server";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../../pages/api/auth/[...nextauth]";
+import { authOptions } from "@/lib/auth";
 import { getUserProfileInfo } from "./user-service";
 
 // Cache duration in milliseconds (5 minutes)

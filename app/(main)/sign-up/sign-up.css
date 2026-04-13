@@ -143,6 +143,19 @@
 }
 
 /* --------------------------------------------------------------------------
+   API / form-level error banner (shown above the action buttons)
+   -------------------------------------------------------------------------- */
+
+.sign-up-page__api-error {
+  color: #d92d20;
+  background-color: #fff4f2;
+  border: 1px solid #fda29b;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
    Actions row (Next / Prev buttons)
    -------------------------------------------------------------------------- */
 

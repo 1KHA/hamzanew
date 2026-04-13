@@ -14,11 +14,11 @@ export const fetchJsonList = async function name(vocabularyName) {
   const authorization =
     "Basic " +
     btoa(
-      `${process.env.BASIC_AUTH_USERNAME} : ${process.env.BASIC_AUTH_PASSWORD}`
+      `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
     );
 
   const cookieStore = await cookies();
-  const language = cookieStore.get("lang")?.value || "ar-SA";
+  const locale = cookieStore.get("lang")?.value || "ar-SA";
 
   const res = await fetch(serviceUrl, {
     method: "GET",
@@ -52,7 +52,7 @@ export const fetchSubCategoryList = async function name(
   const authorization =
     "Basic " +
     btoa(
-      `${process.env.BASIC_AUTH_USERNAME} : ${process.env.BASIC_AUTH_PASSWORD}`
+      `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
     );
 
   const cookieStore = await cookies();

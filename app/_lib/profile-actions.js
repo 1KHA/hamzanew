@@ -1,7 +1,7 @@
 "use server";
 
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../../pages/api/auth/[...nextauth]";
+import { authOptions } from "@/lib/auth";
 import { clearUserProfileCache, updateUserProfileCache } from "./session-cache";
 
 export async function updateUserProfile(profileData) {
@@ -18,7 +18,7 @@ export async function updateUserProfile(profileData) {
     const authorization =
       "Basic " +
       btoa(
-        `${process.env.BASIC_AUTH_USERNAME} : ${process.env.BASIC_AUTH_PASSWORD}`
+        `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
       );
 
     // Make API call to update profile
@@ -79,7 +79,7 @@ export async function changeUserPassword(passwordData) {
     const authorization =
       "Basic " +
       btoa(
-        `${process.env.BASIC_AUTH_USERNAME} : ${process.env.BASIC_AUTH_PASSWORD}`
+        `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
       );
 
     const payload = {

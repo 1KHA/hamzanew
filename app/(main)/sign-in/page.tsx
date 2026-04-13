@@ -164,6 +164,19 @@ export default function SignInPage() {
                 </a>
               </div>
 
+              {/* Root / API error */}
+              {errors.root?.message && (
+                <p
+                  className="sign-in-page__error text-sm-regular"
+                  role="alert"
+                  aria-live="assertive"
+                >
+                  {errors.root.message === "CredentialsSignin"
+                    ? "اسم المستخدم أو كلمة المرور غير صحيحة"
+                    : errors.root.message}
+                </p>
+              )}
+
               {/* Submit */}
               <Button
                 label={isSubmitting ? "جاري تسجيل الدخول..." : "تسجيل الدخول"}

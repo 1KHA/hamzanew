@@ -1,7 +1,7 @@
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
-export const proxy = withAuth(
+export default withAuth(
   function middleware(request) {
     // Check if user has a token 
     const user = request.nextauth.token;
@@ -19,6 +19,8 @@ export const proxy = withAuth(
     return NextResponse.next();
   },
   {
+    // Explicit secret for Edge Runtime compatibility (Next.js 15+)
+    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
       authorized: ({ req, token }) => {
         const path = req.nextUrl.pathname;

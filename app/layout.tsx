@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 // import localFont from "next/font/local";
 import "./globals.css";
 // import NavHeader from "./components/nav-header/NavHeader";
-import ClientOnly from "./components/ClientOnly";
 import AuthProvider from "@/lib/utils/AuthProvider";
 // import Footer from "./components/footer/Footer";
 
@@ -55,11 +54,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col">
-        <ClientOnly>
-          <AuthProvider>
-            {children}
-          </AuthProvider>
-        </ClientOnly>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

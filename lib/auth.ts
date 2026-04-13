@@ -1,9 +1,41 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+/**
+ * Validates user credentials against the Liferay backend.
+ * Uses Basic Auth with the user's own username/password to call
+ * the Liferay headless user account endpoint.
+ */
+async function getUser(username: string, password: string) {
+  const authURL = `${process.env.BASE_URL}/o/headless-admin-user/v1.0/my-user-account`;
+  const credentials = Buffer.from(`${username}:${password}`).toString("base64");
+
+  try {
+    const response = await fetch(authURL, {
+      method: "GET",
+      headers: {
+        Authorization: `Basic ${credentials}`,
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    });
+
+    if (response.ok) {
+      const user = await response.json();
+      console.log("Liferay user authenticated:", user.id, user.emailAddress);
+      return user;
+    }
+
+    console.warn("Liferay auth failed with status:", response.status);
+    return null;
+  } catch (error) {
+    console.error("Error authenticating with Liferay:", error);
+    return null;
+  }
+}
+
 export const authOptions: NextAuthOptions = {
   session: {
-    // Use JWT for session storage
     strategy: "jwt",
   },
   providers: [
@@ -13,29 +45,25 @@ export const authOptions: NextAuthOptions = {
         username: { label: "username", type: "text" },
         password: { label: "password", type: "password" },
       },
-      async authorize(credentials, req) {
-        // 1. Validate username/password
-        // const user = await getUser(credentials.username, credentials.password);
-        // if (!user) {
-        //   throw new Error("Invalid username or password");
-        // }
+      async authorize(credentials) {
+        if (!credentials?.username || !credentials?.password) {
+          throw new Error("اسم المستخدم وكلمة المرور مطلوبان");
+        }
 
-        // // 2. If OTP is not provided, indicate "OTP_REQUIRED"
-        // if (!credentials.otp) {
-        //   throw new Error("OTP_REQUIRED");
-        // }
+        const user = await getUser(credentials.username, credentials.password);
 
-        // // 3. Validate OTP
-        // const validOtp = await verifyOtp(user.id, credentials.otp);
-        // if (!validOtp) {
-        //   throw new Error("Invalid OTP");
-        // }
+        if (!user) {
+          throw new Error("اسم المستخدم أو كلمة المرور غير صحيحة");
+        }
 
-        // On success, return user object; add custom fields as needed
+        // Return the user object — this gets stored in the JWT token
         return {
-          id: "1",
-          name: "User",
-          username: "User",
+          id: String(user.id),
+          name:
+            user.name ||
+            `${user.givenName || ""} ${user.familyName || ""}`.trim(),
+          email: user.emailAddress,
+          username: credentials.username,
         };
       },
     }),
@@ -44,21 +72,23 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt(params: any) {
       const { token, user } = params;
-      // On login, add user data to the token
+      // On initial sign-in, persist user data into the JWT token
       if (user) {
         token.id = user.id;
-        token.username = user.username;
+        token.username = user.username || user.email;
         token.name = user.name;
+        token.email = user.email;
       }
       return token;
     },
     async session(params: any) {
       const { session, token } = params;
-      // Make token data available to client and middleware
+      // Expose token data to the client session
       if (token && session.user) {
         session.user.id = token.id;
         session.user.username = token.username;
         session.user.name = token.name;
+        session.user.email = token.email;
       }
       return session;
     },
@@ -67,39 +97,3 @@ export const authOptions: NextAuthOptions = {
     signIn: "/sign-in",
   },
 };
-
-// async function getUser(username, password) {
-//   // Validate the user's username and password (e.g., DB lookup)
-//   // Return user object or null/false on failure
-
-//   const authURL = `${process.env.BASE_URL}/o/headless-admin-user/v1.0/my-user-account`;
-//   const credentials = btoa(`${username}:${password}`);
-
-//   try {
-//     const response = await fetch(authURL, {
-//       method: "GET",
-//       headers: {
-//         Authorization: `Basic ${credentials}`,
-//         Accept: "application/json",
-//       },
-//     });
-
-//     if (response.ok) {
-//       const user = await response.json();
-//       console.log("User fetched:", user);
-//       return user;
-//     } else {
-//       return null; // or handle unauthorized appropriately
-//     }
-//   } catch (error) {
-//     console.error("Error fetching user:", error);
-//     return null; // Handle error appropriately
-//   }
-// }
-
-// async function verifyOtp(userId, otp) {
-//   // Check OTP validity for the given user id
-//   // Return true if valid, else false
-
-//   return otp === "123456"; // Dummy OTP validation for demonstration
-// }
