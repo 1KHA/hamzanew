@@ -2,7 +2,7 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 
-export const signUpUserSevice = async function signUpUser(formData) {
+export const signUpUserSevice = async function signUpUserSevice(formData) {
   const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_SIGN_UP_API_URL}`;
 
   const authorization =

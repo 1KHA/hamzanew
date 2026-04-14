@@ -4,7 +4,17 @@ import {
   FieldValues,
   FieldPath,
 } from "react-hook-form";
-import { DgaTextInput } from "platformscode-new-react";
+import dynamic from "next/dynamic";
+
+/**
+ * Dynamically import DgaTextInput to avoid SSR issues (window is not defined).
+ * This component from platformscode-new-react accesses window during initialization,
+ * so we only render it on the client side.
+ */
+const DgaTextInput = dynamic(
+  () => import("platformscode-new-react").then((mod) => mod.DgaTextInput),
+  { ssr: false, loading: () => <input type="text" className="input__field" aria-hidden="true" /> }
+);
 
 /**
  * Props for the ControlledTextInput component.

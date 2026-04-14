@@ -11,7 +11,7 @@
  * )
  */
 
-import FeedbackForm from "./FeedbackForm";
+import FeedbackFormClient from "./FeedbackFormClient";
 import { Metadata } from "next";
 
 /**
@@ -22,5 +22,5 @@ export const metadata: Metadata = {
   description:""
 };
 export default function FeedbackAndSuggestionPage() {
-  return <FeedbackForm />;
+  return <FeedbackFormClient />;
 }
