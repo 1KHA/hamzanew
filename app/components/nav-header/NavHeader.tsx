@@ -286,8 +286,11 @@ function NavHeader() {
   const handleTranslate = useCallback(() => {
     const html = document.documentElement;
     const isArabic = html.lang === "ar";
-    html.lang = isArabic ? "en" : "ar";
-    html.dir = isArabic ? "ltr" : "rtl";
+    // Set the lang cookie and reload to apply changes consistently
+    document.cookie = `lang=${isArabic ? "en-US" : "ar-SA"}; path=/;`;
+    if (typeof window !== "undefined") {
+      window.location.reload();
+    }
   }, []);
 
   return (

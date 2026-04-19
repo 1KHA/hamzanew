@@ -4,6 +4,7 @@ import {
   getPeriodicAdvisoryCommitteeHero,
   getHamzaAmbassadorsHero,
   getWhoWeAreHero,
+  getHamzaTestTraitsHero,
 } from "./_hero/heroMap";
 import PageHero from "@/app/components/page-hero/PageHero";
 
@@ -17,12 +18,16 @@ export default async function AboutLayout({ children }: { children: ReactNode })
   // Fetch dynamic hero data for hamza ambassadors
   const ambassadorsHero = await getHamzaAmbassadorsHero();
 
+  // Fetch dynamic hero data for hamza test traits
+  const traitsHero = await getHamzaTestTraitsHero();
+
   // Merge dynamic heroes with static heroMap
   const dynamicHeroMap = {
     ...heroMap,
     "/about/who-we-are": whoWeAreHero,
     "/about/periodic-advisory-committee": periodicHero,
     "/about/hamza-ambassadors": ambassadorsHero,
+    "/about/hamza-test-traits": traitsHero,
   };
 
   return (

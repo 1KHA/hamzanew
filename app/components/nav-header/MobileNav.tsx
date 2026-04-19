@@ -325,7 +325,13 @@ export default function MobileNav({
                 className="dga-btn dga-btn--lg dga-btn--subtle"
                 onClick={() => {
                   onClose();
-                  onTranslateClick();
+                  const html = document.documentElement;
+                  const isArabic = html.lang === "ar";
+                  // Set the lang cookie and reload to apply changes consistently
+                  document.cookie = `lang=${isArabic ? "en-US" : "ar-SA"}; path=/;`;
+                  if (typeof window !== "undefined") {
+                    window.location.reload();
+                  }
                 }}
                 aria-label="تبديل اللغة"
               >

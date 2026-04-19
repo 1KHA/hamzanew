@@ -1,8 +1,13 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import Card from "@/app/components/card/Card";
 import "../about.css";
+
+export const metadata: Metadata = {
+  title: "سمات اختبار همزة",
+  description:
+    "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية.",
+};
 
 /**
  * Interface representing a trait or characteristic of the Hamza test.
@@ -17,10 +22,10 @@ interface Trait {
 }
 
 /* ==========================================================================
-   Static Data (used as initial/fallback values)
+   Static Data (used as fallback values)
    ========================================================================== */
 
-const initialTraits: Trait[] = [
+const fallbackTraits: Trait[] = [
   {
     number: "1",
     title: "مصممة بأفضل معايير الأمان",
@@ -50,8 +55,9 @@ const initialTraits: Trait[] = [
 /**
  * HamzaTestTraitsPage Component
  *
- * Displays the key traits and characteristics of the Hamza test.
- * Fetches data from /api/traits and falls back to static data if unavailable.
+ * Server-rendered page that displays the key traits and characteristics of the Hamza test.
+ * Fetches localized data from /api/traits based on the lang cookie.
+ * Falls back to static data if API is unavailable.
  *
  * @accessibility
  * - Uses semantic HTML (<section>, <ul>, <li>)
@@ -61,33 +67,38 @@ const initialTraits: Trait[] = [
  *
  * @returns {JSX.Element} The rendered Hamza Test Traits page.
  */
-export default function HamzaTestTraitsPage() {
-  const [title, setTitle] = useState("السمات");
-  const [traits, setTraits] = useState<Trait[]>(initialTraits);
-  const [isLoading, setIsLoading] = useState(true);
+export default async function HamzaTestTraitsPage() {
+  let title = "السمات";
+  let traits: Trait[] = fallbackTraits;
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch("/api/traits");
-        const data = await response.json();
+  try {
+    // Get the lang cookie to forward to the API
+    const cookieStore = await cookies();
+    const langCookie = cookieStore.get("lang")?.value || "ar-SA";
+    
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const response = await fetch(`${baseURL}/api/traits`, {
+      cache: "no-store",
+      headers: {
+        Cookie: `lang=${langCookie}`,
+      },
+    });
 
-        if (data.title) {
-          setTitle(data.title);
-        }
+    if (response.ok) {
+      const data = await response.json();
 
-        if (data.traits && data.traits.length > 0) {
-          setTraits(data.traits);
-        }
-      } catch (error) {
-        console.error("Failed to fetch traits:", error);
-      } finally {
-        setIsLoading(false);
+      if (data.title) {
+        title = data.title;
+      }
+
+      if (data.traits && data.traits.length > 0) {
+        traits = data.traits;
       }
     }
-
-    fetchData();
-  }, []);
+  } catch (error) {
+    console.error("Failed to fetch traits:", error);
+    // Will use fallback data
+  }
 
   return (
     <div
@@ -96,7 +107,7 @@ export default function HamzaTestTraitsPage() {
         backgroundColor: "#f9fafb",
         backgroundImage: `url(/assets/image/bg-image.png)`,
         backgroundRepeat: "no-repeat",
-        backgroundPosition: "1233.365px 0px", // Maintains original styling
+        backgroundPosition: "1233.365px 0px",
       }}
     >
       <section
@@ -107,24 +118,20 @@ export default function HamzaTestTraitsPage() {
           {title}
         </h2>
         <ul className="grid-cols-4-gap-24" role="list">
-          {isLoading ? (
-            <div>Loading...</div>
-          ) : (
-            traits.map((trait) => (
-              <li key={trait.number} style={{ listStyle: "none" }}>
-                <Card
-                  style={{
-                    alignSelf: "stretch",
-                    flex: "1 0 0",
-                    border: "none",
-                  }}
-                  number={trait.number}
-                  title={trait.title}
-                  description={trait.description}
-                />
-              </li>
-            ))
-          )}
+          {traits.map((trait) => (
+            <li key={trait.number} style={{ listStyle: "none" }}>
+              <Card
+                style={{
+                  alignSelf: "stretch",
+                  flex: "1 0 0",
+                  border: "none",
+                }}
+                number={trait.number}
+                title={trait.title}
+                description={trait.description}
+              />
+            </li>
+          ))}
         </ul>
       </section>
     </div>

@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 // import NavHeader from "./components/nav-header/NavHeader";
 import AuthProvider from "@/lib/utils/AuthProvider";
+import { cookies } from "next/headers";
 // import Footer from "./components/footer/Footer";
 
 // const geistSans = Geist({
@@ -30,13 +31,20 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Read language from cookie to set html attributes
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value || "ar-SA";
+  const isArabic = locale === "ar-SA";
+  const lang = isArabic ? "ar" : "en";
+  const dir = isArabic ? "rtl" : "ltr";
+
   return (
-    <html lang="ar" dir="rtl">
+    <html lang={lang} dir={dir}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link

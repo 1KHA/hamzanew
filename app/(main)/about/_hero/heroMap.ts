@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+
 export type HeroData = {
   title: string;
   description?: string;
@@ -61,26 +63,6 @@ const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     ],
   },
 
-  "/about/hamza-test-traits": {
-    title: "سمات إختبار همزة",
-    description:
-      "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية، ويستخدمها أفراد يسعون إلى الدراسة أو العمل أو الهجرة إلى دول ناطقة بالعربية. تدعم هذه الاختبارات المؤسسات في اختيار الطلاب الأنسب، وبناء كوادر قادرة على التواصل بفاعلية في بيئات العمل والتعليم، واستقطاب الكفاءات إلى جهتك.",
-    bgColor: "#F9FAFB",
-    externalLink: {
-      href: "/sign-up",
-      label: "التسجيل في الاختبار",
-    },
-    breadcrumbs: [
-      { label: "الرئيسة", path: "/" },
-      { label: "عن الجهة", disabled: true },
-      { label: "عن همزة", path: "/about" },
-      {
-        label: "سمات إختبار همزة",
-        path: "/about/hamza-test-traits",
-        disabled: true,
-      },
-    ],
-  },
   "/about/benefits-of-hamza-test": {
     title: "أهمية اختبارات همزة",
     bgColor: "#F9FAFB",
@@ -271,6 +253,71 @@ export async function getHamzaAmbassadorsHero(): Promise<HeroData & { breadcrumb
         {
           label: "سفراء همزة",
           path: "/about/hamza-ambassadors",
+          disabled: true,
+        },
+      ],
+    };
+  }
+}
+
+// Function to fetch dynamic hamza test traits hero data
+export async function getHamzaTestTraitsHero(): Promise<HeroData & { breadcrumbs?: Crumb[] }> {
+  try {
+    // Get the lang cookie to forward to the API
+    const cookieStore = await cookies();
+    const langCookie = cookieStore.get("lang")?.value || "ar-SA";
+    
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const response = await fetch(`${baseURL}/api/traits`, {
+      cache: 'no-store',
+      headers: {
+        Cookie: `lang=${langCookie}`,
+      },
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch traits data');
+    }
+    
+    const data = await response.json();
+    
+    return {
+      title: data.title || "سمات إختبار همزة",
+      description: "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية، ويستخدمها أفراد يسعون إلى الدراسة أو العمل أو الهجرة إلى دول ناطقة بالعربية. تدعم هذه الاختبارات المؤسسات في اختيار الطلاب الأنسب، وبناء كوادر قادرة على التواصل بفاعلية في بيئات العمل والتعليم، واستقطاب الكفاءات إلى جهتك.",
+      bgColor: "#F9FAFB",
+      externalLink: {
+        href: "/sign-up",
+        label: "التسجيل في الاختبار",
+      },
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "عن الجهة", disabled: true },
+        { label: "عن همزة", path: "/about" },
+        {
+          label: data.title || "سمات إختبار همزة",
+          path: "/about/hamza-test-traits",
+          disabled: true,
+        },
+      ],
+    };
+  } catch (error) {
+    console.error('Error fetching traits hero:', error);
+    // Return static fallback data
+    return {
+      title: "سمات إختبار همزة",
+      description: "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية، ويستخدمها أفراد يسعون إلى الدراسة أو العمل أو الهجرة إلى دول ناطقة بالعربية. تدعم هذه الاختبارات المؤسسات في اختيار الطلاب الأنسب، وبناء كوادر قادرة على التواصل بفاعلية في بيئات العمل والتعليم، واستقطاب الكفاءات إلى جهتك.",
+      bgColor: "#F9FAFB",
+      externalLink: {
+        href: "/sign-up",
+        label: "التسجيل في الاختبار",
+      },
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "عن الجهة", disabled: true },
+        { label: "عن همزة", path: "/about" },
+        {
+          label: "سمات إختبار همزة",
+          path: "/about/hamza-test-traits",
           disabled: true,
         },
       ],

@@ -22,12 +22,15 @@ export default function DigitalSignature() {
 
   const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
 
-  // Directly mutates <html> lang/dir — intentional, no React state needed
+  // Set lang cookie and reload to apply changes consistently
   const switchLanguage = useCallback(() => {
     const html = document.documentElement;
     const isArabic = html.lang === "ar";
-    html.lang = isArabic ? "en" : "ar";
-    html.dir = isArabic ? "ltr" : "rtl";
+    // Set the lang cookie and reload to apply changes consistently
+    document.cookie = `lang=${isArabic ? "en-US" : "ar-SA"}; path=/;`;
+    if (typeof window !== "undefined") {
+      window.location.reload();
+    }
   }, []);
 
   return (
