@@ -9,31 +9,19 @@ import FileUpload, {
 } from "@/app/components/FileUpload/FileUpload";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
-import { NewUserFormValues } from "./page";
+import { NewUserFormValues } from "./SignUpForm";
 
-const ID_TYPE_OPTIONS = [
-  { name: "هوية وطنية", value: "national_id" },
-  { name: "إقامة", value: "iqama" },
-  { name: "جواز سفر", value: "passport" },
-];
+interface PersonalInfoProps {
+  motherTongueOptions: any[];
+  proofOptions: any[];
+  countriesOptions: any[];
+}
 
-const NATIONALITY_OPTIONS = [
-  { name: "سعودي", value: "SA" },
-  { name: "مصري", value: "EG" },
-  { name: "أردني", value: "JO" },
-  { name: "إماراتي", value: "AE" },
-  { name: "كويتي", value: "KW" },
-  { name: "أخرى", value: "OTHER" },
-];
-
-const LANGUAGE_OPTIONS = [
-  { name: "العربية", value: "ar" },
-  { name: "الإنجليزية", value: "en" },
-  { name: "الفرنسية", value: "fr" },
-  { name: "أخرى", value: "other" },
-];
-
-export default function PersonalInfo() {
+export default function PersonalInfo({
+  motherTongueOptions,
+  proofOptions,
+  countriesOptions,
+}: PersonalInfoProps) {
   const {
     control,
     formState: { errors },
@@ -159,12 +147,12 @@ export default function PersonalInfo() {
               placeholder="اختر الجنسية"
               size="lg"
               variant="darker"
-              optionLabel="name"
-              trackBy="value"
-              options={NATIONALITY_OPTIONS}
+              optionLabel="label"
+              trackBy="key"
+              options={countriesOptions}
               className="w-full"
               value={field.value}
-              getSelectedOptions={(opt: any) => field.onChange(opt.value)}
+              getSelectedOptions={(opt: any) => field.onChange(opt.key)}
             />
           )}
         />
@@ -173,7 +161,7 @@ export default function PersonalInfo() {
       <FormField
         label="اللغة الأم"
         required
-        error={errors.motherTongue?.message}
+        error={errors.motherTongue?.message as string | undefined}
       >
         <Controller
           name="motherTongue"
@@ -183,18 +171,18 @@ export default function PersonalInfo() {
               placeholder="اختر اللغة الأم"
               size="lg"
               variant="darker"
-              optionLabel="name"
-              trackBy="value"
-              options={LANGUAGE_OPTIONS}
+              optionLabel="label"
+              trackBy="key"
+              options={motherTongueOptions}
               className="w-full"
               value={field.value}
-              getSelectedOptions={(opt: any) => field.onChange(opt.value)}
+              getSelectedOptions={(opt: any) => field.onChange(opt)}
             />
           )}
         />
       </FormField>
 
-      <FormField label="الاثبات" required error={errors.identity?.message}>
+      <FormField label="الاثبات" required error={errors.identity?.message as string | undefined}>
         <Controller
           name="identity"
           control={control}
@@ -203,12 +191,12 @@ export default function PersonalInfo() {
               placeholder="اختر نوع الاثبات"
               size="lg"
               variant="darker"
-              optionLabel="name"
-              trackBy="value"
-              options={ID_TYPE_OPTIONS}
+              optionLabel="label"
+              trackBy="key"
+              options={proofOptions}
               className="w-full"
               value={field.value}
-              getSelectedOptions={(opt: any) => field.onChange(opt.value)}
+              getSelectedOptions={(opt: any) => field.onChange(opt)}
             />
           )}
         />

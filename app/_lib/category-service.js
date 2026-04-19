@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 
-export const fetchJsonList = async function name(vocabularyName) {
+export const fetchJsonList = async function fetchJsonList(vocabularyName) {
   //   const serviceUrl =
   //     `${process.env.BASE_URL}${process.env.HAMZA_CATEGORY_SERVICE_API_URL}` +
   //     vocabularyName;
@@ -24,7 +24,7 @@ export const fetchJsonList = async function name(vocabularyName) {
     method: "GET",
     headers: {
       Authorization: authorization,
-      "Accept-Language": language,
+      "Accept-Language": locale,
     },
     // cache: "force-cache", // Optional: caching behavior
   });
@@ -39,7 +39,7 @@ export const fetchJsonList = async function name(vocabularyName) {
   return content;
 };
 
-export const fetchSubCategoryList = async function name(
+export const fetchSubCategoryList = async function fetchSubCategoryList(
   vocabularyId,
   parentCategoryId
 ) {

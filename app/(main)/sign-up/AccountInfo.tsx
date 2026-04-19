@@ -12,7 +12,7 @@ import {
   PHONE_PREFIXES,
   PrefixOption,
 } from "@/lib/utils/phonePrefixes";
-import { NewUserFormValues } from "./page";
+import { NewUserFormValues } from "./SignUpForm";
 
 export default function AccountInfo() {
   const {

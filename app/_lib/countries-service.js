@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 
-export const fetchCountriesList = async function name() {
+export const fetchCountriesList = async function fetchCountriesList() {
   const serviceUrl =
     `${process.env.BASE_URL}` +
     "/o/headless-admin-address/v1.0/countries?pageSize=500&fields=a2,title_i18n";
@@ -33,7 +33,7 @@ export const fetchCountriesList = async function name() {
   return content;
 };
 
-export const getFormattedCountriesList = async function name() {
+export const getFormattedCountriesList = async function getFormattedCountriesList() {
   try {
     // Get language from cookie
     const cookieStore = await cookies();

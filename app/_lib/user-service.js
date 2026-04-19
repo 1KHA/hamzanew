@@ -68,7 +68,7 @@ export async function getUserProfileInfo() {
   }
 }
 
-export const updateUserProfileService = async function updateUserProfile(formData) {
+export const updateUserProfileService = async function updateUserProfileService(formData) {
   const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_UPDATE_USER_PROFILE_API_URL}`;
 
   const authorization =

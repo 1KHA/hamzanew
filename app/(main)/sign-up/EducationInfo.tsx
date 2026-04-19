@@ -4,24 +4,21 @@ import { useFormContext, Controller } from "react-hook-form";
 import { DgaDropdown } from "platformscode-new-react";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
-import { NewUserFormValues } from "./page";
+import { NewUserFormValues } from "./SignUpForm";
 
-const DEGREE_OPTIONS = [
-  { name: "ثانوية عامة", value: "high_school" },
-  { name: "دبلوم", value: "diploma" },
-  { name: "بكالوريوس", value: "bachelor" },
-  { name: "ماجستير", value: "master" },
-  { name: "دكتوراه", value: "phd" },
-];
+interface EducationInfoProps {
+  educationQualificationsOptions: any[];
+  educationInstitutionsOptions: any[];
+  specializationOptions: any[];
+  motherTongueOptions: any[];
+}
 
-const LANGUAGE_OPTIONS = [
-  { name: "العربية", value: "ar" },
-  { name: "الإنجليزية", value: "en" },
-  { name: "الفرنسية", value: "fr" },
-  { name: "أخرى", value: "other" },
-];
-
-export default function EducationInfo() {
+export default function EducationInfo({
+  educationQualificationsOptions,
+  educationInstitutionsOptions,
+  specializationOptions,
+  motherTongueOptions,
+}: EducationInfoProps) {
   const {
     control,
     formState: { errors },
@@ -32,7 +29,7 @@ export default function EducationInfo() {
       <FormField
         label="آخر مؤهل دراسي"
         required
-        error={errors.education?.message}
+        error={errors.education?.message as string | undefined}
       >
         <Controller
           name="education"
@@ -42,12 +39,12 @@ export default function EducationInfo() {
               placeholder="اختر المؤهل"
               size="lg"
               variant="darker"
-              optionLabel="name"
-              trackBy="value"
-              options={DEGREE_OPTIONS}
+              optionLabel="label"
+              trackBy="key"
+              options={educationQualificationsOptions}
               className="w-full"
               value={field.value}
-              getSelectedOptions={(opt: any) => field.onChange(opt.value)}
+              getSelectedOptions={(opt: any) => field.onChange(opt)}
             />
           )}
         />
@@ -56,35 +53,55 @@ export default function EducationInfo() {
       <FormField
         label="المؤسسة التعليمية"
         required
-        error={errors.institution?.message}
-        htmlFor="input-institution"
+        error={errors.institution?.message as string | undefined}
       >
-        <ControlledTextInput
+        <Controller
           name="institution"
-          id="input-institution"
-          size="lg"
-          variant="darker"
+          control={control}
+          render={({ field }) => (
+            <DgaDropdown
+              placeholder="اختر المؤسسة"
+              size="lg"
+              variant="darker"
+              optionLabel="label"
+              trackBy="key"
+              options={educationInstitutionsOptions}
+              className="w-full"
+              value={field.value}
+              getSelectedOptions={(opt: any) => field.onChange(opt)}
+            />
+          )}
         />
       </FormField>
 
       <FormField
         label="التخصص الدراسي"
         required
-        error={errors.specialization?.message}
-        htmlFor="input-specialization"
+        error={errors.specialization?.message as string | undefined}
       >
-        <ControlledTextInput
+        <Controller
           name="specialization"
-          id="input-specialization"
-          size="lg"
-          variant="darker"
+          control={control}
+          render={({ field }) => (
+            <DgaDropdown
+              placeholder="اختر التخصص"
+              size="lg"
+              variant="darker"
+              optionLabel="label"
+              trackBy="key"
+              options={specializationOptions}
+              className="w-full"
+              value={field.value}
+              getSelectedOptions={(opt: any) => field.onChange(opt)}
+            />
+          )}
         />
       </FormField>
 
       <FormField
         label="اللغة الأساسية في التعليم"
         required
-        error={errors.basicLanguageInEducation?.message}
+        error={errors.basicLanguageInEducation?.message as string | undefined}
       >
         <Controller
           name="basicLanguageInEducation"
@@ -94,12 +111,12 @@ export default function EducationInfo() {
               placeholder="اختر اللغة"
               size="lg"
               variant="darker"
-              optionLabel="name"
-              trackBy="value"
-              options={LANGUAGE_OPTIONS}
+              optionLabel="label"
+              trackBy="key"
+              options={motherTongueOptions}
               className="w-full"
               value={field.value}
-              getSelectedOptions={(opt: any) => field.onChange(opt.value)}
+              getSelectedOptions={(opt: any) => field.onChange(opt)}
             />
           )}
         />

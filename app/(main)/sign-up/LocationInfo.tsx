@@ -4,39 +4,17 @@ import { useFormContext, Controller } from "react-hook-form";
 import { DgaDropdown } from "platformscode-new-react";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
-import { NewUserFormValues } from "./page";
+import { NewUserFormValues } from "./SignUpForm";
 
-const TIMEZONE_OPTIONS = [
-  { name: "توقيت الرياض (GMT+3)", value: "Asia/Riyadh" },
-  { name: "توقيت القاهرة (GMT+2)", value: "Africa/Cairo" },
-  { name: "توقيت دبي (GMT+4)", value: "Asia/Dubai" },
-  { name: "توقيت لندن (GMT+0)", value: "Europe/London" },
-];
+interface LocationInfoProps {
+  timezoneOptions: any[];
+  countriesOptions: any[];
+}
 
-const COUNTRY_OPTIONS = [
-  { name: "المملكة العربية السعودية", value: "SA" },
-  { name: "مصر", value: "EG" },
-  { name: "الأردن", value: "JO" },
-  { name: "الإمارات", value: "AE" },
-  { name: "الكويت", value: "KW" },
-];
-
-const REGION_OPTIONS = [
-  { name: "منطقة الرياض", value: "riyadh" },
-  { name: "منطقة مكة المكرمة", value: "makkah" },
-  { name: "المنطقة الشرقية", value: "eastern" },
-  { name: "منطقة المدينة المنورة", value: "madinah" },
-];
-
-const CITY_OPTIONS = [
-  { name: "الرياض", value: "riyadh_city" },
-  { name: "جدة", value: "jeddah" },
-  { name: "مكة المكرمة", value: "makkah_city" },
-  { name: "المدينة المنورة", value: "madinah_city" },
-  { name: "الدمام", value: "dammam" },
-];
-
-export default function LocationInfo() {
+export default function LocationInfo({
+  timezoneOptions,
+  countriesOptions,
+}: LocationInfoProps) {
   const {
     control,
     formState: { errors },
@@ -47,7 +25,7 @@ export default function LocationInfo() {
       <FormField
         label="المنطقة الزمنية"
         required
-        error={errors.timezone?.message}
+        error={errors.timezone?.message as string | undefined}
       >
         <Controller
           name="timezone"
@@ -57,13 +35,13 @@ export default function LocationInfo() {
               placeholder="اختر المنطقة الزمنية"
               size="lg"
               variant="darker"
-              optionLabel="name"
-              trackBy="value"
-              options={TIMEZONE_OPTIONS}
+              optionLabel="label"
+              trackBy="key"
+              options={timezoneOptions}
               className="w-full"
               value={field.value}
               error={!!errors.timezone}
-              getSelectedOptions={(opt: any) => field.onChange(opt.value)}
+              getSelectedOptions={(opt: any) => field.onChange(opt)}
             />
           )}
         />
@@ -78,12 +56,12 @@ export default function LocationInfo() {
               placeholder="اختر الدولة"
               size="lg"
               variant="darker"
-              optionLabel="name"
-              trackBy="value"
-              options={COUNTRY_OPTIONS}
+              optionLabel="label"
+              trackBy="key"
+              options={countriesOptions}
               className="w-full"
               value={field.value}
-              getSelectedOptions={(opt: any) => field.onChange(opt.value)}
+              getSelectedOptions={(opt: any) => field.onChange(opt.key)}
             />
           )}
         />
@@ -98,16 +76,11 @@ export default function LocationInfo() {
           name="state"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
-              placeholder="اختر الولاية"
+            <ControlledTextInput
+              name="state"
+              placeholder="أدخل الولاية"
               size="lg"
               variant="darker"
-              optionLabel="name"
-              trackBy="value"
-              options={REGION_OPTIONS}
-              className="w-full"
-              value={field.value}
-              getSelectedOptions={(opt: any) => field.onChange(opt.value)}
             />
           )}
         />
@@ -118,16 +91,11 @@ export default function LocationInfo() {
           name="city"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
-              placeholder="اختر المدينة"
+            <ControlledTextInput
+              name="city"
+              placeholder="أدخل المدينة"
               size="lg"
               variant="darker"
-              optionLabel="name"
-              trackBy="value"
-              options={CITY_OPTIONS}
-              className="w-full"
-              value={field.value}
-              getSelectedOptions={(opt: any) => field.onChange(opt.value)}
             />
           )}
         />
