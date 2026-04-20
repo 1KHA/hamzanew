@@ -90,6 +90,63 @@ export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   },
 };
 
+// Function to fetch dynamic test mechanism hero data
+export async function getTestMechanismHero(): Promise<
+  HeroData & { breadcrumbs?: Crumb[] }
+> {
+  try {
+    const baseURL =
+      process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const response = await fetch(
+      `${baseURL}/api/test-takers/test-mechanism`,
+      { cache: "no-store" }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch test mechanism data");
+    }
+
+    const data = await response.json();
+
+    return {
+      title: data.header?.title || "آلية الاختبار",
+      description:
+        data.header?.description ||
+        'خيارات مرنة لأداء اختبار همزة فهو اختبار محوسب يوفر لك خيارات متعددة لأداء اختبار سواءً من خلال مراكزنا المعتمدة حضوريًا أو عن بُعد. نلتزم بتطبيق أعلى معايير الأمان والمصداقية، لضمان الحفاظ على ثقة المؤسسات الأكاديمية والمهنية التي تعتمد نتائج اختبار "همزة" في العالم العربي وخارجه',
+      bgColor: "#F9FAFB",
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "المتقدمون للإختبار", disabled: true },
+        { label: "الاستعداد للاختبار", disabled: true },
+        {
+          label: data.header?.title || "آلية الاختبار",
+          path: "/test-takers/test-mechanism",
+          disabled: true,
+        },
+      ],
+    };
+  } catch (error) {
+    console.error("Error fetching test mechanism hero:", error);
+    // Return static fallback data
+    return {
+      title: "آلية الاختبار",
+      description:
+        'خيارات مرنة لأداء اختبار همزة فهو اختبار محوسب يوفر لك خيارات متعددة لأداء اختبار سواءً من خلال مراكزنا المعتمدة حضوريًا أو عن بُعد. نلتزم بتطبيق أعلى معايير الأمان والمصداقية، لضمان الحفاظ على ثقة المؤسسات الأكاديمية والمهنية التي تعتمد نتائج اختبار "همزة" في العالم العربي وخارجه',
+      bgColor: "#F9FAFB",
+      breadcrumbs: [
+        { label: "الرئيسة", path: "/" },
+        { label: "المتقدمون للإختبار", disabled: true },
+        { label: "الاستعداد للاختبار", disabled: true },
+        {
+          label: "آلية الاختبار",
+          path: "/test-takers/test-mechanism",
+          disabled: true,
+        },
+      ],
+    };
+  }
+}
+
 // Function to fetch dynamic preparation resource hero data from Lifford
 export async function getPreparationResourceHero(): Promise<
   HeroData & { breadcrumbs?: Crumb[] }

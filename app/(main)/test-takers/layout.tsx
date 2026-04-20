@@ -1,5 +1,9 @@
 import type { ReactNode } from "react";
-import { heroMap, getPreparationResourceHero } from "./heroMap";
+import {
+  heroMap,
+  getPreparationResourceHero,
+  getTestMechanismHero,
+} from "./heroMap";
 import PageHero from "@/app/components/page-hero/PageHero";
 
 export default async function TestTakersLayout({
@@ -7,12 +11,16 @@ export default async function TestTakersLayout({
 }: {
   children: ReactNode;
 }) {
-  // Fetch dynamic hero data for preparation resource
-  const prepResourceHero = await getPreparationResourceHero();
+  // Fetch dynamic hero data for multiple routes
+  const [testMechanismHero, prepResourceHero] = await Promise.all([
+    getTestMechanismHero(),
+    getPreparationResourceHero(),
+  ]);
 
   // Merge dynamic heroes with static heroMap
   const dynamicHeroMap = {
     ...heroMap,
+    "/test-takers/test-mechanism": testMechanismHero,
     "/test-takers/preparation-resource": prepResourceHero,
   };
 

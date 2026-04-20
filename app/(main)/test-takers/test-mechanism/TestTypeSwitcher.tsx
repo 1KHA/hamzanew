@@ -6,32 +6,52 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import Button from "../../../components/button/Button";
 
-const TEST_TYPES = [
-  {
-    label: "حضوري",
-    image: "/assets/image/In-person test.png",
-    imageAlt: "اختبار همزة حضوري - متقدم يؤدي الاختبار في مركز رسمي",
-    title: "اختبار همزة عبر الحاسوب",
-    descriptions: [
-      "يتم في مراكز الاختبار الرسمية",
-      "تصدر النتائج بين 4 إلى 6 أسابيع من أداء الاختبار.",
-    ],
-  },
-  {
-    label: "عن بعد",
-    image: "/assets/image/remote test.png",
-    imageAlt: "اختبار همزة عن بعد - متقدم يؤدي الاختبار عبر الإنترنت",
-    title: "اختبار همزة عبر الحاسوب",
-    descriptions: [
-      "يتم عبر المنصة المخصصة بالاختبار",
-      "تصدر النتائج بين 4 إلى 6 أسابيع من أداء الاختبار.",
-    ],
-  },
-] as const;
+export interface TabData {
+  label: string;
+  image: string;
+  imageAlt: string;
+  title: string;
+  descriptions: string[];
+  buttonText: string;
+  buttonLink?: string;
+}
 
-export default function TestTypeSwitcher() {
+interface TestTypeSwitcherProps {
+  inPersonTab?: TabData;
+  remoteTab?: TabData;
+}
+
+const DEFAULT_IN_PERSON_TAB: TabData = {
+  label: "حضوري",
+  image: "/assets/image/In-person test.png",
+  imageAlt: "اختبار همزة حضوري - متقدم يؤدي الاختبار في مركز رسمي",
+  title: "اختبار همزة عبر الحاسوب",
+  descriptions: [
+    "يتم في مراكز الاختبار الرسمية",
+    "تصدر النتائج بين 4 إلى 6 أسابيع من أداء الاختبار.",
+  ],
+  buttonText: "التسجيل في الإختبار",
+};
+
+const DEFAULT_REMOTE_TAB: TabData = {
+  label: "عن بعد",
+  image: "/assets/image/remote test.png",
+  imageAlt: "اختبار همزة عن بعد - متقدم يؤدي الاختبار عبر الإنترنت",
+  title: "اختبار همزة عبر الحاسوب",
+  descriptions: [
+    "يتم عبر المنصة المخصصة بالاختبار",
+    "تصدر النتائج بين 4 إلى 6 أسابيع من أداء الاختبار.",
+  ],
+  buttonText: "التسجيل في الإختبار",
+};
+
+export default function TestTypeSwitcher({
+  inPersonTab = DEFAULT_IN_PERSON_TAB,
+  remoteTab = DEFAULT_REMOTE_TAB,
+}: TestTypeSwitcherProps) {
+  const tabs = [inPersonTab, remoteTab];
   const [selected, setSelected] = useState(0);
-  const current = TEST_TYPES[selected];
+  const current = tabs[selected];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const switcherRef = useRef<any>(null);
 
@@ -55,14 +75,13 @@ export default function TestTypeSwitcher() {
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 gap-[40px] xl:gap-[80px] items-center w-full">
-
       {/* Right Column: Content */}
       <div className="flex flex-col gap-[24px] items-start" role="tabpanel" aria-live="polite">
         {/* Toggle Tabs */}
         <DgaContentSwitcher
           ref={switcherRef}
           size="md"
-          items={TEST_TYPES.map((t) => ({ label: t.label, content: "" }))}
+          items={tabs.map((t) => ({ label: t.label, content: "" }))}
         />
 
         {/* Title & Description */}
@@ -89,7 +108,7 @@ export default function TestTypeSwitcher() {
             {/* CTA Button */}
             <div className="!mt-[32px]">
               <Button
-                label="التسجيل في الإختبار"
+                label={current.buttonText}
                 variant="primary-brand"
                 size="lg"
                 icon="arrow-up-right-01"
