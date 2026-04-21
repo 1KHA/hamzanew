@@ -22,7 +22,7 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
           </div>
           <div
             className="flex-start-center gap-4"
-            role="tablist"
+            role="group"
             aria-label="تصفية الشركاء حسب الموقع"
           >
             <Tag

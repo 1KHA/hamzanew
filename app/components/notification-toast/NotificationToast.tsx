@@ -160,9 +160,9 @@ const NotificationToast: React.FC<NotificationToastProps> = ({
         {/* Body */}
         <div className="notification-toast__body">
           {leadText && (
-            <h4 className="notification-toast__title text-md-semibold">
+            <p className="notification-toast__title text-md-semibold">
               {leadText}
-            </h4>
+            </p>
           )}
           {helperText && (
             <p className="notification-toast__content text-sm-regular">

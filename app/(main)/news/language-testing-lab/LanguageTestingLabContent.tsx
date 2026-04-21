@@ -38,14 +38,14 @@ const GOALS = [
 
 function GoalCard({ number, description }: { number: string; description: string }) {
   return (
-    <li className="about-value-card">
+    <div className="about-value-card">
       <div className="about-value-card__header">
         <span className="about-value-card__badge text-xl-bold">{number}</span>
         <div className="about-value-card__content">
           <p className="about-value-card__desc">{description}</p>
         </div>
       </div>
-    </li>
+    </div>
   );
 }
 

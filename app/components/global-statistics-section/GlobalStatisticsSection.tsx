@@ -155,6 +155,8 @@ function GlobalStatisticsSection() {
         <img
           src="/assets/image/global.png"
           alt="Global Statistics Background"
+          width={1200}
+          height={600}
           className="w-full md:w-[70%]"
         />
         {/* statistics section */}

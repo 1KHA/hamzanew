@@ -152,7 +152,7 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       className={combinedClass}
       onClick={onClick}
-      aria-label={iconOnly ? (ariaLabel || label) : undefined}
+      aria-label={iconOnly ? (ariaLabel || label) : (ariaLabel || undefined)}
       aria-disabled={disabled}
     >
       {iconOnly ? (

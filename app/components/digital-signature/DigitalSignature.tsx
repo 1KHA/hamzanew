@@ -116,6 +116,7 @@ export default function DigitalSignature() {
           role="region"
           aria-label="تفاصيل التحقق من الموقع"
           aria-hidden={!isOpen ? true : undefined}
+          inert={!isOpen || undefined}
           className={`digital_collapsible ${isOpen ? "open" : ""}`}
         >
           <div className="min-h-0">

@@ -86,9 +86,9 @@ function TestCardComponent({ test }: { test: TestCard }) {
         </div>
 
         <div className="card-content flex-1 flex flex-col items-start text-start">
-          <h3 id={`test-title-${test.id}`} className="text-lg-bold">
+          <h2 id={`test-title-${test.id}`} className="text-lg-bold">
             {test.title}
-          </h3>
+          </h2>
           <p className="text-md-regular">{test.description}</p>
         </div>
 
@@ -195,12 +195,9 @@ export default function TypesOfTestsContent() {
             <video
               className="video-player__element"
               controls
-              poster="/assets/video/video-poster.jpg"
               preload="metadata"
               aria-label="فيديو شرح آلية التسجيل في اختبارات همزة"
             >
-              <source src="/assets/video/registration-guide.mp4"  type="video/mp4"  />
-              <source src="/assets/video/registration-guide.webm" type="video/webm" />
               <track kind="captions" srcLang="ar" label="العربية" />
               متصفحك لا يدعم تشغيل الفيديو.
             </video>

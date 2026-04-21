@@ -217,6 +217,7 @@ export default function MobileNav({
         aria-modal="true"
         aria-label="قائمة التنقل"
         aria-hidden={!isOpen}
+        inert={!isOpen || undefined}
       >
         {/* Header row: logo on one side, close button on the other */}
         <div className="mobile-nav__header">

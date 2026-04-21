@@ -12,7 +12,7 @@ const r = (i: number) => i * STAGGER;
 
 function ValueCard({ number, title, description }: { number: string; title: string; description: string }) {
   return (
-    <li className="about-value-card">
+    <div className="about-value-card">
       <div className="about-value-card__header">
         <span className="about-value-card__badge text-xl-bold">{number}</span>
         <div className="about-value-card__content">
@@ -20,7 +20,7 @@ function ValueCard({ number, title, description }: { number: string; title: stri
           <p className="about-value-card__desc">{description}</p>
         </div>
       </div>
-    </li>
+    </div>
   );
 }
 

@@ -321,25 +321,22 @@ const Carousel: React.FC<CarouselProps> = ({
                 : "none",
             }}
           >
-            {items.map((item, index) => (
-              <div
-                key={index}
-                className="carousel-item"
-                role="group"
-                aria-roledescription="slide"
-                aria-label={`العنصر ${index + 1} من ${totalItems}`}
-                aria-hidden={
-                  index < currentSlide || index >= currentSlide + effectiveItems
-                }
-                tabIndex={
-                  index >= currentSlide && index < currentSlide + effectiveItems
-                    ? 0
-                    : -1
-                }
-              >
-                {item}
-              </div>
-            ))}
+            {items.map((item, index) => {
+              const isVisible = index >= currentSlide && index < currentSlide + effectiveItems;
+              return (
+                <div
+                  key={index}
+                  className="carousel-item"
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label={`العنصر ${index + 1} من ${totalItems}`}
+                  aria-hidden={!isVisible}
+                  inert={!isVisible || undefined}
+                >
+                  {item}
+                </div>
+              );
+            })}
           </div>
         </div>
 

@@ -158,17 +158,22 @@ export function DgaBreadcrumbs({
                           key={it.label}
                           className="dga-breadcrumb-dropdown-item"
                         >
-                          <a
-                            href={it.disabled ? undefined : it.path}
-                            onClick={(e) => {
-                              setIsMenuOpen(false);
-                              handleClick(e, it);
-                            }}
-                            className={`link-neutral ${it.disabled ? "link-neutral--disabled" : ""}`}
-                            aria-disabled={it.disabled}
-                          >
-                            {it.label}
-                          </a>
+                          {it.disabled ? (
+                            <span className="link-neutral link-neutral--disabled" aria-disabled="true">
+                              {it.label}
+                            </span>
+                          ) : (
+                            <a
+                              href={it.path}
+                              onClick={(e) => {
+                                setIsMenuOpen(false);
+                                handleClick(e, it);
+                              }}
+                              className="link-neutral"
+                            >
+                              {it.label}
+                            </a>
+                          )}
                         </li>
                       ))}
                     </ul>
@@ -200,23 +205,20 @@ export function DgaBreadcrumbs({
                   </span>
                 )}
 
-                {b.path ? (
+                {b.path && !b.disabled && !isLast ? (
                   <a
-                    href={b.disabled ? undefined : b.path}
+                    href={b.path}
                     onClick={(e) => handleClick(e, b)}
-                    className={`link-neutral ${b.disabled ? "link-neutral--disabled" : ""} ${
-                      isLast ? "link-neutral_current" : ""
-                    }`}
-                    aria-disabled={b.disabled}
+                    className="link-neutral"
                   >
                     {b.label}
                   </a>
                 ) : (
                   <span
-                    className={`link-neutral link-neutral_empty ${b.disabled ? "link-neutral--disabled" : ""} ${
+                    className={`link-neutral ${b.disabled ? "link-neutral--disabled" : ""} ${
                       isLast ? "link-neutral_current" : ""
                     }`}
-                    aria-disabled={b.disabled}
+                    aria-current={isLast ? "page" : undefined}
                   >
                     {b.label}
                   </span>

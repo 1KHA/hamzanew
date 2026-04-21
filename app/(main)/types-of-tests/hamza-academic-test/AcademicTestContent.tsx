@@ -160,7 +160,7 @@ export default function AcademicTestContent() {
                 اختبار همزة الأكاديمي
               </p>
 
-              <h2 id="test-sections-title" className="display-sm-bold hidden xl:block">
+              <h2 id="test-sections-title" className="display-sm-bold sr-only xl:not-sr-only">
                 أقسام الاختبار
                 <Image
                   src="/assets/icons/stroke-standard/arrow-left-02-stroke-rounded.svg"
@@ -206,7 +206,7 @@ export default function AcademicTestContent() {
 
         {/* Mobile-only title */}
         <ScrollReveal direction="up" delay={l(0)} duration={DURATION} amount={AMOUNT}>
-          <h2 className="display-sm-bold block xl:hidden">أقسام الاختبار</h2>
+          <h2 className="display-sm-bold xl:hidden" aria-hidden="true">أقسام الاختبار</h2>
         </ScrollReveal>
 
         <div
