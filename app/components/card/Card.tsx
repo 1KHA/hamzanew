@@ -101,20 +101,7 @@ const Card: React.FC<CardProps> = ({
   const [isRTL, setIsRTL] = useState(true);
 
  useEffect(() => {
-    // Initial sync
-    const updateDir = () => {
-      setIsRTL(document.documentElement.dir !== "ltr");
-    };
-    updateDir();
-
-    // Watch the HTML tag for any direction changes so it flips instantly
-    const observer = new MutationObserver(updateDir);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["dir"],
-    });
-
-    return () => observer.disconnect();
+    setIsRTL(document.documentElement.dir !== "ltr");
   }, []);
 
   const resolvedTrailIconType =

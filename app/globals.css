@@ -1,5 +1,12 @@
 @import "tailwindcss";
-@import "platformscode-new-react/dist/style.css";
+
+:root {
+  --stepper-button-completed: #1b8354;
+  --stepper-button-current: #1b8354;
+  --stepper-button-upcomming: #d2d6db;
+  --stepper-text-primary: #1f2a37;
+  --stepper-text-secondary: #384250;
+}
 
 @keyframes spin-slow {
   from {
@@ -536,6 +543,16 @@ html[lang="en"] .flip-rtl {
   --link-primary-focused: #1b8354; /* Same as default */
   --link-primary-visited: #1b8354; /* dark green for visited */
   --link-disabled: #9da4ae; /* Gray for disabled */
+  --link-neutral: #384250;
+  --link-neutral-hovered: #111927;
+  --link-neutral-pressed: #0d131a;
+  --link-neutral-focused: #384250;
+  --link-oncolor: #ffffff;
+  --link-oncolor-hovered: #e0e0e0;
+  --link-oncolor-pressed: #c0c0c0;
+  --link-oncolor-visited: #ffffff;
+  --link-oncolor-focused: #ffffff;
+  --link-oncolor-disabled: #9da4ae;
 
   /* Border Colors */
   --border-black: #000000;
@@ -557,6 +574,218 @@ html[lang="en"] .flip-rtl {
   --Global-spacing-8xl: 80px;
   --Global-spacing-10xl: 128px;
 }
+
+/* ============================================================
+   Design tokens extracted from platformscode design system
+   Used by Button.css and other component stylesheets
+   ============================================================ */
+:root {
+  /* Alpha white tokens */
+  --alpha-white-0: #ffffff00;
+  --alpha-white-10: #ffffff19;
+  --alpha-white-20: #ffffff33;
+  --alpha-white-30: #ffffff4c;
+  --alpha-white-40: #ffffff66;
+  --alpha-white-50: #ffffff7f;
+  --alpha-white-60: #ffffff99;
+  --alpha-white-70: #ffffffb2;
+  --alpha-white-80: #ffffffcc;
+  --alpha-white-90: #ffffffe5;
+  --alpha-white-100: #ffffff;
+
+  /* Alpha black tokens */
+  --alpha-black-0: #16161600;
+  --alpha-black-10: #16161619;
+  --alpha-black-20: #16161633;
+  --alpha-black-30: #1616164c;
+  --alpha-black-40: #16161666;
+  --alpha-black-50: #1616167f;
+  --alpha-black-60: #16161699;
+  --alpha-black-70: #161616b2;
+  --alpha-black-80: #161616cc;
+  --alpha-black-90: #161616e5;
+  --alpha-black-100: #161616;
+
+  /* Text tokens */
+  --text-default: var(--colors-base-black);
+  --text-oncolor-primary: var(--colors-base-white);
+  --text-default-disabled: var(--colors-neutral-400);
+  --text-default-oncolor-disabled: var(--alpha-white-40);
+  --text-error: var(--colors-red-700);
+  --colors-text-primary: var(--colors-base-black);
+
+  /* Background tokens */
+  --background-disabled: var(--colors-neutral-200);
+
+  /* Border tokens */
+  --border-neutral-primary: var(--colors-neutral-300);
+  --border-neutral-secondary: var(--colors-neutral-200);
+  --border-white-40: var(--alpha-white-40);
+  --border-error-light: var(--colors-red-200);
+
+  /* Icon tokens */
+  --icon-default: var(--colors-base-black);
+  --icon-default-oncolor-disabled: var(--colors-alpha-alpha-white-40);
+
+  /* Button background — black variant */
+  --button-background-black-default: var(--colors-neutral-950);
+  --button-background-black-hovered: var(--colors-neutral-800);
+  --button-background-black-pressed: var(--colors-neutral-600);
+  --button-background-black-selected: var(--colors-neutral-700);
+
+  /* Button background — on-color variant */
+  --button-background-oncolor-default: var(--colors-base-white);
+  --button-background-oncolor-hovered: var(--alpha-white-80);
+  --button-background-oncolor-pressed: var(--alpha-white-60);
+  --button-background-oncolor-selected: var(--alpha-white-70);
+  --button-background-disabled-on-color: var(--alpha-white-20);
+
+  /* Button background — primary brand variant */
+  --button-background-primary-default: var(--colors-primary-sa-flag-600-primary);
+  --button-background-primary-hovered: var(--colors-primary-sa-flag-700);
+  --button-background-primary-pressed: var(--colors-primary-sa-flag-900);
+  --button-background-primary-selected: var(--colors-primary-sa-flag-800);
+
+  /* Button background — neutral / secondary variant */
+  --button-background-neutral-default: var(--colors-neutral-100);
+  --button-background-neutral-hovered: var(--colors-neutral-100);
+  --button-background-neutral-pressed: var(--colors-neutral-200);
+  --button-background-neutral-selected: var(--colors-neutral-200);
+  --button-background-neutral-default-pressed: var(--colors-neutral-200);
+  --button-background-neutral-default-selected: var(--colors-neutral-200);
+
+  /* Button background — transparent variant */
+  --button-background-transparent-hovered: var(--alpha-white-20);
+  --button-background-transparent-pressed: var(--alpha-white-40);
+  --button-background-transparent-selected: var(--alpha-white-30);
+  --Button-button-background-transparent-pressed: var(--alpha-white-40);
+  --Button-button-background-transparent-selected: var(--alpha-white-30);
+
+  /* Button background — danger primary variant */
+  --button-background-danger-primary-default: var(--colors-red-600);
+  --button-background-danger-primary-hovered: var(--colors-red-700);
+  --button-background-danger-primary-pressed: var(--colors-red-900);
+  --button-background-danger-primary-selected: var(--colors-red-800);
+
+  /* Button background — danger secondary variant */
+  --button-background-danger-secondary-default: var(--colors-red-50);
+  --button-background-danger-secondary-hovered: var(--colors-red-100);
+  --button-background-danger-secondary-pressed: var(--colors-red-200);
+  --button-background-danger-secondary-selected: var(--colors-red-50);
+
+  /* Button label — transparent on-color variant */
+  --button-label-transparent-hovered-on-color: var(--colors-primary-sa-flag-400);
+  --button-label-transparent-selected-on-color: var(--colors-primary-sa-flag-400);
+  --button-label-transparent-pressed-on-color: var(--colors-primary-sa-flag-300);
+
+  /* Form field / Dropdown tokens — resolved from platformscode-sanitized.css */
+  --colors-gray-neutral-50: var(--colors-neutral-50);
+  --colors-gray-neutral-300: var(--colors-neutral-300);
+  --field-text-filled: var(--text-default);
+  --form-field-background-default: var(--colors-base-white);
+  --form-field-background-darker: var(--colors-neutral-100);
+  --form-field-border-default: var(--colors-neutral-400);
+  --form-field-border-error: var(--colors-red-700);
+  --form-field-border-hovered: var(--colors-neutral-700);
+  --form-field-border-pressed: var(--colors-neutral-950);
+  --form-field-text-placeholder: var(--colors-neutral-500);
+  --form-option-background-hover: var(--colors-neutral-100);
+  --form-option-background-pressed: var(--colors-neutral-200);
+  --text-display: var(--colors-neutral-800);
+
+  /* TextInput / Form tokens — resolved from platformscode-sanitized.css */
+  --form-field-text-focused: var(--text-primary-paragraph);
+  --form-field-text-readonly: var(--text-default);
+  --form-field-text-label: var(--text-default);
+  --form-field-text-helper: var(--text-secondary-paragraph);
+  --form-field-background-lighter: var(--colors-neutral-25);
+  --text-secondary-paragraph: var(--colors-neutral-500);
+  --text-success: var(--colors-green-600);
+  --text-warning: var(--colors-yellow-600);
+  --input-text-disabled: var(--colors-neutral-400);
+
+  /* Checkbox / Controls tokens — resolved from platformscode-sanitized.css */
+  --controls-control-border: var(--colors-neutral-500);
+  --controls-control-ripple-effect: var(--colors-neutral-200);
+  --controls-control-neutral-checked: var(--colors-neutral-950);
+  --controls-control-neutral-hovered: var(--colors-neutral-600);
+  --controls-control-pressed: var(--colors-neutral-300);
+  --controls-control-primary-checked: var(--colors-primary-sa-flag-600-primary);
+  --controls-control-primary-hovered: var(--colors-primary-sa-flag-800);
+  --controls-control-primary-pressed: var(--colors-primary-sa-flag-800);
+  --control-disabled: var(--colors-neutral-400);
+  --icon-error: var(--colors-red-700);
+  --border-disabled: var(--colors-neutral-400);
+
+  /* Notification tokens — resolved from platformscode-core.css */
+  --controls-control-neutral-pressed: var(--colors-neutral-600);
+  --colors-text-secondary: var(--colors-neutral-500);
+  --background-error: var(--colors-red-600);
+  --background-warning: var(--colors-yellow-600);
+  --background-success: var(--colors-green-600);
+  --background-info: var(--colors-blue-600);
+  --background-black: var(--colors-base-black);
+  --background-neutral-50: var(--colors-neutral-50);
+  --background-neutral-100: var(--colors-neutral-100);
+  --background-primary: var(--colors-primary-sa-flag-600-primary);
+  --background-surface-oncolor: var(--colors-base-white);
+  --text-info: var(--colors-blue-700);
+  --notification-background-error-light: var(--colors-red-50);
+  --notification-background-warning-light: var(--colors-yellow-50);
+  --notification-background-success-light: var(--colors-green-50);
+  --notification-background-info-light: var(--colors-blue-50);
+
+  /* Tag tokens — resolved from platformscode-core.css */
+  --tag-text-neutral: var(--colors-neutral-800);
+  --tag-text-success: var(--colors-green-800);
+  --tag-text-error: var(--colors-red-800);
+  --tag-text-warning: var(--colors-yellow-800);
+  --tag-text-info: var(--colors-blue-800);
+  --tag-background-neutral-light: var(--colors-neutral-50);
+  --tag-background-success-light: var(--colors-green-50);
+  --tag-background-error-light: var(--colors-red-50);
+  --tag-background-warning-light: var(--colors-yellow-50);
+  --tag-background-info-light: var(--colors-blue-50);
+  --tag-border-neutral: var(--colors-neutral-600);
+  --tag-border-success: var(--colors-green-700);
+  --tag-border-success-light: var(--colors-green-200);
+  --tag-border-error: var(--colors-red-700);
+  --tag-border-error-light: var(--colors-red-200);
+  --tag-border-warning-light: var(--colors-yellow-200);
+  --tag-border-info: var(--colors-blue-700);
+  --tag-border-info-light: var(--colors-blue-200);
+  --tag-background-on-color: var(--colors-alpha-alpha-white-20);
+  --tag-border-on-color: var(--colors-alpha-alpha-white-60);
+
+  /* Extended color palette — purple / pink / orange */
+  --colors-purple-50: #faf5ff;
+  --colors-purple-200: #e9d5ff;
+  --colors-purple-500: #a855f7;
+  --colors-purple-700: #7e22ce;
+  --colors-pink-50: #fdf2f8;
+  --colors-pink-200: #fbcfe8;
+  --colors-pink-500: #ec4899;
+  --colors-pink-700: #be185d;
+  --colors-orange-50: #fff7ed;
+  --colors-orange-200: #fed7aa;
+  --colors-orange-500: #f97316;
+  --colors-orange-700: #c2410c;
+  --colors-alpha-white: 0 0% 100%;
+
+  /* NavHeader tokens — resolved from platformscode-sanitized.css */
+  --background-menu: var(--colors-base-white);
+  --background-neutral-300: var(--colors-neutral-300);
+  --background-neutral-400: var(--colors-neutral-400);
+  --background-neutral-800: var(--colors-neutral-800);
+  --background-primary-400: var(--colors-primary-sa-flag-400);
+  --background-primary-50: var(--colors-primary-sa-flag-50);
+  --background-sa-flag: var(--colors-green-900);
+  --text-primary: var(--colors-primary-sa-flag-600-primary);
+  --text-primary-paragraph: var(--colors-neutral-700);
+  --icon-primary: var(--colors-primary-sa-flag-600-primary);
+  --icon-oncolor: var(--colors-base-white);
+}
+
 /* @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"); */
 /* @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap"); */
 /* html,
@@ -751,7 +980,7 @@ body {
   max-width: 1280px;
   width: -webkit-fill-available;
   padding: 0px 16px;
-  margin: auto;
+  margin: 0px auto;
 }
 
 /* Feedback survey panel animation */
@@ -797,7 +1026,7 @@ body {
   .content {
     max-width: 1280px;
     padding: 0px 32px;
-    margin: auto;
+    margin: 0px auto;
   }
 }
 
@@ -965,15 +1194,12 @@ li {
 }
 /* Home banner */
 
-.c-mask {
-  width: 100vw;
-  overflow: hidden;
-  position: relative;
-}
+ 
 
 .embla-custom {
   position: relative;
   overflow: hidden;
+  height: 560px;
 }
 
 .embla-custom__slide {

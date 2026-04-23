@@ -1,0 +1,48 @@
+@keyframes loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.dga-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dga-loading__circle {
+  position: relative;
+  border: 2px solid var(--background-neutral-100, #f3f4f6);
+  border-top-color: var(--background-black, #000000);
+  mix-blend-mode: multiply;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  animation: loading-spin 0.5s linear infinite;
+}
+
+/* ── Sizes ── */
+.dga-loading--tiny { width: 20px; height: 20px; }
+.dga-loading--xs   { width: 24px; height: 24px; }
+.dga-loading--sm   { width: 28px; height: 28px; }
+.dga-loading--md   { width: 32px; height: 32px; }
+.dga-loading--lg   { width: 36px; height: 36px; }
+.dga-loading--xl   { width: 40px; height: 40px; }
+.dga-loading--huge { width: 44px; height: 44px; }
+
+/* ── Variants ── */
+.dga-loading--neutral .dga-loading__circle {
+  border-color: var(--background-neutral-100, #f3f4f6);
+  border-top-color: var(--background-black, #000000);
+}
+
+.dga-loading--brand .dga-loading__circle {
+  border-color: var(--background-neutral-100, #f3f4f6);
+  border-top-color: var(--background-primary, #1b8354);
+}
+
+.dga-loading--on-color .dga-loading__circle {
+  border-color: var(--alpha-white-30, #ffffff4c);
+  border-top-color: var(--background-surface-oncolor, #ffffff);
+  mix-blend-mode: normal;
+}

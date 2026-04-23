@@ -2,7 +2,6 @@
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import SideNav from "../components/side-nav/SideNav";
-import "platformscode-new-react/dist/style.css";
 import mockUserInfo from "./profile/_data/mockUserInfo.json";
 
 export default function ProfileLayout({ children }: { children: ReactNode }) {

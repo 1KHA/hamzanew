@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormContext, Controller } from "react-hook-form";
-import { DgaDropdown } from "@/lib/utils/platformscode";
+import Dropdown from "@/app/components/dropdown/Dropdown";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import { NewUserFormValues } from "./page";
@@ -53,14 +53,14 @@ export default function LocationInfo() {
           name="timezone"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر المنطقة الزمنية"
               size="lg"
               variant="darker"
               optionLabel="name"
               trackBy="value"
               options={TIMEZONE_OPTIONS}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               error={!!errors.timezone}
               getSelectedOptions={(opt: any) => field.onChange(opt.value)}
@@ -74,14 +74,14 @@ export default function LocationInfo() {
           name="country"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر الدولة"
               size="lg"
               variant="darker"
               optionLabel="name"
               trackBy="value"
               options={COUNTRY_OPTIONS}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               getSelectedOptions={(opt: any) => field.onChange(opt.value)}
             />
@@ -98,14 +98,14 @@ export default function LocationInfo() {
           name="state"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر الولاية"
               size="lg"
               variant="darker"
               optionLabel="name"
               trackBy="value"
               options={REGION_OPTIONS}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               getSelectedOptions={(opt: any) => field.onChange(opt.value)}
             />
@@ -118,14 +118,14 @@ export default function LocationInfo() {
           name="city"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر المدينة"
               size="lg"
               variant="darker"
               optionLabel="name"
               trackBy="value"
               options={CITY_OPTIONS}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               getSelectedOptions={(opt: any) => field.onChange(opt.value)}
             />

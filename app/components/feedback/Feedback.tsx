@@ -1,15 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import {
-  DgaTextarea as Textarea,
-  DgaCheckbox,
-  DgaRadioButton,
-} from "@/lib/utils/platformscode";
+import Textarea from "@/app/components/textarea/Textarea";
+import RadioButton from "@/app/components/radio-button/RadioButton";
+import CheckBox from "@/app/components/checkbox/CheckBox";
 import Notification from "../notification/Notification";
 import { useState, useRef, useCallback, useId, useMemo } from "react";
 import { usePathname } from "next/navigation";
 import "./Feedback.css";
+import "@/app/components/button/Button.css";
 
 /* ── Types ────────────────────────────────────────────────────────────────── */
 
@@ -163,7 +162,7 @@ export default function Feedback() {
                     >
                       <button
                         type="button"
-                        className="dga-btn dga-btn--lg dga-btn--primary-brand"
+                        className="dga-btn dga-btn--lg dga-btn--primary-brand flex-1"
                         onClick={() => handleUsefulChange("yes")}
                         aria-pressed={answer.isUseful === "yes"}
                         aria-controls={surveyPanelId}
@@ -175,7 +174,7 @@ export default function Feedback() {
                       </button>
                       <button
                         type="button"
-                        className="dga-btn dga-btn--lg dga-btn--primary-brand"
+                        className="dga-btn dga-btn--lg dga-btn--primary-brand flex-1"
                         onClick={() => handleUsefulChange("no")}
                         aria-pressed={answer.isUseful === "no"}
                         aria-controls={surveyPanelId}
@@ -278,7 +277,7 @@ export default function Feedback() {
                         </legend>
                         <div className="feedback-checkboxes">
                           {currentOptions.map((option) => (
-                            <DgaCheckbox
+                            <CheckBox
                               key={option.id}
                               label={option.text}
                               value={option.id}
@@ -322,6 +321,7 @@ export default function Feedback() {
                         variant="default"
                         translate="yes"
                         lang="ar"
+                        extraClass="max-w-[400px]"
                       />
                     </div>
 
@@ -339,14 +339,14 @@ export default function Feedback() {
                         أنا
                       </legend>
                       <div className="feedback-gender-options">
-                        <DgaRadioButton
+                        <RadioButton
                           name="gender"
                           label="ذكر"
                           value="male"
                           checked={answer.gender === "male"}
                           onChange={() => handleGenderChange("male")}
                         />
-                        <DgaRadioButton
+                        <RadioButton
                           name="gender"
                           label="أنثى"
                           value="female"

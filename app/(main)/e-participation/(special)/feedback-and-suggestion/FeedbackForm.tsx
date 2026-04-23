@@ -39,7 +39,8 @@ import {
   PHONE_PREFIXES,
   PrefixOption,
 } from "@/lib/utils/phonePrefixes";
-import { DgaDropdown, DgaTextarea } from "@/lib/utils/platformscode";
+import Textarea from "@/app/components/textarea/Textarea";
+import Dropdown from "@/app/components/dropdown/Dropdown";
 
 import "./feedback-form.css";
 
@@ -173,7 +174,7 @@ export default function FeedbackForm() {
   if (submitted) {
     return (
       <div
-        className="feedback-success section-spacing-4xl"
+        className="suggestion-success section-spacing-4xl"
         role="status"
         aria-live="polite"
       >
@@ -197,7 +198,7 @@ export default function FeedbackForm() {
         noValidate
         aria-label="نموذج الشكاوى والمقترحات"
       >
-        <div className="feedback-form section-spacing-4xl">
+        <div className="suggestion-form section-spacing-4xl">
           {/* First Name */}
           <FormField
             label="الاسم الاول"
@@ -397,14 +398,14 @@ export default function FeedbackForm() {
                     errors.category ? "category-select-error" : undefined
                   }
                 >
-                  <DgaDropdown
+                  <Dropdown
                     id="category-select"
                     placeholder="اقتراحات"
                     size="lg"
                     variant="darker"
                     optionLabel="name"
                     trackBy="value"
-                    className="w-full"
+                    extraClass="w-full"
                     value={field.value}
                     getSelectedOptions={(option: any) => {
                       field.onChange(option.value);
@@ -426,7 +427,7 @@ export default function FeedbackForm() {
               name="message"
               control={control}
               render={({ field }) => (
-                <DgaTextarea
+                <Textarea
                   {...field}
                   id="message"
                   placeholder="اكتب رسالتك"

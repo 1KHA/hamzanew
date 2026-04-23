@@ -18,7 +18,7 @@
  */
 
 import { useState } from "react";
-import { DgaListItem } from "@/lib/utils/platformscode";
+import ListItem from "@/app/components/list-item/ListItem";
 import { DgaTabs } from "@/app/components/tabs/DgaTabs";
 
 /**
@@ -99,19 +99,19 @@ export default function OpenDataContent() {
                       جودة الخدمات، وتعزيز الاستفادة من البيانات في تطوير تجربة
                       الاختبارات اللغوية.
                     </p>
-                    <DgaListItem
+                    <ListItem
                       itemText="تعزيز الشفافية ومشاركة المستفيدين في تطوير منصة اختبار همزة."
                       level="one"
                       type="unordered"
                       className="text-md-regular"
                     />
-                    <DgaListItem
+                    <ListItem
                       itemText="تحسين كفاءة الخدمات التعليمية وجودة الاختبارات المقدّمة."
                       level="one"
                       type="unordered"
                       className="text-md-regular"
                     />
-                    <DgaListItem
+                    <ListItem
                       itemText="إتاحة الفرص لتطوير خدمات وأدوات تعليمية جديدة تعتمد على تحليل البيانات."
                       level="one"
                       type="unordered"

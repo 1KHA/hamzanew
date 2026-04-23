@@ -216,7 +216,7 @@ export default function SignUpPage() {
     formState: { errors },
   } = methods;
   return (
-    <div className="sign-up-page-wrapper">
+    <div className=" content " style={{ paddingTop: "40px" }}>
       <div className="sign-up-page">
         {/* ── Right panel: Form ── */}
         <div className="sign-up-page__content">

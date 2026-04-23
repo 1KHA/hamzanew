@@ -1,20 +1,5 @@
-"use client";
-
-/**
- * PolicyContent Component
- *
- * Displays the E-Participaton Policy content.
- * This component is client-side rendered to handle interactive elements like the external link.
- *
- * @accessibility
- * - Uses semantic HTML tags (`<h4>`, `<ul>`, `<li>`) for structured content.
- * - Ensures list items are properly nested and readable by screen readers.
- * - External link includes proper `target="_blank"` and `rel="noopener noreferrer"` attributes for security and accessibility.
- * - Decorative icons are marked with `aria-hidden="true"` where appropriate (if purely visual).
- */
-
 import Image from "next/image";
-import { DgaLink } from "@/lib/utils/platformscode";
+import Link from "@/app/components/link/Link";
 
 export default function PolicyContent() {
   return (
@@ -63,22 +48,14 @@ export default function PolicyContent() {
         <div className="!flex !flex-row !m-0 !justify-start !gap-[4px] !flex-wrap text-md-regular items-center">
           <span>للاطلاع على لوائح المشاركة الإلكترونية لدى</span>
           <div className="inline-flex items-center gap-1">
-            <DgaLink
+            <Link
               external
               label="هيئة الحكومة الرقمية"
               size="lg"
               target="_blank"
-              rel="noopener noreferrer"
               url="https://dga.gov.sa/ar/E-Participation-Controls"
               variant="primary"
-              // Accessibility: Ensure screen readers know this opens a new tab
               aria-label="هيئة الحكومة الرقمية (يفتح في علامة تبويب جديدة)"
-              onClick={() =>
-                window.open(
-                  "https://dga.gov.sa/ar/E-Participation-Controls",
-                  "_blank",
-                )
-              }
             />
             {/* Visual indicator for external link */}
             <Image

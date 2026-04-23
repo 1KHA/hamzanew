@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormContext, Controller } from "react-hook-form";
-import { DgaDropdown } from "@/lib/utils/platformscode";
+import Dropdown from "@/app/components/dropdown/Dropdown";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import { NewUserFormValues } from "./page";
@@ -38,14 +38,14 @@ export default function EducationInfo() {
           name="education"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر المؤهل"
               size="lg"
               variant="darker"
               optionLabel="name"
               trackBy="value"
               options={DEGREE_OPTIONS}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               getSelectedOptions={(opt: any) => field.onChange(opt.value)}
             />
@@ -92,14 +92,14 @@ export default function EducationInfo() {
           name="basicLanguageInEducation"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر اللغة"
               size="lg"
               variant="darker"
               optionLabel="name"
               trackBy="value"
               options={LANGUAGE_OPTIONS}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               getSelectedOptions={(opt: any) => field.onChange(opt.value)}
             />

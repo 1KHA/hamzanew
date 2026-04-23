@@ -1,5 +1,5 @@
-"use client";
-import { DgaDropdown } from "@/lib/utils/platformscode";
+import Image from "next/image";
+import Dropdown from "@/app/components/dropdown/Dropdown";
 import Card from "../card/Card";
 import SearchBox from "@/app/components/search-box/SearchBox";
 import "./GlobalStatisticsSection.css";
@@ -68,12 +68,12 @@ function GlobalStatisticsSection() {
           />
           <div className="input-group">
             <label className="input-label">نوع الاختبار</label>
-            <DgaDropdown
+            <Dropdown
               placeholder="اختبار عام"
               variant="default"
               optionLabel="label"
               trackBy="value"
-              className="w-full"
+              extraClass="w-full"
               options={[
                 {
                   label: "اختبار عام",
@@ -96,12 +96,12 @@ function GlobalStatisticsSection() {
           </div>
           <div className="input-group">
             <label className="input-label">السنة</label>
-            <DgaDropdown
+            <Dropdown
               placeholder="2026"
               variant="default"
               optionLabel="label"
               trackBy="value"
-              className="w-full"
+              extraClass="w-full"
               options={[
                 {
                   label: "2026",
@@ -124,12 +124,12 @@ function GlobalStatisticsSection() {
           </div>
           <div className="input-group">
             <label className="input-label">الجنسية</label>
-            <DgaDropdown
+            <Dropdown
               placeholder="امريكية"
               variant="default"
               optionLabel="label"
               trackBy="value"
-              className="w-full"
+              extraClass="w-full"
               options={[
                 {
                   label: "امريكية",
@@ -152,12 +152,15 @@ function GlobalStatisticsSection() {
           </div>
         </div>
 
-        <img
+          <Image
           src="/assets/image/global.png"
           alt="Global Statistics Background"
           width={1200}
           height={600}
           className="w-full md:w-[70%]"
+          loading="lazy"
+          sizes="(max-width: 768px) 100vw, 70vw"
+          quality={50}
         />
         {/* statistics section */}
         <div className="cards-wrapper">

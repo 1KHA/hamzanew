@@ -1,4 +1,3 @@
-"use client";
 
 /**
  * ContactSidebar Component
@@ -11,7 +10,7 @@
  */
 
 import Image from "next/image";
-import { DgaLink } from "@/lib/utils/platformscode";
+import Link from "@/app/components/link/Link";
 
 /*
  * ── Icon Paths ──
@@ -54,15 +53,13 @@ function ContactItem({ icon, title, label, url, alt }: ContactItemProps) {
       <div className="!flex flex-col! justify-start! gap-2!">
         <h3 className="text-md-bold">{title}</h3>
         <div className="!flex flex-row! justify-start! gap-2! items-center">
-          <DgaLink
+          <Link
             external
             label={label}
             size="lg"
             target="_blank"
-            rel="noopener noreferrer"
             url={url}
             variant="primary"
-            onClick={() => window.open(url, "_blank")}
             aria-label={`Open ${title} in new tab`}
           />
 
@@ -99,17 +96,14 @@ function EmergencyItem({ title, number }: EmergencyItemProps) {
       <div className="!flex flex-row! justify-start! gap-2! items-center">
         <h3 className="text-md-bold m-0">{title}</h3>
         <div className="!flex flex-row! justify-start! gap-2! items-center">
-          <DgaLink
+          <Link
             external
-            label={number} // Visible text
-            role="link"
-            aria-label={`اتصل بـ ${title} على الرقم ${number}`} // Screen reader text "Call [Title] at [Number]"
+            label={number}
+            aria-label={`اتصل بـ ${title} على الرقم ${number}`}
             size="lg"
             target="_blank"
-            rel="noopener noreferrer"
             url={`tel:${number}`}
             variant="primary"
-            onClick={() => window.open(`tel:${number}`, "_blank")}
           />
           <Image
             src={ICONS.external}
@@ -180,7 +174,7 @@ export default function ContactSidebar() {
             <div className="!flex flex-col! justify-start! gap-2!">
               <h3 className="text-md-bold">الموقع</h3>
               <div className="!flex !flex-row !justify-start !gap-2 items-center">
-                <DgaLink label="الرياض" size="md" variant="primary" />
+                <Link label="الرياض" size="md" variant="primary" />
                 <Image
                   src={ICONS.link}
                   alt=""

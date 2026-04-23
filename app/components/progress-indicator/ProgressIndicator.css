@@ -9,6 +9,7 @@
 .progress-indicator__item {
   flex: 1;
   position: relative;
+  display: flex;
 }
 
 [data-alignment="vertical"].progress-indicator {
@@ -20,11 +21,14 @@
   flex: unset;
 }
 
+
+.text-sm-regular{
+  font: 400 14px/20px "IBMPlexSansArabic", sans-serif;
+}
 /* Step wrapper */
 
 .progress-indicator__step {
   position: relative;
-  width: 100%;
   max-width: 200px;
 }
 
@@ -97,11 +101,7 @@
 .progress-indicator__step-content > .step-text {
   gap: 4px;
   height: fit-content;
-  margin-inline-start: 0;
-}
-
-[data-alignment="vertical"] .progress-indicator__step-content > .step-text {
-  margin-inline-start: 16px;
+  margin-right: 16px;
 }
 
 .progress-indicator__step-content > .step-text > span {
@@ -121,7 +121,12 @@
   background: var(--stepper-button-upcomming, #d0d5dd);
   position: absolute;
   top: 16px;
-  inset-inline-start: 32px;
+  left: 32px;
+}
+
+[dir="rtl"] .progress-indicator__step-connector {
+  left: unset;
+  right: 32px;
 }
 
 .progress-indicator__step-connector--active {
@@ -131,6 +136,10 @@
 [data-alignment="vertical"] .progress-indicator__step-connector {
   height: calc(100% - 32px);
   width: 2px;
-  inset-inline-start: 15px;
+  left: 16px;
   top: 32px;
+}
+
+[dir="rtl"] [data-alignment="vertical"] .progress-indicator__step-connector {
+  right: 16px;
 }

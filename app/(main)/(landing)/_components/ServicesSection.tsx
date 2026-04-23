@@ -1,5 +1,3 @@
-"use client";
-
 import Card from "@/app/components/card/Card";
 import Carousel from "@/app/components/carousel/Carousel";
 import { Service } from "../_data/homeData";

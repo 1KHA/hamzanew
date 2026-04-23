@@ -1,7 +1,7 @@
 "use client";
 
-import { DgaTextInput } from "@/lib/utils/platformscode";
 import Button from "@/app/components/button/Button";
+import TextInput from "@/app/components/text-input/TextInput";
 
 /**
  * SubscriptionSection Component (Client Leaf)
@@ -40,17 +40,15 @@ export default function SubscriptionSection() {
             onSubmit={(e) => e.preventDefault()}
             aria-label="نموذج الاشتراك في النشرة البريدية"
           >
-            <DgaTextInput
-              feedbackIconType="error"
+            <TextInput
+              type="email"
               name="email"
-              onChange={() => {}}
-              onInput={() => {}}
               placeholder="ادخل البريد الشبكي"
-              size="lg"
-              type="text"
-              value=""
-              variant="default"
               aria-label="البريد الشبكي للاشتراك في النشرة البريدية"
+              size="lg"
+              variant="default"
+              autoComplete="email"
+              extraClass="md:!w-[280px]"
             />
             <Button
               label="مشاركة"

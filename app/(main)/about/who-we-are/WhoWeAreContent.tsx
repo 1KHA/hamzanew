@@ -1,4 +1,3 @@
-"use client";
 
 import Card from "@/app/components/card/Card";
 import ScrollReveal from "@/app/components/scroll-reveal/ScrollReveal";

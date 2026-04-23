@@ -228,21 +228,26 @@ const Carousel: React.FC<CarouselProps> = ({
 
   /* Initialize RTL detection and responsive items */
   useEffect(() => {
-    const updateState = () => {
-      setEffectiveItems(getItemsForWidth(window.innerWidth, itemsPerSlide));
-      setIsRTL(
-        document.dir === "rtl" ||
-          getComputedStyle(document.body).direction === "rtl"
+    const isRtlDoc =
+      document.dir === "rtl" ||
+      getComputedStyle(document.documentElement).direction === "rtl";
+    setIsRTL(isRtlDoc);
+    setEffectiveItems(getItemsForWidth(window.innerWidth, itemsPerSlide));
+    requestAnimationFrame(() => setIsReady(true));
+
+    let raf: number;
+    const updateSize = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() =>
+        setEffectiveItems(getItemsForWidth(window.innerWidth, itemsPerSlide))
       );
     };
 
-    updateState();
-
-    // Enable transitions after hydration to prevent flash
-    requestAnimationFrame(() => setIsReady(true));
-
-    window.addEventListener("resize", updateState);
-    return () => window.removeEventListener("resize", updateState);
+    window.addEventListener("resize", updateSize, { passive: true });
+    return () => {
+      window.removeEventListener("resize", updateSize);
+      cancelAnimationFrame(raf);
+    };
   }, [itemsPerSlide]);
 
   /* Reset current slide when effectiveItems changes */

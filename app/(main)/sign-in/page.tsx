@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
-import { DgaCheckbox } from "@/lib/utils/platformscode";
+import CheckBox from "@/app/components/checkbox/CheckBox";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -149,12 +149,12 @@ export default function SignInPage() {
 
               {/* Remember Me & Forgot Password */}
               <div className="sign-in-page__options">
-                <DgaCheckbox
+                <CheckBox
                   label="تذكرني"
                   size="md"
                   color="brand"
                   checked={rememberMe}
-                  onChange={(e) => setRememberMe((v) => !v)}
+                  onChange={() => setRememberMe((v) => !v)}
                 />
                 <a
                   href="/forgot-password"

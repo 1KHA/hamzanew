@@ -1,0 +1,88 @@
+.content-switcher {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-switcher__items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.content-switcher__item {
+  display: inline-flex;
+  min-width: 76px;
+  padding: var(--spacing-xs, 4px) 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border: 0;
+  background: var(--background-neutral-50, #f9fafb);
+  color: var(--colors-2-text-primary, #161616);
+}
+
+.content-switcher__item:hover {
+  background: var(--colors-gray-neutral-200, #e5e7eb);
+}
+
+.content-switcher__item:focus-visible {
+  outline: none;
+  border: 1px solid white !important;
+  box-shadow: 0 0 0 2px black;
+  z-index: 9;
+}
+
+.content-switcher__item--selected,
+.content-switcher__item--selected:hover {
+  background-color: var(--colors-gray-neutral-950, #0d121c);
+  color: var(--colors-2-text-primary_on-color, #fff);
+}
+
+/* RTL-aware border-radius */
+.content-switcher__item--first {
+  border-radius: 0 var(--radius-md, 8px) var(--radius-md, 8px) 0;
+  border-inline-start: 0.5px solid var(--border-neutral-primary, #d2d6db);
+}
+
+.content-switcher__item--mid {
+  border-radius: var(--radius-none, 0);
+  border-inline-start: 0.5px solid var(--colors-2-border-secondary, #e5e7eb);
+  border-inline-end: 0.5px solid var(--colors-2-border-secondary, #e5e7eb);
+}
+
+.content-switcher__item--last {
+  border-radius: var(--radius-md, 8px) 0 0 var(--radius-md, 8px);
+  border-inline-end: 0.5px solid var(--colors-2-border-secondary, #e5e7eb);
+}
+
+/* on-color variant */
+.content-switcher__item--on-color {
+  color: var(--colors-2-text-primary_on-color, #fff);
+  background: var(--button-background-transparent-hovered, rgba(255, 255, 255, 0.2));
+  border-color: var(--border-transparent-10, rgba(255, 255, 255, 0.1));
+}
+
+.content-switcher__item--on-color:hover {
+  background: var(--button-background-transparent-hovered, rgba(255, 255, 255, 0.2));
+}
+
+.content-switcher__item--on-color.content-switcher__item--selected,
+.content-switcher__item--on-color.content-switcher__item--selected:hover {
+  background-color: var(--text-success, #1b8354);
+}
+
+/* Sizes */
+.content-switcher__item--sm {
+  font: 400 16px/24px "IBMPlexSansArabic", sans-serif;
+  height: auto;
+}
+
+.content-switcher__item--md {
+  font: 400 18px/28px "IBMPlexSansArabic", sans-serif;
+  height: 40px;
+}
+
+.content-switcher__item--lg {
+  font: 400 20px/30px "IBMPlexSansArabic", sans-serif;
+  height: 48px;
+}

@@ -2,7 +2,7 @@
 
 import { useFormContext, Controller } from "react-hook-form";
 import { useState } from "react";
-import { DgaDropdown } from "@/lib/utils/platformscode";
+import Dropdown from "@/app/components/dropdown/Dropdown";
 import DateField from "@/app/components/date-field/DateField";
 import FileUpload, {
   UploadedFile,
@@ -161,14 +161,14 @@ export default function PersonalInfo() {
           name="nationality"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر الجنسية"
               size="lg"
               variant="darker"
               optionLabel="name"
               trackBy="value"
               options={NATIONALITY_OPTIONS}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               getSelectedOptions={(opt: any) => field.onChange(opt.value)}
             />
@@ -185,14 +185,14 @@ export default function PersonalInfo() {
           name="motherTongue"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر اللغة الأم"
               size="lg"
               variant="darker"
               optionLabel="name"
               trackBy="value"
               options={LANGUAGE_OPTIONS}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               getSelectedOptions={(opt: any) => field.onChange(opt.value)}
             />
@@ -205,14 +205,14 @@ export default function PersonalInfo() {
           name="identity"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر نوع الاثبات"
               size="lg"
               variant="darker"
               optionLabel="name"
               trackBy="value"
               options={ID_TYPE_OPTIONS}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               getSelectedOptions={(opt: any) => field.onChange(opt.value)}
             />

@@ -22,7 +22,7 @@
  */
 import Card from "@/app/components/card/Card";
 import Button from "@/app/components/button/Button";
-import { DgaTextInput } from "@/lib/utils/platformscode";
+import TextInput from "@/app/components/text-input/TextInput";
 import "@/app/components/card/card.css";
 
 interface HamzaOrgContentProps {
@@ -154,13 +154,13 @@ export default function HamzaOrgContent({
                       رقم الشهادة
                     </span>
 
-                    <DgaTextInput
+                    <TextInput
                       placeholder="أدخل رقم الشهادة"
                       size="lg"
                       variant="default"
                       aria-label="رقم الشهادة"
                       aria-describedby="certificate-number-help"
-                      aria-required={true}
+                      required
                     />
                   </div>
                   <Button

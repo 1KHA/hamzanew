@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
-import { DgaContentSwitcher } from "@/lib/utils/platformscode";
+import { useState } from "react";
+import ContentSwitcher from "@/app/components/content-switcher/ContentSwitcher";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import Button from "../../../components/button/Button";
@@ -32,26 +32,6 @@ const TEST_TYPES = [
 export default function TestTypeSwitcher() {
   const [selected, setSelected] = useState(0);
   const current = TEST_TYPES[selected];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const switcherRef = useRef<any>(null);
-
-  const handleClick = useCallback(() => {
-    requestAnimationFrame(() => {
-      const el = switcherRef.current;
-      if (!el) return;
-      const val = (el as unknown as { selected: number }).selected ?? 0;
-      if (val !== selected) {
-        setSelected(val);
-      }
-    });
-  }, [selected]);
-
-  useEffect(() => {
-    const el = switcherRef.current;
-    if (!el) return;
-    el.addEventListener("click", handleClick);
-    return () => el.removeEventListener("click", handleClick);
-  }, [handleClick]);
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 gap-[40px] xl:gap-[80px] items-center w-full">
@@ -62,10 +42,11 @@ export default function TestTypeSwitcher() {
         aria-live="polite"
       >
         {/* Toggle Tabs */}
-        <DgaContentSwitcher
-          ref={switcherRef}
+        <ContentSwitcher
           size="md"
-          items={TEST_TYPES.map((t) => ({ label: t.label, content: "" }))}
+          items={TEST_TYPES.map((t) => ({ label: t.label }))}
+          value={selected}
+          onChange={setSelected}
         />
 
         {/* Title & Description */}
@@ -89,7 +70,6 @@ export default function TestTypeSwitcher() {
               ))}
             </div>
 
-            {/* CTA Button */}
             <div className="!mt-[32px]">
               <Button
                 label="التسجيل في الإختبار"

@@ -2,7 +2,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import type { UserProfileFormValues } from "../update/ProfileForm";
-import { DgaDropdown } from "@/lib/utils/platformscode";
+import Dropdown from "@/app/components/dropdown/Dropdown";
 const DEGREE_OPTIONS = [
   { name: "ثانوية عامة", value: "high_school" },
   { name: "دبلوم", value: "diploma" },
@@ -49,11 +49,11 @@ export default function EducationTab() {
             name="education"
             control={control}
             render={({ field }) => (
-              <DgaDropdown
+              <Dropdown
                 placeholder="اختر المؤهل"
                 size="lg"
                 variant="darker"
-                className="w-full"
+                extraClass="w-full"
                 optionLabel="name"
                 trackBy="value"
                 options={DEGREE_OPTIONS}
@@ -96,14 +96,14 @@ export default function EducationTab() {
             name="basicLanguageInEducation"
             control={control}
             render={({ field }) => (
-              <DgaDropdown
+              <Dropdown
                 placeholder="اختر اللغة"
                 size="lg"
                 variant="darker"
                 optionLabel="name"
                 trackBy="value"
                 options={LANGUAGE_OPTIONS}
-                className="w-full"
+                extraClass="w-full"
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
               />

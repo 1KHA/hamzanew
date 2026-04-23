@@ -1,12 +1,38 @@
-"use client";
-
-import Card from "@/app/components/card/Card";
-import Carousel from "@/app/components/carousel/Carousel";
+import Image from "next/image";
 import Tag from "@/app/components/tag/Tag";
+import Carousel from "@/app/components/carousel/Carousel";
 import { Partner } from "../_data/homeData";
 
 interface PartnersSectionProps {
   partners: Partner[];
+}
+
+function PartnerLogo({ partner }: { partner: Partner }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 16,
+        height: "120px",
+        border: "1px solid #e5e7eb",
+        borderRadius: 8,
+        background: "#fff",
+      }}
+    >
+      <Image
+        src={partner.image}
+        alt={partner.name}
+        width={130}
+        height={88}
+        style={{ objectFit: "contain", maxHeight: 88 }}
+        loading="lazy"
+        sizes="130px"
+        quality={60}
+      />
+    </div>
+  );
 }
 
 export default function PartnersSection({ partners }: PartnersSectionProps) {
@@ -50,24 +76,7 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
             arrowBgColor="#F3F4F6"
           >
             {partners.map((partner) => (
-              <Card
-                key={`partner-${partner.id}`}
-                image={partner.image}
-                logoImage
-                isImgCenter
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 10,
-                  textAlign: "center",
-                  padding: 16,
-                  height: "120px",
-                }}
-                imageWidth={162}
-                imageHeight={162}
-              />
+              <PartnerLogo key={`partner-${partner.id}`} partner={partner} />
             ))}
           </Carousel>
         </div>

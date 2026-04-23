@@ -1,0 +1,137 @@
+.link {
+  display: inline-flex;
+  padding: var(--spacing-none, 0);
+  align-items: center;
+  gap: 8px;
+  border-radius: var(--radius-xs, 4px);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.link__label {
+  display: inline;
+}
+
+.link__icon {
+  display: inline-flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.link:hover .link__label {
+  text-decoration: underline;
+}
+
+.link--inline .link__label {
+  text-decoration: underline;
+}
+
+/* Primary (default) */
+.link,
+.link--primary {
+  color: var(--link-primary, #1b8354);
+}
+
+.link:hover,
+.link--primary:hover {
+  color: var(--link-primary-hovered, #54c08a);
+}
+
+.link.active,
+.link--primary.active {
+  color: var(--link-primary-pressed, #88d8ad);
+}
+
+.link:focus-visible,
+.link--primary:focus-visible {
+  color: var(--link-primary-focused, #1b8354);
+  outline: 2px solid var(--border-black, #000);
+  border-radius: var(--radius-xs, 4px);
+}
+
+.link:visited {
+  color: var(--link-primary-visited, #1b8354) !important;
+}
+
+/* Neutral */
+.link--neutral {
+  color: var(--link-neutral, #384250);
+}
+
+.link--neutral:hover {
+  color: var(--link-neutral-hovered, #111927);
+}
+
+.link--neutral.active {
+  color: var(--link-neutral-pressed, #0d131a);
+}
+
+.link--neutral:focus-visible {
+  color: var(--link-neutral-focused, #384250);
+  outline: 2px solid var(--border-black, #000);
+  border-radius: var(--radius-xs, 4px);
+}
+
+/* On-color */
+.link--on-color {
+  color: var(--link-oncolor, #ffffff);
+}
+
+.link--on-color:hover {
+  color: var(--link-oncolor-hovered, #e0e0e0);
+}
+
+.link--on-color.active {
+  color: var(--link-oncolor-pressed, #c0c0c0);
+}
+
+.link--on-color:visited {
+  color: var(--link-oncolor-visited, #ffffff) !important;
+}
+
+.link--on-color:focus-visible {
+  color: var(--link-oncolor-focused, #ffffff);
+  outline: 2px solid var(--border-white, #fff);
+  border-radius: var(--radius-xs, 4px);
+}
+
+/* Disabled */
+.link--disabled {
+  color: var(--link-disabled, #9da4ae);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.link--disabled:hover .link__label {
+  text-decoration: none;
+}
+
+/* Size: icon dimensions */
+.link--md .link__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.link--sm .link__icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Font sizes */
+.link--lg {
+  font: 400 18px/28px "IBMPlexSansArabic", sans-serif;
+}
+
+.link--md {
+  font: 400 16px/24px "IBMPlexSansArabic", sans-serif;
+}
+
+.link--sm {
+  font: 400 14px/20px "IBMPlexSansArabic", sans-serif;
+}
+
+/* RTL: reverse icon/label order */
+:is(html[lang="ar"], html[dir="rtl"]) .link {
+  flex-direction: row-reverse;
+}

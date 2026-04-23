@@ -12,8 +12,6 @@
  * - Icons are marked as decorative when accompanying text
  */
 
-"use client";
-
 import React from "react";
 import "./Button.css";
 

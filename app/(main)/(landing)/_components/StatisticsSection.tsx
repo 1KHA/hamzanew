@@ -1,12 +1,7 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-import Button from "@/app/components/button/Button";
-import GlobalStatisticsSection from "@/app/components/global-statistics-section/GlobalStatisticsSection";
+import Link from "next/link";
+import GlobalStatisticsSection from "@/app/components/global-statistics-section/GlobalStatisticsSectionNative";
 
 export default function StatisticsSection() {
-  const router = useRouter();
-
   return (
     <div className="bg-neutral-50">
       <section
@@ -16,12 +11,12 @@ export default function StatisticsSection() {
         <div className="grid gap-[24px]">
           <div className="flex-between-center">
             <h2 className="display-sm-bold">همزة في أرقام</h2>
-            <Button
-              label="عرض الكل"
-              variant="secondary-outline"
-              size="md"
-              onClick={() => router.push("/statistics-and-reports")}
-            />
+            <Link
+              href="/statistics-and-reports"
+              className="dga-btn dga-btn--md dga-btn--secondary-outline !flex !justify-center !items-center !p-4 !cursor-pointer"
+            >
+              <span className="dga-btn-label">عرض الكل</span>
+            </Link>
           </div>
           <p className="text-md-regular">
             يعرض قسم إحصائيات همزة بيانات عن عدد المختبرين عالميًا، وتنوّع

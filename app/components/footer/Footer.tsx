@@ -1,8 +1,8 @@
 import "./footer.css";
 import LastModified from "../last-modified/LastModified";
 import Image from "next/image";
-import Feedback from "../feedback/Feedback";
 import Link from "next/link";
+import FeedbackDynamic from "../feedback/FeedbackDynamic";
 
 function Footer() {
   return (
@@ -11,7 +11,7 @@ function Footer() {
         <LastModified date="31/12/2026" time="2:00 م" variant="light" />
       </div>
 
-      <Feedback />
+      <FeedbackDynamic />
 
       <div style={{ backgroundColor: "#074D31" }}>
         <div className="">

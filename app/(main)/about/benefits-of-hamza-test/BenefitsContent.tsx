@@ -1,4 +1,3 @@
-"use client";
 
 import ScrollReveal from "@/app/components/scroll-reveal/ScrollReveal";
 import { BENEFITS, ORG_BENEFITS } from "./data";

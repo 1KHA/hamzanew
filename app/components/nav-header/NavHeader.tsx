@@ -211,14 +211,16 @@ function UserMenuDropdown({ name }: { name: string }) {
 function NavHeader() {
   const pathname = usePathname();
   const { data: session } = useSession();
-  console.log("session", session);
   // Tracks which top-level nav item is visually highlighted
   const [activeLink, setActiveLink] = useState<string>(() =>
     resolveActiveId(pathname),
   );
 
-  // Mobile off-canvas drawer visibility
+  // Mobile off-canvas drawer visibility.
+  // Also used as the mount gate for MobileNav — the component only enters
+  // the DOM on first open, keeping it out of the initial JS parse cost.
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mobileNavMounted, setMobileNavMounted] = useState(false);
 
   // Only one submenu can be open at a time — stored as an array
   // to make the API compatible with multi-submenu if needed later
@@ -310,13 +312,17 @@ function NavHeader() {
       <DigitalSignature />
 
       {/* ── Off-canvas mobile navigation drawer ─────────────────────── */}
-      <MobileNav
-        isOpen={isMenuOpen}
-        onClose={() => setIsMenuOpen(false)}
-        activeLink={activeLink}
-        onLinkClick={handleLinkClick}
-        onTranslateClick={handleTranslate}
-      />
+      {/* Only mounted after the first open — keeps MobileNav out of the
+          initial parse/hydration cost entirely. */}
+      {mobileNavMounted && (
+        <MobileNav
+          isOpen={isMenuOpen}
+          onClose={() => setIsMenuOpen(false)}
+          activeLink={activeLink}
+          onLinkClick={handleLinkClick}
+          onTranslateClick={handleTranslate}
+        />
+      )}
 
       {/* ── Sticky container — header + submenu scroll together ────────
            position:sticky keeps both elements pinned while avoiding
@@ -337,7 +343,7 @@ function NavHeader() {
                   aria-label="فتح قائمة التنقل"
                   aria-expanded={isMenuOpen}
                   aria-controls="mobile-nav"
-                  onClick={() => setIsMenuOpen(true)}
+                  onClick={() => { setMobileNavMounted(true); setIsMenuOpen(true); }}
                 >
                   <IconImage
                     src="/assets/icons/stroke-standard/menu-01-stroke-rounded.svg"
@@ -361,6 +367,7 @@ function NavHeader() {
                     width={120}
                     height={40}
                     priority
+                    fetchPriority="high"
                   />
                 </Link>
               </div>
@@ -442,17 +449,14 @@ function NavHeader() {
             {/* ─── Action buttons (sign-in, search, …) ─────────────── */}
             <ul className="header-nav__actions" role="list">
               {ACTION_ITEMS.map((action) => {
-                // Determine if we should show this action item based on session
                 if (action.id === "sign-in") {
                   return (
                     <li key={action.id} className={action.className}>
                       {session ? (
-                        // User IS logged in: dropdown menu
                         <UserMenuDropdown
                           name={session.user?.name || "حسابي"}
                         />
                       ) : (
-                        // User is NOT logged in: Show regular Sign In button
                         <Link
                           href="/sign-in"
                           className="header-menu__item"
@@ -470,7 +474,6 @@ function NavHeader() {
                   );
                 }
 
-                // Render other normal action items (like Search) regardless of session
                 return (
                   <li key={action.id} className={action.className}>
                     <Link

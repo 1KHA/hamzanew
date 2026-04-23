@@ -45,22 +45,33 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={direction}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
+        {/* Preload all 4 font weights so the browser fetches them
+            in parallel with CSS rather than waiting for CSS to be parsed first */}
+        <link rel="preload" href="/assets/fonts/IBM-Plex-Sans-Arabic/IBMPlexSansArabic-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/assets/fonts/IBM-Plex-Sans-Arabic/IBMPlexSansArabic-SemiBold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/assets/fonts/IBM-Plex-Sans-Arabic/IBMPlexSansArabic-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/assets/fonts/IBM-Plex-Sans-Arabic/IBMPlexSansArabic-Medium.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        {/* Critical above-fold CSS — inlined to unblock hero paint before external CSS loads */}
+        <style dangerouslySetInnerHTML={{ __html: `
+          .c-mask{position:relative; overflow:hidden}
+          .custom-banner{width:100%;height:100%;object-fit:cover;display:block}
+          .overlay{position:absolute;inset:0;background:linear-gradient(to left,#104f34 10%,transparent 100%);display:flex;align-items:center;justify-content:flex-end}
+          [dir="ltr"] .overlay{background:linear-gradient(to right,#104f34 10%,transparent 100%);justify-content:flex-start}
+          .hero{z-index:2;color:#fff;max-width:1280px;text-align:right}
+          [dir="ltr"] .hero{text-align:left}
+          .hero h1{font-weight:700;margin-bottom:16px}
+          .hero p{font-size:18px;line-height:1.6;margin-bottom:24px}
+          .banner-logo{position:absolute;right:-120px;z-index:0;pointer-events:none;user-select:none}
+          [dir="ltr"] .banner-logo{left:40px;right:auto}
+          .banner-logo img{width:500px;height:auto}
+          .embla__dots{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:12px;align-items:center}
+          .embla__dot{width:12px;height:12px;border-radius:50%;background:#e5e7eb;border:none;cursor:pointer;transition:.3s}
+          .embla__dot--selected{background:#1b8354}
+          @keyframes spin{to{transform:rotate(360deg)}}
+          .animate-spin-slow{animation:spin 8s linear infinite}
+        ` }} />
       </head>
-      <body className="min-h-screen flex flex-col">
+      <body className="min-h-screen flex flex-col" style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
         <AuthProvider>  {/*manage auth state for user*/}
           {children}
         </AuthProvider>
