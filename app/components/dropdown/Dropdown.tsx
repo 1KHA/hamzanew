@@ -105,27 +105,25 @@ export default function Dropdown({
 
   const selectOption = useCallback(
     (option: DropdownOption, index: number) => {
-      setSelected((prev) => {
-        if (multiSelect) {
+      if (multiSelect) {
+        setSelected((prev) => {
           const next = { ...prev, [option[trackBy]]: !prev[option[trackBy]] };
-          const selectedVals = options
-            .filter((o) => next[o[trackBy]])
-            .map((o) => o[trackBy]);
-          onChange?.(selectedVals);
-          getSelectedOptions?.({
-            selectedList: options.filter((o) => next[o[trackBy]]),
-            selectedOption: option,
-            selectedIndex: index,
-          });
+          const selectedVals = options.filter((o) => next[o[trackBy]]).map((o) => o[trackBy]);
+          // Schedule callbacks after render via setTimeout to avoid setState-during-render
+          setTimeout(() => {
+            onChange?.(selectedVals);
+            getSelectedOptions?.({
+              selectedList: options.filter((o) => next[o[trackBy]]),
+              selectedOption: option,
+              selectedIndex: index,
+            });
+          }, 0);
           return next;
-        } else {
-          const next: Record<string, boolean> = { [option[trackBy]]: true };
-          onChange?.(option[trackBy]);
-          getSelectedOptions?.(option);
-          return next;
-        }
-      });
-      if (!multiSelect) {
+        });
+      } else {
+        setSelected({ [option[trackBy]]: true });
+        onChange?.(option[trackBy]);
+        getSelectedOptions?.(option);
         close();
         btnRef.current?.focus();
       }

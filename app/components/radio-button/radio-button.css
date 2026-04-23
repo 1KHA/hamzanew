@@ -6,9 +6,13 @@
   cursor: pointer;
   user-select: none;
 }
-
 .radio:focus-visible {
   border-radius: var(--radius-sm, 4px);
+  outline: 2px solid var(--controls-control-neutral-checked, #0a0a0a);
+  outline-offset: 2px;
+}
+.radio input[type="radio"]:focus + .radio-container {
+  border-radius: var(--radius-full, 9999px);
   outline: 2px solid var(--controls-control-neutral-checked, #0a0a0a);
   outline-offset: 2px;
 }

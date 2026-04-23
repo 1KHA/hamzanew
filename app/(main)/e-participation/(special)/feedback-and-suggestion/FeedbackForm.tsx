@@ -49,10 +49,10 @@ import "./feedback-form.css";
    ========================================================================== */
 
 const CATEGORY_OPTIONS = [
-  { name: "اختيار 1", value: "اختيار 1" },
-  { name: "اختيار 2", value: "اختيار 2" },
-  { name: "اختيار 3", value: "اختيار 3" },
-  { name: "اختيار 4", value: "اختيار 4" },
+  { name: "اقتراحات", value: "اقتراحات" },
+  { name: "شكاوي", value: "شكاوي" },
+  { name: "استفسارات", value: "استفسارات" },
+  { name: "بلاغات", value: "بلاغات" },
 ];
 
 const feedbackSchema = z.object({
@@ -384,7 +384,7 @@ export default function FeedbackForm() {
 
           {/* Category */}
           <FormField
-            label="نوع الاختبار"
+            label="الفئة"
             error={errors.category?.message}
             htmlFor="category-select"
           >

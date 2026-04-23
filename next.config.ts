@@ -41,7 +41,7 @@ const nextConfig: NextConfig = {
   // devtools overlay (css-loader runtime from rspack, ~840 KB) into the
   // production rootMainFiles, blocking first paint. Disabling the indicator
   // removes that chunk from the initial load.
-  devIndicators: false,
+  // devIndicators: false,
   webpack(config, { isServer, dev }) {
     config.plugins.push(new InjectFontDisplaySwapPlugin());
 

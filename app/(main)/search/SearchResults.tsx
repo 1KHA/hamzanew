@@ -110,7 +110,7 @@ function FilterControls({
 function SearchResultCard({ result }: { result: SearchResult }) {
   return (
     <article
-      className="py-[24px] border-b border-[#EAECF0] last:border-b-0"
+      className="py-[24px]  border-[#EAECF0] last:border-b-0"
       aria-labelledby={`result-title-${result.id}`}
     >
       <div className="flex flex-col gap-[12px]">
