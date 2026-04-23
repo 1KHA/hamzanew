@@ -229,9 +229,9 @@
   font-size: 16px;
   line-height: 24px;
 }
-.dropdown--lg .dropdown__list {
+/* .dropdown--lg .dropdown__list {
   top: calc(44px + 28px);
-}
+} */
 .dropdown--lg .dropdown__option-label {
   font-size: 16px;
   line-height: 24px;
@@ -242,9 +242,9 @@
   font-size: 14px;
   line-height: 20px;
 }
-.dropdown--md .dropdown__list {
+/* .dropdown--md .dropdown__list {
   top: calc(36px + 4px);
-}
+} */
 .dropdown--md .dropdown__option-label {
   font-size: 14px;
   line-height: 20px;

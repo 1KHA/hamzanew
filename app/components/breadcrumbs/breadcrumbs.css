@@ -8,16 +8,16 @@
 /* ── CSS Variables ── */
 :root {
   /* Link Colors */
-  --link-neutral: #384250;           /* Default dark gray */
-  --link-neutral-hovered: #6C737F;   /* Medium gray on hover */
-  --link-neutral-pressed: #9DA4AE;   /* Light gray when pressed */
-  --link-neutral-focused: #384250;   /* Same as default */
-  --link-neutral-visited: #384250;   /* Dark gray for visited */
-  --link-disabled: #9DA4AE;          /* Gray for disabled */
-  
+  --link-neutral: #384250; /* Default dark gray */
+  --link-neutral-hovered: #6c737f; /* Medium gray on hover */
+  --link-neutral-pressed: #9da4ae; /* Light gray when pressed */
+  --link-neutral-focused: #384250; /* Same as default */
+  --link-neutral-visited: #384250; /* Dark gray for visited */
+  --link-disabled: #9da4ae; /* Gray for disabled */
+
   /* Border Colors */
   --border-black: #161616;
-  --border-white: #FFFFFF;
+  --border-white: #ffffff;
 }
 
 .link-neutral {
@@ -26,14 +26,14 @@
   align-items: center;
   gap: 8px;
   padding: 0;
-  
+
   /* Typography */
   font: 400 16px/24px "IBMPlexSansArabic";
   text-decoration: none;
-  
+
   /* Colors */
   color: var(--link-neutral, #384250);
-  
+
   /* Interaction */
   cursor: pointer;
   border-radius: 2px;
@@ -55,7 +55,7 @@
 
 /* ── Hover State ── */
 .link-neutral:hover {
-  color: var(--link-neutral-hovered, #6C737F);
+  color: var(--link-neutral-hovered, #6c737f);
 }
 
 .link-neutral:hover .link-neutral__label {
@@ -65,7 +65,7 @@
 /* ── Active/Pressed State ── */
 .link-neutral.active,
 .link-neutral:active {
-  color: var(--link-neutral-pressed, #9DA4AE);
+  color: var(--link-neutral-pressed, #9da4ae);
 }
 
 /* ── Focus State ── */
@@ -76,10 +76,9 @@
   border-radius: 4px;
 }
 
- 
 /* ── Disabled State ── */
 .link-neutral--disabled {
-  color: var(--link-disabled, #9DA4AE);
+  color: var(--link-disabled, #9da4ae);
   cursor: not-allowed;
   pointer-events: none;
 }
@@ -114,7 +113,6 @@
 :is(html[lang="ar"], html[dir="rtl"]) .link-neutral {
   flex-direction: row-reverse;
 }
-
 
 /* ============================================================
    EXISTING BREADCRUMB STYLES (kept as-is)
@@ -178,7 +176,8 @@
 }
 .dga-breadcrumb-icon {
   /* margin-right: 6px; */
-  filter: invert(69%) sepia(9%) saturate(380%) hue-rotate(186deg) brightness(92%) contrast(88%);
+  filter: invert(69%) sepia(9%) saturate(380%) hue-rotate(186deg)
+    brightness(92%) contrast(88%);
   /* color: #999; */
   /* font-size: 12px; */
 }
@@ -203,7 +202,7 @@
   font-weight: 400;
   line-height: 20px;
   text-align: right;
-   
+
   text-decoration: none;
   transition: color 0.2s ease;
   /* border: rgb(25, 0, 255) solid 1px; */
@@ -244,34 +243,28 @@
   padding: 8px 0px !important;
 
   list-style: none;
-  min-width: 160px;
+  min-width: 80px;
   z-index: 40;
-      height: fit-content !important;
-          gap: 8px;
-
+  height: fit-content !important;
+  gap: 8px;
+  width: fit-content;
 }
 
-
-
-[dir=rtl] .dga-breadcrumb-dropdown{
-
-      /* left: 0; */
-    right: 45px !important;
-    left: 0px !important;
+[dir="rtl"] .dga-breadcrumb-dropdown {
+  /* left: 0; */
+  right: 45px !important;
+  left: 0px !important;
 }
 
-[dir=ltr] .dga-breadcrumb-dropdown{
-
-      /* left: 0; */
-    left: 45px !important;
-    right: 0px !important;
-
+[dir="ltr"] .dga-breadcrumb-dropdown {
+  /* left: 0; */
+  left: 45px !important;
+  right: 0px !important;
 }
 .dga-breadcrumb-dropdown-item {
   padding: 8px 8px !important;
 
-align-self: anchor-center !important;
-
+  align-self: anchor-center !important;
 }
 .dga-breadcrumb-dropdown-item a {
   color: #111827;
@@ -285,8 +278,6 @@ align-self: anchor-center !important;
 .link__label {
   display: inline-block;
 }
-
-
 
 @media (max-width: 559px) {
   .dga-breadcrumb-icon {

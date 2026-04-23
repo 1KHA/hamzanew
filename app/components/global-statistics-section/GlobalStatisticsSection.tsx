@@ -67,8 +67,8 @@ function GlobalStatisticsSection() {
             variant="default"
           />
           <div className="input-group">
-            <label className="input-label">نوع الاختبار</label>
             <Dropdown
+            label="نوع الاختبار"
               placeholder="اختبار عام"
               variant="default"
               optionLabel="label"
@@ -76,27 +76,27 @@ function GlobalStatisticsSection() {
               extraClass="w-full"
               options={[
                 {
-                  label: "اختبار عام",
-                  value: "اختبار عام",
+                  label: "1 اختبار عام",
+                  value: "1 اختبار عام",
                 },
                 {
-                  label: "اختبار عام",
-                  value: "اختبار عام",
+                  label: "2 اختبار عام",
+                  value: "2 اختبار عام",
                 },
                 {
-                  label: "اختبار عام",
-                  value: "اختبار عام",
+                  label: "3 اختبار عام",
+                  value: "3 اختبار عام",
                 },
                 {
-                  label: "اختبار عام",
-                  value: "اختبار عام",
+                  label: "4 اختبار عام",
+                  value: "4 اختبار عام",
                 },
               ]}
             />
           </div>
           <div className="input-group">
-            <label className="input-label">السنة</label>
             <Dropdown
+            label="السنة"
               placeholder="2026"
               variant="default"
               optionLabel="label"
@@ -123,8 +123,8 @@ function GlobalStatisticsSection() {
             />
           </div>
           <div className="input-group">
-            <label className="input-label">الجنسية</label>
             <Dropdown
+            label="الجنسية"
               placeholder="امريكية"
               variant="default"
               optionLabel="label"
@@ -140,12 +140,12 @@ function GlobalStatisticsSection() {
                   value: "بريطانية",
                 },
                 {
-                  label: "اختبار عام",
-                  value: "اختبار عام",
+                  label: "صينية",
+                  value: "صينية",
                 },
                 {
-                  label: "اختبار عام",
-                  value: "اختبار عام",
+                  label: "روسية",
+                  value: "روسية",
                 },
               ]}
             />
