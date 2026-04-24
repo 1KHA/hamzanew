@@ -16,7 +16,6 @@ import {
   DEFAULT_PREFIX,
   getDigitsFromPhone,
 } from "@/lib/utils/phonePrefixes";
-import SideNav from "@/app/components/side-nav/SideNav";
 
 // ─────────────────────────────────────────
 //   Schema defined
@@ -83,7 +82,6 @@ export type UserProfileFormValues = z.infer<typeof userProfileSchema>;
 function ProfileFormContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  console.log(searchParams);
   const rawTab = searchParams.get("tab");
   const parsedTab = rawTab ? parseInt(rawTab, 10) : 1;
   const initialTabId =
@@ -138,7 +136,6 @@ function ProfileFormContent() {
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 5000);
   };
-  console.log(activeTab);
 
   // The DgaTabs component accepts a 0-indexed 'activeTab' prop
   // This makes sure React state natively handles DOM styling!
@@ -174,11 +171,6 @@ function ProfileFormContent() {
           activeTab={activeTab - 1}
           onTabChange={handleTabChange}
           tabsList={[
-            // {
-            //   label: "معلومات الحساب",
-            //   tabIcon: "square-lock-02",
-            //   onClick: () => handleTabChange(1),
-            // },
             {
               label: "المعلومات الشخصية",
               tabIcon: "user",
@@ -237,10 +229,20 @@ function ProfileFormContent() {
 
 import { Suspense } from "react";
 import Button from "@/app/components/button/Button";
+import Loading from "@/app/components/loading/Loading";
 
 export default function ProfileForm() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={
+        <Loading
+          size="lg"
+          variant="brand"
+          className="mx-auto mt-12"
+          aria-label="جارٍ التحميل..."
+        />
+      }
+    >
       <ProfileFormContent />
     </Suspense>
   );

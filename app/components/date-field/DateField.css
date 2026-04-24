@@ -142,6 +142,7 @@
   border: 0;
   outline: 0;
   flex: 1;
+  min-width: 0;
   height: 100%;
   color: var(--form-field-text-focused, #101828);
   font: 400 16px/24px "IBMPlexSansArabic", sans-serif;
@@ -220,5 +221,6 @@
   top: calc(100% + 4px);
   inset-inline-start: 0;
   z-index: 100;
-  width: fit-content;
+  width: max-content;
+  max-width: calc(100vw - 32px);
 }

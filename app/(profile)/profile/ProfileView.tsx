@@ -1,23 +1,25 @@
 "use client";
 import Button from "@/app/components/button/Button";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import mockUserInfo from "./_data/mockUserInfo.json";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
+import NotificationToast from "@/app/components/notification-toast/NotificationToast";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import "./ProfileView.css";
 
-const accountSchema = z.object({
+const passwordSchema = z.object({
   oldPassword: z.string().min(1, "كلمة المرور الحالية مطلوبة"),
   newPassword: z
     .string()
     .min(8, "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل"),
 });
 
-type AccountFormValues = z.infer<typeof accountSchema>;
+type PasswordFormValues = z.infer<typeof passwordSchema>;
 
 interface InfoField {
   label: string;
@@ -79,8 +81,10 @@ export default function ProfileView() {
   const router = useRouter();
   const currentView = searchParams.get("view");
 
-  const methods = useForm<AccountFormValues>({
-    resolver: zodResolver(accountSchema),
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const methods = useForm<PasswordFormValues>({
+    resolver: zodResolver(passwordSchema),
     defaultValues: {
       oldPassword: "",
       newPassword: "",
@@ -88,8 +92,10 @@ export default function ProfileView() {
     mode: "onBlur",
   });
 
-  const onSubmit = (data: AccountFormValues) => {
+  const onSubmit = (data: PasswordFormValues) => {
     console.log("Form Submitted:", data);
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 5000);
   };
 
   const nationalityMap: Record<string, string> = {
@@ -249,9 +255,21 @@ export default function ProfileView() {
       },
     ],
   ];
+  // !  ******************************* Securit tab view ******************************* 
   if (currentView === "security") {
     return (
       <div className="flex flex-col gap-6">
+        {showSuccess && (
+          <NotificationToast
+            type="success"
+            vPosition="bottom"
+            hPosition="left"
+            leadText="نجاح"
+            helperText="تم تغيير كلمة المرور بنجاح"
+            open={showSuccess}
+            onClose={() => setShowSuccess(false)}
+          />
+        )}
         <FormProvider {...methods}>
           <form
             id="security-info-form"
