@@ -4,36 +4,34 @@ import Card from "../card/Card";
 import SearchBox from "@/app/components/search-box/SearchBox";
 import "./GlobalStatisticsSection.css";
 
-function GlobalStatisticsSection() {
-  // Fake stats data
-  const stats = [
-    {
-      id: "centers",
-      value: "1.5k",
-      label: "مراكز الاختبار",
-      icon: "building-06", // change to your DgaIcon name
-    },
-    {
-      id: "sessions",
-      value: "12",
-      label: "عدد الجنسيات",
-      icon: "user-group",
-    },
-    {
-      id: "countries",
-      value: "22",
-      label: "عدد الدول",
-      icon: "globe-02",
-    },
-    {
-      id: "experts",
-      value: "1.5M",
-      label: " مختبر  عالميًا",
-      icon: "certificate-01",
-    },
-  ];
+export interface StatisticItem {
+  numberTitle: string;
+  descriptionText: string;
+}
 
-  const statsCard = stats.map((stat) => {
+interface GlobalStatisticsSectionProps {
+  statistics?: StatisticItem[];
+}
+
+const DEFAULT_ICONS = [
+  "building-06",
+  "user-group",
+  "globe-02",
+  "certificate-01",
+];
+
+const DEFAULT_STATS: StatisticItem[] = [
+  { numberTitle: "1.5k", descriptionText: "مراكز الاختبار" },
+  { numberTitle: "12", descriptionText: "عدد الجنسيات" },
+  { numberTitle: "22", descriptionText: "عدد الدول" },
+  { numberTitle: "1.5M", descriptionText: "مختبر عالميًا" },
+];
+
+function GlobalStatisticsSection({
+  statistics = DEFAULT_STATS,
+}: GlobalStatisticsSectionProps) {
+  const statsCards = statistics.map((stat, index) => {
+    const icon = DEFAULT_ICONS[index % DEFAULT_ICONS.length];
     return (
       <Card
         style={{
@@ -41,10 +39,10 @@ function GlobalStatisticsSection() {
           boxShadow:
             "0 4px 8px -2px rgba(16, 24, 40, 0.10), 0 2px 4px -2px rgba(16, 24, 40, 0.06)",
         }}
-        key={stat.id}
-        title={stat.value}
-        description={stat.label}
-        icon={stat.icon}
+        key={index}
+        title={stat.numberTitle}
+        description={stat.descriptionText}
+        icon={icon}
         iconPosition="left"
         contentAlignment="center"
         titleClass="display-md-bold"
@@ -160,7 +158,7 @@ function GlobalStatisticsSection() {
         {/* statistics section */}
         <div className="cards-wrapper">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-[24px] w-full">
-            {statsCard}
+            {statsCards}
           </div>
         </div>
       </div>

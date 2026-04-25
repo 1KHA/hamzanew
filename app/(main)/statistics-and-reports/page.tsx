@@ -3,6 +3,7 @@
  *
  * Displays a searchable, filterable grid of reports and statistics
  * with pagination support.
+ * Fetches localized data from /api/statistics-and-reports based on the lang cookie.
  *
  * @accessibility
  * - Uses semantic HTML with proper landmarks (main, section)
@@ -19,6 +20,7 @@ import GlobalStatisticsSection from "@/app/components/global-statistics-section/
 import ReportsListing from "./ReportsListing";
 import { reportsData } from "./_data/reportsData";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
 
 /* ==========================================================================
    Metadata
@@ -29,11 +31,12 @@ export const metadata: Metadata = {
   description:
     'نقدم تقارير وإحصاءات موثوقة، قائمة على منهجيات علمية، تعكس بدقة نتائج اختبارات "همزة" ومؤشراتها. تدعم هذه البيانات الباحثين وصنّاع القرار في القطاعين الأكاديمي والمهني، وتُسهم في تطوير السياسات التعليمية، وإثراء الدراسات المقارنة، وبناء رؤى استراتيجية عالمية لقياس كفاءة اللغة العربية.',
 };
-/* =====================  =====================================================
-   Hero Configuration
+
+/* ==========================================================================
+   Static Fallback Configuration
    ========================================================================== */
 
-const HERO_CONFIG = {
+const STATIC_HERO_CONFIG = {
   title: "تقارير واحصائيات",
   description:
     'نقدم تقارير وإحصاءات موثوقة، قائمة على منهجيات علمية، تعكس بدقة نتائج اختبارات "همزة" ومؤشراتها. تدعم هذه البيانات الباحثين وصنّاع القرار في القطاعين الأكاديمي والمهني، وتُسهم في تطوير السياسات التعليمية، وإثراء الدراسات المقارنة، وبناء رؤى استراتيجية عالمية لقياس كفاءة اللغة العربية.',
@@ -45,6 +48,48 @@ const HERO_CONFIG = {
   ],
 };
 
+const STATIC_STATISTICS = [
+  { numberTitle: "1.5k", descriptionText: "مراكز الاختبار" },
+  { numberTitle: "12", descriptionText: "عدد الجنسيات" },
+  { numberTitle: "22", descriptionText: "عدد الدول" },
+  { numberTitle: "1.5M", descriptionText: "مختبر عالميًا" },
+];
+
+/* ==========================================================================
+   Data Fetching
+   ========================================================================== */
+
+async function getStatisticsAndReportsData() {
+  try {
+    const cookieStore = await cookies();
+    const langCookie = cookieStore.get("lang")?.value || "ar-SA";
+
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const response = await fetch(
+      `${baseURL}/api/statistics-and-reports`,
+      {
+        cache: "no-store",
+        headers: {
+          Cookie: `lang=${langCookie}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.error(
+        "Failed to fetch statistics and reports data:",
+        response.status
+      );
+      return null;
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching statistics and reports data:", error);
+    return null;
+  }
+}
+
 /* ==========================================================================
    Main Page Component
    ========================================================================== */
@@ -54,17 +99,30 @@ const HERO_CONFIG = {
  *
  * Component that renders the page hero, reports listing and statistics section.
  */
-export default function StatisticsAndReportsPage(): ReactElement {
+export default async function StatisticsAndReportsPage(): Promise<ReactElement> {
+  const data = await getStatisticsAndReportsData();
+
+  const heroConfig = {
+    title: data?.header?.title || STATIC_HERO_CONFIG.title,
+    description:
+      data?.header?.description || STATIC_HERO_CONFIG.description,
+    bgColor: STATIC_HERO_CONFIG.bgColor,
+    breadcrumbs: STATIC_HERO_CONFIG.breadcrumbs,
+  };
+
+  const reports = data?.reports || reportsData;
+  const statistics = data?.statistics || STATIC_STATISTICS;
+
   return (
     <>
       <PageHero
-        heroMap={{ "/statistics-and-reports": HERO_CONFIG }}
+        heroMap={{ "/statistics-and-reports": heroConfig }}
         defaultRoute="/statistics-and-reports"
         breadcrumbsMax={3}
       />
 
       <main aria-label="صفحة التقارير والاحصائيات">
-        <ReportsListing initialReports={reportsData} />
+        <ReportsListing initialReports={reports} />
 
         {/* Statistics Section */}
         <div className="bg-neutral-50">
@@ -73,7 +131,7 @@ export default function StatisticsAndReportsPage(): ReactElement {
             aria-label="إحصائيات همزة"
           >
             <div aria-label="الإحصائيات العامة">
-              <GlobalStatisticsSection />
+              <GlobalStatisticsSection statistics={statistics} />
             </div>
           </section>
         </div>
