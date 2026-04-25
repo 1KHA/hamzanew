@@ -18,7 +18,7 @@
 }
 
 .animate-spin-slow {
-  animation: spin-slow 60s linear infinite;
+  animation: spin-slow 120s linear infinite;
 }
 
 /* Flip arrow for RTL */
@@ -1272,7 +1272,8 @@ li {
   text-align: left;
 }
 
-.hero h1 {
+.hero h1,
+.hero h2 {
   font-weight: 700;
   margin-bottom: 16px;
 }

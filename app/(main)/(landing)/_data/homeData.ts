@@ -2,6 +2,49 @@
  * Home Page Static Data
  */
 
+export interface Slide {
+  id: number;
+  image: string;
+  title: string;
+  description: string;
+  cta: { label: string; href: string };
+}
+
+export const BANNER_SLIDES: Slide[] = [
+  {
+    id: 1,
+    image: "/assets/image/hero.jpg",
+    title: "اختبارات همزة",
+    description:
+      "منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها.",
+    cta: { label: "المزيد", href: "/about" },
+  },
+  {
+    id: 2,
+    image: "/assets/image/photo2.jpg",
+    title: "اختبار همزة العام",
+    description:
+      "اختبار معياري لقياس كفايات اللغة العربية للناطقين بغيرها لأغراض عامة، يُمكِّن من تحديد مستوى الكفاءة اللغوية وفق معايير دولية معتمدة.",
+    cta: { label: "اعرف أكثر", href: "/types-of-tests/hamza-general-test" },
+  },
+  {
+    id: 3,
+    image: "/assets/image/photo1.jpg",
+    title: "اختبار همزة الأكاديمي",
+    description:
+      "اختبار محوسب دقيق يقيس كفايات اللغة العربية للناطقين بغيرها لأغراض أكاديمية، مصمم وفق أفضل الممارسات والمعايير الدولية.",
+    cta: { label: "اعرف أكثر", href: "/types-of-tests/hamza-academic-test" },
+  },
+  {
+    id: 4,
+    image: "/assets/image/photo4.jpg",
+    title: "مؤشرات نوعية للباحثين",
+    description:
+      "توفر منصة اختبارات همزة بيانات ومؤشرات نوعية تساعد الباحثين وصانعي القرار على تطوير برامجهم التعليمية وتحسين مخرجاتها.",
+    cta: { label: "استعرض المؤشرات", href: "/statistics-and-reports" },
+  },
+];
+
 export interface Service {
   title: string;
   description: string;
@@ -13,6 +56,7 @@ export interface Partner {
   id: number;
   image: string;
   name: string;
+  location: "inside" | "outside";
 }
 
 export interface NewsArticle {
@@ -54,13 +98,13 @@ export const SERVICES: Service[] = [
 ];
 
 export const PARTNERS: Partner[] = [
-  { id: 1, image: "/assets/image/institutions1.png", name: "مؤسسة شريكة ١" },
-  { id: 2, image: "/assets/image/institutions2.png", name: "مؤسسة شريكة ٢" },
-  { id: 3, image: "/assets/image/institutions3.png", name: "مؤسسة شريكة ٣" },
-  { id: 4, image: "/assets/image/institutions1.png", name: "مؤسسة شريكة ٤" },
-  { id: 5, image: "/assets/image/institutions2.png", name: "مؤسسة شريكة ٥" },
-  { id: 6, image: "/assets/image/institutions3.png", name: "مؤسسة شريكة ٦" },
-  { id: 7, image: "/assets/image/institutions1.png", name: "مؤسسة شريكة ٧" },
+  { id: 1, image: "/assets/image/institutions1.png", name: "مؤسسة شريكة ١", location: "inside" },
+  { id: 2, image: "/assets/image/institutions2.png", name: "مؤسسة شريكة ٢", location: "inside" },
+  { id: 3, image: "/assets/image/institutions3.png", name: "مؤسسة شريكة ٣", location: "inside" },
+  { id: 4, image: "/assets/image/institutions1.png", name: "مؤسسة شريكة ٤", location: "inside" },
+  { id: 5, image: "/assets/image/institutions2.png", name: "مؤسسة شريكة ٥", location: "outside" },
+  { id: 6, image: "/assets/image/institutions3.png", name: "مؤسسة شريكة ٦", location: "outside" },
+  { id: 7, image: "/assets/image/institutions1.png", name: "مؤسسة شريكة ٧", location: "outside" },
 ];
 
 export const NEWS_ARTICLES: NewsArticle[] = [

@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 import type { Metadata } from "next";
-import { SERVICES, PARTNERS, NEWS_ARTICLES } from "./(landing)/_data/homeData";
+import { SERVICES, PARTNERS, NEWS_ARTICLES, BANNER_SLIDES } from "./(landing)/_data/homeData";
 import BannerHero from "./(landing)/_components/BannerHero";
 import BannerHeroText from "./(landing)/_components/BannerHeroText";
 import BannerDynamic from "./(landing)/_components/BannerDynamic";
@@ -28,9 +28,9 @@ export default function LandingPage(): ReactElement {
         aria-label="عرض شرائح البانر"
         aria-roledescription="carousel"
       >
-        <BannerHero />
-        <BannerHeroText />
-        <BannerDynamic />
+        <BannerHero slide={BANNER_SLIDES[0]} />
+        <BannerHeroText slide={BANNER_SLIDES[0]} />
+        <BannerDynamic slides={BANNER_SLIDES} />
       </section>
 
       {/* Below-fold sections: dynamically imported to defer Carousel hydration

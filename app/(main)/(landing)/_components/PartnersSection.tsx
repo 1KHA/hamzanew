@@ -1,7 +1,18 @@
+"use client";
+
+import { useState, useId } from "react";
 import Image from "next/image";
-import Tag from "@/app/components/tag/Tag";
+import ContentSwitcher from "@/app/components/content-switcher/ContentSwitcher";
 import Carousel from "@/app/components/carousel/Carousel";
 import { Partner } from "../_data/homeData";
+import "./partners-section.css";
+
+const TABS = [
+  { label: "داخل المملكة العربية السعودية", location: "inside" as const },
+  { label: "دول أخرى", location: "outside" as const },
+] as const;
+
+const SWITCHER_ITEMS = TABS.map((t) => ({ label: t.label }));
 
 interface PartnersSectionProps {
   partners: Partner[];
@@ -36,6 +47,13 @@ function PartnerLogo({ partner }: { partner: Partner }) {
 }
 
 export default function PartnersSection({ partners }: PartnersSectionProps) {
+  const [activeTab, setActiveTab] = useState(0);
+  const switcherId = useId();
+
+  const filtered = partners.filter(
+    (p) => p.location === TABS[activeTab].location
+  );
+
   return (
     <div className="bg-white">
       <section
@@ -43,42 +61,40 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
         aria-label="الشركاء"
       >
         <div className="grid gap-[24px]">
-          <div className="flex-between-center">
-            <h2 className="display-sm-bold">الشركاء</h2>
-          </div>
-          <div
-            className="flex-start-center gap-4"
-            role="group"
-            aria-label="تصفية الشركاء حسب الموقع"
-          >
-            <Tag
-              label="داخل المملكة العربية السعودية"
-              variant="success"
-              size="lg"
-              trailIcon={{ src: "/assets/image/Country Flags.svg" }}
-            />
-            <Tag
-              label="دول أخرى"
-              variant="neutral"
-              size="lg"
-              trailIcon={{
-                src: "/assets/icons/stroke-standard/flag-02-stroke-rounded.svg",
-              }}
-            />
-          </div>
+          <h2 className="display-sm-bold">الشركاء</h2>
+          <ContentSwitcher
+            id={switcherId}
+            items={SWITCHER_ITEMS}
+            value={activeTab}
+            onChange={setActiveTab}
+            size="md"
+          />
         </div>
-        <div aria-label="قائمة الشركاء">
-          <Carousel
-            itemsPerSlide={6}
-            gap={20}
-            showArrows
-            arrowRadius="20%"
-            arrowBgColor="#F3F4F6"
-          >
-            {partners.map((partner) => (
-              <PartnerLogo key={`partner-${partner.id}`} partner={partner} />
-            ))}
-          </Carousel>
+
+        <div
+          key={activeTab}
+          id={`${switcherId}-panel-${activeTab}`}
+          role="tabpanel"
+          aria-labelledby={`${switcherId}-tab-${activeTab}`}
+          className="partners-panel"
+        >
+          {filtered.length > 0 ? (
+            <Carousel
+              itemsPerSlide={6}
+              gap={20}
+              showArrows
+              arrowRadius="20%"
+              arrowBgColor="#F3F4F6"
+            >
+              {filtered.map((partner) => (
+                <PartnerLogo key={`partner-${partner.id}`} partner={partner} />
+              ))}
+            </Carousel>
+          ) : (
+            <p role="status" className="partners-panel__empty">
+              لا توجد شركاء في هذه المنطقة
+            </p>
+          )}
         </div>
       </section>
     </div>

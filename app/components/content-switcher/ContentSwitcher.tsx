@@ -16,6 +16,8 @@ interface ContentSwitcherProps {
   onColor?: boolean;
   value?: number;
   onChange?: (index: number) => void;
+  /** Explicit ID prefix — lets a parent correlate tab IDs with panel IDs for aria-controls / aria-labelledby */
+  id?: string;
 }
 
 export default function ContentSwitcher({
@@ -24,9 +26,11 @@ export default function ContentSwitcher({
   onColor = false,
   value,
   onChange,
+  id: propId,
 }: ContentSwitcherProps) {
   const [internalSelected, setInternalSelected] = useState(value ?? 0);
-  const id = useId();
+  const generatedId = useId();
+  const id = propId ?? generatedId;
 
   const selected = value ?? internalSelected;
 
