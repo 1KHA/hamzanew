@@ -193,6 +193,7 @@ export default function SideNav({
 
         {/* Profile card */}
         <div className="sidenav__card">
+          {/* TEMPORARILY HIDDEN — profile avatar
           <img
             src={userAvatar}
             alt={userName}
@@ -202,6 +203,7 @@ export default function SideNav({
                 `https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=ffffff&color=14573a&size=80`;
             }}
           />
+          */}
           <p className="sidenav__name">{userName}</p>
           <p className="sidenav__email">{userEmail}</p>
         </div>
