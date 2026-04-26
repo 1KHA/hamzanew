@@ -1,40 +1,59 @@
 "use client";
-import Button from "@/app/components/button/Button";
-import { useRouter, useSearchParams } from "next/navigation";
-import mockUserInfo from "./_data/mockUserInfo.json";
-import FormField from "@/app/components/form-field/FormField";
-import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
-import { useForm, FormProvider } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 
+import Button from "@/app/components/button/Button";
+import { useRouter } from "next/navigation";
+import type { ReactElement, ReactNode } from "react";
 import "./ProfileView.css";
 
-const accountSchema = z.object({
-  oldPassword: z.string().min(1, "كلمة المرور الحالية مطلوبة"),
-  newPassword: z
-    .string()
-    .min(8, "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل"),
-});
-
-type AccountFormValues = z.infer<typeof accountSchema>;
+/* ── Types ─────────────────────────────────────────────── */
 
 interface InfoField {
   label: string;
-  value: React.ReactNode;
+  value: ReactNode;
 }
 
 interface InfoTableProps {
   title: string;
   rows: InfoField[][];
-  editTabId: number; // Prop to specify which tab should be active in the edit view
+  editTabId: number;
 }
 
-function InfoTable({ title, rows, editTabId }: InfoTableProps) {
+interface ProfileViewProps {
+  userProfile?: Record<string, any>;
+}
+
+/* ── Helper maps ───────────────────────────────────────── */
+
+const nationalityMap: Record<string, string> = {
+  KW: "كويتي",
+  SA: "سعودي",
+  US: "أمريكي",
+  EG: "مصري",
+  JO: "أردني",
+  AE: "إماراتي",
+  OTHER: "أخرى",
+};
+
+const langMap: Record<string, string> = { ar: "العربية", en: "الإنجليزية", fr: "الفرنسية", other: "أخرى" };
+const identityMap: Record<string, string> = {
+  national_id: "هوية وطنية",
+  iqama: "إقامة",
+  passport: "جواز سفر",
+};
+const educationMap: Record<string, string> = {
+  high_school: "ثانوية عامة",
+  diploma: "دبلوم",
+  bachelor: "بكالوريوس",
+  master: "ماجستير",
+  phd: "دكتوراه",
+};
+
+/* ── Sub-components ────────────────────────────────────── */
+
+function InfoTable({ title, rows, editTabId }: InfoTableProps): ReactElement {
   const router = useRouter();
   return (
     <div className="info-table">
-      {/* Header */}
       <div className="info-table__header">
         <h3 className="text-md-bold !text-neutral-900">{title}</h3>
         <Button
@@ -43,14 +62,10 @@ function InfoTable({ title, rows, editTabId }: InfoTableProps) {
           variant="secondary-outline"
           iconPosition="left"
           size="sm"
-          onClick={() => {
-            // Include the tabId in the URL query parameters
-            router.push(`/profile/update?tab=${editTabId}`);
-          }}
+          onClick={() => router.push(`/profile/update?tab=${editTabId}`)}
         />
       </div>
 
-      {/* Content */}
       <div className="flex flex-col">
         {rows.map((row, rowIndex) => (
           <div
@@ -74,65 +89,21 @@ function InfoTable({ title, rows, editTabId }: InfoTableProps) {
   );
 }
 
-export default function ProfileView() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const currentView = searchParams.get("view");
+/* ── Main component ────────────────────────────────────── */
 
-  const methods = useForm<AccountFormValues>({
-    resolver: zodResolver(accountSchema),
-    defaultValues: {
-      oldPassword: "",
-      newPassword: "",
-    },
-    mode: "onBlur",
-  });
-
-  const onSubmit = (data: AccountFormValues) => {
-    console.log("Form Submitted:", data);
-  };
-
-  const nationalityMap: Record<string, string> = {
-    KW: "كويتي",
-    SA: "سعودي",
-    US: "أمريكي",
-  };
-  const langMap: Record<string, string> = { ar: "العربية", en: "الإنجليزية" };
-  const identityMap: Record<string, string> = {
-    national_id: "هوية وطنية",
-    passport: "جواز سفر",
-  };
-  const educationMap: Record<string, string> = {
-    bachelor: "بكالوريوس",
-    master: "ماجستير",
-    phd: "دكتوراه",
-  };
+export default function ProfileView({ userProfile }: ProfileViewProps): ReactElement {
+  const u = userProfile || {};
 
   const personalInfoRows = [
     [
-      { label: "الاسم الاول بالعربي", value: mockUserInfo.firstName_ar || "-" },
-      {
-        label: "الاسم الثاني بالعربي",
-        value: mockUserInfo.middleName_ar || "-",
-      },
-      { label: "الاسم الثالث بالعربي", value: mockUserInfo.lastName_ar || "-" },
-      {
-        label: "الاسم الاول بالانجليزي",
-        value: mockUserInfo.firstName_en || "-",
-      },
-      {
-        label: "الاسم الثاني بالانجليزي",
-        value: mockUserInfo.middleName_en || "-",
-      },
-      {
-        label: "الاسم الثالث بالانجليزي",
-        value: mockUserInfo.lastName_en || "-",
-      },
-      {
-        label: "البريد الالكتروني",
-        value: mockUserInfo.email || "-",
-      },
-      { label: "رقم الجوال", value: mockUserInfo.phone || "-" },
+      { label: "الاسم الاول بالعربي", value: u.firstName_ar || "-" },
+      { label: "الاسم الثاني بالعربي", value: u.secondName_ar || u.middleName_ar || "-" },
+      { label: "الاسم الثالث بالعربي", value: u.lastName_ar || "-" },
+      { label: "الاسم الاول بالانجليزي", value: u.firstName_en || "-" },
+      { label: "الاسم الثاني بالانجليزي", value: u.secondName_en || u.middleName_en || "-" },
+      { label: "الاسم الثالث بالانجليزي", value: u.lastName_en || "-" },
+      { label: "البريد الالكتروني", value: u.email || u.emailId || "-" },
+      { label: "رقم الجوال", value: u.phone || u.phoneNumber || "-" },
       {
         label: "تاريخ الميلاد",
         value: (
@@ -144,7 +115,7 @@ export default function ProfileView() {
               className="gray-icon"
               alt=""
             />
-            <span>{mockUserInfo.birthDate || "-"}</span>
+            <span>{u.birthDate || "-"}</span>
           </>
         ),
       },
@@ -153,21 +124,15 @@ export default function ProfileView() {
       {
         label: "الجنسية",
         value:
-          nationalityMap[mockUserInfo.nationality] ||
-          mockUserInfo.nationality ||
-          "-",
+          nationalityMap[u.nationality] || u.nationality || "-",
       },
       {
         label: "لغة الأم",
-        value:
-          langMap[mockUserInfo.motherTongue] ||
-          mockUserInfo.motherTongue ||
-          "-",
+        value: langMap[u.motherTongue] || u.motherTongue || "-",
       },
       {
         label: "الإثبات",
-        value:
-          identityMap[mockUserInfo.identity] || mockUserInfo.identity || "-",
+        value: identityMap[u.identity] || u.identity || "-",
       },
       {
         label: "رقم الإثبات",
@@ -180,7 +145,7 @@ export default function ProfileView() {
               className="gray-icon"
               alt=""
             />
-            <span>{mockUserInfo.identityNumber || "-"}</span>
+            <span>{u.identityNumber || "-"}</span>
           </>
         ),
       },
@@ -201,7 +166,7 @@ export default function ProfileView() {
               alt=""
             />
             <span className="text-[#344054] text-sm-regular truncate flex-1">
-              {mockUserInfo.identityFile}
+              {u.identityFile || "-"}
             </span>
           </a>
         ),
@@ -213,18 +178,15 @@ export default function ProfileView() {
     [
       {
         label: "المؤهل الدراسي",
-        value:
-          educationMap[mockUserInfo.education] || mockUserInfo.education || "-",
+        value: educationMap[u.education] || u.education || "-",
       },
-      { label: "التخصص", value: mockUserInfo.specialization || "-" },
-      { label: "الجامعة", value: mockUserInfo.institution || "-" },
+      { label: "التخصص", value: u.specialization || "-" },
+      { label: "الجامعة", value: u.institution || u.university || "-" },
       {
         label: "اللغة الأساسية في التعليم",
         value: (
           <span>
-            {langMap[mockUserInfo.basicLanguageInEducation] ||
-              mockUserInfo.basicLanguageInEducation ||
-              "-"}
+            {langMap[u.basicLanguageInEducation] || u.basicLanguageInEducation || "-"}
           </span>
         ),
       },
@@ -233,91 +195,20 @@ export default function ProfileView() {
 
   const locationInfoRows = [
     [
-      {
-        label: "الدولة",
-        value: mockUserInfo.country || "-",
-      },
-      { label: "المنطقة", value: mockUserInfo.state || "-" },
-      { label: "المدينة", value: mockUserInfo.city || "-" },
+      { label: "الدولة", value: u.country || "-" },
+      { label: "المنطقة", value: u.state || "-" },
+      { label: "المدينة", value: u.city || "-" },
       {
         label: "العنوان البريدي",
-        value: <span>{mockUserInfo.postalAddress || "-"}</span>,
+        value: <span>{u.postalAddress || u.street || "-"}</span>,
       },
       {
         label: "الرمز البريدي",
-        value: <span>{mockUserInfo.zipCode || "-"}</span>,
+        value: <span>{u.zipCode || "-"}</span>,
       },
     ],
   ];
-  if (currentView === "security") {
-    return (
-      <div className="flex flex-col gap-6">
-        <FormProvider {...methods}>
-          <form
-            id="security-info-form"
-            onSubmit={methods.handleSubmit(onSubmit)}
-            className="info-table"
-          >
-            {/* Header */}
-            <div className="info-table__header">
-              <h3 className="text-md-bold !text-neutral-900">كلمة المرور</h3>
-            </div>
 
-            {/* Content */}
-            <div className="!grid !grid-cols-1 md:!grid-cols-3 !p-[32px]">
-              <div className="flex flex-col gap-8">
-                <FormField
-                  label="كلمة المرور القديمة"
-                  error={methods.formState.errors.oldPassword?.message}
-                >
-                  <ControlledTextInput
-                    name="oldPassword"
-                    type="password"
-                    size="lg"
-                    variant="darker"
-                  />
-                </FormField>
-                <FormField
-                  label="كلمة المرور الجديدة"
-                  error={methods.formState.errors.newPassword?.message}
-                >
-                  <ControlledTextInput
-                    name="newPassword"
-                    type="password"
-                    size="lg"
-                    variant="darker"
-                  />
-                </FormField>
-              </div>
-            </div>
-            {/* Form Actions — linked via form id */}
-            <div className="flex gap-[12px] justify-end !p-[24px]">
-              <Button
-                form="security-info-form"
-                type="submit"
-                label="حفظ التغييرات"
-                variant="primary-brand"
-                size="md"
-                className="md:w-[100px] w-full"
-              />
-              <Button
-                form="security-info-form"
-                type="button"
-                label="إلغاء"
-                variant="secondary-outline"
-                size="md"
-                className="md:w-[100px] w-full"
-                onClick={() => {
-                  methods.reset();
-                  router.push("/profile");
-                }}
-              />
-            </div>
-          </form>
-        </FormProvider>
-      </div>
-    );
-  }
   return (
     <div className="flex flex-col gap-6">
       <InfoTable

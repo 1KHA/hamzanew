@@ -3,21 +3,29 @@ import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import type { UserProfileFormValues } from "../update/ProfileForm";
 import { DgaDropdown } from "platformscode-new-react";
-const DEGREE_OPTIONS = [
-  { name: "ثانوية عامة", value: "high_school" },
-  { name: "دبلوم", value: "diploma" },
-  { name: "بكالوريوس", value: "bachelor" },
-  { name: "ماجستير", value: "master" },
-  { name: "دكتوراه", value: "phd" },
-];
-
 const LANGUAGE_OPTIONS = [
   { name: "العربية", value: "ar" },
   { name: "الإنجليزية", value: "en" },
   { name: "الفرنسية", value: "fr" },
   { name: "أخرى", value: "other" },
 ];
-export default function EducationTab() {
+
+interface DropdownOption {
+  name: string;
+  value: string;
+}
+
+interface EducationTabProps {
+  educationOptions?: DropdownOption[];
+  institutionOptions?: DropdownOption[];
+  specializationOptions?: DropdownOption[];
+}
+
+export default function EducationTab({
+  educationOptions = [],
+  institutionOptions = [],
+  specializationOptions = [],
+}: EducationTabProps) {
   const {
     control,
     formState: { errors },
@@ -56,7 +64,13 @@ export default function EducationTab() {
                 className="w-full"
                 optionLabel="name"
                 trackBy="value"
-                options={DEGREE_OPTIONS}
+                options={educationOptions.length ? educationOptions : [
+                  { name: "ثانوية عامة", value: "high_school" },
+                  { name: "دبلوم", value: "diploma" },
+                  { name: "بكالوريوس", value: "bachelor" },
+                  { name: "ماجستير", value: "master" },
+                  { name: "دكتوراه", value: "phd" },
+                ]}
                 value={field.value}
                 onChange={(value) => field.onChange(value)}
                 error={!!errors.education}
@@ -71,7 +85,27 @@ export default function EducationTab() {
           error={errors.institution?.message}
           className="md:!col-span-2"
         >
-          <ControlledTextInput name="institution" />
+          <Controller
+            name="institution"
+            control={control}
+            render={({ field }) => (
+              <DgaDropdown
+                placeholder="اختر المؤسسة"
+                size="lg"
+                variant="darker"
+                className="w-full"
+                optionLabel="name"
+                trackBy="value"
+                options={institutionOptions.length ? institutionOptions : [
+                  { name: "جامعة الملك سعود", value: "ksu" },
+                  { name: "جامعة القاهرة", value: "cairo" },
+                ]}
+                value={field.value}
+                onChange={(value: any) => field.onChange(value)}
+                error={!!errors.institution}
+              />
+            )}
+          />
         </FormField>
 
         {/* spacer */}

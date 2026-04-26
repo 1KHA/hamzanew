@@ -15,28 +15,27 @@ import {
   getDigitsFromPhone,
   type PrefixOption,
 } from "@/lib/utils/phonePrefixes";
+
 const ID_TYPE_OPTIONS = [
   { name: "هوية وطنية", value: "national_id" },
   { name: "إقامة", value: "iqama" },
   { name: "جواز سفر", value: "passport" },
 ];
 
-const NATIONALITY_OPTIONS = [
-  { name: "سعودي", value: "SA" },
-  { name: "مصري", value: "EG" },
-  { name: "أردني", value: "JO" },
-  { name: "إماراتي", value: "AE" },
-  { name: "كويتي", value: "KW" },
-  { name: "أخرى", value: "OTHER" },
-];
+interface DropdownOption {
+  name: string;
+  value: string;
+}
 
-const LANGUAGE_OPTIONS = [
-  { name: "العربية", value: "ar" },
-  { name: "الإنجليزية", value: "en" },
-  { name: "الفرنسية", value: "fr" },
-  { name: "أخرى", value: "other" },
-];
-export default function PersonalInfoTab() {
+interface PersonalInfoTabProps {
+  nationalityOptions?: DropdownOption[];
+  motherTongueOptions?: DropdownOption[];
+}
+
+export default function PersonalInfoTab({
+  nationalityOptions = [],
+  motherTongueOptions = [],
+}: PersonalInfoTabProps) {
   const {
     control,
     setValue,
@@ -338,7 +337,14 @@ export default function PersonalInfoTab() {
                 variant="darker"
                 optionLabel="name"
                 trackBy="value"
-                options={NATIONALITY_OPTIONS}
+                options={nationalityOptions.length ? nationalityOptions : [
+                  { name: "سعودي", value: "SA" },
+                  { name: "مصري", value: "EG" },
+                  { name: "أردني", value: "JO" },
+                  { name: "إماراتي", value: "AE" },
+                  { name: "كويتي", value: "KW" },
+                  { name: "أخرى", value: "OTHER" },
+                ]}
                 className="w-full"
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
@@ -362,7 +368,12 @@ export default function PersonalInfoTab() {
                 variant="darker"
                 optionLabel="name"
                 trackBy="value"
-                options={LANGUAGE_OPTIONS}
+                options={motherTongueOptions.length ? motherTongueOptions : [
+                  { name: "العربية", value: "ar" },
+                  { name: "الإنجليزية", value: "en" },
+                  { name: "الفرنسية", value: "fr" },
+                  { name: "أخرى", value: "other" },
+                ]}
                 className="w-full"
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}

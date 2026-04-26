@@ -4,21 +4,6 @@ import Button from "@/app/components/button/Button";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import type { UserProfileFormValues } from "../update/ProfileForm";
-const TIMEZONE_OPTIONS = [
-  { name: "توقيت الرياض (GMT+3)", value: "Asia/Riyadh" },
-  { name: "توقيت القاهرة (GMT+2)", value: "Africa/Cairo" },
-  { name: "توقيت دبي (GMT+4)", value: "Asia/Dubai" },
-  { name: "توقيت لندن (GMT+0)", value: "Europe/London" },
-];
-
-const COUNTRY_OPTIONS = [
-  { name: "المملكة العربية السعودية", value: "SA" },
-  { name: "مصر", value: "EG" },
-  { name: "الأردن", value: "JO" },
-  { name: "الإمارات", value: "AE" },
-  { name: "الكويت", value: "KW" },
-];
-
 const REGION_OPTIONS = [
   { name: "منطقة الرياض", value: "riyadh" },
   { name: "منطقة مكة المكرمة", value: "makkah" },
@@ -33,7 +18,21 @@ const CITY_OPTIONS = [
   { name: "المدينة المنورة", value: "madinah_city" },
   { name: "الدمام", value: "dammam" },
 ];
-export default function LocationTab() {
+
+interface DropdownOption {
+  name: string;
+  value: string;
+}
+
+interface LocationTabProps {
+  countryOptions?: DropdownOption[];
+  timezoneOptions?: DropdownOption[];
+}
+
+export default function LocationTab({
+  countryOptions = [],
+  timezoneOptions = [],
+}: LocationTabProps) {
   const {
     control,
     formState: { errors },
@@ -75,7 +74,12 @@ export default function LocationTab() {
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
                 error={!!errors.timezone}
-                options={TIMEZONE_OPTIONS}
+                options={timezoneOptions.length ? timezoneOptions : [
+                  { name: "توقيت الرياض (GMT+3)", value: "Asia/Riyadh" },
+                  { name: "توقيت القاهرة (GMT+2)", value: "Africa/Cairo" },
+                  { name: "توقيت دبي (GMT+4)", value: "Asia/Dubai" },
+                  { name: "توقيت لندن (GMT+0)", value: "Europe/London" },
+                ]}
               />
             )}
           />
@@ -97,7 +101,13 @@ export default function LocationTab() {
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
                 error={!!errors.country}
-                options={COUNTRY_OPTIONS}
+                options={countryOptions.length ? countryOptions : [
+                  { name: "المملكة العربية السعودية", value: "SA" },
+                  { name: "مصر", value: "EG" },
+                  { name: "الأردن", value: "JO" },
+                  { name: "الإمارات", value: "AE" },
+                  { name: "الكويت", value: "KW" },
+                ]}
               />
             )}
           />
