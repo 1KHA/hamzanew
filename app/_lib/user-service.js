@@ -58,6 +58,7 @@ export async function getUserProfileInfo() {
 
     if (response.ok) {
       const userData = await response.json();
+      console.log("[getUserProfileInfo] API response:", JSON.stringify(userData, null, 2));
       return userData;
     }
 

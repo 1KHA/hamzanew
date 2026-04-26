@@ -4,6 +4,60 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { clearUserProfileCache, updateUserProfileCache } from "./session-cache";
 
+/**
+ * Converts frontend form field names to backend API field names.
+ * The Liferay backend expects the same shape as the sign-up payload.
+ */
+function mapFormToApiPayload(formData) {
+  const payload = {
+    firstName: formData.firstName_ar,
+    firstNameInEnglish: formData.firstName_en,
+    secondName: formData.secondName_ar,
+    secondNameInEnglish: formData.secondName_en,
+    lastName: formData.lastName_ar,
+    lastNameInEnglish: formData.lastName_en,
+    emailId: formData.email,
+    phoneNumber: formData.phone,
+    nationality: formData.nationality,
+    motherTongue: formData.motherTongue,
+    proofName: formData.identity,
+    passportNumber: formData.identityNumber,
+    lastEducationalQualification: formData.education,
+    academicSpecialization: formData.specialization,
+    university: formData.institution,
+    primaryLanguageOfEducation: formData.basicLanguageInEducation,
+    timeZone: formData.timezone,
+    country: formData.country,
+    state: formData.state,
+    city: formData.city,
+    street: formData.postalAddress,
+    postalCode: formData.zipCode,
+  };
+
+  // Handle birthDate split into day/month/year
+  if (formData.birthDate) {
+    try {
+      const date = new Date(formData.birthDate);
+      if (!isNaN(date.getTime())) {
+        payload.dayOfBirth = date.getDate();
+        payload.monthOfBirth = date.getMonth() + 1;
+        payload.yearOfBirth = date.getFullYear();
+      }
+    } catch {
+      // ignore invalid date
+    }
+  }
+
+  // Remove undefined/null fields to avoid overwriting backend data
+  Object.keys(payload).forEach((key) => {
+    if (payload[key] === undefined || payload[key] === null || payload[key] === "") {
+      delete payload[key];
+    }
+  });
+
+  return payload;
+}
+
 export async function updateUserProfile(profileData) {
   try {
     const session = await getServerSession(authOptions);
@@ -21,6 +75,14 @@ export async function updateUserProfile(profileData) {
         `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
       );
 
+    const payload = mapFormToApiPayload(profileData);
+    const body = JSON.stringify({
+      ...payload,
+      userId: session.user.id,
+    });
+
+    console.log("[updateUserProfile] payload:", body);
+
     // Make API call to update profile
     const response = await fetch(
       `${process.env.BASE_URL}${process.env.HAMZA_UPDATE_USER_PROFILE_API_URL}`,
@@ -31,16 +93,22 @@ export async function updateUserProfile(profileData) {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({
-          ...profileData,
-          userId: session.user.id,
-        }),
+        body,
       }
     );
 
-    if (response.ok) {
-      const updatedProfileData = await response.json();
+    const responseText = await response.text();
+    let updatedProfileData;
+    try {
+      updatedProfileData = JSON.parse(responseText);
+    } catch {
+      updatedProfileData = { raw: responseText };
+    }
 
+    console.log("[updateUserProfile] response status:", response.status);
+    console.log("[updateUserProfile] response data:", updatedProfileData);
+
+    if (response.ok) {
       // Clear the cache so fresh data is fetched on next request
       await clearUserProfileCache();
 
@@ -50,10 +118,9 @@ export async function updateUserProfile(profileData) {
         message: "Profile updated successfully",
       };
     } else {
-      const errorData = await response.json();
       return {
         status: "FAIL",
-        message: errorData.message || "Failed to update profile",
+        message: updatedProfileData.message || updatedProfileData.error || `Failed to update profile (HTTP ${response.status})`,
       };
     }
   } catch (error) {

@@ -11,9 +11,28 @@ export const metadata: Metadata = {
 /**
  * Maps API profile response to the shape expected by ProfileView.
  * Tries multiple possible field names from the Liferay API.
+ *
+ * Backend field names (from sign-up payload):
+ *   firstName, firstNameInEnglish, secondName, secondNameInEnglish,
+ *   lastName, lastNameInEnglish, emailId, phoneNumber,
+ *   dayOfBirth/monthOfBirth/yearOfBirth, nationality, motherTongue,
+ *   proofName (identity type), passportNumber (identity number),
+ *   lastEducationalQualification, academicSpecialization, university,
+ *   primaryLanguageOfEducation, timeZone, country, state, city,
+ *   street, postalCode
  */
 function mapApiProfile(apiData: any): Record<string, any> {
   if (!apiData || apiData.status === "FAIL") return {};
+
+  // Build birthDate from split fields if needed
+  let birthDate = apiData.birthDate || "";
+  if (!birthDate && (apiData.dayOfBirth || apiData.monthOfBirth || apiData.yearOfBirth)) {
+    const d = String(apiData.dayOfBirth || 1).padStart(2, "0");
+    const m = String(apiData.monthOfBirth || 1).padStart(2, "0");
+    const y = apiData.yearOfBirth || 2000;
+    birthDate = `${y}-${m}-${d}`;
+  }
+
   return {
     firstName_ar: apiData.firstName_ar ?? apiData.firstName ?? "",
     secondName_ar: apiData.middleName_ar ?? apiData.secondName_ar ?? apiData.secondName ?? "",
@@ -23,11 +42,11 @@ function mapApiProfile(apiData: any): Record<string, any> {
     lastName_en: apiData.lastName_en ?? apiData.lastNameInEnglish ?? "",
     email: apiData.email ?? apiData.emailId ?? "",
     phone: apiData.phone ?? apiData.phoneNumber ?? "",
-    birthDate: apiData.birthDate ?? "",
+    birthDate,
     nationality: apiData.nationality ?? "",
     motherTongue: apiData.motherTongue ?? "",
-    identity: apiData.identity ?? "",
-    identityNumber: apiData.identityNumber ?? "",
+    identity: apiData.identity ?? apiData.proofName ?? "",
+    identityNumber: apiData.identityNumber ?? apiData.passportNumber ?? "",
     identityFile: apiData.identityFile ?? "",
     education: apiData.education ?? apiData.lastEducationalQualification ?? "",
     basicLanguageInEducation: apiData.basicLanguageInEducation ?? apiData.primaryLanguageOfEducation ?? "",
@@ -38,7 +57,7 @@ function mapApiProfile(apiData: any): Record<string, any> {
     state: apiData.state ?? "",
     city: apiData.city ?? "",
     postalAddress: apiData.postalAddress ?? apiData.street ?? "",
-    zipCode: apiData.zipCode ?? "",
+    zipCode: apiData.zipCode ?? apiData.postalCode ?? "",
   };
 }
 
