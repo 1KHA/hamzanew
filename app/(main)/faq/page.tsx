@@ -3,7 +3,8 @@ import PageHero from "@/app/components/page-hero/PageHero";
 import { Metadata } from "next";
 import FAQ from "./FAQ";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
-import { extractFAQTabs, extractFields } from "@/app/_lib/helper-service";
+import { extractFAQTabs } from "@/app/_lib/helper-service";
+import { getTranslations } from "@/app/_lib/getTranslations";
 
 const HERO_CONFIG = {
   title: "الأسئلة الشائعة",
@@ -154,9 +155,12 @@ export default async function FAQPage(): Promise<ReactElement> {
   let heroDescription = HERO_CONFIG.description;
 
   try {
-    const content = await fetchContentWithKey(
-      "ADDITIONAL_INFORMATION_FREQUENTLY_ASKED_QUESTIONS_CONTENT_KEY"
-    );
+    const [content, translations] = await Promise.all([
+      fetchContentWithKey(
+        "ADDITIONAL_INFORMATION_FREQUENTLY_ASKED_QUESTIONS_CONTENT_KEY"
+      ),
+      getTranslations(),
+    ]);
 
     console.log("[FAQ Page] Content fetched. Title:", content?.title);
     console.log("[FAQ Page] contentFields count:", content?.contentFields?.length);
@@ -180,13 +184,11 @@ export default async function FAQPage(): Promise<ReactElement> {
       console.log(`[FAQ Page] Tab ${i}: "${tab.title}" — ${tab.faqs?.length} FAQs`);
     });
 
-    const heroFields = extractFields(content?.contentFields, [
-      "titleText",
-      "descriptionText",
-    ]) as { titleText?: string; descriptionText?: string };
-
-    heroTitle = heroFields?.titleText || content?.title || HERO_CONFIG.title;
-    heroDescription = heroFields?.descriptionText || HERO_CONFIG.description;
+    heroTitle =
+      translations?.["hamza-page-contact-us-title"] || HERO_CONFIG.title;
+    heroDescription =
+      translations?.["hamza-page-contact-us-description"] ||
+      HERO_CONFIG.description;
 
     if (faqTabs && faqTabs.length > 0) {
       items = faqTabs.flatMap((tab: any, tabIndex: number) =>
