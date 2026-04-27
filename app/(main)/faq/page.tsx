@@ -3,7 +3,7 @@ import PageHero from "@/app/components/page-hero/PageHero";
 import { Metadata } from "next";
 import FAQ from "./FAQ";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
-import { extractFAQTabs } from "@/app/_lib/helper-service";
+import { extractFAQTabs, extractFields } from "@/app/_lib/helper-service";
 
 const HERO_CONFIG = {
   title: "الأسئلة الشائعة",
@@ -151,6 +151,7 @@ const fallbackItems = [
 export default async function FAQPage(): Promise<ReactElement> {
   let items = fallbackItems;
   let heroTitle = HERO_CONFIG.title;
+  let heroDescription = HERO_CONFIG.description;
 
   try {
     const content = await fetchContentWithKey(
@@ -179,6 +180,14 @@ export default async function FAQPage(): Promise<ReactElement> {
       console.log(`[FAQ Page] Tab ${i}: "${tab.title}" — ${tab.faqs?.length} FAQs`);
     });
 
+    const heroFields = extractFields(content?.contentFields, [
+      "titleText",
+      "descriptionText",
+    ]) as { titleText?: string; descriptionText?: string };
+
+    heroTitle = heroFields?.titleText || content?.title || HERO_CONFIG.title;
+    heroDescription = heroFields?.descriptionText || HERO_CONFIG.description;
+
     if (faqTabs && faqTabs.length > 0) {
       items = faqTabs.flatMap((tab: any, tabIndex: number) =>
         tab.faqs.map((faq: any, faqIndex: number) => ({
@@ -188,7 +197,6 @@ export default async function FAQPage(): Promise<ReactElement> {
           category: tab.title,
         }))
       );
-      heroTitle = content?.title || HERO_CONFIG.title;
       console.log("[FAQ Page] Using backend data:", items.length, "items");
     } else {
       console.warn(
@@ -200,7 +208,7 @@ export default async function FAQPage(): Promise<ReactElement> {
     console.error("[FAQ Page] Error fetching FAQ content:", error);
   }
 
-  const hero = { ...HERO_CONFIG, title: heroTitle };
+  const hero = { ...HERO_CONFIG, title: heroTitle, description: heroDescription };
 
   return (
     <main>
