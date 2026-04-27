@@ -1,11 +1,16 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import dynamic from "next/dynamic";
 import { DgaTabs } from "../../components/tabs/DgaTabs";
-import { DgaAccordion } from "platformscode-new-react";
 import SearchBox from "../../components/search-box/SearchBox";
 import Button from "../../components/button/Button";
 import { normalizeArabic, arabicIncludes } from "@/lib/utils/arabic";
+
+const DgaAccordion = dynamic(
+  () => import("platformscode-new-react").then((mod) => mod.DgaAccordion),
+  { ssr: false }
+);
 
 /**
  * FAQ Component (Client Component)
@@ -33,18 +38,21 @@ export default function FAQ({ items }: { items: FAQItem[] }) {
   const [activeTabId, setActiveTabId] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [appliedSearchQuery, setAppliedSearchQuery] = useState<string>("");
+
   /**
-   * Mapping of tab IDs to their Arabic category labels
-   * Used for filtering the items based on the active tab.
+   * Derive tab categories dynamically from the items prop.
+   * "الكل" is always the first tab.
    */
-  const TAB_MAP: Record<number, string> = {
-    1: "الكل",
-    2: "الاختبار",
-    3: "الحساب",
-    4: "الدفع",
-    5: "النتائج والشهادات",
-    6: "مشاكل تقنية",
-  };
+  const categories = useMemo(() => {
+    const cats = new Set(items.map((item) => item.category));
+    return ["الكل", ...Array.from(cats)];
+  }, [items]);
+
+  const TAB_MAP = useMemo(() => {
+    return Object.fromEntries(
+      categories.map((cat, i) => [i + 1, cat])
+    ) as Record<number, string>;
+  }, [categories]);
 
   /**
    * Effect: Initialize first tab as active on component mount
@@ -80,13 +88,13 @@ export default function FAQ({ items }: { items: FAQItem[] }) {
 
       return matchesCategory && matchesSearch;
     });
-  }, [items, appliedSearchQuery, activeTabId]);
+  }, [items, appliedSearchQuery, activeTabId, TAB_MAP]);
 
   /**
    * Handle tab switching and update active state
    * Manages both React state and DGA-specific visual classes.
    *
-   * @param {number} tabId - Unique ID for the selected tab (1-6)
+   * @param {number} tabId - Unique ID for the selected tab (1-indexed)
    */
   const handleTabChange = (tabId: number) => {
     setActiveTabId(tabId);
@@ -104,6 +112,15 @@ export default function FAQ({ items }: { items: FAQItem[] }) {
       activeTabElement.classList.add("dga-tabs-list__item--active");
     }
   };
+
+  const tabsList = useMemo(
+    () =>
+      categories.map((cat, i) => ({
+        label: cat,
+        onClick: () => handleTabChange(i + 1),
+      })),
+    [categories],
+  );
 
   return (
     <section
@@ -134,14 +151,7 @@ export default function FAQ({ items }: { items: FAQItem[] }) {
             orientation="horizontal"
             divider
             size="md"
-            tabsList={[
-              { label: "الكل", onClick: () => handleTabChange(1) },
-              { label: "الاختبار", onClick: () => handleTabChange(2) },
-              { label: "الحساب", onClick: () => handleTabChange(3) },
-              { label: "الدفع", onClick: () => handleTabChange(4) },
-              { label: "النتائج والشهادات", onClick: () => handleTabChange(5) },
-              { label: "مشاكل تقنية", onClick: () => handleTabChange(6) },
-            ]}
+            tabsList={tabsList}
           />
 
           {/* FAQ Accordion Content */}

@@ -1,21 +1,6 @@
-import type { ReactElement } from "react";
-import PageHero from "@/app/components/page-hero/PageHero";
-import { Metadata } from "next";
-import FAQ from "./FAQ";
+import { NextResponse } from "next/server";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFAQTabs } from "@/app/_lib/helper-service";
-
-const HERO_CONFIG = {
-  title: "الأسئلة الشائعة",
-  description: "اعثر على إجابات للأسئلة الشائعة حول خدماتنا وسياساتنا.",
-  bgColor: "#F7FDF9",
-};
-
-export const metadata: Metadata = {
-  title: "الأسئلة الشائعة",
-  description:
-    "استكشف الأسئلة الشائعة حول اختبارات همزة، خدماتنا، وسياساتنا. اعثر على إجابات سريعة لمشاكل التقنية والحسابات.",
-};
 
 export const dynamic = "force-dynamic";
 
@@ -148,39 +133,62 @@ const fallbackItems = [
   },
 ];
 
-export default async function FAQPage(): Promise<ReactElement> {
-  let items = fallbackItems;
-  let heroTitle = HERO_CONFIG.title;
-
+export async function GET(request: Request) {
   try {
     const content = await fetchContentWithKey(
       "ADDITIONAL_INFORMATION_FREQUENTLY_ASKED_QUESTIONS_CONTENT_KEY"
     );
 
-    console.log("[FAQ Page] Content fetched. Title:", content?.title);
-    console.log("[FAQ Page] contentFields count:", content?.contentFields?.length);
+    console.log("[FAQ API] Content fetched. Title:", content?.title);
+    console.log("[FAQ API] contentFields count:", content?.contentFields?.length);
     console.log(
-      "[FAQ Page] contentFields names:",
+      "[FAQ API] contentFields names:",
       content?.contentFields?.map((f: any) => f.name)
     );
 
     // Dump raw first contentField for diagnosis
     if (content?.contentFields?.[0]) {
       console.log(
-        "[FAQ Page] RAW first contentField:",
+        "[FAQ API] RAW first contentField:",
         JSON.stringify(content.contentFields[0], null, 2)
       );
     }
 
-    const faqTabs = extractFAQTabs(content?.contentFields);
+    // Log first tab's nested structure to verify field names
+    const firstTab = content?.contentFields?.find((f: any) => f.name === "TabFieldset");
+    if (firstTab?.nestedContentFields) {
+      console.log(
+        "[FAQ API] First TabFieldset nested field names:",
+        firstTab.nestedContentFields.map((f: any) => f.name)
+      );
+      const firstFAQ = firstTab.nestedContentFields.find((f: any) => f.name === "FAQFieldset");
+      if (firstFAQ?.nestedContentFields) {
+        console.log(
+          "[FAQ API] First FAQFieldset nested field names:",
+          firstFAQ.nestedContentFields.map((f: any) => f.name)
+        );
+      }
+    }
 
-    console.log("[FAQ Page] Extracted tabs count:", faqTabs?.length);
-    faqTabs?.forEach((tab, i) => {
-      console.log(`[FAQ Page] Tab ${i}: "${tab.title}" — ${tab.faqs?.length} FAQs`);
+    const faqTabs = extractFAQTabs(
+      content?.contentFields,
+      "TabFieldset",
+      "FAQFieldset",
+      "tabTitleText",
+      "fqaQuestionText",
+      "faqAnswerText"
+    );
+
+    console.log("[FAQ API] Extracted tabs count:", faqTabs?.length);
+    faqTabs?.forEach((tab: any, i: number) => {
+      console.log(`[FAQ API] Tab ${i}: "${tab.title}" — ${tab.faqs?.length} FAQs`);
+      tab.faqs?.forEach((faq: any, j: number) => {
+        console.log(`[FAQ API]   FAQ ${j}: Q="${faq.question?.substring(0, 60)}..." A="${faq.answer?.substring(0, 60)}..."`);
+      });
     });
 
     if (faqTabs && faqTabs.length > 0) {
-      items = faqTabs.flatMap((tab: any, tabIndex: number) =>
+      const items = faqTabs.flatMap((tab: any, tabIndex: number) =>
         tab.faqs.map((faq: any, faqIndex: number) => ({
           id: tabIndex * 100 + faqIndex + 1,
           title: faq.question,
@@ -188,34 +196,22 @@ export default async function FAQPage(): Promise<ReactElement> {
           category: tab.title,
         }))
       );
-      heroTitle = content?.title || HERO_CONFIG.title;
-      console.log("[FAQ Page] Using backend data:", items.length, "items");
-    } else {
-      console.warn(
-        "[FAQ Page] extractFAQTabs returned empty — using fallback. " +
-        "Check field names in RAW log above."
-      );
+
+      console.log("[FAQ API] Returning", items.length, "FAQ items from backend");
+
+      return NextResponse.json({
+        header: { title: content?.title || "الأسئلة الشائعة" },
+        items,
+      });
     }
+
+    console.warn("[FAQ API] extractFAQTabs returned empty — using fallback");
   } catch (error) {
-    console.error("[FAQ Page] Error fetching FAQ content:", error);
+    console.error("[FAQ API] Error fetching FAQ content:", error);
   }
 
-  const hero = { ...HERO_CONFIG, title: heroTitle };
-
-  return (
-    <main>
-      <PageHero
-        heroMap={{ "/faq": hero }}
-        defaultRoute="/faq"
-        breadcrumbsMax={2}
-      />
-
-      <section className="bg-white" aria-labelledby="faq-main-heading">
-        <h1 id="faq-main-heading" className="sr-only">
-          الأسئلة الشائعة والدعم الفني
-        </h1>
-        <FAQ items={items} />
-      </section>
-    </main>
-  );
+  return NextResponse.json({
+    header: { title: "الأسئلة الشائعة" },
+    items: fallbackItems,
+  });
 }

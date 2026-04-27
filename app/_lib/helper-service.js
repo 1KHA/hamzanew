@@ -131,13 +131,14 @@ export function extractImageList(contentFields, fieldName) {
 }
 
 /**
- * Extracts FAQ tabs with their associated Q&A lists from content fields
+ * Extracts FAQ tabs with their associated Q&A lists from content fields.
+ * Supports multiple candidate field names for backward/forward compatibility.
  * @param {Array} contentFields - The content fields from the API response
  * @param {string} tabFieldsetName - The name of the tab fieldset (e.g., "TabFieldset")
  * @param {string} faqFieldsetName - The name of the FAQ fieldset (e.g., "FAQFieldset")
  * @param {string} tabTitleFieldName - The name of the tab title field (e.g., "tabTitleText")
- * @param {string} faqQuestionFieldName - The name of the FAQ question field (e.g., "fqaQuestionText")
- * @param {string} faqAnswerFieldName - The name of the FAQ answer field (e.g., "faqAnswerText")
+ * @param {string|string[]} faqQuestionFieldName - FAQ question field name(s)
+ * @param {string|string[]} faqAnswerFieldName - FAQ answer field name(s)
  * @returns {Array} Array of tab objects with title and faqs array
  */
 export function extractFAQTabs(
@@ -145,12 +146,19 @@ export function extractFAQTabs(
   tabFieldsetName = "TabFieldset",
   faqFieldsetName = "FAQFieldset",
   tabTitleFieldName = "tabTitleText",
-  faqQuestionFieldName = "fqaQuestionText",
-  faqAnswerFieldName = "faqAnswerText"
+  faqQuestionFieldName = ["fqaQuestionText", "faqQuestionText", "questionText", "question"],
+  faqAnswerFieldName = ["faqAnswerText", "answerText", "answer"]
 ) {
   if (!contentFields || !Array.isArray(contentFields)) {
     return [];
   }
+
+  const questionNames = Array.isArray(faqQuestionFieldName)
+    ? faqQuestionFieldName
+    : [faqQuestionFieldName];
+  const answerNames = Array.isArray(faqAnswerFieldName)
+    ? faqAnswerFieldName
+    : [faqAnswerFieldName];
 
   return contentFields
     .filter((field) => field.name === tabFieldsetName)
@@ -184,15 +192,18 @@ export function extractFAQTabs(
             };
 
             nestedField.nestedContentFields.forEach((faqField) => {
-              if (faqField.name === faqQuestionFieldName) {
+              // Try all candidate question field names
+              if (questionNames.includes(faqField.name)) {
                 faq.question = faqField.contentFieldValue?.data || "";
-              } else if (faqField.name === faqAnswerFieldName) {
+              }
+              // Try all candidate answer field names
+              else if (answerNames.includes(faqField.name)) {
                 faq.answer = faqField.contentFieldValue?.data || "";
               }
             });
 
-            // Only add FAQ if it has both question and answer
-            if (faq.question && faq.answer) {
+            // Include FAQ if it has at least a question (answer can be empty)
+            if (faq.question) {
               tab.faqs.push(faq);
             }
           }
