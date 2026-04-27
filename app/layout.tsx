@@ -5,6 +5,75 @@ import "./globals.css";
 // import ClientOnly from "./components/ClientOnly";
 import AuthProvider from "@/lib/utils/AuthProvider";
 import { cookies } from "next/headers";
+import Script from "next/script";
+
+const agentMonitoringScript = `
+if (!RVBD_EUE) {
+  var RVBD_EUE = {
+    startJS: Number(new Date()),
+
+    clientId: "",
+    appId: 1,
+
+    collector: "apm.ksaa.gov.sa",
+
+    collectorHttpPort: 80,
+    collectorHttpsPort: 443,
+
+    sv: "0401",
+  };
+
+  (function () {
+    var w = window,
+      l = w.addEventListener,
+      m = w.attachEvent,
+      d = document,
+      s = "script",
+      t = "load",
+      o = RVBD_EUE,
+      z = "-1ec0805dd88c137a7d9b221342ef4c8b.",
+      r =
+        ("https:" === d.location.protocol ? "https" : "http") +
+        "://jsi-cdn.steelcentral.net/riverbed_appinternals.d." +
+        (o.ajax ? "ajax.js" : "js"),
+      p = "onpagehide" in w,
+      e = p ? "pageshow" : t,
+      j = d.createElement(s),
+      x = d.getElementsByTagName(s)[0],
+      h = function (y) {
+        o.ldJS = o.ldJS || new Date();
+        o.per = y ? y.persisted : null;
+      },
+      i = function () {
+        o.ld = 1;
+      };
+    o.cookie = d.cookie;
+    d.cookie = "_op_aixPageId=0; path=/; expires=" + new Date(0).toGMTString();
+
+    o.cookieAfterDelete = d.cookie;
+    j.async = 1;
+    j.src = r;
+
+    if (l) {
+      l(e, h, false);
+      if (p) {
+        l(t, i, false);
+      }
+    } else if (m) {
+      m("on" + e, h);
+      if (p) {
+        m("on" + t, i);
+      }
+    }
+
+    if (o.sync) {
+      d.write("<" + s + " src='" + r + "'></" + s + ">");
+    } else {
+      x.parentNode.insertBefore(j, x);
+    }
+  })();
+}
+`
 
 
 // const geistSans = Geist({
@@ -75,6 +144,16 @@ export default async function RootLayout({
         <AuthProvider>  {/*manage auth state for user*/}
           {children}
         </AuthProvider>
+        
+        {/* Riverbed AppInternals: Tracks key metrics (visits, top pages, user regions) for KSGAAL platforms */}
+        <Script
+          // id prevents duplicate execution on navigation
+          id="agent-monitoring"
+          // Loads after the page is interactive without blocking rendering
+          strategy="afterInteractive"
+          // Safely injects inline JS without React processing it
+          dangerouslySetInnerHTML={{ __html: agentMonitoringScript }}
+        />
       </body>
     </html>
   );

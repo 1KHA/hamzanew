@@ -4,7 +4,6 @@ import { useMemo } from "react";
 import { usePathname } from "next/navigation";
 import styles from "./PageHero.module.css";
 import DgaBreadcrumbs from "@/app/components/breadcrumbs/BreadCrumbs";
-import ClientOnly from "../ClientOnly";
 
 export type Crumb = { label: string; path?: string; disabled?: boolean };
 
