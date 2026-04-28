@@ -2,6 +2,8 @@ import type { ReactElement } from "react";
 import type { Metadata } from "next";
 import { SERVICES, PARTNERS } from "./(landing)/_data/homeData";
 import { news } from "@/app/(main)/news/_data/newsData";
+import { fetchContentWithKey } from "@/app/_lib/content-service";
+import { extractFields } from "@/app/_lib/helper-service";
 
 import Banner from "./(landing)/_components/Banner";
 import ServicesSection from "./(landing)/_components/ServicesSection";
@@ -17,10 +19,33 @@ export const metadata: Metadata = {
     "منصة همزة التابعة لمجمع الملك سلمان العالمي للغة العربية لتمكين متعلمي اللغة العربية والمهنيين.",
 };
 
-export default function LandingPage(): ReactElement {
+export const dynamic = "force-dynamic";
+
+export default async function LandingPage(): Promise<ReactElement> {
+  let bannerData = null;
+  try {
+    bannerData = await fetchContentWithKey("HAMZA_HOMEPAGE_BANNER_CONTENT_KEY");
+  } catch (error) {
+    console.error("[Home] Error fetching banner:", error);
+  }
+
+  const bannerFields = extractFields(bannerData?.contentFields, [
+    "smallHeaderTitleText",
+    "headerTitleText",
+    "descriptionText",
+    "image",
+  ]) as {
+    smallHeaderTitleText?: string;
+    headerTitleText?: string;
+    descriptionText?: string;
+    image?: string;
+  };
+
+  console.log("[Home] Banner fields:", bannerFields);
+
   return (
     <>
-      <Banner />
+      <Banner bannerFields={bannerFields} />
 
       <ScrollReveal>
         <ServicesSection services={SERVICES} />

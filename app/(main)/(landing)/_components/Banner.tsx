@@ -18,9 +18,9 @@ import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
 import "@/app/styles/Button.css";
 
-/* ── Slide data (module-level — allocated once, never re-created) ────────── */
+/* ── Static fallback slides ──────────────────────────────────────────────── */
 
-const slides = [
+const fallbackSlides = [
   {
     image: "/assets/image/hero.jpg",
     alt: "اختبارات همزة",
@@ -55,9 +55,34 @@ const slides = [
   },
 ];
 
+/* ── Types ───────────────────────────────────────────────────────────────── */
+
+interface BannerFields {
+  smallHeaderTitleText?: string;
+  headerTitleText?: string;
+  descriptionText?: string;
+  image?: string;
+}
+
+interface BannerProps {
+  bannerFields?: BannerFields;
+}
+
 /* ── Component ────────────────────────────────────────────────────────────── */
 
-function Banner() {
+function Banner({ bannerFields }: BannerProps) {
+  const slides = bannerFields?.headerTitleText
+    ? [
+        {
+          image: bannerFields.image || "/assets/image/hero.jpg",
+          alt: bannerFields.smallHeaderTitleText || "",
+          title: bannerFields.headerTitleText,
+          description: bannerFields.descriptionText || "",
+          buttonText: "المزيد",
+        },
+      ]
+    : fallbackSlides;
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -91,7 +116,7 @@ function Banner() {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [isPaused]);
+  }, [isPaused, slides.length]);
 
   // RTL: positive offset | LTR: negative offset
   const translateX = `translateX(${isRTL ? currentSlide * 100 : -(currentSlide * 100)}%)`;
@@ -140,13 +165,17 @@ function Banner() {
         {/* Fixed overlay: text content + decorative logo */}
         <div className="overlay">
           <div className="hero w-[-webkit-fill-available] content !text-start">
-            <h1 className="display-xl-semibold">{slides[currentSlide].title}</h1>
+            <h1
+              className="display-xl-semibold"
+              dangerouslySetInnerHTML={{ __html: slides[currentSlide].title }}
+            />
 
-            {slides[currentSlide].description && (
+            {/* Description paragraph hidden per request */}
+            {/* {slides[currentSlide].description && (
               <p className="!mb-[32px] text-xl-regular max-w-[720px]">
                 {slides[currentSlide].description}
               </p>
-            )}
+            )} */}
 
             <button
               type="button"
