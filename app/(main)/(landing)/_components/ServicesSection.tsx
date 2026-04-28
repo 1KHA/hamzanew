@@ -4,11 +4,26 @@ import Card from "@/app/components/card/Card";
 import Carousel from "@/app/components/carousel/Carousel";
 import { Service } from "../_data/homeData";
 
-interface ServicesSectionProps {
-  services: Service[];
+interface BannerBox {
+  title?: string;
+  link?: string;
 }
 
-export default function ServicesSection({ services }: ServicesSectionProps) {
+interface ServicesSectionProps {
+  services: Service[];
+  bannerBoxes?: BannerBox[];
+}
+
+export default function ServicesSection({ services, bannerBoxes }: ServicesSectionProps) {
+  // Merge dynamic titles/links from API with static descriptions/icons
+  const mergedServices =
+    bannerBoxes && bannerBoxes.length > 0
+      ? bannerBoxes.map((box, index) => ({
+          ...services[index % services.length],
+          title: box.title || services[index % services.length].title,
+          link: box.link || services[index % services.length].link,
+        }))
+      : services;
   return (
     <div className="bg-neutral-50">
       <section
@@ -26,7 +41,7 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
         </div>
         <div aria-label="عرض الاختبارات المتاحة">
           <Carousel itemsPerSlide={4} gap={20}>
-            {services.map((service, index) => (
+            {mergedServices.map((service, index) => (
               <Card
                 key={`service-${index}`}
                 style={{ height: 288 }}

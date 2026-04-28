@@ -23,8 +23,12 @@ export const dynamic = "force-dynamic";
 
 export default async function LandingPage(): Promise<ReactElement> {
   let bannerData = null;
+  let bannerBoxesData = null;
   try {
-    bannerData = await fetchContentWithKey("HAMZA_HOMEPAGE_BANNER_CONTENT_KEY");
+    [bannerData, bannerBoxesData] = await Promise.all([
+      fetchContentWithKey("HAMZA_HOMEPAGE_BANNER_CONTENT_KEY"),
+      fetchContentWithKey("HAMZA_HOMEPAGE_BANNER_BOXES_CONTENT_KEY"),
+    ]);
   } catch (error) {
     console.error("[Home] Error fetching banner:", error);
   }
@@ -41,14 +45,29 @@ export default async function LandingPage(): Promise<ReactElement> {
     image?: string;
   };
 
+  // Map banner boxes to exam card shape
+  const bannerBoxes =
+    bannerBoxesData?.contentFields?.map((fieldSet: any) => {
+      const obj: any = {};
+      fieldSet.nestedContentFields?.forEach((nestedField: any) => {
+        if (nestedField.name === "titleText") {
+          obj.title = nestedField.contentFieldValue?.data;
+        } else if (nestedField.name === "link") {
+          obj.link = nestedField.contentFieldValue?.data;
+        }
+      });
+      return obj;
+    }) || [];
+
   console.log("[Home] Banner fields:", bannerFields);
+  console.log("[Home] Banner boxes:", bannerBoxes);
 
   return (
     <>
       <Banner bannerFields={bannerFields} />
 
       <ScrollReveal>
-        <ServicesSection services={SERVICES} />
+        <ServicesSection services={SERVICES} bannerBoxes={bannerBoxes} />
       </ScrollReveal>
       <ScrollReveal>
         <NewsSection articles={news} />

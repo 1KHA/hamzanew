@@ -2,6 +2,8 @@ import Button from "../../../components/button/Button";
 import AcademicTestContent, { AcademicLevelsContent } from "./AcademicTestContent";
 import "@/app/components/card/card.css";
 import "@/app/styles/Button.css";
+import { fetchContentWithKey } from "@/app/_lib/content-service";
+import { extractFields, extractList } from "@/app/_lib/helper-service";
 
 interface TestSectionItem {
   testNameText: string;
@@ -41,23 +43,133 @@ interface AcademicTestData {
 
 async function getAcademicTestData(): Promise<AcademicTestData> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-    const response = await fetch(`${baseUrl}/api/hamza-academic-test`, {
-      cache: "no-store",
-    });
-    
-    if (!response.ok) {
-      throw new Error("Failed to fetch academic test data");
-    }
-    
-    const data = await response.json();
-    return {
-      levelsMeasured: data.levelsMeasured,
-      testSections: data.testSections,
-      areYouReady: data.areYouReady,
+    console.log("[AcademicTestPage] Fetching content directly from Liferay...");
+
+    const [
+      levelMeasuredContent,
+      testSectionsContent,
+      areYouReadyContent,
+    ] = await Promise.all([
+      fetchContentWithKey(
+        "HAMZA_HOMEPAGE_TYPES_OF_TESTS_HAMZA_ACADEMIC_TEST_LEVELS_MEASURED_BY_HAMZA_ACADEMIC_TEST_CONTENT_KEY"
+      ),
+      fetchContentWithKey(
+        "HAMZA_HOMEPAGE_TYPES_OF_TESTS_HAMZA_ACADEMIC_TEST_TEST_SECTIONS_CONTENT_KEY"
+      ),
+      fetchContentWithKey(
+        "HAMZA_HOMEPAGE_TYPES_OF_TESTS_HAMZA_ACADEMIC_TEST_ARE_YOU_READY_FOR_THE_HAMZA_TEST_CONTENT_KEY"
+      ),
+    ]);
+
+    // Section 1: Levels Measured
+    const levelMeasuredFields = extractFields(
+      levelMeasuredContent?.contentFields,
+      ["descriptionText", "buttonText", "image"]
+    ) as {
+      descriptionText?: string;
+      buttonText?: string;
+      image?: string;
     };
+
+    const levelsMeasured = {
+      title:
+        levelMeasuredContent?.title ||
+        "المستويات التي يقيسها اختبار همزة الأكاديمي",
+      descriptionText: levelMeasuredFields?.descriptionText || "",
+      buttonText: levelMeasuredFields?.buttonText || "",
+      image: levelMeasuredFields?.image || "/assets/image/acadmic-pic.png",
+    };
+
+    // Section 2: Test Sections
+    const testSectionsContentFields = extractFields(
+      testSectionsContent?.contentFields,
+      [
+        "titleText",
+        "descriptionText",
+        "testDurationText",
+        "testDurationValueText",
+        "numberOfTestItemsText",
+        "numberOfTestItemsValueText",
+        "availableTestsTitleText",
+        "inTestingCentersText",
+        "atADistanceText",
+      ]
+    ) as {
+      titleText?: string;
+      descriptionText?: string;
+      testDurationText?: string;
+      testDurationValueText?: string;
+      numberOfTestItemsText?: string;
+      numberOfTestItemsValueText?: string;
+      availableTestsTitleText?: string;
+      inTestingCentersText?: string;
+      atADistanceText?: string;
+    };
+
+    const testSectionsList = extractList(
+      testSectionsContent?.contentFields,
+      "TestsFieldset",
+      {
+        testNameText: "testNameText",
+        image: "image",
+        testDescriptionText: "testDescriptionText",
+        sidebarTopText: "sidebarTopText",
+        sidebarBottomText1: "sidebarBottomText1",
+        sidebarBottomText2: "sidebarBottomText2",
+      }
+    );
+
+    const testSections = {
+      title:
+        testSectionsContentFields?.titleText ||
+        testSectionsContent?.title ||
+        "أقسام الاختبار",
+      descriptionText: testSectionsContentFields?.descriptionText ||
+        "صُمّم اختبار \"همزة\" ليقدّم تقييمًا شاملًا لمستوى الكفاءة اللغوية في اللغة العربية من خلال أربعة أقسام رئيسية:",
+      testDurationText: testSectionsContentFields?.testDurationText || "مدة الاختبار",
+      testDurationValueText: testSectionsContentFields?.testDurationValueText || "155 دقيقة",
+      numberOfTestItemsText:
+        testSectionsContentFields?.numberOfTestItemsText || "عدد فقرات الاختبار",
+      numberOfTestItemsValueText:
+        testSectionsContentFields?.numberOfTestItemsValueText || "75 فقرة",
+      availableTestsTitleText:
+        testSectionsContentFields?.availableTestsTitleText || "يطبق الاختبار",
+      inTestingCentersText:
+        testSectionsContentFields?.inTestingCentersText || "في مراكز الاختبار",
+      atADistanceText: testSectionsContentFields?.atADistanceText || "عن بُعد",
+      testSectionsList: (testSectionsList || []) as TestSectionItem[],
+    };
+
+    // Section 3: Are You Ready
+    const areYouReadyFields = extractFields(
+      areYouReadyContent?.contentFields,
+      ["descriptionText", "buttonText", "titleText"]
+    ) as {
+      titleText?: string;
+      descriptionText?: string;
+      buttonText?: string;
+    };
+
+    const areYouReady = {
+      title:
+        areYouReadyFields?.titleText ||
+        areYouReadyContent?.title ||
+        "هل أنت مستعد لاختبار همزة الأكاديمي؟",
+      titleText:
+        areYouReadyFields?.titleText || "هل أنت مستعد لاختبار همزة الأكاديمي؟",
+      descriptionText:
+        areYouReadyFields?.descriptionText ||
+        "نوفّر برامج إعداد مرنة يمكنك دراستها بالوتيرة التي تناسبك، وبأساليب متنوعة تلائم احتياجاتك.",
+      buttonText: areYouReadyFields?.buttonText || "التحضير للاختبار",
+    };
+
+    console.log("[AcademicTestPage] SUCCESS — using Liferay data");
+
+    return { levelsMeasured, testSections, areYouReady };
   } catch (error) {
-    console.error("Error fetching academic test data:", error);
+    console.error("[AcademicTestPage] FAILED —", error);
+    console.log("[AcademicTestPage] Using FALLBACK static data");
+
     return {
       levelsMeasured: {
         title: "المستويات التي يقيسها اختبار همزة الأكاديمي",
@@ -67,7 +179,8 @@ async function getAcademicTestData(): Promise<AcademicTestData> {
       },
       testSections: {
         title: "أقسام الاختبار",
-        descriptionText: "صُمّم اختبار \"همزة\" ليقدّم تقييمًا شاملًا لمستوى الكفاءة اللغوية في اللغة العربية من خلال أربعة أقسام رئيسية:",
+        descriptionText:
+          'صُمّم اختبار "همزة" ليقدّم تقييمًا شاملًا لمستوى الكفاءة اللغوية في اللغة العربية من خلال أربعة أقسام رئيسية:',
         testDurationText: "مدة الاختبار",
         testDurationValueText: "155 دقيقة",
         numberOfTestItemsText: "عدد فقرات الاختبار",
@@ -80,7 +193,8 @@ async function getAcademicTestData(): Promise<AcademicTestData> {
       areYouReady: {
         title: "هل أنت مستعد لاختبار همزة الأكاديمي؟",
         titleText: "هل أنت مستعد لاختبار همزة الأكاديمي؟",
-        descriptionText: "نوفّر برامج إعداد مرنة يمكنك دراستها بالوتيرة التي تناسبك، وبأساليب متنوعة تلائم احتياجاتك.",
+        descriptionText:
+          "نوفّر برامج إعداد مرنة يمكنك دراستها بالوتيرة التي تناسبك، وبأساليب متنوعة تلائم احتياجاتك.",
         buttonText: "التحضير للاختبار",
       },
     };
@@ -95,7 +209,7 @@ export default async function HamzaAcademicTestPage() {
       {/* Section 1: Language Proficiency Levels */}
       <section className="bg-[#F3FCF6]" aria-labelledby="levels-title">
         <div className="content !py-[40px] xl:!py-0">
-          <AcademicLevelsContent 
+          <AcademicLevelsContent
             title={data.levelsMeasured.title}
             subtitle={data.levelsMeasured.descriptionText}
             image={data.levelsMeasured.image}
