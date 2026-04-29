@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { SERVICES, PARTNERS, NEWS_ARTICLES } from "./(landing)/_data/homeData";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFields } from "@/app/_lib/helper-service";
+import { getTranslations } from "@/app/_lib/getTranslations";
 import { cookies } from "next/headers";
 
 import Banner from "./(landing)/_components/Banner";
@@ -24,6 +25,26 @@ export const dynamic = "force-dynamic";
 /* ==========================================================================
    Helpers
    ========================================================================== */
+
+async function fetchCountries() {
+  try {
+    const baseURL = process.env.BASE_URL || "";
+    const res = await fetch(`${baseURL}/o/headless-admin-address/v1.0/countries`, {
+      headers: { Accept: "application/json" },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    return (
+      data.items?.map((c: any) => ({
+        code: c.a2,
+        name: c.nameCurrentValue || c.title || c.name,
+      })) || []
+    );
+  } catch (error) {
+    console.error("[Home] Failed to fetch countries:", error);
+    return [];
+  }
+}
 
 function resolveImageUrl(imagePath: string | undefined): string {
   const baseURL = process.env.BASE_URL || "";
@@ -145,8 +166,15 @@ export default async function LandingPage(): Promise<ReactElement> {
       return obj;
     }) || [];
 
-  // Fetch latest news
-  const latestNews = await fetchLatestNews();
+  // Fetch latest news, translations, and countries in parallel
+  const [latestNews, translations, countries] = await Promise.all([
+    fetchLatestNews(),
+    getTranslations().catch((err) => {
+      console.error("[Home] Failed to fetch translations:", err);
+      return null;
+    }),
+    fetchCountries(),
+  ]);
 
   return (
     <>
@@ -160,7 +188,7 @@ export default async function LandingPage(): Promise<ReactElement> {
       </ScrollReveal>
 
       <ScrollReveal>
-        <StatisticsSection />
+        <StatisticsSection translations={translations} countries={countries} />
       </ScrollReveal>
 
       <ScrollReveal>
