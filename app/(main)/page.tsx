@@ -1,9 +1,9 @@
 import type { ReactElement } from "react";
 import type { Metadata } from "next";
-import { SERVICES, PARTNERS } from "./(landing)/_data/homeData";
-import { news } from "@/app/(main)/news/_data/newsData";
+import { SERVICES, PARTNERS, NEWS_ARTICLES } from "./(landing)/_data/homeData";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFields } from "@/app/_lib/helper-service";
+import { cookies } from "next/headers";
 
 import Banner from "./(landing)/_components/Banner";
 import ServicesSection from "./(landing)/_components/ServicesSection";
@@ -20,6 +20,92 @@ export const metadata: Metadata = {
 };
 
 export const dynamic = "force-dynamic";
+
+/* ==========================================================================
+   Helpers
+   ========================================================================== */
+
+function resolveImageUrl(imagePath: string | undefined): string {
+  const baseURL = process.env.BASE_URL || "";
+  if (!imagePath) return "";
+  if (imagePath.startsWith("http")) return imagePath;
+  return `${baseURL}${imagePath.startsWith("/") ? imagePath : "/" + imagePath}`;
+}
+
+async function fetchLatestNews() {
+  try {
+    const cookieStore = await cookies();
+    const locale = cookieStore.get("lang")?.value || "ar-SA";
+
+    const baseURL = process.env.BASE_URL || "";
+    const getArticlesURL = process.env.HAMZA_GET_ARTICLES_URL || "";
+    const username = process.env.BASIC_AUTH_USERNAME || "";
+    const password = process.env.BASIC_AUTH_PASSWORD || "";
+
+    const serviceUrl = `${baseURL}${getArticlesURL}/NEWS_ARTICLES/News article types`;
+    const authorization = "Basic " + btoa(`${username}:${password}`);
+
+    const urlWithParam = new URL(serviceUrl);
+    urlWithParam.searchParams.append("searchText", "");
+    urlWithParam.searchParams.append("selectedYear", "");
+    urlWithParam.searchParams.append("locale", locale);
+    urlWithParam.searchParams.append("selectedArticleType", "0");
+    urlWithParam.searchParams.append("page", "1");
+    urlWithParam.searchParams.append("pageSize", "100");
+
+    console.log("[Home] Fetching latest news from Liferay...");
+
+    const response = await fetch(urlWithParam, {
+      method: "POST",
+      headers: { Authorization: authorization },
+    });
+
+    if (!response.ok) {
+      console.error(`[Home] News fetch failed: ${response.status}`);
+      throw new Error(`News API returned ${response.status}`);
+    }
+
+    const data = await response.json();
+    const rawArticles = data?.articleList || [];
+
+    const articles = rawArticles
+      .map((raw: any) => ({
+        id: Number(raw.entryClassPK ?? raw.id ?? raw.articleId ?? 0),
+        title: raw.title ?? raw.titleText ?? raw.headline ?? "",
+        description:
+          raw.excerpt ??
+          raw.summary ??
+          raw.description ??
+          raw.newsDescriptionText ??
+          "",
+        image: resolveImageUrl(
+          raw.imageThumbnailUrl ??
+            raw.image ??
+            raw.thumbnailUrl ??
+            raw.articleImageUrl ??
+            raw.imageUrl ??
+            ""
+        ),
+      }))
+      .filter((a: any) => a.id && a.title)
+      .slice(0, 6);
+
+    if (articles.length < 6) {
+      console.warn(`[Home] News WARNING — only ${articles.length} articles returned from Liferay (expected at least 6)`);
+    } else {
+      console.log(`[Home] News SUCCESS — ${articles.length} articles loaded`);
+    }
+    return articles.length ? articles : NEWS_ARTICLES;
+  } catch (error) {
+    console.error("[Home] News FAILED —", error);
+    console.log("[Home] Using FALLBACK static news data.");
+    return NEWS_ARTICLES;
+  }
+}
+
+/* ==========================================================================
+   Main Component
+   ========================================================================== */
 
 export default async function LandingPage(): Promise<ReactElement> {
   let bannerData = null;
@@ -59,8 +145,8 @@ export default async function LandingPage(): Promise<ReactElement> {
       return obj;
     }) || [];
 
-  console.log("[Home] Banner fields:", bannerFields);
-  console.log("[Home] Banner boxes:", bannerBoxes);
+  // Fetch latest news
+  const latestNews = await fetchLatestNews();
 
   return (
     <>
@@ -70,7 +156,7 @@ export default async function LandingPage(): Promise<ReactElement> {
         <ServicesSection services={SERVICES} bannerBoxes={bannerBoxes} />
       </ScrollReveal>
       <ScrollReveal>
-        <NewsSection articles={news} />
+        <NewsSection articles={latestNews} />
       </ScrollReveal>
 
       <ScrollReveal>

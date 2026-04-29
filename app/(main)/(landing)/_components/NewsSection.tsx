@@ -35,7 +35,7 @@ export default function NewsSection({ articles }: NewsSectionProps) {
         </p>
       </div>
       <div className="section-spacing-4xl" aria-label="آخر الأخبار">
-        <Carousel itemsPerSlide={3} gap={20}>
+        <Carousel itemsPerSlide={3} gap={20} autoPlay interval={4000}>
           {articles.slice(0, 6).map((article) => (
             <Card
               key={`news-${article.id}`}

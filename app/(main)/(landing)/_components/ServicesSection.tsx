@@ -40,7 +40,7 @@ export default function ServicesSection({ services, bannerBoxes }: ServicesSecti
           </p>
         </div>
         <div aria-label="عرض الاختبارات المتاحة">
-          <Carousel itemsPerSlide={4} gap={20}>
+          <Carousel itemsPerSlide={4} gap={20} autoPlay interval={4000}>
             {mergedServices.map((service, index) => (
               <Card
                 key={`service-${index}`}

@@ -114,7 +114,7 @@ function Banner({ bannerFields }: BannerProps) {
     if (isPaused) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 4000);
     return () => clearInterval(timer);
   }, [isPaused, slides.length]);
 
