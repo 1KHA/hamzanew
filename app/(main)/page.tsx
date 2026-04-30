@@ -2,7 +2,7 @@ import type { ReactElement } from "react";
 import type { Metadata } from "next";
 import { SERVICES, PARTNERS, NEWS_ARTICLES } from "./(landing)/_data/homeData";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
-import { extractFields } from "@/app/_lib/helper-service";
+import { extractFields, extractList } from "@/app/_lib/helper-service";
 import { getTranslations } from "@/app/_lib/getTranslations";
 import { getFormattedCountriesList } from "@/app/_lib/countries-service";
 import { cookies } from "next/headers";
@@ -112,13 +112,22 @@ async function fetchLatestNews() {
 export default async function LandingPage(): Promise<ReactElement> {
   let bannerData = null;
   let bannerBoxesData = null;
+  let insideEntitiesData = null;
+  let outsideEntitiesData = null;
   try {
-    [bannerData, bannerBoxesData] = await Promise.all([
-      fetchContentWithKey("HAMZA_HOMEPAGE_BANNER_CONTENT_KEY"),
-      fetchContentWithKey("HAMZA_HOMEPAGE_BANNER_BOXES_CONTENT_KEY"),
-    ]);
+    [bannerData, bannerBoxesData, insideEntitiesData, outsideEntitiesData] =
+      await Promise.all([
+        fetchContentWithKey("HAMZA_HOMEPAGE_BANNER_CONTENT_KEY"),
+        fetchContentWithKey("HAMZA_HOMEPAGE_BANNER_BOXES_CONTENT_KEY"),
+        fetchContentWithKey(
+          "HAMZA_HOMEPAGE_ENTITIES_INSIDE_SAUDI_ARABIA_CONTENT_KEY"
+        ),
+        fetchContentWithKey(
+          "HAMZA_HOMEPAGE_ENTITIES_OUTSIDE_SAUDI_ARABIA_CONTENT_KEY"
+        ),
+      ]);
   } catch (error) {
-    console.error("[Home] Error fetching banner:", error);
+    console.error("[Home] Error fetching banner/entities:", error);
   }
 
   const bannerFields = extractFields(bannerData?.contentFields, [
@@ -146,6 +155,32 @@ export default async function LandingPage(): Promise<ReactElement> {
       });
       return obj;
     }) || [];
+
+  // Process entity lists
+  const processEntities = (content: any) => {
+    const list = extractList(content?.contentFields, "entitiesFieldset", {
+      entityNameText: "entityNameText",
+      entityImageText: "entityImageText",
+    });
+    return (
+      list?.map((item: any, index: number) => ({
+        id: index + 1,
+        name: item.entityNameText || "",
+        image: resolveImageUrl(item.entityImageText || ""),
+      })) || []
+    );
+  };
+
+  const insideEntities = processEntities(insideEntitiesData).filter(
+    (e: { id: number; name: string; image: string }) => e.image && e.image.trim() !== ""
+  );
+  const outsideEntities = processEntities(outsideEntitiesData).filter(
+    (e: { id: number; name: string; image: string }) => e.image && e.image.trim() !== ""
+  );
+
+  console.log(
+    `[Home] Entities — inside: ${insideEntities.length}, outside: ${outsideEntities.length}`
+  );
 
   // Fetch latest news, translations, and countries in parallel
   const [latestNews, translations, countriesRaw] = await Promise.all([
@@ -179,7 +214,11 @@ export default async function LandingPage(): Promise<ReactElement> {
       </ScrollReveal>
 
       <ScrollReveal>
-        <PartnersSection partners={PARTNERS} />
+        <PartnersSection
+          insideEntities={insideEntities}
+          outsideEntities={outsideEntities}
+          fallbackPartners={PARTNERS}
+        />
       </ScrollReveal>
       <ScrollReveal>
         <SubscriptionSection />
