@@ -1,9 +1,12 @@
 "use client";
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo } from "react";
 import { DgaDropdown } from "platformscode-new-react";
 import Card from "../card/Card";
-import SearchBox from "@/app/components/search-box/SearchBox";
 import "./GlobalStatisticsSection.css";
+import {
+  getCountryStats,
+  getCountryDropdownOptions,
+} from "./countryStatsData";
 
 export interface StatisticItem {
   numberTitle: string;
@@ -34,55 +37,45 @@ function GlobalStatisticsSection({
   countries = [],
   statistics,
 }: GlobalStatisticsSectionProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState("global");
 
-  // Filter countries based on search query
-  const filteredCountries = useMemo(() => {
-    if (!searchQuery.trim()) return [];
-    return countries.filter((c) =>
-      c.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }, [searchQuery, countries]);
+  // Build dropdown options from countries that have stats
+  const countryOptions = useMemo(
+    () => getCountryDropdownOptions(countries),
+    [countries]
+  );
 
-  const handleSelectCountry = useCallback((name: string) => {
-    setSearchQuery(name);
-    setShowDropdown(false);
-  }, []);
-
-  // Build stats from translations with fallback
-  const stats: StatisticItem[] = useMemo(() => {
+  // Resolve stats based on selected country
+  const stats = useMemo(() => {
     // Backward compatibility: if statistics prop is provided, use it directly
     if (statistics && statistics.length > 0) return statistics;
 
+    const resolved = getCountryStats(selectedCountry, translations);
     const t = translations || {};
+
     return [
       {
-        numberTitle:
-          t["hamza-total-candidates-globally-stated"] || "1.5M",
+        numberTitle: resolved.totalCandidates,
         descriptionText:
           t["hamza-home-page-map-total-labs-title"] || "مراكز الاختبار",
       },
       {
-        numberTitle:
-          t["hamza-nationalities-globally-stated"] || "12",
+        numberTitle: resolved.nationalities,
         descriptionText:
           t["hamza-home-page-map-nationalities-title"] || "عدد الجنسيات",
       },
       {
-        numberTitle:
-          t["hamza-onsite-exams-globally-stated"] || "22",
+        numberTitle: resolved.onsiteExams,
         descriptionText:
           t["hamza-home-page-map-onsite-exams-title"] || "عدد الدول",
       },
       {
-        numberTitle:
-          t["hamza-institutions-globally-stated"] || "1.5k",
+        numberTitle: resolved.institutions,
         descriptionText:
           t["hamza-home-page-map-institutions-title"] || "مختبر عالميًا",
       },
     ];
-  }, [translations, statistics]);
+  }, [selectedCountry, translations, statistics]);
 
   const statsCards = stats.map((stat, index) => {
     const icon = DEFAULT_ICONS[index % DEFAULT_ICONS.length];
@@ -110,49 +103,25 @@ function GlobalStatisticsSection({
   return (
     <>
       <div className="global-statistics-section">
-        {/* Search section */}
+        {/* Filters section */}
         <div className="search-container">
-          <div className="relative w-full">
-            <SearchBox
-              label={translations?.["hamza-home-page-map-search-text"] || "ابحث عن الدولة"}
+          <div className="input-group">
+            <label className="input-label">
+              {translations?.["hamza-home-page-map-search-text"] || "الدولة"}
+            </label>
+            <DgaDropdown
               placeholder={
                 translations?.["hamza-home-page-map-search-place-holder-text"] ||
-                "ابحث عن الدولة..."
+                "اختر الدولة..."
               }
-              size="lg"
               variant="default"
-              value={searchQuery}
-              onChange={(value) => {
-                setSearchQuery(value);
-                setShowDropdown(true);
-              }}
-              onClear={() => {
-                setSearchQuery("");
-                setShowDropdown(false);
-              }}
+              optionLabel="label"
+              trackBy="value"
+              className="w-full"
+              value={selectedCountry}
+              options={countryOptions}
+              getSelectedOptions={(opt: any) => setSelectedCountry(opt?.value || "global")}
             />
-            {/* Country autocomplete dropdown */}
-            {showDropdown && filteredCountries.length > 0 && (
-              <ul className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-gray-200 bg-white shadow-lg">
-                {filteredCountries.map((country) => (
-                  <li
-                    key={country.code}
-                    className="cursor-pointer px-4 py-2 text-sm hover:bg-gray-100"
-                    onClick={() => handleSelectCountry(country.name)}
-                  >
-                    {country.name}
-                  </li>
-                ))}
-              </ul>
-            )}
-            {showDropdown &&
-              searchQuery.trim() &&
-              filteredCountries.length === 0 && (
-                <div className="absolute z-10 mt-1 w-full rounded-lg border border-gray-200 bg-white p-4 text-sm text-gray-500 shadow-lg">
-                  {translations?.["hamza-home-page-map-no-results-text"] ||
-                    "لا توجد نتائج"}
-                </div>
-              )}
           </div>
 
           <div className="input-group">
@@ -160,26 +129,37 @@ function GlobalStatisticsSection({
               {translations?.["hamza-home-page-map-test-type-title"] || "نوع الاختبار"}
             </label>
             <DgaDropdown
-              placeholder={translations?.["hamza-home-page-map-academic-test-title"] || "اختبار عام"}
+              placeholder={
+                translations?.["hamza-home-page-map-academic-test-title"] ||
+                "اختبار عام"
+              }
               variant="default"
               optionLabel="label"
               trackBy="value"
               className="w-full"
               options={[
                 {
-                  label: translations?.["hamza-home-page-map-academic-hamza-title"] || "اختبار أكاديمي",
+                  label:
+                    translations?.["hamza-home-page-map-academic-hamza-title"] ||
+                    "اختبار أكاديمي",
                   value: "academic",
                 },
                 {
-                  label: translations?.["hamza-home-page-map-academic-test-title"] || "اختبار عام",
+                  label:
+                    translations?.["hamza-home-page-map-academic-test-title"] ||
+                    "اختبار عام",
                   value: "general",
                 },
                 {
-                  label: translations?.["hamza-home-page-map-level-test-title"] || "تحديد المستوى",
+                  label:
+                    translations?.["hamza-home-page-map-level-test-title"] ||
+                    "تحديد المستوى",
                   value: "placement",
                 },
                 {
-                  label: translations?.["hamza-home-page-map-vocabulary-test-title"] || "مفردات",
+                  label:
+                    translations?.["hamza-home-page-map-vocabulary-test-title"] ||
+                    "مفردات",
                   value: "vocabulary",
                 },
               ]}
@@ -206,7 +186,10 @@ function GlobalStatisticsSection({
               {translations?.["hamza-home-page-map-nationality-text"] || "الجنسية"}
             </label>
             <DgaDropdown
-              placeholder={translations?.["hamza-home-page-map-nationality-text"] || "اختر الجنسية"}
+              placeholder={
+                translations?.["hamza-home-page-map-nationality-text"] ||
+                "اختر الجنسية"
+              }
               variant="default"
               optionLabel="label"
               trackBy="value"
@@ -221,7 +204,10 @@ function GlobalStatisticsSection({
 
         <img
           src="/assets/image/global.png"
-          alt={translations?.["hamza-home-page-map-globe-title"] || "خريطة إحصائيات همزة"}
+          alt={
+            translations?.["hamza-home-page-map-globe-title"] ||
+            "خريطة إحصائيات همزة"
+          }
           className="w-full md:w-[70%]"
         />
         {/* statistics section */}

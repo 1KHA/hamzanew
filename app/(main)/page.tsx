@@ -160,7 +160,8 @@ export default async function LandingPage(): Promise<ReactElement> {
     }),
   ]);
 
-  const countries = countriesRaw.map((c: { label: string; key: string }) => ({ name: c.label, code: c.key }));
+  const countries = countriesRaw.map((c: { label: string; key: string }) => ({ name: c.label, code: c.key.toUpperCase() }));
+  console.log(`[Home] Countries fetched: ${countriesRaw.length}, mapped: ${countries.length}`);
 
   return (
     <>
