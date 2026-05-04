@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { signOut } from "next-auth/react";
@@ -64,7 +64,13 @@ export default function SideNav({
   userAvatar,
 }: SideNavProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isArabicLang, setIsArabicLang] = useState(true);
   const searchParams = useSearchParams();
+
+  // Detect current language after hydration
+  useEffect(() => {
+    setIsArabicLang(document.documentElement.lang === "ar");
+  }, []);
 
   const checkIsActive = (routePath: string) => {
     if (routePath === "/") return activePath === "/";
@@ -262,7 +268,7 @@ export default function SideNav({
             onClick={() => signOut({ callbackUrl: "/sign-in" })}
           />
           <Button
-            label="English"
+            label={isArabicLang ? "English" : "العربية"}
             icon="translation"
             iconPosition="right"
             variant="primary-neutral--on-color"

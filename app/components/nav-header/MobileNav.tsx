@@ -170,6 +170,12 @@ export default function MobileNav({
   translations,
 }: MobileNavProps) {
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
+  const [isArabicLang, setIsArabicLang] = useState(true);
+
+  // Detect current language after hydration
+  useEffect(() => {
+    setIsArabicLang(document.documentElement.lang === "ar");
+  }, []);
 
   // ── Lock body scroll while the drawer is open ─────────────────────────
   useEffect(() => {
@@ -339,15 +345,15 @@ export default function MobileNav({
                     window.location.reload();
                   }
                 }}
-                aria-label="تبديل اللغة"
+                aria-label={isArabicLang ? "تبديل اللغة" : "Switch language"}
               >
                 <Image
                   src="/assets/icons/stroke-standard/translation-stroke-rounded.svg"
-                  alt="أيقونة تغيير اللغة"
+                  alt={isArabicLang ? "أيقونة تغيير اللغة" : "Language icon"}
                   width={20}
                   height={20}
                 />
-                <span>English</span>
+                <span>{isArabicLang ? "English" : "العربية"}</span>
               </button>
             </div>
           </div>

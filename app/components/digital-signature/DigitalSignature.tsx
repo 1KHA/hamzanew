@@ -11,11 +11,17 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useCallback, useId } from "react";
+import { useState, useCallback, useId, useEffect } from "react";
 import "./DigitalSignature.css";
 
 export default function DigitalSignature() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isArabicLang, setIsArabicLang] = useState(true);
+
+  // Detect current language after hydration
+  useEffect(() => {
+    setIsArabicLang(document.documentElement.lang === "ar");
+  }, []);
 
   // Stable ID for aria-controls / aria-labelledby relationship
   const panelId = useId();
@@ -88,7 +94,7 @@ export default function DigitalSignature() {
             type="button"
             className="dga-btn dga-btn--sm dga-btn--subtle digital-lang-btn"
             onClick={switchLanguage}
-            aria-label="تبديل اللغة إلى الإنجليزية"
+            aria-label={isArabicLang ? "تبديل اللغة إلى الإنجليزية" : "Switch language to Arabic"}
           >
             <Image
               src="/assets/icons/stroke-standard/translation-stroke-rounded.svg"
@@ -97,7 +103,7 @@ export default function DigitalSignature() {
               width={20}
               height={20}
             />
-            <span>English</span>
+            <span>{isArabicLang ? "English" : "العربية"}</span>
           </button>
         </div>
 
