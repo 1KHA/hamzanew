@@ -11,6 +11,7 @@ import NavigationSubmenu from "./NavigationSubmenu";
 import { MENU_DATA, ACTION_ITEMS } from "./menuData";
 import "./NavHeader.css";
 import { useSession, signOut } from "next-auth/react";
+import { t } from "@/app/_lib/translationContext";
 
 // =============================================
 // ICON COMPONENT
@@ -194,7 +195,11 @@ function UserMenuDropdown({ name }: { name: string }) {
 // =============================================
 // MAIN COMPONENT
 // =============================================
-function NavHeader() {
+interface NavHeaderProps {
+  translations?: Record<string, string> | null;
+}
+
+function NavHeader({ translations }: NavHeaderProps) {
   const pathname = usePathname();
   const { data: session } = useSession();
   console.log("session", session);
@@ -305,6 +310,7 @@ function NavHeader() {
         activeLink={activeLink}
         onLinkClick={handleLinkClick}
         onTranslateClick={handleTranslate}
+        translations={translations}
       />
 
       {/* ── Sticky container — header + submenu scroll together ────────
@@ -406,6 +412,7 @@ function NavHeader() {
                       isSubmenuOpen={openSubmenus.includes(item.id)}
                       onToggleSubmenu={() => toggleSubmenu(item.id)}
                       onLinkClick={() => handleLinkClick(item.id)}
+                      translations={translations}
                     />
                   ))}
 
@@ -486,6 +493,7 @@ function NavHeader() {
           isOpen={!!activeSubmenu?.submenuColumns}
           columns={activeSubmenu?.submenuColumns}
           onLinkClick={() => activeSubmenu && handleLinkClick(activeSubmenu.id)}
+          translations={translations}
         />
       </div>
     </>

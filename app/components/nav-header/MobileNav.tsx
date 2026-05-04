@@ -6,6 +6,7 @@ import Link from "next/link";
 import { MENU_DATA, ACTION_ITEMS } from "./menuData";
 import type { MenuItemType } from "./menuData";
 import "./MobileNav.css";
+import { t } from "@/app/_lib/translationContext";
 
 // =============================================
 // TYPES
@@ -17,6 +18,7 @@ interface MobileNavProps {
   activeLink: string;
   onLinkClick: (linkId: string) => void;
   onTranslateClick: () => void;
+  translations?: Record<string, string> | null;
 }
 
 interface MobileNavItemProps {
@@ -27,6 +29,7 @@ interface MobileNavItemProps {
   onToggleSubmenu: () => void;
   /** Index in the list — used to stagger the entrance animation */
   index: number;
+  translations?: Record<string, string> | null;
 }
 
 // =============================================
@@ -43,8 +46,9 @@ interface MobileNavItemProps {
  * when only one item's expanded state changes.
  */
 const MobileNavItem = memo<MobileNavItemProps>(
-  ({ item, isActive, isExpanded, onLinkClick, onToggleSubmenu, index }) => {
+  ({ item, isActive, isExpanded, onLinkClick, onToggleSubmenu, index, translations }) => {
     const itemClass = `mobile-nav__item${isActive ? " mobile-nav__item--active" : ""}`;
+    const resolvedLabel = t(item.label, translations);
 
     // ── Accordion item (has nested submenu) ───────────────────────────────
     if (item.hasSubmenu) {
@@ -60,9 +64,9 @@ const MobileNavItem = memo<MobileNavItemProps>(
             className={itemClass}
             aria-haspopup="true"
             aria-expanded={isExpanded}
-            aria-label={`${item.label}، قائمة فرعية`}
+            aria-label={`${resolvedLabel}، قائمة فرعية`}
           >
-            <span>{item.label}</span>
+            <span>{resolvedLabel}</span>
 
             {/* Animated chevron — rotates when the submenu opens.
               aria-hidden keeps it invisible to screen readers since
@@ -88,7 +92,7 @@ const MobileNavItem = memo<MobileNavItemProps>(
           <div
             className={`mobile-nav__submenu${isExpanded ? " mobile-nav__submenu--active" : ""}`}
             role="region"
-            aria-label={`قائمة ${item.label} الفرعية`}
+            aria-label={`قائمة ${resolvedLabel} الفرعية`}
           >
             {item.submenuColumns?.map((column, colIndex) => (
               <div
@@ -96,7 +100,7 @@ const MobileNavItem = memo<MobileNavItemProps>(
                 className="mobile-nav__submenu-column"
               >
                 {/* Column heading */}
-                <div className="mobile-nav__submenu-title">{column.title}</div>
+                <div className="mobile-nav__submenu-title">{t(column.title, translations)}</div>
 
                 {/* Submenu links — use href as key for stability */}
                 {column.items.map((subItem) => (
@@ -108,11 +112,11 @@ const MobileNavItem = memo<MobileNavItemProps>(
                   >
                     <Image
                       src={subItem.icon}
-                      alt={`أيقونة ${subItem.label}`}
+                      alt={`أيقونة ${t(subItem.label, translations)}`}
                       width={20}
                       height={20}
                     />
-                    <span>{subItem.label}</span>
+                    <span>{t(subItem.label, translations)}</span>
                   </Link>
                 ))}
               </div>
@@ -133,7 +137,7 @@ const MobileNavItem = memo<MobileNavItemProps>(
           onClick={() => onLinkClick(item.id)}
           className={itemClass}
         >
-          <span>{item.label}</span>
+          <span>{resolvedLabel}</span>
         </Link>
       </div>
     );
@@ -163,6 +167,7 @@ export default function MobileNav({
   activeLink,
   onLinkClick,
   onTranslateClick,
+  translations,
 }: MobileNavProps) {
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
 
@@ -275,6 +280,7 @@ export default function MobileNav({
                 onLinkClick={handleLinkClick}
                 onToggleSubmenu={() => toggleSubmenu(item.id)}
                 index={index}
+                translations={translations}
               />
             ))}
           </nav>

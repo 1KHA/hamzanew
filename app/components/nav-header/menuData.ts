@@ -21,19 +21,19 @@ export type SubmenuItem = {
 export const MENU_DATA: MenuItemType[] = [
   {
     id: "home",
-    label: "الرئيسة",
+    label: "hamza-navigation-menu-home",
     href: "/",
   },
   {
     id: "about",
-    label: "عن الجهة",
+    label: "hamza-page-level-nav-who-are-we",
     hasSubmenu: true,
     submenuColumns: [
       {
-        title: "عن الجهة",
+        title: "hamza-page-level-nav-who-are-we",
         items: [
           {
-            label: "عن همزة",
+            label: "hamza-page-level-nav-who-are-we",
             href: "/about",
             icon: "/assets/icons/stroke-standard/user-group-stroke-rounded.svg",
           },
@@ -43,32 +43,32 @@ export const MENU_DATA: MenuItemType[] = [
             icon: "/assets/icons/stroke-standard/geometric-shapes-01-stroke-rounded.svg",
           },
           {
-            label: "أهمية اختبارات همزة",
+            label: "hamza-navigation-menu-benefits-of-hamza-test",
             href: "/about/benefits-of-hamza-test",
             icon: "/assets/icons/stroke-standard/file-star-stroke-rounded.svg",
           },
           {
-            label: "المؤسسات والدول التي تقبل همزة",
+            label: "hamza-institutions-and-countries-that-accept-the-hamza",
             href: "/about/institutions-and-countries-that-accept-the-hamza",
             icon: "/assets/icons/stroke-standard/checkmark-badge-02-stroke-rounded.svg",
           },
           {
-            label: "اللجنة الاستشارية الدولية",
+            label: "hamza-periodic-advisory-committee",
             href: "/about/periodic-advisory-committee",
             icon: "/assets/icons/stroke-standard/school-01-stroke-rounded.svg",
           },
         ],
       },
       {
-        title: "أنواع اختبارات همزة",
+        title: "hamza-navigation-menu-types-of-tests",
         items: [
           {
-            label: "أنواع اختبارات همزة",
+            label: "hamza-navigation-menu-types-of-tests",
             href: "/types-of-tests",
             icon: "/assets/icons/stroke-standard/right-to-left-list-bullet-stroke-rounded.svg",
           },
           {
-            label: "همزة الأكاديمي",
+            label: "hamza-page-organizations-academic-hamza",
             href: "/types-of-tests/hamza-academic-test",
             icon: "/assets/icons/stroke-standard/mortarboard-01-stroke-rounded.svg",
           },
@@ -78,12 +78,12 @@ export const MENU_DATA: MenuItemType[] = [
             icon: "/assets/icons/stroke-standard/glasses-stroke-rounded.svg",
           },
           {
-            label: "همزة لتحديد المستوى",
+            label: "hamza-navigation-menu-hamza-to-determine-the-level",
             href: "/types-of-tests/hamza-placement-test",
             icon: "/assets/icons/stroke-standard/star-stroke-rounded.svg",
           },
           {
-            label: "همزة للمفردات",
+            label: "hamza-navigation-menu-hamza-for-vocabulary",
             href: "/types-of-tests/hamza-vocabulary-test",
             icon: "/assets/icons/stroke-standard/book-02-stroke-rounded.svg",
           },
@@ -93,7 +93,7 @@ export const MENU_DATA: MenuItemType[] = [
   },
   {
     id: "test-takers",
-    label: "المتقدمون للإختبار",
+    label: "hamza-navigation-menu-test-takers",
     hasSubmenu: true,
     submenuColumns: [
       {
@@ -105,17 +105,17 @@ export const MENU_DATA: MenuItemType[] = [
             icon: "/assets/icons/stroke-standard/menu-square-stroke-rounded.svg",
           },
           {
-            label: "مصادر التحضير",
+            label: "hamza-page-level-nav-preparation-sources",
             href: "/test-takers/preparation-resource",
             icon: "/assets/icons/stroke-standard/book-04-stroke-standard.svg",
           },
           {
-            label: "دورة مران همزة",
+            label: "hamza-navigation-menu-hamza-maran-hamza",
             href: "/test-takers/hamza-meran-course",
             icon: "/assets/icons/stroke-standard/course-stroke-standard.svg",
           },
           {
-            label: "آلية الإختبار   ",
+            label: "hamza-navigation-menu-hamza-test-mechanism",
             href: "/test-takers/test-mechanism",
             icon: "/assets/icons/stroke-standard/task-daily-02-stroke-standard.svg",
           },
@@ -125,12 +125,12 @@ export const MENU_DATA: MenuItemType[] = [
   },
   {
     id: "organizations",
-    label: "المنظمات",
+    label: "hamza-navigation-menu-organizations",
     href: "/hamza-org",
   },
   {
     id: "research",
-    label: "الأبحاث",
+    label: "hamza-navigation-menu-research",
     hasSubmenu: true,
     submenuColumns: [
       {
@@ -142,7 +142,7 @@ export const MENU_DATA: MenuItemType[] = [
             icon: "/assets/icons/stroke-standard/book-04-stroke-standard.svg",
           },
           {
-            label: "التقارير والإحصائيات",
+            label: "hamza-statistics",
             href: "/statistics-and-reports",
             icon: "/assets/icons/stroke-standard/chart-bar-line-stroke-standard.svg",
           },
@@ -152,14 +152,14 @@ export const MENU_DATA: MenuItemType[] = [
   },
   {
     id: "news",
-    label: "الاخبار",
+    label: "hamza-navigation-menu-news-and-articles",
     hasSubmenu: true,
     submenuColumns: [
       {
         title: "الاخبار",
         items: [
           {
-            label: "آخر الأخبار",
+            label: "hamza-latest-news",
             href: "/news/latest",
             icon: "/assets/icons/stroke-standard/book-04-stroke-standard.svg",
           },

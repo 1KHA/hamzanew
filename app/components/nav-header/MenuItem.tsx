@@ -2,6 +2,7 @@ import { memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MenuItemType } from "./menuData";
+import { t } from "@/app/_lib/translationContext";
 
 // =============================================
 // TYPES
@@ -17,6 +18,7 @@ interface MenuItemProps {
   onToggleSubmenu: () => void;
   /** Called when the user navigates to this item's href */
   onLinkClick: () => void;
+  translations?: Record<string, string> | null;
 }
 
 // =============================================
@@ -39,8 +41,10 @@ const MenuItem = memo<MenuItemProps>(({
   isSubmenuOpen,
   onToggleSubmenu,
   onLinkClick,
+  translations,
 }) => {
   const menuItemClass = `header-menu__item${isActive ? " header-menu__item--active" : ""}`;
+  const resolvedLabel = t(item.label, translations);
 
   // ── Submenu toggle button ──────────────────────────────────────────────
   if (item.hasSubmenu) {
@@ -55,9 +59,9 @@ const MenuItem = memo<MenuItemProps>(({
           aria-haspopup="true"
           // aria-expanded reflects the current open/closed state
           aria-expanded={isSubmenuOpen}
-          aria-label={`${item.label}، قائمة فرعية`}
+          aria-label={`${resolvedLabel}، قائمة فرعية`}
         >
-          <span className="header-menu__item-label">{item.label}</span>
+          <span className="header-menu__item-label">{resolvedLabel}</span>
 
           {/* Chevron icon — rotates 180° when the submenu is open.
               aria-hidden keeps it invisible to screen readers since
@@ -86,7 +90,7 @@ const MenuItem = memo<MenuItemProps>(({
         onClick={onLinkClick}
         className={menuItemClass}
       >
-        <span className="header-menu__item-label">{item.label}</span>
+        <span className="header-menu__item-label">{resolvedLabel}</span>
       </Link>
     </li>
   );

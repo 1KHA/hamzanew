@@ -5,6 +5,7 @@ import type {
   SubmenuColumn as SubmenuColumnType,
   SubmenuItem,
 } from "./menuData";
+import { t } from "@/app/_lib/translationContext";
 
 // =============================================
 // TYPES
@@ -17,6 +18,7 @@ interface NavigationSubmenuProps {
   columns?: SubmenuColumnType[];
   /** Called when any link inside the submenu is clicked */
   onLinkClick: () => void;
+  translations?: Record<string, string> | null;
 }
 
 // =============================================
@@ -30,23 +32,26 @@ interface NavigationSubmenuProps {
  * The icon alt text mirrors the item label so screen readers announce
  * a meaningful description instead of the raw file path.
  */
-const SubmenuLink = memo<{ item: SubmenuItem; onClick: () => void }>(
-  ({ item, onClick }) => (
-    <li>
-      <Link href={item.href} onClick={onClick} className="sub-link sub-menu__link">
-        <div className="flex gap-[16px] items-center">
-          <Image
-            src={item.icon}
-            alt={`أيقونة ${item.label}`}
-            width={24}
-            height={24}
-            className="inline-block"
-          />
-          <span>{item.label}</span>
-        </div>
-      </Link>
-    </li>
-  ),
+const SubmenuLink = memo<{ item: SubmenuItem; onClick: () => void; translations?: Record<string, string> | null }>(
+  ({ item, onClick, translations }) => {
+    const resolvedLabel = t(item.label, translations);
+    return (
+      <li>
+        <Link href={item.href} onClick={onClick} className="sub-link sub-menu__link">
+          <div className="flex gap-[16px] items-center">
+            <Image
+              src={item.icon}
+              alt={`أيقونة ${resolvedLabel}`}
+              width={24}
+              height={24}
+              className="inline-block"
+            />
+            <span>{resolvedLabel}</span>
+          </div>
+        </Link>
+      </li>
+    );
+  },
 );
 
 SubmenuLink.displayName = "SubmenuLink";
@@ -58,15 +63,16 @@ SubmenuLink.displayName = "SubmenuLink";
 const SubmenuColumn = memo<{
   column: SubmenuColumnType;
   onLinkClick: () => void;
-}>(({ column, onLinkClick }) => (
+  translations?: Record<string, string> | null;
+}>(({ column, onLinkClick, translations }) => (
   <div className="sub-nav-title">
     {/* Column heading */}
-    <div className="p-[12px]">{column.title}</div>
+    <div className="p-[12px]">{t(column.title, translations)}</div>
 
     {/* List of links — href used as key for stable reconciliation */}
     <ul className="grid gap-[4px]">
       {column.items.map((item) => (
-        <SubmenuLink key={item.label} item={item} onClick={onLinkClick} />
+        <SubmenuLink key={item.label} item={item} onClick={onLinkClick} translations={translations} />
       ))}
     </ul>
   </div>
@@ -100,6 +106,7 @@ export default function NavigationSubmenu({
   isOpen,
   columns,
   onLinkClick,
+  translations,
 }: NavigationSubmenuProps) {
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -162,6 +169,7 @@ export default function NavigationSubmenu({
             key={column.title || index}
             column={column}
             onLinkClick={onLinkClick}
+            translations={translations}
           />
         ))}
       </div>
