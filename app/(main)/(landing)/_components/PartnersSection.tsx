@@ -14,12 +14,16 @@ interface Entity {
 interface PartnersSectionProps {
   insideEntities?: Entity[];
   outsideEntities?: Entity[];
+  insideTitle?: string;
+  outsideTitle?: string;
   fallbackPartners?: Partner[];
 }
 
 export default function PartnersSection({
   insideEntities = [],
   outsideEntities = [],
+  insideTitle,
+  outsideTitle,
   fallbackPartners = [],
 }: PartnersSectionProps) {
   const [activeTab, setActiveTab] = useState(0);
@@ -31,15 +35,20 @@ export default function PartnersSection({
     return list.length > 0 ? list : fallbackPartners;
   }, [activeTab, insideEntities, outsideEntities, fallbackPartners]);
 
+  // Use the title from Liferay content, falling back to a default
+  const sectionTitle = activeTab === 0
+    ? (insideTitle || "الشركاء")
+    : (outsideTitle || insideTitle || "الشركاء");
+
   return (
     <div className="bg-white">
       <section
         className="section-spacing-5xl custom-container gap-[32px] !flex flex-col"
-        aria-label="الشركاء"
+        aria-label={sectionTitle}
       >
         <div className="grid gap-[24px]">
           <div className="flex-between-center">
-            <h2 className="display-sm-bold">الشركاء</h2>
+            <h2 className="display-sm-bold">{sectionTitle}</h2>
           </div>
           <DgaTabs
             tabsList={[

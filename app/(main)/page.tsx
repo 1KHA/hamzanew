@@ -156,6 +156,14 @@ export default async function LandingPage(): Promise<ReactElement> {
       return obj;
     }) || [];
 
+  // Extract section titles from entity content
+  const insideTitleFields = extractFields(insideEntitiesData?.contentFields, [
+    "titleText",
+  ]) as { titleText?: string };
+  const outsideTitleFields = extractFields(outsideEntitiesData?.contentFields, [
+    "titleText",
+  ]) as { titleText?: string };
+
   // Process entity lists
   const processEntities = (content: any) => {
     const list = extractList(content?.contentFields, "entitiesFieldset", {
@@ -217,6 +225,8 @@ export default async function LandingPage(): Promise<ReactElement> {
         <PartnersSection
           insideEntities={insideEntities}
           outsideEntities={outsideEntities}
+          insideTitle={insideTitleFields.titleText}
+          outsideTitle={outsideTitleFields.titleText}
           fallbackPartners={PARTNERS}
         />
       </ScrollReveal>
