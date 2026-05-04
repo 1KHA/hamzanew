@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import Carousel from "@/app/components/carousel/Carousel";
 import { DgaTabs } from "@/app/components/tabs/DgaTabs";
+import { t } from "@/app/_lib/translationContext";
 import { Partner } from "../_data/homeData";
 
 interface Entity {
@@ -16,6 +17,7 @@ interface PartnersSectionProps {
   outsideEntities?: Entity[];
   insideTitle?: string;
   outsideTitle?: string;
+  translations?: Record<string, string> | null;
   fallbackPartners?: Partner[];
 }
 
@@ -24,6 +26,7 @@ export default function PartnersSection({
   outsideEntities = [],
   insideTitle,
   outsideTitle,
+  translations,
   fallbackPartners = [],
 }: PartnersSectionProps) {
   const [activeTab, setActiveTab] = useState(0);
@@ -53,11 +56,11 @@ export default function PartnersSection({
           <DgaTabs
             tabsList={[
               {
-                label: "داخل المملكة العربية السعودية",
+                label: t("hamza-inside-saudi-arabia", translations) || "داخل المملكة العربية السعودية",
                 tabIcon: "flag-02",
               },
               {
-                label: "دول أخرى",
+                label: t("hamza-outside-saudi-arabia", translations) || "دول أخرى",
                 tabIcon: "globe-02",
               },
             ]}

@@ -227,6 +227,7 @@ export default async function LandingPage(): Promise<ReactElement> {
           outsideEntities={outsideEntities}
           insideTitle={insideTitleFields.titleText}
           outsideTitle={outsideTitleFields.titleText}
+          translations={translations}
           fallbackPartners={PARTNERS}
         />
       </ScrollReveal>
