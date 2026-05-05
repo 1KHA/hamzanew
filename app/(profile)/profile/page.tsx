@@ -64,17 +64,25 @@ function mapApiProfile(apiData: any): Record<string, any> {
 export default async function ProfilePage() {
   let userProfile = null;
   try {
+    console.log("[ProfilePage] Fetching cached user profile...");
     const apiData = await getCachedUserProfile();
+    console.log("[ProfilePage] Raw API data from getCachedUserProfile:", JSON.stringify(apiData, null, 2));
+
     if (apiData && apiData.status !== "FAIL") {
       userProfile = mapApiProfile(apiData);
+      console.log("[ProfilePage] Mapped profile data:", JSON.stringify(userProfile, null, 2));
+    } else {
+      console.log("[ProfilePage] apiData is null or status is FAIL");
     }
   } catch (error) {
-    console.error("Error fetching profile:", error);
+    console.error("[ProfilePage] Error fetching profile:", error);
   }
 
   const profileData = userProfile && Object.keys(userProfile).length > 0
     ? userProfile
     : mockUserInfo;
+
+  console.log("[ProfilePage] Final profileData passed to ProfileView:", JSON.stringify(profileData, null, 2));
 
   const HERO_CONFIG = {
     title: "الملف الشخصي",

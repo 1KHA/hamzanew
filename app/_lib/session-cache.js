@@ -13,11 +13,16 @@ export async function getCachedUserProfile() {
   try {
     const session = await getServerSession(authOptions);
 
+    console.log("[getCachedUserProfile] Session from getServerSession:", JSON.stringify(session, null, 2));
+
     if (!session || !session.user) {
+      console.log("[getCachedUserProfile] No session or no session.user");
       return null;
     }
 
     const userId = session.user.id;
+    console.log("[getCachedUserProfile] Extracted userId from session:", userId, "| email:", session.user.email, "| name:", session.user.name);
+
     const cacheKey = `profile_${userId}`;
 
     // Check if we have cached data in memory
@@ -29,15 +34,21 @@ export async function getCachedUserProfile() {
 
       // If cache is still valid, return cached data
       if (now - timestamp < CACHE_DURATION) {
+        console.log("[getCachedUserProfile] Cache HIT for userId:", userId);
         return data;
       } else {
         // Cache expired, remove it
+        console.log("[getCachedUserProfile] Cache EXPIRED for userId:", userId);
         profileCache.delete(cacheKey);
       }
+    } else {
+      console.log("[getCachedUserProfile] Cache MISS for userId:", userId);
     }
 
     // Cache is invalid or doesn't exist, fetch fresh data
     const userProfileData = await getUserProfileInfo();
+
+    console.log("[getCachedUserProfile] getUserProfileInfo returned:", JSON.stringify(userProfileData, null, 2));
 
     if (userProfileData && userProfileData.status !== "FAIL") {
       // Cache the data in memory
@@ -45,11 +56,12 @@ export async function getCachedUserProfile() {
         data: userProfileData,
         timestamp: Date.now(),
       });
+      console.log("[getCachedUserProfile] Cached profile data for userId:", userId);
     }
 
     return userProfileData;
   } catch (error) {
-    console.error("Error getting cached user profile:", error);
+    console.error("[getCachedUserProfile] Error getting cached user profile:", error);
     return null;
   }
 }

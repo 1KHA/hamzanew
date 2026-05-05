@@ -87,6 +87,8 @@ export default async function ProfileUpdatePage() {
   let timezoneOptions: DropdownOption[] = [];
 
   try {
+    console.log("[ProfileUpdatePage] Starting profile data fetch...");
+
     const [
       apiProfile,
       countriesRaw,
@@ -97,7 +99,7 @@ export default async function ProfileUpdatePage() {
       timezoneRaw,
     ] = await Promise.all([
       getCachedUserProfile().catch((err: any) => {
-        console.warn("Failed to fetch user profile:", err?.message);
+        console.warn("[ProfileUpdatePage] Failed to fetch user profile:", err?.message);
         return null;
       }),
       getFormattedCountriesList().catch((err: any) => {
@@ -126,8 +128,13 @@ export default async function ProfileUpdatePage() {
       }),
     ]);
 
+    console.log("[ProfileUpdatePage] Raw apiProfile from getCachedUserProfile:", JSON.stringify(apiProfile, null, 2));
+
     if (apiProfile && apiProfile.status !== "FAIL") {
       profileValues = mapApiProfileToForm(apiProfile);
+      console.log("[ProfileUpdatePage] Mapped profileValues:", JSON.stringify(profileValues, null, 2));
+    } else {
+      console.log("[ProfileUpdatePage] apiProfile is null or status is FAIL, using mock data");
     }
 
     countryOptions = (countriesRaw || []).map((c: any) => ({
@@ -147,6 +154,8 @@ export default async function ProfileUpdatePage() {
 
   const initialValues =
     Object.keys(profileValues).length > 0 ? profileValues : mockUserInfo;
+
+  console.log("[ProfileUpdatePage] Final initialValues passed to ProfileForm:", JSON.stringify(initialValues, null, 2));
 
   const HERO_CONFIG = {
     title: "الملف الشخصي",

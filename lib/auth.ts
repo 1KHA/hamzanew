@@ -10,6 +10,9 @@ async function getUser(username: string, password: string) {
   const authURL = `${process.env.BASE_URL}/o/headless-admin-user/v1.0/my-user-account`;
   const credentials = Buffer.from(`${username}:${password}`).toString("base64");
 
+  console.log("[AUTH] Login attempt for username:", username);
+  console.log("[AUTH] Liferay auth URL:", authURL);
+
   try {
     const response = await fetch(authURL, {
       method: "GET",
@@ -20,16 +23,19 @@ async function getUser(username: string, password: string) {
       cache: "no-store",
     });
 
+    console.log("[AUTH] Liferay response status:", response.status);
+
     if (response.ok) {
       const user = await response.json();
-      console.log("Liferay user authenticated:", user.id, user.emailAddress);
+      console.log("[AUTH] Liferay raw user object:", JSON.stringify(user, null, 2));
+      console.log("[AUTH] Liferay user id:", user.id, "| email:", user.emailAddress, "| screenName:", user.screenName);
       return user;
     }
 
-    console.warn("Liferay auth failed with status:", response.status);
+    console.warn("[AUTH] Liferay auth failed with status:", response.status);
     return null;
   } catch (error) {
-    console.error("Error authenticating with Liferay:", error);
+    console.error("[AUTH] Error authenticating with Liferay:", error);
     return null;
   }
 }
@@ -50,14 +56,16 @@ export const authOptions: NextAuthOptions = {
           throw new Error("اسم المستخدم وكلمة المرور مطلوبان");
         }
 
+        console.log("[AUTH] authorize() called with username:", credentials.username);
+
         const user = await getUser(credentials.username, credentials.password);
 
         if (!user) {
+          console.log("[AUTH] authorize() failed — getUser returned null");
           throw new Error("اسم المستخدم أو كلمة المرور غير صحيحة");
         }
 
-        // Return the user object — this gets stored in the JWT token
-        return {
+        const returnUser = {
           id: String(user.id),
           name:
             user.name ||
@@ -65,6 +73,9 @@ export const authOptions: NextAuthOptions = {
           email: user.emailAddress,
           username: credentials.username,
         };
+
+        console.log("[AUTH] authorize() returning user:", JSON.stringify(returnUser, null, 2));
+        return returnUser;
       },
     }),
   ],
