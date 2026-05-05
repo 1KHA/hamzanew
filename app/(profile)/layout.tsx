@@ -1,29 +1,65 @@
-"use client";
 import type { ReactNode } from "react";
-import { usePathname } from "next/navigation";
-import SideNav from "../components/side-nav/SideNav";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+import { getCachedUserProfile } from "@/app/_lib/session-cache";
+import ProfileLayoutClient from "./ProfileLayoutClient";
 import "platformscode-new-react/dist/style.css";
-import mockUserInfo from "./profile/_data/mockUserInfo.json";
 
-export default function ProfileLayout({ children }: { children: ReactNode }) {
-  const pathname = usePathname();
+export default async function ProfileLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  // Try to get real user data from the profile API
+  let userName = "";
+  let userEmail = "";
+  let userAvatar = "";
+
+  try {
+    const apiData = await getCachedUserProfile();
+    if (apiData && apiData.status !== "FAIL") {
+      // Build name from Arabic names (same logic as ProfileView)
+      const firstName = apiData.firstName_ar ?? apiData.firstName ?? "";
+      const secondName = apiData.middleName_ar ?? apiData.secondName_ar ?? apiData.secondName ?? "";
+      const lastName = apiData.lastName_ar ?? apiData.lastName ?? "";
+      userName = `${firstName} ${secondName} ${lastName}`.trim();
+
+      // Fallback to English names if Arabic is empty
+      if (!userName) {
+        const firstNameEn = apiData.firstName_en ?? apiData.firstNameInEnglish ?? "";
+        const lastNameEn = apiData.lastName_en ?? apiData.lastNameInEnglish ?? "";
+        userName = `${firstNameEn} ${lastNameEn}`.trim();
+      }
+
+      userEmail = apiData.email ?? apiData.emailId ?? "";
+      userAvatar = apiData.avatar ?? "";
+    }
+  } catch (error) {
+    console.error("[ProfileLayout] Error fetching profile for sidebar:", error);
+  }
+
+  // Fallback to session data if profile API returned nothing
+  if (!userName || !userEmail) {
+    try {
+      const session = await getServerSession(authOptions);
+      if (session?.user) {
+        userName = session.user.name || "";
+        userEmail = session.user.email || "";
+      }
+    } catch (error) {
+      console.error("[ProfileLayout] Error fetching session for sidebar:", error);
+    }
+  }
+
+  console.log("[ProfileLayout] Sidebar data — name:", userName, "| email:", userEmail);
 
   return (
-    <div className="bg-neutral-50 flex flex-row-reverse flex-1">
-      {/* Left column — page content (PageHero + section + form/view) */}
-      <div className="flex-1 min-w-0 !pt-[68px] lg:!pt-0">
-        {children}
-      </div>
-
-      {/* Right column — SideNav starts at the very top of the page */}
-      <div className="sidenav-layout">
-        <SideNav
-          activePath={pathname}
-          userName={mockUserInfo.firstName_ar + " " + mockUserInfo.lastName_ar}
-          userEmail={mockUserInfo.email}
-          userAvatar={mockUserInfo.avatar}
-        />
-      </div>
-    </div>
+    <ProfileLayoutClient
+      userName={userName}
+      userEmail={userEmail}
+      userAvatar={userAvatar}
+    >
+      {children}
+    </ProfileLayoutClient>
   );
 }
