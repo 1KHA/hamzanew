@@ -87,13 +87,13 @@ const Card: React.FC<CardProps> = ({
   contentAlignment = "start",
 
   // Title styling defaults
-  titleClass = "text-lg-semibold",
+  titleClass = "text-lg-semibold line-clamp-2",
   titleColor,
   titleWidth,
   titleStyle,
 
   // Description styling defaults
-  descriptionClass = "text-sm-regular",
+  descriptionClass = "text-sm-regular line-clamp-3",
   descriptionColor,
   descriptionWidth,
   descriptionStyle,
