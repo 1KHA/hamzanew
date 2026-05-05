@@ -60,6 +60,12 @@ const nextConfig: NextConfig = {
         port: "8080",
         pathname: "/documents/**",
       },
+      {
+        protocol: "http",
+        hostname: "10.20.3.124",
+        port: "8080",
+        pathname: "/documents/**",
+      },
     ],
     // Allow localhost/private IPs for dev environment
     dangerouslyAllowLocalIP: true,
