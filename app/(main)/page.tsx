@@ -232,7 +232,7 @@ export default async function LandingPage(): Promise<ReactElement> {
         />
       </ScrollReveal>
       <ScrollReveal>
-        <SubscriptionSection />
+        <SubscriptionSection translations={translations} />
       </ScrollReveal>
     </>
   );
