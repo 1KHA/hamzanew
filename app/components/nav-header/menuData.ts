@@ -38,7 +38,7 @@ export const MENU_DATA: MenuItemType[] = [
             icon: "/assets/icons/stroke-standard/user-group-stroke-rounded.svg",
           },
           {
-            label: "سمات اختبار همزة",
+            label: "hamza-navigation-menu-why-choose-hamza",
             href: "/about/hamza-test-traits",
             icon: "/assets/icons/stroke-standard/geometric-shapes-01-stroke-rounded.svg",
           },
@@ -73,7 +73,7 @@ export const MENU_DATA: MenuItemType[] = [
             icon: "/assets/icons/stroke-standard/mortarboard-01-stroke-rounded.svg",
           },
           {
-            label: "همزة العام",
+            label: "hamza-navigation-menu-the-hamza-of-the-year",
             href: "/types-of-tests/hamza-general-test",
             icon: "/assets/icons/stroke-standard/glasses-stroke-rounded.svg",
           },
