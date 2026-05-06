@@ -47,6 +47,7 @@ interface SanderdOrgItem {
 }
 
 interface VerificationData {
+  title: string;
   description: string;
   buttonText: string;
   labelText: string;
@@ -58,6 +59,8 @@ interface HamzaOrgContentProps {
   whyHamzaTest: WhyHamzaItem[];
   sanderdOrg: SanderdOrgItem[];
   verificationData: VerificationData;
+  whyHamzaTitle: string;
+  standardOrgTitle: string;
   standardOrgDescription: string;
   translations?: Record<string, string> | null;
   locale?: string;
@@ -99,6 +102,8 @@ export default function HamzaOrgContent({
   whyHamzaTest,
   sanderdOrg,
   verificationData,
+  whyHamzaTitle,
+  standardOrgTitle,
   standardOrgDescription,
   translations,
   locale,
@@ -159,7 +164,7 @@ export default function HamzaOrgContent({
       <div className="bg-neutral-50">
         <div className="custom-container !py-[128px]">
           <h2 className="display-sm-bold !mb-[32px]">
-            {tx("hamza-org-why-title", "لماذا اختبار همزة؟")}
+            {whyHamzaTitle}
           </h2>
           <ul className="!grid !grid-cols-1 md:!grid-cols-3 !gap-6">
             {whyHamzaTest.map((item) => (
@@ -192,7 +197,7 @@ export default function HamzaOrgContent({
 
               <div className="!flex !flex-row !items-center !gap-4">
                 <h2 className="display-sm-bold">
-                  {tx("hamza-org-verify-title", "التحقق من موثوقية الشهادات")}
+                  {verificationData.title}
                 </h2>
                 <img
                   alt=""
@@ -274,7 +279,7 @@ export default function HamzaOrgContent({
         <div className="custom-container !py-[128px] !grid !grid-cols-1 md:!grid-cols-2 !gap-18">
           <div>
             <h2 className="display-sm-bold !mb-[32px]">
-              {tx("hamza-org-standard-title", "المنظمات")}
+              {standardOrgTitle}
             </h2>
             <p className="!text-[16px] !leading-[24px] !font-normal !text-black">
               {standardOrgDescription}

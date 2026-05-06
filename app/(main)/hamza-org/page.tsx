@@ -172,6 +172,8 @@ export default async function HamzaOrgPage() {
       }))
     : staticWhyHamzaTest;
 
+  const whyHamzaTitle = whyHamzaFields?.titleText || whyHamzaTestContent?.title || "لماذا اختبار همزة؟";
+
   /* ── Section 3: Certificate Verification ── */
   const verificationFields = extractFields(
     hamzaTestVerficationContent?.contentFields,
@@ -184,6 +186,7 @@ export default async function HamzaOrgPage() {
   };
 
   const verificationData = {
+    title: hamzaTestVerficationContent?.title || "التحقق من موثوقية الشهادات",
     description:
       verificationFields?.descriptionText ||
       "يمكن للجهات المعتمدة أو أي طرف التحقق من صحة الشهادات، للتأكد من اعتمادها وموثوقيتها.",
@@ -213,6 +216,7 @@ export default async function HamzaOrgPage() {
       }))
     : staticSanderdOrg;
 
+  const standardOrgTitle = hamzaForOrganizationsContent?.title || "المنظمات";
   const standardOrgDescription =
     hamzaForOrgsFields?.descriptionText ||
     "بفضل معياريته واعتماده على الإطار الأوروبي المرجعي المشترك للغات (CEFR)، يوفّر اختبار همزة للمؤسسات حول العالم أداة دقيقة وموثوقة لاختيار المرشحين الأكفأ في عدة مجالات تعليمية ومهنية وغيرها.";
@@ -238,6 +242,8 @@ export default async function HamzaOrgPage() {
           whyHamzaTest={whyHamzaTest}
           sanderdOrg={sanderdOrg}
           verificationData={verificationData}
+          whyHamzaTitle={whyHamzaTitle}
+          standardOrgTitle={standardOrgTitle}
           standardOrgDescription={standardOrgDescription}
           translations={translations}
           locale={locale}
