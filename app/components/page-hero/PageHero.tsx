@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import styles from "./PageHero.module.css";
 import DgaBreadcrumbs from "@/app/components/breadcrumbs/BreadCrumbs";
 import ClientOnly from "../ClientOnly";
+import { t } from "@/app/_lib/translationContext.js";
 
 export type Crumb = { label: string; path?: string; disabled?: boolean };
 
@@ -30,6 +31,7 @@ type PageHeroProps = {
   matchNested?: boolean;
   breadcrumbsMax?: BreadcrumbsMax;
   defaultBgColor?: string;
+  translations?: Record<string, string>;
 };
 
 function normalizePathname(pathname: string) {
@@ -76,6 +78,7 @@ export default function PageHero({
   matchNested = true,
   breadcrumbsMax = 5,
   defaultBgColor = "#F7FDF9",
+  translations,
 }: PageHeroProps) {
   const pathnameFromHook = usePathname() ?? "/";
   const pathname = normalizePathname(pathnameFromHook);
@@ -84,6 +87,19 @@ export default function PageHero({
     () => resolveHero(heroMap, pathname, defaultRoute, matchNested),
     [heroMap, pathname, defaultRoute, matchNested],
   );
+
+  const resolvedTitle = t(hero.title, translations);
+  const resolvedDescription = hero.description
+    ? t(hero.description, translations)
+    : undefined;
+  const resolvedDate = hero.date ? t(hero.date, translations) : undefined;
+  const resolvedExternalLink = hero.externalLink
+    ? { ...hero.externalLink, label: t(hero.externalLink.label, translations) }
+    : undefined;
+  const resolvedBreadcrumbs = hero.breadcrumbs?.map((crumb) => ({
+    ...crumb,
+    label: t(crumb.label, translations),
+  }));
 
   const max =
     typeof breadcrumbsMax === "function"
@@ -100,28 +116,28 @@ export default function PageHero({
       <div className={styles.heroContent}>
         <div className={styles.inner}>
           {/* <ClientOnly> */}
-          <DgaBreadcrumbs items={hero.breadcrumbs ?? []} max={max} />
+          <DgaBreadcrumbs items={resolvedBreadcrumbs ?? []} max={max} />
           {/* </ClientOnly> */}
-          <h1 className="display-sm-bold">{hero.title}</h1>
+          <h1 className="display-sm-bold">{resolvedTitle}</h1>
 
-          {hero.description ? (
-            <p className="text-md-regular">{hero.description}</p>
+          {resolvedDescription ? (
+            <p className="text-md-regular">{resolvedDescription}</p>
           ) : null}
 
-          {hero.externalLink ? (
+          {resolvedExternalLink ? (
             <div className={styles.actions}>
               <button
                 type="button"
                 className="dga-btn dga-btn--lg dga-btn--primary-brand"
                 onClick={() =>
                   window.open(
-                    hero.externalLink!.href,
+                    resolvedExternalLink!.href,
                     "_blank",
                     "noopener,noreferrer",
                   )
                 }
               >
-                {hero.externalLink.label}
+                {resolvedExternalLink.label}
                 <img
                   className="dga-btn-icon"
                   src="/assets/icons/stroke-standard/Trailing icon.png"
@@ -131,7 +147,7 @@ export default function PageHero({
             </div>
           ) : null}
 
-          {hero.date ? (
+          {resolvedDate ? (
             <div className="!flex !justify-start !items-center !gap-[3px]">
               <img
                 src="/assets/icons/stroke-standard/calendar-03-stroke-rounded.svg"
@@ -141,7 +157,7 @@ export default function PageHero({
                 className="gray-icon"
               />
               <p className="text-sm-medium !text-[#4d5761] !font-normal">
-                {hero.date}
+                {resolvedDate}
               </p>
             </div>
           ) : null}

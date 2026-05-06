@@ -5,14 +5,16 @@ import {
   getTestMechanismHero,
 } from "./heroMap";
 import PageHero from "@/app/components/page-hero/PageHero";
+import { getTranslations } from "@/app/_lib/getTranslations";
 
 export default async function TestTakersLayout({
   children,
 }: {
   children: ReactNode;
 }) {
-  // Fetch dynamic hero data for multiple routes
-  const [testMechanismHero, prepResourceHero] = await Promise.all([
+  // Fetch translations and dynamic hero data for multiple routes
+  const [translations, testMechanismHero, prepResourceHero] = await Promise.all([
+    getTranslations(),
     getTestMechanismHero(),
     getPreparationResourceHero(),
   ]);
@@ -30,6 +32,7 @@ export default async function TestTakersLayout({
         heroMap={dynamicHeroMap}
         defaultRoute="/"
         breadcrumbsMax={4}
+        translations={translations ?? undefined}
       />
       <section>{children}</section>
     </>
