@@ -24,27 +24,46 @@ import Card from "@/app/components/card/Card";
 import Button from "@/app/components/button/Button";
 import { DgaTextInput } from "platformscode-new-react";
 import "@/app/components/card/card.css";
+import { t } from "@/app/_lib/translationContext";
 
-interface HamzaOrgContentProps {
-  TYPES_OF_ORG: {
-    id: number;
-    title: string;
-    icon: string;
-  }[];
-  WHY_HAMZA_TEST: {
-    id: number;
-    no: string;
-    description: string;
-  }[];
-  SANDERD_ORG: {
-    id: number;
-    title: string;
-    description: string;
-    icon: string;
-  }[];
+interface TypeOfOrg {
+  id: number;
+  title: string;
+  icon?: string;
+  image?: string;
 }
 
-function StandardCard({ section }: { section: any }) {
+interface WhyHamzaItem {
+  id: number;
+  no: string;
+  description: string;
+}
+
+interface SanderdOrgItem {
+  id: number;
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface VerificationData {
+  description: string;
+  buttonText: string;
+  labelText: string;
+  placeholder: string;
+}
+
+interface HamzaOrgContentProps {
+  typesOfOrg: TypeOfOrg[];
+  whyHamzaTest: WhyHamzaItem[];
+  sanderdOrg: SanderdOrgItem[];
+  verificationData: VerificationData;
+  standardOrgDescription: string;
+  translations?: Record<string, string> | null;
+  locale?: string;
+}
+
+function StandardCard({ section }: { section: SanderdOrgItem }) {
   return (
     <article className="card !border-none">
       <div className="flex flex-row gap-[24px] items-center w-full">
@@ -76,25 +95,74 @@ function StandardCard({ section }: { section: any }) {
 }
 
 export default function HamzaOrgContent({
-  TYPES_OF_ORG,
-  WHY_HAMZA_TEST,
-  SANDERD_ORG,
+  typesOfOrg,
+  whyHamzaTest,
+  sanderdOrg,
+  verificationData,
+  standardOrgDescription,
+  translations,
+  locale,
 }: HamzaOrgContentProps) {
+  const isRTL = locale !== "en-US";
+
+  // Helper: safely get translation with fallback
+  // (t() returns the key itself when missing, so "||" doesn't work)
+  const tx = (key: string, fallback: string): string => {
+    const val = translations?.[key];
+    return val && val.trim() !== "" ? val : fallback;
+  };
+
   return (
-    <section aria-label="تفاصيل خدمات المنظمات">
+    <section
+      aria-label={tx("hamza-org-section-aria", "تفاصيل خدمات المنظمات")}
+    >
       {/* Types of Organizations */}
       <div className="custom-container !py-8 !grid !grid-cols-1 md:!grid-cols-4 !gap-6 !mb-10">
-        {TYPES_OF_ORG.map((type) => (
-          <Card key={type.id} title={type.title} icon={type.icon} />
+        {typesOfOrg.map((type) => (
+          <div
+            key={type.id}
+            className="card flex flex-col items-center text-center gap-[24px] p-6"
+          >
+            {/* Icon/Image: use Liferay image if available, else static SVG icon */}
+            <div
+              className="circular-green w-[56px] h-[56px] flex-shrink-0"
+              aria-hidden="true"
+            >
+              {type.image ? (
+                <img
+                  src={type.image}
+                  alt=""
+                  width={28}
+                  height={28}
+                  className="inline-block object-contain"
+                  loading="lazy"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = "none";
+                  }}
+                />
+              ) : (
+                <img
+                  src={`/assets/icons/stroke-standard/${type.icon}-stroke-rounded.svg`}
+                  alt=""
+                  width={24}
+                  height={24}
+                  className="inline-block green-icon"
+                />
+              )}
+            </div>
+            <span className="text-lg-semibold line-clamp-2">{type.title}</span>
+          </div>
         ))}
       </div>
 
       {/* Why Hamza Test */}
       <div className="bg-neutral-50">
         <div className="custom-container !py-[128px]">
-          <h2 className="display-sm-bold !mb-[32px]">لماذا اختبار همزة؟</h2>
+          <h2 className="display-sm-bold !mb-[32px]">
+            {tx("hamza-org-why-title", "لماذا اختبار همزة؟")}
+          </h2>
           <ul className="!grid !grid-cols-1 md:!grid-cols-3 !gap-6">
-            {WHY_HAMZA_TEST.map((item) => (
+            {whyHamzaTest.map((item) => (
               <li key={item.id}>
                 <Card number={item.no} title={item.description} />
               </li>
@@ -118,31 +186,36 @@ export default function HamzaOrgContent({
                   loading="eager"
                   className="inline-block green-icon"
                   src="/assets/icons/stroke-standard/checkmark-badge-01-stroke-rounded.svg"
-                  alt="check-icon"
+                  alt=""
                 />
               </span>
 
               <div className="!flex !flex-row !items-center !gap-4">
-                <h2 className="display-sm-bold">التحقق من موثوقية الشهادات</h2>
+                <h2 className="display-sm-bold">
+                  {tx("hamza-org-verify-title", "التحقق من موثوقية الشهادات")}
+                </h2>
                 <img
-                  alt="arrow-icon"
+                  alt=""
                   width={38}
                   height={38}
                   loading="eager"
                   className="inline-block flip-rtl hidden xl:inline-block"
                   aria-hidden="true"
-                  src="/assets/icons/stroke-standard/arrow-left-02-stroke-rounded.svg"
+                  src={
+                    isRTL
+                      ? "/assets/icons/stroke-standard/arrow-left-02-stroke-rounded.svg"
+                      : "/assets/icons/stroke-standard/arrow-right-02-stroke-rounded.svg"
+                  }
                 />
               </div>
               <p className="!text-[16px] !leading-[24px] !font-normal !text-black">
-                يمكن للجهات المعتمدة أو أي طرف التحقق من صحة الشهادات، للتأكد من
-                اعتمادها وموثوقيتها.
+                {verificationData.description}
               </p>
             </div>
             <div className="!flex !items-end">
               <form
                 className="!w-full !flex !flex-col !gap-4"
-                aria-label="نموذج التحقق من موثوقية الشهادات"
+                aria-label={tx("hamza-org-verify-form-aria", "نموذج التحقق من موثوقية الشهادات")}
                 onSubmit={(e) => {
                   e.preventDefault();
                   // TODO: submit handler
@@ -151,22 +224,22 @@ export default function HamzaOrgContent({
                 <div className="!w-full !flex !flex-col md:!flex-row md:!items-end !gap-4 md:!gap-8">
                   <div className="dga-form-control dga-form-control--fullwidth flex-1">
                     <span className="dga-label dga-label--lg font-normal!">
-                      رقم الشهادة
+                      {verificationData.labelText}
                     </span>
 
                     <DgaTextInput
-                      placeholder="أدخل رقم الشهادة"
+                      placeholder={verificationData.placeholder}
                       size="lg"
                       variant="default"
-                      aria-label="رقم الشهادة"
+                      aria-label={verificationData.labelText}
                       aria-describedby="certificate-number-help"
                       aria-required={true}
                     />
                   </div>
                   <Button
                     type="submit"
-                    aria-label="تحقق من الشهادة"
-                    label="تحقق"
+                    aria-label={tx("hamza-org-verify-btn-aria", "تحقق من الشهادة")}
+                    label={verificationData.buttonText}
                     variant="primary-brand"
                     size="lg"
                     icon="search-02"
@@ -180,14 +253,14 @@ export default function HamzaOrgContent({
                     width={14}
                     height={14}
                     src="/assets/icons/stroke-standard/help-circle-stroke-rounded.svg"
-                    alt="help-icon"
+                    alt=""
                     aria-hidden="true"
                   />
                   <p
                     id="certificate-number-help"
                     className="text-sm-medium !font-normal !text-[#384250]"
                   >
-                    ادخل رقم الشهادة للتحقق من موثوقية الشهادة واعتمادها
+                    {tx("hamza-org-verify-help", "ادخل رقم الشهادة للتحقق من موثوقية الشهادة واعتمادها")}
                   </p>
                 </div>
               </form>
@@ -195,21 +268,21 @@ export default function HamzaOrgContent({
           </div>
         </div>
       </div>
-      {/* Standard Organizations */}
 
+      {/* Standard Organizations */}
       <div className="bg-neutral-50">
         <div className="custom-container !py-[128px] !grid !grid-cols-1 md:!grid-cols-2 !gap-18">
           <div>
-            <h2 className="display-sm-bold !mb-[32px]">المنظمات</h2>
+            <h2 className="display-sm-bold !mb-[32px]">
+              {tx("hamza-org-standard-title", "المنظمات")}
+            </h2>
             <p className="!text-[16px] !leading-[24px] !font-normal !text-black">
-              بفضل معياريته واعتماده على الإطار الأوروبي المرجعي المشترك للغات
-              (CEFR)، يوفّر اختبار همزة للمؤسسات حول العالم أداة دقيقة وموثوقة
-              لاختيار المرشحين الأكفأ في عدة مجالات تعليمية ومهنية وغيرها.
+              {standardOrgDescription}
             </p>
           </div>
 
           <ul className="!grid !grid-cols-1  !gap-6">
-            {SANDERD_ORG.map((item) => (
+            {sanderdOrg.map((item) => (
               <li key={item.id}>
                 <StandardCard section={item} />
               </li>
