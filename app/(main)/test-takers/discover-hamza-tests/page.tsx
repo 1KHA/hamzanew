@@ -1,5 +1,8 @@
 import { Metadata } from "next";
 import DiscoverHamzaTestsContent from "./DiscoverHamzaTestsContent";
+import { fetchContentWithKey } from "@/app/_lib/content-service";
+import { extractFields, extractList } from "@/app/_lib/helper-service";
+import { getTranslations } from "@/app/_lib/getTranslations";
 
 /* ==========================================================================
    Metadata
@@ -24,23 +27,21 @@ interface AreYouReadyData {
   buttonText: string;
 }
 
-async function getDiscoverHamzaTestsData() {
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const response = await fetch(`${baseUrl}/api/test-takers/discover-hamza-tests`, {
-      cache: 'no-store',
-    });
-    
-    if (!response.ok) {
-      console.error("Failed to fetch discover hamza tests data:", response.status);
-      return null;
-    }
-    
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching discover hamza tests data:", error);
-    return null;
-  }
+/**
+ * Maps test index to icon name
+ * - Index 0: mortarboard-02 (academic)
+ * - Index 1: glasses (general)
+ * - Index 2: star (placement)
+ * - Index 3: book-02 (vocabulary)
+ */
+function getIconForTestIndex(index: number): string {
+  const iconMap: Record<number, string> = {
+    0: "mortarboard-02",
+    1: "glasses",
+    2: "star",
+    3: "book-02",
+  };
+  return iconMap[index] || "mortarboard-02";
 }
 
 // Static fallback data
@@ -85,28 +86,82 @@ const staticAreYouReady: AreYouReadyData = {
   buttonText: "التحضير للاختبار",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function DiscoverHamzaTestsPage() {
-  const data = await getDiscoverHamzaTestsData();
-  
-  // Use dynamic data if available, otherwise fallback to static
-  const tabsContent = data?.typeOfTests?.tabsContent?.length > 0 
-    ? data.typeOfTests.tabsContent 
+  // Fetch translations and Liferay content directly (no internal API)
+  const [translations, typeOfTestsContent, areYoureadyContentData] = await Promise.all([
+    getTranslations().catch((err) => {
+      console.error("[DiscoverHamzaTests] Failed to fetch translations:", err);
+      return null;
+    }),
+    fetchContentWithKey("TEST_TAKERS_TYPE_OF_TESTS_CONTENT_KEY").catch((err) => {
+      console.error("[DiscoverHamzaTests] Failed to fetch type of tests:", err);
+      return null;
+    }),
+    fetchContentWithKey("TEST_TAKERS_ARE_YOU_READY_FOR_THE_HAMZA_TEST_CONTENT_KEY").catch((err) => {
+      console.error("[DiscoverHamzaTests] Failed to fetch are you ready:", err);
+      return null;
+    }),
+  ]);
+
+  // Section 1: Type of Tests — extract title and list
+  const typeOfTestsContentFields = extractFields(
+    typeOfTestsContent?.contentFields,
+    ["titleText"]
+  ) as { titleText?: string };
+
+  const typeOfTestsList = extractList(
+    typeOfTestsContent?.contentFields,
+    "typeOfTestsFieldset",
+    {
+      testNumber: "testNumber",
+      testName: "testName",
+      testDescriptionText: "testDescriptionText",
+      image: "image",
+      navigationLinkText: "navigationLinkText",
+    }
+  );
+
+  // Transform to component interface
+  const tabsContent = typeOfTestsList?.length
+    ? typeOfTestsList.map((item: any, index: number) => ({
+        title_icon: getIconForTestIndex(index),
+        header: item.testName || "",
+        description: item.testDescriptionText || "",
+        link: item.navigationLinkText || "#",
+        image: item.image || "",
+      }))
     : staticTabsContent;
-  
-  const areYouReady = data?.areYouReady 
+
+  const sectionTitle =
+    typeOfTestsContentFields?.titleText ||
+    typeOfTestsContent?.title ||
+    staticTabsContent[0]?.header ||
+    "Discover Hamza Tests";
+
+  // Section 2: Are You Ready
+  const areYoureadyFields = extractFields(
+    areYoureadyContentData?.contentFields,
+    ["descriptionText", "buttonText", "titleText"]
+  ) as { titleText?: string; descriptionText?: string; buttonText?: string };
+
+  const areYouReady = areYoureadyContentData
     ? {
-        titleText: data.areYouReady.titleText || staticAreYouReady.titleText,
-        descriptionText: data.areYouReady.descriptionText || staticAreYouReady.descriptionText,
-        buttonText: data.areYouReady.buttonText || staticAreYouReady.buttonText,
+        titleText: areYoureadyFields?.titleText || staticAreYouReady.titleText,
+        descriptionText: areYoureadyFields?.descriptionText || staticAreYouReady.descriptionText,
+        buttonText: areYoureadyFields?.buttonText || staticAreYouReady.buttonText,
       }
     : staticAreYouReady;
-  
+
   return (
     <section className="bg-[#F9FAFB] !py-[20px] lg:!py-[40px] cta-bg-logo">
       <div className="custom-container relative z-10">
-        <DiscoverHamzaTestsContent 
-          tabsContent={tabsContent} 
+        <DiscoverHamzaTestsContent
+          tabsContent={tabsContent}
           areYouReady={areYouReady}
+          sectionTitle={sectionTitle}
+          translations={translations}
         />
       </div>
     </section>
