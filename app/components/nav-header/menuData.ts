@@ -97,10 +97,10 @@ export const MENU_DATA: MenuItemType[] = [
     hasSubmenu: true,
     submenuColumns: [
       {
-        title: "الإستعداد للإختبار",
+        title: "hamza-navigation-menu-test-takers",
         items: [
           {
-            label: "اكتشف اختبارات همزة",
+            label: "hamza-navigation-menu-test-takers",
             href: "/test-takers/discover-hamza-tests",
             icon: "/assets/icons/stroke-standard/menu-square-stroke-rounded.svg",
           },
