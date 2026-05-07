@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+
 export type HeroData = {
   title: string;
   description?: string;
@@ -95,11 +97,13 @@ export async function getTestMechanismHero(): Promise<
   HeroData & { breadcrumbs?: Crumb[] }
 > {
   try {
+    const cookieStore = await cookies();
+    const locale = cookieStore.get("lang")?.value || "ar-SA";
     const baseURL =
       process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
     const response = await fetch(
       `${baseURL}/api/test-takers/test-mechanism`,
-      { cache: "no-store" }
+      { cache: "no-store", headers: { Cookie: `lang=${locale}` } }
     );
 
     if (!response.ok) {
@@ -152,11 +156,13 @@ export async function getPreparationResourceHero(): Promise<
   HeroData & { breadcrumbs?: Crumb[] }
 > {
   try {
+    const cookieStore = await cookies();
+    const locale = cookieStore.get("lang")?.value || "ar-SA";
     const baseURL =
       process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
     const response = await fetch(
       `${baseURL}/api/test-takers/preparation-resource`,
-      { cache: "no-store" }
+      { cache: "no-store", headers: { Cookie: `lang=${locale}` } }
     );
 
     if (!response.ok) {
