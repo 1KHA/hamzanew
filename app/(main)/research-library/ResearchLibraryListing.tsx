@@ -12,9 +12,6 @@ import { normalizeArabic } from "@/lib/utils/arabic";
    Types & Interfaces
    ========================================================================== */
 
-/**
- * Interface for research paper item
- */
 interface ResearchPaper {
   id: string;
   title: string;
@@ -25,44 +22,37 @@ interface ResearchPaper {
   description: string;
 }
 
+interface ArticleType {
+  id?: string | number;
+  name?: string;
+  value?: string;
+  label?: string;
+}
+
+interface ArticleYear {
+  year?: string | number;
+  value?: string;
+  label?: string;
+}
+
 interface ResearchLibraryListingProps {
   initialPapers?: ResearchPaper[];
+  translations?: Record<string, string> | null;
+  articleTypesList?: ArticleType[];
+  articleYearList?: ArticleYear[];
 }
 
 /* ==========================================================================
    Constants
    ========================================================================== */
 
-/** Number of items to display per page */
 const ITEMS_PER_PAGE = 6;
-
-/**
- * Filter options for category
- */
-const FILTER_OPTIONS = [
-  { id: "all", label: "الكل", value: "all" },
-  { id: "tests", label: "اختبارات", value: "اختبارات" },
-  { id: "teaching", label: "تعليم", value: "تعليم" },
-  { id: "tech", label: "تقنية", value: "تقنية" },
-];
-
-/**
- * Sort options for papers
- */
-const SORT_OPTIONS = [
-  { id: "newest", label: "الأحدث", value: "newest" },
-  { id: "oldest", label: "الأقدم", value: "oldest" },
-];
 
 /* ==========================================================================
    Sub Components
    ========================================================================== */
 
-/**
- * Research Paper Card Component
- * Displays a single research paper with download action
- */
-function PaperCard({ paper }: { paper: ResearchPaper }) {
+function PaperCard({ paper, readMoreLabel }: { paper: ResearchPaper; readMoreLabel: string }) {
   const handleDownload = () => {
     window.open(paper.downloadUrl, "_blank");
   };
@@ -73,7 +63,7 @@ function PaperCard({ paper }: { paper: ResearchPaper }) {
       description={paper.description}
       image="/assets/image/photo2.jpg"
       showPrimaryAction
-      primaryActionLabel="قراءة المزيد"
+      primaryActionLabel={readMoreLabel}
       buttonColor="secondary"
       overridePrimaryAction={handleDownload}
     />
@@ -84,14 +74,50 @@ function PaperCard({ paper }: { paper: ResearchPaper }) {
    Main Component
    ========================================================================== */
 
-/**
- * ResearchLibraryListing Component
- *
- * Renders the interactive research library list with search, filter, and pagination.
- */
 export default function ResearchLibraryListing({
   initialPapers = [],
+  translations,
+  articleTypesList,
+  articleYearList,
 }: ResearchLibraryListingProps): ReactElement {
+  /* Translation helper */
+  const tx = (key: string, fallback: string): string => {
+    const val = translations?.[key];
+    return val && val.trim() !== "" ? val : fallback;
+  };
+
+  /* Build dynamic filter options from API data */
+  const categoryFilterOptions = useMemo(() => {
+    const allLabel = tx("hamza-all", "الكل");
+    const base = [{ id: "all", label: allLabel, value: "all" }];
+
+    if (articleTypesList && articleTypesList.length > 0) {
+      articleTypesList.forEach((type, index) => {
+        const label = type.label || type.name || "";
+        const value = type.value || String(type.id) || label;
+        if (label) {
+          base.push({ id: String(type.id ?? index), label, value });
+        }
+      });
+    } else {
+      // Fallback static categories
+      base.push(
+        { id: "tests", label: "اختبارات", value: "اختبارات" },
+        { id: "teaching", label: "تعليم", value: "تعليم" },
+        { id: "tech", label: "تقنية", value: "تقنية" }
+      );
+    }
+    return base;
+  }, [articleTypesList, translations]);
+
+  const sortOptions = useMemo(
+    () => [
+      { id: "newest", label: tx("hamza-newest", "الأحدث"), value: "newest" },
+      { id: "oldest", label: tx("hamza-oldest", "الأقدم"), value: "oldest" },
+    ],
+    [translations]
+  );
+
   /* State Management */
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [appliedSearchQuery, setAppliedSearchQuery] = useState<string>("");
@@ -173,17 +199,33 @@ export default function ResearchLibraryListing({
     }
   };
 
+  /* Translated labels */
+  const searchPlaceholder = tx("hamza-search", "ابحث عن بحث...");
+  const searchBtnLabel = tx("hamza-search", "بحث");
+  const categoryFilterTitle = tx("hamza-article-type", "التصنيف");
+  const categoryFilterBtn = tx("hamza-filter", "تصفية");
+  const sortFilterTitle = tx("hamza-sort-by", "ترتيب حسب");
+  const sortFilterBtn = tx("hamza-sort-by", "ترتيب حسب");
+  const resultsFoundLabel = tx("hamza-results-found", "نتيجة وجدت");
+  const noResultsLabel = tx("hamza-home-page-map-no-results-text", "لم يتم العثور على أبحاث");
+  const readMoreLabel = tx("hamza-read-more", "قراءة المزيد");
+  const ariaPageLabel = tx("hamza-research-page-aria", "صفحة مكتبة الأبحاث");
+  const ariaSearchFilterLabel = tx("hamza-search-filter-aria", "البحث والتصفية");
+  const ariaResultsListLabel = tx("hamza-results-list-aria", "قائمة الأبحاث");
+  const ariaGridLabel = tx("hamza-research-grid-aria", "شبكة الأبحاث");
+  const ariaPaginationLabel = tx("hamza-pagination-aria", "التنقل بين الصفحات");
+
   return (
-    <main className="" aria-label="صفحة مكتبة الأبحاث">
+    <main className="" aria-label={ariaPageLabel}>
       <div className="custom-container content">
         {/* Search and Filter Section */}
-        <section className="!py-[32px]" aria-label="البحث والتصفية">
+        <section className="!py-[32px]" aria-label={ariaSearchFilterLabel}>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-[24px]">
             {/* Search Box */}
             <div className="flex gap-[16px] flex-1 max-w-[600px]">
               <SearchBox
                 size="lg"
-                placeholder="ابحث عن بحث..."
+                placeholder={searchPlaceholder}
                 value={searchQuery}
                 onChange={handleSearchChange}
                 onClear={handleSearchClear}
@@ -191,7 +233,7 @@ export default function ResearchLibraryListing({
               />
 
               <Button
-                label="بحث"
+                label={searchBtnLabel}
                 variant="secondary-outline"
                 size="lg"
                 onClick={handleSearch}
@@ -201,27 +243,27 @@ export default function ResearchLibraryListing({
             {/* Results Count and Filters */}
             <div className="flex items-center gap-[16px]">
               <span className="text-md-regular text-[#6C737F]">
-                {filteredAndSortedPapers.length} نتيجة وجدت
+                {filteredAndSortedPapers.length} {resultsFoundLabel}
               </span>
 
               {/* Category Filter */}
               <Filter
-                title="التصنيف"
-                options={FILTER_OPTIONS}
+                title={categoryFilterTitle}
+                options={categoryFilterOptions}
                 selectedValue={filterValue}
                 onSelect={handleFilterChange}
-                buttonLabel="تصفية"
+                buttonLabel={categoryFilterBtn}
                 buttonIcon="filter"
                 buttonVariant="primary-neutral"
               />
 
               {/* Sort Filter */}
               <Filter
-                title="ترتيب حسب"
-                options={SORT_OPTIONS}
+                title={sortFilterTitle}
+                options={sortOptions}
                 selectedValue={sortValue}
                 onSelect={handleSortChange}
-                buttonLabel="ترتيب حسب"
+                buttonLabel={sortFilterBtn}
                 buttonIcon="sorting-01"
                 buttonVariant="secondary-outline"
                 buttonIconClass=""
@@ -232,7 +274,7 @@ export default function ResearchLibraryListing({
 
         {/* Papers Grid Section */}
         <section
-          aria-label="قائمة الأبحاث"
+          aria-label={ariaResultsListLabel}
           aria-live="polite"
           className="!py-[32px]"
         >
@@ -240,26 +282,24 @@ export default function ResearchLibraryListing({
             <div
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]"
               role="list"
-              aria-label="شبكة الأبحاث"
+              aria-label={ariaGridLabel}
             >
               {paginatedPapers.map((paper) => (
                 <div key={paper.id} role="listitem">
-                  <PaperCard paper={paper} />
+                  <PaperCard paper={paper} readMoreLabel={readMoreLabel} />
                 </div>
               ))}
             </div>
           ) : (
             <div className="py-[48px] text-center">
-              <p className="text-lg-medium text-[#6C737F]">
-                لم يتم العثور على أبحاث
-              </p>
+              <p className="text-lg-medium text-[#6C737F]">{noResultsLabel}</p>
             </div>
           )}
         </section>
 
         {/* Pagination Section */}
         {filteredAndSortedPapers.length > 0 && totalPages > 1 && (
-          <section aria-label="التنقل بين الصفحات" className="!py-[32px]">
+          <section aria-label={ariaPaginationLabel} className="!py-[32px]">
             <div className="flex justify-center">
               <DgaPagination
                 currentPage={currentPage}
