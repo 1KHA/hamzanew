@@ -21,6 +21,7 @@ import ReportsListing from "./ReportsListing";
 import { reportsData } from "./_data/reportsData";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
+import { getTranslations } from "@/app/_lib/getTranslations";
 
 /* ==========================================================================
    Metadata
@@ -42,9 +43,9 @@ const STATIC_HERO_CONFIG = {
     'نقدم تقارير وإحصاءات موثوقة، قائمة على منهجيات علمية، تعكس بدقة نتائج اختبارات "همزة" ومؤشراتها. تدعم هذه البيانات الباحثين وصنّاع القرار في القطاعين الأكاديمي والمهني، وتُسهم في تطوير السياسات التعليمية، وإثراء الدراسات المقارنة، وبناء رؤى استراتيجية عالمية لقياس كفاءة اللغة العربية.',
   bgColor: "#ffffff",
   breadcrumbs: [
-    { label: "الرئيسة", path: "/" },
-    { label: "الأبحاث", disabled: true },
-    { label: "تقارير واحصائيات", disabled: true },
+    { label: "hamza-navigation-menu-home", path: "/" },
+    { label: "hamza-navigation-menu-research", disabled: true },
+    { label: "hamza-statistics", disabled: true },
   ],
 };
 
@@ -100,7 +101,13 @@ async function getStatisticsAndReportsData() {
  * Component that renders the page hero, reports listing and statistics section.
  */
 export default async function StatisticsAndReportsPage(): Promise<ReactElement> {
-  const data = await getStatisticsAndReportsData();
+  const [data, translations] = await Promise.all([
+    getStatisticsAndReportsData(),
+    getTranslations().catch((err) => {
+      console.error("[StatisticsAndReports] Failed to fetch translations:", err);
+      return null;
+    }),
+  ]);
 
   const heroConfig = {
     title: data?.header?.title || STATIC_HERO_CONFIG.title,
@@ -119,6 +126,7 @@ export default async function StatisticsAndReportsPage(): Promise<ReactElement> 
         heroMap={{ "/statistics-and-reports": heroConfig }}
         defaultRoute="/statistics-and-reports"
         breadcrumbsMax={3}
+        translations={translations || undefined}
       />
 
       <main aria-label="صفحة التقارير والاحصائيات">

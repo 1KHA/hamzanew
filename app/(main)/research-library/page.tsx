@@ -46,9 +46,9 @@ const STATIC_HERO_CONFIG = {
     "يمكنك هنا العثور على مجموعة من أحدث الأبحاث التي أجراها شركاء اختبار همزة وأكاديميون مدعومون من اختبار همزة من مختلف أنحاء العالم.",
   bgColor: "#FFF" as const,
   breadcrumbs: [
-    { label: "الرئيسة", path: "/" },
-    { label: "الابحاث", disabled: true },
-    { label: "مكتبة الابحاث", disabled: true },
+    { label: "hamza-navigation-menu-home", path: "/" },
+    { label: "hamza-navigation-menu-research", disabled: true },
+    { label: "hamza-navigation-menu-research", disabled: true },
   ],
 };
 

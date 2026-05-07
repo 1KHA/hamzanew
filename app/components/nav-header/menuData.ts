@@ -164,7 +164,7 @@ export const MENU_DATA: MenuItemType[] = [
             icon: "/assets/icons/stroke-standard/book-04-stroke-standard.svg",
           },
           {
-            label: "الأخبار",
+            label: "hamza-navigation-menu-news-and-articles",
             href: "/news",
             icon: "/assets/icons/stroke-standard/book-04-stroke-standard.svg",
           },
