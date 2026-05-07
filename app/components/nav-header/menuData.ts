@@ -137,7 +137,7 @@ export const MENU_DATA: MenuItemType[] = [
         title: "الأبحاث",
         items: [
           {
-            label: "مكتبة الأبحاث",
+            label: "hamza-navigation-menu-research",
             href: "/research-library",
             icon: "/assets/icons/stroke-standard/book-04-stroke-standard.svg",
           },
