@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Metadata } from "next";
 import { heroMap, getTypesOfTestsHero, getHamzaAcademicTestHero, getHamzaGeneralTestHero, getHamzaPlacementTestHero, getHamzaVocabularyTestHero } from "./heroMap";
 import PageHero from "@/app/components/page-hero/PageHero";
+import { getTranslations } from "@/app/_lib/getTranslations";
 
 export const metadata: Metadata = {
   title: "أنواع اختبارات همزة",
@@ -14,6 +15,8 @@ export default async function TypesOfTestsLayout({
 }: {
   children: ReactNode;
 }) {
+  const translations = await getTranslations();
+
   // Fetch dynamic hero data for types of tests (main page)
   const typesOfTestsHero = await getTypesOfTestsHero();
   
@@ -45,6 +48,7 @@ export default async function TypesOfTestsLayout({
         heroMap={dynamicHeroMap}
         defaultRoute="/types-of-tests"
         breadcrumbsMax={4}
+        translations={translations ?? undefined}
       />
       <section>{children}</section>
     </>

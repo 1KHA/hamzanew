@@ -7,8 +7,11 @@ import {
   getHamzaTestTraitsHero,
 } from "./_hero/heroMap";
 import PageHero from "@/app/components/page-hero/PageHero";
+import { getTranslations } from "@/app/_lib/getTranslations";
 
 export default async function AboutLayout({ children }: { children: ReactNode }) {
+  const translations = await getTranslations();
+
   // Fetch dynamic hero data for who-we-are
   const whoWeAreHero = await getWhoWeAreHero();
 
@@ -36,6 +39,7 @@ export default async function AboutLayout({ children }: { children: ReactNode })
         heroMap={dynamicHeroMap}
         defaultRoute="/about"
         breadcrumbsMax={4}
+        translations={translations ?? undefined}
       />
       <section className="flex-1 flex flex-col">{children}</section>
     </>

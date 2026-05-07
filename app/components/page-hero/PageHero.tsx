@@ -68,7 +68,7 @@ function resolveHero(
     title: "",
     description: "",
     bgColor: "#fff",
-    breadcrumbs: [{ label: "الرئيسة", path: "/" }],
+    breadcrumbs: [{ label: "hamza-navigation-menu-home", path: "/" }],
   } satisfies HeroData;
 }
 
