@@ -140,20 +140,6 @@ export default function WhoWeAreContent({
               margin="0px 0px -80px 0px"
               delay={0}
             >
-              <p className="section-title">
-                {t("hamza-values-subtitle", translations) ||
-                  (isEnglish
-                    ? "Explore the organization's core values"
-                    : "استكشاف القيم الأساسية للمنظمة")}
-              </p>
-            </ScrollReveal>
-            <ScrollReveal
-              direction="up"
-              duration={DURATION}
-              amount={0}
-              margin="0px 0px -80px 0px"
-              delay={0.15}
-            >
               <h2 id="values" className="display-sm-bold">
                 {valuesTitle}
               </h2>
