@@ -36,3 +36,46 @@ export const MORTAKAZAT = [
     description: "بنيت لتُطبق إلكترونيًا بمرونة عالية، مع اعتماد إجراءات صارمة لضمان الأمان وحماية البيانات",
   },
 ] as const;
+
+/* ------------------------------------------------------------------
+   English fallback data (used when API fails and locale = en-US)
+   ------------------------------------------------------------------ */
+
+export const VISION_MISSION_EN = [
+  {
+    title: "Vision",
+    description: "Global leadership in enhancing the status of the Arabic language through high-quality proficiency tests built on international, accredited, and reliable standards.",
+    icon: "view",
+  },
+  {
+    title: "Mission",
+    description: "To provide high-quality Arabic tests built on international standards that enable learners and professionals to demonstrate their proficiency and open wide academic and professional horizons for them.",
+    icon: "mail-01",
+  },
+] as const;
+
+export const VALUES_EN = [
+  { number: "1", title: "Reliability", description: "Delivering accurate and consistent results recognized locally and internationally." },
+  { number: "2", title: "Objectivity", description: "Ensuring complete neutrality and freedom from any bias in assessment." },
+  { number: "3", title: "Quality", description: "Commitment to international standards and best practices in measurement." },
+  { number: "4", title: "Innovation", description: "Continuous development and adoption of the latest technologies in testing." },
+  { number: "5", title: "Global Reach", description: "International recognition and accreditation that enhance the status of the Arabic language globally." },
+] as const;
+
+export const MORTAKAZAT_EN = [
+  {
+    number: "1",
+    title: "International Reference",
+    description: "Based on the Common European Framework of Reference for Languages (CEFR) to ensure alignment with global best practices.",
+  },
+  {
+    number: "2",
+    title: "Test Diversity",
+    description: "The Hamza ecosystem covers four main domains (Academic, General, Placement, Vocabulary) to meet various educational and professional needs.",
+  },
+  {
+    number: "3",
+    title: "Flexibility & Security",
+    description: "Designed to be administered electronically with high flexibility, while adopting strict procedures to ensure security and data protection.",
+  },
+] as const;
