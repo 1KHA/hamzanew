@@ -255,12 +255,17 @@
   gap: 24px;
 }
 
+/* Let value cards follow the page direction naturally (LTR for English, RTL for Arabic) */
+.about-value-card {
+  direction: ltr;
+}
+
 .about-value-card__content {
   display: flex;
   flex-direction: column;
   gap: 6px; /* space between title and desc */
   flex: 1 1 auto;
-  text-align: right;
+  text-align: start;
 }
 
 .about-value-card__title {
