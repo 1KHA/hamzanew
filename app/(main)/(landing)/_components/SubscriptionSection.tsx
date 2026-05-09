@@ -1,6 +1,11 @@
 "use client";
 
-import { DgaTextInput } from "platformscode-new-react";
+import dynamic from "next/dynamic";
+
+const DgaTextInput = dynamic(
+  () => import("platformscode-new-react").then((mod) => mod.DgaTextInput),
+  { ssr: false, loading: () => <input type="text" className="input__field" aria-hidden="true" /> }
+);
 import Button from "@/app/components/button/Button";
 import { t } from "@/app/_lib/translationContext";
 

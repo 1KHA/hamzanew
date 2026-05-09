@@ -1,6 +1,11 @@
 "use client";
 import { useState, useMemo } from "react";
-import { DgaDropdown } from "platformscode-new-react";
+import dynamic from "next/dynamic";
+
+const DgaDropdown = dynamic(
+  () => import("platformscode-new-react").then((mod) => mod.DgaDropdown),
+  { ssr: false, loading: () => <div className="input__field" aria-hidden="true" /> }
+);
 import Card from "../card/Card";
 import "./GlobalStatisticsSection.css";
 import {
