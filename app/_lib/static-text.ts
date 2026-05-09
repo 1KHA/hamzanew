@@ -28,6 +28,17 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
       en: "Hamza Test Platform is one of the technical tools supporting the King Salman Global Academy for Arabic Language initiative in building and activating standard Arabic language tests. The platform aims to introduce and implement Hamza tests, and provides qualitative data and indicators to support specialists, researchers, and related entities.",
     },
   },
+  services: {
+    sectionAria: { ar: "اختبارات همزة", en: "Hamza Tests" },
+    heading: { ar: "تعرف على اختبارات همزة", en: "Discover Hamza Tests" },
+    description: {
+      ar: "نوفر خدمات إلكترونية للتسجيل في الاختبارات، مع تقديم معلومات واضحة ومبسطة عن كل اختبار",
+      en: "We provide electronic services for test registration, with clear and simplified information about each test.",
+    },
+    carouselAria: { ar: "عرض الاختبارات المتاحة", en: "Available tests display" },
+    register: { ar: "التسجيل للاختبار", en: "Register for the test" },
+    more: { ar: "المزيد", en: "More" },
+  },
 };
 
 /* ------------------------------------------------------------------

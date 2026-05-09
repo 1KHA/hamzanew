@@ -2,6 +2,7 @@
 
 import Card from "@/app/components/card/Card";
 import Carousel from "@/app/components/carousel/Carousel";
+import { st } from "@/app/_lib/static-text";
 import { Service } from "../_data/homeData";
 
 interface BannerBox {
@@ -28,18 +29,15 @@ export default function ServicesSection({ services, bannerBoxes }: ServicesSecti
     <div className="bg-neutral-50">
       <section
         className="section-spacing-5xl custom-container gap-[32px] !flex flex-col"
-        aria-label="اختبارات همزة"
+        aria-label={st("services", "sectionAria")}
       >
         <div className="grid gap-[24px]">
           <div className="flex-between-center">
-            <h2 className="display-sm-bold">تعرف على اختبارات همزة</h2>
+            <h2 className="display-sm-bold">{st("services", "heading")}</h2>
           </div>
-          <p className="text-md-regular">
-            نوفر خدمات إلكترونية للتسجيل في الاختبارات، مع تقديم معلومات واضحة
-            ومبسطة عن كل اختبار
-          </p>
+          <p className="text-md-regular">{st("services", "description")}</p>
         </div>
-        <div aria-label="عرض الاختبارات المتاحة">
+        <div aria-label={st("services", "carouselAria")}>
           <Carousel itemsPerSlide={4} gap={20} autoPlay interval={4000}>
             {mergedServices.map((service, index) => (
               <Card
@@ -49,11 +47,11 @@ export default function ServicesSection({ services, bannerBoxes }: ServicesSecti
                 description={service.description}
                 icon={service.icon}
                 showPrimaryAction
-                primaryActionLabel="التسجيل للاختبار"
+                primaryActionLabel={st("services", "register")}
                 showPrimaryIcon
                 primaryTrailIconType="arrow-up-right-01"
                 showSecondaryAction
-                secondaryActionLabel="المزيد"
+                secondaryActionLabel={st("services", "more")}
                 showSecondaryIcon={false}
                 linkSecondaryAction={service.link}
               />
