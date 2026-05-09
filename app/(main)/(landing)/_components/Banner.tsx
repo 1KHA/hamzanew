@@ -15,6 +15,7 @@
  */
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
 import "@/app/styles/Button.css";
 
@@ -71,6 +72,7 @@ interface BannerProps {
 /* ── Component ────────────────────────────────────────────────────────────── */
 
 function Banner({ bannerFields }: BannerProps) {
+  const router = useRouter();
   const slides = bannerFields?.headerTitleText
     ? [
         {
@@ -180,6 +182,7 @@ function Banner({ bannerFields }: BannerProps) {
             <button
               type="button"
               className="dga-btn dga-btn--md dga-btn--primary-neutral--on-color"
+              onClick={() => router.push("/about/who-we-are")}
             >
               <span className="dga-btn-label">{slides[currentSlide].buttonText}</span>
             </button>
