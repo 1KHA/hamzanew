@@ -17,44 +17,43 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
+import { st } from "@/app/_lib/static-text";
 import "@/app/styles/Button.css";
 
 /* ── Static fallback slides ──────────────────────────────────────────────── */
 
-const fallbackSlides = [
-  {
-    image: "/assets/image/hero.jpg",
-    alt: "اختبارات همزة",
-    title: "اختبارات همزة",
-    description:
-      "منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها. وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة",
-    buttonText: "المزيد",
-  },
-  {
-    image: "/assets/image/hero.jpg",
-    alt: "اختبارات همزة",
-    title: "اختبارات همزة",
-    description:
-      "منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها. وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة",
-    buttonText: "المزيد",
-  },
-  {
-    image: "/assets/image/hero.jpg",
-    alt: "اختبارات همزة",
-    title: "اختبارات همزة",
-    description:
-      "منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها. وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة",
-    buttonText: "المزيد",
-  },
-  {
-    image: "/assets/image/hero.jpg",
-    alt: "اختبارات همزة",
-    title: "اختبارات همزة",
-    description:
-      "منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها. وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة",
-    buttonText: "المزيد",
-  },
-];
+function getFallbackSlides() {
+  return [
+    {
+      image: "/assets/image/hero.jpg",
+      alt: st("banner", "slideAlt"),
+      title: st("banner", "slideTitle"),
+      description: st("banner", "slideDescription"),
+      buttonText: st("banner", "buttonMore"),
+    },
+    {
+      image: "/assets/image/hero.jpg",
+      alt: st("banner", "slideAlt"),
+      title: st("banner", "slideTitle"),
+      description: st("banner", "slideDescription"),
+      buttonText: st("banner", "buttonMore"),
+    },
+    {
+      image: "/assets/image/hero.jpg",
+      alt: st("banner", "slideAlt"),
+      title: st("banner", "slideTitle"),
+      description: st("banner", "slideDescription"),
+      buttonText: st("banner", "buttonMore"),
+    },
+    {
+      image: "/assets/image/hero.jpg",
+      alt: st("banner", "slideAlt"),
+      title: st("banner", "slideTitle"),
+      description: st("banner", "slideDescription"),
+      buttonText: st("banner", "buttonMore"),
+    },
+  ];
+}
 
 /* ── Types ───────────────────────────────────────────────────────────────── */
 
@@ -77,13 +76,13 @@ function Banner({ bannerFields }: BannerProps) {
     ? [
         {
           image: bannerFields.image || "/assets/image/hero.jpg",
-          alt: bannerFields.smallHeaderTitleText || "",
+          alt: bannerFields.smallHeaderTitleText || st("banner", "slideAlt"),
           title: bannerFields.headerTitleText,
-          description: bannerFields.descriptionText || "",
-          buttonText: "المزيد",
+          description: bannerFields.descriptionText || st("banner", "slideDescription"),
+          buttonText: st("banner", "buttonMore"),
         },
       ]
-    : fallbackSlides;
+    : getFallbackSlides();
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -129,7 +128,7 @@ function Banner({ bannerFields }: BannerProps) {
   return (
     <section
       className="relative c-mask h-[560px] w-full"
-      aria-label="عرض شرائح البانر"
+      aria-label={st("banner", "ariaBanner")}
       aria-roledescription="carousel"
     >
       <div className="embla-custom">
@@ -147,7 +146,7 @@ function Banner({ bannerFields }: BannerProps) {
               className="embla-custom__slide"
               role="group"
               aria-roledescription="slide"
-              aria-label={`${index + 1} من ${slides.length}: ${slide.title}`}
+              aria-label={`${index + 1} ${st("banner", "ariaGoToSlide")} ${slides.length}: ${slide.title}`}
               aria-hidden={index !== currentSlide}
             >
               {/* fill + sizes lets next/image pick the right resolution per viewport */}
@@ -208,7 +207,7 @@ function Banner({ bannerFields }: BannerProps) {
             type="button"
             className="dga-btn dga-btn--sm dga-btn--primary-neutral--on-color"
             onClick={togglePause}
-            aria-label={isPaused ? "تشغيل العرض التلقائي" : "إيقاف العرض التلقائي"}
+            aria-label={isPaused ? st("banner", "ariaPlay") : st("banner", "ariaPause")}
           >
             <Image
               src={
@@ -229,7 +228,7 @@ function Banner({ bannerFields }: BannerProps) {
               type="button"
               className={`embla__dot ${currentSlide === index ? "embla__dot--selected" : ""}`}
               onClick={() => goToSlide(index)}
-              aria-label={`الانتقال إلى الشريحة ${index + 1}`}
+              aria-label={`${st("banner", "ariaGoToSlide")} ${index + 1}`}
               aria-current={currentSlide === index ? true : undefined}
             />
           ))}
