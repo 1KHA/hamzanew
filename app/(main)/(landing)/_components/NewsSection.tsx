@@ -19,7 +19,7 @@ export default function NewsSection({ articles }: NewsSectionProps) {
     >
       <div className="grid gap-[24px]">
         <div className="flex-between-center">
-          <h2 className="display-sm-bold">الاخبار والمقالات</h2>
+          <h2 className="display-sm-bold">الأخبار والمقالات</h2>
           <Button
             label="عرض الكل"
             variant="secondary-outline"
