@@ -59,6 +59,17 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
       en: "A standardized test to measure vocabulary levels among non-Arabic speakers for various purposes.",
     },
   },
+  news: {
+    sectionAria: { ar: "الأخبار والمقالات", en: "News & Articles" },
+    heading: { ar: "الأخبار والمقالات", en: "News & Articles" },
+    showAll: { ar: "عرض الكل", en: "View All" },
+    description: {
+      ar: "نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير الاختبارات المعيارية للغة العربية",
+      en: "We present the latest news and specialized articles on Hamza tests and the development of standard Arabic language tests.",
+    },
+    carouselAria: { ar: "آخر الأخبار", en: "Latest News" },
+    readMore: { ar: "قراءة المزيد", en: "Read More" },
+  },
 };
 
 /* ------------------------------------------------------------------
