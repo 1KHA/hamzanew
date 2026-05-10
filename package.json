@@ -7,8 +7,7 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "lighthouse": "lhci autorun",
-    "postinstall": "node css-sanitize-loader.cjs --patch"
+    "lighthouse": "lhci autorun"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
