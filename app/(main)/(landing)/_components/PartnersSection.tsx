@@ -4,6 +4,7 @@ import { useState, useMemo, useId } from "react";
 import ContentSwitcher from "@/app/components/content-switcher/ContentSwitcher";
 import Carousel from "@/app/components/carousel/Carousel";
 import { t } from "@/app/_lib/translationContext";
+import { st } from "@/app/_lib/static-text";
 import { Partner } from "../_data/homeData";
 import "./partners-section.css";
 
@@ -42,15 +43,15 @@ export default function PartnersSection({
 
   // Use the title from Liferay content, falling back to a default
   const sectionTitle = activeTab === 0
-    ? (insideTitle || "الشركاء")
-    : (outsideTitle || insideTitle || "الشركاء");
+    ? (insideTitle || st("partners", "sectionFallback"))
+    : (outsideTitle || insideTitle || st("partners", "sectionFallback"));
 
   const switcherItems = [
     {
-      label: t("hamza-inside-saudi-arabia", translations) || "داخل المملكة العربية السعودية",
+      label: t("hamza-inside-saudi-arabia", translations) || st("partners", "tabInside"),
     },
     {
-      label: t("hamza-outside-saudi-arabia", translations) || "دول أخرى",
+      label: t("hamza-outside-saudi-arabia", translations) || st("partners", "tabOutside"),
     },
   ];
 
@@ -78,7 +79,7 @@ export default function PartnersSection({
           id={`${switcherId}-panel-${activeTab}`}
           role="tabpanel"
           aria-labelledby={`${switcherId}-tab-${activeTab}`}
-          aria-label="قائمة الشركاء"
+          aria-label={st("partners", "listAria")}
         >
           <Carousel
             itemsPerSlide={6}

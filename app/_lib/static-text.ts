@@ -23,6 +23,9 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     ariaPlay: { ar: "تشغيل العرض التلقائي", en: "Play auto slideshow" },
     ariaPause: { ar: "إيقاف العرض التلقائي", en: "Pause auto slideshow" },
     ariaGoToSlide: { ar: "الانتقال إلى الشريحة", en: "Go to slide" },
+    ariaNav: { ar: "التنقل بين الشرائح", en: "Slide navigation" },
+    slideOf: { ar: "الشريحة", en: "Slide" },
+    of: { ar: "من", en: "of" },
     slideDescription: {
       ar: "منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها. وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة",
       en: "Hamza Test Platform is one of the technical tools supporting the King Salman Global Academy for Arabic Language initiative in building and activating standard Arabic language tests. The platform aims to introduce and implement Hamza tests, and provides qualitative data and indicators to support specialists, researchers, and related entities.",
@@ -58,6 +61,46 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
       ar: "اختبار معياري لقياس مستويات المفردات لدى الناطقين بغير العربية لأغراض مختلفة.",
       en: "A standardized test to measure vocabulary levels among non-Arabic speakers for various purposes.",
     },
+  },
+  news: {
+    sectionAria: { ar: "الأخبار والمقالات", en: "News & Articles" },
+    heading: { ar: "الأخبار والمقالات", en: "News & Articles" },
+    showAll: { ar: "عرض الكل", en: "View All" },
+    description: {
+      ar: "نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير الاختبارات المعيارية للغة العربية",
+      en: "We present the latest news and specialized articles on Hamza tests and the development of standard Arabic language tests.",
+    },
+    carouselAria: { ar: "آخر الأخبار", en: "Latest News" },
+    readMore: { ar: "قراءة المزيد", en: "Read More" },
+  },
+  statistics: {
+    sectionAria: { ar: "إحصائيات همزة", en: "Hamza Statistics" },
+    showAll: { ar: "عرض الكل", en: "View All" },
+    headingFallback: { ar: "همزة في أرقام", en: "Hamza in Numbers" },
+    descriptionFallback: {
+      ar: "يعرض قسم إحصائيات همزة بيانات عن عدد المختبرين عالميًا، وتنوّع الجنسيات والدول، إضافة إلى أعداد المختبرين في مراكز الاختبار.",
+      en: "The Hamza Statistics section displays data on the number of test takers worldwide, the diversity of nationalities and countries, in addition to the number of test takers at test centers.",
+    },
+    statsAria: { ar: "الإحصائيات العامة", en: "General Statistics" },
+  },
+  partners: {
+    sectionFallback: { ar: "الشركاء", en: "Partners" },
+    tabInside: { ar: "داخل المملكة العربية السعودية", en: "Inside the Kingdom of Saudi Arabia" },
+    tabOutside: { ar: "دول أخرى", en: "Other Countries" },
+    listAria: { ar: "قائمة الشركاء", en: "Partners List" },
+  },
+  subscription: {
+    sectionAria: { ar: "التسجيل في النشرة البريدية", en: "Newsletter Subscription" },
+    logoAlt: { ar: "شعار همزة", en: "Hamza Logo" },
+    heading: { ar: "سجل اهتمامك", en: "Register Your Interest" },
+    description: {
+      ar: "سجل اهتمامك بالاختبارات المعيارية للغة العربية واحصل على أحدث التحديثات والأخبار.",
+      en: "Register your interest in standard Arabic language tests and get the latest updates and news.",
+    },
+    formAria: { ar: "نموذج الاشتراك في النشرة البريدية", en: "Newsletter Subscription Form" },
+    placeholder: { ar: "ادخل البريد الشبكي", en: "Enter your email address" },
+    inputAria: { ar: "البريد الشبكي للاشتراك في النشرة البريدية", en: "Email for newsletter subscription" },
+    submitButton: { ar: "مشاركة", en: "Subscribe" },
   },
 };
 

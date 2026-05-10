@@ -9,9 +9,9 @@ const Placeholder = () => (
   <div style={{ minHeight: 260, background: "#fff" }} aria-hidden="true" />
 );
 
-export default function PartnersSectionDynamic({ partners }: { partners: Partner[] }) {
+export default function PartnersSectionDynamic({ fallbackPartners }: { fallbackPartners?: Partner[] }) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
   if (!mounted) return <Placeholder />;
-  return <PartnersSection partners={partners} />;
+  return <PartnersSection fallbackPartners={fallbackPartners} />;
 }

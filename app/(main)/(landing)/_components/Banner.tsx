@@ -247,7 +247,7 @@ function Banner({ bannerFields }: BannerProps) {
 
       {/* ── Screen-reader live region for slide changes ─────────────────── */}
       <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
-        {`الشريحة ${currentSlide + 1} من ${slides.length}: ${slides[currentSlide].title}`}
+        {`${st("banner", "slideOf")} ${currentSlide + 1} ${st("banner", "of")} ${slides.length}: ${slides[currentSlide].title}`}
       </div>
 
       {/* ── Dot navigation ─────────────────────────────────────────────── */}
@@ -255,14 +255,14 @@ function Banner({ bannerFields }: BannerProps) {
         className="embla__dots"
         style={{ zIndex: 4 }}
         role="group"
-        aria-label="التنقل بين الشرائح"
+        aria-label={st("banner", "ariaNav")}
       >
         <button
           type="button"
           className="dga-btn dga-btn--sm dga-btn--primary-neutral--on-color"
           onClick={togglePause}
           aria-pressed={isPaused}
-          aria-label={isPaused ? "تشغيل العرض التلقائي" : "إيقاف العرض التلقائي"}
+          aria-label={isPaused ? st("banner", "ariaPlay") : st("banner", "ariaPause")}
         >
           <Image
             src={
@@ -279,11 +279,11 @@ function Banner({ bannerFields }: BannerProps) {
 
         {slides.map((slide, index) => (
           <button
-            key={slide.id}
+            key={index}
             type="button"
             className={`embla__dot ${currentSlide === index ? "embla__dot--selected" : ""}`}
             onClick={() => goToSlide(index)}
-            aria-label={`الانتقال إلى الشريحة ${index + 1}: ${slide.title}`}
+            aria-label={`${st("banner", "ariaGoToSlide")} ${index + 1}: ${slide.title}`}
             aria-current={currentSlide === index ? true : undefined}
           />
         ))}
