@@ -38,6 +38,26 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     carouselAria: { ar: "عرض الاختبارات المتاحة", en: "Available tests display" },
     register: { ar: "التسجيل للاختبار", en: "Register for the test" },
     more: { ar: "المزيد", en: "More" },
+    generalTestTitle: { ar: "اختبار همزة العام", en: "Hamza General Test" },
+    generalTestDesc: {
+      ar: "اختبار محوسب، دقيق، يقيس كفايات اللغة العربية للناطقين بغيرها لأغراض أكاديمية.",
+      en: "A computer-based, accurate test that measures Arabic language proficiency for non-native speakers for academic purposes.",
+    },
+    academicTestTitle: { ar: "اختبار همزة الأكاديمي", en: "Hamza Academic Test" },
+    academicTestDesc: {
+      ar: "اختبار لقياس كفايات اللغة العربية للناطقين بغيرها لأغراض عامة.",
+      en: "A test to measure Arabic language proficiency for non-native speakers for general purposes.",
+    },
+    placementTestTitle: { ar: "اختبار تحديد المستوى", en: "Placement Test" },
+    placementTestDesc: {
+      ar: "اختبار لتحديد مستوى الكفاءة اللغوية العامة باللغة العربية لغير الناطقين بها لاستخدامه في البرامج الأكاديمية.",
+      en: "A test to determine the general language proficiency level in Arabic for non-native speakers for use in academic programs.",
+    },
+    vocabularyTestTitle: { ar: "اختبار همزة المفردات", en: "Hamza Vocabulary Test" },
+    vocabularyTestDesc: {
+      ar: "اختبار معياري لقياس مستويات المفردات لدى الناطقين بغير العربية لأغراض مختلفة.",
+      en: "A standardized test to measure vocabulary levels among non-Arabic speakers for various purposes.",
+    },
   },
 };
 
@@ -55,15 +75,16 @@ function getLocale(): "ar" | "en" {
 /**
  * Static text lookup.
  *
- * @param scope - Top-level category in STATIC_TEXT (e.g. "banner")
- * @param key   - Key inside that scope (e.g. "buttonMore")
+ * @param scope  - Top-level category in STATIC_TEXT (e.g. "banner")
+ * @param key    - Key inside that scope (e.g. "buttonMore")
+ * @param locale - Optional locale override ("ar" | "en"). If omitted, reads from the DOM.
  * @returns The Arabic or English string, or the key itself if not found.
  */
-export function st(scope: string, key: string): string {
-  const locale = getLocale();
+export function st(scope: string, key: string, locale?: "ar" | "en"): string {
+  const activeLocale = locale || getLocale();
   const scopeDict = STATIC_TEXT[scope];
   if (!scopeDict) return key;
   const entry = scopeDict[key];
   if (!entry) return key;
-  return entry[locale] || entry.ar || key;
+  return entry[activeLocale] || entry.ar || key;
 }

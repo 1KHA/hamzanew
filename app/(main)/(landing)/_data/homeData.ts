@@ -22,36 +22,39 @@ export interface NewsArticle {
   image: string;
 }
 
-export const SERVICES: Service[] = [
-  {
-    title: "اختبار همزة العام",
-    description:
-      "اختبار محوسب، دقيق، يقيس كفايات اللغة العربية للناطقين بغيرها لأغراض أكاديمية.",
-    icon: "mortarboard-01",
-    link: "/types-of-tests/hamza-general-test",
-  },
-  {
-    title: "اختبار همزة الأكاديمي",
-    description:
-      "اختبار لقياس كفايات اللغة العربية للناطقين بغيرها لأغراض عامة.",
-    icon: "glasses",
-    link: "/types-of-tests/hamza-academic-test",
-  },
-  {
-    title: "اختبار تحديد المستوى",
-    description:
-      "اختبار لتحديد مستوى الكفاءة اللغوية العامة باللغة العربية لغير الناطقين بها لاستخدامه في البرامج الأكاديمية.",
-    icon: "star",
-    link: "/types-of-tests/hamza-placement-test",
-  },
-  {
-    title: "اختبار همزة المفردات",
-    description:
-      "اختبار معياري لقياس مستويات المفردات لدى الناطقين بغير العربية لأغراض مختلفة.",
-    icon: "book-01",
-    link: "/types-of-tests/hamza-vocabulary-test",
-  },
-];
+import { st } from "@/app/_lib/static-text";
+
+export function getServices(locale?: "ar" | "en"): Service[] {
+  return [
+    {
+      title: st("services", "generalTestTitle", locale),
+      description: st("services", "generalTestDesc", locale),
+      icon: "mortarboard-01",
+      link: "/types-of-tests/hamza-general-test",
+    },
+    {
+      title: st("services", "academicTestTitle", locale),
+      description: st("services", "academicTestDesc", locale),
+      icon: "glasses",
+      link: "/types-of-tests/hamza-academic-test",
+    },
+    {
+      title: st("services", "placementTestTitle", locale),
+      description: st("services", "placementTestDesc", locale),
+      icon: "star",
+      link: "/types-of-tests/hamza-placement-test",
+    },
+    {
+      title: st("services", "vocabularyTestTitle", locale),
+      description: st("services", "vocabularyTestDesc", locale),
+      icon: "book-01",
+      link: "/types-of-tests/hamza-vocabulary-test",
+    },
+  ];
+}
+
+/** @deprecated Use getServices(locale) for bilingual support */
+export const SERVICES: Service[] = getServices();
 
 export const PARTNERS: Partner[] = [
   { id: 1, image: "/assets/image/institutions1.png", name: "مؤسسة شريكة ١" },

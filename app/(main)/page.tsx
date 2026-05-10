@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 import type { Metadata } from "next";
-import { SERVICES, PARTNERS, NEWS_ARTICLES } from "./(landing)/_data/homeData";
+import { getServices, PARTNERS, NEWS_ARTICLES } from "./(landing)/_data/homeData";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFields, extractList } from "@/app/_lib/helper-service";
 import { getTranslations } from "@/app/_lib/getTranslations";
@@ -110,6 +110,9 @@ async function fetchLatestNews() {
    ========================================================================== */
 
 export default async function LandingPage(): Promise<ReactElement> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value || "ar-SA";
+
   let bannerData = null;
   let bannerBoxesData = null;
   let insideEntitiesData = null;
@@ -211,7 +214,7 @@ export default async function LandingPage(): Promise<ReactElement> {
       <Banner bannerFields={bannerFields} />
 
       <ScrollReveal>
-        <ServicesSection services={SERVICES} bannerBoxes={bannerBoxes} />
+        <ServicesSection services={getServices(locale === "en-US" ? "en" : "ar")} bannerBoxes={bannerBoxes} />
       </ScrollReveal>
       <ScrollReveal>
         <NewsSection articles={latestNews} />
