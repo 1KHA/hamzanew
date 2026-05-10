@@ -2,7 +2,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import type { UserProfileFormValues } from "../update/ProfileForm";
-import { DgaDropdown } from "platformscode-new-react";
+import Dropdown from "@/app/components/dropdown/Dropdown";
 const LANGUAGE_OPTIONS = [
   { name: "العربية", value: "ar" },
   { name: "الإنجليزية", value: "en" },
@@ -89,11 +89,11 @@ export default function EducationTab({
             name="institution"
             control={control}
             render={({ field }) => (
-              <DgaDropdown
+              <Dropdown
                 placeholder="اختر المؤسسة"
                 size="lg"
                 variant="darker"
-                className="w-full"
+                extraClass="w-full"
                 optionLabel="name"
                 trackBy="value"
                 options={institutionOptions.length ? institutionOptions : [
@@ -101,7 +101,7 @@ export default function EducationTab({
                   { name: "جامعة القاهرة", value: "cairo" },
                 ]}
                 value={field.value}
-                onChange={(value: any) => field.onChange(value)}
+                onChange={(value) => field.onChange(value)}
                 error={!!errors.institution}
               />
             )}

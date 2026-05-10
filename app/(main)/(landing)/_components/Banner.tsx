@@ -165,6 +165,8 @@ function Banner({ bannerFields }: BannerProps) {
                 {slides[currentSlide].description}
               </p>
             )} */}
+          </div>
+        </div>
 
       {/* ── Text overlay (slides 1-N — covers BannerHeroText) ──────────── */}
       <div
@@ -284,6 +286,7 @@ function Banner({ bannerFields }: BannerProps) {
           />
         ))}
       </div>
-    </>
+    </div>
+    </section>
   );
 }

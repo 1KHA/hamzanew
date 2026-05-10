@@ -1,17 +1,11 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import dynamic from "next/dynamic";
 import { DgaTabs } from "../../components/tabs/DgaTabs";
 import { Accordion } from "@/app/components/accordion/Accordion";
 import SearchBox from "../../components/search-box/SearchBox";
 import Button from "../../components/button/Button";
 import { normalizeArabic, arabicIncludes } from "@/lib/utils/arabic";
-
-const DgaAccordion = dynamic(
-  () => import("platformscode-new-react").then((mod) => mod.DgaAccordion),
-  { ssr: false }
-);
 
 /**
  * FAQ Component (Client Component)
