@@ -85,6 +85,10 @@ function Banner({ bannerFields }: BannerProps) {
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isRTL, setIsRTL] = useState<boolean>(() => {
+    if (typeof document === "undefined") return true; // SSR safe default
+    return document.documentElement.dir !== "ltr";
+  });
 
   useEffect(() => {
     const html = document.documentElement;
@@ -184,15 +188,13 @@ function Banner({ bannerFields }: BannerProps) {
           <p className="!mb-[32px] text-xl-regular max-w-[720px]">
             {slides[currentSlide].description}
           </p>
-          <a href={slides[currentSlide].cta.href}>
-            <button
-              type="button"
-              className="dga-btn dga-btn--md dga-btn--primary-neutral--on-color"
-              onClick={() => router.push("/about/who-we-are")}
-            >
-              <span className="dga-btn-label">{slides[currentSlide].cta.label}</span>
-            </button>
-          </a>
+          <button
+            type="button"
+            className="dga-btn dga-btn--md dga-btn--primary-neutral--on-color"
+            onClick={() => router.push("/about/who-we-are")}
+          >
+            <span className="dga-btn-label">{slides[currentSlide].buttonText}</span>
+          </button>
         </div>
 
         {/* Controls: pause/play + dot navigation */}
@@ -290,3 +292,5 @@ function Banner({ bannerFields }: BannerProps) {
     </section>
   );
 }
+
+export default Banner;

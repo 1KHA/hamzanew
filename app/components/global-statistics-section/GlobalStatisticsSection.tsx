@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useMemo } from "react";
 import Image from "next/image";
 import Dropdown from "@/app/components/dropdown/Dropdown";
 import Card from "../card/Card";
@@ -202,16 +205,18 @@ function GlobalStatisticsSection({
         </div>
 
           <Image
-          src="/assets/image/global.png"
-          alt={
-            translations?.["hamza-home-page-map-globe-title"] ||
-            "خريطة إحصائيات همزة"
-          }
-          className="w-full md:w-[70%]"
-          loading="lazy"
-          sizes="(max-width: 768px) 100vw, 70vw"
-          quality={50}
-        />
+            src="/assets/image/global.png"
+            alt={
+              translations?.["hamza-home-page-map-globe-title"] ||
+              "خريطة إحصائيات همزة"
+            }
+            width={1200}
+            height={600}
+            className="w-full md:w-[70%]"
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, 70vw"
+            quality={50}
+          />
         {/* statistics section */}
         <div className="cards-wrapper">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-[24px] w-full">

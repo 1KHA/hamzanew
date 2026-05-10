@@ -1,4 +1,7 @@
-import Link from "next/link";
+"use client";
+
+import { useRouter } from "next/navigation";
+import Button from "@/app/components/button/Button";
 import Card from "@/app/components/card/Card";
 import Carousel from "@/app/components/carousel/Carousel";
 

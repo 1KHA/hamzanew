@@ -1,5 +1,8 @@
-import Link from "next/link";
-import GlobalStatisticsSection from "@/app/components/global-statistics-section/GlobalStatisticsSectionNative";
+"use client";
+
+import { useRouter } from "next/navigation";
+import Button from "@/app/components/button/Button";
+import GlobalStatisticsSection from "@/app/components/global-statistics-section/GlobalStatisticsSection";
 
 interface StatisticsSectionProps {
   translations?: Record<string, string> | null;
