@@ -219,7 +219,7 @@ export default async function LandingPage(): Promise<ReactElement> {
       <Banner bannerFields={bannerFields} />
 
       <ScrollReveal>
-        <ServicesSection services={getServices(staticLocale)} bannerBoxes={bannerBoxes} />
+        <ServicesSection services={getServices(staticLocale)} bannerBoxes={bannerBoxes} locale={staticLocale} />
       </ScrollReveal>
       <ScrollReveal>
         <NewsSection articles={latestNews} />

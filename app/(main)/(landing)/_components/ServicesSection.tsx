@@ -11,9 +11,10 @@ interface BannerBox {
 interface ServicesSectionProps {
   services: Service[];
   bannerBoxes?: BannerBox[];
+  locale?: "ar" | "en";
 }
 
-export default function ServicesSection({ services, bannerBoxes }: ServicesSectionProps) {
+export default function ServicesSection({ services, bannerBoxes, locale }: ServicesSectionProps) {
   // Merge dynamic titles/links from API with static descriptions/icons
   const mergedServices =
     bannerBoxes && bannerBoxes.length > 0
@@ -27,15 +28,15 @@ export default function ServicesSection({ services, bannerBoxes }: ServicesSecti
     <div className="bg-neutral-50">
       <section
         className="section-spacing-5xl custom-container gap-[32px] !flex flex-col"
-        aria-label={st("services", "sectionAria")}
+        aria-label={st("services", "sectionAria", locale)}
       >
         <div className="grid gap-[24px]">
           <div className="flex-between-center">
-            <h2 className="display-sm-bold">{st("services", "heading")}</h2>
+            <h2 className="display-sm-bold">{st("services", "heading", locale)}</h2>
           </div>
-          <p className="text-md-regular">{st("services", "description")}</p>
+          <p className="text-md-regular">{st("services", "description", locale)}</p>
         </div>
-        <div aria-label={st("services", "carouselAria")}>
+        <div aria-label={st("services", "carouselAria", locale)}>
           <Carousel itemsPerSlide={4} gap={20} autoPlay interval={4000}>
             {mergedServices.map((service, index) => (
               <Card
@@ -45,11 +46,11 @@ export default function ServicesSection({ services, bannerBoxes }: ServicesSecti
                 description={service.description}
                 icon={service.icon}
                 showPrimaryAction
-                primaryActionLabel={st("services", "register")}
+                primaryActionLabel={st("services", "register", locale)}
                 showPrimaryIcon
                 primaryTrailIconType="arrow-up-right-01"
                 showSecondaryAction
-                secondaryActionLabel={st("services", "more")}
+                secondaryActionLabel={st("services", "more", locale)}
                 showSecondaryIcon={false}
                 linkSecondaryAction={service.link}
               />
