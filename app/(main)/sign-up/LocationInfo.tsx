@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormContext, Controller } from "react-hook-form";
-import { DgaDropdown } from "platformscode-new-react";
+import Dropdown from "@/app/components/dropdown/Dropdown";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import { NewUserFormValues } from "./SignUpForm";
@@ -31,7 +31,7 @@ export default function LocationInfo({
           name="timezone"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر المنطقة الزمنية"
               size="lg"
               variant="darker"
@@ -52,7 +52,7 @@ export default function LocationInfo({
           name="country"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر الدولة"
               size="lg"
               variant="darker"
@@ -108,6 +108,7 @@ export default function LocationInfo({
         htmlFor="input-street"
       >
         <ControlledTextInput
+          placeholder="اسم الشارع"
           name="postalAddress"
           id="input-street"
           size="lg"
@@ -122,6 +123,7 @@ export default function LocationInfo({
         htmlFor="input-postal"
       >
         <ControlledTextInput
+          placeholder="الرمز البريدي"
           name="zipCode"
           id="input-postal"
           size="lg"

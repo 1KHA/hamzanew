@@ -1,4 +1,3 @@
-"use client";
 
 import Card from "@/app/components/card/Card";
 import ScrollReveal from "@/app/components/scroll-reveal/ScrollReveal";
@@ -43,7 +42,7 @@ function ValueCard({
   description: string;
 }) {
   return (
-    <li className="about-value-card">
+    <div className="about-value-card">
       <div className="about-value-card__header">
         <span className="about-value-card__badge text-xl-bold">{number}</span>
         <div className="about-value-card__content">
@@ -51,7 +50,7 @@ function ValueCard({
           <p className="about-value-card__desc">{description}</p>
         </div>
       </div>
-    </li>
+    </div>
   );
 }
 

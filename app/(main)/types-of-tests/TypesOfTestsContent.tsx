@@ -1,4 +1,3 @@
-"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -282,12 +281,9 @@ export default function TypesOfTestsContent({ data }: TypesOfTestsContentProps) 
             <video
               className="video-player__element"
               controls
-              poster="/assets/video/video-poster.jpg"
               preload="metadata"
               aria-label="فيديو شرح آلية التسجيل في اختبارات همزة"
             >
-              <source src="/assets/video/registration-guide.mp4"  type="video/mp4"  />
-              <source src="/assets/video/registration-guide.webm" type="video/webm" />
               <track kind="captions" srcLang="ar" label="العربية" />
               متصفحك لا يدعم تشغيل الفيديو.
             </video>

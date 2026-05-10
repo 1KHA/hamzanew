@@ -19,12 +19,18 @@ interface AccordionItemProps {
   flush?: boolean;
   /** Prevent interaction */
   disabled?: boolean;
-  /** Start expanded */
+  /** Start expanded (uncontrolled) */
   defaultExpanded?: boolean;
+  /** Controlled open state — when provided, overrides internal state */
+  isOpen?: boolean;
+  /** Controlled toggle callback — required when isOpen is provided */
+  onToggle?: () => void;
+  /** Optional header suffix (e.g. a badge or counter) */
+  headerSuffix?: React.ReactNode;
 }
 
 interface AccordionProps {
-  items: (Omit<AccordionItemProps, "children"> & { content: React.ReactNode })[];
+  items: Array<Omit<AccordionItemProps, "children"> & { content: React.ReactNode }>;
   size?: AccordionItemProps["size"];
   iconAlignment?: AccordionItemProps["iconAlignment"];
   flush?: boolean;
@@ -40,13 +46,23 @@ function AccordionItem({
   flush = false,
   disabled = false,
   defaultExpanded = false,
+  isOpen: controlledIsOpen,
+  onToggle,
+  headerSuffix,
 }: AccordionItemProps) {
-  const [isOpen, setIsOpen] = useState(defaultExpanded);
+  const [internalIsOpen, setInternalIsOpen] = useState(defaultExpanded);
+  const isControlled = controlledIsOpen !== undefined;
+  const isOpen = isControlled ? controlledIsOpen : internalIsOpen;
   const panelId = useId();
   const headerId = useId();
 
   const toggle = () => {
-    if (!disabled) setIsOpen((prev) => !prev);
+    if (disabled) return;
+    if (isControlled) {
+      onToggle?.();
+    } else {
+      setInternalIsOpen((prev) => !prev);
+    }
   };
 
   const itemClass = [
@@ -84,6 +100,7 @@ function AccordionItem({
       >
         {iconAlignment === "leading" && arrow}
         <span className="dga-accordion-item__title">{title}</span>
+        {headerSuffix}
         {iconAlignment === "trailing" && arrow}
       </button>
 

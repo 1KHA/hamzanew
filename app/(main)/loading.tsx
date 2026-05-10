@@ -1,10 +1,9 @@
-// import { DgaLoading } from "platformscode-new-react"; // TEMPORARILY DISABLED
+import Loading from "@/app/components/loading/Loading";
 
-export default function Loading() {
+export default function PageLoading() {
   return (
-    <div className="!flex !justify-center !items-center !h-screen">
-      <div style={{ width: 48, height: 48, border: "4px solid #e5e7eb", borderTop: "4px solid #1B8354", borderRadius: "50%", animation: "spin 1s linear infinite" }} />
-      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+    <div className="flex flex-1 justify-center items-center min-h-[60vh]">
+      <Loading size="huge" variant="brand" />
     </div>
   );
 }

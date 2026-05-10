@@ -1,49 +1,83 @@
 "use client";
 
-/**
- * DigitalSignature — government site verification banner.
- * Shows site credentials and toggles a collapsible trust-details panel.
- *
- * Accessibility: WCAG 2.1 AA — toggle uses <button> with aria-expanded/aria-controls,
- *   panel has role="region" + aria-hidden when collapsed, decorative images are aria-hidden.
- * Performance: handlers in useCallback, stable panel ID via useId, Next.js <Image>.
- */
-
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useCallback, useId, useEffect } from "react";
 import "./DigitalSignature.css";
+import { useRouter } from "next/navigation";
+
+type Lang = "ar" | "en";
+
+const t = {
+  ar: {
+    badge: "موقع حكومي مسجل لدى هيئة الحكومة الرقمية",
+    verify: "كيف تتحقق",
+    panelLabel: "تفاصيل التحقق من الموقع",
+    domainTitle: "روابط المواقع الالكترونية الرسمية السعودية تنتهي بـ",
+    domainBody:
+      "جميع روابط المواقع الرسمية التابعة للجهات الحكومية في المملكة العربية السعودية تنتهي بـ .gov.sa",
+    httpsTitle: "المواقع الالكترونية الحكومية تستخدم بروتوكول",
+    httpsSuffix: "للتشفير و الأمان.",
+    httpsBody:
+      "المواقع الالكترونية الآمنة في المملكة العربية السعودية تستخدم بروتوكول HTTPS للتشفير.",
+    dgaAlt: "شعار هيئة الحكومة الرقمية",
+    dgaLabel: "مسجل لدى هيئة الحكومة الرقمية برقم:",
+    langBtn: "English",
+    langAriaLabel: "Switch language to English",
+  },
+  en: {
+    badge: "Official government website of the Government of the Kingdom of Saudi Arabia",
+    verify: "How to verify",
+    panelLabel: "Site verification details",
+    domainTitle: "Links to official Saudi websites end with",
+    domainBody:
+      "All links to official websites of government agencies in the Kingdom of Saudi Arabia end with .gov.sa",
+    httpsTitle: "Government websites use the",
+    httpsSuffix: "protocol for encryption and security.",
+    httpsBody:
+      "Secure websites in the Kingdom of Saudi Arabia use the HTTPS protocol for encryption.",
+    dgaAlt: "Digital Government Authority logo",
+    dgaLabel: "Registered with the Digital Government Authority under number:",
+    langBtn: "عربي",
+    langAriaLabel: "تبديل اللغة إلى العربية",
+  },
+} as const;
+
+function getCookieLang(): Lang {
+  if (typeof document === "undefined") return "ar";
+  const match = document.cookie.match(/(?:^|;\s*)lang=([^;]*)/);
+  const val = match?.[1];
+  return val?.startsWith("en") ? "en" : "ar";
+}
 
 export default function DigitalSignature() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isArabicLang, setIsArabicLang] = useState(true);
-
-  // Detect current language after hydration
-  useEffect(() => {
-    setIsArabicLang(document.documentElement.lang === "ar");
-  }, []);
-
-  // Stable ID for aria-controls / aria-labelledby relationship
+  const [lang, setLang] = useState<Lang>("ar");
+  const router = useRouter();
   const panelId = useId();
+
+  useEffect(() => {
+    setLang(getCookieLang());
+  }, []);
 
   const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
 
-  // Set lang cookie and reload to apply changes consistently
   const switchLanguage = useCallback(() => {
-    const html = document.documentElement;
-    const isArabic = html.lang === "ar";
-    // Set the lang cookie and reload to apply changes consistently
-    document.cookie = `lang=${isArabic ? "en-US" : "ar-SA"}; path=/;`;
-    if (typeof window !== "undefined") {
-      window.location.reload();
-    }
-  }, []);
+    const newLang: Lang = lang === "ar" ? "en" : "ar";
+    // Use app's standard cookie format (ar-SA / en-US)
+    document.cookie = `lang=${newLang === "ar" ? "ar-SA" : "en-US"}; path=/; max-age=31536000`;
+    document.documentElement.lang = newLang;
+    document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr";
+    setLang(newLang);
+    router.refresh();
+  }, [lang, router]);
+
+  const tx = t[lang];
 
   return (
     <div className="bg-[#f5f5f5]">
       <div className="digital_wrapper custom-container">
         <div className="flex justify-between">
-
           {/* Site badge + toggle button */}
           <div className="digital_container digital_heads">
             <div className="flex flex-row gap-[8px] justify-center items-center">
@@ -57,14 +91,9 @@ export default function DigitalSignature() {
                   className="inline-block"
                 />
               </div>
-              <p>موقع حكومي مسجل لدى هيئة الحكومة الرقمية</p>
+              <p>{tx.badge}</p>
             </div>
 
-            {/*
-             * <button> instead of <a href="#"> — no navigation occurs,
-             * so a button is the semantically correct element here.
-             * aria-expanded + aria-controls link it to the panel below.
-             */}
             <button
               type="button"
               className="digital_link link_label !flex !items-center !gap-2 !bg-transparent !border-0 !p-0 !cursor-pointer"
@@ -72,7 +101,7 @@ export default function DigitalSignature() {
               aria-expanded={isOpen}
               aria-controls={panelId}
             >
-              كيف تتحقق
+              {tx.verify}
               <span className="digital_link_icon" aria-hidden="true">
                 <Image
                   src={
@@ -94,7 +123,7 @@ export default function DigitalSignature() {
             type="button"
             className="dga-btn dga-btn--sm dga-btn--subtle digital-lang-btn"
             onClick={switchLanguage}
-            aria-label={isArabicLang ? "تبديل اللغة إلى الإنجليزية" : "Switch language to Arabic"}
+            aria-label={tx.langAriaLabel}
           >
             <Image
               src="/assets/icons/stroke-standard/translation-stroke-rounded.svg"
@@ -103,27 +132,21 @@ export default function DigitalSignature() {
               width={20}
               height={20}
             />
-            <span>{isArabicLang ? "English" : "العربية"}</span>
+            <span>{tx.langBtn}</span>
           </button>
         </div>
 
-        {/*
-         * Collapsible panel.
-         * CSS grid-template-rows animates height without JS pixel measurements.
-         * aria-hidden removes it from the AT tree when closed so keyboard
-         * users cannot Tab into invisible content.
-         */}
         <div
           id={panelId}
           role="region"
-          aria-label="تفاصيل التحقق من الموقع"
+          aria-label={tx.panelLabel}
           aria-hidden={!isOpen ? true : undefined}
+          inert={!isOpen || undefined}
           className={`digital_collapsible ${isOpen ? "open" : ""}`}
         >
           <div className="min-h-0">
             <div className="digital_content">
               <div className="digital_content_container">
-
                 {/* Trust item 1: .gov.sa domain */}
                 <div className="digital_content_item">
                   <div className="digital_content_item_icon">
@@ -138,13 +161,10 @@ export default function DigitalSignature() {
                   </div>
                   <div className="digital_content_item_content">
                     <h2>
-                      روابط المواقع الالكترونية الرسمية السعودية تنتهي بـ
+                      {tx.domainTitle}
                       <span>&nbsp;.gov.sa</span>
                     </h2>
-                    <p>
-                      جميع روابط المواقع الرسمية التابعة للجهات الحكومية في
-                      المملكة العربية السعودية تنتهي بـ .gov.sa
-                    </p>
+                    <p>{tx.domainBody}</p>
                   </div>
                 </div>
 
@@ -162,13 +182,11 @@ export default function DigitalSignature() {
                   </div>
                   <div className="digital_content_item_content">
                     <h2>
-                      المواقع الالكترونية الحكومية تستخدم بروتوكول
-                      <span>&nbsp;HTTPS</span>&nbsp;للتشفير و الأمان.
+                      {tx.httpsTitle}
+                      <span>&nbsp;HTTPS&nbsp;</span>
+                      {tx.httpsSuffix}
                     </h2>
-                    <p>
-                      المواقع الالكترونية الآمنة في المملكة العربية السعودية
-                      تستخدم بروتوكول HTTPS للتشفير.
-                    </p>
+                    <p>{tx.httpsBody}</p>
                   </div>
                 </div>
               </div>
@@ -179,14 +197,14 @@ export default function DigitalSignature() {
                   <div className="digital_more_content_icon">
                     <Image
                       src="/assets/icons/DGA logo.png"
-                      alt="شعار هيئة الحكومة الرقمية"
+                      alt={tx.dgaAlt}
                       width={21}
                       height={31}
                       className="inline-block"
                     />
                   </div>
                   <div className="digital_more_content_content self-center text-start">
-                    <p>مسجل لدى هيئة الحكومة الرقمية برقم:</p>
+                    <p>{tx.dgaLabel}</p>
                     <Link
                       href="/"
                       className="!self-start link link--md link--primary link--inline link_label"
@@ -206,7 +224,6 @@ export default function DigitalSignature() {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>

@@ -22,7 +22,7 @@
  */
 import Card from "@/app/components/card/Card";
 import Button from "@/app/components/button/Button";
-import { DgaTextInput } from "platformscode-new-react";
+import TextInput from "@/app/components/text-input/TextInput";
 import "@/app/components/card/card.css";
 import { t } from "@/app/_lib/translationContext";
 
@@ -232,13 +232,13 @@ export default function HamzaOrgContent({
                       {verificationData.labelText}
                     </span>
 
-                    <DgaTextInput
-                      placeholder={verificationData.placeholder}
+                    <TextInput
+                      placeholder="أدخل رقم الشهادة"
                       size="lg"
                       variant="default"
                       aria-label={verificationData.labelText}
                       aria-describedby="certificate-number-help"
-                      aria-required={true}
+                      required
                     />
                   </div>
                   <Button

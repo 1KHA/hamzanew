@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import dynamic from "next/dynamic";
 import { DgaTabs } from "../../components/tabs/DgaTabs";
+import { Accordion } from "@/app/components/accordion/Accordion";
 import SearchBox from "../../components/search-box/SearchBox";
 import Button from "../../components/button/Button";
 import { normalizeArabic, arabicIncludes } from "@/lib/utils/arabic";
@@ -163,25 +164,14 @@ export default function FAQ({ items }: { items: FAQItem[] }) {
           >
             <div className="!space-y-[16px]">
               {filteredItems.length > 0 ? (
-                <div className="!grid">
-                  {filteredItems.map((item) => (
-                    <DgaAccordion
-                      key={item.id}
-                      title={item.title}
-                      content={item.content}
-                      iconAlignment="trailing"
-                      size="lg"
-                      className="!w-full"
-                      sx={{
-                        ".dga-accordion-item": {
-                          "border-bottom":
-                            "1px solid var(--border-neutral-primary)",
-                          "border-top": "none",
-                        },
-                      }}
-                    />
-                  ))}
-                </div>
+                <Accordion
+                  items={filteredItems.map((item) => ({
+                    title: item.title,
+                    content: item.content,
+                  }))}
+                  size="lg"
+                  iconAlignment="trailing"
+                />
               ) : (
                 <div className="!py-20 text-center">
                   <p className="text-md-regular text-gray-500">

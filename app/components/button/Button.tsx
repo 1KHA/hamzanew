@@ -12,8 +12,6 @@
  * - Icons are marked as decorative when accompanying text
  */
 
-"use client";
-
 import React from "react";
 import "./Button.css";
 
@@ -152,7 +150,7 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       className={combinedClass}
       onClick={onClick}
-      aria-label={iconOnly ? (ariaLabel || label) : undefined}
+      aria-label={iconOnly ? (ariaLabel || label) : (ariaLabel || undefined)}
       aria-disabled={disabled}
     >
       {iconOnly ? (

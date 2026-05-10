@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormContext, Controller } from "react-hook-form";
-import { DgaDropdown } from "platformscode-new-react";
+import Dropdown from "@/app/components/dropdown/Dropdown";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import { NewUserFormValues } from "./SignUpForm";
@@ -35,7 +35,7 @@ export default function EducationInfo({
           name="education"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر المؤهل"
               size="lg"
               variant="darker"
@@ -55,7 +55,8 @@ export default function EducationInfo({
         required
         error={errors.institution?.message as string | undefined}
       >
-        <Controller
+        <ControlledTextInput
+          placeholder="المؤسسة التعليمية"
           name="institution"
           control={control}
           render={({ field }) => (
@@ -79,7 +80,8 @@ export default function EducationInfo({
         required
         error={errors.specialization?.message as string | undefined}
       >
-        <Controller
+        <ControlledTextInput
+          placeholder="التخصص الدراسي"
           name="specialization"
           control={control}
           render={({ field }) => (
@@ -107,7 +109,7 @@ export default function EducationInfo({
           name="basicLanguageInEducation"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر اللغة"
               size="lg"
               variant="darker"

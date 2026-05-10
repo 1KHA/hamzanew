@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useId } from "react";
+import ContentSwitcher from "@/app/components/content-switcher/ContentSwitcher";
 import Carousel from "@/app/components/carousel/Carousel";
-import { DgaTabs } from "@/app/components/tabs/DgaTabs";
 import { t } from "@/app/_lib/translationContext";
 import { Partner } from "../_data/homeData";
+import "./partners-section.css";
 
 interface Entity {
   id: number;
@@ -30,6 +31,7 @@ export default function PartnersSection({
   fallbackPartners = [],
 }: PartnersSectionProps) {
   const [activeTab, setActiveTab] = useState(0);
+  const switcherId = useId();
 
   // Determine which list to show based on active tab and data availability
   const currentEntities = useMemo(() => {
@@ -43,6 +45,15 @@ export default function PartnersSection({
     ? (insideTitle || "الشركاء")
     : (outsideTitle || insideTitle || "الشركاء");
 
+  const switcherItems = [
+    {
+      label: t("hamza-inside-saudi-arabia", translations) || "داخل المملكة العربية السعودية",
+    },
+    {
+      label: t("hamza-outside-saudi-arabia", translations) || "دول أخرى",
+    },
+  ];
+
   return (
     <div className="bg-white">
       <section
@@ -53,22 +64,22 @@ export default function PartnersSection({
           <div className="flex-between-center">
             <h2 className="display-sm-bold">{sectionTitle}</h2>
           </div>
-          <DgaTabs
-            tabsList={[
-              {
-                label: t("hamza-inside-saudi-arabia", translations) || "داخل المملكة العربية السعودية",
-                tabIcon: "flag-02",
-              },
-              {
-                label: t("hamza-outside-saudi-arabia", translations) || "دول أخرى",
-                tabIcon: "globe-02",
-              },
-            ]}
-            onTabChange={(index) => setActiveTab(index)}
-            activeTab={activeTab}
+          <ContentSwitcher
+            id={switcherId}
+            items={switcherItems}
+            value={activeTab}
+            onChange={setActiveTab}
+            size="md"
           />
         </div>
-        <div aria-label="قائمة الشركاء">
+
+        <div
+          key={activeTab}
+          id={`${switcherId}-panel-${activeTab}`}
+          role="tabpanel"
+          aria-labelledby={`${switcherId}-tab-${activeTab}`}
+          aria-label="قائمة الشركاء"
+        >
           <Carousel
             itemsPerSlide={6}
             gap={20}

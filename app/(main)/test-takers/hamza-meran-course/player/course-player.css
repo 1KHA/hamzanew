@@ -107,57 +107,11 @@
   margin: 0;
 }
 
-/* ── Chapter Accordion ──────────────────────────────────────────────────── */
-.course-player__chapter {
-  border-bottom: 1px solid var(--border-neutral-primary);
-}
-
-.course-player__chapter:last-child {
-  border-bottom: none;
-}
-
-.course-player__chapter-header {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-md);
-  width: 100%;
-  padding: var(--spacing-lg) var(--spacing-xl);
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  text-align: start;
-  transition: background 0.2s;
-}
-
-.course-player__chapter-header:hover {
-  background: #f9fafb;
-}
-
-.course-player__chapter-title {
-  flex: 1;
-  font: 500 14px/20px "IBMPlexSansArabic", sans-serif;
-  color: var(--text-default);
-  text-align: start;
-}
-
+/* ── Chapter meta badge (completion count) ──────────────────────────────── */
 .course-player__chapter-meta {
   font: 400 12px/16px "IBMPlexSansArabic", sans-serif;
   color: var(--text-primary-paragraph);
   white-space: nowrap;
-}
-
-.course-player__chapter-arrow {
-  width: 16px;
-  height: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: transform 0.25s ease;
-}
-
-.course-player__chapter-header.open .course-player__chapter-arrow {
-  transform: rotate(180deg);
 }
 
 /* ── Lesson List ────────────────────────────────────────────────────────── */
@@ -165,7 +119,6 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--border-neutral-primary);
 }
 
 /* ── Lesson Item ────────────────────────────────────────────────────────── */

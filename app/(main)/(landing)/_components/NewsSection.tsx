@@ -1,17 +1,12 @@
-"use client";
-
+import Link from "next/link";
 import Card from "@/app/components/card/Card";
 import Carousel from "@/app/components/carousel/Carousel";
-import Button from "@/app/components/button/Button";
-import { useRouter } from "next/navigation";
-import { NewsArticle } from "../_data/homeData";
 
 interface NewsSectionProps {
   articles: any[];
 }
 
 export default function NewsSection({ articles }: NewsSectionProps) {
-  const router = useRouter();
   return (
     <section
       className="section-spacing-5xl custom-container gap-[32px] !flex flex-col"

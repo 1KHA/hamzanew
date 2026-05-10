@@ -1,12 +1,7 @@
 "use client";
 
-import dynamic from "next/dynamic";
-
-const DgaTextInput = dynamic(
-  () => import("platformscode-new-react").then((mod) => mod.DgaTextInput),
-  { ssr: false, loading: () => <input type="text" className="input__field" aria-hidden="true" /> }
-);
 import Button from "@/app/components/button/Button";
+import TextInput from "@/app/components/text-input/TextInput";
 import { t } from "@/app/_lib/translationContext";
 
 interface SubscriptionSectionProps {
@@ -54,17 +49,15 @@ export default function SubscriptionSection({
             onSubmit={(e) => e.preventDefault()}
             aria-label={t("hamza-news-letter-aria-form", translations) || "نموذج الاشتراك في النشرة البريدية"}
           >
-            <DgaTextInput
-              feedbackIconType="error"
+            <TextInput
+              type="email"
               name="email"
-              onChange={() => {}}
-              onInput={() => {}}
               placeholder={t("hamza-news-letter-placeholder", translations) || "ادخل البريد الشبكي"}
-              size="lg"
-              type="text"
-              value=""
-              variant="default"
               aria-label={t("hamza-news-letter-aria-input", translations) || "البريد الشبكي للاشتراك في النشرة البريدية"}
+              size="lg"
+              variant="default"
+              autoComplete="email"
+              extraClass="md:!w-[280px]"
             />
             <Button
               label={t("hamza-news-letter-button", translations) || "مشاركة"}

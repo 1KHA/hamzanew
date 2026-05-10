@@ -146,6 +146,11 @@ export const MENU_DATA: MenuItemType[] = [
             href: "/statistics-and-reports",
             icon: "/assets/icons/stroke-standard/chart-bar-line-stroke-standard.svg",
           },
+          {
+            label: "معمل ابحاث الاختبارات اللغوية",
+            href: "/news/language-testing-lab",
+            icon: "/assets/icons/stroke-standard/microscope-stroke-rounded.svg",
+          },
         ],
       },
     ],

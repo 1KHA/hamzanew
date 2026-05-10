@@ -1,0 +1,41 @@
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--colors-neutral-100, #f3f4f6) 25%,
+    var(--colors-neutral-200, #e5e7eb) 50%,
+    var(--colors-neutral-100, #f3f4f6) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  border-radius: var(--radius-md, 8px);
+}
+
+/* Matches a "lg" input/dropdown height */
+.skeleton-input {
+  height: 48px;
+  width: 100%;
+}
+
+/* Matches a textarea with ~4 rows */
+.skeleton-textarea {
+  height: 120px;
+  width: 100%;
+}
+
+/* Matches a single line of text (link, list item, etc.) */
+.skeleton-text {
+  height: 24px;
+  width: 100%;
+  max-width: 240px;
+}
+
+/* Multi-line accordion header area */
+.skeleton-accordion {
+  height: 56px;
+  width: 100%;
+}

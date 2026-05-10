@@ -57,11 +57,11 @@ export default function EducationTab({
             name="education"
             control={control}
             render={({ field }) => (
-              <DgaDropdown
+              <Dropdown
                 placeholder="اختر المؤهل"
                 size="lg"
                 variant="darker"
-                className="w-full"
+                extraClass="w-full"
                 optionLabel="name"
                 trackBy="value"
                 options={educationOptions.length ? educationOptions : [
@@ -130,14 +130,14 @@ export default function EducationTab({
             name="basicLanguageInEducation"
             control={control}
             render={({ field }) => (
-              <DgaDropdown
+              <Dropdown
                 placeholder="اختر اللغة"
                 size="lg"
                 variant="darker"
                 optionLabel="name"
                 trackBy="value"
                 options={LANGUAGE_OPTIONS}
-                className="w-full"
+                extraClass="w-full"
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
               />

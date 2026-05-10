@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
+import AccordionItem from "@/app/components/accordion/Accordion";
 import "./course-player.css";
 
 /* ── Types ──────────────────────────────────────────────────────────────── */
@@ -266,82 +267,66 @@ export default function CoursePlayer() {
             ).length;
 
             return (
-              <div key={chapter.id} className="course-player__chapter">
-                <button
-                  type="button"
-                  className={`course-player__chapter-header${isOpen ? " open" : ""}`}
-                  onClick={() => toggleChapter(chapter.id)}
-                  aria-expanded={isOpen}
-                >
-                  <span className="course-player__chapter-title">
-                    {chapter.title}
-                  </span>
+              <AccordionItem
+                key={chapter.id}
+                title={chapter.title}
+                size="md"
+                isOpen={isOpen}
+                onToggle={() => toggleChapter(chapter.id)}
+                headerSuffix={
                   <span className="course-player__chapter-meta">
                     {completedInChapter}/{chapter.lessons.length}
                   </span>
-                  <span
-                    className="course-player__chapter-arrow"
-                    aria-hidden="true"
-                  >
-                    <img
-                      src="/assets/icons/stroke-standard/arrow-down-01-stroke-rounded.svg"
-                      alt=""
-                      width={16}
-                      height={16}
-                    />
-                  </span>
-                </button>
+                }
+              >
+                <ul className="course-player__lesson-list" role="list">
+                  {chapter.lessons.map((lesson) => {
+                    const isDone = completedLessons.has(lesson.id);
+                    const isActive = currentLessonId === lesson.id;
 
-                {isOpen && (
-                  <ul className="course-player__lesson-list" role="list">
-                    {chapter.lessons.map((lesson) => {
-                      const isDone = completedLessons.has(lesson.id);
-                      const isActive = currentLessonId === lesson.id;
-
-                      return (
-                        <li key={lesson.id} role="listitem">
-                          <button
-                            type="button"
+                    return (
+                      <li key={lesson.id} role="listitem">
+                        <button
+                          type="button"
+                          className={[
+                            "lesson-item",
+                            isActive ? "lesson-item--active" : "",
+                          ]
+                            .filter(Boolean)
+                            .join(" ")}
+                          onClick={() => selectLesson(lesson)}
+                          aria-current={isActive ? "true" : undefined}
+                        >
+                          <span
                             className={[
-                              "lesson-item",
-                              isActive ? "lesson-item--active" : "",
+                              "lesson-item__check",
+                              isDone ? "lesson-item__check--done" : "",
+                              isActive && !isDone
+                                ? "lesson-item__check--active"
+                                : "",
                             ]
                               .filter(Boolean)
                               .join(" ")}
-                            onClick={() => selectLesson(lesson)}
-                            aria-current={isActive ? "true" : undefined}
+                            aria-label={isDone ? "مكتمل" : "غير مكتمل"}
                           >
+                            {isDone && <CheckIcon />}
+                          </span>
+                          <span className="lesson-item__info">
                             <span
-                              className={[
-                                "lesson-item__check",
-                                isDone ? "lesson-item__check--done" : "",
-                                isActive && !isDone
-                                  ? "lesson-item__check--active"
-                                  : "",
-                              ]
-                                .filter(Boolean)
-                                .join(" ")}
-                              aria-label={isDone ? "مكتمل" : "غير مكتمل"}
+                              className={`lesson-item__title${isActive ? " lesson-item__title--active" : ""}`}
                             >
-                              {isDone && <CheckIcon />}
+                              {lesson.title}
                             </span>
-                            <span className="lesson-item__info">
-                              <span
-                                className={`lesson-item__title${isActive ? " lesson-item__title--active" : ""}`}
-                              >
-                                {lesson.title}
-                              </span>
-                              <span className="lesson-item__duration">
-                                {lesson.duration}
-                              </span>
+                            <span className="lesson-item__duration">
+                              {lesson.duration}
                             </span>
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </div>
+                          </span>
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </AccordionItem>
             );
           })}
         </div>

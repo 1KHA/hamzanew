@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
-import { DgaContentSwitcher } from "platformscode-new-react";
+import { useState } from "react";
+import ContentSwitcher from "@/app/components/content-switcher/ContentSwitcher";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import Button from "../../../components/button/Button";
@@ -76,10 +76,13 @@ export default function TestTypeSwitcher({
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 gap-[40px] xl:gap-[80px] items-center w-full">
       {/* Right Column: Content */}
-      <div className="flex flex-col gap-[24px] items-start" role="tabpanel" aria-live="polite">
+      <div
+        className="flex flex-col gap-[24px] items-start"
+        role="tabpanel"
+        aria-live="polite"
+      >
         {/* Toggle Tabs */}
-        <DgaContentSwitcher
-          ref={switcherRef}
+        <ContentSwitcher
           size="md"
           items={tabs.map((t) => ({ label: t.label, content: "" }))}
         />
@@ -105,7 +108,6 @@ export default function TestTypeSwitcher({
               ))}
             </div>
 
-            {/* CTA Button */}
             <div className="!mt-[32px]">
               <Button
                 label={current.buttonText}

@@ -18,13 +18,6 @@ export type DgaBreadcrumbsProps = {
   onBreadcrumbClick?: (item: BreadcrumbItem, e?: React.MouseEvent) => void;
 };
 
-function isRTL(): boolean {
-  return (
-    typeof document !== "undefined" &&
-    (document.dir === "rtl" || document.documentElement.dir === "rtl")
-  );
-}
-
 export function DgaBreadcrumbs({
   items = [],
   max = 5,
@@ -32,6 +25,8 @@ export function DgaBreadcrumbs({
 }: DgaBreadcrumbsProps) {
   const router = useRouter();
   const rootRef = useRef<HTMLDivElement | null>(null);
+
+    const [isRTL, setIsRTL] = useState(true); 
 
   const [breadcrumbItems, setBreadcrumbItems] = useState<
     Array<BreadcrumbItem | EllipsisItem>
@@ -62,6 +57,9 @@ export function DgaBreadcrumbs({
       ...lastItems,
     ];
   }
+  useEffect(() => {
+    setIsRTL(document.dir === "rtl" || document.documentElement.dir === "rtl");
+  }, [])
 
   useEffect(() => {
     setBreadcrumbItems(renderItems(items, max));
@@ -94,7 +92,7 @@ export function DgaBreadcrumbs({
     }
   }
 
-  const arrow = isRTL() ? (
+  const arrow = isRTL ? (
     <img
       src="/assets/icons/stroke-standard/arrow-left-01-stroke-rounded.svg"
       alt="arrow-left"
@@ -116,7 +114,7 @@ export function DgaBreadcrumbs({
     <div ref={rootRef} className="dga-breadcrumb-root">
       <nav aria-label="breadcrumb">
         <ul
-          className={`dga-breadcrumb dga-breadcrumb--${isRTL() ? "rtl" : "ltr"}`}
+          className={`dga-breadcrumb dga-breadcrumb--${isRTL ? "rtl" : "ltr"}`}
         >
           {breadcrumbItems.map((item, idx) => {
             // Ellipsis item
@@ -128,7 +126,7 @@ export function DgaBreadcrumbs({
                   <span className="dga-breadcrumb-icon">
                     <img
                       src="/assets/icons/stroke-standard/arrow-left-01-stroke-rounded.svg"
-                      alt={isRTL() ? "arrow-left" : "arrow-right"}
+                      alt={isRTL ? "arrow-left" : "arrow-right"}
                       width={24}
                       height={24}
                       className="inline-block flip-rtl"
@@ -160,17 +158,22 @@ export function DgaBreadcrumbs({
                           key={it.label}
                           className="dga-breadcrumb-dropdown-item"
                         >
-                          <a
-                            href={it.disabled ? undefined : it.path}
-                            onClick={(e) => {
-                              setIsMenuOpen(false);
-                              handleClick(e, it);
-                            }}
-                            className={`link-neutral ${it.disabled ? "link-neutral--disabled" : ""}`}
-                            aria-disabled={it.disabled}
-                          >
-                            {it.label}
-                          </a>
+                          {it.disabled ? (
+                            <span className="link-neutral link-neutral--disabled" aria-disabled="true">
+                              {it.label}
+                            </span>
+                          ) : (
+                            <a
+                              href={it.path}
+                              onClick={(e) => {
+                                setIsMenuOpen(false);
+                                handleClick(e, it);
+                              }}
+                              className="link-neutral"
+                            >
+                              {it.label}
+                            </a>
+                          )}
                         </li>
                       ))}
                     </ul>
@@ -194,7 +197,7 @@ export function DgaBreadcrumbs({
                   <span className="dga-breadcrumb-icon">
                     <img
                       src="/assets/icons/stroke-standard/arrow-left-01-stroke-rounded.svg"
-                      alt={isRTL() ? "arrow-left" : "arrow-right"}
+                      alt={isRTL ? "arrow-left" : "arrow-right"}
                       width={24}
                       height={24}
                       className="inline-block flip-rtl"
@@ -202,23 +205,20 @@ export function DgaBreadcrumbs({
                   </span>
                 )}
 
-                {b.path ? (
+                {b.path && !b.disabled && !isLast ? (
                   <a
-                    href={b.disabled ? undefined : b.path}
+                    href={b.path}
                     onClick={(e) => handleClick(e, b)}
-                    className={`link-neutral ${b.disabled ? "link-neutral--disabled" : ""} ${
-                      isLast ? "link-neutral_current" : ""
-                    }`}
-                    aria-disabled={b.disabled}
+                    className="link-neutral"
                   >
                     {b.label}
                   </a>
                 ) : (
                   <span
-                    className={`link-neutral link-neutral_empty ${b.disabled ? "link-neutral--disabled" : ""} ${
+                    className={`link-neutral ${b.disabled ? "link-neutral--disabled" : ""} ${
                       isLast ? "link-neutral_current" : ""
                     }`}
-                    aria-disabled={b.disabled}
+                    aria-current={isLast ? "page" : undefined}
                   >
                     {b.label}
                   </span>

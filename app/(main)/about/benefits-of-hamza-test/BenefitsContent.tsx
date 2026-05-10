@@ -1,4 +1,3 @@
-"use client";
 
 import { useEffect, useState } from "react";
 import ScrollReveal from "@/app/components/scroll-reveal/ScrollReveal";

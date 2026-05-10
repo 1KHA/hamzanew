@@ -39,7 +39,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             <div className="grid gap-8 lg:grid-cols-[1fr_360px]">
               {/* ── Main Content Area ── */}
               <div id="main-content">
-                <div className="!pt-6 !flex !flex-col !gap-4">
+                <div className="!pt-4 !flex !flex-col !gap-2">
                   {/* Hero section */}
                   <h1 className="display-sm-bold">الشكاوى والمقترحات</h1>
                   <p className="text-md-regular !leading-[32px] max-w-3xl">
