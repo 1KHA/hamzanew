@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import BenefitsContent from "./BenefitsContent";
 import "@/app/components/scroll-frame/ScrollFrame.css";
 import "../about.css";
 
-export const metadata: Metadata = {
-  title: "أهمية اختبارات همزة",
-  description: "",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const isEn = cookieStore.get("lang")?.value?.startsWith("en");
+  return {
+    title: isEn ? "Benefits of Hamza Tests" : "أهمية اختبارات همزة",
+    description: "",
+  };
+}
 
 export default function BenefitsOfHamzaTestPage() {
   return (

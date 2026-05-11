@@ -4,11 +4,16 @@ import WhoWeAreContent from "./WhoWeAreContent";
 import { getTranslations } from "@/app/_lib/getTranslations";
 import "../about.css";
 
-export const metadata: Metadata = {
-  title: "من نحن",
-  description:
-    "تعرف على رؤية ورسالة مشروع همزة، وقيمه الأساسية ومرتكزاته في تقديم اختبارات كفاءة لغوية معتمدة دولياً.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const isEn = cookieStore.get("lang")?.value?.startsWith("en");
+  return {
+    title: isEn ? "Who We Are" : "من نحن",
+    description: isEn
+      ? "Learn about Hamza project's vision, mission, values, and pillars in providing internationally accredited language proficiency tests."
+      : "تعرف على رؤية ورسالة مشروع همزة، وقيمه الأساسية ومرتكزاته في تقديم اختبارات كفاءة لغوية معتمدة دولياً.",
+  };
+}
 
 export default async function WhoWeArePage() {
   let apiData = null;

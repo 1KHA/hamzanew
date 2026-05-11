@@ -66,12 +66,12 @@
 }
 
 /* FIXED: apply text-align to each element */
-:dir(ltr) .title,
-:dir(ltr) .desc {
+:dir(ltr) .inner h1,
+:dir(ltr) .inner p {
   text-align: left;
 }
-:dir(rtl) .title,
-:dir(rtl) .desc {
+:dir(rtl) .inner h1,
+:dir(rtl) .inner p {
   text-align: right;
 }
 

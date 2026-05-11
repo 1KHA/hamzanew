@@ -1,15 +1,7 @@
 
 import Card from "@/app/components/card/Card";
 import ScrollReveal from "@/app/components/scroll-reveal/ScrollReveal";
-import { t } from "@/app/_lib/translationContext";
-import {
-  VISION_MISSION,
-  VALUES,
-  MORTAKAZAT,
-  VISION_MISSION_EN,
-  VALUES_EN,
-  MORTAKAZAT_EN,
-} from "./data";
+import { st } from "@/app/_lib/static-text";
 
 const STAGGER = 0.1;
 const DURATION = 0.8;
@@ -59,18 +51,38 @@ export default function WhoWeAreContent({
   translations,
   locale = "ar-SA",
 }: WhoWeAreContentProps) {
-  const isEnglish = locale === "en-US";
+  const activeLocale = locale === "en-US" ? "en" : "ar";
 
-  // Static fallback data based on locale
-  const staticVisionMission = isEnglish ? VISION_MISSION_EN : VISION_MISSION;
-  const staticValues = isEnglish ? VALUES_EN : VALUES;
-  const staticMortakazat = isEnglish ? MORTAKAZAT_EN : MORTAKAZAT;
+  // Static fallback data built from static-text
+  const staticVisionMission = [
+    {
+      title: st("about", "visionTitle", activeLocale),
+      description: st("about", "visionDesc", activeLocale),
+      icon: "view",
+    },
+    {
+      title: st("about", "missionTitle", activeLocale),
+      description: st("about", "missionDesc", activeLocale),
+      icon: "mail-01",
+    },
+  ];
+  const staticValues: ValueItem[] = [
+    { number: "1", title: st("about", "value1Title", activeLocale), description: st("about", "value1Desc", activeLocale) },
+    { number: "2", title: st("about", "value2Title", activeLocale), description: st("about", "value2Desc", activeLocale) },
+    { number: "3", title: st("about", "value3Title", activeLocale), description: st("about", "value3Desc", activeLocale) },
+    { number: "4", title: st("about", "value4Title", activeLocale), description: st("about", "value4Desc", activeLocale) },
+    { number: "5", title: st("about", "value5Title", activeLocale), description: st("about", "value5Desc", activeLocale) },
+  ];
+  const staticMortakazat: ValueItem[] = [
+    { number: "1", title: st("about", "pillar1Title", activeLocale), description: st("about", "pillar1Desc", activeLocale) },
+    { number: "2", title: st("about", "pillar2Title", activeLocale), description: st("about", "pillar2Desc", activeLocale) },
+    { number: "3", title: st("about", "pillar3Title", activeLocale), description: st("about", "pillar3Desc", activeLocale) },
+  ];
 
   // Dynamic values from API, fallback to static data
   const valuesTitle =
     apiData?.values?.title ||
-    t("hamza-values-title", translations) ||
-    (isEnglish ? "Our Values" : "الــقـــيـــم");
+    st("about", "valuesTitle", activeLocale);
   const valuesList: ValueItem[] =
     apiData?.values?.list && apiData.values.list.length > 0
       ? apiData.values.list.map((v) => ({
@@ -83,8 +95,7 @@ export default function WhoWeAreContent({
   // Dynamic pillars from API, fallback to static data
   const pillarsTitle =
     apiData?.pillars?.title ||
-    t("hamza-pillars-title", translations) ||
-    (isEnglish ? "Why Hamza Test?" : "مرتكزات اختبارات همزة؟");
+    st("about", "pillarsTitle", activeLocale);
   const pillarsList: ValueItem[] =
     apiData?.pillars?.list && apiData.pillars.list.length > 0
       ? apiData.pillars.list.map((p) => ({
@@ -102,8 +113,7 @@ export default function WhoWeAreContent({
         aria-labelledby="vision-mission"
       >
         <h2 id="vision-mission" className="sr-only">
-          {t("hamza-vision-mission-sr-only", translations) ||
-            (isEnglish ? "Vision and Mission" : "الرؤية والرسالة")}
+          {st("about", "visionTitle", activeLocale) + " & " + st("about", "missionTitle", activeLocale)}
         </h2>
         {staticVisionMission.map((card, i) => (
           <ScrollReveal

@@ -190,7 +190,7 @@
 }
 .section-header {
   color: var(--Text-text-default, #161616);
-  text-align: right;
+  text-align: start;
 
   /* Display md/Semibold */
   font-family: var(--Font-Family-font-family-display, "IBMPlexSansArabic");
@@ -209,7 +209,7 @@
 /* Display sm / Bold */
 .section-header-sm {
   color: var(--Text-text-default, #161616);
-  text-align: right;
+  text-align: start;
 
   font-family: var(--Font-Family-font-family-display, "IBMPlexSansArabic");
   font-size: var(--Size-Display-typo-size-display-sm, 30px);

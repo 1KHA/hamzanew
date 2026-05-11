@@ -175,7 +175,8 @@ export function getCountryStats(
  * Only includes countries that exist in both the registry AND the provided countries list.
  */
 export function getCountryDropdownOptions(
-  availableCountries: { code: string; name: string }[]
+  availableCountries: { code: string; name: string }[],
+  globalLabel = "Global"
 ) {
   const availableCodes = new Set(availableCountries.map((c) => c.code));
   const registryCodes = COUNTRY_STATS_REGISTRY.map((e) => e.code);
@@ -186,17 +187,20 @@ export function getCountryDropdownOptions(
   );
   console.log(`[Stats] Registry country codes:`, registryCodes);
 
+  // Build a lookup for localized names from the API
+  const nameMap = new Map(availableCountries.map((c) => [c.code, c.name]));
+
   const countryOptions = COUNTRY_STATS_REGISTRY.filter((entry) =>
     availableCodes.has(entry.code)
   ).map((entry) => ({
-    label: entry.name,
+    label: nameMap.get(entry.code) || entry.name,
     value: entry.code,
   }));
 
   console.log(`[Stats] Matched countries for dropdown: ${countryOptions.length}`);
 
   return [
-    { label: "العالم", value: "global" },
+    { label: globalLabel, value: "global" },
     ...countryOptions,
   ];
 }

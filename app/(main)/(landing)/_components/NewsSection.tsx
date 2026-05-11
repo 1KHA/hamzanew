@@ -4,9 +4,6 @@ import { useRouter } from "next/navigation";
 import Button from "@/app/components/button/Button";
 import Card from "@/app/components/card/Card";
 import Carousel from "@/app/components/carousel/Carousel";
-import Button from "@/app/components/button/Button";
-import { useRouter } from "next/navigation";
-import { NewsArticle } from "../_data/homeData";
 import { st } from "@/app/_lib/static-text";
 
 interface NewsSectionProps {
