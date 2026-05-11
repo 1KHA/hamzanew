@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FeedbackDynamic from "../feedback/FeedbackDynamic";
 import FooterAccessibilityTools from "./FooterAccessibilityTools";
-import { st } from "@/app/_lib/static-text";
+import { st } from "@/app/_lib/static-text-server";
 
 function ExternalIcon() {
   return (

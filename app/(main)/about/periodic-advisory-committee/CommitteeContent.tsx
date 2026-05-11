@@ -55,7 +55,7 @@ export default function CommitteeContent({
   description,
   viewAllButtonText = st("about", "viewAll"),
   tasksTitle = st("about", "tasksTitle"),
-  mainTasksList = FALLBACK_TASKS,
+  mainTasksList = getFallbackTasks(),
   membersTitle = st("about", "membersTitle"),
   membersList = FALLBACK_MEMBERS,
 }: CommitteeContentProps) {

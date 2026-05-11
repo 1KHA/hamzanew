@@ -1,4 +1,4 @@
-import { st } from "@/app/_lib/static-text";
+import { st } from "@/app/_lib/static-text-server";
 
 interface LastModifiedProps {
   date: string;

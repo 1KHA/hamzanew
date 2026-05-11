@@ -66,7 +66,7 @@ export interface NewsArticle {
   image: string;
 }
 
-import { st } from "@/app/_lib/static-text";
+import { st } from "@/app/_lib/static-text-server";
 
 export function getServices(locale?: "ar" | "en"): Service[] {
   return [

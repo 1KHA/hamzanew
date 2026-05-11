@@ -1,7 +1,7 @@
 
 import Card from "@/app/components/card/Card";
 import ScrollReveal from "@/app/components/scroll-reveal/ScrollReveal";
-import { st } from "@/app/_lib/static-text";
+import { st } from "@/app/_lib/static-text-server";
 
 const STAGGER = 0.1;
 const DURATION = 0.8;

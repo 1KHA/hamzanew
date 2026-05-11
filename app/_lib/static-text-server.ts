@@ -1,0 +1,274 @@
+/**
+ * Static Bilingual Text Dictionary — Server-Safe
+ *
+ * No "use client" directive. The `st()` helper requires an explicit
+ * `locale` parameter; it never touches the DOM.
+ *
+ * Usage (server components):
+ *   import { st } from "@/app/_lib/static-text-server";
+ *   <h1>{st("banner", "slideTitle", locale)}</h1>
+ */
+
+export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string }>> = {
+  banner: {
+    buttonMore: { ar: "المزيد", en: "More" },
+    slideTitle: { ar: "اختبارات همزة", en: "Hamza Tests" },
+    slideAlt: { ar: "اختبارات همزة", en: "Hamza Tests" },
+    ariaBanner: { ar: "عرض شرائح البانر", en: "Banner slideshow" },
+    ariaPlay: { ar: "تشغيل العرض التلقائي", en: "Play auto slideshow" },
+    ariaPause: { ar: "إيقاف العرض التلقائي", en: "Pause auto slideshow" },
+    ariaGoToSlide: { ar: "الانتقال إلى الشريحة", en: "Go to slide" },
+    ariaNav: { ar: "التنقل بين الشرائح", en: "Slide navigation" },
+    slideOf: { ar: "الشريحة", en: "Slide" },
+    of: { ar: "من", en: "of" },
+    slideDescription: {
+      ar: "منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها. وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة",
+      en: "Hamza Test Platform is one of the technical tools supporting the King Salman Global Academy for Arabic Language initiative in building and activating standard Arabic language tests. The platform aims to introduce and implement Hamza tests, and provides qualitative data and indicators to support specialists, researchers, and related entities.",
+    },
+  },
+  services: {
+    sectionAria: { ar: "اختبارات همزة", en: "Hamza Tests" },
+    heading: { ar: "تعرف على اختبارات همزة", en: "Discover Hamza Tests" },
+    description: {
+      ar: "نوفر خدمات إلكترونية للتسجيل في الاختبارات، مع تقديم معلومات واضحة ومبسطة عن كل اختبار",
+      en: "We provide electronic services for test registration, with clear and simplified information about each test.",
+    },
+    carouselAria: { ar: "عرض الاختبارات المتاحة", en: "Available tests display" },
+    register: { ar: "التسجيل للاختبار", en: "Register for the test" },
+    more: { ar: "المزيد", en: "More" },
+    generalTestTitle: { ar: "اختبار همزة العام", en: "Hamza General Test" },
+    generalTestDesc: {
+      ar: "اختبار محوسب، دقيق، يقيس كفايات اللغة العربية للناطقين بغيرها لأغراض أكاديمية.",
+      en: "A computer-based, accurate test that measures Arabic language proficiency for non-native speakers for academic purposes.",
+    },
+    academicTestTitle: { ar: "اختبار همزة الأكاديمي", en: "Hamza Academic Test" },
+    academicTestDesc: {
+      ar: "اختبار لقياس كفايات اللغة العربية للناطقين بغيرها لأغراض عامة.",
+      en: "A test to measure Arabic language proficiency for non-native speakers for general purposes.",
+    },
+    placementTestTitle: { ar: "اختبار تحديد المستوى", en: "Placement Test" },
+    placementTestDesc: {
+      ar: "اختبار لتحديد مستوى الكفاءة اللغوية العامة باللغة العربية لغير الناطقين بها لاستخدامه في البرامج الأكاديمية.",
+      en: "A test to determine the general language proficiency level in Arabic for non-native speakers for use in academic programs.",
+    },
+    vocabularyTestTitle: { ar: "اختبار همزة المفردات", en: "Hamza Vocabulary Test" },
+    vocabularyTestDesc: {
+      ar: "اختبار معياري لقياس مستويات المفردات لدى الناطقين بغير العربية لأغراض مختلفة.",
+      en: "A standardized test to measure vocabulary levels among non-Arabic speakers for various purposes.",
+    },
+  },
+  news: {
+    sectionAria: { ar: "الأخبار والمقالات", en: "News & Articles" },
+    heading: { ar: "الأخبار والمقالات", en: "News & Articles" },
+    showAll: { ar: "عرض الكل", en: "View All" },
+    description: {
+      ar: "نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير الاختبارات المعيارية للغة العربية",
+      en: "We present the latest news and specialized articles on Hamza tests and the development of standard Arabic language tests.",
+    },
+    carouselAria: { ar: "آخر الأخبار", en: "Latest News" },
+    readMore: { ar: "قراءة المزيد", en: "Read More" },
+  },
+  statistics: {
+    sectionAria: { ar: "إحصائيات همزة", en: "Hamza Statistics" },
+    showAll: { ar: "عرض الكل", en: "View All" },
+    headingFallback: { ar: "همزة في أرقام", en: "Hamza in Numbers" },
+    descriptionFallback: {
+      ar: "يعرض قسم إحصائيات همزة بيانات عن عدد المختبرين عالميًا، وتنوّع الجنسيات والدول، إضافة إلى أعداد المختبرين في مراكز الاختبار.",
+      en: "The Hamza Statistics section displays data on the number of test takers worldwide, the diversity of nationalities and countries, in addition to the number of test takers at test centers.",
+    },
+    statsAria: { ar: "الإحصائيات العامة", en: "General Statistics" },
+  },
+  partners: {
+    sectionFallback: { ar: "الشركاء", en: "Partners" },
+    tabInside: { ar: "داخل المملكة العربية السعودية", en: "Inside the Kingdom of Saudi Arabia" },
+    tabOutside: { ar: "دول أخرى", en: "Other Countries" },
+    listAria: { ar: "قائمة الشركاء", en: "Partners List" },
+  },
+  subscription: {
+    sectionAria: { ar: "التسجيل في النشرة البريدية", en: "Newsletter Subscription" },
+    logoAlt: { ar: "شعار همزة", en: "Hamza Logo" },
+    heading: { ar: "سجل اهتمامك", en: "Register Your Interest" },
+    description: {
+      ar: "سجل اهتمامك بالاختبارات المعيارية للغة العربية واحصل على أحدث التحديثات والأخبار.",
+      en: "Register your interest in standard Arabic language tests and get the latest updates and news.",
+    },
+    formAria: { ar: "نموذج الاشتراك في النشرة البريدية", en: "Newsletter Subscription Form" },
+    placeholder: { ar: "ادخل البريد الشبكي", en: "Enter your email address" },
+    inputAria: { ar: "البريد الشبكي للاشتراك في النشرة البريدية", en: "Email for newsletter subscription" },
+    submitButton: { ar: "مشاركة", en: "Subscribe" },
+  },
+  footer: {
+    footerAria: { ar: "تذييل الصفحة", en: "Footer" },
+    colSummary: { ar: "ملخص", en: "Summary" },
+    navSummaryAria: { ar: "ملخص", en: "Summary" },
+    aboutHamza: { ar: "عن همزة", en: "About Hamza" },
+    newsAndEvents: { ar: "الأخبار والأحداث", en: "News & Events" },
+    testTypes: { ar: "أنواع اختبارات همزة", en: "Types of Hamza Tests" },
+    colImportantLinks: { ar: "روابط مهمة", en: "Important Links" },
+    navImportantLinksAria: { ar: "روابط مهمة", en: "Important Links" },
+    nationalPortal: { ar: "بوابة الخدمة الوطنية", en: "National Service Portal" },
+    openData: { ar: "البيانات الحكومية المفتوحة", en: "Open Government Data" },
+    nationalStrategy: { ar: "الاستراتيجية الوطنية للبيانات والذكاء الاصطناعي", en: "National Strategy for Data & AI" },
+    opensInNewWindow: { ar: "يفتح في نافذة جديدة", en: "Opens in a new window" },
+    colContactSupport: { ar: "الاتصال والدعم", en: "Contact & Support" },
+    navContactSupportAria: { ar: "الاتصال والدعم", en: "Contact & Support" },
+    contactUs: { ar: "تواصل معنا", en: "Contact Us" },
+    reportCorruption: { ar: "الإبلاغ عن الفساد", en: "Report Corruption" },
+    colFollowUs: { ar: "تابعنا على", en: "Follow Us" },
+    socialListAria: { ar: "تابعنا على وسائل التواصل الاجتماعي", en: "Follow us on social media" },
+    twitter: { ar: "تويتر X", en: "Twitter X" },
+    whatsapp: { ar: "واتساب", en: "WhatsApp" },
+    youtube: { ar: "يوتيوب", en: "YouTube" },
+    linkedin: { ar: "لينكد إن", en: "LinkedIn" },
+    snapchat: { ar: "سناب شات", en: "Snapchat" },
+    instagram: { ar: "انستغرام", en: "Instagram" },
+    facebook: { ar: "فيسبوك", en: "Facebook" },
+    tiktok: { ar: "تيك توك", en: "TikTok" },
+    termsConditions: { ar: "الشروط و الأحكام", en: "Terms & Conditions" },
+    faq: { ar: "الاسئلة الشائعة", en: "FAQ" },
+    sitemap: { ar: "خريطة الموقع", en: "Sitemap" },
+    copyright: { ar: "جميع الحقوق محفوظة لمجمع الملك سلمان العالمي للغة العربية © 2026", en: "All rights reserved to the King Salman Global Academy for Arabic Language © 2026" },
+    ksaaLabel: { ar: "مجمع الملك سلمان العالمي للغة العربية", en: "King Salman Global Academy for Arabic Language" },
+    ksaaLogoAlt: { ar: "مجمع الملك سلمان العالمي للغة العربية", en: "King Salman Global Academy for Arabic Language" },
+    lastModifiedSiteLabel: { ar: "آخر تعديل للموقع", en: "Last site update" },
+    timePm: { ar: "2:00 م", en: "2:00 PM" },
+    accessibilityTools: { ar: "أدوات الاتاحة والوصول", en: "Accessibility Tools" },
+    zoomIn: { ar: "تكبير النص", en: "Zoom In" },
+    zoomOut: { ar: "تصغير النص", en: "Zoom Out" },
+    changeViewMode: { ar: "تغيير وضع العرض", en: "Change View Mode" },
+  },
+  lastModified: {
+    pageLabel: { ar: "آخر تعديل للصفحة", en: "Last page update" },
+    siteLabel: { ar: "آخر تعديل للموقع", en: "Last site update" },
+    timeSuffix: { ar: "بتوقيت السعودية", en: "Saudi Arabia time" },
+  },
+  about: {
+    /* ظ¤ظ¤ About landing page cards ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ */
+    navAria: { ar: "╪ث┘é╪│╪د┘à ╪╣┘ ┘ç┘à╪▓╪ر", en: "About Hamza Sections" },
+    whoWeAre: { ar: "┘à┘ ┘╪ص┘", en: "Who We Are" },
+    testTraits: { ar: "╪│┘à╪د╪ز ╪د╪«╪ز╪ذ╪د╪▒ ┘ç┘à╪▓╪ر", en: "Hamza Test Traits" },
+    benefits: { ar: "╪ث┘ç┘à┘è╪ر ╪د╪«╪ز╪ذ╪د╪▒╪د╪ز ┘ç┘à╪▓╪ر", en: "Benefits of Hamza Tests" },
+    institutions: { ar: "╪د┘┘à╪ج╪│╪│╪د╪ز ┘ê╪د┘╪»┘ê┘ ╪د┘╪ز┘è ╪ز┘é╪ذ┘ ┘ç┘à╪▓╪ر", en: "Institutions & Countries" },
+    advisoryCommittee: { ar: "╪د┘┘╪ش┘╪ر ╪د┘╪د╪│╪ز╪┤╪د╪▒┘è╪ر ╪د┘╪»┘ê┘┘è╪ر", en: "International Advisory Committee" },
+    ambassadors: { ar: "╪│┘╪▒╪د╪ة ┘ç┘à╪▓╪ر", en: "Hamza Ambassadors" },
+    eParticipation: { ar: "╪د┘┘à╪┤╪د╪▒┘â╪ر ╪د┘╪د┘┘â╪ز╪▒┘ê┘┘è╪ر", en: "E-Participation" },
+    /* ظ¤ظ¤ Who We Are ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ */
+    visionTitle: { ar: "╪د┘╪▒╪ج┘è╪ر", en: "Vision" },
+    visionDesc: { ar: "╪د┘╪▒┘è╪د╪»╪ر ╪╣╪د┘┘à┘è┘ï╪د ┘┘è ╪ز╪╣╪▓┘è╪▓ ┘à┘â╪د┘╪ر ╪د┘┘╪║╪ر ╪د┘╪╣╪▒╪ذ┘è╪ر ╪╣╪ذ╪▒ ╪د╪«╪ز╪ذ╪د╪▒╪د╪ز ┘â┘╪د╪ة╪ر ╪╣╪د┘┘è╪ر ╪د┘╪ش┘ê╪»╪ر╪î ┘à╪ذ┘┘è╪ر ╪╣┘┘ë ┘à╪╣╪د┘è┘è╪▒ ╪»┘ê┘┘è╪ر ┘ê┘à╪╣╪ز┘à╪»╪ر ┘ê┘à┘ê╪س┘ê┘é╪ر.", en: "Global leadership in enhancing the status of the Arabic language through high-quality proficiency tests built on international, accredited, and reliable standards." },
+    missionTitle: { ar: "╪د┘╪▒╪│╪د┘╪ر", en: "Mission" },
+    missionDesc: { ar: "╪ز┘é╪»┘è┘à ╪د╪«╪ز╪ذ╪د╪▒╪د╪ز ╪╣╪▒╪ذ┘è╪ر ╪╣╪د┘┘è╪ر ╪د┘╪ش┘ê╪»╪ر╪î ┘à╪ذ┘┘è╪ر ╪╣┘┘ë ┘à╪╣╪د┘è┘è╪▒ ╪»┘ê┘┘è╪ر╪î ╪ز┘à┘â┘ّ┘ ╪د┘┘à╪ز╪╣┘┘à┘è┘ ┘ê╪د┘┘à┘ç┘┘è┘è┘ ┘à┘ ╪ح╪س╪ذ╪د╪ز ┘â┘╪د╪ة╪ز┘ç┘à╪î ┘ê╪ز┘╪ز╪ص ╪ث┘à╪د┘à┘ç┘à ╪ت┘╪د┘é┘ï╪د ╪ث┘â╪د╪»┘è┘à┘è╪ر ┘ê┘à┘ç┘┘è╪ر ┘ê╪د╪│╪╣╪ر.", en: "To provide high-quality Arabic tests built on international standards that enable learners and professionals to demonstrate their proficiency and open wide academic and professional horizons for them." },
+    valuesTitle: { ar: "╪د┘┘┘┘é┘┘┘┘è┘┘┘┘à", en: "Our Values" },
+    value1Title: { ar: "╪د┘┘à┘ê╪س┘ê┘é┘è╪ر", en: "Reliability" },
+    value1Desc: { ar: "╪ز┘é╪»┘è┘à ┘╪ز╪د╪خ╪ش ╪»┘é┘è┘é╪ر ┘ê╪س╪د╪ذ╪ز╪ر ╪ز╪╣╪ز┘à╪» ┘à╪ص┘┘è╪د┘ï ┘ê╪»┘ê┘┘è╪د┘ï.", en: "Delivering accurate and consistent results recognized locally and internationally." },
+    value2Title: { ar: "╪د┘┘à┘ê╪╢┘ê╪╣┘è╪ر", en: "Objectivity" },
+    value2Desc: { ar: "╪╢┘à╪د┘ ╪د┘╪ص┘è╪د╪» ╪د┘╪ز╪د┘à ┘ê╪«┘┘ê ╪د┘╪ز┘é┘è┘è┘à ┘à┘ ╪ث┘è ╪ز╪ص┘è╪▓.", en: "Ensuring complete neutrality and freedom from any bias in assessment." },
+    value3Title: { ar: "╪د┘╪ش┘ê╪»╪ر", en: "Quality" },
+    value3Desc: { ar: "╪د┘╪د┘╪ز╪▓╪د┘à ╪ذ╪د┘┘à╪╣╪د┘è┘è╪▒ ╪د┘╪»┘ê┘┘è╪ر ┘ê╪ث┘╪╢┘ ╪د┘┘à┘à╪د╪▒╪│╪د╪ز ┘┘è ╪د┘┘é┘è╪د╪│.", en: "Commitment to international standards and best practices in measurement." },
+    value4Title: { ar: "╪د┘╪د╪ذ╪ز┘â╪د╪▒", en: "Innovation" },
+    value4Desc: { ar: "╪ز╪╖┘ê┘è╪▒ ┘à╪│╪ز┘à╪▒ ┘ê╪ز╪ذ┘┘è ╪ث╪ص╪»╪س ╪د┘╪ز┘é┘┘è╪د╪ز ┘┘è ╪د┘╪د╪«╪ز╪ذ╪د╪▒╪د╪ز.", en: "Continuous development and adoption of the latest technologies in testing." },
+    value5Title: { ar: "╪د┘╪╣╪د┘┘à┘è╪ر", en: "Global Reach" },
+    value5Desc: { ar: "╪د╪╣╪ز╪▒╪د┘ ┘ê╪د╪╣╪ز┘à╪د╪» ╪»┘ê┘┘è ┘è╪╣╪▓╪▓ ┘à┘â╪د┘╪ر ╪د┘┘╪║╪ر ╪د┘╪╣╪▒╪ذ┘è╪ر ╪╣╪د┘┘à┘è┘ï╪د.", en: "International recognition and accreditation that enhance the status of the Arabic language globally." },
+    pillarsTitle: { ar: "┘à╪▒╪ز┘â╪▓╪د╪ز ╪د╪«╪ز╪ذ╪د╪▒╪د╪ز ┘ç┘à╪▓╪ر╪ا", en: "Why Hamza Test?" },
+    pillar1Title: { ar: "╪د┘┘à╪▒╪ش╪╣┘è╪ر ╪د┘╪»┘ê┘┘è╪ر", en: "International Reference" },
+    pillar1Desc: { ar: "╪ز╪│╪ز┘╪» ╪ح┘┘ë ╪د┘╪ح╪╖╪د╪▒ ╪د┘╪ث┘ê╪▒┘ê╪ذ┘è ╪د┘┘à╪▒╪ش╪╣┘è ╪د┘┘à╪┤╪ز╪▒┘â ┘┘╪║╪د╪ز (CEFR) ┘╪╢┘à╪د┘ ╪د╪ز╪│╪د┘é┘ç╪د ┘à╪╣ ╪ث┘╪╢┘ ╪د┘┘à┘à╪د╪▒╪│╪د╪ز ╪د┘╪╣╪د┘┘à┘è╪ر.", en: "Based on the Common European Framework of Reference for Languages (CEFR) to ensure alignment with global best practices." },
+    pillar2Title: { ar: "╪ز┘┘ê╪╣ ╪د┘╪د╪«╪ز╪ذ╪د╪▒╪د╪ز", en: "Test Diversity" },
+    pillar2Desc: { ar: "╪ز╪║╪╖┘è ┘à┘╪╕┘ê┘à╪ر ┘ç┘à╪▓╪ر ╪ث╪▒╪ذ╪╣╪ر ┘à╪ش╪د┘╪د╪ز ╪▒╪خ┘è╪│╪ر (╪ث┘â╪د╪»┘è┘à┘è╪î ╪╣╪د┘à╪î ╪ز╪ص╪»┘è╪» ╪د┘┘à╪│╪ز┘ê┘ë╪î ┘à┘╪▒╪»╪د╪ز) ┘╪ز┘╪ذ┘è╪ر ┘à╪«╪ز┘┘ ╪د┘╪د╪ص╪ز┘è╪د╪ش╪د╪ز ╪د┘╪ز╪╣┘┘è┘à┘è╪ر ┘ê╪د┘┘à┘ç┘┘è╪ر.", en: "The Hamza ecosystem covers four main domains (Academic, General, Placement, Vocabulary) to meet various educational and professional needs." },
+    pillar3Title: { ar: "╪د┘┘à╪▒┘ê┘╪ر ┘ê╪د┘╪ث┘à╪د┘", en: "Flexibility & Security" },
+    pillar3Desc: { ar: "╪ذ┘┘è╪ز ┘╪ز┘╪╖╪ذ┘é ╪ح┘┘â╪ز╪▒┘ê┘┘è┘ï╪د ╪ذ┘à╪▒┘ê┘╪ر ╪╣╪د┘┘è╪ر╪î ┘à╪╣ ╪د╪╣╪ز┘à╪د╪» ╪ح╪ش╪▒╪د╪ة╪د╪ز ╪╡╪د╪▒┘à╪ر ┘╪╢┘à╪د┘ ╪د┘╪ث┘à╪د┘ ┘ê╪ص┘à╪د┘è╪ر ╪د┘╪ذ┘è╪د┘╪د╪ز.", en: "Designed to be administered electronically with high flexibility, while adopting strict procedures to ensure security and data protection." },
+    /* ظ¤ظ¤ Benefits ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ */
+    benefitSectionTitle: { ar: "┘â┘è┘┘è╪ر ╪د┘╪ح╪│╪ز┘╪د╪»╪ر ┘à┘ ┘ç┘à╪▓╪ر", en: "How to Benefit from Hamza" },
+    benefitTakersTitle: { ar: "┘┘ê╪د╪خ╪» ╪د╪«╪ز╪ذ╪د╪▒╪د╪ز ┘ç┘à╪▓╪ر ┘┘┘à╪«╪ز╪ذ╪▒┘è┘", en: "Benefits for Test Takers" },
+    benefitTakersDesc: { ar: "╪ز┘ê┘┘ّ╪▒ ╪د╪«╪ز╪ذ╪د╪▒╪د╪ز ┘ç┘à╪▓╪ر ┘┘ç╪ش╪د┘ï ┘à╪╣┘è╪د╪▒┘è╪د┘ï ┘ê┘à┘ê╪س┘ê┘é╪د┘ï ┘┘é┘è╪د╪│ ╪د┘┘â┘╪د╪ة╪ر ┘┘è ╪د┘┘╪║╪ر ╪د┘╪╣╪▒╪ذ┘è╪ر╪î ┘ê┘è╪│╪ز╪«╪»┘à┘ç╪د ╪ث┘╪▒╪د╪» ┘è╪│╪╣┘ê┘ ╪ح┘┘ë ╪د┘╪»╪▒╪د╪│╪ر ╪ث┘ê ╪د┘╪╣┘à┘ ╪ث┘ê ╪د┘┘ç╪ش╪▒╪ر ╪ح┘┘ë ╪»┘ê┘ ┘╪د╪╖┘é╪ر ╪ذ╪د┘╪╣╪▒╪ذ┘è╪ر. ╪ز╪»╪╣┘à ┘ç╪░┘ç ╪د┘╪د╪«╪ز╪ذ╪د╪▒╪د╪ز ╪د┘┘à╪ج╪│╪│╪د╪ز ┘┘è ╪د╪«╪ز┘è╪د╪▒ ╪د┘╪╖┘╪د╪ذ ╪د┘╪ث┘╪│╪ذ╪î ┘ê╪ذ┘╪د╪ة ┘â┘ê╪د╪»╪▒ ┘é╪د╪»╪▒╪ر ╪╣┘┘ë ╪د┘╪ز┘ê╪د╪╡┘ ╪ذ┘╪د╪╣┘┘è╪ر ┘┘è ╪ذ┘è╪خ╪د╪ز ╪د┘╪╣┘à┘ ┘ê╪د┘╪ز╪╣┘┘è┘à╪î ┘ê╪د╪│╪ز┘é╪╖╪د╪ذ ╪د┘┘â┘╪د╪ة╪د╪ز ╪ح┘┘ë ╪ش┘ç╪ز┘â.", en: "Hamza tests provide a standardized and reliable approach to measuring Arabic language proficiency, used by individuals seeking to study, work, or immigrate to Arabic-speaking countries. These tests support institutions in selecting the most suitable students and building capable workforces." },
+    benefit1Title: { ar: "╪ز┘à┘â┘è┘", en: "Empowerment" },
+    benefit1Desc: { ar: "┘à╪ش┘à╪╣ ╪د┘┘à┘┘â ╪│┘┘à╪د┘ ╪د┘╪╣╪د┘┘à┘è ┘┘╪║╪ر ╪د┘╪╣╪▒╪ذ┘è╪ر ┘à┘ ╪د┘╪▒┘è╪د╪»╪ر ┘ê╪د┘┘à╪▒╪ش╪╣┘è╪ر ╪د┘╪╣╪د┘┘à┘è╪ر ┘┘è ╪«╪»┘à╪ر ╪د┘┘╪║╪ر ╪د┘╪╣╪▒╪ذ┘è╪ر.", en: "King Salman Global Academy for Arabic Language leads globally in serving the Arabic language." },
+    benefit2Title: { ar: "┘╪ز╪ص ╪ث╪ذ┘ê╪د╪ذ ╪د┘┘╪▒╪╡", en: "Open Opportunities" },
+    benefit2Desc: { ar: "┘è╪╣╪▓╪▓ ┘╪▒╪╡┘â ╪د┘╪ث┘â╪د╪»┘è┘à┘è╪ر ┘ê╪د┘┘à┘ç┘┘è╪ر ┘┘è ╪د┘╪ش╪د┘à╪╣╪د╪ز ┘ê╪│┘ê┘é ╪د┘╪╣┘à┘.", en: "Enhances your academic and professional opportunities in universities and the job market." },
+    benefit3Title: { ar: "╪ز╪╖┘ê┘è╪▒ ┘╪║╪ز┘â", en: "Develop Your Language" },
+    benefit3Desc: { ar: "┘è╪│╪د╪╣╪»┘â ╪د┘╪د╪«╪ز╪ذ╪د╪▒ ╪╣┘┘ë ┘à╪╣╪▒┘╪ر ┘à╪│╪ز┘ê╪د┘â ╪ذ╪»┘é╪ر╪î ┘à┘à╪د ┘è┘à┘â┘ّ┘┘â ┘à┘ ┘ê╪╢╪╣ ╪«╪╖╪ر ┘ê╪د╪╢╪ص╪ر ┘╪ز╪ص╪│┘è┘ ┘à┘ç╪د╪▒╪د╪ز┘â ╪د┘┘╪║┘ê┘è╪ر.", en: "Helps you accurately assess your level, enabling you to create a clear plan to improve your language skills." },
+    orgBenefit1: { ar: "┘é┘è╪د╪│ ╪د┘┘â┘╪د╪ة╪ر ╪د┘┘╪║┘ê┘è╪ر ┘╪»┘ë ┘à╪ز╪╣┘┘à┘è ╪د┘┘╪║╪ر ╪د┘╪╣╪▒╪ذ┘è╪ر ┘à┘ ╪║┘è╪▒ ╪د┘┘╪د╪╖┘é┘è┘ ╪ذ┘ç╪د", en: "Measure Arabic language proficiency among non-native speakers." },
+    orgBenefit2: { ar: "╪د┘┘à┘╪د╪╢┘╪ر ╪ذ┘è┘ ╪د┘┘à╪ز┘é╪»┘à┘è┘ ┘┘╪ذ╪▒╪د┘à╪ش ╪د┘╪ث┘â╪د╪»┘è┘à┘è╪ر.", en: "Compare applicants for academic programs." },
+    orgBenefit3: { ar: "╪د┘╪ز┘╪د┘╪│ ╪╣┘┘ë ╪د┘┘à┘╪ص ╪د┘╪»╪▒╪د╪│┘è╪ر.", en: "Compete for scholarships." },
+    orgBenefit4: { ar: "┘é┘è╪د╪│ ┘┘ê╪د╪ز╪ش ╪د┘╪ز╪╣┘┘à ┘┘è ╪د┘┘à┘é╪▒╪▒╪د╪ز ╪د┘╪»╪▒╪د╪│┘è╪ر ┘ê╪ز╪╖┘ê┘è╪▒ ┘à╪«╪▒╪ش╪د╪ز ╪د┘╪ز╪╣┘┘è┘à", en: "Measure learning outcomes and improve educational outputs." },
+    orgBenefit5: { ar: "╪د┘╪ح╪╣┘╪د╪ة ┘à┘ ╪ذ╪╣╪╢ ╪د┘┘à┘é╪▒╪▒╪د╪ز ╪د┘╪ش╪د┘à╪╣┘è╪ر.", en: "Exemption from some university courses." },
+    benefitsForOrgsTitle: { ar: "┘┘ê╪د╪خ╪» ╪د╪«╪ز╪ذ╪د╪▒╪د╪ز ┘ç┘à╪▓╪ر ┘┘╪ش┘ç╪د╪ز", en: "Benefits for Organizations" },
+    benefitCardAria: { ar: "╪د┘┘╪د╪خ╪»╪ر", en: "Benefit" },
+    benefitListAria: { ar: "┘é╪د╪خ┘à╪ر ┘┘ê╪د╪خ╪» ╪د┘╪د╪«╪ز╪ذ╪د╪▒ ┘┘┘à╪«╪ز╪ذ╪▒┘è┘", en: "List of benefits for test takers" },
+    /* ظ¤ظ¤ Hamza Test Traits ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ */
+    traitsTitle: { ar: "╪د┘╪│┘à╪د╪ز", en: "Traits" },
+    trait1Title: { ar: "┘à╪╡┘à┘à╪ر ╪ذ╪ث┘╪╢┘ ┘à╪╣╪د┘è┘è╪▒ ╪د┘╪ث┘à╪د┘", en: "Designed with Best Security Standards" },
+    trait1Desc: { ar: "╪ز╪╢┘à┘ ╪ص┘à╪د┘è╪ر ╪د┘╪ذ┘è╪د┘╪د╪ز╪î ┘ê╪د┘╪ز╪ص┘é┘é ┘à┘ ┘ç┘ê┘è╪ر ╪د┘┘à╪«╪ز╪ذ╪▒┘è┘ ╪ذ╪د╪│╪ز╪«╪»╪د┘à ╪ز┘é┘┘è╪د╪ز ╪ص╪»┘è╪س╪ر.", en: "Ensures data protection and verifies test taker identity using modern technologies." },
+    trait2Title: { ar: "┘à┘╪ص┘ê╪│╪ذ╪ر ┘ê╪│┘ç┘╪ر ╪د┘╪ز╪╖╪ذ┘è┘é", en: "Computerized & Easy to Apply" },
+    trait2Desc: { ar: "┘è┘à┘â┘ ╪ز╪╖╪ذ┘è┘é┘ç╪د ┘┘è ╪د┘┘à╪▒╪د┘â╪▓ ╪د┘╪ز╪╣┘┘è┘à┘è╪ر ╪ث┘ê ╪╣┘ ╪ذ┘╪╣╪»╪î ┘à╪╣ ╪ز╪ش╪▒╪ذ╪ر ╪د╪│╪ز╪«╪»╪د┘à ╪│┘╪│╪ر ┘┘┘à╪ز┘é╪»┘à┘è┘ ┘ê╪د┘┘à╪┤╪▒┘┘è┘.", en: "Can be applied in educational centers or remotely, with a smooth user experience." },
+    trait3Title: { ar: "╪┤╪د┘à┘╪ر ┘ê╪ز┘é┘è╪│ ┘à╪«╪ز┘┘ ╪د┘┘à┘ç╪د╪▒╪د╪ز ╪د┘┘╪║┘ê┘è╪ر", en: "Comprehensive & Measures Various Language Skills" },
+    trait3Desc: { ar: "╪ز╪║╪╖┘è ┘à┘ç╪د╪▒╪د╪ز ╪د┘┘é╪▒╪د╪ة╪ر╪î ╪د┘┘â╪ز╪د╪ذ╪ر╪î ╪د┘╪د╪│╪ز┘à╪د╪╣╪î ┘ê╪د┘╪ز╪▒╪د┘â┘è╪ذ ╪د┘┘╪║┘ê┘è╪ر╪î ┘╪ز┘é╪»┘è┘à ╪╡┘ê╪▒╪ر ┘à╪ز┘â╪د┘à┘╪ر ╪╣┘ ┘à╪│╪ز┘ê┘ë ╪د┘┘à╪ز┘é╪»┘à.", en: "Covers reading, writing, listening, and linguistic structures for a comprehensive assessment." },
+    trait4Title: { ar: "┘à╪╣┘è╪د╪▒┘è╪ر ┘ê┘à┘ê╪س┘ê┘é╪ر", en: "Standardized & Reliable" },
+    trait4Desc: { ar: "╪ز╪╣╪ز┘à╪» ┘ç┘à╪▓╪ر ╪╣┘┘ë ╪ث╪│╪│ ╪╣┘┘à┘è╪ر ┘ê┘à╪╣╪د┘è┘è╪▒ ┘é┘è╪د╪│ ┘à╪╣╪ز┘à╪»╪ر ┘╪╢┘à╪د┘ ╪»┘é╪ر ╪د┘┘╪ز╪د╪خ╪ش ┘ê╪╣╪»╪د┘╪ز┘ç╪د ╪ذ┘è┘ ╪ش┘à┘è╪╣ ╪د┘┘à╪ز┘é╪»┘à┘è┘.", en: "Built on scientific foundations and accredited measurement standards to ensure accuracy and fairness." },
+    /* ظ¤ظ¤ Periodic Advisory Committee ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ */
+    committeeTitle: { ar: "╪د┘┘╪ش┘╪ر ╪د┘╪د╪│╪ز╪┤╪د╪▒┘è╪ر ╪د┘╪»┘ê┘┘è╪ر", en: "International Advisory Committee" },
+    committeeDesc: { ar: "╪ز┘ç╪»┘ ╪د┘┘╪ش┘╪ر ╪د┘╪د╪│╪ز╪┤╪د╪▒┘è╪ر ╪ح┘┘ë ╪د┘╪د╪│╪ز┘╪د╪»╪ر ╪ذ╪ز┘é╪»┘è┘à ╪د┘╪د╪│╪ز╪┤╪د╪▒╪د╪ز ┘ê╪▒┘╪╣ ╪د┘╪ز┘ê╪╡┘è╪د╪ز ┘ê╪د┘╪ث┘╪┤╪╖╪ر ╪د┘┘à╪ز╪╣┘┘é╪ر ╪ذ╪ز╪╖┘ê┘è╪▒ ╪ث╪»┘ê╪د╪ز ╪د┘┘é┘è╪د╪│ ┘ê╪د┘┘à╪╣╪د┘è┘è╪▒ ╪د┘┘à╪╣╪ز┘à╪»╪ر╪î ╪ذ┘à╪د ┘è┘╪│┘ç┘à ┘┘è ╪د╪│╪ز╪»╪د┘à╪ر ╪د┘╪ز╪ص╪│┘è┘ ┘ê╪د┘╪ز╪╖┘ê┘è╪▒ ┘┘è ╪د┘╪ز┘ê╪ش┘ç╪د╪ز ╪د┘┘à╪│╪ز┘é╪ذ┘┘è╪ر ┘┘è ┘ç╪░╪د ╪د┘┘à╪ش╪د┘╪î ┘╪ز╪ذ┘┘è ╪ث┘╪╢┘ ╪د┘┘à┘à╪د╪▒╪│╪د╪ز ╪د┘╪»┘ê╪▒┘è╪ر ┘┘è ┘é┘è╪د╪│ ┘à┘ç╪د╪▒╪د╪ز ╪د┘┘╪║╪ر ╪د┘╪╣╪▒╪ذ┘è╪ر.", en: "The Advisory Committee aims to provide consultations and recommendations related to developing measurement tools and approved standards, contributing to sustainable improvement in future directions for measuring Arabic language skills." },
+    viewAll: { ar: "╪╣╪▒╪╢ ╪د┘┘â┘", en: "View All" },
+    tasksTitle: { ar: "╪د┘┘à┘ç╪د┘à ╪د┘╪▒╪خ┘è╪│╪ر", en: "Main Tasks" },
+    membersTitle: { ar: "╪ث╪╣╪╢╪د╪ة ╪د┘┘╪ش┘╪ر ╪د┘╪د╪│╪ز╪┤╪د╪▒┘è╪ر ╪د┘╪»┘ê╪▒┘è╪ر", en: "Periodic Advisory Committee Members" },
+    task1: { ar: "┘à╪▒╪د╪ش╪╣╪ر ╪د┘╪ث╪╖╪▒ ╪د┘┘à┘┘ç╪ش┘è╪ر ┘ê╪د┘┘à╪╣╪د┘è┘è╪▒ ╪د┘┘à╪▒╪ش╪╣┘è╪ر ┘╪د╪«╪ز╪ذ╪د╪▒╪د╪ز ┘ç┘à╪▓╪ر.", en: "Review methodological frameworks and reference standards for Hamza tests." },
+    task2: { ar: "╪ز┘é╪»┘è┘à ╪د┘╪ز┘ê╪╡┘è╪د╪ز ╪د┘╪╣┘┘à┘è╪ر ┘╪»╪╣┘à ╪د┘╪│┘è╪د╪│╪د╪ز ╪د┘╪ز╪╖┘ê┘è╪▒┘è╪ر ┘ê╪╢┘à╪د┘ ╪د┘╪ش┘ê╪»╪ر.", en: "Provide scientific recommendations to support developmental policies and ensure quality." },
+    task3: { ar: "╪ز╪║╪╖┘è ┘à┘ç╪د╪▒╪د╪ز ╪د┘┘é╪▒╪د╪ة╪ر╪î ╪د┘┘â╪ز╪د╪ذ╪ر╪î ╪د┘╪د╪│╪ز┘à╪د╪╣╪î ┘ê╪د┘╪ز╪▒╪د┘â┘è╪ذ ╪د┘┘╪║┘ê┘è╪ر╪î ┘╪ز┘é╪»┘è┘à ╪╡┘ê╪▒╪ر ┘à╪ز┘â╪د┘à┘╪ر ╪╣┘ ┘à╪│╪ز┘ê┘ë ╪د┘┘à╪ز┘é╪»┘à.", en: "Cover reading, writing, listening, and linguistic structures for a comprehensive assessment." },
+    task4: { ar: "╪ز┘é┘è┘è┘à ╪ز┘é╪د╪▒┘è╪▒ ╪د┘╪╡┘╪د╪ص┘è╪ر ┘ê╪د┘┘à┘ê╪س┘ê┘é┘è╪ر ┘ê╪ز┘é╪»┘è┘à ╪د┘┘à┘╪د╪ص╪╕╪د╪ز ╪د┘╪╣┘┘à┘è╪ر ╪ص┘ê┘┘ç╪د.", en: "Evaluate validity and reliability reports and provide scientific observations." },
+    task5: { ar: "╪د┘╪ح╪│┘ç╪د┘à ┘┘è ╪▒╪ذ╪╖ ╪د┘┘à╪┤╪▒┘ê╪╣ ╪ذ╪«╪ذ╪▒╪د╪ز ┘ê┘à┘à╪د╪▒╪│╪د╪ز ╪╣╪د┘┘à┘è╪ر ┘┘è ┘à╪ش╪د┘ ╪ز╪╣┘┘è┘à ╪د┘┘╪║╪د╪ز ┘ê┘é┘è╪د╪│┘ç╪د.", en: "Contribute to connecting the project with global expertise in language education and assessment." },
+    task6: { ar: "╪»╪╣┘à ╪د╪│╪ز╪»╪د┘à╪ر ╪د┘╪د╪«╪ز╪ذ╪د╪▒╪د╪ز ┘à┘ ╪«┘╪د┘ ╪د┘┘à╪┤┘ê╪▒╪ر ┘┘è ╪د┘┘é╪╢╪د┘è╪د ╪د┘╪╣┘┘à┘è╪ر ┘ê╪د┘╪ث┘â╪د╪»┘è┘à┘è╪ر ╪د┘┘à╪│╪ز╪ش╪»╪ر.", en: "Support test sustainability through consultation on emerging scientific and academic issues." },
+    /* ظ¤ظ¤ Institutions ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ */
+    insideKsa: { ar: "╪»╪د╪«┘ ╪د┘┘à┘à┘┘â╪ر ╪د┘╪╣╪▒╪ذ┘è╪ر ╪د┘╪│╪╣┘ê╪»┘è╪ر", en: "Inside Saudi Arabia" },
+    otherCountries: { ar: "╪»┘ê┘ ╪ث╪«╪▒┘ë", en: "Other Countries" },
+    ctaHeading: { ar: "┘ç┘ ╪ث┘╪ز ┘à╪│╪ز╪╣╪» ┘┘╪د┘╪╢┘à╪د┘à ╪ح┘┘è┘╪د╪ا", en: "Are you ready to join us?" },
+    resourcesAria: { ar: "╪د┘┘à┘ê╪د╪▒╪» ┘ê╪د┘╪ح╪ص╪╡╪د╪خ┘è╪د╪ز", en: "Resources & Statistics" },
+    /* ظ¤ظ¤ Institutions ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ */
+    institutionsSectionSubtitle: { ar: "┘â┘ ╪ش╪▓╪ة┘ï╪د ┘à┘ ┘à╪ش╪ز┘à╪╣ ┘ç┘à╪▓╪ر", en: "Be Part of the Hamza Community" },
+    institutionsHeading: { ar: "╪د┘╪ش┘ç╪د╪ز ╪د┘╪ز┘è ╪╖╪ذ┘é╪ز ╪د╪«╪ز╪ذ╪د╪▒ ┘ç┘à╪▓╪ر", en: "Institutions That Applied Hamza Test" },
+    institutionLogoAlt: { ar: "╪┤╪╣╪د╪▒ ╪د┘┘à╪ج╪│╪│╪ر", en: "Institution Logo" },
+    resource1Title: { ar: "╪ح╪ص╪╡╪د╪خ┘è╪د╪ز ╪د┘╪د╪«╪ز╪ذ╪د╪▒╪د╪ز", en: "Test Statistics" },
+    resource1Desc: { ar: "┘è┘╪│╪د╪╣╪» ╪د╪«╪ز╪ذ╪د╪▒ ┘ç┘à╪▓╪ر ╪د┘┘╪د╪│ ╪ص┘ê┘ ╪د┘╪╣╪د┘┘à. ┘è┘à┘â┘┘â ┘à╪╣╪▒┘╪ر ╪ث╪»╪د╪ة ╪د┘┘à╪ز┘é╪»┘à┘è┘ ╪د┘╪│╪د╪ذ┘é┘è┘ ┘┘╪د╪«╪ز╪ذ╪د╪▒ ┘à┘ ╪«┘╪د┘ ╪╡┘╪ص╪ر ╪د┘╪ح╪ص╪╡╪د╪خ┘è╪د╪ز ┘╪»┘è┘╪د.", en: "Hamza test helps people around the world. You can learn about the performance of previous test takers through our statistics page." },
+    resource1Action: { ar: "╪ز╪╡┘╪ص ╪د┘╪د╪ص╪╡╪د╪خ┘è╪د╪ز", en: "Browse Statistics" },
+    resource2Title: { ar: "╪د╪ص╪╡┘ ╪╣┘┘ë ╪د┘┘╪ز╪د╪خ╪ش ╪د┘╪ز┘è ╪ز╪│╪ز╪ص┘é┘ç╪د", en: "Get the Results You Deserve" },
+    resource2Desc: { ar: "┘┘ê┘╪▒ ┘┘â ┘à╪ش┘à┘ê╪╣╪ر ┘ê╪د╪│╪╣╪ر ┘à┘ ╪د┘┘à┘ê╪د╪▒╪» ┘┘à╪│╪د╪╣╪»╪ز┘â ┘┘è ╪د┘╪ص╪╡┘ê┘ ╪╣┘┘ë ┘╪ز╪د╪خ╪ش ╪د┘╪د╪«╪ز╪ذ╪د╪▒ ╪د┘╪ز┘è ╪ز╪ص╪ز╪د╪ش┘ç╪د. ╪ز╪د╪ذ╪╣ ╪ز┘é╪»┘à┘â╪î ┘ê╪د╪ص╪╡┘ ╪╣┘┘ë ╪د┘┘à╪│╪د╪╣╪»╪ر╪î ┘ê╪د┘â╪ز╪┤┘ ╪د┘┘à╪▓┘è╪» ╪╣╪ذ╪▒ ╪╡┘╪ص╪ر ╪د┘┘à┘ê╪د╪▒╪» ┘╪»┘è┘╪د.", en: "We provide you with a wide range of resources to help you get the test results you need. Track your progress, get help, and discover more on our resources page." },
+    resource2Action: { ar: "╪د┘╪ز╪ص╪╢┘è╪▒ ┘┘╪ح╪«╪ز╪ذ╪د╪▒", en: "Prepare for the Test" },
+    ctaDesc: { ar: "╪د┘╪╢┘à ╪ح┘┘ë ╪ت┘╪د┘ ╪د┘┘à╪ج╪│╪│╪د╪ز ┘ê╪د┘╪┤╪▒┘â╪د╪ز ┘┘è ╪د┘╪╣╪د┘┘à ╪د┘╪╣╪▒╪ذ┘è ╪د┘╪ز┘è ╪ز╪╣╪ز┘à╪» ┘ç┘à╪▓╪ر ┘╪د╪«╪ز┘è╪د╪▒ ╪د┘┘à┘ê╪╕┘┘è┘ ╪د┘┘é╪د╪»╪▒┘è┘ ╪╣┘┘ë ╪د┘╪ز┘ê╪د╪╡┘ ╪ذ╪د╪ص╪ز╪▒╪د┘┘è╪ر ┘ê╪ح╪ز┘é╪د┘.", en: "Join thousands of institutions and companies in the Arab world that rely on Hamza to select employees who can communicate professionally and proficiently." },
+    ctaButton: { ar: "╪ح┘╪╢┘à ╪ح┘┘è┘╪د", en: "Join Us" },
+    /* ظ¤ظ¤ Hero descriptions ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ */
+    heroAboutDescription: {
+      ar: "┘à┘╪╡╪ر ╪د╪«╪ز╪ذ╪د╪▒╪د╪ز ┘ç┘à╪▓╪ر ┘ç┘è ╪ح╪ص╪»┘ë ╪د┘╪ث╪»┘ê╪د╪ز ╪د┘╪ز┘é┘┘è╪ر ╪د┘╪»╪د╪╣┘à╪ر ┘┘à╪ذ╪د╪»╪▒╪ر ┘à╪ش┘à╪╣ ╪د┘┘à┘┘â ╪│┘┘à╪د┘ ╪د┘╪╣╪د┘┘à┘è ┘┘╪║╪ر ╪د┘╪╣╪▒╪ذ┘è╪ر ┘┘è ╪ذ┘╪د╪ة ╪د┘╪د╪«╪ز╪ذ╪د╪▒╪د╪ز ╪د┘┘à╪╣┘è╪د╪▒┘è╪ر ┘┘╪║╪ر ╪د┘╪╣╪▒╪ذ┘è╪ر ┘ê╪ز┘╪╣┘è┘┘ç╪د. ┘ê╪ز┘ç╪»┘ ╪د┘┘à┘╪╡╪ر ╪ح┘┘ë ╪د┘╪ز╪╣╪▒┘è┘ ╪ذ╪د╪«╪ز╪ذ╪د╪▒╪د╪ز ┘ç┘à╪▓╪ر ┘ê╪ز╪╖╪ذ┘è┘é┘ç╪د╪î ┘â┘à╪د ╪ز╪ز┘è╪ص ╪ز┘ê┘┘è╪▒ ╪ذ┘è╪د┘╪د╪ز ┘ê┘à╪ج╪┤╪▒╪د╪ز ┘┘ê╪╣┘è╪ر ┘╪»╪╣┘à ╪د┘┘à╪«╪ز╪╡┘è┘ ┘ê╪د┘╪ذ╪د╪ص╪س┘è┘ ┘ê╪د┘╪ش┘ç╪د╪ز ╪░╪د╪ز ╪د┘╪╣┘╪د┘é╪ر.",
+      en: "Hamza Test Platform is one of the technical tools supporting the King Salman Global Academy for Arabic Language initiative in building and activating standard Arabic language tests. The platform aims to introduce and implement Hamza tests, and provides qualitative data and indicators to support specialists, researchers, and related entities.",
+    },
+    heroCommitteeDescription: {
+      ar: "╪ز┘ç╪»┘ ╪د┘┘╪ش┘╪ر ╪د┘╪د╪│╪ز╪┤╪د╪▒┘è╪ر ╪ح┘┘ë ╪د┘╪د╪│╪ز┘╪د╪»╪ر ╪ذ╪ز┘é╪»┘è┘à ╪د┘╪د╪│╪ز╪┤╪د╪▒╪د╪ز ┘ê╪▒┘╪╣ ╪د┘╪ز┘ê╪╡┘è╪د╪ز ┘ê╪د┘╪ث┘╪┤╪╖╪ر ╪د┘┘à╪ز╪╣┘┘é╪ر ╪ذ╪ز╪╖┘ê┘è╪▒ ╪ث╪»┘ê╪د╪ز ╪د┘┘é┘è╪د╪│ ┘ê╪د┘┘à╪╣╪د┘è┘è╪▒ ╪د┘┘à╪╣╪ز┘à╪»╪ر╪î ╪ذ┘à╪د ┘è┘╪│┘ç┘à ┘┘è ╪د╪│╪ز╪»╪د┘à╪ر ╪د┘╪ز╪ص╪│┘è┘ ┘ê╪د┘╪ز╪╖┘ê┘è╪▒ ┘┘è ╪د┘╪ز┘ê╪ش┘ç╪د╪ز ╪د┘┘à╪│╪ز┘é╪ذ┘┘è╪ر ┘┘è ┘ç╪░╪د ╪د┘┘à╪ش╪د┘╪î ┘╪ز╪ذ┘┘è ╪ث┘╪╢┘ ╪د┘┘à┘à╪د╪▒╪│╪د╪ز ╪د┘╪»┘ê╪▒┘è╪ر ┘┘è ┘é┘è╪د╪│ ┘à┘ç╪د╪▒╪د╪ز ╪د┘┘╪║╪ر ╪د┘╪╣╪▒╪ذ┘è╪ر.",
+      en: "The Advisory Committee aims to benefit from providing consultations and raising recommendations and activities related to developing measurement tools and approved standards, contributing to the sustainability of improvement and development in future directions in this field, to adopt best periodic practices in measuring Arabic language skills.",
+    },
+    heroInstitutionsDescription: {
+      ar: "╪ز╪╣╪ز┘à╪» ╪ذ╪╣╪╢ ╪د┘┘à╪ج╪│╪│╪د╪ز ╪ص┘ê┘ ╪د┘╪╣╪د┘┘à ╪╣┘┘ë ╪د╪«╪ز╪ذ╪د╪▒ ┘ç┘à╪▓╪ر ┘╪ز┘é┘è┘è┘à ╪د┘┘â┘╪د╪ة╪ر ┘┘è ╪د┘┘╪║╪ر ╪د┘╪╣╪▒╪ذ┘è╪ر ╪ز╪┤┘à┘ ┘ç╪░┘ç ╪د┘┘à╪ج╪│╪│╪د╪ز: ╪د┘╪ش╪د┘à╪╣╪د╪ز╪î ╪د┘╪ش┘ç╪د╪ز ╪د┘╪ص┘â┘ê┘à┘è╪ر╪î ╪د┘┘ç┘è╪خ╪د╪ز ╪د┘┘à┘ç┘┘è╪ر╪î ╪┤╪▒┘â╪د╪ز ╪د┘╪ز┘ê╪╕┘è┘╪î ┘ê╪ش┘ç╪د╪ز ╪د┘┘ç╪ش╪▒╪ر ┘┘è ╪د┘╪»┘ê┘ ╪د┘┘╪د╪╖┘é╪ر ╪ذ╪د┘╪╣╪▒╪ذ┘è╪ر ╪ث┘ê ╪د┘┘à┘ç╪ز┘à╪ر ╪ذ┘ç╪د.",
+      en: "Some institutions around the world rely on the Hamza test to assess proficiency in the Arabic language. These institutions include: universities, government bodies, professional organizations, recruitment companies, and immigration authorities in Arabic-speaking countries or those interested in them.",
+    },
+    heroAmbassadorsDescription: {
+      ar: "╪ز┘ç╪»┘ ╪د┘┘╪ش┘╪ر ╪د┘╪د╪│╪ز╪┤╪د╪▒┘è╪ر ╪ح┘┘ë ╪د┘╪د╪│╪ز┘╪د╪»╪ر ╪ذ╪ز┘é╪»┘è┘à ╪د┘╪د╪│╪ز╪┤╪د╪▒╪د╪ز ┘ê╪▒┘╪╣ ╪د┘╪ز┘ê╪╡┘è╪د╪ز ┘ê╪د┘╪ث┘╪┤╪╖╪ر ╪د┘┘à╪ز╪╣┘┘é╪ر ╪ذ╪ز╪╖┘ê┘è╪▒ ╪ث╪»┘ê╪د╪ز ╪د┘┘é┘è╪د╪│ ┘ê╪د┘┘à╪╣╪د┘è┘è╪▒ ╪د┘┘à╪╣╪ز┘à╪»╪ر╪î ╪ذ┘à╪د ┘è┘╪│┘ç┘à ┘┘è ╪د╪│╪ز╪»╪د┘à╪ر ╪د┘╪ز╪ص╪│┘è┘ ┘ê╪د┘╪ز╪╖┘ê┘è╪▒ ┘┘è ╪د┘╪ز┘ê╪ش┘ç╪د╪ز ╪د┘┘à╪│╪ز┘é╪ذ┘┘è╪ر ┘┘è ┘ç╪░╪د ╪د┘┘à╪ش╪د┘╪î ┘╪ز╪ذ┘┘è ╪ث┘╪╢┘ ╪د┘┘à┘à╪د╪▒╪│╪د╪ز ╪د┘╪»┘ê╪▒┘è╪ر ┘┘è ┘é┘è╪د╪│ ┘à┘ç╪د╪▒╪د╪ز ╪د┘┘╪║╪ر ╪د┘╪╣╪▒╪ذ┘è╪ر ┘┘à╪«╪ز┘┘ ╪د┘┘╪خ╪د╪ز.",
+      en: "The Advisory Committee aims to benefit from providing consultations and raising recommendations and activities related to developing measurement tools and approved standards, contributing to the sustainability of improvement and development in future directions in this field, to adopt best periodic practices in measuring Arabic language skills for various categories.",
+    },
+    heroTraitsDescription: {
+      ar: "╪ز┘ê┘┘ّ╪▒ ╪د╪«╪ز╪ذ╪د╪▒╪د╪ز ┘ç┘à╪▓╪ر ┘┘ç╪ش╪د┘ï ┘à╪╣┘è╪د╪▒┘è╪د┘ï ┘ê┘à┘ê╪س┘ê┘é╪د┘ï ┘┘é┘è╪د╪│ ╪د┘┘â┘╪د╪ة╪ر ┘┘è ╪د┘┘╪║╪ر ╪د┘╪╣╪▒╪ذ┘è╪ر╪î ┘ê┘è╪│╪ز╪«╪»┘à┘ç╪د ╪ث┘╪▒╪د╪» ┘è╪│╪╣┘ê┘ ╪ح┘┘ë ╪د┘╪»╪▒╪د╪│╪ر ╪ث┘ê ╪د┘╪╣┘à┘ ╪ث┘ê ╪د┘┘ç╪ش╪▒╪ر ╪ح┘┘ë ╪»┘ê┘ ┘╪د╪╖┘é╪ر ╪ذ╪د┘╪╣╪▒╪ذ┘è╪ر. ╪ز╪»╪╣┘à ┘ç╪░┘ç ╪د┘╪د╪«╪ز╪ذ╪د╪▒╪د╪ز ╪د┘┘à╪ج╪│╪│╪د╪ز ┘┘è ╪د╪«╪ز┘è╪د╪▒ ╪د┘╪╖┘╪د╪ذ ╪د┘╪ث┘╪│╪ذ╪î ┘ê╪ذ┘╪د╪ة ┘â┘ê╪د╪»╪▒ ┘é╪د╪»╪▒╪ر ╪╣┘┘ë ╪د┘╪ز┘ê╪د╪╡┘ ╪ذ┘╪د╪╣┘┘è╪ر ┘┘è ╪ذ┘è╪خ╪د╪ز ╪د┘╪╣┘à┘ ┘ê╪د┘╪ز╪╣┘┘è┘à╪î ┘ê╪د╪│╪ز┘é╪╖╪د╪ذ ╪د┘┘â┘╪د╪ة╪د╪ز ╪ح┘┘ë ╪ش┘ç╪ز┘â.",
+      en: "Hamza tests provide a standardized and reliable approach to measuring Arabic language proficiency, used by individuals seeking to study, work, or immigrate to Arabic-speaking countries. These tests support institutions in selecting the most suitable students and building capable workforces.",
+    },
+    /* ظ¤ظ¤ Hamza Ambassadors ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ظ¤ */
+    ambassadorsTitle: { ar: "╪│┘╪▒╪د╪ة ┘ç┘à╪▓╪ر", en: "Hamza Ambassadors" },
+    ambassadorsDesc: { ar: "╪ز┘ç╪»┘ ╪د┘┘╪ش┘╪ر ╪د┘╪د╪│╪ز╪┤╪د╪▒┘è╪ر ╪ح┘┘ë ╪د┘╪د╪│╪ز┘╪د╪»╪ر ╪ذ╪ز┘é╪»┘è┘à ╪د┘╪د╪│╪ز╪┤╪د╪▒╪د╪ز ┘ê╪▒┘╪╣ ╪د┘╪ز┘ê╪╡┘è╪د╪ز ┘ê╪د┘╪ث┘╪┤╪╖╪ر ╪د┘┘à╪ز╪╣┘┘é╪ر ╪ذ╪ز╪╖┘ê┘è╪▒ ╪ث╪»┘ê╪د╪ز ╪د┘┘é┘è╪د╪│ ┘ê╪د┘┘à╪╣╪د┘è┘è╪▒ ╪د┘┘à╪╣╪ز┘à╪»╪ر╪î ╪ذ┘à╪د ┘è┘╪│┘ç┘à ┘┘è ╪د╪│╪ز╪»╪د┘à╪ر ╪د┘╪ز╪ص╪│┘è┘ ┘ê╪د┘╪ز╪╖┘ê┘è╪▒ ┘┘è ╪د┘╪ز┘ê╪ش┘ç╪د╪ز ╪د┘┘à╪│╪ز┘é╪ذ┘┘è╪ر ┘┘è ┘ç╪░╪د ╪د┘┘à╪ش╪د┘╪î ┘╪ز╪ذ┘┘è ╪ث┘╪╢┘ ╪د┘┘à┘à╪د╪▒╪│╪د╪ز ╪د┘╪»┘ê╪▒┘è╪ر ┘┘è ┘é┘è╪د╪│ ┘à┘ç╪د╪▒╪د╪ز ╪د┘┘╪║╪ر ╪د┘╪╣╪▒╪ذ┘è╪ر ┘┘à╪«╪ز┘┘ ╪د┘┘╪خ╪د╪ز.", en: "The Advisory Committee aims to provide consultations and recommendations related to developing measurement tools and approved standards, contributing to sustainable improvement in future directions for measuring Arabic language skills for various categories." },
+  },
+};
+
+/**
+ * Static text lookup — server-safe version.
+ *
+ * @param locale - Optional locale (defaults to "ar"). This function never touches the DOM.
+ */
+export function st(scope: string, key: string, locale?: "ar" | "en"): string {
+  const activeLocale = locale || "ar";
+  const scopeDict = STATIC_TEXT[scope];
+  if (!scopeDict) return key;
+  const entry = scopeDict[key];
+  if (!entry) return key;
+  return entry[activeLocale] || entry.ar || key;
+}
