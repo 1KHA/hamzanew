@@ -296,6 +296,20 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     hamzaLogo: { ar: "شعار همزة", en: "Hamza Logo" },
     myAccount: { ar: "حسابي", en: "My Account" },
   },
+  digitalSignature: {
+    badge: { ar: "موقع حكومي مسجل لدى هيئة الحكومة الرقمية", en: "Official government website of the Government of the Kingdom of Saudi Arabia" },
+    verify: { ar: "كيف تتحقق", en: "How to verify" },
+    panelLabel: { ar: "تفاصيل التحقق من الموقع", en: "Site verification details" },
+    domainTitle: { ar: "روابط المواقع الالكترونية الرسمية السعودية تنتهي بـ", en: "Links to official Saudi websites end with" },
+    domainBody: { ar: "جميع روابط المواقع الرسمية التابعة للجهات الحكومية في المملكة العربية السعودية تنتهي بـ .gov.sa", en: "All links to official websites of government agencies in the Kingdom of Saudi Arabia end with .gov.sa" },
+    httpsTitle: { ar: "المواقع الالكترونية الحكومية تستخدم بروتوكول", en: "Government websites use the" },
+    httpsSuffix: { ar: "للتشفير و الأمان.", en: "protocol for encryption and security." },
+    httpsBody: { ar: "المواقع الالكترونية الآمنة في المملكة العربية السعودية تستخدم بروتوكول HTTPS للتشفير.", en: "Secure websites in the Kingdom of Saudi Arabia use the HTTPS protocol for encryption." },
+    dgaAlt: { ar: "شعار هيئة الحكومة الرقمية", en: "Digital Government Authority logo" },
+    dgaLabel: { ar: "مسجل لدى هيئة الحكومة الرقمية برقم:", en: "Registered with the Digital Government Authority under number:" },
+    langBtn: { ar: "English", en: "عربي" },
+    langAriaLabel: { ar: "Switch language to English", en: "تبديل اللغة إلى العربية" },
+  },
 };
 
 /**

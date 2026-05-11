@@ -2,77 +2,15 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useCallback, useId, useEffect } from "react";
+import { useState, useCallback, useId } from "react";
 import "./DigitalSignature.css";
-import { useRouter } from "next/navigation";
-
-type Lang = "ar" | "en";
-
-const t = {
-  ar: {
-    badge: "موقع حكومي مسجل لدى هيئة الحكومة الرقمية",
-    verify: "كيف تتحقق",
-    panelLabel: "تفاصيل التحقق من الموقع",
-    domainTitle: "روابط المواقع الالكترونية الرسمية السعودية تنتهي بـ",
-    domainBody:
-      "جميع روابط المواقع الرسمية التابعة للجهات الحكومية في المملكة العربية السعودية تنتهي بـ .gov.sa",
-    httpsTitle: "المواقع الالكترونية الحكومية تستخدم بروتوكول",
-    httpsSuffix: "للتشفير و الأمان.",
-    httpsBody:
-      "المواقع الالكترونية الآمنة في المملكة العربية السعودية تستخدم بروتوكول HTTPS للتشفير.",
-    dgaAlt: "شعار هيئة الحكومة الرقمية",
-    dgaLabel: "مسجل لدى هيئة الحكومة الرقمية برقم:",
-    langBtn: "English",
-    langAriaLabel: "Switch language to English",
-  },
-  en: {
-    badge: "Official government website of the Government of the Kingdom of Saudi Arabia",
-    verify: "How to verify",
-    panelLabel: "Site verification details",
-    domainTitle: "Links to official Saudi websites end with",
-    domainBody:
-      "All links to official websites of government agencies in the Kingdom of Saudi Arabia end with .gov.sa",
-    httpsTitle: "Government websites use the",
-    httpsSuffix: "protocol for encryption and security.",
-    httpsBody:
-      "Secure websites in the Kingdom of Saudi Arabia use the HTTPS protocol for encryption.",
-    dgaAlt: "Digital Government Authority logo",
-    dgaLabel: "Registered with the Digital Government Authority under number:",
-    langBtn: "عربي",
-    langAriaLabel: "تبديل اللغة إلى العربية",
-  },
-} as const;
-
-function getCookieLang(): Lang {
-  if (typeof document === "undefined") return "ar";
-  const match = document.cookie.match(/(?:^|;\s*)lang=([^;]*)/);
-  const val = match?.[1];
-  return val?.startsWith("en") ? "en" : "ar";
-}
+import { st } from "@/app/_lib/static-text";
 
 export default function DigitalSignature() {
   const [isOpen, setIsOpen] = useState(false);
-  const [lang, setLang] = useState<Lang>("ar");
-  const router = useRouter();
   const panelId = useId();
 
-  useEffect(() => {
-    setLang(getCookieLang());
-  }, []);
-
   const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
-
-  const switchLanguage = useCallback(() => {
-    const newLang: Lang = lang === "ar" ? "en" : "ar";
-    // Use app's standard cookie format (ar-SA / en-US)
-    document.cookie = `lang=${newLang === "ar" ? "ar-SA" : "en-US"}; path=/; max-age=31536000`;
-    document.documentElement.lang = newLang;
-    document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr";
-    setLang(newLang);
-    router.refresh();
-  }, [lang, router]);
-
-  const tx = t[lang];
 
   return (
     <div className="bg-[#f5f5f5]">
@@ -91,7 +29,7 @@ export default function DigitalSignature() {
                   className="inline-block"
                 />
               </div>
-              <p>{tx.badge}</p>
+              <p>{st("digitalSignature", "badge")}</p>
             </div>
 
             <button
@@ -101,7 +39,7 @@ export default function DigitalSignature() {
               aria-expanded={isOpen}
               aria-controls={panelId}
             >
-              {tx.verify}
+              {st("digitalSignature", "verify")}
               <span className="digital_link_icon" aria-hidden="true">
                 <Image
                   src={
@@ -122,8 +60,15 @@ export default function DigitalSignature() {
           <button
             type="button"
             className="dga-btn dga-btn--sm dga-btn--subtle digital-lang-btn"
-            onClick={switchLanguage}
-            aria-label={tx.langAriaLabel}
+            onClick={() => {
+              const html = document.documentElement;
+              const isArabic = html.lang === "ar";
+              document.cookie = `lang=${isArabic ? "en-US" : "ar-SA"}; path=/;`;
+              if (typeof window !== "undefined") {
+                window.location.reload();
+              }
+            }}
+            aria-label={st("digitalSignature", "langAriaLabel")}
           >
             <Image
               src="/assets/icons/stroke-standard/translation-stroke-rounded.svg"
@@ -132,14 +77,14 @@ export default function DigitalSignature() {
               width={20}
               height={20}
             />
-            <span>{tx.langBtn}</span>
+            <span>{st("digitalSignature", "langBtn")}</span>
           </button>
         </div>
 
         <div
           id={panelId}
           role="region"
-          aria-label={tx.panelLabel}
+          aria-label={st("digitalSignature", "panelLabel")}
           aria-hidden={!isOpen ? true : undefined}
           inert={!isOpen || undefined}
           className={`digital_collapsible ${isOpen ? "open" : ""}`}
@@ -161,10 +106,10 @@ export default function DigitalSignature() {
                   </div>
                   <div className="digital_content_item_content">
                     <h2>
-                      {tx.domainTitle}
+                      {st("digitalSignature", "domainTitle")}
                       <span>&nbsp;.gov.sa</span>
                     </h2>
-                    <p>{tx.domainBody}</p>
+                    <p>{st("digitalSignature", "domainBody")}</p>
                   </div>
                 </div>
 
@@ -182,11 +127,11 @@ export default function DigitalSignature() {
                   </div>
                   <div className="digital_content_item_content">
                     <h2>
-                      {tx.httpsTitle}
+                      {st("digitalSignature", "httpsTitle")}
                       <span>&nbsp;HTTPS&nbsp;</span>
-                      {tx.httpsSuffix}
+                      {st("digitalSignature", "httpsSuffix")}
                     </h2>
-                    <p>{tx.httpsBody}</p>
+                    <p>{st("digitalSignature", "httpsBody")}</p>
                   </div>
                 </div>
               </div>
@@ -197,14 +142,14 @@ export default function DigitalSignature() {
                   <div className="digital_more_content_icon">
                     <Image
                       src="/assets/icons/DGA logo.png"
-                      alt={tx.dgaAlt}
+                      alt={st("digitalSignature", "dgaAlt")}
                       width={21}
                       height={31}
                       className="inline-block"
                     />
                   </div>
                   <div className="digital_more_content_content self-center text-start">
-                    <p>{tx.dgaLabel}</p>
+                    <p>{st("digitalSignature", "dgaLabel")}</p>
                     <Link
                       href="/"
                       className="!self-start link link--md link--primary link--inline link_label"
