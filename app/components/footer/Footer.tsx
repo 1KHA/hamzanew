@@ -21,14 +21,11 @@ function ExternalIcon() {
 
 function getSocialLinks(locale?: "ar" | "en") {
   return [
-    { title: st("footer", "twitter", locale),  icon: "/assets/icons/stroke-standard/new-twitter-stroke-rounded.svg" },
-    { title: st("footer", "whatsapp", locale),   icon: "/assets/icons/stroke-standard/whatsapp-stroke-rounded.svg" },
-    { title: st("footer", "youtube", locale),   icon: "/assets/icons/stroke-standard/youtube-stroke-rounded.svg" },
-    { title: st("footer", "linkedin", locale), icon: "/assets/icons/stroke-standard/linkedin-01-stroke-rounded.svg" },
-    { title: st("footer", "snapchat", locale), icon: "/assets/icons/stroke-standard/snapchat-stroke-rounded.svg" },
-    { title: st("footer", "instagram", locale), icon: "/assets/icons/stroke-standard/instagram-stroke-rounded.svg" },
-    { title: st("footer", "facebook", locale),   icon: "/assets/icons/stroke-standard/facebook-01-stroke-rounded.svg" },
-    { title: st("footer", "tiktok", locale),  icon: "/assets/icons/stroke-standard/tiktok-stroke-rounded.svg" },
+    { title: st("footer", "linkedin", locale), icon: "/assets/icons/stroke-standard/linkedin-01-stroke-rounded.svg", href: "https://sa.linkedin.com/company/ksgafal" },
+    { title: st("footer", "twitter", locale),  icon: "/assets/icons/stroke-standard/new-twitter-stroke-rounded.svg", href: "https://x.com/KSGAFAL" },
+    { title: st("footer", "youtube", locale),   icon: "/assets/icons/stroke-standard/youtube-stroke-rounded.svg", href: "https://www.youtube.com/channel/UCGXRWZ9gkmmGQn5DSz8DbNA" },
+    { title: st("footer", "facebook", locale),   icon: "/assets/icons/stroke-standard/facebook-01-stroke-rounded.svg", href: "https://www.facebook.com/KSGAFAL/" },
+    { title: st("footer", "email", locale),     icon: "/assets/icons/stroke-standard/mail-01-stroke-rounded.svg", href: "mailto:infohamza@ksaa.gov.sa" },
   ];
 }
 
@@ -166,7 +163,7 @@ function Footer({ locale }: FooterProps) {
                     {socialLinks.map((social) => (
                       <li key={social.title}>
                         <a
-                          href="#"
+                          href={social.href}
                           className="border-green"
                           aria-label={`${social.title} - ${opensInNew}`}
                           target="_blank"
