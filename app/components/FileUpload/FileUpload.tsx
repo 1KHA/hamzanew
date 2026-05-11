@@ -167,29 +167,60 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     processFiles(selectedFiles);
   };
 
+  const isAccepted = (file: File): boolean => {
+    if (!accept) return true;
+    const patterns = accept.split(",").map((p) => p.trim().toLowerCase());
+    const fileType = file.type.toLowerCase();
+    const fileExt = "." + file.name.split(".").pop()!.toLowerCase();
+    return patterns.some((p) => {
+      if (p.startsWith(".")) return fileExt === p;
+      if (p.endsWith("/*")) return fileType.startsWith(p.slice(0, -1));
+      return fileType === p;
+    });
+  };
+
+  const friendlyAccept = (): string => {
+    if (!accept) return "";
+    return accept
+      .split(",")
+      .map((p) => {
+        p = p.trim();
+        if (p.startsWith(".")) return p.replace(".", "").toUpperCase();
+        if (p === "image/*") return "صور (jpg, png, gif, …)";
+        if (p === "application/pdf") return "PDF";
+        const ext = p.split("/")[1];
+        return ext ? ext.toUpperCase() : p;
+      })
+      .join("، ");
+  };
+
   const processFiles = (fileList: FileList | null) => {
     if (!fileList) return;
 
-    if (maximumFilesSize) {
-      const isFileOverSize = Array.from(fileList).some(
-        (file) => file.size > maximumFilesSize,
-      );
-      if (isFileOverSize) {
+    const newItems: UploadedFile[] = [];
+
+    for (const f of Array.from(fileList)) {
+      if (!isAccepted(f)) {
+        newItems.push({
+          name: f.name,
+          uploadStatus: "error",
+          errorMessage: `نوع الملف غير مدعوم — الصيغ المقبولة: ${friendlyAccept()}`,
+          file: f,
+        });
+      } else if (maximumFilesSize && f.size > maximumFilesSize) {
         if (uploadFileOverSize) uploadFileOverSize();
-        return;
+        newItems.push({
+          name: f.name,
+          uploadStatus: "error",
+          errorMessage: `حجم الملف يتجاوز الحد المسموح (${Math.round(maximumFilesSize / 1024 / 1024)} ميغابايت)`,
+          file: f,
+        });
+      } else {
+        newItems.push({ name: f.name, uploadStatus: "complete", file: f });
       }
     }
 
-    // Convert FileList to our internal state format
-    // Note: In a real app, you would probably trigger an upload here and update status.
-    // For now, we mimic the logic: status 'pending'.
-    const fileItems: UploadedFile[] = Array.from(fileList).map((file) => ({
-      name: file.name,
-      uploadStatus: "pending",
-      file: file,
-    }));
-
-    const newFiles = [...files, ...fileItems];
+    const newFiles = [...files, ...newItems];
     setFiles(newFiles);
     if (getUploadedFile) getUploadedFile(newFiles);
   };

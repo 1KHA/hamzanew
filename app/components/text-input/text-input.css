@@ -63,11 +63,13 @@
   transition: width 0.2s ease-in-out;
 }
 
-.input.focus {
+.input.focus,
+.input:focus-within:not(.input--disabled):not(.readOnly) {
   box-shadow: var(--shadow-md, 0px 2px 4px -2px rgba(16, 24, 40, 0.06), 0px 4px 8px -2px rgba(16, 24, 40, 0.10));
 }
 
-.input.focus::after {
+.input.focus::after,
+.input:focus-within:not(.input--disabled):not(.readOnly)::after {
   width: 100%;
 }
 
@@ -139,9 +141,10 @@
 }
 
 .input--darker:hover:not(.input--disabled),
-.input--darker.focus {
+.input--darker.focus,
+.input--darker:focus-within:not(.input--disabled) {
   border-color: var(--form-field-border-default, #d0d5dd);
-  background-color: var(--form-field-background-darker, #fff);
+  background-color: #fff;
 }
 
 .input.input--darker:hover:not(.input--disabled):not(.readOnly) {
