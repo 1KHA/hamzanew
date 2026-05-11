@@ -156,7 +156,7 @@ export default function PersonalInfo({
               optionLabel="label"
               trackBy="key"
               options={countriesOptions}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               getSelectedOptions={(opt: any) => field.onChange(opt.key)}
             />
@@ -180,7 +180,7 @@ export default function PersonalInfo({
               optionLabel="label"
               trackBy="key"
               options={motherTongueOptions}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               getSelectedOptions={(opt: any) => field.onChange(opt)}
             />
@@ -200,7 +200,7 @@ export default function PersonalInfo({
               optionLabel="label"
               trackBy="key"
               options={proofOptions}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               getSelectedOptions={(opt: any) => field.onChange(opt)}
             />

@@ -120,7 +120,7 @@ function GlobalStatisticsSection({
               variant="default"
               optionLabel="label"
               trackBy="value"
-              className="w-full"
+              extraClass="w-full"
               value={selectedCountry}
               options={countryOptions}
               getSelectedOptions={(opt: any) => setSelectedCountry(opt?.value || "global")}
@@ -196,7 +196,7 @@ function GlobalStatisticsSection({
               variant="default"
               optionLabel="label"
               trackBy="value"
-              className="w-full"
+              extraClass="w-full"
               options={countries.slice(0, 10).map((c) => ({
                 label: c.name,
                 value: c.code,

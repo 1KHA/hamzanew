@@ -3,7 +3,6 @@
 import { useFormContext, Controller } from "react-hook-form";
 import Dropdown from "@/app/components/dropdown/Dropdown";
 import FormField from "@/app/components/form-field/FormField";
-import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import { NewUserFormValues } from "./SignUpForm";
 
 interface EducationInfoProps {
@@ -42,7 +41,7 @@ export default function EducationInfo({
               optionLabel="label"
               trackBy="key"
               options={educationQualificationsOptions}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               getSelectedOptions={(opt: any) => field.onChange(opt)}
             />
@@ -55,19 +54,18 @@ export default function EducationInfo({
         required
         error={errors.institution?.message as string | undefined}
       >
-        <ControlledTextInput
-          placeholder="المؤسسة التعليمية"
+        <Controller
           name="institution"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر المؤسسة"
               size="lg"
               variant="darker"
               optionLabel="label"
               trackBy="key"
               options={educationInstitutionsOptions}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               getSelectedOptions={(opt: any) => field.onChange(opt)}
             />
@@ -80,19 +78,18 @@ export default function EducationInfo({
         required
         error={errors.specialization?.message as string | undefined}
       >
-        <ControlledTextInput
-          placeholder="التخصص الدراسي"
+        <Controller
           name="specialization"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر التخصص"
               size="lg"
               variant="darker"
               optionLabel="label"
               trackBy="key"
               options={specializationOptions}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               getSelectedOptions={(opt: any) => field.onChange(opt)}
             />
@@ -116,7 +113,7 @@ export default function EducationInfo({
               optionLabel="label"
               trackBy="key"
               options={motherTongueOptions}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               getSelectedOptions={(opt: any) => field.onChange(opt)}
             />

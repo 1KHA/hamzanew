@@ -70,10 +70,7 @@ const userProfileSchema = z.object({
 
 export type UserProfileFormValues = z.infer<typeof userProfileSchema>;
 
-export interface DropdownOption {
-  name: string;
-  value: string;
-}
+import type { DropdownOption } from "@/app/components/dropdown/Dropdown";
 
 interface ProfileFormProps {
   initialValues?: Partial<UserProfileFormValues>;

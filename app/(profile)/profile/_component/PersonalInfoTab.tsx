@@ -8,7 +8,7 @@ import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import type { UserProfileFormValues } from "../update/ProfileForm";
 import DateField from "@/app/components/date-field/DateField";
-import Dropdown from "@/app/components/dropdown/Dropdown";
+import Dropdown, { DropdownOption } from "@/app/components/dropdown/Dropdown";
 import {
   PHONE_PREFIXES,
   getPrefixFromPhone,
@@ -22,10 +22,6 @@ const ID_TYPE_OPTIONS = [
   { name: "جواز سفر", value: "passport" },
 ];
 
-interface DropdownOption {
-  name: string;
-  value: string;
-}
 
 interface PersonalInfoTabProps {
   nationalityOptions?: DropdownOption[];
@@ -345,7 +341,7 @@ export default function PersonalInfoTab({
                   { name: "كويتي", value: "KW" },
                   { name: "أخرى", value: "OTHER" },
                 ]}
-                className="w-full"
+                extraClass="w-full"
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
               />
@@ -374,7 +370,7 @@ export default function PersonalInfoTab({
                   { name: "الفرنسية", value: "fr" },
                   { name: "أخرى", value: "other" },
                 ]}
-                className="w-full"
+                extraClass="w-full"
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
               />

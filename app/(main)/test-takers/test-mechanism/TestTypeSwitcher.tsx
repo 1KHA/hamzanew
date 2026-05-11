@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import ContentSwitcher from "@/app/components/content-switcher/ContentSwitcher";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";

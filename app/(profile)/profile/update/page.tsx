@@ -5,7 +5,7 @@ import { getCachedUserProfile } from "@/app/_lib/session-cache";
 import { fetchJsonList } from "@/app/_lib/category-service";
 import { getFormattedCountriesList } from "@/app/_lib/countries-service";
 import mockUserInfo from "../_data/mockUserInfo.json";
-import type { DropdownOption } from "./ProfileForm";
+import type { DropdownOption } from "@/app/components/dropdown/Dropdown";
 
 export const metadata: Metadata = {
   title: "الملف الشخصي - تعديل",

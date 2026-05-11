@@ -2,7 +2,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import type { UserProfileFormValues } from "../update/ProfileForm";
-import Dropdown from "@/app/components/dropdown/Dropdown";
+import Dropdown, { type DropdownOption } from "@/app/components/dropdown/Dropdown";
 const LANGUAGE_OPTIONS = [
   { name: "العربية", value: "ar" },
   { name: "الإنجليزية", value: "en" },
@@ -10,10 +10,6 @@ const LANGUAGE_OPTIONS = [
   { name: "أخرى", value: "other" },
 ];
 
-interface DropdownOption {
-  name: string;
-  value: string;
-}
 
 interface EducationTabProps {
   educationOptions?: DropdownOption[];

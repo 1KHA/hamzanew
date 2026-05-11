@@ -2,9 +2,7 @@
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import "./dropdown.css";
 
-export interface DropdownOption {
-  [key: string]: string;
-}
+export type DropdownOption = Record<string, any>;
 
 export interface DropdownProps {
   options: DropdownOption[];
@@ -107,13 +105,13 @@ export default function Dropdown({
     (option: DropdownOption, index: number) => {
       if (multiSelect) {
         setSelected((prev) => {
-          const next = { ...prev, [option[trackBy]]: !prev[option[trackBy]] };
-          const selectedVals = options.filter((o) => next[o[trackBy]]).map((o) => o[trackBy]);
+          const next = { ...prev, [option[trackBy] as string]: !prev[option[trackBy] as string] };
+          const selectedVals = options.filter((o) => next[o[trackBy] as string]).map((o) => o[trackBy] as string);
           // Schedule callbacks after render via setTimeout to avoid setState-during-render
           setTimeout(() => {
             onChange?.(selectedVals);
             getSelectedOptions?.({
-              selectedList: options.filter((o) => next[o[trackBy]]),
+              selectedList: options.filter((o) => next[o[trackBy] as string]),
               selectedOption: option,
               selectedIndex: index,
             });
@@ -121,8 +119,8 @@ export default function Dropdown({
           return next;
         });
       } else {
-        setSelected({ [option[trackBy]]: true });
-        onChange?.(option[trackBy]);
+        setSelected({ [option[trackBy] as string]: true });
+        onChange?.(option[trackBy] as string);
         getSelectedOptions?.(option);
         close();
         btnRef.current?.focus();

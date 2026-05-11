@@ -38,7 +38,7 @@ export default function LocationInfo({
               optionLabel="label"
               trackBy="key"
               options={timezoneOptions}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               error={!!errors.timezone}
               getSelectedOptions={(opt: any) => field.onChange(opt)}
@@ -59,7 +59,7 @@ export default function LocationInfo({
               optionLabel="label"
               trackBy="key"
               options={countriesOptions}
-              className="w-full"
+              extraClass="w-full"
               value={field.value}
               getSelectedOptions={(opt: any) => field.onChange(opt.key)}
             />

@@ -1,5 +1,5 @@
 import { useFormContext, Controller } from "react-hook-form";
-import Dropdown from "@/app/components/dropdown/Dropdown";
+import Dropdown, { DropdownOption } from "@/app/components/dropdown/Dropdown";
 import Button from "@/app/components/button/Button";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
@@ -19,10 +19,6 @@ const CITY_OPTIONS = [
   { name: "الدمام", value: "dammam" },
 ];
 
-interface DropdownOption {
-  name: string;
-  value: string;
-}
 
 interface LocationTabProps {
   countryOptions?: DropdownOption[];
