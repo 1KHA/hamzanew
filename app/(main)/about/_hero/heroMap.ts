@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import { st } from "@/app/_lib/static-text-server";
 
 export type HeroData = {
   title: string;
@@ -12,17 +13,17 @@ export type HeroData = {
 
 export type Crumb = { label: string; path?: string; disabled?: boolean };
 
+function getLocaleFromCookie(cookieStore: Awaited<ReturnType<typeof cookies>>): "ar" | "en" {
+  const langCookie = cookieStore.get("lang")?.value || "ar-SA";
+  return langCookie.startsWith("en") ? "en" : "ar";
+}
+
 // Static hero map for routes without dynamic data
 const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   "/about": {
     title: "hamza-page-level-nav-who-are-we",
-    description: `منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها.
-وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة.`,
+    description: "about.heroAboutDescription",
     bgColor: "#F7FDF9",
-    // externalLink: {
-    //   href: "",
-    //   label: "",
-    // },
     breadcrumbs: [
       { label: "hamza-navigation-menu-home", path: "/" },
       { label: "hamza-page-level-nav-who-are-we", disabled: true },
@@ -32,8 +33,7 @@ const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
 
   "/about/who-we-are": {
     title: "hamza-page-level-nav-who-are-we",
-    description: `منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها.
-وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة.`,
+    description: "about.heroWhoWeAreDescription",
     bgColor: "#FFF",
     breadcrumbs: [
       { label: "hamza-navigation-menu-home", path: "/" },
@@ -45,12 +45,8 @@ const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
 
   "/about/periodic-advisory-committee": {
     title: "hamza-periodic-advisory-committee",
-    description: `تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية.`,
+    description: "about.heroCommitteeDescription",
     bgColor: "#F9FAFB",
-    // externalLink: {
-    //   href: "",
-    //   label: "",
-    // },
     breadcrumbs: [
       { label: "hamza-navigation-menu-home", path: "/" },
       { label: "hamza-page-level-nav-who-are-we", disabled: true },
@@ -79,8 +75,7 @@ const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   },
   "/about/institutions-and-countries-that-accept-the-hamza": {
     title: "hamza-institutions-and-countries-that-accept-the-hamza",
-    description:
-      "تعتمد بعض المؤسسات حول العالم على اختبار همزة لتقييم الكفاءة في اللغة العربية تشمل هذه المؤسسات: الجامعات، الجهات الحكومية، الهيئات المهنية، شركات التوظيف، وجهات الهجرة في الدول الناطقة بالعربية أو المهتمة بها.",
+    description: "about.heroInstitutionsDescription",
     bgColor: "#FFF",
     breadcrumbs: [
       { label: "hamza-navigation-menu-home", path: "/" },
@@ -95,8 +90,7 @@ const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   },
   "/about/hamza-ambassadors": {
     title: "hamza-navigation-menu-hamza-ambassadors",
-    description:
-      "تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية لمختلف الفئات.",
+    description: "about.heroAmbassadorsDescription",
     bgColor: "#F9FAFB",
     breadcrumbs: [
       { label: "hamza-navigation-menu-home", path: "/" },
@@ -150,10 +144,11 @@ export async function getPeriodicAdvisoryCommitteeHero(): Promise<HeroData & { b
     };
   } catch (error) {
     console.error('Error fetching periodic advisory committee hero:', error);
-    // Return static fallback data
+    const cookieStore = await cookies();
+    const locale = getLocaleFromCookie(cookieStore);
     return {
       title: "hamza-periodic-advisory-committee",
-      description: `تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية.`,
+      description: st("about", "heroCommitteeDescription", locale),
       bgColor: "#F9FAFB",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
@@ -187,9 +182,10 @@ export async function getWhoWeAreHero(): Promise<HeroData & { breadcrumbs?: Crum
     }
 
     const data = await response.json();
+    const locale = getLocaleFromCookie(cookieStore);
 
     return {
-      title: data.hero?.title || "من نحن",
+      title: data.hero?.title || st("about", "whoWeAre", locale),
       description: data.hero?.description || "",
       bgColor: data.hero?.bgColor || "#FFF",
       breadcrumbs: [
@@ -205,10 +201,11 @@ export async function getWhoWeAreHero(): Promise<HeroData & { breadcrumbs?: Crum
     };
   } catch (error) {
     console.error("Error fetching who-we-are hero:", error);
+    const cookieStore = await cookies();
+    const locale = getLocaleFromCookie(cookieStore);
     return {
       title: "hamza-page-level-nav-who-are-we",
-      description:
-        "منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها.",
+      description: st("about", "heroWhoWeAreDescription", locale),
       bgColor: "#FFF",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
@@ -256,10 +253,11 @@ export async function getHamzaAmbassadorsHero(): Promise<HeroData & { breadcrumb
     };
   } catch (error) {
     console.error('Error fetching hamza ambassadors hero:', error);
-    // Return static fallback data
+    const cookieStore = await cookies();
+    const locale = getLocaleFromCookie(cookieStore);
     return {
       title: "hamza-navigation-menu-hamza-ambassadors",
-      description: `تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية لمختلف الفئات.`,
+      description: st("about", "heroAmbassadorsDescription", locale),
       bgColor: "#F9FAFB",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
@@ -281,6 +279,7 @@ export async function getHamzaTestTraitsHero(): Promise<HeroData & { breadcrumbs
     // Get the lang cookie to forward to the API
     const cookieStore = await cookies();
     const langCookie = cookieStore.get("lang")?.value || "ar-SA";
+    const locale = getLocaleFromCookie(cookieStore);
     
     const baseURL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
     const response = await fetch(`${baseURL}/api/traits`, {
@@ -297,12 +296,12 @@ export async function getHamzaTestTraitsHero(): Promise<HeroData & { breadcrumbs
     const data = await response.json();
     
     return {
-      title: data.title || "سمات إختبار همزة",
-      description: "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية، ويستخدمها أفراد يسعون إلى الدراسة أو العمل أو الهجرة إلى دول ناطقة بالعربية. تدعم هذه الاختبارات المؤسسات في اختيار الطلاب الأنسب، وبناء كوادر قادرة على التواصل بفاعلية في بيئات العمل والتعليم، واستقطاب الكفاءات إلى جهتك.",
+      title: data.title || "hamza-navigation-menu-why-choose-hamza",
+      description: st("about", "heroTraitsDescription", locale),
       bgColor: "#F9FAFB",
       externalLink: {
         href: "/sign-up",
-        label: "التسجيل في الاختبار",
+        label: st("services", "register", locale),
       },
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
@@ -317,14 +316,15 @@ export async function getHamzaTestTraitsHero(): Promise<HeroData & { breadcrumbs
     };
   } catch (error) {
     console.error('Error fetching traits hero:', error);
-    // Return static fallback data
+    const cookieStore = await cookies();
+    const locale = getLocaleFromCookie(cookieStore);
     return {
       title: "hamza-navigation-menu-why-choose-hamza",
-      description: "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية، ويستخدمها أفراد يسعون إلى الدراسة أو العمل أو الهجرة إلى دول ناطقة بالعربية. تدعم هذه الاختبارات المؤسسات في اختيار الطلاب الأنسب، وبناء كوادر قادرة على التواصل بفاعلية في بيئات العمل والتعليم، واستقطاب الكفاءات إلى جهتك.",
+      description: st("about", "heroTraitsDescription", locale),
       bgColor: "#F9FAFB",
       externalLink: {
         href: "/sign-up",
-        label: "التسجيل في الاختبار",
+        label: st("services", "register", locale),
       },
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },

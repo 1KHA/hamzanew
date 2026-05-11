@@ -195,6 +195,43 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     langBtn: { ar: "English", en: "عربي" },
     langAriaLabel: { ar: "Switch language to English", en: "تبديل اللغة إلى العربية" },
   },
+  about: {
+    /* ── About landing page cards ─────────────────────────────────────────────── */
+    navAria: { ar: "أقسام عن همزة", en: "About Hamza Sections" },
+    whoWeAre: { ar: "من نحن", en: "Who We Are" },
+    testTraits: { ar: "سمات اختبار همزة", en: "Hamza Test Traits" },
+    benefits: { ar: "أهمية اختبارات همزة", en: "Benefits of Hamza Tests" },
+    institutions: { ar: "المؤسسات والدول التي تقبل همزة", en: "Institutions & Countries Accepting Hamza" },
+    committee: { ar: "اللجنة الاستشارية الدولية", en: "International Advisory Committee" },
+    ambassadors: { ar: "سفراء همزة", en: "Hamza Ambassadors" },
+    eParticipation: { ar: "المشاركة الالكترونية", en: "E-Participation" },
+
+    /* ── Hero descriptions ────────────────────────────────────────────────────── */
+    heroAboutDescription: {
+      ar: "منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها. وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة",
+      en: "Hamza Test Platform is one of the technical tools supporting the King Salman Global Academy for Arabic Language initiative in building and activating standard Arabic language tests. The platform aims to introduce and implement Hamza tests, and provides qualitative data and indicators to support specialists, researchers, and related entities.",
+    },
+    heroWhoWeAreDescription: {
+      ar: "منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها. وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة",
+      en: "Hamza Test Platform is one of the technical tools supporting the King Salman Global Academy for Arabic Language initiative in building and activating standard Arabic language tests. The platform aims to introduce and implement Hamza tests, and provides qualitative data and indicators to support specialists, researchers, and related entities.",
+    },
+    heroCommitteeDescription: {
+      ar: "تهدف اللجنة الاستشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية.",
+      en: "The advisory committee aims to benefit from providing consultations and raising recommendations and activities related to developing measurement tools and approved standards, contributing to the sustainability of improvement and development in future directions in this field, to adopt the best periodic practices in measuring Arabic language skills.",
+    },
+    heroInstitutionsDescription: {
+      ar: "تعتمد بعض المؤسسات حول العالم على اختبار همزة لتقييم الكفاءة في اللغة العربية تشمل هذه المؤسسات: الجامعات، الجهات الحكومية، الهيئات المهنية، شركات التوظيف، وجهات الهجرة في الدول الناطقة بالعربية أو المهتمة بها.",
+      en: "Some institutions around the world rely on the Hamza test to assess competence in the Arabic language. These institutions include: universities, government agencies, professional bodies, recruitment companies, and immigration authorities in Arabic-speaking countries or those interested in it.",
+    },
+    heroAmbassadorsDescription: {
+      ar: "تهدف اللجنة الاستشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية لمختلف الفئات.",
+      en: "The advisory committee aims to benefit from providing consultations and raising recommendations and activities related to developing measurement tools and approved standards, contributing to the sustainability of improvement and development in future directions in this field, to adopt the best periodic practices in measuring Arabic language skills for different categories.",
+    },
+    heroTraitsDescription: {
+      ar: "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية، ويستخدمها أفراد يسعون إلى الدراسة أو العمل أو الهجرة إلى دول ناطقة بالعربية. تدعم هذه الاختبارات المؤسسات في اختيار الطلاب الأنسب، وبناء كوادر قادرة على التواصل بفاعلية في بيئات العمل والتعليم، واستقطاب الكفاءات إلى جهتك.",
+      en: "Hamza tests provide a standardized and reliable approach to measuring competence in the Arabic language. They are used by individuals seeking to study, work, or immigrate to Arabic-speaking countries. These tests support institutions in selecting the most suitable students, building cadres capable of communicating effectively in work and education environments, and attracting competencies to your entity.",
+    },
+  },
 };
 
 /**
