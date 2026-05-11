@@ -7,6 +7,7 @@ import { MENU_DATA, ACTION_ITEMS } from "./menuData";
 import type { MenuItemType } from "./menuData";
 import "./MobileNav.css";
 import { t } from "@/app/_lib/translationContext";
+import { st } from "@/app/_lib/static-text";
 
 // =============================================
 // TYPES
@@ -226,7 +227,7 @@ export default function MobileNav({
         className={`mobile-nav${isOpen ? " mobile-nav--active" : ""}`}
         role="dialog"
         aria-modal="true"
-        aria-label="قائمة التنقل"
+        aria-label={st("navActions", "mainNav")}
         aria-hidden={!isOpen}
         inert={!isOpen || undefined}
       >
@@ -236,13 +237,13 @@ export default function MobileNav({
             href="/"
             className="mobile-nav__logo"
             onClick={() => handleLinkClick("home")}
-            aria-label="الصفحة الرئيسة - همزة"
+            aria-label={st("navActions", "homeLink")}
           >
             {/* priority preloads the logo since it appears immediately
                 when the drawer opens                                   */}
             <Image
               src="/assets/image/Hamza_Logo.png"
-              alt="شعار همزة"
+              alt={st("navActions", "hamzaLogo")}
               width={100}
               height={34}
               priority
@@ -254,7 +255,7 @@ export default function MobileNav({
             type="button"
             onClick={onClose}
             className="mobile-nav__close"
-            aria-label="إغلاق القائمة"
+            aria-label={st("navActions", "closeMenu")}
           >
             {/* SVG X icon — aria-hidden since the button label describes it */}
             <svg
@@ -277,7 +278,7 @@ export default function MobileNav({
         {/* ── Scrollable content area ──────────────────────────────────── */}
         <div className="mobile-nav__content">
           {/* Main navigation items */}
-          <nav className="mobile-nav__main" aria-label="قائمة الصفحات">
+          <nav className="mobile-nav__main" aria-label={st("navActions", "pageMenu")}>
             {MENU_DATA.map((item, index) => (
               <MobileNavItem
                 key={item.id}
@@ -303,15 +304,15 @@ export default function MobileNav({
                       href="/sign-in"
                       className="dga-btn dga-btn--lg dga-btn--subtle"
                       onClick={onClose}
-                      aria-label="تسجيل الدخول"
+                      aria-label={st("navActions", "signIn")}
                     >
                       <Image
                         src={action.icon}
-                        alt="أيقونة المستخدم"
+                        alt={st("navActions", "userIcon")}
                         width={20}
                         height={20}
                       />
-                      <span>{action.label}</span>
+                      <span>{st("navActions", action.label)}</span>
                     </Link>
                   ) : (
                     <Link
@@ -322,11 +323,11 @@ export default function MobileNav({
                     >
                       <Image
                         src={action.icon}
-                        alt="أيقونة الإجراء"
+                        alt={st("navActions", "actionIcon")}
                         width={20}
                         height={20}
                       />
-                      <span>{action.label}</span>
+                      <span>{st("navActions", action.label)}</span>
                     </Link>
                   )
                 ) : null,

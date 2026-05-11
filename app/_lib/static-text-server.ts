@@ -257,6 +257,27 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     ambassadorsTitle: { ar: "╪│┘╪▒╪د╪ة ┘ç┘à╪▓╪ر", en: "Hamza Ambassadors" },
     ambassadorsDesc: { ar: "╪ز┘ç╪»┘ ╪د┘┘╪ش┘╪ر ╪د┘╪د╪│╪ز╪┤╪د╪▒┘è╪ر ╪ح┘┘ë ╪د┘╪د╪│╪ز┘╪د╪»╪ر ╪ذ╪ز┘é╪»┘è┘à ╪د┘╪د╪│╪ز╪┤╪د╪▒╪د╪ز ┘ê╪▒┘╪╣ ╪د┘╪ز┘ê╪╡┘è╪د╪ز ┘ê╪د┘╪ث┘╪┤╪╖╪ر ╪د┘┘à╪ز╪╣┘┘é╪ر ╪ذ╪ز╪╖┘ê┘è╪▒ ╪ث╪»┘ê╪د╪ز ╪د┘┘é┘è╪د╪│ ┘ê╪د┘┘à╪╣╪د┘è┘è╪▒ ╪د┘┘à╪╣╪ز┘à╪»╪ر╪î ╪ذ┘à╪د ┘è┘╪│┘ç┘à ┘┘è ╪د╪│╪ز╪»╪د┘à╪ر ╪د┘╪ز╪ص╪│┘è┘ ┘ê╪د┘╪ز╪╖┘ê┘è╪▒ ┘┘è ╪د┘╪ز┘ê╪ش┘ç╪د╪ز ╪د┘┘à╪│╪ز┘é╪ذ┘┘è╪ر ┘┘è ┘ç╪░╪د ╪د┘┘à╪ش╪د┘╪î ┘╪ز╪ذ┘┘è ╪ث┘╪╢┘ ╪د┘┘à┘à╪د╪▒╪│╪د╪ز ╪د┘╪»┘ê╪▒┘è╪ر ┘┘è ┘é┘è╪د╪│ ┘à┘ç╪د╪▒╪د╪ز ╪د┘┘╪║╪ر ╪د┘╪╣╪▒╪ذ┘è╪ر ┘┘à╪«╪ز┘┘ ╪د┘┘╪خ╪د╪ز.", en: "The Advisory Committee aims to provide consultations and recommendations related to developing measurement tools and approved standards, contributing to sustainable improvement in future directions for measuring Arabic language skills for various categories." },
   },
+  navActions: {
+    signIn: { ar: "تسجيل الدخول", en: "Sign In" },
+    search: { ar: "بحث", en: "Search" },
+    profile: { ar: "الملف الشخصي", en: "Profile" },
+    signOut: { ar: "تسجيل الخروج", en: "Sign Out" },
+    userMenu: { ar: "قائمة المستخدم", en: "User Menu" },
+    openMenu: { ar: "فتح قائمة التنقل", en: "Open navigation menu" },
+    closeMenu: { ar: "إغلاق القائمة", en: "Close menu" },
+    scrollLeft: { ar: "تمرير القائمة يساراً", en: "Scroll menu left" },
+    scrollRight: { ar: "تمرير القائمة يميناً", en: "Scroll menu right" },
+    mainNav: { ar: "التنقل الرئيسي", en: "Main navigation" },
+    pageMenu: { ar: "قائمة الصفحات", en: "Page menu" },
+    homeLink: { ar: "الصفحة الرئيسة - همزة", en: "Homepage - Hamza" },
+    searchAria: { ar: "البحث", en: "Search" },
+    searchIcon: { ar: "أيقونة البحث", en: "Search icon" },
+    userIcon: { ar: "أيقونة المستخدم", en: "User icon" },
+    menuIcon: { ar: "أيقونة القائمة", en: "Menu icon" },
+    actionIcon: { ar: "أيقونة الإجراء", en: "Action icon" },
+    hamzaLogo: { ar: "شعار همزة", en: "Hamza Logo" },
+    myAccount: { ar: "حسابي", en: "My Account" },
+  },
 };
 
 /**

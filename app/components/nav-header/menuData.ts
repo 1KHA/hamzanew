@@ -182,14 +182,14 @@ export const MENU_DATA: MenuItemType[] = [
 export const ACTION_ITEMS = [
   {
     id: "sign-in",
-    label: "تسجيل الدخول",
+    label: "signIn",
     href: "/sign-in",
     icon: "/assets/icons/stroke-standard/user-03-stroke-standard.svg",
     className: "action-btn-reversed",
   },
   {
     id: "search",
-    label: "",
+    label: "search",
     href: "/search",
     icon: "/assets/icons/stroke-standard/search-01-stroke-standard.svg",
     className: "action-btn-reversed translate-btn",

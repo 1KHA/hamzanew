@@ -12,6 +12,7 @@ import { MENU_DATA, ACTION_ITEMS } from "./menuData";
 import "./NavHeader.css";
 import { useSession, signOut } from "next-auth/react";
 import { t } from "@/app/_lib/translationContext";
+import { st } from "@/app/_lib/static-text";
 
 // =============================================
 // ICON COMPONENT
@@ -162,13 +163,13 @@ function UserMenuDropdown({ name }: { name: string }) {
         className="header-menu__item user-menu__trigger"
         aria-haspopup="true"
         aria-expanded={isOpen}
-        aria-label="قائمة المستخدم"
+        aria-label={st("navActions", "userMenu")}
         onClick={() => setIsOpen((v) => !v)}
       >
         <span className="header-menu__item-label">{name}</span>
         <IconImage
           src="/assets/icons/stroke-standard/user-03-stroke-standard.svg"
-          alt="أيقونة المستخدم"
+          alt={st("navActions", "userIcon")}
         />
       </button>
 
@@ -184,7 +185,7 @@ function UserMenuDropdown({ name }: { name: string }) {
               src="/assets/icons/stroke-standard/user-03-stroke-standard.svg"
               alt=""
             />
-            الملف الشخصي
+            {st("navActions", "profile")}
           </Link>
           <hr className="user-menu__divider" />
           <button
@@ -198,7 +199,7 @@ function UserMenuDropdown({ name }: { name: string }) {
               src="/assets/icons/stroke-standard/logout-01-stroke-rounded.svg"
               alt=""
             />
-            تسجيل الخروج
+            {st("navActions", "signOut")}
           </button>
         </div>
       )}
@@ -340,7 +341,7 @@ function NavHeader({ translations }: NavHeaderProps) {
         <header className="header header--divider">
           <nav
             className="header-nav--full custom-container"
-            aria-label="التنقل الرئيسي"
+            aria-label={st("navActions", "mainNav")}
           >
             <div className="header-nav__main">
               {/* Mobile hamburger button — visible only on small screens */}
@@ -348,14 +349,14 @@ function NavHeader({ translations }: NavHeaderProps) {
                 <button
                   type="button"
                   className="dga-btn dga-btn--md dga-btn--transparent dga-btn--icon"
-                  aria-label="فتح قائمة التنقل"
+                  aria-label={st("navActions", "openMenu")}
                   aria-expanded={isMenuOpen}
                   aria-controls="mobile-nav"
                   onClick={() => { setMobileNavMounted(true); setIsMenuOpen(true); }}
                 >
                   <IconImage
                     src="/assets/icons/stroke-standard/menu-01-stroke-rounded.svg"
-                    alt="أيقونة القائمة"
+                    alt={st("navActions", "menuIcon")}
                   />
                 </button>
               </div>
@@ -367,11 +368,11 @@ function NavHeader({ translations }: NavHeaderProps) {
                 <Link
                   href="/"
                   className="header__logo"
-                  aria-label="الصفحة الرئيسة - همزة"
+                  aria-label={st("navActions", "homeLink")}
                 >
                   <Image
                     src="/assets/image/Hamza_Logo.png"
-                    alt="شعار همزة"
+                    alt={st("navActions", "hamzaLogo")}
                     width={120}
                     height={40}
                     priority
@@ -388,11 +389,11 @@ function NavHeader({ translations }: NavHeaderProps) {
                   <Link
                     href="/search"
                     className="header-menu__item"
-                    aria-label="البحث"
+                    aria-label={st("navActions", "searchAria")}
                   >
                     <IconImage
                       src="/assets/icons/stroke-standard/search-01-stroke-standard.svg"
-                      alt="أيقونة البحث"
+                      alt={st("navActions", "searchIcon")}
                     />
                   </Link>
                 </li>
@@ -409,7 +410,7 @@ function NavHeader({ translations }: NavHeaderProps) {
                     className="dga-btn dga-btn--md dga-btn--secondary-outline scroll-button scroll-button--left"
                     style={{ height: "80%" }}
                     onClick={scrollLeft}
-                    aria-label="تمرير القائمة يساراً"
+                    aria-label={st("navActions", "scrollLeft")}
                   >
                     ‹
                   </button>
@@ -447,7 +448,7 @@ function NavHeader({ translations }: NavHeaderProps) {
                     className="dga-btn dga-btn--md dga-btn--secondary-outline scroll-button scroll-button--right"
                     style={{ height: "80%" }}
                     onClick={scrollRight}
-                    aria-label="تمرير القائمة يميناً"
+                    aria-label={st("navActions", "scrollRight")}
                   >
                     ›
                   </button>
@@ -463,20 +464,20 @@ function NavHeader({ translations }: NavHeaderProps) {
                     <li key={action.id} className={action.className}>
                       {session ? (
                         <UserMenuDropdown
-                          name={session.user?.name || "حسابي"}
+                          name={session.user?.name || st("navActions", "myAccount")}
                         />
                       ) : (
                         <Link
                           href="/sign-in"
                           className="header-menu__item"
-                          aria-label="تسجيل الدخول"
+                          aria-label={st("navActions", "signIn")}
                         >
                           {action.label && (
                             <span className="header-menu__item-label">
-                              {action.label}
+                              {st("navActions", action.label)}
                             </span>
                           )}
-                          <IconImage src={action.icon} alt="أيقونة المستخدم" />
+                          <IconImage src={action.icon} alt={st("navActions", "userIcon")} />
                         </Link>
                       )}
                     </li>
@@ -488,14 +489,14 @@ function NavHeader({ translations }: NavHeaderProps) {
                     <Link
                       href={action.href}
                       className="header-menu__item"
-                      aria-label={action.label || "بحث"}
+                      aria-label={st("navActions", action.label || "searchAria")}
                     >
                       {action.label && (
                         <span className="header-menu__item-label">
-                          {action.label}
+                          {st("navActions", action.label)}
                         </span>
                       )}
-                      <IconImage src={action.icon} alt="أيقونة" />
+                      <IconImage src={action.icon} alt={st("navActions", "actionIcon")} />
                     </Link>
                   </li>
                 );
