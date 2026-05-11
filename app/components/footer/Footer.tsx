@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FeedbackDynamic from "../feedback/FeedbackDynamic";
 import FooterAccessibilityTools from "./FooterAccessibilityTools";
+import { st } from "@/app/_lib/static-text";
 
 function ExternalIcon() {
   return (
@@ -18,62 +19,76 @@ function ExternalIcon() {
   );
 }
 
-const SOCIAL_LINKS = [
-  { title: "تويتر X",  icon: "/assets/icons/stroke-standard/new-twitter-stroke-rounded.svg" },
-  { title: "واتساب",   icon: "/assets/icons/stroke-standard/whatsapp-stroke-rounded.svg" },
-  { title: "يوتيوب",   icon: "/assets/icons/stroke-standard/youtube-stroke-rounded.svg" },
-  { title: "لينكد إن", icon: "/assets/icons/stroke-standard/linkedin-01-stroke-rounded.svg" },
-  { title: "سناب شات", icon: "/assets/icons/stroke-standard/snapchat-stroke-rounded.svg" },
-  { title: "انستغرام", icon: "/assets/icons/stroke-standard/instagram-stroke-rounded.svg" },
-  { title: "فيسبوك",   icon: "/assets/icons/stroke-standard/facebook-01-stroke-rounded.svg" },
-  { title: "تيك توك",  icon: "/assets/icons/stroke-standard/tiktok-stroke-rounded.svg" },
-];
+function getSocialLinks(locale?: "ar" | "en") {
+  return [
+    { title: st("footer", "twitter", locale),  icon: "/assets/icons/stroke-standard/new-twitter-stroke-rounded.svg" },
+    { title: st("footer", "whatsapp", locale),   icon: "/assets/icons/stroke-standard/whatsapp-stroke-rounded.svg" },
+    { title: st("footer", "youtube", locale),   icon: "/assets/icons/stroke-standard/youtube-stroke-rounded.svg" },
+    { title: st("footer", "linkedin", locale), icon: "/assets/icons/stroke-standard/linkedin-01-stroke-rounded.svg" },
+    { title: st("footer", "snapchat", locale), icon: "/assets/icons/stroke-standard/snapchat-stroke-rounded.svg" },
+    { title: st("footer", "instagram", locale), icon: "/assets/icons/stroke-standard/instagram-stroke-rounded.svg" },
+    { title: st("footer", "facebook", locale),   icon: "/assets/icons/stroke-standard/facebook-01-stroke-rounded.svg" },
+    { title: st("footer", "tiktok", locale),  icon: "/assets/icons/stroke-standard/tiktok-stroke-rounded.svg" },
+  ];
+}
 
-function Footer() {
+interface FooterProps {
+  locale?: "ar" | "en";
+}
+
+function Footer({ locale }: FooterProps) {
+  const socialLinks = getSocialLinks(locale);
+  const opensInNew = st("footer", "opensInNewWindow", locale);
+
   return (
     <>
       <div className="content !flex !items-start !gap-2 !py-4 !mt-4 !h-[52px]">
-        <LastModified date="31/12/2026" time="2:00 م" variant="light" />
+        <LastModified
+          date="31/12/2026"
+          time={st("footer", "timePm", locale)}
+          variant="light"
+          locale={locale}
+        />
       </div>
 
       <FeedbackDynamic />
 
-      <footer aria-label="تذييل الصفحة" style={{ backgroundColor: "#074D31" }}>
+      <footer aria-label={st("footer", "footerAria", locale)} style={{ backgroundColor: "#074D31" }}>
         <div className="custom-container">
 
           {/* ── 4-column nav grid ───────────────────────────────────────── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-8 pt-10 pb-10 footer-nav-grid">
 
-            {/* Column 1: ملخص */}
+            {/* Column 1: Summary */}
             <div>
               <div className="line-title">
-                <h2 className="footer-title">ملخص</h2>
+                <h2 className="footer-title">{st("footer", "colSummary", locale)}</h2>
               </div>
-              <nav aria-label="ملخص">
+              <nav aria-label={st("footer", "navSummaryAria", locale)}>
                 <ul role="list" className="footer-contnet">
-                  <li><Link href="/about" className="footer-link">عن همزة</Link></li>
-                  <li><Link href="/news" className="footer-link">الأخبار والأحداث</Link></li>
-                  <li><Link href="/types-of-tests" className="footer-link"> أنواع اختبارات همزة </Link></li>
+                  <li><Link href="/about" className="footer-link">{st("footer", "aboutHamza", locale)}</Link></li>
+                  <li><Link href="/news" className="footer-link">{st("footer", "newsAndEvents", locale)}</Link></li>
+                  <li><Link href="/types-of-tests" className="footer-link">{st("footer", "testTypes", locale)}</Link></li>
                 </ul>
               </nav>
             </div>
 
-            {/* Column 2: روابط مهمة */}
+            {/* Column 2: Important Links */}
             <div>
               <div className="line-title">
-                <h2 className="footer-title">روابط مهمة</h2>
+                <h2 className="footer-title">{st("footer", "colImportantLinks", locale)}</h2>
               </div>
-              <nav aria-label="روابط مهمة">
+              <nav aria-label={st("footer", "navImportantLinksAria", locale)}>
                 <ul role="list" className="footer-contnet">
                   <li className="flex items-center gap-[4px]">
                     <a
                       href="https://my.gov.sa"
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="بوابة الخدمة الوطنية - يفتح في نافذة جديدة"
+                      aria-label={`${st("footer", "nationalPortal", locale)} - ${opensInNew}`}
                       className="footer-link"
                     >
-                      بوابة الخدمة الوطنية
+                      {st("footer", "nationalPortal", locale)}
                     </a>
                     <ExternalIcon />
                   </li>
@@ -82,10 +97,10 @@ function Footer() {
                       href="https://open.data.gov.sa"
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="البيانات الحكومية المفتوحة - يفتح في نافذة جديدة"
+                      aria-label={`${st("footer", "openData", locale)} - ${opensInNew}`}
                       className="footer-link"
                     >
-                      البيانات الحكومية المفتوحة
+                      {st("footer", "openData", locale)}
                     </a>
                     <ExternalIcon />
                   </li>
@@ -94,10 +109,10 @@ function Footer() {
                       href="https://sdaia.gov.sa"
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="الاستراتيجية الوطنية للبيانات والذكاء الاصطناعي - يفتح في نافذة جديدة"
+                      aria-label={`${st("footer", "nationalStrategy", locale)} - ${opensInNew}`}
                       className="footer-link"
                     >
-                      الاستراتيجية الوطنية للبيانات والذكاء الاصطناعي
+                      {st("footer", "nationalStrategy", locale)}
                     </a>
                     <ExternalIcon />
                   </li>
@@ -105,19 +120,19 @@ function Footer() {
               </nav>
             </div>
 
-            {/* Column 3: الاتصال والدعم */}
+            {/* Column 3: Contact & Support */}
             <div>
               <div className="line-title">
-                <h2 className="footer-title">الاتصال والدعم</h2>
+                <h2 className="footer-title">{st("footer", "colContactSupport", locale)}</h2>
               </div>
-              <nav aria-label="الاتصال والدعم">
+              <nav aria-label={st("footer", "navContactSupportAria", locale)}>
                 <ul role="list" className="footer-contnet">
                   <li>
                     <Link
                       href="/e-participation/feedback-and-suggestion"
                       className="footer-link"
                     >
-                      تواصل معنا
+                      {st("footer", "contactUs", locale)}
                     </Link>
                   </li>
                   <li className="flex items-center gap-[4px]">
@@ -125,10 +140,10 @@ function Footer() {
                       href="https://my.gov.sa/ar/content/report-corruption"
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="الإبلاغ عن الفساد - يفتح في نافذة جديدة"
+                      aria-label={`${st("footer", "reportCorruption", locale)} - ${opensInNew}`}
                       className="footer-link"
                     >
-                      الإبلاغ عن الفساد
+                      {st("footer", "reportCorruption", locale)}
                     </a>
                     <ExternalIcon />
                   </li>
@@ -136,24 +151,24 @@ function Footer() {
               </nav>
             </div>
 
-            {/* Column 4: تابعنا على + أدوات الاتاحة */}
+            {/* Column 4: Follow Us + Accessibility Tools */}
             <div className="grid gap-8 content-start">
 
               <div>
                 <div className="line-title">
-                  <h2 className="footer-title">تابعنا على</h2>
+                  <h2 className="footer-title">{st("footer", "colFollowUs", locale)}</h2>
                 </div>
                 <div className="footer-contnet">
                   <ul
                     className="footer-social-list grid grid-cols-4"
-                    aria-label="تابعنا على وسائل التواصل الاجتماعي"
+                    aria-label={st("footer", "socialListAria", locale)}
                   >
-                    {SOCIAL_LINKS.map((social) => (
+                    {socialLinks.map((social) => (
                       <li key={social.title}>
                         <a
                           href="#"
                           className="border-green"
-                          aria-label={`${social.title} - يفتح في نافذة جديدة`}
+                          aria-label={`${social.title} - ${opensInNew}`}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -174,7 +189,7 @@ function Footer() {
 
               {/* <div>
                 <div className="line-title">
-                  <h2 className="footer-title">أدوات الاتاحة والوصول</h2>
+                  <h2 className="footer-title">{st("footer", "accessibilityTools", locale)}</h2>
                 </div>
                 <div className="footer-contnet">
                   <FooterAccessibilityTools />
@@ -189,26 +204,26 @@ function Footer() {
             <div className="footer-bottom-content">
               <div className="footer-legal-links">
                 <Link href="/terms-and-conditions" className="footer-link">
-                  الشروط و الأحكام
+                  {st("footer", "termsConditions", locale)}
                 </Link>
                 <Link href="/faq" className="footer-link">
-                  الاسئلة الشائعة
+                  {st("footer", "faq", locale)}
                 </Link>
                 <a href="/sitemap-page" className="footer-link">
-                  خريطة الموقع
+                  {st("footer", "sitemap", locale)}
                 </a>
-              
               </div>
 
               <div className="footer-copyright text-start">
                 <div className="footer-link footer-copyright-text">
-                  جميع الحقوق محفوظة لمجمع الملك سلمان العالمي للغة العربية © 2026
+                  {st("footer", "copyright", locale)}
                 </div>
                 <LastModified
-                  label="آخر تعديل للموقع"
+                  label={st("footer", "lastModifiedSiteLabel", locale)}
                   date="31/12/2026"
-                  time="2:00 م"
+                  time={st("footer", "timePm", locale)}
                   variant="dark"
+                  locale={locale}
                 />
               </div>
             </div>
@@ -218,11 +233,11 @@ function Footer() {
                 href="https://ksaa.gov.sa/"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="مجمع الملك سلمان العالمي للغة العربية - يفتح في نافذة جديدة"
+                aria-label={`${st("footer", "ksaaLabel", locale)} - ${opensInNew}`}
               >
                 <Image
                   src="/assets/image/king-salman-global.svg"
-                  alt="مجمع الملك سلمان العالمي للغة العربية"
+                  alt={st("footer", "ksaaLogoAlt", locale)}
                   width={200}
                   height={200}
                   loading="lazy"

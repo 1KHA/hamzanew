@@ -1,23 +1,26 @@
 "use client";
 import Image from "next/image";
+import { st } from "@/app/_lib/static-text";
 
-const TOOLS = [
-  {
-    title: "تكبير النص",
-    icon: "/assets/icons/stroke-standard/zoom-in-area-stroke-rounded.svg",
-    action: "zoom-in",
-  },
-  {
-    title: "تصغير النص",
-    icon: "/assets/icons/stroke-standard/zoom-out-area-stroke-rounded.svg",
-    action: "zoom-out",
-  },
-  {
-    title: "تغيير وضع العرض",
-    icon: "/assets/icons/stroke-standard/eye-stroke-rounded.svg",
-    action: "view",
-  },
-];
+function getTools() {
+  return [
+    {
+      title: st("footer", "zoomIn"),
+      icon: "/assets/icons/stroke-standard/zoom-in-area-stroke-rounded.svg",
+      action: "zoom-in",
+    },
+    {
+      title: st("footer", "zoomOut"),
+      icon: "/assets/icons/stroke-standard/zoom-out-area-stroke-rounded.svg",
+      action: "zoom-out",
+    },
+    {
+      title: st("footer", "changeViewMode"),
+      icon: "/assets/icons/stroke-standard/eye-stroke-rounded.svg",
+      action: "view",
+    },
+  ];
+}
 
 const BASE_FONT = 16;
 const STEP = 2;
@@ -33,11 +36,13 @@ export default function FooterAccessibilityTools() {
     if (action === "view")     html.classList.toggle("high-contrast");
   };
 
+  const tools = getTools();
+
   return (
-    <div className="flex gap-[8px]" role="group" aria-label="أدوات الاتاحة والوصول">
-      {TOOLS.map((tool) => (
+    <div className="flex gap-[8px]" role="group" aria-label={st("footer", "accessibilityTools")}>
+      {tools.map((tool) => (
         <button
-          key={tool.title}
+          key={tool.action}
           type="button"
           className="border-green"
           aria-label={tool.title}
