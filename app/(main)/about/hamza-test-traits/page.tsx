@@ -3,16 +3,11 @@ import { cookies } from "next/headers";
 import Card from "@/app/components/card/Card";
 import "../about.css";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const cookieStore = await cookies();
-  const isEn = cookieStore.get("lang")?.value?.startsWith("en");
-  return {
-    title: isEn ? "Hamza Test Traits" : "سمات اختبار همزة",
-    description: isEn
-      ? "Hamza tests provide a standardized and reliable approach to measuring Arabic language proficiency."
-      : "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية.",
-  };
-}
+export const metadata: Metadata = {
+  title: "سمات اختبار همزة",
+  description:
+    "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية.",
+};
 
 /**
  * Interface representing a trait or characteristic of the Hamza test.
@@ -31,17 +26,30 @@ interface Trait {
    ========================================================================== */
 
 const fallbackTraits: Trait[] = [
-  { number: "1", title: "مصممة بأفضل معايير الأمان", description: "تضمن حماية البيانات، والتحقق من هوية المختبرين باستخدام تقنيات حديثة." },
-  { number: "2", title: "مُحوسبة وسهلة التطبيق", description: "يمكن تطبيقها في المراكز التعليمية أو عن بُعد، مع تجربة استخدام سلسة للمتقدمين والمشرفين." },
-  { number: "3", title: "شاملة وتقيس مختلف المهارات اللغوية", description: "تغطي مهارات القراءة، الكتابة، الاستماع، والتراكيب اللغوية، لتقديم صورة متكاملة عن مستوى المتقدم." },
-  { number: "4", title: "معيارية وموثوقة", description: "تعتمد همزة على أسس علمية ومعايير قياس معتمدة لضمان دقة النتائج وعدالتها بين جميع المتقدمين." },
-];
-
-const fallbackTraitsEn: Trait[] = [
-  { number: "1", title: "Designed with Best Security Standards", description: "Ensures data protection and verifies test taker identity using modern technologies." },
-  { number: "2", title: "Computerized & Easy to Apply", description: "Can be applied in educational centers or remotely, with a smooth user experience." },
-  { number: "3", title: "Comprehensive & Measures Various Language Skills", description: "Covers reading, writing, listening, and linguistic structures for a comprehensive assessment." },
-  { number: "4", title: "Standardized & Reliable", description: "Built on scientific foundations and accredited measurement standards to ensure accuracy and fairness." },
+  {
+    number: "1",
+    title: "مصممة بأفضل معايير الأمان",
+    description:
+      "تضمن حماية البيانات، والتحقق من هوية المختبرين باستخدام تقنيات حديثة.",
+  },
+  {
+    number: "2",
+    title: "مُحوسبة وسهلة التطبيق",
+    description:
+      "يمكن تطبيقها في المراكز التعليمية أو عن بُعد، مع تجربة استخدام سلسة للمتقدمين والمشرفين.",
+  },
+  {
+    number: "3",
+    title: "شاملة وتقيس مختلف المهارات اللغوية",
+    description:
+      "تغطي مهارات القراءة، الكتابة، الاستماع، والتراكيب اللغوية، لتقديم صورة متكاملة عن مستوى المتقدم.",
+  },
+  {
+    number: "4",
+    title: "معيارية وموثوقة",
+    description:
+      "تعتمد همزة على أسس علمية ومعايير قياس معتمدة لضمان دقة النتائج وعدالتها بين جميع المتقدمين.",
+  },
 ];
 
 /**
@@ -60,19 +68,19 @@ const fallbackTraitsEn: Trait[] = [
  * @returns {JSX.Element} The rendered Hamza Test Traits page.
  */
 export default async function HamzaTestTraitsPage() {
-  const cookieStore = await cookies();
-  const isEn = cookieStore.get("lang")?.value?.startsWith("en");
-  const locale = isEn ? "en" : "ar";
-
-  let title = isEn ? "Traits" : "السمات";
-  let traits: Trait[] = isEn ? fallbackTraitsEn : fallbackTraits;
+  let title = "السمات";
+  let traits: Trait[] = fallbackTraits;
 
   try {
+    // Get the lang cookie to forward to the API
+    const cookieStore = await cookies();
+    const langCookie = cookieStore.get("lang")?.value || "ar-SA";
+    
     const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
     const response = await fetch(`${baseURL}/api/traits`, {
       cache: "no-store",
       headers: {
-        Cookie: `lang=${isEn ? "en-US" : "ar-SA"}`,
+        Cookie: `lang=${langCookie}`,
       },
     });
 

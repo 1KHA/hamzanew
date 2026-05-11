@@ -1,20 +1,14 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import CommitteeContent from "./CommitteeContent";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFields, extractList } from "@/app/_lib/helper-service";
 import "../about.css";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const cookieStore = await cookies();
-  const isEn = cookieStore.get("lang")?.value?.startsWith("en");
-  return {
-    title: isEn ? "International Advisory Committee" : "اللجنة الاستشارية",
-    description: isEn
-      ? "The Advisory Committee aims to provide consultations and recommendations related to developing measurement tools and approved standards."
-      : "تهدف اللجنة الاستشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية.",
-  };
-}
+export const metadata: Metadata = {
+  title: "اللجنة الاستشارية ",
+  description:
+    "تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية.",
+};
 
 interface TaskItem {
   number: string;
@@ -29,38 +23,24 @@ interface MemberItem {
 }
 
 export default async function PeriodicAdvisoryCommitteePage() {
-  const cookieStore = await cookies();
-  const isEn = cookieStore.get("lang")?.value?.startsWith("en");
-
   // Default values
-  let committeeTitle = isEn ? "International Advisory Committee" : "اللجنة الاستشارية الدولية";
-  let descriptionText = isEn
-    ? "The Advisory Committee aims to provide consultations and recommendations related to developing measurement tools and approved standards, contributing to sustainable improvement in future directions for measuring Arabic language skills."
-    : "تهدف اللجنة الاستشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية.";
-  let viewAllButtonText = isEn ? "View All" : "عرض الكل";
-  let tasksTitle = isEn ? "Main Tasks" : "المهام الرئيسة";
+  let committeeTitle = "اللجنة الاستشارية الدولية";
+  let descriptionText = "تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية.";
+  let viewAllButtonText = "عرض الكل";
+  let tasksTitle = "المهام الرئيسة";
   let mainTasksList: TaskItem[] = [];
-  let membersTitle = isEn ? "Periodic Advisory Committee Members" : "أعضاء اللجنة الاستشارية الدورية";
+  let membersTitle = "أعضاء اللجنة الاستشارية الدورية";
   let membersList: MemberItem[] = [];
 
   // Static fallback data
-  const fallbackTasks: TaskItem[] = isEn
-    ? [
-        { number: "1", content: "Review methodological frameworks and reference standards for Hamza tests." },
-        { number: "2", content: "Provide scientific recommendations to support developmental policies and ensure quality." },
-        { number: "3", content: "Cover reading, writing, listening, and linguistic structures for a comprehensive assessment." },
-        { number: "4", content: "Evaluate validity and reliability reports and provide scientific observations." },
-        { number: "5", content: "Contribute to connecting the project with global expertise in language education and assessment." },
-        { number: "6", content: "Support test sustainability through consultation on emerging scientific and academic issues." },
-      ]
-    : [
-        { number: "1", content: "مراجعة الأطر المنهجية والمعايير المرجعية لاختبارات همزة." },
-        { number: "2", content: "تقديم التوصيات العلمية لدعم السياسات التطويرية وضمان الجودة." },
-        { number: "3", content: "تغطي مهارات القراءة، الكتابة، الاستماع، والتراكيب اللغوية، لتقديم صورة متكاملة عن مستوى المتقدم." },
-        { number: "4", content: "تقييم تقارير الصلاحية والموثوقية وتقديم الملاحظات العلمية حولها." },
-        { number: "5", content: "الإسهام في ربط المشروع بخبرات وممارسات عالمية في مجال تعليم اللغات وقياسها." },
-        { number: "6", content: "دعم استدامة الاختبارات من خلال المشورة في القضايا العلمية والأكاديمية المستجدة." },
-      ];
+  const fallbackTasks: TaskItem[] = [
+    { number: "1", content: "مراجعة الأطر المنهجية والمعايير المرجعية لاختبارات همزة." },
+    { number: "2", content: "تقديم التوصيات العلمية لدعم السياسات التطويرية وضمان الجودة." },
+    { number: "3", content: "تغطي مهارات القراءة، الكتابة، الاستماع، والتراكيب اللغوية، لتقديم صورة متكاملة عن مستوى المتقدم." },
+    { number: "4", content: "تقييم تقارير الصلاحية والموثوقية وتقديم الملاحظات العلمية حولها." },
+    { number: "5", content: "الإسهام في ربط المشروع بخبرات وممارسات عالمية في مجال تعليم اللغات وقياسها." },
+    { number: "6", content: "دعم استدامة الاختبارات من خلال المشورة في القضايا العلمية والأكاديمية المستجدة." },
+  ];
 
   const fallbackMembers: MemberItem[] = [
     { id: "1", image: "/assets/image/member2.png", name: "د. زايد العمري", content: "المعهد الوطني للتعلم الرقمي" },

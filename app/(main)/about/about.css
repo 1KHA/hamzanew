@@ -11,20 +11,12 @@
 .about-us-cards-container {
   display: flex;
   flex-direction: row;
+  gap: 20px;
+  align-items: center;
   gap: var(--Global-spacing-3xl, 24px);
-  align-items: stretch;
   /* padding-inline: 80px; */
   padding: 80px 0;
   padding-inline: var(--container-padding-desktop);
-}
-
-.about-us-cards-container > * {
-  display: flex;
-  flex-direction: column;
-}
-
-.about-us-cards-container > * > * {
-  height: 100%;
 }
 
 .stack {
@@ -190,7 +182,7 @@
 }
 .section-header {
   color: var(--Text-text-default, #161616);
-  text-align: start;
+  text-align: right;
 
   /* Display md/Semibold */
   font-family: var(--Font-Family-font-family-display, "IBMPlexSansArabic");
@@ -209,7 +201,7 @@
 /* Display sm / Bold */
 .section-header-sm {
   color: var(--Text-text-default, #161616);
-  text-align: start;
+  text-align: right;
 
   font-family: var(--Font-Family-font-family-display, "IBMPlexSansArabic");
   font-size: var(--Size-Display-typo-size-display-sm, 30px);
