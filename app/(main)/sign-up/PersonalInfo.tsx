@@ -2,7 +2,7 @@
 
 import { useFormContext, Controller } from "react-hook-form";
 import { useState } from "react";
-import { DgaDropdown } from "platformscode-new-react";
+import Dropdown from "@/app/components/dropdown/Dropdown";
 import DateField from "@/app/components/date-field/DateField";
 import FileUpload, {
   UploadedFile,
@@ -38,6 +38,7 @@ export default function PersonalInfo({
         htmlFor="first-name-ar"
       >
         <ControlledTextInput
+          placeholder="الاسم الاول"
           name="firstName_ar"
           id="first-name-ar"
           size="lg"
@@ -52,6 +53,7 @@ export default function PersonalInfo({
         htmlFor="first-name-en"
       >
         <ControlledTextInput
+          placeholder="الاسم الاول (باللغة الإنجليزية)"
           name="firstName_en"
           id="first-name-en"
           size="lg"
@@ -66,6 +68,7 @@ export default function PersonalInfo({
         htmlFor="second-name-ar"
       >
         <ControlledTextInput
+          placeholder="الاسم الثاني"
           name="secondName_ar"
           id="second-name-ar"
           size="lg"
@@ -80,6 +83,7 @@ export default function PersonalInfo({
         htmlFor="second-name-en"
       >
         <ControlledTextInput
+          placeholder="الاسم الثاني (باللغة الإنجليزية)"
           name="secondName_en"
           id="second-name-en"
           size="lg"
@@ -94,6 +98,7 @@ export default function PersonalInfo({
         htmlFor="last-name-ar"
       >
         <ControlledTextInput
+          placeholder="الاسم الأخير"
           name="lastName_ar"
           id="last-name-ar"
           size="lg"
@@ -108,6 +113,7 @@ export default function PersonalInfo({
         htmlFor="last-name-en"
       >
         <ControlledTextInput
+          placeholder="الاسم الأخير (باللغة الإنجليزية)"
           name="lastName_en"
           id="last-name-en"
           size="lg"
@@ -143,7 +149,7 @@ export default function PersonalInfo({
           name="nationality"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر الجنسية"
               size="lg"
               variant="darker"
@@ -167,7 +173,7 @@ export default function PersonalInfo({
           name="motherTongue"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر اللغة الأم"
               size="lg"
               variant="darker"
@@ -187,7 +193,7 @@ export default function PersonalInfo({
           name="identity"
           control={control}
           render={({ field }) => (
-            <DgaDropdown
+            <Dropdown
               placeholder="اختر نوع الاثبات"
               size="lg"
               variant="darker"
@@ -209,6 +215,7 @@ export default function PersonalInfo({
         htmlFor="identity-number"
       >
         <ControlledTextInput
+          placeholder="ادخل رقم الاثبات"
           name="identityNumber"
           id="identity-number"
           size="lg"
@@ -229,7 +236,7 @@ export default function PersonalInfo({
             <FileUpload
               name="identity-file"
               fileTypesText="الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وتشمل الصيغ الدعومة .pdf."
-              accept=".pdf"
+              accept=".pdf,.png,.jpg,.jpeg"
               actionName="تصفح الملفات"
               showIcon={false}
               getUploadedFile={(files: UploadedFile[]) => {

@@ -229,20 +229,23 @@ export const DgaTabs: React.FC<DgaTabsProps> = ({
 
       {showOverflow && (
         <li className="breadcrumb-item ellipsis" ref={menuRef}>
-          <span
+          <button
+            type="button"
             className="more-button"
             onClick={toggleMenu}
             aria-haspopup="true"
             aria-expanded={isMenuOpen}
+            aria-label="عرض المزيد من التبويبات"
           >
             <Image
               src="/assets/icons/stroke-standard/more-horizontal-stroke-rounded.svg"
-              alt="more icon"
+              alt=""
+              aria-hidden="true"
               width={17}
               height={17}
               priority
             />
-          </span>
+          </button>
 
           {isMenuOpen && (
             <div className="breadcrumb-dropdown">

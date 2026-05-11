@@ -39,7 +39,8 @@ import {
   PHONE_PREFIXES,
   PrefixOption,
 } from "@/lib/utils/phonePrefixes";
-import { DgaDropdown, DgaTextarea } from "platformscode-new-react";
+import Textarea from "@/app/components/textarea/Textarea";
+import Dropdown from "@/app/components/dropdown/Dropdown";
 
 import "./feedback-form.css";
 
@@ -48,10 +49,10 @@ import "./feedback-form.css";
    ========================================================================== */
 
 const CATEGORY_OPTIONS = [
-  { name: "اختيار 1", value: "اختيار 1" },
-  { name: "اختيار 2", value: "اختيار 2" },
-  { name: "اختيار 3", value: "اختيار 3" },
-  { name: "اختيار 4", value: "اختيار 4" },
+  { name: "اقتراحات", value: "اقتراحات" },
+  { name: "شكاوي", value: "شكاوي" },
+  { name: "استفسارات", value: "استفسارات" },
+  { name: "بلاغات", value: "بلاغات" },
 ];
 
 const feedbackSchema = z.object({
@@ -173,7 +174,7 @@ export default function FeedbackForm() {
   if (submitted) {
     return (
       <div
-        className="feedback-success section-spacing-4xl"
+        className="suggestion-success section-spacing-4xl"
         role="status"
         aria-live="polite"
       >
@@ -197,7 +198,7 @@ export default function FeedbackForm() {
         noValidate
         aria-label="نموذج الشكاوى والمقترحات"
       >
-        <div className="feedback-form section-spacing-4xl">
+        <div className="suggestion-form section-spacing-4xl">
           {/* First Name */}
           <FormField
             label="الاسم الاول"
@@ -208,7 +209,7 @@ export default function FeedbackForm() {
             <ControlledTextInput
               name="firstName"
               id="firstName"
-              placeholder="أدخل الاسم الاول"
+              placeholder="الاسم الاول"
               aria-required={true}
               aria-describedby={
                 errors.firstName ? "firstName-error" : "firstName-help"
@@ -229,7 +230,7 @@ export default function FeedbackForm() {
             <ControlledTextInput
               name="lastName"
               id="lastName"
-              placeholder="أدخل الاسم الاخير"
+              placeholder="الاسم الاخير"
               aria-required={true}
               aria-describedby={
                 errors.lastName ? "lastName-error" : "lastName-help"
@@ -250,7 +251,7 @@ export default function FeedbackForm() {
             <ControlledTextInput
               name="email"
               id="email"
-              placeholder="أدخل البريد الشبكي"
+              placeholder="البريد الشبكي"
               aria-required={true}
               aria-describedby={errors.email ? "email-error" : "email-help"}
             />
@@ -277,7 +278,7 @@ export default function FeedbackForm() {
                 >
                   <input
                     id="phone-input"
-                    placeholder="00 000 0000"
+                    placeholder="رقم الجوال"
                     type="tel"
                     inputMode="numeric"
                     value={phoneDigitsOnly}
@@ -376,14 +377,14 @@ export default function FeedbackForm() {
             <ControlledTextInput
               name="subject"
               id="subject"
-              placeholder="اكتب موضوعك"
+              placeholder="الموضوع"
               aria-describedby={errors.subject ? "subject-error" : undefined}
             />
           </FormField>
 
           {/* Category */}
           <FormField
-            label="نوع الاختبار"
+            label="الفئة"
             error={errors.category?.message}
             htmlFor="category-select"
           >
@@ -397,14 +398,14 @@ export default function FeedbackForm() {
                     errors.category ? "category-select-error" : undefined
                   }
                 >
-                  <DgaDropdown
+                  <Dropdown
                     id="category-select"
                     placeholder="اقتراحات"
                     size="lg"
                     variant="darker"
                     optionLabel="name"
                     trackBy="value"
-                    className="w-full"
+                    extraClass="w-full"
                     value={field.value}
                     getSelectedOptions={(option: any) => {
                       field.onChange(option.value);
@@ -426,7 +427,7 @@ export default function FeedbackForm() {
               name="message"
               control={control}
               render={({ field }) => (
-                <DgaTextarea
+                <Textarea
                   {...field}
                   id="message"
                   placeholder="اكتب رسالتك"
@@ -453,7 +454,7 @@ export default function FeedbackForm() {
               render={({ field }) => (
                 <FileUpload
                   fileTypesText="الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وصيغ الملفات المدعومة تشمل .jpg و .png و .pdf."
-                  accept="image/*,.pdf"
+                  accept=".pdf,.png,.jpg,.jpeg"
                   actionName="تصفح الملفات"
                   showIcon={false}
                   getUploadedFile={(files: UploadedFile[]) => {

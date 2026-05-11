@@ -1,52 +1,41 @@
 import type { NextConfig } from "next";
 
-/**
- * Webpack plugin that strips @import url(...) rules from bundled CSS files.
- *
- * The platformscode-new-react library embeds Google Font @import statements
- * inside its component CSS. Next.js bundles these into layout.css / page.css,
- * causing Chrome warnings because @import rules must appear at the top of a
- * stylesheet. Fonts are loaded correctly via <link> tags in layout.tsx instead.
- */
-class StripCssImportUrlsPlugin {
+class InjectFontDisplaySwapPlugin {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   apply(compiler: any) {
-    compiler.hooks.compilation.tap(
-      "StripCssImportUrls",
-      (compilation: any) => {
-        compilation.hooks.processAssets.tap(
-          {
-            name: "StripCssImportUrls",
-            stage:
-              compiler.webpack.Compilation
-                .PROCESS_ASSETS_STAGE_OPTIMIZE_SIZE,
-          },
-          (assets: Record<string, any>) => {
-            for (const [name, asset] of Object.entries(assets)) {
-              if (!name.endsWith(".css")) continue;
-              const original: string = asset.source();
-              const cleaned = original.replace(
-                /@import url\(["']?https?:\/\/[^)]+["']?\);?\n?/g,
-                ""
-              );
-              if (cleaned !== original) {
-                compilation.updateAsset(
-                  name,
-                  new compiler.webpack.sources.RawSource(cleaned)
-                );
-              }
+    compiler.hooks.compilation.tap("InjectFontDisplaySwapPlugin", (compilation: any) => {
+      compilation.hooks.processAssets.tap(
+        { name: "InjectFontDisplaySwapPlugin", stage: 100 },
+        (assets: Record<string, { source(): string; size(): number }>) => {
+          for (const [name, asset] of Object.entries(assets)) {
+            if (!name.endsWith(".css")) continue;
+            const src = asset.source();
+            const injected = src.replace(/@font-face\s*\{([^}]*)\}/g, (match, body) => {
+              if (/font-display/.test(body)) return match;
+              return match.replace("}", "font-display:swap}");
+            });
+            if (injected !== src) {
+              const { RawSource } = (compiler as any).webpack.sources;
+              assets[name] = new RawSource(injected);
             }
           }
-        );
-      }
-    );
+        }
+      );
+    });
   }
 }
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  // optimizePackageImports: ["platformscode-new-react"],
+  experimental: {
+    // Use critters to inline critical CSS and load the rest async,
+    // eliminating render-blocking stylesheets (saves ~1,200ms on FCP/LCP).
+    optimizeCss: true,
+  },
   images: {
-    formats: ["image/webp"],
+    formats: ["image/avif", "image/webp"],
+    imageSizes: [16, 32, 48, 64, 96, 128, 130, 256, 260, 384],
+    qualities: [60, 75],
     remotePatterns: [
       {
         protocol: "http",
@@ -70,8 +59,47 @@ const nextConfig: NextConfig = {
     // Allow localhost/private IPs for dev environment
     dangerouslyAllowLocalIP: true,
   },
-  webpack(config, { webpack }) {
-    config.plugins.push(new StripCssImportUrlsPlugin());
+  // Disable Next.js devtools indicator — Next.js 16 accidentally bundles its
+  // devtools overlay (css-loader runtime from rspack, ~840 KB) into the
+  // production rootMainFiles, blocking first paint. Disabling the indicator
+  // removes that chunk from the initial load.
+  // devIndicators: false,
+  webpack(config, { isServer, dev }) {
+    config.plugins.push(new InjectFontDisplaySwapPlugin());
+
+    if (!isServer && !dev) {
+      // Next.js 16.1.1 bug: the pre-compiled 815KB devtools bundle
+      // (next/dist/compiled/next-devtools) gets pulled into production
+      // rootMainFiles via hot-reloader-app.js, blocking first paint.
+      // Stub it out with an empty module so webpack can tree-shake everything
+      // that depends on it. The previous pattern (/next-devtools/) was wrong —
+      // the actual import path is "compiled/next-devtools".
+      const webpack = require("webpack");
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(
+          /next[\\/]dist[\\/]compiled[\\/]next-devtools/,
+          require.resolve("./lib/empty-module.js")
+        )
+      );
+      // Also stub the userspace next-devtools imports (error boundaries, etc.)
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(
+          /next[\\/]dist[\\/]next-devtools/,
+          require.resolve("./lib/empty-module.js")
+        )
+      );
+      // Next.js 16.1.1 bug: hot-reloader-app.js leaks into production bundles
+      // even though it's guarded by NODE_ENV checks in app-router.js, because
+      // webpack doesn't eliminate the dynamic require() in the CJS module graph.
+      // Stub it out so the ~200KB dev-only HMR code is excluded from rootMainFiles.
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(
+          /next[\\/]dist[\\/]client[\\/]dev[\\/]hot-reloader/,
+          require.resolve("./lib/empty-module.js")
+        )
+      );
+    }
+
     return config;
   },
 };

@@ -2,7 +2,7 @@ import OpenDataContent from "./OpenDataContent";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "التطوير المشترك والافكار"
+  title: "البيانات المفتوحة"
 };
 export default function page() {
   return (

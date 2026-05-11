@@ -3,11 +3,13 @@
 .date-picker-root {
   border-radius: var(--radius-8, 8px);
   background: var(--colors-base-white, #fff);
-  width: fit-content;
+  width: 100%;
+  max-width: fit-content;
   display: flex;
   gap: 15px;
   padding: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
 }
 
 .date-picker {
@@ -15,6 +17,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
   max-width: 392px;
 }
 
@@ -142,13 +145,13 @@
 .date-picker__date-grid {
   display: flex;
   flex-wrap: wrap;
-  width: 392px;
+  width: 100%;
 }
 
 .date-picker__weekday {
   display: flex;
-  width: 56px;
-  height: 56px;
+  width: calc(100% / 7);
+  height: 48px;
   justify-content: center;
   align-items: center;
   background-color: transparent;
@@ -160,8 +163,8 @@
 
 .date-cell {
   display: flex;
-  width: 56px;
-  height: 56px;
+  width: calc(100% / 7);
+  height: 48px;
   padding: 0;
   border: 0;
   background-color: transparent;

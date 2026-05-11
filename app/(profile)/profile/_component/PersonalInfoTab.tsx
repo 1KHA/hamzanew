@@ -8,7 +8,7 @@ import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import type { UserProfileFormValues } from "../update/ProfileForm";
 import DateField from "@/app/components/date-field/DateField";
-import { DgaDropdown } from "platformscode-new-react";
+import Dropdown from "@/app/components/dropdown/Dropdown";
 import {
   PHONE_PREFIXES,
   getPrefixFromPhone,
@@ -331,7 +331,7 @@ export default function PersonalInfoTab({
             name="nationality"
             control={control}
             render={({ field }) => (
-              <DgaDropdown
+              <Dropdown
                 placeholder="اختر الجنسية"
                 size="lg"
                 variant="darker"
@@ -362,7 +362,7 @@ export default function PersonalInfoTab({
             name="motherTongue"
             control={control}
             render={({ field }) => (
-              <DgaDropdown
+              <Dropdown
                 placeholder="اختر اللغة الام"
                 size="lg"
                 variant="darker"
@@ -390,14 +390,14 @@ export default function PersonalInfoTab({
             name="identity"
             control={control}
             render={({ field }) => (
-              <DgaDropdown
+              <Dropdown
                 placeholder="اختر نوع الاثبات"
                 size="lg"
                 variant="darker"
                 optionLabel="name"
                 trackBy="value"
                 options={ID_TYPE_OPTIONS}
-                className="w-full"
+                extraClass="w-full"
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
               />
@@ -429,7 +429,7 @@ export default function PersonalInfoTab({
               <FileUpload
                 name="identity-file"
                 fileTypesText="الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وصيغ الملفات المدعومة تشمل .pdf."
-                accept=".pdf"
+                accept=".pdf,.png,.jpg,.jpeg"
                 actionName="تصفح الملفات"
                 showIcon={false}
                 getUploadedFile={(files: UploadedFile[]) => {

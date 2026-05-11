@@ -1,4 +1,3 @@
-"use client";
 
 import { memo } from "react";
 import "./ProgressIndicator.css";
@@ -65,6 +64,10 @@ const StepItem = memo(function StepItem({
   const labelStyle = step.labelStyle ?? "circle";
 
   return (
+
+    <div className="flex flex-row gap-[8px]">
+
+   
     <div className="progress-indicator__step">
       {/* Descriptive text for screen readers; visual content is aria-hidden */}
       <span className="sr-only">
@@ -77,17 +80,17 @@ const StepItem = memo(function StepItem({
             {labelStyle === "circle" && (isCompleted ? Checkmark : stepNumber)}
           </span>
         </div>
-
-        <div className="step-text dga-flex-column">
+        </div>
+ </div>
+         <div className="step-text flex  flex-col">
           {step.showStepName !== false && step.title && (
-            <span className={isCompleted ? "text-md-medium" : "text-md-regular"}>
+            <span className={(isCompleted || state === "current") ? "text-md-medium" : "text-md-regular"}>
               {step.title}
             </span>
           )}
           {step.showStepDescription !== false && step.description && (
             <p className="text-sm-regular">{step.description}</p>
           )}
-        </div>
       </div>
 
       {!isLast && (

@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import Button from "@/app/components/button/Button";
 import Card from "@/app/components/card/Card";
 import Carousel from "@/app/components/carousel/Carousel";
 import Button from "@/app/components/button/Button";
@@ -13,6 +15,7 @@ interface NewsSectionProps {
 
 export default function NewsSection({ articles }: NewsSectionProps) {
   const router = useRouter();
+
   return (
     <section
       className="section-spacing-5xl custom-container gap-[32px] !flex flex-col"
@@ -30,7 +33,9 @@ export default function NewsSection({ articles }: NewsSectionProps) {
             }}
           />
         </div>
-        <p className="text-md-regular">{st("news", "description")}</p>
+        <p className="text-md-regular">
+          {st("news", "description")}
+        </p>
       </div>
       <div className="section-spacing-4xl" aria-label={st("news", "carouselAria")}>
         <Carousel itemsPerSlide={3} gap={20} autoPlay interval={4000}>

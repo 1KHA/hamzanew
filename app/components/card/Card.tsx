@@ -1,6 +1,5 @@
 "use client";
-import React, { ReactNode } from "react";
-// import { DgaTag } from "platformscode-new-react"; // TEMPORARILY DISABLED
+import React, { ReactNode, useState, useEffect } from "react";
 import Tag from "../tag/Tag";
 import Button from "../button/Button";
 import "./card.css";
@@ -99,7 +98,11 @@ const Card: React.FC<CardProps> = ({
   descriptionStyle,
 }) => {
   const router = useRouter();
-  const isRTL = typeof document !== "undefined" ? document.dir === "rtl" : true;
+  const [isRTL, setIsRTL] = useState(true);
+
+ useEffect(() => {
+    setIsRTL(document.documentElement.dir !== "ltr");
+  }, []);
 
   const resolvedTrailIconType =
     primaryTrailIconType === "arrow"

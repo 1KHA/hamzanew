@@ -18,7 +18,7 @@ import { news } from "./_data/newsData";
 interface NewsArticle {
   id: number;
   title: string;
-  excerpt: string;
+  // excerpt: string;
   content: string;
   image: string;
   date: string;
@@ -86,7 +86,7 @@ export default function NewsListing({
       ? initialArticles.filter((article) => {
           return (
             normalizeArabic(article.title).includes(query) ||
-            normalizeArabic(article.excerpt).includes(query) ||
+            // normalizeArabic(article.excerpt).includes(query) ||
             normalizeArabic(article.content).includes(query)
           );
         })
@@ -197,7 +197,7 @@ export default function NewsListing({
             <Card
               title={article.title}
               date={article.date}
-              description={article.excerpt}
+              description={(article.content?.substring(0, 120) ?? "") + "..."} //handle null content if any
               image={article.image}
               showPrimaryAction={true}
               primaryActionLabel="قراءة المزيد"

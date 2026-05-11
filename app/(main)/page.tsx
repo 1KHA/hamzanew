@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 import type { Metadata } from "next";
-import { getServices, PARTNERS, NEWS_ARTICLES } from "./(landing)/_data/homeData";
+import { getServices, getPartners, getNewsArticles } from "./(landing)/_data/homeData";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFields, extractList } from "@/app/_lib/helper-service";
 import { getTranslations } from "@/app/_lib/getTranslations";
@@ -15,13 +15,20 @@ import PartnersSection from "./(landing)/_components/PartnersSection";
 import SubscriptionSection from "./(landing)/_components/SubscriptionSection";
 import ScrollReveal from "@/app/components/scroll-reveal/ScrollReveal";
 
-export const metadata: Metadata = {
-  title: "اختبار همزة - الرئيسة",
-  description:
-    "منصة همزة التابعة لمجمع الملك سلمان العالمي للغة العربية لتمكين متعلمي اللغة العربية والمهنيين.",
-};
-
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value || "ar-SA";
+  const isEn = locale === "en-US";
+
+  return {
+    title: isEn ? "Hamza Test - Home" : "اختبار همزة - الرئيسة",
+    description: isEn
+      ? "The Hamza Test Platform, affiliated with the King Salman Global Academy for Arabic Language, empowers Arabic language learners and professionals."
+      : "منصة همزة التابعة لمجمع الملك سلمان العالمي للغة العربية لتمكين متعلمي اللغة العربية والمهنيين.",
+  };
+}
 
 /* ==========================================================================
    Helpers
@@ -34,11 +41,8 @@ function resolveImageUrl(imagePath: string | undefined): string {
   return `${baseURL}${imagePath.startsWith("/") ? imagePath : "/" + imagePath}`;
 }
 
-async function fetchLatestNews() {
+async function fetchLatestNews(locale: string) {
   try {
-    const cookieStore = await cookies();
-    const locale = cookieStore.get("lang")?.value || "ar-SA";
-
     const baseURL = process.env.BASE_URL || "";
     const getArticlesURL = process.env.HAMZA_GET_ARTICLES_URL || "";
     const username = process.env.BASIC_AUTH_USERNAME || "";
@@ -97,11 +101,11 @@ async function fetchLatestNews() {
     } else {
       console.log(`[Home] News SUCCESS — ${articles.length} articles loaded`);
     }
-    return articles.length ? articles : NEWS_ARTICLES;
+    return articles.length ? articles : getNewsArticles(locale === "en-US" ? "en" : "ar");
   } catch (error) {
     console.error("[Home] News FAILED —", error);
     console.log("[Home] Using FALLBACK static news data.");
-    return NEWS_ARTICLES;
+    return getNewsArticles(locale === "en-US" ? "en" : "ar");
   }
 }
 
@@ -112,6 +116,7 @@ async function fetchLatestNews() {
 export default async function LandingPage(): Promise<ReactElement> {
   const cookieStore = await cookies();
   const locale = cookieStore.get("lang")?.value || "ar-SA";
+  const staticLocale = locale === "en-US" ? "en" : "ar";
 
   let bannerData = null;
   let bannerBoxesData = null;
@@ -195,7 +200,7 @@ export default async function LandingPage(): Promise<ReactElement> {
 
   // Fetch latest news, translations, and countries in parallel
   const [latestNews, translations, countriesRaw] = await Promise.all([
-    fetchLatestNews(),
+    fetchLatestNews(locale),
     getTranslations().catch((err) => {
       console.error("[Home] Failed to fetch translations:", err);
       return null;
@@ -214,7 +219,7 @@ export default async function LandingPage(): Promise<ReactElement> {
       <Banner bannerFields={bannerFields} />
 
       <ScrollReveal>
-        <ServicesSection services={getServices(locale === "en-US" ? "en" : "ar")} bannerBoxes={bannerBoxes} />
+        <ServicesSection services={getServices(staticLocale)} bannerBoxes={bannerBoxes} locale={staticLocale} />
       </ScrollReveal>
       <ScrollReveal>
         <NewsSection articles={latestNews} />
@@ -231,7 +236,7 @@ export default async function LandingPage(): Promise<ReactElement> {
           insideTitle={insideTitleFields.titleText}
           outsideTitle={outsideTitleFields.titleText}
           translations={translations}
-          fallbackPartners={PARTNERS}
+          fallbackPartners={getPartners(staticLocale)}
         />
       </ScrollReveal>
       <ScrollReveal>

@@ -6,6 +6,7 @@
 .dga-form-control {
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 
 .dga-form-control--fullwidth {

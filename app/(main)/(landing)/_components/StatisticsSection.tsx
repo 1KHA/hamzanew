@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import Button from "@/app/components/button/Button";
 import GlobalStatisticsSection from "@/app/components/global-statistics-section/GlobalStatisticsSection";
+import { st } from "@/app/_lib/static-text";
 
 interface StatisticsSectionProps {
   translations?: Record<string, string> | null;
@@ -19,15 +20,15 @@ export default function StatisticsSection({
     <div className="bg-neutral-50">
       <section
         className="section-spacing-5xl custom-container gap-[32px] !flex flex-col"
-        aria-label="إحصائيات همزة"
+        aria-label={st("statistics", "sectionAria")}
       >
         <div className="grid gap-[24px]">
           <div className="flex-between-center">
             <h2 className="display-sm-bold">
-              {translations?.["hamza-home-page-map-title"] || "همزة في أرقام"}
+              {translations?.["hamza-home-page-map-title"] || st("statistics", "headingFallback")}
             </h2>
             <Button
-              label="عرض الكل"
+              label={st("statistics", "showAll")}
               variant="secondary-outline"
               size="md"
               onClick={() => router.push("/statistics-and-reports")}
@@ -35,10 +36,10 @@ export default function StatisticsSection({
           </div>
           <p className="text-md-regular">
             {translations?.["hamza-home-page-map-institutions-description"] ||
-              "يعرض قسم إحصائيات همزة بيانات عن عدد المختبرين عالميًا، وتنوّع الجنسيات والدول، إضافة إلى أعداد المختبرين في مراكز الاختبار."}
+              st("statistics", "descriptionFallback")}
           </p>
         </div>
-        <div aria-label="الإحصائيات العامة">
+        <div aria-label={st("statistics", "statsAria")}>
           <GlobalStatisticsSection
             translations={translations}
             countries={countries}

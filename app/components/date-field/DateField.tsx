@@ -89,6 +89,29 @@ export default function DateField({
   const [errorMessage, setErrorMessage] = useState("");
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  /* adjust picker position to stay on screen */
+  useEffect(() => {
+    if (isOpen && dropdownRef.current) {
+      const rect = dropdownRef.current.getBoundingClientRect();
+      const viewportWidth = document.documentElement.clientWidth;
+      
+      dropdownRef.current.style.transform = "none";
+      const newRect = dropdownRef.current.getBoundingClientRect();
+
+      let shift = 0;
+      if (newRect.right > viewportWidth) {
+        shift = viewportWidth - newRect.right - 16;
+      } else if (newRect.left < 0) {
+        shift = -newRect.left + 16;
+      }
+
+      if (shift !== 0) {
+        dropdownRef.current.style.transform = `translateX(${shift}px)`;
+      }
+    }
+  }, [isOpen]);
 
   /* sync when external value changes */
   useEffect(() => {
@@ -255,6 +278,7 @@ export default function DateField({
 
       {isOpen && (
         <div
+          ref={dropdownRef}
           id={`${inputId}-picker`}
           className="df-picker-dropdown"
           role="dialog"

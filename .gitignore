@@ -40,6 +40,20 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# debug / temp scripts
+check-css.js
+check-css2.js
+css-sanitize-loader.cjs
+postcss-font-display-swap.cjs
+postcss-strip-import-urls.cjs
+lighthouserc.js
+.lighthouseci/
+lh-*.json
+
+# backup files
+*.bak
+*-backup.*
+
 /temp
 /mdfiles
-.qwen/ 
+.qwen/

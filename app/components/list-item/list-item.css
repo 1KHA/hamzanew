@@ -1,0 +1,42 @@
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.25rem 0;
+  font: 400 16px/24px "IBMPlexSansArabic", sans-serif;
+}
+
+.list-item--level-two {
+  margin-inline-start: 24px;
+}
+
+.list-item--unordered::before {
+  content: "•";
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.list-item__marker {
+  min-width: 1.5rem;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.list-item__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.list-item__icon i,
+.list-item__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.list-item__text {
+  flex: 1;
+}

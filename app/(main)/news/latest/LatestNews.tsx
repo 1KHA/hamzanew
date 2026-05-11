@@ -22,7 +22,7 @@ function LatestNewsCard({ news }: any) {
         <div className="!w-full lg:!w-1/2 !flex-none">
           <div className="!flex !flex-col !gap-[20px]">
             <h3 className="display-sm-bold">{news.title}</h3>
-            <p className="text-md-regular">{news.excerpt}</p>
+            <p className="text-md-regular">{(news.content?.substring(0, 120) ?? "") + "..."}</p>
 
             <Button
               variant="primary-neutral"

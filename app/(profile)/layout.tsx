@@ -3,7 +3,6 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { getCachedUserProfile } from "@/app/_lib/session-cache";
 import ProfileLayoutClient from "./ProfileLayoutClient";
-import "platformscode-new-react/dist/style.css";
 
 export default async function ProfileLayout({
   children,

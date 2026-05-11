@@ -1,6 +1,5 @@
-"use client";
 
-import { DgaChart } from "platformscode-new-react";
+import Chart from "@/app/components/chart/Chart";
 import { ChartData } from "../_data/statsData";
 
 interface StatsChartsProps {
@@ -17,7 +16,7 @@ export default function StatsCharts({ data }: StatsChartsProps) {
             className="!w-full !border !border-[#d2d6db] !bg-white !p-4 !flex !flex-col !items-center !gap-6 !rounded-[16px] !relative !box-border !overflow-hidden  !text-center"
           >
             <h3 className="!text-[18px] mb-3">{chart.title}</h3>
-            <DgaChart
+            <Chart
               colors={["#1B8354", "#079455", "#B8EACB", "#54C08A", "#2c684aff"]}
               height="400px"
               labels={chart.labels}
@@ -25,12 +24,8 @@ export default function StatsCharts({ data }: StatsChartsProps) {
               type="pie"
               width="100%"
               options={{
-                dataLabels: {
-                  enabled: false, // hides the label on the chart
-                },
-                legend: {
-                  show: false, // hides the legend list
-                },
+                dataLabels: { enabled: false },
+                legend: { show: false },
               }}
             />
 

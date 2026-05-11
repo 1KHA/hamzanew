@@ -1,11 +1,8 @@
 "use client";
-import { useState, useMemo } from "react";
-import dynamic from "next/dynamic";
 
-const DgaDropdown = dynamic(
-  () => import("platformscode-new-react").then((mod) => mod.DgaDropdown),
-  { ssr: false, loading: () => <div className="input__field" aria-hidden="true" /> }
-);
+import { useState, useMemo } from "react";
+import Image from "next/image";
+import Dropdown from "@/app/components/dropdown/Dropdown";
 import Card from "../card/Card";
 import "./GlobalStatisticsSection.css";
 import {
@@ -114,7 +111,7 @@ function GlobalStatisticsSection({
             <label className="input-label">
               {translations?.["hamza-home-page-map-search-text"] || "الدولة"}
             </label>
-            <DgaDropdown
+            <Dropdown
               placeholder={
                 translations?.["hamza-home-page-map-search-place-holder-text"] ||
                 "اختر الدولة..."
@@ -133,7 +130,7 @@ function GlobalStatisticsSection({
             <label className="input-label">
               {translations?.["hamza-home-page-map-test-type-title"] || "نوع الاختبار"}
             </label>
-            <DgaDropdown
+            <Dropdown
               placeholder={
                 translations?.["hamza-home-page-map-academic-test-title"] ||
                 "اختبار عام"
@@ -141,7 +138,7 @@ function GlobalStatisticsSection({
               variant="default"
               optionLabel="label"
               trackBy="value"
-              className="w-full"
+              extraClass="w-full"
               options={[
                 {
                   label:
@@ -171,13 +168,13 @@ function GlobalStatisticsSection({
             />
           </div>
           <div className="input-group">
-            <label className="input-label">السنة</label>
-            <DgaDropdown
+            <Dropdown
+            label="السنة"
               placeholder="2026"
               variant="default"
               optionLabel="label"
               trackBy="value"
-              className="w-full"
+              extraClass="w-full"
               options={[
                 { label: "2026", value: "2026" },
                 { label: "2025", value: "2025" },
@@ -190,7 +187,7 @@ function GlobalStatisticsSection({
             <label className="input-label">
               {translations?.["hamza-home-page-map-nationality-text"] || "الجنسية"}
             </label>
-            <DgaDropdown
+            <Dropdown
               placeholder={
                 translations?.["hamza-home-page-map-nationality-text"] ||
                 "اختر الجنسية"
@@ -207,14 +204,19 @@ function GlobalStatisticsSection({
           </div>
         </div>
 
-        <img
-          src="/assets/image/global.png"
-          alt={
-            translations?.["hamza-home-page-map-globe-title"] ||
-            "خريطة إحصائيات همزة"
-          }
-          className="w-full md:w-[70%]"
-        />
+          <Image
+            src="/assets/image/global.png"
+            alt={
+              translations?.["hamza-home-page-map-globe-title"] ||
+              "خريطة إحصائيات همزة"
+            }
+            width={1200}
+            height={600}
+            className="w-full md:w-[70%]"
+            loading="lazy"
+            sizes="(max-width: 768px) 100vw, 70vw"
+            quality={50}
+          />
         {/* statistics section */}
         <div className="cards-wrapper">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-[24px] w-full">

@@ -1,5 +1,5 @@
 import { useFormContext, Controller } from "react-hook-form";
-import { DgaDropdown } from "platformscode-new-react";
+import Dropdown from "@/app/components/dropdown/Dropdown";
 import Button from "@/app/components/button/Button";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
@@ -64,13 +64,13 @@ export default function LocationTab({
             name="timezone"
             control={control}
             render={({ field }) => (
-              <DgaDropdown
+              <Dropdown
                 placeholder="اختر"
                 size="lg"
                 variant="darker"
                 optionLabel="name"
                 trackBy="value"
-                className="w-full"
+                extraClass="w-full"
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
                 error={!!errors.timezone}
@@ -91,13 +91,13 @@ export default function LocationTab({
             name="country"
             control={control}
             render={({ field }) => (
-              <DgaDropdown
+              <Dropdown
                 placeholder="اختر"
                 size="lg"
                 variant="darker"
                 optionLabel="name"
                 trackBy="value"
-                className="w-full"
+                extraClass="w-full"
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
                 error={!!errors.country}
@@ -123,13 +123,13 @@ export default function LocationTab({
             name="state"
             control={control}
             render={({ field }) => (
-              <DgaDropdown
+              <Dropdown
                 placeholder="اختر"
                 size="lg"
                 variant="darker"
                 optionLabel="name"
                 trackBy="value"
-                className="w-full"
+                extraClass="w-full"
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
                 error={!!errors.state}
@@ -145,13 +145,13 @@ export default function LocationTab({
             name="city"
             control={control}
             render={({ field }) => (
-              <DgaDropdown
+              <Dropdown
                 placeholder="اختر"
                 size="lg"
                 variant="darker"
                 optionLabel="name"
                 trackBy="value"
-                className="w-full"
+                extraClass="w-full"
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
                 error={!!errors.city}
