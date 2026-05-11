@@ -254,6 +254,27 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     resource2Action: { ar: "التحضير للإختبار", en: "Prepare for the Test" },
     ctaDesc: { ar: "انضم إلى آلاف المؤسسات والشركات في العالم العربي التي تعتمد همزة لاختيار الموظفين القادرين على التواصل باحترافية وإتقان.", en: "Join thousands of institutions and companies in the Arab world that rely on Hamza to select employees who can communicate professionally and proficiently." },
     ctaButton: { ar: "إنضم إلينا", en: "Join Us" },
+    /* ── Hero descriptions ────────────────────────────────────────────── */
+    heroAboutDescription: {
+      ar: "منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها. وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة.",
+      en: "Hamza Test Platform is one of the technical tools supporting the King Salman Global Academy for Arabic Language initiative in building and activating standard Arabic language tests. The platform aims to introduce and implement Hamza tests, and provides qualitative data and indicators to support specialists, researchers, and related entities.",
+    },
+    heroCommitteeDescription: {
+      ar: "تهدف اللجنة الاستشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية.",
+      en: "The Advisory Committee aims to benefit from providing consultations and raising recommendations and activities related to developing measurement tools and approved standards, contributing to the sustainability of improvement and development in future directions in this field, to adopt best periodic practices in measuring Arabic language skills.",
+    },
+    heroInstitutionsDescription: {
+      ar: "تعتمد بعض المؤسسات حول العالم على اختبار همزة لتقييم الكفاءة في اللغة العربية تشمل هذه المؤسسات: الجامعات، الجهات الحكومية، الهيئات المهنية، شركات التوظيف، وجهات الهجرة في الدول الناطقة بالعربية أو المهتمة بها.",
+      en: "Some institutions around the world rely on the Hamza test to assess proficiency in the Arabic language. These institutions include: universities, government bodies, professional organizations, recruitment companies, and immigration authorities in Arabic-speaking countries or those interested in them.",
+    },
+    heroAmbassadorsDescription: {
+      ar: "تهدف اللجنة الاستشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية لمختلف الفئات.",
+      en: "The Advisory Committee aims to benefit from providing consultations and raising recommendations and activities related to developing measurement tools and approved standards, contributing to the sustainability of improvement and development in future directions in this field, to adopt best periodic practices in measuring Arabic language skills for various categories.",
+    },
+    heroTraitsDescription: {
+      ar: "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية، ويستخدمها أفراد يسعون إلى الدراسة أو العمل أو الهجرة إلى دول ناطقة بالعربية. تدعم هذه الاختبارات المؤسسات في اختيار الطلاب الأنسب، وبناء كوادر قادرة على التواصل بفاعلية في بيئات العمل والتعليم، واستقطاب الكفاءات إلى جهتك.",
+      en: "Hamza tests provide a standardized and reliable approach to measuring Arabic language proficiency, used by individuals seeking to study, work, or immigrate to Arabic-speaking countries. These tests support institutions in selecting the most suitable students and building capable workforces.",
+    },
     /* ── Hamza Ambassadors ────────────────────────────────────────────── */
     ambassadorsTitle: { ar: "سفراء همزة", en: "Hamza Ambassadors" },
     ambassadorsDesc: { ar: "تهدف اللجنة الاستشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية لمختلف الفئات.", en: "The Advisory Committee aims to provide consultations and recommendations related to developing measurement tools and approved standards, contributing to sustainable improvement in future directions for measuring Arabic language skills for various categories." },

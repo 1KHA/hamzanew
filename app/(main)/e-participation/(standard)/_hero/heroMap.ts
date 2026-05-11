@@ -10,7 +10,7 @@ export type Crumb = { label: string; path?: string; disabled?: boolean };
 export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   "/e-participation": {
     title: "المشاركة الإلكترونية",
-    description: "منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها. وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة.",
+    description: "about.heroAboutDescription",
     bgColor: "#F7FDF9",
     breadcrumbs: [
       { label: "hamza-navigation-menu-home", path: "/" },

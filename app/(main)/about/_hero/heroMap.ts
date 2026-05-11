@@ -16,8 +16,7 @@ export type Crumb = { label: string; path?: string; disabled?: boolean };
 const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   "/about": {
     title: "hamza-page-level-nav-who-are-we",
-    description: `منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها.
-وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة.`,
+    description: "about.heroAboutDescription",
     bgColor: "#F7FDF9",
     // externalLink: {
     //   href: "",
@@ -32,8 +31,7 @@ const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
 
   "/about/who-we-are": {
     title: "hamza-page-level-nav-who-are-we",
-    description: `منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها.
-وتهدف المنصة إلى التعريف باختبارات همزة وتطبيقها، كما تتيح توفير بيانات ومؤشرات نوعية لدعم المختصين والباحثين والجهات ذات العلاقة.`,
+    description: "about.heroAboutDescription",
     bgColor: "#FFF",
     breadcrumbs: [
       { label: "hamza-navigation-menu-home", path: "/" },
@@ -45,7 +43,7 @@ const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
 
   "/about/periodic-advisory-committee": {
     title: "hamza-periodic-advisory-committee",
-    description: `تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية.`,
+    description: "about.heroCommitteeDescription",
     bgColor: "#F9FAFB",
     // externalLink: {
     //   href: "",
@@ -79,8 +77,7 @@ const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   },
   "/about/institutions-and-countries-that-accept-the-hamza": {
     title: "hamza-institutions-and-countries-that-accept-the-hamza",
-    description:
-      "تعتمد بعض المؤسسات حول العالم على اختبار همزة لتقييم الكفاءة في اللغة العربية تشمل هذه المؤسسات: الجامعات، الجهات الحكومية، الهيئات المهنية، شركات التوظيف، وجهات الهجرة في الدول الناطقة بالعربية أو المهتمة بها.",
+    description: "about.heroInstitutionsDescription",
     bgColor: "#FFF",
     breadcrumbs: [
       { label: "hamza-navigation-menu-home", path: "/" },
@@ -95,8 +92,7 @@ const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
   },
   "/about/hamza-ambassadors": {
     title: "hamza-navigation-menu-hamza-ambassadors",
-    description:
-      "تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية لمختلف الفئات.",
+    description: "about.heroAmbassadorsDescription",
     bgColor: "#F9FAFB",
     breadcrumbs: [
       { label: "hamza-navigation-menu-home", path: "/" },
@@ -153,7 +149,7 @@ export async function getPeriodicAdvisoryCommitteeHero(): Promise<HeroData & { b
     // Return static fallback data
     return {
       title: "hamza-periodic-advisory-committee",
-      description: `تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية.`,
+      description: "about.heroCommitteeDescription",
       bgColor: "#F9FAFB",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
@@ -207,8 +203,7 @@ export async function getWhoWeAreHero(): Promise<HeroData & { breadcrumbs?: Crum
     console.error("Error fetching who-we-are hero:", error);
     return {
       title: "hamza-page-level-nav-who-are-we",
-      description:
-        "منصة اختبارات همزة هي إحدى الأدوات التقنية الداعمة لمبادرة مجمع الملك سلمان العالمي للغة العربية في بناء الاختبارات المعيارية للغة العربية وتفعيلها.",
+      description: "about.heroAboutDescription",
       bgColor: "#FFF",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
@@ -259,7 +254,7 @@ export async function getHamzaAmbassadorsHero(): Promise<HeroData & { breadcrumb
     // Return static fallback data
     return {
       title: "hamza-navigation-menu-hamza-ambassadors",
-      description: `تهدف اللجنة استشارية إلى الاستفادة بتقديم الاستشارات ورفع التوصيات والأنشطة المتعلقة بتطوير أدوات القياس والمعايير المعتمدة، بما يُسهم في استدامة التحسين والتطوير في التوجهات المستقبلية في هذا المجال، لتبني أفضل الممارسات الدورية في قياس مهارات اللغة العربية لمختلف الفئات.`,
+      description: "about.heroAmbassadorsDescription",
       bgColor: "#F9FAFB",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
@@ -298,7 +293,7 @@ export async function getHamzaTestTraitsHero(): Promise<HeroData & { breadcrumbs
     
     return {
       title: data.title || "سمات إختبار همزة",
-      description: "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية، ويستخدمها أفراد يسعون إلى الدراسة أو العمل أو الهجرة إلى دول ناطقة بالعربية. تدعم هذه الاختبارات المؤسسات في اختيار الطلاب الأنسب، وبناء كوادر قادرة على التواصل بفاعلية في بيئات العمل والتعليم، واستقطاب الكفاءات إلى جهتك.",
+      description: "about.heroTraitsDescription",
       bgColor: "#F9FAFB",
       externalLink: {
         href: "/sign-up",
@@ -320,7 +315,7 @@ export async function getHamzaTestTraitsHero(): Promise<HeroData & { breadcrumbs
     // Return static fallback data
     return {
       title: "hamza-navigation-menu-why-choose-hamza",
-      description: "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية، ويستخدمها أفراد يسعون إلى الدراسة أو العمل أو الهجرة إلى دول ناطقة بالعربية. تدعم هذه الاختبارات المؤسسات في اختيار الطلاب الأنسب، وبناء كوادر قادرة على التواصل بفاعلية في بيئات العمل والتعليم، واستقطاب الكفاءات إلى جهتك.",
+      description: "about.heroTraitsDescription",
       bgColor: "#F9FAFB",
       externalLink: {
         href: "/sign-up",

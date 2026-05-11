@@ -6,6 +6,7 @@ import styles from "./PageHero.module.css";
 import DgaBreadcrumbs from "@/app/components/breadcrumbs/BreadCrumbs";
 import ClientOnly from "../ClientOnly";
 import { t } from "@/app/_lib/translationContext.js";
+import { st } from "@/app/_lib/static-text";
 
 export type Crumb = { label: string; path?: string; disabled?: boolean };
 
@@ -89,9 +90,25 @@ export default function PageHero({
   );
 
   const resolvedTitle = t(hero.title, translations);
-  const resolvedDescription = hero.description
-    ? t(hero.description, translations)
-    : undefined;
+
+  // Resolve description: try Liferay translations first, then fall back to static-text
+  const resolvedDescription = useMemo(() => {
+    if (!hero.description) return undefined;
+    const translated = t(hero.description, translations);
+    // If t() found a translation (returned something different from the key), use it
+    if (translated !== hero.description) return translated;
+    // Otherwise try static-text lookup for "scope.key" format
+    if (hero.description.includes(".")) {
+      const [scope, key] = hero.description.split(".", 2);
+      if (scope && key) {
+        const staticText = st(scope, key);
+        // st() returns the key if not found — only use it if it resolved successfully
+        if (staticText !== key) return staticText;
+      }
+    }
+    return hero.description;
+  }, [hero.description, translations]);
+
   const resolvedDate = hero.date ? t(hero.date, translations) : undefined;
   const resolvedExternalLink = hero.externalLink
     ? { ...hero.externalLink, label: t(hero.externalLink.label, translations) }
