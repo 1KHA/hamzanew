@@ -1,11 +1,12 @@
 import type { ReactNode } from "react";
 import {
-  heroMap,
+  getHeroMap,
   getPreparationResourceHero,
   getTestMechanismHero,
 } from "./heroMap";
 import PageHero from "@/app/components/page-hero/PageHero";
 import { getTranslations } from "@/app/_lib/getTranslations";
+import { cookies } from "next/headers";
 
 export default async function TestTakersLayout({
   children,
@@ -19,9 +20,12 @@ export default async function TestTakersLayout({
     getPreparationResourceHero(),
   ]);
 
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+
   // Merge dynamic heroes with static heroMap
   const dynamicHeroMap = {
-    ...heroMap,
+    ...getHeroMap(locale),
     "/test-takers/test-mechanism": testMechanismHero,
     "/test-takers/preparation-resource": prepResourceHero,
   };

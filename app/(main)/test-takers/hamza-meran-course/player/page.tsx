@@ -1,11 +1,17 @@
 import { Metadata } from "next";
+import { cookies } from "next/headers";
+import { st } from "@/app/_lib/static-text-server";
 import CoursePlayer from "./CoursePlayer";
 
-export const metadata: Metadata = {
-  title: "دورة مران همزة - مشاهدة الدروس",
-  description:
-    "شاهد دروس دورة مران همزة وتابع تقدمك في المهارات الأربع: الاستماع، والقراءة، والكتابة، والتحدث.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+
+  return {
+    title: st("meranCourse", "playerMetaTitle", locale),
+    description: st("meranCourse", "playerMetaDescription", locale),
+  };
+}
 
 export default function CoursePlayerPage() {
   return <CoursePlayer />;

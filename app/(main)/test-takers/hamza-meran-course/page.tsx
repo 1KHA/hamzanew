@@ -1,8 +1,8 @@
 /**
- * Hamza General Test Page
+ * Hamza Meran Course Page
  *
- * This page displays comprehensive information about the Hamza General Test,
- * including test sections and registration information.
+ * This page displays comprehensive information about the Hamza Meran Course,
+ * including course sections and registration information.
  *
  * @accessibility
  * - All images have descriptive alt text
@@ -14,12 +14,18 @@ import "@/app/components/card/card.css";
 import "@/app/styles/Button.css";
 import Button from "../../../components/button/Button";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
+import { st } from "@/app/_lib/static-text-server";
 
-export const metadata: Metadata = {
-  title: "دورة مران همزة",
-  description:
-    "تهدف الدورة إلى تهيئة الطلاب الناطقين بغير اللغة العربية لاختبار همزة الأكاديمي الذي يقيس كفاية اللغة العربية من خلال المهارات الأربع الأساسية",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+  return {
+    title: st("meranCourse", "metaTitle", locale),
+    description: st("meranCourse", "metaDescription", locale),
+  };
+}
+
 /* ==========================================================================
    Types & Interfaces
    ========================================================================== */
@@ -34,166 +40,6 @@ interface CourseSection {
   title: string;
   description: string;
 }
-
-/* ==========================================================================
-   Static Data
-   ========================================================================== */
-
-/**
- * Data for the four course sections
- */
-const COURSE_SECTIONS: CourseSection[] = [
-  {
-    id: 1,
-    icon: "headphones",
-    iconAlt: "أيقونة سماعات - قسم الفهم المسموع",
-    title: "الفهم المسموع",
-    description:
-      "الاستماع يقيس قدرتك على متابعة المحادثات والحوارات اليومية والأكاديمية",
-  },
-  {
-    id: 2,
-    icon: "book-open-01",
-    iconAlt: "أيقونة كتاب مفتوح - قسم استيعاب المقروء",
-    title: "استيعاب المقروء",
-    description: "القراءة تختبر فهمك للنصوص التعليمية والمقالات التحليلية",
-  },
-  {
-    id: 3,
-    icon: "pencil-edit-02",
-    iconAlt: "أيقونة قلم - قسم الكتابة",
-    title: "الكتابة",
-    description:
-      "الكتابة تقيّم قدرتك على التعبير بلغة دقيقة ومنظمة في موضوعات أكاديمية",
-  },
-  {
-    id: 4,
-    icon: "message-01",
-    iconAlt: "أيقونة محادثة - قسم التحدث",
-    title: "التحدث",
-    description:
-      "المحادثة تركّز على طلاقتك وثقتك في استخدام اللغة في المواقف المختلفة",
-  },
-];
-
-/**
- * Data for the duration section feature cards
- */
-const DURATION_FEATURES = [
-  {
-    id: 1,
-    icon: "cells",
-    iconAlt: "أيقونة تعلّم - الوحدات التعليمية",
-    title: "الوحدات التعليمية",
-  },
-  {
-    id: 2,
-    icon: "star-half",
-    iconAlt: "أيقونة دبلوم - التقييمات المستمرة",
-    title: "التقييمات المستمرة",
-  },
-  {
-    id: 3,
-    icon: "pendulum",
-    iconAlt: "أيقونة نشاط - الأنشطة العملية",
-    title: "الأنشطة العملية",
-  },
-  {
-    id: 4,
-    icon: "quiz-02",
-    iconAlt: "أيقونة أسئلة - الأسئلة التجريبية للاختبار",
-    title: "الأسئلة التجريبية للاختبار",
-  },
-];
-
-/**
- * Data for the three course weeks
- */
-const WEEKS = [
-  { id: 1, number: "1", title: "الأسبوع الأول" },
-  { id: 2, number: "2", title: "الأسبوع الثاني" },
-  { id: 3, number: "3", title: "الأسبوع الثالث" },
-];
-
-/**
- * Data for the target audience cards
- */
-const TARGET_AUDIENCE = [
-  {
-    id: 1,
-    text: "متعلمي اللغة العربية الناطقين بغيرها.",
-  },
-  {
-    id: 2,
-    text: "الراغبين في التقديم على المنح الدراسية في برامج اللغة العربية.",
-  },
-  {
-    id: 3,
-    text: "الراغبين بالالتحاق بوظائف تحتاج إلى معرفةٍ بالكفاية اللغوية العربية",
-  },
-];
-
-/**
- * Data for the features section
- */
-const FEATURES = [
-  {
-    id: 1,
-    icon: "touch-interaction-04",
-    iconAlt: "أيقونة تعلم تفاعلي",
-    title: "تعلم تفاعلي",
-    description:
-      "تتيح المنصة تجربة تعلم متفاعلة من خلال مزيج من المقاطع الفيديو التعليمية عالية الجودة، والأنشطة التفاعلية، والتمارين العملية. يتم توفير التحفيز والتوجيه اللازم للمتعلمين لمساعدتهم على الاستفادة القصوى من الدروس.",
-  },
-  {
-    id: 2,
-    icon: "mentoring",
-    iconAlt: "أيقونة توجيه شخصي",
-    title: "توجيه شخصي",
-    description:
-      "تقدم المنصة توجيهًا شخصيًا للمتعلمين من خلال واجهة سهلة الاستخدام. يتلقى المتعلمون تقييمات مستمرة لأدائهم وتوجيهات للتحسين. يتم توفير مساحة للمناقشة مع المدربين والزملاء لتبادل الأفكار وحل الأسئلة.",
-  },
-  {
-    id: 3,
-    icon: "hand-prayer",
-    iconAlt: "أيقونة تواصل وتعاون",
-    title: "تواصل وتعاون",
-    description:
-      "توفر المنصة وسائل تواصل وتعاون فعّالة بين المتعلمين. يمكنهم التواصل مع المدربين والخبراء في المجال والتفاعل مع زملائهم من خلال منتديات النقاش والدروس المباشرة.",
-  },
-  {
-    id: 4,
-    icon: "bend-tool",
-    iconAlt: "أيقونة تجربة تعلم مرنة",
-    title: "تجربة تعلم مرنة",
-    description:
-      "تمكن المنصة المتعلمين من الوصول إلى المحتوى التعليمي في أي وقت ومن أي مكان. يمكنهم تنظيم جدولهم الزمني بناءً على احتياجاتهم الشخصية والتعلم في وتيرة تناسبهم.",
-  },
-  {
-    id: 5,
-    icon: "award-05",
-    iconAlt: "أيقونة شهادات معتمدة",
-    title: "شهادات معتمدة",
-    description:
-      "بعد اجتياز الدورة التعليمية بنجاح، يحصل المتعلمون على شهادة معتمدة من مجمع الملك سلمان العالمي للغة العربية ممثلة في شعار المنصة (أهلًا بسهلا) تثبت إتقانهم للمهارات المكتسبة. تعتبر هذه الشهادات قيمة في سوق العمل وتعزز فرص الحصول على وظائف أفضل.",
-  },
-  {
-    id: 6,
-    icon: "book-open-02",
-    iconAlt: "أيقونة محتوى تعليمي متنوع",
-    title: "محتوى تعليمي متنوع",
-    description:
-      "تقدم المنصة مجموعة واسعة من الدورات التعليمية في مجالات اللغة العربية مثل تدريب المعلمين، برامج معالجة اللغات الطبيعية الأعمال، التدريب على اختبار همزة، الكتابة الإدارية وغيرها. يتم تطوير المحتوى بواسطة خبراء في المجال ومقسم إلى وحدات تعليمية سهلة الاستيعاب.",
-  },
-  {
-    id: 7,
-    icon: "user-group-02",
-    iconAlt: "أيقونة تواجد مجتمع تعليمي لغوي",
-    title: "تواجد مجتمع تعليمي لغوي",
-    description:
-      "تسعى المنصة لبناء مجتمع تعليمي نشط وملهم. يتم تنظيم ورش العمل والندوات والفعاليات الأخرى لتعزيز التواصل والتعاون بين المتعلمين وتمكينهم من توسيع شبكة معارفهم.",
-  },
-];
 
 /* ==========================================================================
    Sub Components
@@ -236,10 +82,150 @@ function CourseSectionCard({ section }: { section: CourseSection }) {
    ========================================================================== */
 
 /**
- * Hamza General Test Page Component
- * Main entry point for the test information page
+ * Hamza Meran Course Page Component
+ * Main entry point for the course information page
  */
-export default function HamzaGeneralTestPage() {
+export default async function HamzaMeranCoursePage() {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+
+  /**
+   * Data for the four course sections
+   */
+  const COURSE_SECTIONS: CourseSection[] = [
+    {
+      id: 1,
+      icon: "headphones",
+      iconAlt: st("meranCourse", "sectionListeningIconAlt", locale),
+      title: st("meranCourse", "sectionListeningTitle", locale),
+      description: st("meranCourse", "sectionListeningDesc", locale),
+    },
+    {
+      id: 2,
+      icon: "book-open-01",
+      iconAlt: st("meranCourse", "sectionReadingIconAlt", locale),
+      title: st("meranCourse", "sectionReadingTitle", locale),
+      description: st("meranCourse", "sectionReadingDesc", locale),
+    },
+    {
+      id: 3,
+      icon: "pencil-edit-02",
+      iconAlt: st("meranCourse", "sectionWritingIconAlt", locale),
+      title: st("meranCourse", "sectionWritingTitle", locale),
+      description: st("meranCourse", "sectionWritingDesc", locale),
+    },
+    {
+      id: 4,
+      icon: "message-01",
+      iconAlt: st("meranCourse", "sectionSpeakingIconAlt", locale),
+      title: st("meranCourse", "sectionSpeakingTitle", locale),
+      description: st("meranCourse", "sectionSpeakingDesc", locale),
+    },
+  ];
+
+  /**
+   * Data for the duration section feature cards
+   */
+  const DURATION_FEATURES = [
+    {
+      id: 1,
+      icon: "cells",
+      iconAlt: st("meranCourse", "durationFeature1Alt", locale),
+      title: st("meranCourse", "durationFeature1Title", locale),
+    },
+    {
+      id: 2,
+      icon: "star-half",
+      iconAlt: st("meranCourse", "durationFeature2Alt", locale),
+      title: st("meranCourse", "durationFeature2Title", locale),
+    },
+    {
+      id: 3,
+      icon: "pendulum",
+      iconAlt: st("meranCourse", "durationFeature3Alt", locale),
+      title: st("meranCourse", "durationFeature3Title", locale),
+    },
+    {
+      id: 4,
+      icon: "quiz-02",
+      iconAlt: st("meranCourse", "durationFeature4Alt", locale),
+      title: st("meranCourse", "durationFeature4Title", locale),
+    },
+  ];
+
+  /**
+   * Data for the three course weeks
+   */
+  const WEEKS = [
+    { id: 1, number: "1", title: st("meranCourse", "week1Title", locale) },
+    { id: 2, number: "2", title: st("meranCourse", "week2Title", locale) },
+    { id: 3, number: "3", title: st("meranCourse", "week3Title", locale) },
+  ];
+
+  /**
+   * Data for the target audience cards
+   */
+  const TARGET_AUDIENCE = [
+    { id: 1, text: st("meranCourse", "audience1", locale) },
+    { id: 2, text: st("meranCourse", "audience2", locale) },
+    { id: 3, text: st("meranCourse", "audience3", locale) },
+  ];
+
+  /**
+   * Data for the features section
+   */
+  const FEATURES = [
+    {
+      id: 1,
+      icon: "touch-interaction-04",
+      iconAlt: st("meranCourse", "feature1IconAlt", locale),
+      title: st("meranCourse", "feature1Title", locale),
+      description: st("meranCourse", "feature1Desc", locale),
+    },
+    {
+      id: 2,
+      icon: "mentoring",
+      iconAlt: st("meranCourse", "feature2IconAlt", locale),
+      title: st("meranCourse", "feature2Title", locale),
+      description: st("meranCourse", "feature2Desc", locale),
+    },
+    {
+      id: 3,
+      icon: "hand-prayer",
+      iconAlt: st("meranCourse", "feature3IconAlt", locale),
+      title: st("meranCourse", "feature3Title", locale),
+      description: st("meranCourse", "feature3Desc", locale),
+    },
+    {
+      id: 4,
+      icon: "bend-tool",
+      iconAlt: st("meranCourse", "feature4IconAlt", locale),
+      title: st("meranCourse", "feature4Title", locale),
+      description: st("meranCourse", "feature4Desc", locale),
+    },
+    {
+      id: 5,
+      icon: "award-05",
+      iconAlt: st("meranCourse", "feature5IconAlt", locale),
+      title: st("meranCourse", "feature5Title", locale),
+      description: st("meranCourse", "feature5Desc", locale),
+    },
+    {
+      id: 6,
+      icon: "book-open-02",
+      iconAlt: st("meranCourse", "feature6IconAlt", locale),
+      title: st("meranCourse", "feature6Title", locale),
+      description: st("meranCourse", "feature6Desc", locale),
+    },
+    {
+      id: 7,
+      icon: "user-group-02",
+      iconAlt: st("meranCourse", "feature7IconAlt", locale),
+      title: st("meranCourse", "feature7Title", locale),
+      description: st("meranCourse", "feature7Desc", locale),
+    },
+  ];
+
   return (
     <>
       {/* ====================================================================
@@ -264,7 +250,7 @@ export default function HamzaGeneralTestPage() {
                   <p className="!text-[#1B8354] !text-[18px] flex gap-[8px] items-center !text-semibold">
                     <span className="circular-green-outline">
                       <img
-                        alt="أيقونة دورة - دورة مران"
+                        alt={st("meranCourse", "courseBadge", locale)}
                         width={16}
                         height={16}
                         loading="eager"
@@ -272,7 +258,7 @@ export default function HamzaGeneralTestPage() {
                         src="/assets/icons/stroke-standard/mortarboard-02-stroke-rounded.svg"
                       />
                     </span>
-                    دورة مران
+                    {st("meranCourse", "courseBadge", locale)}
                   </p>
 
                   {/* Main Title - Visible on large screens */}
@@ -280,9 +266,9 @@ export default function HamzaGeneralTestPage() {
                     id="test-sections-title"
                     className="display-sm-bold hidden xl:block"
                   >
-                    أقسام الدورة
+                    {st("meranCourse", "sectionsHeading", locale)}
                     <img
-                      alt="سهم يشير إلى أقسام الدورة"
+                      alt={st("meranCourse", "sectionsArrowAlt", locale)}
                       width={38}
                       height={38}
                       loading="eager"
@@ -293,11 +279,7 @@ export default function HamzaGeneralTestPage() {
 
                   {/* Course Description */}
                   <p className="text-md-regular">
-                    تهدف الدورة إلى تهيئة الطلاب الناطقين بغير اللغة العربية
-                    لاختبار همزة الأكاديمي، الذي يقيس كفاية اللغة العربية،
-                    التي تشمل المهارات الأربع الأساسية، من خلال محاضرات
-                    تفاعلية، سيكتسب الطلاب من خلالها إستراتيجيات؛ للإجابة عن
-                    الأسئلة، وتعزيز ثقتهم في استخدام اللغة العربية.
+                    {st("meranCourse", "courseDescription", locale)}
                   </p>
                 </div>
               </header>
@@ -306,7 +288,7 @@ export default function HamzaGeneralTestPage() {
               <div>
                 <a href="/test-takers/hamza-meran-course/player">
                   <Button
-                    label="شاهد الدروس"
+                    label={st("meranCourse", "watchLessonsBtn", locale)}
                     variant="primary-brand"
                     size="lg"
                     icon="arrow-up-right-01"
@@ -320,14 +302,14 @@ export default function HamzaGeneralTestPage() {
             <div className="flex flex-col gap-[16px]">
               {/* Title - Visible on small and medium screens */}
               <h2 className="display-sm-bold block xl:hidden">
-                أقسام الدورة
+                {st("meranCourse", "sectionsHeading", locale)}
               </h2>
 
               {/* Course Sections Cards Grid */}
               <div
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-[16px]"
                 role="list"
-                aria-label="أقسام دورة مران الأربعة"
+                aria-label={st("meranCourse", "sectionsListAria", locale)}
               >
                 {COURSE_SECTIONS.map((section) => (
                   <div key={section.id} role="listitem">
@@ -351,15 +333,14 @@ export default function HamzaGeneralTestPage() {
           {/* Right Column (RTL): Title + Description */}
           <div className="flex flex-col gap-[20px]">
             <h2 id="duration-title" className="display-sm-bold">
-              المدة الزمنية
+              {st("meranCourse", "durationHeading", locale)}
             </h2>
             <div className="flex flex-col gap-[12px]">
               <p className="text-md-regular text-[#475467]">
-                المدة المتوقعة لإكمال الدورة (ثلاثة أسابيع)
+                {st("meranCourse", "durationDesc1", locale)}
               </p>
               <p className="text-md-regular text-[#475467]">
-                بمعدل (ساعتين) أسبوعيًا، بما يضمن للمتدرب تجربة تعليمية
-                متكاملة وفاعلة
+                {st("meranCourse", "durationDesc2", locale)}
               </p>
             </div>
           </div>
@@ -370,7 +351,7 @@ export default function HamzaGeneralTestPage() {
             <div
               className="grid grid-cols-2 md:grid-cols-4 gap-[16px]"
               role="list"
-              aria-label="محتويات الدورة"
+              aria-label={st("meranCourse", "durationFeaturesAria", locale)}
             >
               {DURATION_FEATURES.map((feature) => (
                 <article
@@ -401,7 +382,7 @@ export default function HamzaGeneralTestPage() {
         <div
           className="grid grid-cols-3 gap-[16px] !p-[16px] bg-[#F9FAFB] rounded-lg"
           role="list"
-          aria-label="أسابيع الدورة"
+          aria-label={st("meranCourse", "weeksAria", locale)}
         >
           {WEEKS.map((week) => (
             <div
@@ -419,7 +400,7 @@ export default function HamzaGeneralTestPage() {
               <div
                 className="w-full h-[8px] rounded-full bg-[#D1FADF] overflow-hidden"
                 role="progressbar"
-                aria-label={`تقدم ${week.title}`}
+                aria-label={st("meranCourse", "progressAria", locale).replace("{week}", week.title)}
                 aria-valuenow={100}
                 aria-valuemin={0}
                 aria-valuemax={100}
@@ -430,7 +411,7 @@ export default function HamzaGeneralTestPage() {
                 <div
                   className="w-full h-[8px] rounded-full bg-[#D1FADF] overflow-hidden"
                   role="progressbar"
-                  aria-label={`تقدم إضافي ${week.title}`}
+                  aria-label={st("meranCourse", "additionalProgressAria", locale).replace("{week}", week.title)}
                   aria-valuenow={0}
                   aria-valuemin={0}
                   aria-valuemax={100}
@@ -440,7 +421,7 @@ export default function HamzaGeneralTestPage() {
                 <div
                   className="w-full h-[8px] rounded-full bg-[#D1FADF] overflow-hidden"
                   role="progressbar"
-                  aria-label={`تقدم إضافي ${week.title}`}
+                  aria-label={st("meranCourse", "additionalProgressAria", locale).replace("{week}", week.title)}
                   aria-valuenow={0}
                   aria-valuemin={0}
                   aria-valuemax={100}
@@ -454,7 +435,7 @@ export default function HamzaGeneralTestPage() {
       </section>
 
       {/* ====================================================================
-          Section 4: Target Audience (الفئة المستهدفة)
+          Section 4: Target Audience
           ==================================================================== */}
       <section
         className="relative bg-[#074D31]"
@@ -471,18 +452,17 @@ export default function HamzaGeneralTestPage() {
               id="target-audience-title"
               className="display-sm-bold text-white"
             >
-              الفئة المستهدفة
+              {st("meranCourse", "targetAudienceHeading", locale)}
             </h2>
             <p className="text-md-regular text-[#fff]">
-              تحظى اختبارات همزة بثقة بعض المؤسسات حول العالم تستهدف هذه الدورة
-              الراغبين في التقديم لاختبار همزة .
+              {st("meranCourse", "targetAudienceDesc", locale)}
             </p>
           </div>
 
           <div
             className="grid grid-cols-1 md:grid-cols-3 gap-[16px]"
             role="list"
-            aria-label="الفئات المستهدفة"
+            aria-label={st("meranCourse", "targetAudienceListAria", locale)}
           >
             {TARGET_AUDIENCE.map((item) => (
               <article
@@ -501,7 +481,7 @@ export default function HamzaGeneralTestPage() {
       </section>
 
       {/* ====================================================================
-          Section 5: Features (الميزات)
+          Section 5: Features
           ==================================================================== */}
       <section
         className="!py-[40px] xl:!py-[80px] !flex flex-col gap-[24px] md:gap-[32px]"
@@ -509,14 +489,14 @@ export default function HamzaGeneralTestPage() {
       >
         <div className="content !flex flex-col gap-[16px] md:gap-[32px]">
           <h2 id="features-title" className="display-sm-bold text-start">
-            الميزات
+            {st("meranCourse", "featuresHeading", locale)}
           </h2>
 
           {/* Top Row: 4 cards */}
           <div
             className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-[16px]"
             role="list"
-            aria-label="ميزات المنصة"
+            aria-label={st("meranCourse", "featuresListAria", locale)}
           >
             {FEATURES.slice(0, 4).map((feature) => (
               <article
@@ -548,7 +528,7 @@ export default function HamzaGeneralTestPage() {
           <div
             className="grid grid-cols-1 md:grid-cols-3 gap-[16px]"
             role="list"
-            aria-label="ميزات إضافية"
+            aria-label={st("meranCourse", "extraFeaturesListAria", locale)}
           >
             {FEATURES.slice(4).map((feature) => (
               <article

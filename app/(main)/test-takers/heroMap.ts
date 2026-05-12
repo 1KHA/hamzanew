@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import { st } from "@/app/_lib/static-text-server";
 
 export type HeroData = {
   title: string;
@@ -12,85 +13,87 @@ export type HeroData = {
 
 export type Crumb = { label: string; path?: string; disabled?: boolean };
 
-export const heroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
-  "/test-takers/hamza-meran-course": {
-    title: "hamza-navigation-menu-hamza-maran-hamza",
-    description: "",
-    bgColor: "#fff",
+export function getHeroMap(locale: "ar" | "en"): Record<string, HeroData & { breadcrumbs?: Crumb[] }> {
+  return {
+    "/test-takers/hamza-meran-course": {
+      title: "hamza-navigation-menu-hamza-maran-hamza",
+      description: "",
+      bgColor: "#fff",
 
-    breadcrumbs: [
-      { label: "hamza-navigation-menu-home", path: "/" },
-      { label: "hamza-navigation-menu-test-takers", disabled: true },
-      { label: "hamza-navigation-menu-test-takers", disabled: true },
-      {
-        label: "hamza-navigation-menu-hamza-maran-hamza",
-        path: "/test-takers/hamza-meran-course",
-        disabled: true,
-      },
-    ],
-  },
-  "/test-takers/hamza-meran-course/player": {
-    title: "",
-    bgColor: "#fff",
-    breadcrumbs: [
-      { label: "hamza-navigation-menu-home", path: "/" },
-      { label: "hamza-navigation-menu-test-takers", disabled: true },
-      { label: "hamza-navigation-menu-test-takers", disabled: true },
-      { label: "hamza-navigation-menu-hamza-maran-hamza", path: "/test-takers/hamza-meran-course" },
-      {
-        label: "مشاهدة الدروس",
-        path: "/test-takers/hamza-meran-course/player",
-        disabled: true,
-      },
-    ],
-  },
-  "/test-takers/test-mechanism": {
-    title: "hamza-navigation-menu-hamza-test-mechanism",
-    description:
-      'خيارات مرنة لأداء اختبار همزة فهو اختبار محوسب يوفر لك خيارات متعددة لأداء اختبار سواءً من خلال مراكزنا المعتمدة حضوريًا أو عن بُعد. نلتزم بتطبيق أعلى معايير الأمان والمصداقية، لضمان الحفاظ على ثقة المؤسسات الأكاديمية والمهنية التي تعتمد نتائج اختبار "همزة" في العالم العربي وخارجه',
-    bgColor: "#F9FAFB",
-    breadcrumbs: [
-      { label: "hamza-navigation-menu-home", path: "/" },
-      { label: "hamza-navigation-menu-test-takers", disabled: true },
-      { label: "hamza-navigation-menu-test-takers", disabled: true },
-      {
-        label: "hamza-navigation-menu-hamza-test-mechanism",
-        path: "/test-takers/test-mechanism",
-        disabled: true,
-      },
-    ],
-  },
-  "/test-takers/preparation-resource": {
-    title: "hamza-page-level-nav-preparation-sources",
-    description:
-      "عزّز تجربتك وجهودك الدراسية، وادخل يوم الاختبار بثقة. نوفّر لك أسئلة عملية، ونماذج رسمية، ومواد تدريبية شاملة تساعدك على الاستعداد لاختبار همزة بكل كفاءة. يجتاز ملايين الأشخاص حول العالم هذا الاختبار كل عام — ويمكنك أن تكون أحدهم.",
-    bgColor: "#FFF",
-    breadcrumbs: [
-      { label: "hamza-navigation-menu-home", path: "/" },
-      { label: "hamza-navigation-menu-test-takers", disabled: true },
-      { label: "hamza-navigation-menu-test-takers", disabled: true },
-      {
-        label: "hamza-page-level-nav-preparation-sources",
-        path: "/test-takers/preparation-resource",
-        disabled: true,
-      },
-    ],
-  },
-  "/test-takers/discover-hamza-tests": {
-    title: "hamza-navigation-menu-test-takers",
-    bgColor: "#F9FAFB",
-    breadcrumbs: [
-      { label: "hamza-navigation-menu-home", path: "/" },
-      { label: "hamza-navigation-menu-test-takers", disabled: true },
-      { label: "hamza-navigation-menu-test-takers", disabled: true },
-      {
-        label: "hamza-navigation-menu-test-takers",
-        path: "/test-takers/discover-hamza-tests",
-        disabled: true,
-      },
-    ],
-  },
-};
+      breadcrumbs: [
+        { label: "hamza-navigation-menu-home", path: "/" },
+        { label: "hamza-navigation-menu-test-takers", disabled: true },
+        { label: "hamza-navigation-menu-test-takers", disabled: true },
+        {
+          label: "hamza-navigation-menu-hamza-maran-hamza",
+          path: "/test-takers/hamza-meran-course",
+          disabled: true,
+        },
+      ],
+    },
+    "/test-takers/hamza-meran-course/player": {
+      title: "",
+      bgColor: "#fff",
+      breadcrumbs: [
+        { label: "hamza-navigation-menu-home", path: "/" },
+        { label: "hamza-navigation-menu-test-takers", disabled: true },
+        { label: "hamza-navigation-menu-test-takers", disabled: true },
+        { label: "hamza-navigation-menu-hamza-maran-hamza", path: "/test-takers/hamza-meran-course" },
+        {
+          label: st("meranCourse", "watchLessonsCrumb", locale),
+          path: "/test-takers/hamza-meran-course/player",
+          disabled: true,
+        },
+      ],
+    },
+    "/test-takers/test-mechanism": {
+      title: "hamza-navigation-menu-hamza-test-mechanism",
+      description:
+        'خيارات مرنة لأداء اختبار همزة فهو اختبار محوسب يوفر لك خيارات متعددة لأداء اختبار سواءً من خلال مراكزنا المعتمدة حضوريًا أو عن بُعد. نلتزم بتطبيق أعلى معايير الأمان والمصداقية، لضمان الحفاظ على ثقة المؤسسات الأكاديمية والمهنية التي تعتمد نتائج اختبار "همزة" في العالم العربي وخارجه',
+      bgColor: "#F9FAFB",
+      breadcrumbs: [
+        { label: "hamza-navigation-menu-home", path: "/" },
+        { label: "hamza-navigation-menu-test-takers", disabled: true },
+        { label: "hamza-navigation-menu-test-takers", disabled: true },
+        {
+          label: "hamza-navigation-menu-hamza-test-mechanism",
+          path: "/test-takers/test-mechanism",
+          disabled: true,
+        },
+      ],
+    },
+    "/test-takers/preparation-resource": {
+      title: "hamza-page-level-nav-preparation-sources",
+      description:
+        "عزّز تجربتك وجهودك الدراسية، وادخل يوم الاختبار بثقة. نوفّر لك أسئلة عملية، ونماذج رسمية، ومواد تدريبية شاملة تساعدك على الاستعداد لاختبار همزة بكل كفاءة. يجتاز ملايين الأشخاص حول العالم هذا الاختبار كل عام — ويمكنك أن تكون أحدهم.",
+      bgColor: "#FFF",
+      breadcrumbs: [
+        { label: "hamza-navigation-menu-home", path: "/" },
+        { label: "hamza-navigation-menu-test-takers", disabled: true },
+        { label: "hamza-navigation-menu-test-takers", disabled: true },
+        {
+          label: "hamza-page-level-nav-preparation-sources",
+          path: "/test-takers/preparation-resource",
+          disabled: true,
+        },
+      ],
+    },
+    "/test-takers/discover-hamza-tests": {
+      title: "hamza-navigation-menu-test-takers",
+      bgColor: "#F9FAFB",
+      breadcrumbs: [
+        { label: "hamza-navigation-menu-home", path: "/" },
+        { label: "hamza-navigation-menu-test-takers", disabled: true },
+        { label: "hamza-navigation-menu-test-takers", disabled: true },
+        {
+          label: "hamza-navigation-menu-test-takers",
+          path: "/test-takers/discover-hamza-tests",
+          disabled: true,
+        },
+      ],
+    },
+  };
+}
 
 // Function to fetch dynamic test mechanism hero data
 export async function getTestMechanismHero(): Promise<

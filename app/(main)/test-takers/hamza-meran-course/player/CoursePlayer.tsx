@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
+import { st } from "@/app/_lib/static-text";
 import AccordionItem from "@/app/components/accordion/Accordion";
 import "./course-player.css";
 
@@ -24,98 +25,38 @@ interface Chapter {
 const CHAPTERS: Chapter[] = [
   {
     id: "ch1",
-    title: "الوحدة الأولى: الفهم المسموع",
+    title: st("meranCourse", "ch1Title"),
     lessons: [
-      {
-        id: "l1-1",
-        title: "مقدمة في الاستماع",
-        duration: "5:20",
-        videoUrl: "",
-      },
-      {
-        id: "l1-2",
-        title: "استراتيجيات الاستماع الفعّال",
-        duration: "7:45",
-        videoUrl: "",
-      },
-      {
-        id: "l1-3",
-        title: "أنواع نصوص الاستماع",
-        duration: "6:30",
-        videoUrl: "",
-      },
+      { id: "l1-1", title: st("meranCourse", "l11Title"), duration: "5:20", videoUrl: "" },
+      { id: "l1-2", title: st("meranCourse", "l12Title"), duration: "7:45", videoUrl: "" },
+      { id: "l1-3", title: st("meranCourse", "l13Title"), duration: "6:30", videoUrl: "" },
     ],
   },
   {
     id: "ch2",
-    title: "الوحدة الثانية: استيعاب المقروء",
+    title: st("meranCourse", "ch2Title"),
     lessons: [
-      {
-        id: "l2-1",
-        title: "مهارات القراءة الأكاديمية",
-        duration: "8:10",
-        videoUrl: "",
-      },
-      {
-        id: "l2-2",
-        title: "تحليل النصوص التحليلية",
-        duration: "9:00",
-        videoUrl: "",
-      },
-      {
-        id: "l2-3",
-        title: "فهم المفردات في السياق",
-        duration: "5:50",
-        videoUrl: "",
-      },
+      { id: "l2-1", title: st("meranCourse", "l21Title"), duration: "8:10", videoUrl: "" },
+      { id: "l2-2", title: st("meranCourse", "l22Title"), duration: "9:00", videoUrl: "" },
+      { id: "l2-3", title: st("meranCourse", "l23Title"), duration: "5:50", videoUrl: "" },
     ],
   },
   {
     id: "ch3",
-    title: "الوحدة الثالثة: الكتابة",
+    title: st("meranCourse", "ch3Title"),
     lessons: [
-      {
-        id: "l3-1",
-        title: "بناء الفقرة الأكاديمية",
-        duration: "10:15",
-        videoUrl: "",
-      },
-      {
-        id: "l3-2",
-        title: "أنواع المقالات الأكاديمية",
-        duration: "7:30",
-        videoUrl: "",
-      },
-      {
-        id: "l3-3",
-        title: "مراجعة الأخطاء الشائعة",
-        duration: "6:00",
-        videoUrl: "",
-      },
+      { id: "l3-1", title: st("meranCourse", "l31Title"), duration: "10:15", videoUrl: "" },
+      { id: "l3-2", title: st("meranCourse", "l32Title"), duration: "7:30", videoUrl: "" },
+      { id: "l3-3", title: st("meranCourse", "l33Title"), duration: "6:00", videoUrl: "" },
     ],
   },
   {
     id: "ch4",
-    title: "الوحدة الرابعة: التحدث",
+    title: st("meranCourse", "ch4Title"),
     lessons: [
-      {
-        id: "l4-1",
-        title: "مهارات التحدث والطلاقة",
-        duration: "6:45",
-        videoUrl: "",
-      },
-      {
-        id: "l4-2",
-        title: "أنشطة التحدث التفاعلية",
-        duration: "8:20",
-        videoUrl: "",
-      },
-      {
-        id: "l4-3",
-        title: "التقييم والتحسين الذاتي",
-        duration: "5:10",
-        videoUrl: "",
-      },
+      { id: "l4-1", title: st("meranCourse", "l41Title"), duration: "6:45", videoUrl: "" },
+      { id: "l4-2", title: st("meranCourse", "l42Title"), duration: "8:20", videoUrl: "" },
+      { id: "l4-3", title: st("meranCourse", "l43Title"), duration: "5:10", videoUrl: "" },
     ],
   },
 ];
@@ -224,18 +165,18 @@ export default function CoursePlayer() {
             onEnded={handleVideoEnd}
             src={currentLesson.videoUrl || undefined}
           >
-            متصفحك لا يدعم تشغيل الفيديو.
+            {st("meranCourse", "videoNotSupported")}
           </video>
         </div>
         <h1 className="course-player__lesson-title">{currentLesson.title}</h1>
       </div>
 
       {/* ── Sidebar ──────────────────────────────────────────────────────── */}
-      <aside className="course-player__sidebar" aria-label="محتوى الدورة">
+      <aside className="course-player__sidebar" aria-label={st("meranCourse", "sidebarAria")}>
         {/* Progress card */}
         <div className="course-player__progress-card">
           <div className="course-player__progress-label">
-            <span className="course-player__progress-text">نسبة الإنجاز</span>
+            <span className="course-player__progress-text">{st("meranCourse", "progressLabel")}</span>
             <span className="course-player__progress-pct">{progress}%</span>
           </div>
           <div
@@ -244,7 +185,7 @@ export default function CoursePlayer() {
             aria-valuenow={progress}
             aria-valuemin={0}
             aria-valuemax={100}
-            aria-label="نسبة إنجاز الدورة"
+            aria-label={st("meranCourse", "courseProgressAria")}
           >
             <div
               className="course-player__progress-fill"
@@ -252,13 +193,15 @@ export default function CoursePlayer() {
             />
           </div>
           <p className="course-player__progress-count">
-            {completedCount} / {TOTAL_LESSONS} درس مكتمل
+            {st("meranCourse", "lessonsCompleted")
+              .replace("{completed}", String(completedCount))
+              .replace("{total}", String(TOTAL_LESSONS))}
           </p>
         </div>
 
         {/* Chapter accordion */}
         <div className="course-player__chapters">
-          <h2 className="course-player__chapters-title">محتوى الدورة</h2>
+          <h2 className="course-player__chapters-title">{st("meranCourse", "chaptersTitle")}</h2>
 
           {CHAPTERS.map((chapter) => {
             const isOpen = openChapters.has(chapter.id);
@@ -307,7 +250,7 @@ export default function CoursePlayer() {
                             ]
                               .filter(Boolean)
                               .join(" ")}
-                            aria-label={isDone ? "مكتمل" : "غير مكتمل"}
+                            aria-label={isDone ? st("meranCourse", "lessonComplete") : st("meranCourse", "lessonIncomplete")}
                           >
                             {isDone && <CheckIcon />}
                           </span>

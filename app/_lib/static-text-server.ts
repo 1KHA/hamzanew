@@ -552,6 +552,162 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     prepResourceSrHeading: { ar: "مصادر التحضير لاختبار همزة", en: "Preparation resources for the Hamza test" },
     prepResourceListAria: { ar: "قائمة مصادر التحضير المتاحة", en: "List of available preparation resources" },
   },
+  meranCourse: {
+    /* ── Metadata & hero ────────────────────────────────────────────────────── */
+    metaTitle: { ar: "دورة مران همزة", en: "Hamza Meran Course" },
+    metaDescription: {
+      ar: "تهدف الدورة إلى تهيئة الطلاب الناطقين بغير اللغة العربية لاختبار همزة الأكاديمي الذي يقيس كفاية اللغة العربية من خلال المهارات الأربع الأساسية",
+      en: "The course aims to prepare non-native Arabic speakers for the Hamza Academic Test, which measures Arabic language proficiency through the four basic skills.",
+    },
+    playerMetaTitle: { ar: "دورة مران همزة - مشاهدة الدروس", en: "Hamza Meran Course - Watch Lessons" },
+    playerMetaDescription: {
+      ar: "شاهد دروس دورة مران همزة وتابع تقدمك في المهارات الأربع: الاستماع، والقراءة، والكتابة، والتحدث.",
+      en: "Watch Hamza Meran Course lessons and track your progress in the four skills: listening, reading, writing, and speaking.",
+    },
+    watchLessonsCrumb: { ar: "مشاهدة الدروس", en: "Watch Lessons" },
+
+    /* ── Course sections (4 skills) ─────────────────────────────────────────── */
+    sectionListeningTitle: { ar: "الفهم المسموع", en: "Listening Comprehension" },
+    sectionListeningDesc: {
+      ar: "الاستماع يقيس قدرتك على متابعة المحادثات والحوارات اليومية والأكاديمية",
+      en: "Listening measures your ability to follow everyday and academic conversations and dialogues.",
+    },
+    sectionListeningIconAlt: { ar: "أيقونة سماعات - قسم الفهم المسموع", en: "Headphones icon - Listening Comprehension section" },
+    sectionReadingTitle: { ar: "استيعاب المقروء", en: "Reading Comprehension" },
+    sectionReadingDesc: {
+      ar: "القراءة تختبر فهمك للنصوص التعليمية والمقالات التحليلية",
+      en: "Reading tests your understanding of educational texts and analytical articles.",
+    },
+    sectionReadingIconAlt: { ar: "أيقونة كتاب مفتوح - قسم استيعاب المقروء", en: "Open book icon - Reading Comprehension section" },
+    sectionWritingTitle: { ar: "الكتابة", en: "Writing" },
+    sectionWritingDesc: {
+      ar: "الكتابة تقيّم قدرتك على التعبير بلغة دقيقة ومنظمة في موضوعات أكاديمية",
+      en: "Writing evaluates your ability to express yourself with precise and organized language on academic topics.",
+    },
+    sectionWritingIconAlt: { ar: "أيقونة قلم - قسم الكتابة", en: "Pen icon - Writing section" },
+    sectionSpeakingTitle: { ar: "التحدث", en: "Speaking" },
+    sectionSpeakingDesc: {
+      ar: "المحادثة تركّز على طلاقتك وثقتك في استخدام اللغة في المواقف المختلفة",
+      en: "Speaking focuses on your fluency and confidence in using the language in different situations.",
+    },
+    sectionSpeakingIconAlt: { ar: "أيقونة محادثة - قسم التحدث", en: "Conversation icon - Speaking section" },
+
+    /* ── Duration & weeks ───────────────────────────────────────────────────── */
+    courseBadge: { ar: "دورة مران", en: "Meran Course" },
+    sectionsHeading: { ar: "أقسام الدورة", en: "Course Sections" },
+    sectionsArrowAlt: { ar: "سهم يشير إلى أقسام الدورة", en: "Arrow pointing to course sections" },
+    courseDescription: {
+      ar: "تهدف الدورة إلى تهيئة الطلاب الناطقين بغير اللغة العربية لاختبار همزة الأكاديمي، الذي يقيس كفاية اللغة العربية، التي تشمل المهارات الأربع الأساسية، من خلال محاضرات تفاعلية، سيكتسب الطلاب من خلالها إستراتيجيات؛ للإجابة عن الأسئلة، وتعزيز ثقتهم في استخدام اللغة العربية.",
+      en: "The course aims to prepare non-native Arabic speakers for the Hamza Academic Test, which measures Arabic language proficiency covering the four basic skills. Through interactive lectures, students will acquire strategies for answering questions and build their confidence in using the Arabic language.",
+    },
+    watchLessonsBtn: { ar: "شاهد الدروس", en: "Watch Lessons" },
+    sectionsListAria: { ar: "أقسام دورة مران الأربعة", en: "Four Meran course sections" },
+    durationHeading: { ar: "المدة الزمنية", en: "Duration" },
+    durationDesc1: { ar: "المدة المتوقعة لإكمال الدورة (ثلاثة أسابيع)", en: "Expected duration to complete the course (three weeks)" },
+    durationDesc2: {
+      ar: "بمعدل (ساعتين) أسبوعيًا، بما يضمن للمتدرب تجربة تعليمية متكاملة وفاعلة",
+      en: "At a rate of (two hours) weekly, ensuring the trainee a comprehensive and effective educational experience.",
+    },
+    durationFeaturesAria: { ar: "محتويات الدورة", en: "Course Contents" },
+    durationFeature1Title: { ar: "الوحدات التعليمية", en: "Educational Units" },
+    durationFeature1Alt: { ar: "أيقونة تعلّم - الوحدات التعليمية", en: "Learning icon - Educational Units" },
+    durationFeature2Title: { ar: "التقييمات المستمرة", en: "Continuous Assessments" },
+    durationFeature2Alt: { ar: "أيقونة دبلوم - التقييمات المستمرة", en: "Diploma icon - Continuous Assessments" },
+    durationFeature3Title: { ar: "الأنشطة العملية", en: "Practical Activities" },
+    durationFeature3Alt: { ar: "أيقونة نشاط - الأنشطة العملية", en: "Activity icon - Practical Activities" },
+    durationFeature4Title: { ar: "الأسئلة التجريبية للاختبار", en: "Trial Test Questions" },
+    durationFeature4Alt: { ar: "أيقونة أسئلة - الأسئلة التجريبية للاختبار", en: "Questions icon - Trial Test Questions" },
+    weeksAria: { ar: "أسابيع الدورة", en: "Course Weeks" },
+    week1Title: { ar: "الأسبوع الأول", en: "Week 1" },
+    week2Title: { ar: "الأسبوع الثاني", en: "Week 2" },
+    week3Title: { ar: "الأسبوع الثالث", en: "Week 3" },
+    progressAria: { ar: "تقدم {week}", en: "Progress {week}" },
+    additionalProgressAria: { ar: "تقدم إضافي {week}", en: "Additional progress {week}" },
+
+    /* ── Target audience ────────────────────────────────────────────────────── */
+    targetAudienceHeading: { ar: "الفئة المستهدفة", en: "Target Audience" },
+    targetAudienceDesc: {
+      ar: "تحظى اختبارات همزة بثقة بعض المؤسسات حول العالم تستهدف هذه الدورة الراغبين في التقديم لاختبار همزة .",
+      en: "Hamza tests are trusted by institutions around the world. This course targets those wishing to apply for the Hamza test.",
+    },
+    targetAudienceListAria: { ar: "الفئات المستهدفة", en: "Target Categories" },
+    audience1: { ar: "متعلمي اللغة العربية الناطقين بغيرها.", en: "Non-native Arabic language learners." },
+    audience2: { ar: "الراغبين في التقديم على المنح الدراسية في برامج اللغة العربية.", en: "Those wishing to apply for scholarships in Arabic language programs." },
+    audience3: { ar: "الراغبين بالالتحاق بوظائف تحتاج إلى معرفةٍ بالكفاية اللغوية العربية", en: "Those seeking jobs requiring knowledge of Arabic language proficiency." },
+
+    /* ── Features (7 cards) ─────────────────────────────────────────────────── */
+    featuresHeading: { ar: "الميزات", en: "Features" },
+    featuresListAria: { ar: "ميزات المنصة", en: "Platform Features" },
+    extraFeaturesListAria: { ar: "ميزات إضافية", en: "Additional Features" },
+    feature1Title: { ar: "تعلم تفاعلي", en: "Interactive Learning" },
+    feature1Desc: {
+      ar: "تتيح المنصة تجربة تعلم متفاعلة من خلال مزيج من المقاطع الفيديو التعليمية عالية الجودة، والأنشطة التفاعلية، والتمارين العملية. يتم توفير التحفيز والتوجيه اللازم للمتعلمين لمساعدتهم على الاستفادة القصوى من الدروس.",
+      en: "The platform provides an interactive learning experience through a mix of high-quality educational videos, interactive activities, and practical exercises. Motivation and guidance are provided to help learners get the most out of the lessons.",
+    },
+    feature1IconAlt: { ar: "أيقونة تعلم تفاعلي", en: "Interactive learning icon" },
+    feature2Title: { ar: "توجيه شخصي", en: "Personal Guidance" },
+    feature2Desc: {
+      ar: "تقدم المنصة توجيهًا شخصيًا للمتعلمين من خلال واجهة سهلة الاستخدام. يتلقى المتعلمون تقييمات مستمرة لأدائهم وتوجيهات للتحسين. يتم توفير مساحة للمناقشة مع المدربين والزملاء لتبادل الأفكار وحل الأسئلة.",
+      en: "The platform offers personal guidance to learners through an easy-to-use interface. Learners receive continuous performance assessments and improvement guidance. A space is provided for discussion with instructors and peers to exchange ideas and answer questions.",
+    },
+    feature2IconAlt: { ar: "أيقونة توجيه شخصي", en: "Personal guidance icon" },
+    feature3Title: { ar: "تواصل وتعاون", en: "Communication & Collaboration" },
+    feature3Desc: {
+      ar: "توفر المنصة وسائل تواصل وتعاون فعّالة بين المتعلمين. يمكنهم التواصل مع المدربين والخبراء في المجال والتفاعل مع زملائهم من خلال منتديات النقاش والدروس المباشرة.",
+      en: "The platform provides effective communication and collaboration tools among learners. They can communicate with instructors and field experts and interact with peers through discussion forums and live lessons.",
+    },
+    feature3IconAlt: { ar: "أيقونة تواصل وتعاون", en: "Communication and collaboration icon" },
+    feature4Title: { ar: "تجربة تعلم مرنة", en: "Flexible Learning Experience" },
+    feature4Desc: {
+      ar: "تمكن المنصة المتعلمين من الوصول إلى المحتوى التعليمي في أي وقت ومن أي مكان. يمكنهم تنظيم جدولهم الزمني بناءً على احتياجاتهم الشخصية والتعلم في وتيرة تناسبهم.",
+      en: "The platform enables learners to access educational content anytime and anywhere. They can organize their schedule based on personal needs and learn at a pace that suits them.",
+    },
+    feature4IconAlt: { ar: "أيقونة تجربة تعلم مرنة", en: "Flexible learning experience icon" },
+    feature5Title: { ar: "شهادات معتمدة", en: "Certified Certificates" },
+    feature5Desc: {
+      ar: "بعد اجتياز الدورة التعليمية بنجاح، يحصل المتعلمون على شهادة معتمدة من مجمع الملك سلمان العالمي للغة العربية ممثلة في شعار المنصة (أهلًا بسهلا) تثبت إتقانهم للمهارات المكتسبة. تعتبر هذه الشهادات قيمة في سوق العمل وتعزز فرص الحصول على وظائف أفضل.",
+      en: "After successfully completing the course, learners receive a certified certificate from the King Salman Global Academy for Arabic Language, represented by the platform logo (Ahlan wa Sahlan), proving their mastery of the acquired skills. These certificates are valuable in the job market and enhance opportunities for better employment.",
+    },
+    feature5IconAlt: { ar: "أيقونة شهادات معتمدة", en: "Certified certificates icon" },
+    feature6Title: { ar: "محتوى تعليمي متنوع", en: "Diverse Educational Content" },
+    feature6Desc: {
+      ar: "تقدم المنصة مجموعة واسعة من الدورات التعليمية في مجالات اللغة العربية مثل تدريب المعلمين، برامج معالجة اللغات الطبيعية الأعمال، التدريب على اختبار همزة، الكتابة الإدارية وغيرها. يتم تطوير المحتوى بواسطة خبراء في المجال ومقسم إلى وحدات تعليمية سهلة الاستيعاب.",
+      en: "The platform offers a wide range of educational courses in Arabic language fields such as teacher training, natural language processing programs, Hamza test training, administrative writing, and more. Content is developed by field experts and divided into easy-to-understand educational units.",
+    },
+    feature6IconAlt: { ar: "أيقونة محتوى تعليمي متنوع", en: "Diverse educational content icon" },
+    feature7Title: { ar: "تواجد مجتمع تعليمي لغوي", en: "Active Linguistic Community" },
+    feature7Desc: {
+      ar: "تسعى المنصة لبناء مجتمع تعليمي نشط وملهم. يتم تنظيم ورش العمل والندوات والفعاليات الأخرى لتعزيز التواصل والتعاون بين المتعلمين وتمكينهم من توسيع شبكة معارفهم.",
+      en: "The platform strives to build an active and inspiring educational community. Workshops, seminars, and other events are organized to enhance communication and collaboration among learners and enable them to expand their network of knowledge.",
+    },
+    feature7IconAlt: { ar: "أيقونة تواجد مجتمع تعليمي لغوي", en: "Active linguistic community icon" },
+
+    /* ── CoursePlayer ───────────────────────────────────────────────────────── */
+    videoNotSupported: { ar: "متصفحك لا يدعم تشغيل الفيديو.", en: "Your browser does not support video playback." },
+    sidebarAria: { ar: "محتوى الدورة", en: "Course Content" },
+    progressLabel: { ar: "نسبة الإنجاز", en: "Completion Rate" },
+    courseProgressAria: { ar: "نسبة إنجاز الدورة", en: "Course Completion Rate" },
+    lessonsCompleted: { ar: "{completed} / {total} درس مكتمل", en: "{completed} / {total} lessons completed" },
+    chaptersTitle: { ar: "محتوى الدورة", en: "Course Content" },
+    lessonComplete: { ar: "مكتمل", en: "Completed" },
+    lessonIncomplete: { ar: "غير مكتمل", en: "Not Completed" },
+    ch1Title: { ar: "الوحدة الأولى: الفهم المسموع", en: "Unit 1: Listening Comprehension" },
+    ch2Title: { ar: "الوحدة الثانية: استيعاب المقروء", en: "Unit 2: Reading Comprehension" },
+    ch3Title: { ar: "الوحدة الثالثة: الكتابة", en: "Unit 3: Writing" },
+    ch4Title: { ar: "الوحدة الرابعة: التحدث", en: "Unit 4: Speaking" },
+    l11Title: { ar: "مقدمة في الاستماع", en: "Introduction to Listening" },
+    l12Title: { ar: "استراتيجيات الاستماع الفعّال", en: "Effective Listening Strategies" },
+    l13Title: { ar: "أنواع نصوص الاستماع", en: "Types of Listening Texts" },
+    l21Title: { ar: "مهارات القراءة الأكاديمية", en: "Academic Reading Skills" },
+    l22Title: { ar: "تحليل النصوص التحليلية", en: "Analyzing Analytical Texts" },
+    l23Title: { ar: "فهم المفردات في السياق", en: "Understanding Vocabulary in Context" },
+    l31Title: { ar: "بناء الفقرة الأكاديمية", en: "Building the Academic Paragraph" },
+    l32Title: { ar: "أنواع المقالات الأكاديمية", en: "Types of Academic Essays" },
+    l33Title: { ar: "مراجعة الأخطاء الشائعة", en: "Reviewing Common Errors" },
+    l41Title: { ar: "مهارات التحدث والطلاقة", en: "Speaking and Fluency Skills" },
+    l42Title: { ar: "أنشطة التحدث التفاعلية", en: "Interactive Speaking Activities" },
+    l43Title: { ar: "التقييم والتحسين الذاتي", en: "Self-Assessment and Improvement" },
+  },
 };
 
 /**
