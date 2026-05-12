@@ -202,6 +202,11 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     testTraits: { ar: "سمات اختبار همزة", en: "Hamza Test Traits" },
     benefits: { ar: "أهمية اختبارات همزة", en: "Benefits of Hamza Tests" },
     benefitsSubtitle: { ar: "كيفية الإستفادة من همزة", en: "Benefits of Hamza Test" },
+    benefitsTakersTitle: { ar: "فوائد اختبارات همزة للمختبرين", en: "Benefits of Hamza Tests for Test Takers" },
+    benefitsDescription: {
+      ar: "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية، ويستخدمها أفراد يسعون إلى الدراسة أو العمل أو الهجرة إلى دول ناطقة بالعربية. تدعم هذه الاختبارات المؤسسات في اختيار الطلاب الأنسب، وبناء كوادر قادرة على التواصل بفاعلية في بيئات العمل والتعليم، واستقطاب الكفاءات إلى جهتك.",
+      en: "Hamza tests provide a standardized and reliable approach to measuring proficiency in the Arabic language. They are used by individuals seeking to study, work, or immigrate to Arabic-speaking countries. These tests support institutions in selecting the most suitable students, building workforces capable of communicating effectively in professional and educational environments, and attracting talent to your organization.",
+    },
     benefitsOrgTitle: { ar: "فوائد اختبارات همزة للجهات", en: "Benefits of Hamza Tests for Organizations" },
     benefitsOrgSubtitle: { ar: "كيفية الاستفادة من همزة", en: "How to Benefit from Hamza" },
     institutions: { ar: "المؤسسات والدول التي تقبل همزة", en: "Institutions & Countries Accepting Hamza" },
@@ -234,6 +239,24 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
       ar: "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية، ويستخدمها أفراد يسعون إلى الدراسة أو العمل أو الهجرة إلى دول ناطقة بالعربية. تدعم هذه الاختبارات المؤسسات في اختيار الطلاب الأنسب، وبناء كوادر قادرة على التواصل بفاعلية في بيئات العمل والتعليم، واستقطاب الكفاءات إلى جهتك.",
       en: "Hamza tests provide a standardized and reliable approach to measuring competence in the Arabic language. They are used by individuals seeking to study, work, or immigrate to Arabic-speaking countries. These tests support institutions in selecting the most suitable students, building cadres capable of communicating effectively in work and education environments, and attracting competencies to your entity.",
     },
+
+    /* ── Institutions page ────────────────────────────────────────────────────── */
+    institutionsMetaTitle: { ar: "المؤسسات والدول التي تقبل همزة", en: "Institutions & Countries Accepting Hamza" },
+    institutionsMetaDescription: {
+      ar: "تعتمد بعض المؤسسات حول العالم على اختبار همزة لتقييم الكفاءة في اللغة العربية تشمل هذه المؤسسات: الجامعات، الجهات الحكومية، الهيئات المهنية، شركات التوظيف، وجهات الهجرة في الدول الناطقة بالعربية أو المهتمة بها.",
+      en: "Some institutions around the world rely on the Hamza test to assess competence in the Arabic language. These institutions include: universities, government agencies, professional bodies, recruitment companies, and immigration authorities in Arabic-speaking countries or those interested in it.",
+    },
+    institutionsSectionTitle: { ar: "كن جزءًا من مجتمع همزة", en: "Be part of the Hamza community" },
+    institutionsHeading: { ar: "الجهات التي طبقت اختبار همزة", en: "Institutions that have implemented the Hamza test" },
+    institutionsLogoAlt: { ar: "شعار المؤسسة", en: "Institution logo" },
+    resourcesSectionAria: { ar: "الموارد والإحصائيات", en: "Resources and statistics" },
+    institutionsCtaTitle: { ar: "هل أنت مستعد للانضمام إلينا؟", en: "Are you ready to join us?" },
+    institutionsCtaDesc: {
+      ar: "انضم إلى آلاف المؤسسات والشركات في العالم العربي التي تعتمد همزة لاختيار الموظفين القادرين على التواصل باحترافية وإتقان.",
+      en: "Join thousands of institutions and companies in the Arab world that rely on Hamza to select employees capable of communicating professionally and proficiently.",
+    },
+    institutionsCtaButton: { ar: "إنضم إلينا", en: "Join us" },
+    institutionsCtaButtonAria: { ar: "انضم إلينا الآن", en: "Join us now" },
   },
   feedback: {
     /* ── Main question ────────────────────────────────────────────────────────── */

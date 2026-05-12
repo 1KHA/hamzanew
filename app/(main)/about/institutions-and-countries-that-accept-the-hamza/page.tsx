@@ -1,14 +1,23 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import InstitutionsContent from "./InstitutionsContent";
+import { st } from "@/app/_lib/static-text-server";
 import "../about.css";
 import "@/app/styles/Button.css";
 
-export const metadata: Metadata = {
-  title: "المؤسسات والدول التي تقبل همزة",
-  description:
-    "تعتمد بعض المؤسسات حول العالم على اختبار همزة لتقييم الكفاءة في اللغة العربية تشمل هذه المؤسسات: الجامعات، الجهات الحكومية، الهيئات المهنية، شركات التوظيف، وجهات الهجرة في الدول الناطقة بالعربية أو المهتمة بها.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value === "en-US" ? "en" : "ar";
 
-export default function InstitutionsPage() {
-  return <InstitutionsContent />;
+  return {
+    title: st("about", "institutionsMetaTitle", locale),
+    description: st("about", "institutionsMetaDescription", locale),
+  };
+}
+
+export default async function InstitutionsPage() {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value === "en-US" ? "en" : "ar";
+
+  return <InstitutionsContent locale={locale} />;
 }

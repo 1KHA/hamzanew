@@ -1,9 +1,16 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { fetchContentWithKey } from '@/app/_lib/content-service';
 import { extractFields, extractList } from '@/app/_lib/helper-service';
+import { st } from '@/app/_lib/static-text-server';
 
 export async function GET() {
   try {
+    // Get locale from cookie for localized fallbacks
+    const cookieStore = await cookies();
+    const locale = cookieStore.get("lang")?.value || "ar-SA";
+    const staticLocale = locale.startsWith("en") ? "en" : "ar";
+
     // Fetch data from backend
     const benefitsContentData = await fetchContentWithKey(
       "HAMZA_HOMEPAGE_BENEFITS_OF_HAMZA_TEST_BENEFITS_OF_HAMZA_TEST_CONTENT_KEY"
@@ -27,9 +34,9 @@ export async function GET() {
 
     // Return the processed data
     return NextResponse.json({
-      title: benefitsContentData?.title || "فوائد اختبارات همزة للمختبرين",
+      title: benefitsContentData?.title || st("about", "benefitsTakersTitle", staticLocale),
       description: (benefitsContentDataContentFields as { descriptionText?: string })?.descriptionText || 
-        "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية، ويستخدمها أفراد يسعون إلى الدراسة أو العمل أو الهجرة إلى دول ناطقة بالعربية. تدعم هذه الاختبارات المؤسسات في اختيار الطلاب الأنسب، وبناء كوادر قادرة على التواصل بفاعلية في بيئات العمل والتعليم، واستقطاب الكفاءات إلى جهتك.",
+        st("about", "benefitsDescription", staticLocale),
       benefits: objectArray?.length > 0 ? objectArray : null
     });
   } catch (error) {

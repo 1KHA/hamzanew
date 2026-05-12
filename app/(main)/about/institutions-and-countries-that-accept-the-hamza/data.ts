@@ -29,3 +29,22 @@ export const RESOURCES = [
     primaryActionLabel: "التحضير للإختبار",
   },
 ] as const;
+
+export const RESOURCES_EN = [
+  {
+    id: 1,
+    title: "Test Statistics",
+    description: "The Hamza test helps people around the world. You can find out how previous test takers performed through our statistics page.",
+    icon: "chart-bar-line",
+    externalLink: "#",
+    primaryActionLabel: "Browse Statistics",
+  },
+  {
+    id: 2,
+    title: "Get the Results You Deserve",
+    description: "We provide you with a wide range of resources to help you achieve the test results you need. Track your progress, get help, and discover more on our resources page.",
+    icon: "book-04",
+    externalLink: "#",
+    primaryActionLabel: "Prepare for the Test",
+  },
+] as const;
