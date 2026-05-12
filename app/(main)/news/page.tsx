@@ -14,36 +14,26 @@
 import type { ReactElement } from "react";
 import PageHero from "@/app/components/page-hero/PageHero";
 import NewsListing from "./NewsListing";
-import { news } from "./_data/newsData";
+import { getNewsData } from "./_data/newsData";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFields } from "@/app/_lib/helper-service";
+import { getTranslations } from "@/app/_lib/getTranslations";
+import { st } from "@/app/_lib/static-text-server";
 
 /* ==========================================================================
    Metadata
    ========================================================================== */
 
-export const metadata: Metadata = {
-  title: "الاخبار",
-  description:
-    "نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير الاختبارات المعيارية للغة العربية",
-};
-
-/* ==========================================================================
-   Static Configuration
-   ========================================================================== */
-
-const HERO_CONFIG = {
-  title: "الاخبار",
-  description:
-    "نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير الاختبارات المعيارية للغة العربية",
-  bgColor: "#FFF",
-  breadcrumbs: [
-    { label: "الرئيسة", path: "/" },
-    { label: "الاخبار", disabled: true },
-  ],
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+  return {
+    title: st("news", "metaTitle", locale),
+    description: st("news", "metaDescription", locale),
+  };
+}
 
 /* ==========================================================================
    Helpers
@@ -89,15 +79,20 @@ async function fetchNewsArticlesDirectly(locale: string) {
  * Component that renders the page hero and the news listing.
  */
 export default async function NewsPage(): Promise<ReactElement> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value || "ar-SA";
+  const staticLocale = locale.startsWith("en") ? "en" : "ar";
+
   let apiData = null;
 
   try {
     console.log("[NewsPage] Fetching banner + articles from Liferay...");
 
-    const cookieStore = await cookies();
-    const locale = cookieStore.get("lang")?.value || "ar-SA";
-
-    const [headerContent, articlesResponse] = await Promise.all([
+    const [translations, headerContent, articlesResponse] = await Promise.all([
+      getTranslations().catch((err) => {
+        console.error("[NewsPage] Failed to fetch translations:", err);
+        return null;
+      }),
       fetchContentWithKey("NEWS_AND_ARTICLES_BANNER_CONTENT_KEY"),
       fetchNewsArticlesDirectly(locale),
     ]);
@@ -148,9 +143,10 @@ export default async function NewsPage(): Promise<ReactElement> {
 
     apiData = {
       header: {
-        title: headerFields?.titleText ?? "الاخبار",
+        title: headerFields?.titleText ?? st("news", "heroTitle", staticLocale),
       },
-      articles: mappedArticles.length ? mappedArticles : news,
+      articles: mappedArticles.length ? mappedArticles : getNewsData(staticLocale),
+      translations,
       locale,
     };
   } catch (error) {
@@ -158,17 +154,25 @@ export default async function NewsPage(): Promise<ReactElement> {
     console.log("[NewsPage] Using FALLBACK static data.");
   }
 
-  const hero = apiData?.header?.title
-    ? { ...HERO_CONFIG, title: apiData.header.title }
-    : HERO_CONFIG;
-  const articles = apiData?.articles ?? news;
+  const heroConfig = {
+    title: apiData?.header?.title || st("news", "heroTitle", staticLocale),
+    description: st("news", "heroDescription", staticLocale),
+    bgColor: "#FFF",
+    breadcrumbs: [
+      { label: st("news", "breadcrumbHome", staticLocale), path: "/" },
+      { label: st("news", "breadcrumbNews", staticLocale), disabled: true },
+    ],
+  };
+
+  const articles = apiData?.articles ?? getNewsData(staticLocale);
 
   return (
     <>
       <PageHero
-        heroMap={{ "/news": hero }}
+        heroMap={{ "/news": heroConfig }}
         defaultRoute="/news"
         breadcrumbsMax={2}
+        translations={apiData?.translations || undefined}
       />
 
       <NewsListing initialArticles={articles} />

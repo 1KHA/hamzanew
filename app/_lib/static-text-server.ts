@@ -740,6 +740,25 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
   nav: {
     languageTestingLab: { ar: "معمل ابحاث الاختبارات اللغوية", en: "Arabic Language Testing Research Laboratory" },
   },
+  latestNews: {
+    metaTitle: { ar: "آخر الأخبار", en: "Latest News" },
+    metaDescription: {
+      ar: "نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير الاختبارات المعيارية للغة العربية",
+      en: "We present the latest news and specialized articles on Hamza tests and the development of standard Arabic language tests.",
+    },
+    heroTitle: { ar: "آخر الأخبار", en: "Latest News" },
+    heroDescription: {
+      ar: "نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير الاختبارات المعيارية للغة العربية",
+      en: "We present the latest news and specialized articles on Hamza tests and the development of standard Arabic language tests.",
+    },
+    latestNewsTitle: { ar: "آخر الأخبار", en: "Latest News" },
+    latestCoverageTitle: { ar: "آخر التغطيات", en: "Latest Coverage" },
+    readMoreBtn: { ar: "قراءة المزيد", en: "Read More" },
+    viewAllBtn: { ar: "عرض الكل", en: "View All" },
+    eventsTitle: { ar: "الفعاليات والأنشطة", en: "Events and Activities" },
+    breakingNewsHeader: { ar: "الأخبار العاجلة", en: "Breaking News" },
+    carouselAria: { ar: "عرض آخر الأخبار", en: "Latest news display" },
+  },
   researchLibrary: {
     metaTitle: { ar: "مكتبة الابحاث", en: "Research Library" },
     metaDescription: {
@@ -814,6 +833,52 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     paper12Title: { ar: "تطبيقات الواقع المعزز في تعليم اللغة العربية", en: "Augmented Reality Applications in Arabic Language Teaching" },
     paper12Author: { ar: "د. طارق عبدالرحمن", en: "Dr. Tariq Abdulrahman" },
     paper12Desc: { ar: "استكشاف إمكانيات الواقع المعزز في تعزيز تجربة تعلم اللغة العربية.", en: "Exploring the potential of augmented reality in enhancing the Arabic language learning experience." },
+  },
+
+  statisticsAndReports: {
+    metaTitle: { ar: "تقارير واحصائيات", en: "Statistics and Reports" },
+    metaDescription: {
+      ar: 'نقدم تقارير وإحصاءات موثوقة، قائمة على منهجيات علمية، تعكس بدقة نتائج اختبارات "همزة" ومؤشراتها.',
+      en: "We provide reliable reports and statistics based on scientific methodologies that accurately reflect Hamza test results and indicators.",
+    },
+    heroTitle: { ar: "تقارير واحصائيات", en: "Statistics and Reports" },
+    heroDescription: {
+      ar: 'نقدم تقارير وإحصاءات موثوقة، قائمة على منهجيات علمية، تعكس بدقة نتائج اختبارات "همزة" ومؤشراتها. تدعم هذه البيانات الباحثين وصنّاع القرار في القطاعين الأكاديمي والمهني، وتُسهم في تطوير السياسات التعليمية، وإثراء الدراسات المقارنة، وبناء رؤى استراتيجية عالمية لقياس كفاءة اللغة العربية.',
+      en: "We provide reliable reports and statistics based on scientific methodologies that accurately reflect Hamza test results and indicators. This data supports researchers and decision-makers in academic and professional sectors, contributes to the development of educational policies, enriches comparative studies, and builds global strategic insights for measuring Arabic language proficiency.",
+    },
+    statTestCenters: { ar: "مراكز الاختبار", en: "Test Centers" },
+    statNationalities: { ar: "عدد الجنسيات", en: "Nationalities" },
+    statCountries: { ar: "عدد الدول", en: "Countries" },
+    statTestedGlobally: { ar: "مختبر عالميًا", en: "Tested Globally" },
+    sortNewest: { ar: "الأحدث", en: "Newest" },
+    sortOldest: { ar: "الأقدم", en: "Oldest" },
+    searchPlaceholder: { ar: "ابحث عن تقرير...", en: "Search for a report..." },
+    searchBtn: { ar: "بحث", en: "Search" },
+    resultsFound: { ar: "نتيجة وجدت", en: "results found" },
+    noResults: { ar: "لم يتم العثور على تقارير", en: "No reports found" },
+    downloadFile: { ar: "تحميل الملف", en: "Download File" },
+    ariaPage: { ar: "صفحة التقارير والاحصائيات", en: "Statistics and Reports Page" },
+    ariaSearchFilter: { ar: "البحث والتصفية", en: "Search and Filter" },
+    ariaResultsList: { ar: "قائمة التقارير", en: "Reports List" },
+    ariaGrid: { ar: "شبكة التقارير", en: "Reports Grid" },
+    ariaPagination: { ar: "التنقل بين الصفحات", en: "Page Navigation" },
+
+    /* ── Fallback reports (15 entries) ──────────────────────────────────────── */
+    report1Title: { ar: "عنوان التقرير ١", en: "Report Title 1" },
+    report2Title: { ar: "عنوان التقرير ٢", en: "Report Title 2" },
+    report3Title: { ar: "عنوان التقرير ٣", en: "Report Title 3" },
+    report4Title: { ar: "عنوان التقرير ٤", en: "Report Title 4" },
+    report5Title: { ar: "عنوان التقرير ٥", en: "Report Title 5" },
+    report6Title: { ar: "عنوان التقرير ٦", en: "Report Title 6" },
+    report7Title: { ar: "عنوان التقرير ٧", en: "Report Title 7" },
+    report8Title: { ar: "عنوان التقرير ٨", en: "Report Title 8" },
+    report9Title: { ar: "عنوان التقرير ٩", en: "Report Title 9" },
+    report10Title: { ar: "عنوان التقرير ١٠", en: "Report Title 10" },
+    report11Title: { ar: "عنوان التقرير ١١", en: "Report Title 11" },
+    report12Title: { ar: "عنوان التقرير ١٢", en: "Report Title 12" },
+    report13Title: { ar: "عنوان التقرير ١٣", en: "Report Title 13" },
+    report14Title: { ar: "عنوان التقرير ١٤", en: "Report Title 14" },
+    report15Title: { ar: "عنوان التقرير ١٥", en: "Report Title 15" },
   },
 };
 

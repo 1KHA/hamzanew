@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useEffect, useMemo, type ReactElement } from "react";
+import { st } from "@/app/_lib/static-text";
 import Card from "../../components/card/Card";
 import SearchBox from "@/app/components/search-box/SearchBox";
 import Button from "../../components/button/Button";
 import DgaPagination from "../../components/pagination/DgaPagination";
 import { normalizeArabic } from "@/lib/utils/arabic";
-import { news } from "./_data/newsData";
+import { getNewsData } from "./_data/newsData";
 
 /* ==========================================================================
    Types & Interfaces
@@ -45,7 +46,7 @@ interface NewsListingProps {
  * Renders the interactive news list with search, sort, and pagination.
  */
 export default function NewsListing({
-  initialArticles = news,
+  initialArticles = getNewsData("ar"),
 }: NewsListingProps): ReactElement {
   // State Management
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -135,10 +136,13 @@ export default function NewsListing({
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const sortLabel = sortOrder === "asc" ? st("news", "sortNewest") : st("news", "sortOldest");
+  const sortAriaLabel = sortOrder === "asc" ? st("news", "sortAriaNewest") : st("news", "sortAriaOldest");
+
   return (
     <section
       className="content section-spacing-5xl !flex !flex-col !gap-8"
-      aria-label="قائمة الأخبار والمقالات"
+      aria-label={st("news", "ariaNewsList")}
     >
       {/* Controls Section: Search & Filter */}
       <div className="!flex !flex-col md:!flex-row !justify-between !items-start md:!items-center !gap-4 !mb-8">
@@ -150,11 +154,11 @@ export default function NewsListing({
               onChange={handleSearchChange}
               onClear={handleSearchClear}
               onSearch={handleSearch}
-              placeholder="بحث في الأخبار..."
+              placeholder={st("news", "searchPlaceholder")}
               size="lg"
             />
             <Button
-              label="بحث"
+              label={st("news", "searchBtn")}
               onClick={handleSearch}
               variant="secondary-outline"
               size="lg"
@@ -169,20 +173,16 @@ export default function NewsListing({
             role="status"
             aria-live="polite"
           >
-            {processedNews.length} نتيجة وجدت
+            {processedNews.length} {st("news", "resultsFound")}
           </span>
 
           <Button
-            label={sortOrder === "asc" ? "ترتيب بالاحدث" : "ترتيب بالاقدم"}
+            label={sortLabel}
             variant="secondary-outline"
             size="md"
             icon={sortOrder === "asc" ? "sort-by-up-02" : "sort-by-down-02"}
             onClick={toggleSortOrder}
-            aria-label={
-              sortOrder === "asc"
-                ? "ترتيب النتائج من الأحدث للأقدم"
-                : "ترتيب النتائج من الأقدم للأحدث"
-            }
+            aria-label={sortAriaLabel}
           />
         </div>
       </div>
@@ -191,6 +191,7 @@ export default function NewsListing({
       <div
         className="!grid !grid-cols-1 md:!grid-cols-2 lg:!grid-cols-3 !gap-x-6 !gap-y-8"
         role="list"
+        aria-label={st("news", "ariaNewsGrid")}
       >
         {currentNews.map((article) => (
           <div role="listitem" key={article.id}>
@@ -200,7 +201,7 @@ export default function NewsListing({
               description={(article.content?.substring(0, 120) ?? "") + "..."} //handle null content if any
               image={article.image}
               showPrimaryAction={true}
-              primaryActionLabel="قراءة المزيد"
+              primaryActionLabel={st("news", "readMore")}
               showPrimaryIcon={false}
               linkPrimaryAction={`/news/details/${article.id}`}
             />
@@ -212,10 +213,10 @@ export default function NewsListing({
       {processedNews.length === 0 && (
         <div className="!flex !flex-col !items-center !justify-center !py-16 !text-center">
           <p className="!text-xl !text-gray-500 !mb-4">
-            لا توجد نتائج بحث مطابقة
+            {st("news", "noResults")}
           </p>
           <Button
-            label="مسح البحث"
+            label={st("news", "clearSearch")}
             variant="secondary-outline"
             onClick={() => {
               setSearchQuery("");
@@ -229,7 +230,7 @@ export default function NewsListing({
       {totalPages > 1 && (
         <div
           className="!flex !flex-row !justify-center !items-center !mt-8"
-          aria-label="تصفح صفحات الأخبار"
+          aria-label={st("news", "ariaPagination")}
         >
           <DgaPagination
             key={direction} // Force re-render on direction change

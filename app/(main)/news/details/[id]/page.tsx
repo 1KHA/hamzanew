@@ -11,9 +11,11 @@
  */
 
 import PageHero from "@/app/components/page-hero/PageHero";
-import { news } from "../../_data/newsData";
+import { getNewsData } from "../../_data/newsData";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
+import { st } from "@/app/_lib/static-text-server";
 
 /* ==========================================================================
    Types & Interfaces
@@ -33,12 +35,14 @@ interface PageProps {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
   const resolvedParams = await params;
-  const article = news.find((n) => n.id === parseInt(resolvedParams.id));
+  const article = getNewsData(locale).find((n) => n.id === parseInt(resolvedParams.id));
 
   if (!article) {
     return {
-      title: "المقال غير موجود",
+      title: st("news", "notFoundTitle", locale),
     };
   }
 
@@ -58,8 +62,12 @@ export async function generateMetadata({
  * Renders the detailed view of a selected news article.
  */
 export default async function NewsDetailsPage({ params }: PageProps) {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value || "ar-SA";
+  const staticLocale = locale.startsWith("en") ? "en" : "ar";
+
   const resolvedParams = await params;
-  const article = news.find((n) => n.id === parseInt(resolvedParams.id));
+  const article = getNewsData(staticLocale).find((n) => n.id === parseInt(resolvedParams.id));
 
   if (!article) {
     notFound();
@@ -70,9 +78,9 @@ export default async function NewsDetailsPage({ params }: PageProps) {
     bgColor: "#F9FAFB",
     date: article.date,
     breadcrumbs: [
-      { label: "الرئيسة", path: "/" },
-      { label: "الاخبار", path: "/news" },
-      { label: "تفاصيل الخبر", disabled: true },
+      { label: st("news", "breadcrumbHome", staticLocale), path: "/" },
+      { label: st("news", "breadcrumbNews", staticLocale), path: "/news" },
+      { label: st("news", "breadcrumbDetails", staticLocale), disabled: true },
     ],
   };
 
@@ -86,7 +94,7 @@ export default async function NewsDetailsPage({ params }: PageProps) {
 
       <section
         className="content section-spacing-5xl lg:!py-[40px] lg:!px-[80px]"
-        aria-label="محتوى المقال"
+        aria-label={st("news", "breadcrumbDetails", staticLocale)}
       >
         <article className="!flex !flex-col !gap-8 !mx-auto lg:!py-[32px] lg:!px-[80px]">
           {/* Article Image */}

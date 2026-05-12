@@ -18,43 +18,24 @@ import type { ReactElement } from "react";
 import PageHero from "@/app/components/page-hero/PageHero";
 import GlobalStatisticsSection from "@/app/components/global-statistics-section/GlobalStatisticsSection";
 import ReportsListing from "./ReportsListing";
-import { reportsData } from "./_data/reportsData";
+import { getReportsData } from "./_data/reportsData";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { getTranslations } from "@/app/_lib/getTranslations";
+import { st } from "@/app/_lib/static-text-server";
 
 /* ==========================================================================
    Metadata
    ========================================================================== */
 
-export const metadata: Metadata = {
-  title: "تقارير واحصائيات",
-  description:
-    'نقدم تقارير وإحصاءات موثوقة، قائمة على منهجيات علمية، تعكس بدقة نتائج اختبارات "همزة" ومؤشراتها. تدعم هذه البيانات الباحثين وصنّاع القرار في القطاعين الأكاديمي والمهني، وتُسهم في تطوير السياسات التعليمية، وإثراء الدراسات المقارنة، وبناء رؤى استراتيجية عالمية لقياس كفاءة اللغة العربية.',
-};
-
-/* ==========================================================================
-   Static Fallback Configuration
-   ========================================================================== */
-
-const STATIC_HERO_CONFIG = {
-  title: "تقارير واحصائيات",
-  description:
-    'نقدم تقارير وإحصاءات موثوقة، قائمة على منهجيات علمية، تعكس بدقة نتائج اختبارات "همزة" ومؤشراتها. تدعم هذه البيانات الباحثين وصنّاع القرار في القطاعين الأكاديمي والمهني، وتُسهم في تطوير السياسات التعليمية، وإثراء الدراسات المقارنة، وبناء رؤى استراتيجية عالمية لقياس كفاءة اللغة العربية.',
-  bgColor: "#ffffff",
-  breadcrumbs: [
-    { label: "hamza-navigation-menu-home", path: "/" },
-    { label: "hamza-navigation-menu-research", disabled: true },
-    { label: "hamza-statistics", disabled: true },
-  ],
-};
-
-const STATIC_STATISTICS = [
-  { numberTitle: "1.5k", descriptionText: "مراكز الاختبار" },
-  { numberTitle: "12", descriptionText: "عدد الجنسيات" },
-  { numberTitle: "22", descriptionText: "عدد الدول" },
-  { numberTitle: "1.5M", descriptionText: "مختبر عالميًا" },
-];
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+  return {
+    title: st("statisticsAndReports", "metaTitle", locale),
+    description: st("statisticsAndReports", "metaDescription", locale),
+  };
+}
 
 /* ==========================================================================
    Data Fetching
@@ -101,6 +82,10 @@ async function getStatisticsAndReportsData() {
  * Component that renders the page hero, reports listing and statistics section.
  */
 export default async function StatisticsAndReportsPage(): Promise<ReactElement> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value || "ar-SA";
+  const staticLocale = locale.startsWith("en") ? "en" : "ar";
+
   const [data, translations] = await Promise.all([
     getStatisticsAndReportsData(),
     getTranslations().catch((err) => {
@@ -110,15 +95,24 @@ export default async function StatisticsAndReportsPage(): Promise<ReactElement> 
   ]);
 
   const heroConfig = {
-    title: data?.header?.title || STATIC_HERO_CONFIG.title,
+    title: data?.header?.title || st("statisticsAndReports", "heroTitle", staticLocale),
     description:
-      data?.header?.description || STATIC_HERO_CONFIG.description,
-    bgColor: STATIC_HERO_CONFIG.bgColor,
-    breadcrumbs: STATIC_HERO_CONFIG.breadcrumbs,
+      data?.header?.description || st("statisticsAndReports", "heroDescription", staticLocale),
+    bgColor: "#ffffff",
+    breadcrumbs: [
+      { label: "hamza-navigation-menu-home", path: "/" },
+      { label: "hamza-navigation-menu-research", disabled: true },
+      { label: "hamza-statistics", disabled: true },
+    ],
   };
 
-  const reports = data?.reports || reportsData;
-  const statistics = data?.statistics || STATIC_STATISTICS;
+  const reports = data?.reports || getReportsData(staticLocale);
+  const statistics = data?.statistics || [
+    { numberTitle: "1.5k", descriptionText: st("statisticsAndReports", "statTestCenters", staticLocale) },
+    { numberTitle: "12", descriptionText: st("statisticsAndReports", "statNationalities", staticLocale) },
+    { numberTitle: "22", descriptionText: st("statisticsAndReports", "statCountries", staticLocale) },
+    { numberTitle: "1.5M", descriptionText: st("statisticsAndReports", "statTestedGlobally", staticLocale) },
+  ];
 
   return (
     <>
@@ -129,16 +123,16 @@ export default async function StatisticsAndReportsPage(): Promise<ReactElement> 
         translations={translations || undefined}
       />
 
-      <main aria-label="صفحة التقارير والاحصائيات">
+      <main aria-label={st("statisticsAndReports", "ariaPage", staticLocale)}>
         <ReportsListing initialReports={reports} />
 
         {/* Statistics Section */}
         <div className="bg-neutral-50">
           <section
             className="section-spacing-5xl custom-container gap-[32px] !flex flex-col "
-            aria-label="إحصائيات همزة"
+            aria-label={st("statisticsAndReports", "ariaPage", staticLocale)}
           >
-            <div aria-label="الإحصائيات العامة">
+            <div aria-label={st("statisticsAndReports", "ariaPage", staticLocale)}>
               <GlobalStatisticsSection statistics={statistics} />
             </div>
           </section>

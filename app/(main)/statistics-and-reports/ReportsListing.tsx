@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect, type ReactElement } from "react";
+import { st } from "@/app/_lib/static-text";
 import Button from "@/app/components/button/Button";
 import Card from "@/app/components/card/Card";
 import Filter from "@/app/components/filter/Filter";
@@ -32,14 +33,6 @@ interface ReportsListingProps {
 /** Number of items to display per page */
 const ITEMS_PER_PAGE = 6;
 
-/**
- * Sort options for reports
- */
-const SORT_OPTIONS = [
-  { id: "newest", label: "الأحدث", value: "newest" },
-  { id: "oldest", label: "الأقدم", value: "oldest" },
-];
-
 /* ==========================================================================
    Sub Components
    ========================================================================== */
@@ -57,7 +50,7 @@ function ReportCard({ report }: { report: Report }) {
     <Card
       title={report.title}
       showPrimaryAction
-      primaryActionLabel="تحميل الملف"
+      primaryActionLabel={st("statisticsAndReports", "downloadFile")}
       buttonColor="secondary"
       overridePrimaryAction={handleDownload}
       style={{
@@ -84,6 +77,15 @@ export default function ReportsListing({
   const [appliedSearchQuery, setAppliedSearchQuery] = useState<string>("");
   const [sortValue, setSortValue] = useState<string>("newest");
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  /* Sort options */
+  const sortOptions = useMemo(
+    () => [
+      { id: "newest", label: st("statisticsAndReports", "sortNewest"), value: "newest" },
+      { id: "oldest", label: st("statisticsAndReports", "sortOldest"), value: "oldest" },
+    ],
+    []
+  );
 
   /* Filtered and Sorted Reports */
   const filteredAndSortedReports = useMemo(() => {
@@ -151,20 +153,20 @@ export default function ReportsListing({
   return (
     <div className="custom-container content">
       {/* Search and Filter Section */}
-      <section className="!py-[32px]" aria-label="البحث والتصفية">
+      <section className="!py-[32px]" aria-label={st("statisticsAndReports", "ariaSearchFilter")}>
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-[24px]">
           {/* Search Box */}
           <div className="flex gap-[16px] flex-1 max-w-[600px]">
             <SearchBox
               size="lg"
-              placeholder="ابحث عن تقرير..."
+              placeholder={st("statisticsAndReports", "searchPlaceholder")}
               value={searchQuery}
               onChange={handleSearchChange}
               onClear={handleSearchClear}
               onSearch={handleSearch}
             />
             <Button
-              label="بحث"
+              label={st("statisticsAndReports", "searchBtn")}
               variant="secondary-outline"
               size="lg"
               onClick={handleSearch}
@@ -174,16 +176,16 @@ export default function ReportsListing({
           {/* Results Count and Filter */}
           <div className="flex items-center gap-[16px]">
             <span className="text-md-regular text-[#6C737F]">
-              {filteredAndSortedReports.length} نتيجة وجدت
+              {filteredAndSortedReports.length} {st("statisticsAndReports", "resultsFound")}
             </span>
 
             {/* Sort Filter */}
             <Filter
-              title="ترتيب حسب"
-              options={SORT_OPTIONS}
+              title={st("statisticsAndReports", "sortNewest")}
+              options={sortOptions}
               selectedValue={sortValue}
               onSelect={handleSortChange}
-              buttonLabel="ترتيب حسب"
+              buttonLabel={st("statisticsAndReports", "sortNewest")}
               buttonIcon="sorting-01"
               buttonVariant="secondary-outline"
               buttonIconClass=""
@@ -194,7 +196,7 @@ export default function ReportsListing({
 
       {/* Reports Grid Section */}
       <section
-        aria-label="قائمة التقارير"
+        aria-label={st("statisticsAndReports", "ariaResultsList")}
         aria-live="polite"
         className="!py-[32px]"
       >
@@ -202,7 +204,7 @@ export default function ReportsListing({
           <div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]"
             role="list"
-            aria-label="شبكة التقارير"
+            aria-label={st("statisticsAndReports", "ariaGrid")}
           >
             {paginatedReports.map((report) => (
               <div key={report.id} role="listitem">
@@ -213,7 +215,7 @@ export default function ReportsListing({
         ) : (
           <div className="py-[48px] text-center">
             <p className="text-lg-medium text-[#6C737F]">
-              لم يتم العثور على تقارير
+              {st("statisticsAndReports", "noResults")}
             </p>
           </div>
         )}
@@ -221,7 +223,7 @@ export default function ReportsListing({
 
       {/* Pagination Section */}
       {filteredAndSortedReports.length > 0 && totalPages > 1 && (
-        <section aria-label="التنقل بين الصفحات" className="!py-[32px]">
+        <section aria-label={st("statisticsAndReports", "ariaPagination")} className="!py-[32px]">
           <div className="flex justify-center">
             <DgaPagination
               currentPage={currentPage}
