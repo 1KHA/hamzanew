@@ -88,6 +88,10 @@
   gap: var(--Global-spacing-8xl, 80px);
   /* border: 1px solid #0a7a3a; */
 }
+
+.flex-start-gap-80 > .stack-lg {
+  flex: 1;
+}
 .description {
   color: var(--Text-text-default, #161616);
 
