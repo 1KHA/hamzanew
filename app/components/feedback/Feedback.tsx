@@ -7,6 +7,7 @@ import CheckBox from "@/app/components/checkbox/CheckBox";
 import Notification from "../notification/Notification";
 import { useState, useRef, useCallback, useId, useMemo } from "react";
 import { usePathname } from "next/navigation";
+import { st } from "@/app/_lib/static-text";
 import "./Feedback.css";
 import "@/app/components/button/Button.css";
 
@@ -26,23 +27,31 @@ interface FeedbackErrors {
   gender: boolean;
 }
 
+/* ── Helpers ──────────────────────────────────────────────────────────────── */
+
+function getYesOptions() {
+  return [
+    { id: "relevant", text: st("feedback", "yesOptionRelevant") },
+    { id: "well-written", text: st("feedback", "yesOptionWellWritten") },
+    { id: "easy-format", text: st("feedback", "yesOptionEasyFormat") },
+    { id: "other-yes", text: st("feedback", "yesOptionOther") },
+  ] as const;
+}
+
+function getNoOptions() {
+  return [
+    { id: "not-relevant", text: st("feedback", "noOptionNotRelevant") },
+    { id: "not-accurate", text: st("feedback", "noOptionNotAccurate") },
+    { id: "too-long", text: st("feedback", "noOptionTooLong") },
+    { id: "other-no", text: st("feedback", "noOptionOther") },
+  ] as const;
+}
+
+function interpolate(template: string, values: Record<string, string | number>) {
+  return template.replace(/\{(\w+)\}/g, (_, key) => String(values[key] ?? ""));
+}
+
 /* ── Constants ────────────────────────────────────────────────────────────── */
-
-const YES_OPTIONS = [
-  { id: "relevant", text: "المحتوى ذو صلة" },
-  { id: "well-written", text: "كان مكتوبًا بشكل جيد" },
-  { id: "easy-format", text: "التنسيق سهَّل القراءة" },
-  { id: "other-yes", text: "شيء آخر" },
-] as const;
-
-const NO_OPTIONS = [
-  { id: "not-relevant", text: "المحتوى غير ذو صلة" },
-  { id: "not-accurate", text: "المحتوى غير دقيق" },
-  { id: "too-long", text: "المحتوى طويل جدًا" },
-  { id: "other-no", text: "شيء آخر" },
-] as const;
-
-const OPTIONS_MAP = { yes: YES_OPTIONS, no: NO_OPTIONS } as const;
 
 const INITIAL_ANSWER: FeedbackAnswer = {
   isUseful: null,
@@ -70,11 +79,33 @@ export default function Feedback() {
   const [stats] = useState({ yesPercentage: 100, totalCount: 100 });
 
   const pageName = useMemo(() => pathname?.slice(1) || "/", [pathname]);
-  const currentOptions = useMemo(
-    () => (answer.isUseful ? OPTIONS_MAP[answer.isUseful] : []),
-    [answer.isUseful],
-  );
+
+  const currentOptions = useMemo(() => {
+    if (!answer.isUseful) return [];
+    const map = { yes: getYesOptions(), no: getNoOptions() } as const;
+    return map[answer.isUseful];
+  }, [answer.isUseful]);
+
   const hasErrors = errors.reasons || errors.gender;
+
+  const statsText = useMemo(() => {
+    return interpolate(st("feedback", "statsText"), {
+      percent: stats.yesPercentage,
+      count: stats.totalCount,
+    });
+  }, [stats.yesPercentage, stats.totalCount]);
+
+  const statsAria = useMemo(() => {
+    return interpolate(st("feedback", "statsAria"), {
+      percent: stats.yesPercentage,
+      count: stats.totalCount,
+    });
+  }, [stats.yesPercentage, stats.totalCount]);
+
+  const activeLang = useMemo(() => {
+    if (typeof document === "undefined") return "ar";
+    return document.documentElement.lang?.startsWith("en") ? "en" : "ar";
+  }, []);
 
   /* ── Handlers ─────────────────────────────────────────────────────────── */
 
@@ -119,7 +150,7 @@ export default function Feedback() {
       <hr aria-hidden="true" />
 
       <div className="content">
-        <section className="feedback-section" aria-label="تقييم الصفحة">
+        <section className="feedback-section" aria-label={st("feedback", "sectionAria")}>
           {/* Top row: question + buttons | stats or close */}
           <div className="feedback-row">
             <div className="feedback-left">
@@ -143,7 +174,7 @@ export default function Feedback() {
                     height={24}
                     className="green-icon"
                   />
-                  تم إرسال ملاحظاتك!
+                  {st("feedback", "submittedMessage")}
                 </p>
               ) : (
                 <>
@@ -151,7 +182,7 @@ export default function Feedback() {
                     id={questionId}
                     className="text-md-regular feedback-question"
                   >
-                    هل كانت هذه الصفحة مفيدة؟
+                    {st("feedback", "question")}
                   </p>
 
                   <div className="flex flex-1 flex-row justify-between items-center  ">
@@ -170,7 +201,7 @@ export default function Feedback() {
                           openQuestions && answer.isUseful === "yes"
                         }
                       >
-                        <span className="dga-btn-label">نعم</span>
+                        <span className="dga-btn-label">{st("feedback", "yes")}</span>
                       </button>
                       <button
                         type="button"
@@ -182,7 +213,7 @@ export default function Feedback() {
                           openQuestions && answer.isUseful === "no"
                         }
                       >
-                        <span className="dga-btn-label">لا</span>
+                        <span className="dga-btn-label">{st("feedback", "no")}</span>
                       </button>
                     </div>
 
@@ -190,7 +221,7 @@ export default function Feedback() {
                       type="button"
                       className="dga-btn dga-btn--lg dga-btn--subtle"
                       onClick={handleClose}
-                      aria-label="إغلاق نموذج التقييم"
+                      aria-label={st("feedback", "closeAria")}
                       aria-controls={surveyPanelId}
                       aria-expanded={openQuestions}
                       style={{
@@ -201,7 +232,7 @@ export default function Feedback() {
                       }}
                     >
                       <span className="dga-btn-label" aria-hidden="true">
-                        إغلاق
+                        {st("feedback", "close")}
                       </span>
                       <Image
                         src="/assets/icons/stroke-standard/cancel-circle-stroke-rounded.svg"
@@ -225,10 +256,9 @@ export default function Feedback() {
                     gridArea: "1/1",
                     display: !openQuestions || submitted ? "block" : "none",
                   }}
-                  aria-label={`${stats.yesPercentage} بالمئة من المستخدمين قالوا نعم، من أصل ${stats.totalCount} تعليق`}
+                  aria-label={statsAria}
                 >
-                  {stats.yesPercentage}% من المستخدمين قالوا نعم من{" "}
-                  {stats.totalCount} تعليقًا
+                  {statsText}
                 </p>
               )}
             </div>
@@ -238,7 +268,7 @@ export default function Feedback() {
           <div
             id={surveyPanelId}
             role="region"
-            aria-label="نموذج التقييم التفصيلي"
+            aria-label={st("feedback", "surveyPanelAria")}
             aria-hidden={!openQuestions || submitted ? true : undefined}
             className={`feedback-survey-panel${openQuestions && !submitted ? " feedback-survey-panel--open" : ""}`}
           >
@@ -250,8 +280,8 @@ export default function Feedback() {
                       <Notification
                         className="!mt-4"
                         variant="critical"
-                        leadText="مهم"
-                        content="نرجو منك استكمال الاستبيان لإرسال التقييم"
+                        leadText={st("feedback", "notificationLead")}
+                        content={st("feedback", "notificationContent")}
                       />
                     )}
 
@@ -267,12 +297,12 @@ export default function Feedback() {
                           className="text-md-semibold"
                           style={{ color: "#161616", marginBottom: 16 }}
                         >
-                          يرجى إخبارنا بالسبب{" "}
+                          {st("feedback", "reasonLegend")}{" "}
                           <span
                             className="text-sm-regular"
                             style={{ color: "#6C737F" }}
                           >
-                            (يمكنك تحديد خيارات متعددة)
+                            {st("feedback", "reasonHint")}
                           </span>
                         </legend>
                         <div className="feedback-checkboxes">
@@ -299,7 +329,7 @@ export default function Feedback() {
                                 height={16}
                                 className="icon-critical"
                               />
-                              يرجى اختيار سبب واحد على الأقل
+                              {st("feedback", "reasonError")}
                             </div>
                           )}
                         </div>
@@ -307,7 +337,7 @@ export default function Feedback() {
 
                       <Textarea
                         ref={textareaRef}
-                        label="الملاحظات"
+                        label={st("feedback", "notesLabel")}
                         name="notes"
                         value={answer.notes}
                         scrollbar
@@ -320,7 +350,7 @@ export default function Feedback() {
                         }
                         variant="default"
                         translate="yes"
-                        lang="ar"
+                        lang={activeLang}
                         extraClass="max-w-[400px]"
                       />
                     </div>
@@ -336,19 +366,19 @@ export default function Feedback() {
                         className="text-md-semibold"
                         style={{ color: "#161616", marginBottom: 8 }}
                       >
-                        أنا
+                        {st("feedback", "genderLegend")}
                       </legend>
                       <div className="feedback-gender-options">
                         <RadioButton
                           name="gender"
-                          label="ذكر"
+                          label={st("feedback", "genderMale")}
                           value="male"
                           checked={answer.gender === "male"}
                           onChange={() => handleGenderChange("male")}
                         />
                         <RadioButton
                           name="gender"
-                          label="أنثى"
+                          label={st("feedback", "genderFemale")}
                           value="female"
                           checked={answer.gender === "female"}
                           onChange={() => handleGenderChange("female")}
@@ -368,7 +398,7 @@ export default function Feedback() {
                             height={16}
                             className="icon-critical"
                           />
-                          يرجى تحديد الجنس
+                          {st("feedback", "genderError")}
                         </div>
                       )}
                     </fieldset>
@@ -376,16 +406,16 @@ export default function Feedback() {
                     {/* Footer */}
                     <div className="feedback-footer">
                       <div className="text-md-regular feedback-footer-text">
-                        لمزيد من المعلومات، يمكنك مراجعة
+                        {st("feedback", "footerInfo")}
                         <div className="flex ">
                           <a
                             href="https://my.gov.sa/ar/content/e-participation#section-1"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="link--primary feedback-link"
-                            aria-label="بيان المشاركة الإلكترونية (يفتح في نافذة جديدة)"
+                            aria-label={`${st("feedback", "eParticipationLabel")} (${st("footer", "opensInNewWindow")})`}
                           >
-                            بيان المشاركة الإلكترونية
+                            {st("feedback", "eParticipationLabel")}
                             <Image
                               src="/assets/icons/stroke-standard/link-square-02-stroke-rounded.svg"
                               alt=""
@@ -401,9 +431,9 @@ export default function Feedback() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="link--primary feedback-link"
-                            aria-label="قواعد الاشتراك (يفتح في نافذة جديدة)"
+                            aria-label={`${st("feedback", "subscriptionRulesLabel")} (${st("footer", "opensInNewWindow")})`}
                           >
-                            قواعد الاشتراك
+                            {st("feedback", "subscriptionRulesLabel")}
                             <Image
                               src="/assets/icons/stroke-standard/link-square-02-stroke-rounded.svg"
                               alt=""
@@ -419,9 +449,9 @@ export default function Feedback() {
                         type="button"
                         className="dga-btn dga-btn--lg dga-btn--primary-brand"
                         onClick={handleSubmit}
-                        aria-label="إرسال التقييم"
+                        aria-label={st("feedback", "submitAria")}
                       >
-                        <span className="dga-btn-label">إرسال</span>
+                        <span className="dga-btn-label">{st("feedback", "submit")}</span>
                       </button>
                     </div>
                   </>

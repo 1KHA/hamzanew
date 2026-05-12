@@ -232,6 +232,52 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
       en: "Hamza tests provide a standardized and reliable approach to measuring competence in the Arabic language. They are used by individuals seeking to study, work, or immigrate to Arabic-speaking countries. These tests support institutions in selecting the most suitable students, building cadres capable of communicating effectively in work and education environments, and attracting competencies to your entity.",
     },
   },
+  feedback: {
+    /* ── Main question ────────────────────────────────────────────────────────── */
+    sectionAria: { ar: "تقييم الصفحة", en: "Page Rating" },
+    question: { ar: "هل كانت هذه الصفحة مفيدة؟", en: "Was this page helpful?" },
+    yes: { ar: "نعم", en: "Yes" },
+    no: { ar: "لا", en: "No" },
+    closeAria: { ar: "إغلاق نموذج التقييم", en: "Close feedback form" },
+    close: { ar: "إغلاق", en: "Close" },
+    submittedMessage: { ar: "تم إرسال ملاحظاتك!", en: "Your feedback has been sent!" },
+
+    /* ── Stats ────────────────────────────────────────────────────────────────── */
+    statsText: { ar: "{percent}% من المستخدمين قالوا نعم من {count} تعليقًا", en: "{percent}% of users said yes out of {count} comments" },
+    statsAria: { ar: "{percent} بالمئة من المستخدمين قالوا نعم، من أصل {count} تعليق", en: "{percent} percent of users said yes, out of {count} comments" },
+
+    /* ── Survey panel ─────────────────────────────────────────────────────────── */
+    surveyPanelAria: { ar: "نموذج التقييم التفصيلي", en: "Detailed feedback form" },
+    notificationLead: { ar: "مهم", en: "Important" },
+    notificationContent: { ar: "نرجو منك استكمال الاستبيان لإرسال التقييم", en: "Please complete the survey to submit feedback" },
+    reasonLegend: { ar: "يرجى إخبارنا بالسبب", en: "Please tell us why" },
+    reasonHint: { ar: "(يمكنك تحديد خيارات متعددة)", en: "(You can select multiple options)" },
+    reasonError: { ar: "يرجى اختيار سبب واحد على الأقل", en: "Please select at least one reason" },
+    notesLabel: { ar: "الملاحظات", en: "Notes" },
+    genderLegend: { ar: "أنا", en: "I am" },
+    genderMale: { ar: "ذكر", en: "Male" },
+    genderFemale: { ar: "أنثى", en: "Female" },
+    genderError: { ar: "يرجى تحديد الجنس", en: "Please select your gender" },
+
+    /* ── Footer links ─────────────────────────────────────────────────────────── */
+    footerInfo: { ar: "لمزيد من المعلومات، يمكنك مراجعة", en: "For more information, please review" },
+    eParticipationLabel: { ar: "بيان المشاركة الإلكترونية", en: "E-Participation Statement" },
+    subscriptionRulesLabel: { ar: "قواعد الاشتراك", en: "Subscription Rules" },
+    submitAria: { ar: "إرسال التقييم", en: "Submit feedback" },
+    submit: { ar: "إرسال", en: "Submit" },
+
+    /* ── Yes options ──────────────────────────────────────────────────────────── */
+    yesOptionRelevant: { ar: "المحتوى ذو صلة", en: "Content is relevant" },
+    yesOptionWellWritten: { ar: "كان مكتوبًا بشكل جيد", en: "Well written" },
+    yesOptionEasyFormat: { ar: "التنسيق سهَّل القراءة", en: "Easy to read format" },
+    yesOptionOther: { ar: "شيء آخر", en: "Something else" },
+
+    /* ── No options ───────────────────────────────────────────────────────────── */
+    noOptionNotRelevant: { ar: "المحتوى غير ذو صلة", en: "Content is not relevant" },
+    noOptionNotAccurate: { ar: "المحتوى غير دقيق", en: "Content is not accurate" },
+    noOptionTooLong: { ar: "المحتوى طويل جدًا", en: "Content is too long" },
+    noOptionOther: { ar: "شيء آخر", en: "Something else" },
+  },
 };
 
 /**

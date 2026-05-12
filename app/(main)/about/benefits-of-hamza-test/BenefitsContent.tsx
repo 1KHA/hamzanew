@@ -93,6 +93,8 @@ export default function BenefitsContent() {
   );
   const [benefits, setBenefits] = useState<Benefit[]>(INITIAL_BENEFITS);
   const [orgBenefits, setOrgBenefits] = useState<OrgBenefit[]>(INITIAL_ORG_BENEFITS);
+  const [orgTitle, setOrgTitle] = useState("فوائد اختبارات همزة للجهات");
+  const [orgSubtitle, setOrgSubtitle] = useState("كيفية الاستفادة من همزة");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -117,6 +119,14 @@ export default function BenefitsContent() {
         // Fetch how-to-benefit data
         const howToResponse = await fetch("/api/benefits/how-to");
         const howToData = await howToResponse.json();
+
+        if (howToData.title) {
+          setOrgTitle(howToData.title);
+        }
+
+        if (howToData.subtitle) {
+          setOrgSubtitle(howToData.subtitle);
+        }
 
         if (howToData.benefits && howToData.benefits.length > 0) {
           setOrgBenefits(howToData.benefits);
@@ -169,8 +179,8 @@ export default function BenefitsContent() {
       <section aria-labelledby="org-heading" className="org-benefits-section">
         <ScrollReveal direction="up" duration={DURATION} amount={0} margin="0px 0px -80px 0px">
           <header className="section-head">
-            <p className="section-title">كيفية الاستفادة من همزة</p>
-            <h2 id="org-heading" className="display-sm-bold">فوائد اختبارات همزة للجهات</h2>
+            <p className="section-title">{orgSubtitle}</p>
+            <h2 id="org-heading" className="display-sm-bold">{orgTitle}</h2>
           </header>
         </ScrollReveal>
 

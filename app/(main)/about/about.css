@@ -259,11 +259,6 @@
   gap: 24px;
 }
 
-/* Let value cards follow the page direction naturally (LTR for English, RTL for Arabic) */
-.about-value-card {
-  direction: ltr;
-}
-
 .about-value-card__content {
   display: flex;
   flex-direction: column;
