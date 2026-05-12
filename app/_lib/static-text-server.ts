@@ -202,6 +202,8 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     testTraits: { ar: "سمات اختبار همزة", en: "Hamza Test Traits" },
     benefits: { ar: "أهمية اختبارات همزة", en: "Benefits of Hamza Tests" },
     benefitsSubtitle: { ar: "كيفية الإستفادة من همزة", en: "Benefits of Hamza Test" },
+    benefitsOrgTitle: { ar: "فوائد اختبارات همزة للجهات", en: "Benefits of Hamza Tests for Organizations" },
+    benefitsOrgSubtitle: { ar: "كيفية الاستفادة من همزة", en: "How to Benefit from Hamza" },
     institutions: { ar: "المؤسسات والدول التي تقبل همزة", en: "Institutions & Countries Accepting Hamza" },
     committee: { ar: "اللجنة الاستشارية الدولية", en: "International Advisory Committee" },
     ambassadors: { ar: "سفراء همزة", en: "Hamza Ambassadors" },
