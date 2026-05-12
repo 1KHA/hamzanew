@@ -1,11 +1,18 @@
 import type { ReactNode } from "react";
 import { Metadata } from "next";
-import { heroMap } from "./_hero/heroMap";
+import { getHeroMap } from "./_hero/heroMap";
 import PageHero from "@/app/components/page-hero/PageHero";
 import { getTranslations } from "@/app/_lib/getTranslations";
-export const metadata: Metadata = {
-  title: "المشاركة الإلكترونية",
-};
+import { cookies } from "next/headers";
+import { st } from "@/app/_lib/static-text-server";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+  return {
+    title: st("eParticipation", "eParticipationTitle", locale),
+  };
+}
 
 export default async function EParticipationLayout({
   children,
@@ -13,6 +20,9 @@ export default async function EParticipationLayout({
   children: ReactNode;
 }) {
   const translations = await getTranslations();
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+  const heroMap = getHeroMap(locale);
 
   return (
     <>

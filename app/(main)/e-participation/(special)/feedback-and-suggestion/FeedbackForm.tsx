@@ -25,6 +25,7 @@ import { useEffect, useRef, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { st } from "@/app/_lib/static-text";
 import FileUpload, {
   UploadedFile,
 } from "@/app/components/FileUpload/FileUpload";
@@ -45,40 +46,44 @@ import Dropdown from "@/app/components/dropdown/Dropdown";
 import "./feedback-form.css";
 
 /* ==========================================================================
-   Constants & Schema
+   Schema Factory
    ========================================================================== */
 
-const CATEGORY_OPTIONS = [
-  { name: "اقتراحات", value: "اقتراحات" },
-  { name: "شكاوي", value: "شكاوي" },
-  { name: "استفسارات", value: "استفسارات" },
-  { name: "بلاغات", value: "بلاغات" },
-];
+function getFeedbackSchema(t: (scope: string, key: string) => string) {
+  return z.object({
+    firstName: z.string().min(1, t("eParticipation", "firstNameRequired")),
+    lastName: z.string().min(1, t("eParticipation", "lastNameRequired")),
+    email: z
+      .string()
+      .min(1, t("eParticipation", "emailRequired"))
+      .email(t("eParticipation", "emailInvalid")),
+    phone: z
+      .string()
+      .regex(/^\d+$/, t("eParticipation", "phoneDigitsOnly"))
+      .refine(
+        (val) => {
+          const digits = getDigitsFromPhone(val);
+          return digits.length >= 7;
+        },
+        { message: t("eParticipation", "phoneMinLength") },
+      ),
+    subject: z.string().optional(),
+    category: z.string().optional(),
+    message: z.string().optional(),
+    file: z.array(z.any()).optional(),
+  });
+}
 
-const feedbackSchema = z.object({
-  firstName: z.string().min(1, "الاسم الأول مطلوب"),
-  lastName: z.string().min(1, "الاسم الأخير مطلوب"),
-  email: z
-    .string()
-    .min(1, "البريد الشبكي مطلوب")
-    .email("البريد الشبكي غير صحيح"),
-  phone: z
-    .string()
-    .regex(/^\d+$/, "يجب أن يحتوي رقم الجوال على أرقام فقط")
-    .refine(
-      (val) => {
-        const digits = getDigitsFromPhone(val);
-        return digits.length >= 7;
-      },
-      { message: "رقم الجوال غير صحيح (7 أرقام على الأقل بعد رمز الدولة)" },
-    ),
-  subject: z.string().optional(),
-  category: z.string().optional(),
-  message: z.string().optional(),
-  file: z.array(z.any()).optional(),
-});
-
-export type FeedbackSchema = z.infer<typeof feedbackSchema>;
+export type FeedbackSchema = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  subject?: string;
+  category?: string;
+  message?: string;
+  file?: any[];
+};
 
 const INITIAL_VALUES: FeedbackSchema = {
   firstName: "",
@@ -100,6 +105,15 @@ export default function FeedbackForm() {
   const [prefixOpen, setPrefixOpen] = useState(false);
   const prefixRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
+
+  const getCategoryOptions = () => [
+    { name: st("eParticipation", "catSuggestions"), value: "اقتراحات" },
+    { name: st("eParticipation", "catComplaints"), value: "شكاوي" },
+    { name: st("eParticipation", "catInquiries"), value: "استفسارات" },
+    { name: st("eParticipation", "catReports"), value: "بلاغات" },
+  ];
+
+  const feedbackSchema = getFeedbackSchema(st);
 
   const methods = useForm<FeedbackSchema>({
     resolver: zodResolver(feedbackSchema),
@@ -180,8 +194,8 @@ export default function FeedbackForm() {
       >
         <NotificationToast
           type="success"
-          leadText="تم إرسال الطلب بنجاح"
-          helperText="شكراً لتواصلك معنا، سيتم مراجعة طلبك والرد عليك في أقرب وقت ممكن."
+          leadText={st("eParticipation", "successLeadText")}
+          helperText={st("eParticipation", "successHelperText")}
           open
           variant="stroke"
           inline
@@ -196,12 +210,12 @@ export default function FeedbackForm() {
         ref={formRef}
         onSubmit={methods.handleSubmit(onSubmit)}
         noValidate
-        aria-label="نموذج الشكاوى والمقترحات"
+        aria-label={st("eParticipation", "formAriaLabel")}
       >
         <div className="suggestion-form section-spacing-4xl">
           {/* First Name */}
           <FormField
-            label="الاسم الاول"
+            label={st("eParticipation", "firstNameLabel")}
             required
             error={errors.firstName?.message}
             htmlFor="firstName"
@@ -209,20 +223,20 @@ export default function FeedbackForm() {
             <ControlledTextInput
               name="firstName"
               id="firstName"
-              placeholder="الاسم الاول"
+              placeholder={st("eParticipation", "firstNamePlaceholder")}
               aria-required={true}
               aria-describedby={
                 errors.firstName ? "firstName-error" : "firstName-help"
               }
             />
             <span id="firstName-help" className="sr-only">
-              أدخل اسمك الأول كما هو موضح في الهوية
+              {st("eParticipation", "firstNameHelp")}
             </span>
           </FormField>
 
           {/* Last Name */}
           <FormField
-            label="الاسم الاخير"
+            label={st("eParticipation", "lastNameLabel")}
             required
             error={errors.lastName?.message}
             htmlFor="lastName"
@@ -230,20 +244,20 @@ export default function FeedbackForm() {
             <ControlledTextInput
               name="lastName"
               id="lastName"
-              placeholder="الاسم الاخير"
+              placeholder={st("eParticipation", "lastNamePlaceholder")}
               aria-required={true}
               aria-describedby={
                 errors.lastName ? "lastName-error" : "lastName-help"
               }
             />
             <span id="lastName-help" className="sr-only">
-              أدخل اسم عائلتك
+              {st("eParticipation", "lastNameHelp")}
             </span>
           </FormField>
 
           {/* Email */}
           <FormField
-            label="البريد الشبكي"
+            label={st("eParticipation", "emailLabel")}
             required
             error={errors.email?.message}
             htmlFor="email"
@@ -251,18 +265,18 @@ export default function FeedbackForm() {
             <ControlledTextInput
               name="email"
               id="email"
-              placeholder="البريد الشبكي"
+              placeholder={st("eParticipation", "emailPlaceholder")}
               aria-required={true}
               aria-describedby={errors.email ? "email-error" : "email-help"}
             />
             <span id="email-help" className="sr-only">
-              سنستخدم هذا البريد للرد على طلبك
+              {st("eParticipation", "emailHelp")}
             </span>
           </FormField>
 
           {/* Phone with Prefix */}
           <FormField
-            label="رقم الجوال"
+            label={st("eParticipation", "phoneLabel")}
             required
             error={errors.phone?.message}
             htmlFor="phone-input"
@@ -278,7 +292,7 @@ export default function FeedbackForm() {
                 >
                   <input
                     id="phone-input"
-                    placeholder="رقم الجوال"
+                    placeholder={st("eParticipation", "phonePlaceholder")}
                     type="tel"
                     inputMode="numeric"
                     value={phoneDigitsOnly}
@@ -299,7 +313,7 @@ export default function FeedbackForm() {
                     }
                   />
                   <span id="phone-help" className="sr-only">
-                    أدخل رقم جوالك مسبوقاً برمز الدولة
+                    {st("eParticipation", "phoneHelp")}
                   </span>
 
                   {/* Prefix Dropdown */}
@@ -310,7 +324,7 @@ export default function FeedbackForm() {
                       className={prefixBtnClass}
                       aria-haspopup="listbox"
                       aria-expanded={prefixOpen}
-                      aria-label={`رمز الدولة الحالي: ${selectedCountryPrefix.label}. اضغط لتغيير رمز الدولة`}
+                      aria-label={st("eParticipation", "prefixAriaLabel").replace("{label}", selectedCountryPrefix.label)}
                     >
                       <span className="input__prefix-icon" />
                       <span className="input__prefix-label">
@@ -331,7 +345,7 @@ export default function FeedbackForm() {
                     <ul
                       role="listbox"
                       className={prefixListClass}
-                      aria-label="اختر رمز الدولة"
+                      aria-label={st("eParticipation", "prefixListAriaLabel")}
                     >
                       <div className="prefix-list__scroll">
                         {PHONE_PREFIXES.map((opt) => {
@@ -370,21 +384,21 @@ export default function FeedbackForm() {
 
           {/* Subject */}
           <FormField
-            label="الموضوع"
+            label={st("eParticipation", "subjectLabel")}
             error={errors.subject?.message}
             htmlFor="subject"
           >
             <ControlledTextInput
               name="subject"
               id="subject"
-              placeholder="الموضوع"
+              placeholder={st("eParticipation", "subjectPlaceholder")}
               aria-describedby={errors.subject ? "subject-error" : undefined}
             />
           </FormField>
 
           {/* Category */}
           <FormField
-            label="الفئة"
+            label={st("eParticipation", "categoryLabel")}
             error={errors.category?.message}
             htmlFor="category-select"
           >
@@ -400,7 +414,7 @@ export default function FeedbackForm() {
                 >
                   <Dropdown
                     id="category-select"
-                    placeholder="اقتراحات"
+                    placeholder={st("eParticipation", "categoryPlaceholder")}
                     size="lg"
                     variant="darker"
                     optionLabel="name"
@@ -410,7 +424,7 @@ export default function FeedbackForm() {
                     getSelectedOptions={(option: any) => {
                       field.onChange(option.value);
                     }}
-                    options={CATEGORY_OPTIONS}
+                    options={getCategoryOptions()}
                   />
                 </div>
               )}
@@ -419,7 +433,7 @@ export default function FeedbackForm() {
 
           {/* Message */}
           <FormField
-            label="كيف يمكننا المساعدة؟"
+            label={st("eParticipation", "messageLabel")}
             error={errors.message?.message}
             htmlFor="message"
           >
@@ -430,7 +444,7 @@ export default function FeedbackForm() {
                 <Textarea
                   {...field}
                   id="message"
-                  placeholder="اكتب رسالتك"
+                  placeholder={st("eParticipation", "messagePlaceholder")}
                   variant="darker"
                   cols={50}
                   rows={4}
@@ -447,15 +461,15 @@ export default function FeedbackForm() {
           </FormField>
 
           {/* File Upload */}
-          <FormField label="رفع المرفقات">
+          <FormField label={st("eParticipation", "fileUploadLabel")}>
             <Controller
               name="file"
               control={control}
               render={({ field }) => (
                 <FileUpload
-                  fileTypesText="الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وصيغ الملفات المدعومة تشمل .jpg و .png و .pdf."
+                  fileTypesText={st("eParticipation", "fileTypesText")}
                   accept=".pdf,.png,.jpg,.jpeg"
-                  actionName="تصفح الملفات"
+                  actionName={st("eParticipation", "browseFiles")}
                   showIcon={false}
                   getUploadedFile={(files: UploadedFile[]) => {
                     field.onChange(files);
@@ -470,8 +484,8 @@ export default function FeedbackForm() {
           type="submit"
           variant="primary-brand"
           size="lg"
-          label="إرسال"
-          aria-label="إرسال نموذج الشكاوى والمقترحات"
+          label={st("eParticipation", "submitBtn")}
+          aria-label={st("eParticipation", "submitAriaLabel")}
         />
       </form>
     </FormProvider>

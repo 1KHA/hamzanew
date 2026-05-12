@@ -1,25 +1,32 @@
 import { Metadata } from "next";
 import Card from "@/app/components/card/Card";
+import { cookies } from "next/headers";
+import { st } from "@/app/_lib/static-text-server";
 
-export const metadata: Metadata = {
-  title: "التطوير المشترك والافكار"
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
 
-export default function page() {
+  return {
+    title: st("eParticipation", "coCreationTitle", locale),
+  };
+}
+
+export default async function page() {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+
   return (
     <>
       <div className="content">
         <div className="section-spacing-5xl !mb-60">
           <div className=" !grid !grid-cols-1 !gap-8">
             <p className="text-md-regular !leading-[24px]">
-              منصة تفاعل هي منصة حكومية رقمية تهدف إلى تعزيز التواصل والتفاعل
-              بين الجهات الحكومية والمستفيدين، من خلال إتاحة قنوات إلكترونية
-              تمكّن المستخدمين من إبداء آرائهم، تقديم المقترحات، والمشاركة في
-              المبادرات والموضوعات المطروحة من الجهات الحكومية.
+              {st("eParticipation", "coCreationDescription", locale)}
             </p>
             <div className="!grid !grid-cols-1 md:!grid-cols-2 lg:!grid-cols-3">
               <Card
-                title="منصة تفاعل"
+                title={st("eParticipation", "platformTafaolName", locale)}
                 style={{
                   border: "none",
                   boxShadow:

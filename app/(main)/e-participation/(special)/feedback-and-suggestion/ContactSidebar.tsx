@@ -1,4 +1,3 @@
-
 /**
  * ContactSidebar Component
  *
@@ -10,6 +9,8 @@
  */
 
 import Image from "next/image";
+import { cookies } from "next/headers";
+import { st } from "@/app/_lib/static-text-server";
 import Link from "@/app/components/link/Link";
 
 /*
@@ -84,9 +85,10 @@ function ContactItem({ icon, title, label, url, alt }: ContactItemProps) {
 interface EmergencyItemProps {
   title: string;
   number: string;
+  locale: "ar" | "en";
 }
 
-function EmergencyItem({ title, number }: EmergencyItemProps) {
+function EmergencyItem({ title, number, locale }: EmergencyItemProps) {
   return (
     <div
       className="!flex flex-row! justify-start! items-center! gap-2!"
@@ -99,7 +101,9 @@ function EmergencyItem({ title, number }: EmergencyItemProps) {
           <Link
             external
             label={number}
-            aria-label={`اتصل بـ ${title} على الرقم ${number}`}
+            aria-label={st("eParticipation", "callAriaLabel", locale)
+              .replace("{title}", title)
+              .replace("{number}", number)}
             size="lg"
             target="_blank"
             url={`tel:${number}`}
@@ -119,19 +123,24 @@ function EmergencyItem({ title, number }: EmergencyItemProps) {
   );
 }
 
-export default function ContactSidebar() {
+export default async function ContactSidebar() {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value === "en-US" ? "en" : "ar";
+
   return (
     <aside
       className="h-fit! p-6! shadow-sm! rounded-[16px]! border! border-[#D2D6DB]! bg-white!"
-      aria-label="معلومات التواصل"
+      aria-label={st("eParticipation", "contactInfoAria", locale)}
     >
       <div>
         <div className="!flex flex-col! gap-4!">
-          <h1 className="text-xl-bold">تواصل معنا</h1>
+          <h1 className="text-xl-bold">
+            {st("eParticipation", "contactUsHeading", locale)}
+          </h1>
 
           <ContactItem
             icon={ICONS.call}
-            title="رقم الجوال"
+            title={st("eParticipation", "contactMobile", locale)}
             label="9200343222"
             url="tel:9200343222"
             alt="call"
@@ -139,7 +148,7 @@ export default function ContactSidebar() {
 
           <ContactItem
             icon={ICONS.message}
-            title="رسالة قصيرة"
+            title={st("eParticipation", "contactSms", locale)}
             label="199099"
             url="sms:199099"
             alt="message"
@@ -147,7 +156,7 @@ export default function ContactSidebar() {
 
           <ContactItem
             icon={ICONS.mail}
-            title="البريد الالكتروني"
+            title={st("eParticipation", "contactEmail", locale)}
             label="help@hamza.sa"
             url="mailto:help@hamza.sa"
             alt="mail"
@@ -155,7 +164,7 @@ export default function ContactSidebar() {
 
           <ContactItem
             icon={ICONS.mail}
-            title="فاكس"
+            title={st("eParticipation", "contactFax", locale)}
             label="00966-11-434-6654"
             url="tel:00966114346654"
             alt="fax"
@@ -172,9 +181,15 @@ export default function ContactSidebar() {
               className="icon-green"
             />
             <div className="!flex flex-col! justify-start! gap-2!">
-              <h3 className="text-md-bold">الموقع</h3>
+              <h3 className="text-md-bold">
+                {st("eParticipation", "contactLocation", locale)}
+              </h3>
               <div className="!flex !flex-row !justify-start !gap-2 items-center">
-                <Link label="الرياض" size="md" variant="primary" />
+                <Link
+                  label={st("eParticipation", "locationRiyadh", locale)}
+                  size="md"
+                  variant="primary"
+                />
                 <Image
                   src={ICONS.link}
                   alt=""
@@ -190,14 +205,16 @@ export default function ContactSidebar() {
           {/* Social Media */}
           <div className="!flex flex-row! justify-start! items-start! gap-2!">
             <div className="!flex flex-col! justify-start! gap-2!">
-              <h3 className="text-md-bold">تابعنا على</h3>
+              <h3 className="text-md-bold">
+                {st("eParticipation", "followUs", locale)}
+              </h3>
               <div className="!flex !flex-row !justify-start !gap-2 ">
                 <a
                   href="https://www.instagram.com/hamzatest"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="!flex flex-row! justify-start! gap-2! p-1! cursor-pointer! rounded items-center focus:ring-2 focus:ring-primary-500"
-                  aria-label="تابعنا على انستقرام"
+                  aria-label={st("eParticipation", "followInstagram", locale)}
                 >
                   <Image
                     src={ICONS.instagram}
@@ -212,7 +229,7 @@ export default function ContactSidebar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="!flex flex-row! justify-start! gap-2! p-1! cursor-pointer! rounded items-center focus:ring-2 focus:ring-primary-500"
-                  aria-label="تابعنا على لينكد إن"
+                  aria-label={st("eParticipation", "followLinkedin", locale)}
                 >
                   <Image
                     src={ICONS.linkedin}
@@ -227,7 +244,7 @@ export default function ContactSidebar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="!flex flex-row! justify-start! gap-2! p-1! cursor-pointer! rounded items-center focus:ring-2 focus:ring-primary-500"
-                  aria-label="تابعنا على تويتر/إكس"
+                  aria-label={st("eParticipation", "followTwitter", locale)}
                 >
                   <Image
                     src={ICONS.twitter}
@@ -245,10 +262,24 @@ export default function ContactSidebar() {
 
           {/* Emergency Contacts */}
           <div className="!flex flex-col! gap-4!">
-            <h1 className="text-xl-bold">اتصالات الطوارئ</h1>
-            <EmergencyItem title="الدفاع المدني" number="998" />
-            <EmergencyItem title="الشرطة" number="999" />
-            <EmergencyItem title="الإسعاف" number="997" />
+            <h1 className="text-xl-bold">
+              {st("eParticipation", "emergencyContacts", locale)}
+            </h1>
+            <EmergencyItem
+              title={st("eParticipation", "emergencyCivilDefense", locale)}
+              number="998"
+              locale={locale}
+            />
+            <EmergencyItem
+              title={st("eParticipation", "emergencyPolice", locale)}
+              number="999"
+              locale={locale}
+            />
+            <EmergencyItem
+              title={st("eParticipation", "emergencyAmbulance", locale)}
+              number="997"
+              locale={locale}
+            />
           </div>
         </div>
       </div>

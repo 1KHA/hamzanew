@@ -144,7 +144,7 @@ function Footer({ locale }: FooterProps) {
                       {st("footer", "contactUs", locale)}
                     </Link>
                   </li>
-                  <li className="flex items-center gap-[4px]">
+                  {/* <li className="flex items-center gap-[4px]">
                     <a
                       href="https://my.gov.sa/ar/content/report-corruption"
                       target="_blank"
@@ -155,7 +155,7 @@ function Footer({ locale }: FooterProps) {
                       {st("footer", "reportCorruption", locale)}
                     </a>
                     <ExternalIcon />
-                  </li>
+                  </li> */}
                 </ul>
               </nav>
             </div>

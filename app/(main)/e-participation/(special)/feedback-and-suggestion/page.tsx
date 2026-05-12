@@ -13,14 +13,22 @@
 
 import FeedbackFormClient from "./FeedbackFormClient";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
+import { st } from "@/app/_lib/static-text-server";
 
 /**
- * Metadata for the Hamza Organization page.
+ * Metadata for the Feedback & Suggestions page.
  */
-export const metadata: Metadata = {
-  title: "الشكاوى والمقترحات",
-  description:""
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value === "en-US" ? "en" : "ar";
+
+  return {
+    title: st("eParticipation", "feedbackTitle", locale),
+    description: "",
+  };
+}
+
 export default function FeedbackAndSuggestionPage() {
   return <FeedbackFormClient />;
 }

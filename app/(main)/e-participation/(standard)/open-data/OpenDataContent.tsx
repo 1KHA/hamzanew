@@ -20,19 +20,20 @@
 import { useState } from "react";
 import ListItem from "@/app/components/list-item/ListItem";
 import { DgaTabs } from "@/app/components/tabs/DgaTabs";
+import { st } from "@/app/_lib/static-text";
 
 /**
  * Configuration for the tabs displayed in the component.
  * Each object contains the label and a unique ID for accessibility association.
  */
 const TAB_ITEMS = [
-  { label: "البيانات المفتوحة", id: "tab-open-data" },
-  { label: "سياسة البيانات المفتوحة", id: "tab-policy" },
-  { label: "مكتبة البيانات المفتوحة", id: "tab-library" },
-  { label: "حالات الاستخدام للبيانات المفتوحة", id: "tab-use-cases" },
-  { label: "البيانات الجيومكانية", id: "tab-geo" },
-  { label: "البيانات اللحظية", id: "tab-realtime" },
-  { label: "احداث البيانات المفتوحة", id: "tab-events" },
+  { label: st("eParticipation", "openDataTab"), id: "tab-open-data" },
+  { label: st("eParticipation", "openDataPolicyTab"), id: "tab-policy" },
+  { label: st("eParticipation", "openDataLibraryTab"), id: "tab-library" },
+  { label: st("eParticipation", "openDataUseCasesTab"), id: "tab-use-cases" },
+  { label: st("eParticipation", "geoDataTab"), id: "tab-geo" },
+  { label: st("eParticipation", "realtimeDataTab"), id: "tab-realtime" },
+  { label: st("eParticipation", "openDataEventsTab"), id: "tab-events" },
 ];
 
 export default function OpenDataContent() {
@@ -92,27 +93,22 @@ export default function OpenDataContent() {
                 {index === 0 ? (
                   <>
                     <p className="text-md-regular mb-0">
-                      البيانات المفتوحة في منصة اختبار همزة هي بيانات متاحة
-                      للاستخدام العام بما يتيح الاطلاع عليها والاستفادة منها
-                      لأغراض تعليمية وبحثية، وفق الأطر النظامية المعتمدة. وتهدف
-                      المنصة من خلال إتاحة هذه البيانات إلى دعم الشفافية، وتحسين
-                      جودة الخدمات، وتعزيز الاستفادة من البيانات في تطوير تجربة
-                      الاختبارات اللغوية.
+                      {st("eParticipation", "openDataDescription")}
                     </p>
                     <ListItem
-                      itemText="تعزيز الشفافية ومشاركة المستفيدين في تطوير منصة اختبار همزة."
+                      itemText={st("eParticipation", "openDataBullet1")}
                       level="one"
                       type="unordered"
                       className="text-md-regular"
                     />
                     <ListItem
-                      itemText="تحسين كفاءة الخدمات التعليمية وجودة الاختبارات المقدّمة."
+                      itemText={st("eParticipation", "openDataBullet2")}
                       level="one"
                       type="unordered"
                       className="text-md-regular"
                     />
                     <ListItem
-                      itemText="إتاحة الفرص لتطوير خدمات وأدوات تعليمية جديدة تعتمد على تحليل البيانات."
+                      itemText={st("eParticipation", "openDataBullet3")}
                       level="one"
                       type="unordered"
                       className="text-md-regular"
@@ -120,7 +116,7 @@ export default function OpenDataContent() {
                   </>
                 ) : (
                   <p className="text-md-regular !mb-0">
-                    ستتوفر البيانات قريبــــــاً
+                    {st("eParticipation", "comingSoon")}
                   </p>
                 )}
               </div>

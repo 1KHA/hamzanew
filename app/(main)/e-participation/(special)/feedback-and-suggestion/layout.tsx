@@ -12,10 +12,15 @@
  */
 
 import { type ReactNode } from "react";
+import { cookies } from "next/headers";
+import { st } from "@/app/_lib/static-text-server";
 import DgaBreadcrumbs from "@/app/components/breadcrumbs/BreadCrumbs";
 import ContactSidebar from "./ContactSidebar";
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default async function Layout({ children }: { children: ReactNode }) {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value === "en-US" ? "en" : "ar";
+
   return (
     <>
       <div className="custom-container section-spacing-5xl">
@@ -23,14 +28,14 @@ export default function Layout({ children }: { children: ReactNode }) {
         <section className="w-full">
           <div className="px-4 xl:px-8 py-10">
             {/* ── Breadcrumbs ── */}
-            <nav aria-label="مسار التنقل">
+            <nav aria-label={st("eParticipation", "breadcrumbNavAria", locale)}>
               <DgaBreadcrumbs
                 items={[
-                  { label: "الرئيسة", path: "/" },
-                  { label: "عن الجهة", disabled: true },
-                  { label: "عن همزة", disabled: true },
-                  { label: "المشاركة الإلكترونية", path: "/e-participation" },
-                  { label: " الشكاوى والمقترحات", disabled: true },
+                  { label: st("eParticipation", "breadcrumbHome", locale), path: "/" },
+                  { label: st("eParticipation", "breadcrumbAboutEntity", locale), disabled: true },
+                  { label: st("eParticipation", "breadcrumbAboutHamza", locale), disabled: true },
+                  { label: st("eParticipation", "breadcrumbEParticipation", locale), path: "/e-participation" },
+                  { label: st("eParticipation", "breadcrumbFeedback", locale), disabled: true },
                 ]}
                 max={4}
               />
@@ -41,14 +46,11 @@ export default function Layout({ children }: { children: ReactNode }) {
               <div id="main-content">
                 <div className="!pt-4 !flex !flex-col !gap-2">
                   {/* Hero section */}
-                  <h1 className="display-sm-bold">الشكاوى والمقترحات</h1>
+                  <h1 className="display-sm-bold">
+                    {st("eParticipation", "feedbackPageHeading", locale)}
+                  </h1>
                   <p className="text-md-regular !leading-[32px] max-w-3xl">
-                    نحرص في منصة همزة على تحسين تجربتك بشكل مستمر. من خلال هذا
-                    النموذج يمكنك إرسال شكوى، ملاحظة، أو اقتراح بكل سهولة، وسيتم
-                    مراجعتها من قبل الفريق المختص في أقرب وقت ممكن.
-                    <br />
-                    رأيك يهمنا، ويساعدنا في تطوير اختبارات همزة والارتقاء بجودة
-                    المحتوى والخدمة المقدّمة لك.
+                    {st("eParticipation", "feedbackPageIntro", locale)}
                   </p>
                 </div>
                 {children}

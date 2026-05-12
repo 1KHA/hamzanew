@@ -1,9 +1,14 @@
 import Card from "@/app/components/card/Card";
-import { Metadata } from "next";
+import { st } from "@/app/_lib/static-text-server";
+import { cookies } from "next/headers";
 
-export const metadata: Metadata = {
-  title: "وسائل التواصل الاجتماعي",
-};
+export async function generateMetadata() {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+  return {
+    title: st("eParticipation", "socialMediaTitle", locale),
+  };
+}
 
 /**
  * Social Media Page Component
@@ -17,7 +22,10 @@ export const metadata: Metadata = {
  * - Each card serves as a navigational element with clear labeling via the `title` prop.
  * - Cards are marked as external links where appropriate.
  */
-export default function page() {
+export default async function page() {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+
   /**
    * Data source for social media platforms.
    * Defines the visual assets (logo), accessible name, and destination URL for each platform.
@@ -25,32 +33,32 @@ export default function page() {
   const socialMedia = [
     {
       logo: "new-twitter",
-      name: "منصة اكس",
+      name: st("eParticipation", "xPlatform", locale),
       link: "https://google.com",
     },
     {
       logo: "youtube",
-      name: "يوتيوب",
+      name: st("eParticipation", "youtube", locale),
       link: "https://google.com",
     },
     {
       logo: "facebook-02",
-      name: "فيسبوك",
+      name: st("eParticipation", "facebook", locale),
       link: "https://google.com",
     },
     {
       logo: "snapchat",
-      name: "سناب شات",
+      name: st("eParticipation", "snapchat", locale),
       link: "https://google.com",
     },
     {
       logo: "linkedin-02",
-      name: "لينكدان",
+      name: st("eParticipation", "linkedin", locale),
       link: "https://google.com",
     },
     {
       logo: "instagram",
-      name: "انستقرام",
+      name: st("eParticipation", "instagram", locale),
       link: "https://google.com",
     },
   ];
@@ -60,7 +68,7 @@ export default function page() {
       <div className="custom-container">
         <section
           className="section-spacing-5xl"
-          aria-label="قائمة وسائل التواصل الاجتماعي"
+          aria-label={st("eParticipation", "socialMediaListAria", locale)}
         >
           {/*
            * Grid Layout

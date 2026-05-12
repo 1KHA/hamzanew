@@ -1,3 +1,5 @@
+import { st } from "@/app/_lib/static-text-server";
+
 export interface StatisticItem {
   id: number;
   icon: string;
@@ -26,75 +28,108 @@ export interface CityVisit {
 }
 
 // General Number Statistics
-export const servicesStatisticsData: StatisticItem[] = [
-  {
-    id: 1,
-    icon: "user-group",
-    number: "000,000",
-    title: "المستخدمون",
-  },
-  { id: 2, icon: "view", number: "000,000", title: "الزيارات" },
-  {
-    id: 3,
-    icon: "web-design-01",
-    number: "000,000",
-    title: "عدد مرات عرض الصفحة",
-  },
-  {
-    id: 4,
-    icon: "bounce-right",
-    number: "00%",
-    title: "معدل الارتداد Bounce Rate",
-  },
-];
+export function getServicesStatisticsData(locale: "ar" | "en"): StatisticItem[] {
+  return [
+    {
+      id: 1,
+      icon: "user-group",
+      number: "000,000",
+      title: st("eParticipation", "statUsers", locale),
+    },
+    { id: 2, icon: "view", number: "000,000", title: st("eParticipation", "statVisits", locale) },
+    {
+      id: 3,
+      icon: "web-design-01",
+      number: "000,000",
+      title: st("eParticipation", "statPageViews", locale),
+    },
+    {
+      id: 4,
+      icon: "bounce-right",
+      number: "00%",
+      title: st("eParticipation", "statBounceRate", locale),
+    },
+  ];
+}
 
-export const chartsData: ChartData[] = [
-  {
-    id: 1,
-    title: "أنظمة التشغيل",
-    labels: ["قيمة 1", "قيمة 2", "قيمة 3", "قيمة 4"],
-    series: [20000, 16000, 11000, 4600, 987],
-  },
-  {
-    id: 2,
-    title: "أنواع الاجهزة",
-    labels: ["قيمة 1", "قيمة 2", "قيمة 3", "قيمة 4"],
-    series: [20000, 16000, 11000, 4600, 987],
-  },
-  {
-    id: 3,
-    title: "اجهزة الجوال",
-    labels: ["قيمة 1", "قيمة 2", "قيمة 3", "قيمة 4"],
-    series: [20000, 16000, 11000, 4600, 987],
-  },
-  {
-    id: 4,
-    title: "نوع المتصفح",
-    labels: ["قيمة 1", "قيمة 2", "قيمة 3", "قيمة 4"],
-    series: [20000, 16000, 11000, 4600, 987],
-  },
-  {
-    id: 5,
-    title: "أكثر كلمات البحث استخداما (حتى 10 كلمات بحث)",
-    labels: ["قيمة 1", "قيمة 2", "قيمة 3", "قيمة 4"],
-    series: [20000, 16000, 11000, 4600, 987],
-  },
-];
+export function getChartsData(locale: "ar" | "en"): ChartData[] {
+  return [
+    {
+      id: 1,
+      title: st("eParticipation", "statOperatingSystems", locale),
+      labels: [
+        st("eParticipation", "statValue1", locale),
+        st("eParticipation", "statValue2", locale),
+        st("eParticipation", "statValue3", locale),
+        st("eParticipation", "statValue4", locale),
+      ],
+      series: [20000, 16000, 11000, 4600, 987],
+    },
+    {
+      id: 2,
+      title: st("eParticipation", "statDeviceTypes", locale),
+      labels: [
+        st("eParticipation", "statValue1", locale),
+        st("eParticipation", "statValue2", locale),
+        st("eParticipation", "statValue3", locale),
+        st("eParticipation", "statValue4", locale),
+      ],
+      series: [20000, 16000, 11000, 4600, 987],
+    },
+    {
+      id: 3,
+      title: st("eParticipation", "statMobileDevices", locale),
+      labels: [
+        st("eParticipation", "statValue1", locale),
+        st("eParticipation", "statValue2", locale),
+        st("eParticipation", "statValue3", locale),
+        st("eParticipation", "statValue4", locale),
+      ],
+      series: [20000, 16000, 11000, 4600, 987],
+    },
+    {
+      id: 4,
+      title: st("eParticipation", "statBrowserType", locale),
+      labels: [
+        st("eParticipation", "statValue1", locale),
+        st("eParticipation", "statValue2", locale),
+        st("eParticipation", "statValue3", locale),
+        st("eParticipation", "statValue4", locale),
+      ],
+      series: [20000, 16000, 11000, 4600, 987],
+    },
+    {
+      id: 5,
+      title: st("eParticipation", "statTopSearchTerms", locale),
+      labels: [
+        st("eParticipation", "statValue1", locale),
+        st("eParticipation", "statValue2", locale),
+        st("eParticipation", "statValue3", locale),
+        st("eParticipation", "statValue4", locale),
+      ],
+      series: [20000, 16000, 11000, 4600, 987],
+    },
+  ];
+}
 
 // ✅ بيانات زيارات حسب الدول (مع رمز الدولة)
-export const countriesVisits: CountryVisit[] = [
-  { country: "الدولة", code: "", visits: "10 آلاف", percent: "50%" },
-  { country: "الدولة", code: "", visits: "10 آلاف", percent: "50%" },
-  { country: "الدولة", code: "", visits: "10 آلاف", percent: "50%" },
-  { country: "الدولة", code: "", visits: "10 آلاف", percent: "50%" },
-  { country: "الدولة", code: "", visits: "10 آلاف", percent: "50%" },
-];
+export function getCountriesVisits(locale: "ar" | "en"): CountryVisit[] {
+  return [
+    { country: st("eParticipation", "statCountryPlaceholder", locale), code: "", visits: st("eParticipation", "statVisitsPlaceholder", locale), percent: "50%" },
+    { country: st("eParticipation", "statCountryPlaceholder", locale), code: "", visits: st("eParticipation", "statVisitsPlaceholder", locale), percent: "50%" },
+    { country: st("eParticipation", "statCountryPlaceholder", locale), code: "", visits: st("eParticipation", "statVisitsPlaceholder", locale), percent: "50%" },
+    { country: st("eParticipation", "statCountryPlaceholder", locale), code: "", visits: st("eParticipation", "statVisitsPlaceholder", locale), percent: "50%" },
+    { country: st("eParticipation", "statCountryPlaceholder", locale), code: "", visits: st("eParticipation", "statVisitsPlaceholder", locale), percent: "50%" },
+  ];
+}
 
 // ✅ بيانات زيارات حسب المدن
-export const citiesVisits: CityVisit[] = [
-  { city: "المدينة", visits: "10 آلاف", percent: "50%" },
-  { city: "المدينة", visits: "10 آلاف", percent: "50%" },
-  { city: "المدينة", visits: "10 آلاف", percent: "50%" },
-  { city: "المدينة", visits: "10 آلاف", percent: "50%" },
-  { city: "المدينة", visits: "10 آلاف", percent: "50%" },
-];
+export function getCitiesVisits(locale: "ar" | "en"): CityVisit[] {
+  return [
+    { city: st("eParticipation", "statCityPlaceholder", locale), visits: st("eParticipation", "statVisitsPlaceholder", locale), percent: "50%" },
+    { city: st("eParticipation", "statCityPlaceholder", locale), visits: st("eParticipation", "statVisitsPlaceholder", locale), percent: "50%" },
+    { city: st("eParticipation", "statCityPlaceholder", locale), visits: st("eParticipation", "statVisitsPlaceholder", locale), percent: "50%" },
+    { city: st("eParticipation", "statCityPlaceholder", locale), visits: st("eParticipation", "statVisitsPlaceholder", locale), percent: "50%" },
+    { city: st("eParticipation", "statCityPlaceholder", locale), visits: st("eParticipation", "statVisitsPlaceholder", locale), percent: "50%" },
+  ];
+}

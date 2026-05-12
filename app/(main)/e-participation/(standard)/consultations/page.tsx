@@ -1,11 +1,17 @@
 import Card from "@/app/components/card/Card";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
+import { st } from "@/app/_lib/static-text-server";
 
-export const metadata: Metadata = {
-  title: "الإستشارات الإلكترونية",
-  description:
-    "استعرض منصات الاستشارات الإلكترونية المتاحة لإبداء مرئياتك حول مشروعات الأنظمة واللوائح والمشاركة في المبادرات الحكومية.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+
+  return {
+    title: st("eParticipation", "consultationTitle", locale),
+    description: st("eParticipation", "consultationsMetaDesc", locale),
+  };
+}
 
 /**
  * Electronic Consultations Page Component
@@ -29,26 +35,27 @@ export const metadata: Metadata = {
  * - The overall page heading is provided by the parent layout's
  *   `<PageHero>` component, keeping a single `<h1>` per page.
  */
-export default function ConsultationsPage() {
+export default async function ConsultationsPage() {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+
   /**
    * Static data for available electronic consultation platforms.
    * Each entry contains an accessible name, a public URL, and a
-   * brief Arabic description of what the platform offers.
+   * brief description of what the platform offers.
    */
   const platforms = [
     {
       id: "istitlaa",
-      name: "المنصة الإلكترونية الموحدة - استطلاع",
+      name: st("eParticipation", "platformIstitlaaName", locale),
       path: "https://istitlaa.ncc.gov.sa/ar/Pages/default.aspx",
-      description:
-        "تتيح منصة (استطلاع) للعموم وللقطاع الخاص والجهات الحكومية إبداء مرئياتهم حيال مشروعات الأنظمة واللوائح وما في حكمها ذات الصلة بالشؤون الاقتصادية والتنموية.",
+      description: st("eParticipation", "platformIstitlaaDesc", locale),
     },
     {
       id: "tafaol",
-      name: "منصة تفاعل",
+      name: st("eParticipation", "platformTafaolName", locale),
       path: "https://eparticipation.my.gov.sa/",
-      description:
-        "منصة تفاعل هي منصة حكومية رقمية تهدف إلى تعزيز التواصل والتفاعل بين الجهات الحكومية والمستفيدين، من خلال إتاحة قنوات إلكترونية تمكّن المستخدمين من إبداء آرائهم، تقديم المقترحات، والمشاركة في المبادرات والموضوعات المطروحة من الجهات الحكومية.",
+      description: st("eParticipation", "platformTafaolDesc", locale),
     },
   ];
 
@@ -62,7 +69,7 @@ export default function ConsultationsPage() {
          */}
         <section
           className="section-spacing-5xl"
-          aria-label="قائمة منصات الاستشارات الإلكترونية"
+          aria-label={st("eParticipation", "consultationsListAria", locale)}
         >
           {/*
            * Unordered list of platforms.

@@ -1,11 +1,17 @@
 import Card from "@/app/components/card/Card";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
+import { st } from "@/app/_lib/static-text-server";
 
-export const metadata: Metadata = {
-  title: "تقارير صوت المستفيد",
-  description:
-    "مجموعة من التقارير السنوية لصوت المستفيد التي توضح آراء ومقترحات المستفيدين لتحسين الخدمات.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+
+  return {
+    title: st("eParticipation", "voiceReportsTitle", locale),
+    description: st("eParticipation", "voiceReportsMetaDesc", locale),
+  };
+}
 
 /**
  * Voice Reports Page Component
@@ -15,44 +21,23 @@ export const metadata: Metadata = {
  * @accessibility
  * - Uses semantic `<ul>` and `<li>` structure to group the report cards.
  * - Provides descriptive names for each report.
- * - Each card includes a primary action button labeled "تحميل الملف" (Download File) with an appropriate icon.
+ * - Each card includes a primary action button labeled with a download icon.
  */
-export default function page() {
+export default async function page() {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+
   /**
    * List of annual reports.
    * Each entry contains the report year/name and the download path.
    */
   const data = [
-    {
-      id: 1,
-      name: " تقارير صوت المستفيد لعام (2024)",
-      path: "#",
-    },
-    {
-      id: 2,
-      name: " تقارير صوت المستفيد لعام (2023)",
-      path: "#",
-    },
-    {
-      id: 3,
-      name: " تقارير صوت المستفيد لعام (2022)",
-      path: "#",
-    },
-    {
-      id: 4,
-      name: " تقارير صوت المستفيد لعام (2021)",
-      path: "#",
-    },
-    {
-      id: 5,
-      name: " تقارير صوت المستفيد لعام (2020)",
-      path: "#",
-    },
-    {
-      id: 6,
-      name: " تقارير صوت المستفيد لعام (2019)",
-      path: "#",
-    },
+    { id: 1, year: "2024", path: "#" },
+    { id: 2, year: "2023", path: "#" },
+    { id: 3, year: "2022", path: "#" },
+    { id: 4, year: "2021", path: "#" },
+    { id: 5, year: "2020", path: "#" },
+    { id: 6, year: "2019", path: "#" },
   ];
 
   return (
@@ -60,7 +45,7 @@ export default function page() {
       <div className="custom-container">
         <section
           className="section-spacing-5xl"
-          aria-label="قائمة تقارير صوت المستفيد"
+          aria-label={st("eParticipation", "voiceReportsListAria", locale)}
         >
           {/*
            * Reports Grid
@@ -70,9 +55,9 @@ export default function page() {
             {data.map((report) => (
               <li key={report.id}>
                 <Card
-                  title={report.name}
+                  title={st("eParticipation", "voiceReportYear", locale).replace("{year}", report.year)}
                   linkPrimaryAction={report.path}
-                  primaryActionLabel="تحميل الملف"
+                  primaryActionLabel={st("eParticipation", "downloadFile", locale)}
                   buttonColor="secondary"
                   showPrimaryAction={true}
                   primaryTrailIconType="download-04"

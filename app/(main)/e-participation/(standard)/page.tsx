@@ -1,11 +1,14 @@
 import Card from "@/app/components/card/Card";
-import type { Metadata } from "next";
+import { st } from "@/app/_lib/static-text-server";
+import { cookies } from "next/headers";
 
-export const metadata: Metadata = {
-  title: "المشاركة الإلكترونية",
-  description:
-    "شارك في صنع القرار وتحسين الخدمات من خلال أدوات المشاركة الإلكترونية المختلفة مثل الاستشارات، التطوير المشترك، والمقترحات.",
-};
+export async function generateMetadata() {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+  return {
+    title: st("eParticipation", "eParticipationTitle", locale),
+  };
+}
 
 /**
  * E-Participation Hub Page
@@ -18,42 +21,45 @@ export const metadata: Metadata = {
  * - Organizes navigation links into a structured grid layout.
  * - Each card serves as a clear entry point to a specific e-participation tool.
  */
-export default function page() {
+export default async function page() {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+
   /**
    * Navigation items configuration.
    * Defines the title and destination route for each participation module.
    */
   const pageContent = [
     {
-      title: "سياسة المشاركة الإلكترونية",
+      title: st("eParticipation", "policyCardTitle", locale),
       link: "/e-participation/policy",
     },
     {
-      title: "الإستشارات الإلكترونية",
+      title: st("eParticipation", "consultationCardTitle", locale),
       link: "/e-participation/consultations",
     },
     {
-      title: "التطوير المشترك والافكار",
+      title: st("eParticipation", "coCreationTitle", locale),
       link: "/e-participation/co-creation",
     },
     {
-      title: "البيانات المفتوحة",
+      title: st("eParticipation", "openDataCardTitle", locale),
       link: "/e-participation/open-data",
     },
     {
-      title: "الشكاوى والمقترحات",
+      title: st("eParticipation", "feedbackCardTitle", locale),
       link: "/e-participation/feedback-and-suggestion",
     },
     {
-      title: "تقارير صوت المستفيد",
+      title: st("eParticipation", "voiceReportsTitle", locale),
       link: "/e-participation/voice-reports",
     },
     {
-      title: "إحصائيات الموقع والخدمات",
+      title: st("eParticipation", "statsCardTitle", locale),
       link: "/e-participation/services-statistics",
     },
     {
-      title: "وسائل التواصل الاجتماعي",
+      title: st("eParticipation", "socialMediaCardTitle", locale),
       link: "/e-participation/socail-media",
     },
   ];
@@ -67,13 +73,10 @@ export default function page() {
         >
           <div className="!flex !flex-col !gap-[16px]">
             <h1 id="participation-topics-title" className="display-sm-semibold">
-              مواضيع المشاركة
+              {st("eParticipation", "topicsHeading", locale)}
             </h1>
             <p className="text-md-regular">
-              هذا مثال على وصف القسم في نظام التصميم، حيث يتم الحفاظ على نفس
-              النمط المتسق عبر جميع الأقسام الأخرى. هذا مثال على وصف القسم في
-              نظام التصميم، حيث يتم الحفاظ على نفس النمط المتسق عبر جميع الأقسام
-              الأخرى.
+              {st("eParticipation", "topicsDescription", locale)}
             </p>
           </div>
 
