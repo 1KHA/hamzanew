@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ScrollReveal from "@/app/components/scroll-reveal/ScrollReveal";
+import { st } from "@/app/_lib/static-text";
 
 const STAGGER  = 0.1;
 const DURATION = 0.8;
@@ -151,7 +152,7 @@ export default function BenefitsContent() {
         <div className="stack-xl">
           <ScrollReveal direction="up" duration={DURATION} delay={r(0)} immediate>
             <header className="section-head">
-              <p className="section-title">كيفية الإستفادة من همزة</p>
+              <p className="section-title">{st("about", "benefitsSubtitle")}</p>
               <h2 id="takers-heading" className="display-sm-bold">{title}</h2>
             </header>
           </ScrollReveal>
