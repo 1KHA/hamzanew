@@ -737,6 +737,9 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     goal5: { ar: "بناء شراكات بحثية مع معامل ومراكز دولية في مجال اختبارات اللغة.", en: "Build research partnerships with international labs and centers in the field of language testing." },
     goal6: { ar: "تأهيل باحثين متخصصين في مجال أبحاث اختبارات اللغوية.", en: "Qualify specialized researchers in the field of language testing research." },
   },
+  nav: {
+    languageTestingLab: { ar: "معمل ابحاث الاختبارات اللغوية", en: "Arabic Language Testing Research Laboratory" },
+  },
 };
 
 /**

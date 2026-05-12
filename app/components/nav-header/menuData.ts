@@ -147,7 +147,7 @@ export const MENU_DATA: MenuItemType[] = [
             icon: "/assets/icons/stroke-standard/chart-bar-line-stroke-standard.svg",
           },
           {
-            label: "معمل ابحاث الاختبارات اللغوية",
+            label: "nav.languageTestingLab",
             href: "/news/language-testing-lab",
             icon: "/assets/icons/stroke-standard/microscope-stroke-rounded.svg",
           },

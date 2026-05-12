@@ -6,6 +6,7 @@ import type {
   SubmenuItem,
 } from "./menuData";
 import { t } from "@/app/_lib/translationContext";
+import { st } from "@/app/_lib/static-text";
 
 // =============================================
 // TYPES
@@ -22,6 +23,27 @@ interface NavigationSubmenuProps {
 }
 
 // =============================================
+// HELPERS
+// =============================================
+
+/**
+ * Resolve a menu label: try Liferay translations first, then fall back to
+ * static-text for "scope.key" format (matching PageHero.tsx pattern).
+ */
+function resolveLabel(key: string, translations?: Record<string, string> | null): string {
+  const translated = t(key, translations);
+  if (translated !== key) return translated;
+  if (key.includes(".")) {
+    const [scope, k] = key.split(".", 2);
+    if (scope && k) {
+      const staticText = st(scope, k);
+      if (staticText !== k) return staticText;
+    }
+  }
+  return key;
+}
+
+// =============================================
 // SUB-COMPONENTS
 // =============================================
 
@@ -34,7 +56,7 @@ interface NavigationSubmenuProps {
  */
 const SubmenuLink = memo<{ item: SubmenuItem; onClick: () => void; translations?: Record<string, string> | null }>(
   ({ item, onClick, translations }) => {
-    const resolvedLabel = t(item.label, translations);
+    const resolvedLabel = resolveLabel(item.label, translations);
     return (
       <li>
         <Link href={item.href} onClick={onClick} className="sub-link sub-menu__link">
@@ -67,7 +89,7 @@ const SubmenuColumn = memo<{
 }>(({ column, onLinkClick, translations }) => (
   <div className="sub-nav-title">
     {/* Column heading */}
-    <div className="p-[12px]">{t(column.title, translations)}</div>
+    <div className="p-[12px]">{resolveLabel(column.title, translations)}</div>
 
     {/* List of links — href used as key for stable reconciliation */}
     <ul className="grid gap-[4px]">

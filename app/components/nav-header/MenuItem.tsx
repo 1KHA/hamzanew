@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MenuItemType } from "./menuData";
 import { t } from "@/app/_lib/translationContext";
+import { st } from "@/app/_lib/static-text";
 
 // =============================================
 // TYPES
@@ -19,6 +20,27 @@ interface MenuItemProps {
   /** Called when the user navigates to this item's href */
   onLinkClick: () => void;
   translations?: Record<string, string> | null;
+}
+
+// =============================================
+// HELPERS
+// =============================================
+
+/**
+ * Resolve a menu label: try Liferay translations first, then fall back to
+ * static-text for "scope.key" format (matching PageHero.tsx pattern).
+ */
+function resolveLabel(key: string, translations?: Record<string, string> | null): string {
+  const translated = t(key, translations);
+  if (translated !== key) return translated;
+  if (key.includes(".")) {
+    const [scope, k] = key.split(".", 2);
+    if (scope && k) {
+      const staticText = st(scope, k);
+      if (staticText !== k) return staticText;
+    }
+  }
+  return key;
 }
 
 // =============================================
@@ -44,7 +66,7 @@ const MenuItem = memo<MenuItemProps>(({
   translations,
 }) => {
   const menuItemClass = `header-menu__item${isActive ? " header-menu__item--active" : ""}`;
-  const resolvedLabel = t(item.label, translations);
+  const resolvedLabel = resolveLabel(item.label, translations);
 
   // ── Submenu toggle button ──────────────────────────────────────────────
   if (item.hasSubmenu) {
