@@ -16,41 +16,29 @@
 import type { ReactElement } from "react";
 import PageHero from "@/app/components/page-hero/PageHero";
 import ResearchLibraryListing from "./ResearchLibraryListing";
-import { researchData } from "./_data/researchData";
+import { getResearchData } from "./_data/researchData";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFields } from "@/app/_lib/helper-service";
 import { getTranslations } from "@/app/_lib/getTranslations";
 import NotificationToast from "@/app/components/notification-toast/NotificationToast";
+import { st } from "@/app/_lib/static-text-server";
 
 /* ==========================================================================
    Metadata
    ========================================================================== */
 
-export const metadata: Metadata = {
-  title: "مكتبة الابحاث",
-  description:
-    "يمكنك هنا العثور على مجموعة من أحدث الأبحاث التي أجراها شركاء اختبار همزة وأكاديميون مدعومون من اختبار همزة من مختلف أنحاء العالم.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+  return {
+    title: st("researchLibrary", "metaTitle", locale),
+    description: st("researchLibrary", "metaDescription", locale),
+  };
+}
 
 export const dynamic = "force-dynamic";
-
-/* ==========================================================================
-   Static Fallback Configuration
-   ========================================================================== */
-
-const STATIC_HERO_CONFIG = {
-  title: "مكتبة الابحاث",
-  description:
-    "يمكنك هنا العثور على مجموعة من أحدث الأبحاث التي أجراها شركاء اختبار همزة وأكاديميون مدعومون من اختبار همزة من مختلف أنحاء العالم.",
-  bgColor: "#FFF" as const,
-  breadcrumbs: [
-    { label: "hamza-navigation-menu-home", path: "/" },
-    { label: "hamza-navigation-menu-research", disabled: true },
-    { label: "hamza-navigation-menu-research", disabled: true },
-  ],
-};
 
 /* ==========================================================================
    Helpers
@@ -88,6 +76,7 @@ function mapArticle(raw: any) {
 export default async function ResearchLibraryPage(): Promise<ReactElement> {
   const cookieStore = await cookies();
   const locale = cookieStore.get("lang")?.value || "ar-SA";
+  const staticLocale = locale.startsWith("en") ? "en" : "ar";
 
   // Fetch translations, header content, and research articles in parallel
   const [translations, headerContent, researchRes] = await Promise.all([
@@ -140,17 +129,21 @@ export default async function ResearchLibraryPage(): Promise<ReactElement> {
   ]) as { titleText?: string; descriptionText?: string };
 
   const heroConfig = {
-    title: headerFields?.titleText || headerContent?.title || STATIC_HERO_CONFIG.title,
+    title: headerFields?.titleText || headerContent?.title || st("researchLibrary", "heroTitle", staticLocale),
     description:
-      headerFields?.descriptionText || STATIC_HERO_CONFIG.description,
-    bgColor: STATIC_HERO_CONFIG.bgColor,
-    breadcrumbs: STATIC_HERO_CONFIG.breadcrumbs,
+      headerFields?.descriptionText || st("researchLibrary", "heroDescription", staticLocale),
+    bgColor: "#FFF" as const,
+    breadcrumbs: [
+      { label: "hamza-navigation-menu-home", path: "/" },
+      { label: "hamza-navigation-menu-research", disabled: true },
+      { label: "hamza-navigation-menu-research", disabled: true },
+    ],
   };
 
   // Process articles
   const rawArticles = researchRes?.articleList || [];
   const mappedArticles = rawArticles.map(mapArticle).filter(Boolean);
-  const articles = mappedArticles.length > 0 ? mappedArticles : researchData;
+  const articles = mappedArticles.length > 0 ? mappedArticles : getResearchData(staticLocale);
 
   // Extract filter lists from API response
   const articleTypesList = researchRes?.articleTypesList || [];
@@ -177,18 +170,18 @@ export default async function ResearchLibraryPage(): Promise<ReactElement> {
           type="info"
           leadText={
             translations?.["hamza-research-terms-lead"] ||
-            "الشروط والأحكام لإعداد دراسة"
+            st("researchLibrary", "termsLead", staticLocale)
           }
           helperText={
             translations?.["hamza-research-terms-helper"] ||
-            "حرصًا منا على تقديم خدمات بحثية موثوقة واحترافية، أنشأنا هذا القسم لتوضيح الشروط والأحكام التي تنظم عملية إعداد الدراسات."
+            st("researchLibrary", "termsHelper", staticLocale)
           }
           open
           variant="stroke"
           inline
           actionLabel={
             translations?.["hamza-research-terms-action"] ||
-            "عرض الشروط والأحكام"
+            st("researchLibrary", "termsAction", staticLocale)
           }
           actionHref="/terms-and-conditions"
         />

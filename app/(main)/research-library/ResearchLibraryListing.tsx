@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect, type ReactElement } from "react";
+import { st } from "@/app/_lib/static-text";
 import Button from "@/app/components/button/Button";
 import Card from "@/app/components/card/Card";
 import Filter from "@/app/components/filter/Filter";
@@ -88,7 +89,7 @@ export default function ResearchLibraryListing({
 
   /* Build dynamic filter options from API data */
   const categoryFilterOptions = useMemo(() => {
-    const allLabel = tx("hamza-all", "الكل");
+    const allLabel = tx("hamza-all", st("researchLibrary", "allCategories"));
     const base = [{ id: "all", label: allLabel, value: "all" }];
 
     if (articleTypesList && articleTypesList.length > 0) {
@@ -102,9 +103,9 @@ export default function ResearchLibraryListing({
     } else {
       // Fallback static categories
       base.push(
-        { id: "tests", label: "اختبارات", value: "اختبارات" },
-        { id: "teaching", label: "تعليم", value: "تعليم" },
-        { id: "tech", label: "تقنية", value: "تقنية" }
+        { id: "tests", label: st("researchLibrary", "catTests"), value: st("researchLibrary", "catTests") },
+        { id: "teaching", label: st("researchLibrary", "catTeaching"), value: st("researchLibrary", "catTeaching") },
+        { id: "tech", label: st("researchLibrary", "catTech"), value: st("researchLibrary", "catTech") }
       );
     }
     return base;
@@ -112,8 +113,8 @@ export default function ResearchLibraryListing({
 
   const sortOptions = useMemo(
     () => [
-      { id: "newest", label: tx("hamza-newest", "الأحدث"), value: "newest" },
-      { id: "oldest", label: tx("hamza-oldest", "الأقدم"), value: "oldest" },
+      { id: "newest", label: tx("hamza-newest", st("researchLibrary", "sortNewest")), value: "newest" },
+      { id: "oldest", label: tx("hamza-oldest", st("researchLibrary", "sortOldest")), value: "oldest" },
     ],
     [translations]
   );
@@ -200,20 +201,20 @@ export default function ResearchLibraryListing({
   };
 
   /* Translated labels */
-  const searchPlaceholder = tx("hamza-search", "ابحث عن بحث...");
-  const searchBtnLabel = tx("hamza-search", "بحث");
-  const categoryFilterTitle = tx("hamza-article-type", "التصنيف");
-  const categoryFilterBtn = tx("hamza-filter", "تصفية");
-  const sortFilterTitle = tx("hamza-sort-by", "ترتيب حسب");
-  const sortFilterBtn = tx("hamza-sort-by", "ترتيب حسب");
-  const resultsFoundLabel = tx("hamza-results-found", "نتيجة وجدت");
-  const noResultsLabel = tx("hamza-home-page-map-no-results-text", "لم يتم العثور على أبحاث");
-  const readMoreLabel = tx("hamza-read-more", "قراءة المزيد");
-  const ariaPageLabel = tx("hamza-research-page-aria", "صفحة مكتبة الأبحاث");
-  const ariaSearchFilterLabel = tx("hamza-search-filter-aria", "البحث والتصفية");
-  const ariaResultsListLabel = tx("hamza-results-list-aria", "قائمة الأبحاث");
-  const ariaGridLabel = tx("hamza-research-grid-aria", "شبكة الأبحاث");
-  const ariaPaginationLabel = tx("hamza-pagination-aria", "التنقل بين الصفحات");
+  const searchPlaceholder = tx("hamza-search", st("researchLibrary", "searchPlaceholder"));
+  const searchBtnLabel = tx("hamza-search", st("researchLibrary", "searchBtn"));
+  const categoryFilterTitle = tx("hamza-article-type", st("researchLibrary", "categoryFilterTitle"));
+  const categoryFilterBtn = tx("hamza-filter", st("researchLibrary", "categoryFilterBtn"));
+  const sortFilterTitle = tx("hamza-sort-by", st("researchLibrary", "sortFilterTitle"));
+  const sortFilterBtn = tx("hamza-sort-by", st("researchLibrary", "sortFilterTitle"));
+  const resultsFoundLabel = tx("hamza-results-found", st("researchLibrary", "resultsFound"));
+  const noResultsLabel = tx("hamza-home-page-map-no-results-text", st("researchLibrary", "noResults"));
+  const readMoreLabel = tx("hamza-read-more", st("researchLibrary", "readMore"));
+  const ariaPageLabel = tx("hamza-research-page-aria", st("researchLibrary", "ariaPage"));
+  const ariaSearchFilterLabel = tx("hamza-search-filter-aria", st("researchLibrary", "ariaSearchFilter"));
+  const ariaResultsListLabel = tx("hamza-results-list-aria", st("researchLibrary", "ariaResultsList"));
+  const ariaGridLabel = tx("hamza-research-grid-aria", st("researchLibrary", "ariaGrid"));
+  const ariaPaginationLabel = tx("hamza-pagination-aria", st("researchLibrary", "ariaPagination"));
 
   return (
     <main className="" aria-label={ariaPageLabel}>
