@@ -708,6 +708,35 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     l42Title: { ar: "أنشطة التحدث التفاعلية", en: "Interactive Speaking Activities" },
     l43Title: { ar: "التقييم والتحسين الذاتي", en: "Self-Assessment and Improvement" },
   },
+  languageTestingLab: {
+    metaTitle: { ar: "معمل ابحاث الاختبارات اللغوية", en: "Language Testing Research Lab" },
+    metaDescription: {
+      ar: "منصة متخصصة في تطوير ودراسة أدوات القياس والتقويم في اللغة العربية. يهدف إلى دعم الابتكار العلمي وتعزيز موثوقية الاختبارات وفق المعايير الدولية.",
+      en: "A specialized platform for developing and studying measurement and assessment tools in the Arabic language. It aims to support scientific innovation and enhance test reliability according to international standards.",
+    },
+    breadcrumbHome: { ar: "الرئيسة", en: "Home" },
+    breadcrumbResearch: { ar: "الأبحاث", en: "Research" },
+    breadcrumbLab: { ar: "معمل ابحاث الاختبارات اللغوية", en: "Language Testing Research Lab" },
+    visionTitle: { ar: "الرؤية", en: "Vision" },
+    visionDesc: {
+      ar: "أن يكون معمل أبحاث الاختبارات اللغوية العربية المرجع البحثي الأول عربياً وعالمياً في دراسة وتطوير المعرفة العلمية المرتبطة بالاختبارات اللغوية.",
+      en: "To be the foremost research reference in the Arab world and globally for studying and developing scientific knowledge related to language testing.",
+    },
+    missionTitle: { ar: "الرسالة", en: "Mission" },
+    missionDesc: {
+      ar: "إجراء بحوث علمية على الاختبارات اللغوية العربية، تتناول تحليلها وتقويمها وملاءمتها للأطر والمعايير الدولية، بما يسهم في إنتاج معرفة رصينة تخدم تطوير السياسات التعليمية والممارسات في مجال الاختبارات اللغوية العربية.",
+      en: "Conduct scientific research on Arabic language tests, analyzing, evaluating, and aligning them with international frameworks and standards, contributing to the production of solid knowledge that serves the development of educational policies and practices in the field of Arabic language testing.",
+    },
+    visionMissionAria: { ar: "الرؤية والرسالة", en: "Vision and Mission" },
+    goalsSubtitle: { ar: "مهام المعمل ومحاوره البحثية", en: "Lab Tasks and Research Axes" },
+    goalsHeading: { ar: "الأهداف", en: "Goals" },
+    goal1: { ar: "إجراء بحوث كمية وكيفية على اختبارات اللغة العربية.", en: "Conduct quantitative and qualitative research on Arabic language tests." },
+    goal2: { ar: "تحليل مدى توافق اختبارات العربية مع الأطر والمعايير العالمية.", en: "Analyze the extent to which Arabic tests align with global frameworks and standards." },
+    goal3: { ar: "تطوير نماذج بحثية وأدوات منهجية لدراسة أداء الاختبارات ومخرجاتها.", en: "Develop research models and methodological tools to study test performance and outcomes." },
+    goal4: { ar: "نشر المعرفة البحثية في مجلات علمية محكمة ومؤتمرات دولية.", en: "Publish research knowledge in peer-reviewed scientific journals and international conferences." },
+    goal5: { ar: "بناء شراكات بحثية مع معامل ومراكز دولية في مجال اختبارات اللغة.", en: "Build research partnerships with international labs and centers in the field of language testing." },
+    goal6: { ar: "تأهيل باحثين متخصصين في مجال أبحاث اختبارات اللغوية.", en: "Qualify specialized researchers in the field of language testing research." },
+  },
 };
 
 /**

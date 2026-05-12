@@ -1,37 +1,18 @@
 
 import Card from "@/app/components/card/Card";
 import ScrollReveal from "@/app/components/scroll-reveal/ScrollReveal";
+import { st } from "@/app/_lib/static-text-server";
 import "@/app/(main)/about/about.css";
 
 const STAGGER  = 0.1;
 const DURATION = 0.8;
 const r = (i: number) => i * STAGGER;
 
-/* ── Data ──────────────────────────────────────────────────────────────────── */
+/* ── Types ─────────────────────────────────────────────────────────────────── */
 
-const VISION_MISSION = [
-  {
-    title: "الرؤية",
-    icon: "view",
-    description:
-      "أن يكون معمل أبحاث الاختبارات اللغوية العربية المرجع البحثي الأول عربياً وعالمياً في دراسة وتطوير المعرفة العلمية المرتبطة بالاختبارات اللغوية.",
-  },
-  {
-    title: "الرسالة",
-    icon: "mail-01",
-    description:
-      "إجراء بحوث علمية على الاختبارات اللغوية العربية، تتناول تحليلها وتقويمها وملاءمتها للأطر والمعايير الدولية، بما يسهم في إنتاج معرفة رصينة تخدم تطوير السياسات التعليمية والممارسات في مجال الاختبارات اللغوية العربية.",
-  },
-] as const;
-
-const GOALS = [
-  { number: "1", description: "إجراء بحوث كمية وكيفية على اختبارات اللغة العربية." },
-  { number: "2", description: "تحليل مدى توافق اختبارات العربية مع الأطر والمعايير العالمية." },
-  { number: "3", description: "تطوير نماذج بحثية وأدوات منهجية لدراسة أداء الاختبارات ومخرجاتها." },
-  { number: "4", description: "نشر المعرفة البحثية في مجلات علمية محكمة ومؤتمرات دولية." },
-  { number: "5", description: "بناء شراكات بحثية مع معامل ومراكز دولية في مجال اختبارات اللغة." },
-  { number: "6", description: "تأهيل باحثين متخصصين في مجال أبحاث اختبارات اللغوية." },
-] as const;
+interface LanguageTestingLabContentProps {
+  locale: "ar" | "en";
+}
 
 /* ── Sub-components ────────────────────────────────────────────────────────── */
 
@@ -50,13 +31,37 @@ function GoalCard({ number, description }: { number: string; description: string
 
 /* ── Main export ───────────────────────────────────────────────────────────── */
 
-export default function LanguageTestingLabContent() {
+export default function LanguageTestingLabContent({ locale }: LanguageTestingLabContentProps) {
+  const VISION_MISSION = [
+    {
+      title: st("languageTestingLab", "visionTitle", locale),
+      icon: "view",
+      description: st("languageTestingLab", "visionDesc", locale),
+    },
+    {
+      title: st("languageTestingLab", "missionTitle", locale),
+      icon: "mail-01",
+      description: st("languageTestingLab", "missionDesc", locale),
+    },
+  ] as const;
+
+  const GOALS = [
+    { number: "1", description: st("languageTestingLab", "goal1", locale) },
+    { number: "2", description: st("languageTestingLab", "goal2", locale) },
+    { number: "3", description: st("languageTestingLab", "goal3", locale) },
+    { number: "4", description: st("languageTestingLab", "goal4", locale) },
+    { number: "5", description: st("languageTestingLab", "goal5", locale) },
+    { number: "6", description: st("languageTestingLab", "goal6", locale) },
+  ] as const;
+
   return (
     <div className="stack">
 
       {/* Vision & Mission */}
       <section className="about-us-cards-container custom-container" aria-labelledby="vision-mission">
-        <h2 id="vision-mission" className="sr-only">الرؤية والرسالة</h2>
+        <h2 id="vision-mission" className="sr-only">
+          {st("languageTestingLab", "visionMissionAria", locale)}
+        </h2>
         {VISION_MISSION.map((card, i) => (
           <ScrollReveal key={card.title} className="flex-1" direction="up" delay={r(i)} duration={DURATION} immediate>
             <Card
@@ -75,10 +80,14 @@ export default function LanguageTestingLabContent() {
         <div className="stack-8xl custom-container">
           <header className="section-head">
             <ScrollReveal direction="up" duration={DURATION} amount={0} margin="0px 0px -80px 0px" delay={0}>
-              <p className="section-title">مهام المعمل ومحاوره البحثية</p>
+              <p className="section-title">
+                {st("languageTestingLab", "goalsSubtitle", locale)}
+              </p>
             </ScrollReveal>
             <ScrollReveal direction="up" duration={DURATION} amount={0} margin="0px 0px -80px 0px" delay={0.15}>
-              <h2 id="goals-heading" className="display-sm-bold">الأهداف</h2>
+              <h2 id="goals-heading" className="display-sm-bold">
+                {st("languageTestingLab", "goalsHeading", locale)}
+              </h2>
             </ScrollReveal>
           </header>
 

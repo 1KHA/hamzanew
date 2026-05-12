@@ -1,27 +1,34 @@
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
+import { cookies } from "next/headers";
+import { st } from "@/app/_lib/static-text-server";
 import PageHero from "@/app/components/page-hero/PageHero";
 import LanguageTestingLabContent from "./LanguageTestingLabContent";
 
-export const metadata: Metadata = {
-  title: "معمل ابحاث الاختبارات اللغوية",
-  description:
-    "منصة متخصصة في تطوير ودراسة أدوات القياس والتقويم في اللغة العربية. يهدف إلى دعم الابتكار العلمي وتعزيز موثوقية الاختبارات وفق المعايير الدولية.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+  return {
+    title: st("languageTestingLab", "metaTitle", locale),
+    description: st("languageTestingLab", "metaDescription", locale),
+  };
+}
 
-const HERO_CONFIG = {
-  title: "معمل ابحاث الاختبارات اللغوية",
-  description:
-   "منصة متخصصة في تطوير ودراسة أدوات القياس والتقويم في اللغة العربية. يهدف إلى دعم الابتكار العلمي وتعزيز موثوقية الاختبارات وفق المعايير الدولية.",
-  bgColor: "#FFF",
-  breadcrumbs: [
-    { label: "الرئيسة", path: "/" },
-    { label: "الأبحاث", disabled: true },
-    { label: "معمل ابحاث الاختبارات اللغوية", disabled: true },
-  ],
-};
+export default async function LanguageTestingLabPage(): Promise<ReactElement> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
 
-export default function LanguageTestingLabPage(): ReactElement {
+  const HERO_CONFIG = {
+    title: st("languageTestingLab", "metaTitle", locale),
+    description: st("languageTestingLab", "metaDescription", locale),
+    bgColor: "#FFF",
+    breadcrumbs: [
+      { label: st("languageTestingLab", "breadcrumbHome", locale), path: "/" },
+      { label: st("languageTestingLab", "breadcrumbResearch", locale), disabled: true },
+      { label: st("languageTestingLab", "breadcrumbLab", locale), disabled: true },
+    ],
+  };
+
   return (
     <main>
       <PageHero
@@ -29,7 +36,7 @@ export default function LanguageTestingLabPage(): ReactElement {
         defaultRoute="/news/language-testing-lab"
         breadcrumbsMax={3}
       />
-      <LanguageTestingLabContent />
+      <LanguageTestingLabContent locale={locale} />
     </main>
   );
 }
