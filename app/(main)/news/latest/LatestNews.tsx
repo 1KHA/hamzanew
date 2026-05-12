@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import "@/app/components/card/card.css";
 import Button from "@/app/components/button/Button";
 import Carousel from "@/app/components/carousel/Carousel";
+import { st } from "@/app/_lib/static-text";
 
 /* ==========================================================================
    Types
@@ -88,7 +89,7 @@ function SafeImage({
    Sub-components
    ========================================================================== */
 
-function LatestNewsCard({ news }: { news: CarouselNewsItem }) {
+function LatestNewsCard({ news, locale }: { news: CarouselNewsItem; locale: string }) {
   const router = useRouter();
   return (
     <article className="card">
@@ -117,7 +118,7 @@ function LatestNewsCard({ news }: { news: CarouselNewsItem }) {
             <Button
               variant="primary-neutral"
               size="md"
-              label="قراءة المزيد"
+              label={st("latestNews", "readMoreBtn", locale as "ar" | "en")}
               onClick={() => {
                 router.push(`/news/details/${news.id}`);
               }}
@@ -162,7 +163,7 @@ export default function LatestNews({
         {activeNews.map((newsItem) => (
           <ul key={newsItem.id}>
             <li>
-              <LatestNewsCard news={newsItem} />
+              <LatestNewsCard news={newsItem} locale={locale} />
             </li>
           </ul>
         ))}
