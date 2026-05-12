@@ -67,7 +67,7 @@ const nextConfig: NextConfig = {
   webpack(config, { isServer, dev }) {
     config.plugins.push(new InjectFontDisplaySwapPlugin());
 
-    if (!isServer && !dev) {
+    if (!dev) {
       // Next.js 16.1.1 bug: the pre-compiled 815KB devtools bundle
       // (next/dist/compiled/next-devtools) gets pulled into production
       // rootMainFiles via hot-reloader-app.js, blocking first paint.
