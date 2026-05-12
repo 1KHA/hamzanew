@@ -1,14 +1,14 @@
 export const INSTITUTIONS = [
-  "/assets/image/institutions1.png",
-  "/assets/image/institutions2.png",
-  "/assets/image/institutions3.png",
-  "/assets/image/institutions1.png",
-  "/assets/image/institutions2.png",
-  "/assets/image/institutions3.png",
-  "/assets/image/institutions2.png",
-  "/assets/image/institutions3.png",
-  "/assets/image/institutions2.png",
-  "/assets/image/institutions1.png",
+  "https://ik.imagekit.io/lt9pv4zo3/%D8%A7%D9%84%D8%AC%D8%A7%D9%85%D8%B9%D8%A9%20%D8%A7%D9%84%D8%A7%D8%B3%D9%84%D8%A7%D9%85%D9%8A%D8%A9.png",
+  "https://ik.imagekit.io/lt9pv4zo3/King-Khalid-University-01-1.png",
+  "https://ik.imagekit.io/lt9pv4zo3/Umm-Al-Qura-University-01-1.png",
+  "https://ik.imagekit.io/lt9pv4zo3/Imam-Mohammad-Ibn-Saud-Islamic-University.png",
+  "https://ik.imagekit.io/lt9pv4zo3/King-Abdulaziz-University-01.png",
+  "https://ik.imagekit.io/lt9pv4zo3/Logo_UIN_Syarif_Hidayatullah_Jakarta.jpg",
+  "https://ik.imagekit.io/lt9pv4zo3/%D9%85%D9%88%D9%84%D8%A7%D9%86%D8%A7%20%D9%85%D8%A7%D9%84%D9%83%20%D8%A7%D8%A8%D8%B1%D8%A7%D9%87%D9%8A%D9%85.png",
+  "https://ik.imagekit.io/lt9pv4zo3/Jawaharlal_Nehru_University_Logo_vectorized.svg.png",
+  "https://ik.imagekit.io/lt9pv4zo3/Kerala_University_Emblem.png",
+  "https://ik.imagekit.io/lt9pv4zo3/%D8%A7%D9%86%D8%AF%D9%8A%D8%A7%D9%86%D8%A7.png",
 ] as const;
 
 export const RESOURCES = [

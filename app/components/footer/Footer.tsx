@@ -82,6 +82,18 @@ function Footer({ locale }: FooterProps) {
                       href="https://my.gov.sa"
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`${st("footer", "KSAA", locale)} - ${opensInNew}`}
+                      className="footer-link"
+                    >
+                      {st("footer", "KSAA", locale)}
+                    </a>
+                    <ExternalIcon />
+                  </li>
+                  <li className="flex items-center gap-[4px]">
+                    <a
+                      href="https://my.gov.sa"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       aria-label={`${st("footer", "nationalPortal", locale)} - ${opensInNew}`}
                       className="footer-link"
                     >
