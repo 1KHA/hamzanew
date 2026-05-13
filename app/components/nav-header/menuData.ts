@@ -171,7 +171,7 @@ export const MENU_DATA: MenuItemType[] = [
           {
             label: "آخر الأخبار",
             href: "/news/latest",
-            icon: "/assets/icons/stroke-standard/book-04-stroke-standard.svg",
+            icon: "/assets/icons/stroke-standard/time-01-stroke-rounded.svg",
           },
           {
             label: "الأخبار",
