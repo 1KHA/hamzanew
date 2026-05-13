@@ -58,6 +58,7 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     },
   },
   news: {
+    /* ── Legacy keys (used by landing page NewsSection) ───────────────────── */
     sectionAria: { ar: "الأخبار والمقالات", en: "News & Articles" },
     heading: { ar: "الأخبار والمقالات", en: "News & Articles" },
     showAll: { ar: "عرض الكل", en: "View All" },
@@ -67,6 +68,82 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     },
     carouselAria: { ar: "آخر الأخبار", en: "Latest News" },
     readMore: { ar: "قراءة المزيد", en: "Read More" },
+
+    /* ── Metadata & Hero ──────────────────────────────────────────────────── */
+    metaTitle: { ar: "الاخبار", en: "News" },
+    metaDescription: {
+      ar: "نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير الاختبارات المعيارية للغة العربية",
+      en: "We present the latest news and articles specialized in Hamza tests and the development of standardized Arabic language tests.",
+    },
+    heroTitle: { ar: "الاخبار", en: "News" },
+    heroDescription: {
+      ar: "نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير الاختبارات المعيارية للغة العربية",
+      en: "We present the latest news and articles specialized in Hamza tests and the development of standardized Arabic language tests.",
+    },
+
+    /* ── Breadcrumbs ──────────────────────────────────────────────────────── */
+    breadcrumbHome: { ar: "الرئيسة", en: "Home" },
+    breadcrumbNews: { ar: "الاخبار", en: "News" },
+    breadcrumbDetails: { ar: "تفاصيل الخبر", en: "News Details" },
+    breadcrumbLatestNews: { ar: "آخر الأخبار", en: "Latest News" },
+
+    /* ── News listing UI ──────────────────────────────────────────────────── */
+    searchPlaceholder: { ar: "بحث في الأخبار...", en: "Search in news..." },
+    searchBtn: { ar: "بحث", en: "Search" },
+    resultsFound: { ar: "نتيجة وجدت", en: "results found" },
+    sortNewest: { ar: "ترتيب بالاحدث", en: "Sort by newest" },
+    sortOldest: { ar: "ترتيب بالاقدم", en: "Sort by oldest" },
+    sortAriaNewest: { ar: "ترتيب النتائج من الأحدث للأقدم", en: "Sort results from newest to oldest" },
+    sortAriaOldest: { ar: "ترتيب النتائج من الأقدم للأحدث", en: "Sort results from oldest to newest" },
+    noResults: { ar: "لا توجد نتائج بحث مطابقة", en: "No matching search results" },
+    clearSearch: { ar: "مسح البحث", en: "Clear search" },
+    notFoundTitle: { ar: "المقال غير موجود", en: "Article not found" },
+    latestNewsHeading: { ar: "آخر الاخبار", en: "Latest News" },
+    latestCoverageHeading: { ar: "آخر التغطيات", en: "Latest Coverage" },
+    ariaNewsList: { ar: "قائمة الأخبار والمقالات", en: "News and Articles List" },
+    ariaNewsGrid: { ar: "شبكة الأخبار", en: "News Grid" },
+    ariaPagination: { ar: "تصفح صفحات الأخبار", en: "Browse news pages" },
+
+    /* ── Fallback article titles (20 entries) ─────────────────────────────── */
+    article1Title: { ar: "منصة اختبارات همزة تطلق النسخة التجريبية الأولى للقياس المعياري للغة العربية", en: "Hamza Test Platform Launches First Beta Version of Arabic Language Standardized Assessment" },
+    article2Title: { ar: "منصة اختبارات همزة تطلق النسخة التجريبية الأولى للقياس المعياري للغة العربية", en: "Hamza Test Platform Launches First Beta Version of Arabic Language Standardized Assessment" },
+    article3Title: { ar: "إقبال واسع على منصة اختبارات همزة في مرحلتها الأولى للقياس المعياري للغة العربية", en: "Wide Adoption of Hamza Test Platform in Its First Phase of Arabic Language Standardized Assessment" },
+    article4Title: { ar: "تحديث جديد يضيف تقارير فردية تفصيلية لمهارات القراءة والكتابة", en: "New Update Adds Detailed Individual Reports for Reading and Writing Skills" },
+    article5Title: { ar: "همزة توسّع نطاق الاختبارات لتشمل مستويات عمرية متعددة ومسارات تعلم متنوعة", en: "Hamza Expands Test Scope to Include Multiple Age Groups and Diverse Learning Paths" },
+    article6Title: { ar: "إطلاق دليل إرشادي للمعلمين لتوظيف نتائج القياس في خطط التحسين", en: "Launch of a Teacher Guide for Utilizing Assessment Results in Improvement Plans" },
+    article7Title: { ar: "إتاحة وضع الاختبار التجريبي دون تسجيل لتسهيل تجربة المستخدمين الجدد", en: "Trial Test Mode Available Without Registration to Ease New User Experience" },
+    article8Title: { ar: "همزة تعلن عن فتح باب المشاركة لبناء بنك أسئلة محكّم بالتعاون مع مختصين", en: "Hamza Announces Open Participation to Build a Validated Question Bank with Experts" },
+    article9Title: { ar: "ميزة جديدة لقياس مهارات التعبير الشفهي عبر مهام تفاعلية قصيرة", en: "New Feature to Assess Oral Expression Skills Through Short Interactive Tasks" },
+    article10Title: { ar: "المنصة تنشر خارطة طريق للإطلاق الرسمي تتضمن تحسينات الأداء وتجربة الجوال", en: "Platform Publishes Roadmap for Official Launch Including Performance and Mobile Experience Improvements" },
+    article11Title: { ar: "منصة اختبارات همزة تطلق النسخة التجريبية الأولى للقياس المعياري للغة العربية", en: "Hamza Test Platform Launches First Beta Version of Arabic Language Standardized Assessment" },
+    article12Title: { ar: "اختبارات همزة توفر مؤشرات نوعية لدعم الباحثين وصنّاع القرار", en: "Hamza Tests Provide Quality Indicators to Support Researchers and Decision Makers" },
+    article13Title: { ar: "إقبال واسع على منصة اختبارات همزة في مرحلتها الأولى للقياس المعياري للغة العربية", en: "Wide Adoption of Hamza Test Platform in Its First Phase of Arabic Language Standardized Assessment" },
+    article14Title: { ar: "تحديث جديد يضيف تقارير فردية تفصيلية لمهارات القراءة والكتابة", en: "New Update Adds Detailed Individual Reports for Reading and Writing Skills" },
+    article15Title: { ar: "همزة توسّع نطاق الاختبارات لتشمل مستويات عمرية متعددة ومسارات تعلم متنوعة", en: "Hamza Expands Test Scope to Include Multiple Age Groups and Diverse Learning Paths" },
+    article16Title: { ar: "إطلاق دليل إرشادي للمعلمين لتوظيف نتائج القياس في خطط التحسين", en: "Launch of a Teacher Guide for Utilizing Assessment Results in Improvement Plans" },
+    article17Title: { ar: "إتاحة وضع الاختبار التجريبي دون تسجيل لتسهيل تجربة المستخدمين الجدد", en: "Trial Test Mode Available Without Registration to Ease New User Experience" },
+    article18Title: { ar: "همزة تعلن عن فتح باب المشاركة لبناء بنك أسئلة محكّم بالتعاون مع مختصين", en: "Hamza Announces Open Participation to Build a Validated Question Bank with Experts" },
+    article19Title: { ar: "ميزة جديدة لقياس مهارات التعبير الشفهي عبر مهام تفاعلية قصيرة", en: "New Feature to Assess Oral Expression Skills Through Short Interactive Tasks" },
+    article20Title: { ar: "المنصة تنشر خارطة طريق للإطلاق الرسمي تتضمن تحسينات الأداء وتجربة الجوال", en: "Platform Publishes Roadmap for Official Launch Including Performance and Mobile Experience Improvements" },
+  },
+
+  latestNews: {
+    metaTitle: { ar: "آخر الأخبار", en: "Latest News" },
+    metaDescription: {
+      ar: "نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير الاختبارات المعيارية للغة العربية",
+      en: "We present the latest news and articles specialized in Hamza tests and the development of standardized Arabic language tests.",
+    },
+    heroTitle: { ar: "آخر الأخبار", en: "Latest News" },
+    heroDescription: {
+      ar: "نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير الاختبارات المعيارية للغة العربية",
+      en: "We present the latest news and articles specialized in Hamza tests and the development of standardized Arabic language tests.",
+    },
+    breadcrumbHome: { ar: "الرئيسة", en: "Home" },
+    breakingNewsHeader: { ar: "آخر الأخبار", en: "Breaking News" },
+    latestNewsTitle: { ar: "آخر الاخبار", en: "Latest News" },
+    viewAllBtn: { ar: "عرض الكل", en: "View All" },
+    latestCoverageTitle: { ar: "آخر التغطيات", en: "Latest Coverage" },
+    readMoreBtn: { ar: "قراءة المزيد", en: "Read More" },
   },
   statistics: {
     sectionAria: { ar: "إحصائيات همزة", en: "Hamza Statistics" },
@@ -739,25 +816,6 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
   },
   nav: {
     languageTestingLab: { ar: "معمل ابحاث الاختبارات اللغوية", en: "Arabic Language Testing Research Laboratory" },
-  },
-  latestNews: {
-    metaTitle: { ar: "آخر الأخبار", en: "Latest News" },
-    metaDescription: {
-      ar: "نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير الاختبارات المعيارية للغة العربية",
-      en: "We present the latest news and specialized articles on Hamza tests and the development of standard Arabic language tests.",
-    },
-    heroTitle: { ar: "آخر الأخبار", en: "Latest News" },
-    heroDescription: {
-      ar: "نقدّم أحدث الأخبار والمقالات المتخصصة في اختبارات همزة وتطوير الاختبارات المعيارية للغة العربية",
-      en: "We present the latest news and specialized articles on Hamza tests and the development of standard Arabic language tests.",
-    },
-    latestNewsTitle: { ar: "آخر الأخبار", en: "Latest News" },
-    latestCoverageTitle: { ar: "آخر التغطيات", en: "Latest Coverage" },
-    readMoreBtn: { ar: "قراءة المزيد", en: "Read More" },
-    viewAllBtn: { ar: "عرض الكل", en: "View All" },
-    eventsTitle: { ar: "الفعاليات والأنشطة", en: "Events and Activities" },
-    breakingNewsHeader: { ar: "الأخبار العاجلة", en: "Breaking News" },
-    carouselAria: { ar: "عرض آخر الأخبار", en: "Latest news display" },
   },
   researchLibrary: {
     metaTitle: { ar: "مكتبة الابحاث", en: "Research Library" },

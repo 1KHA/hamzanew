@@ -147,7 +147,7 @@ export default async function LatestNewsPage(): Promise<ReactElement> {
     bgColor: "#FFF" as const,
     breadcrumbs: [
       { label: st("latestNews", "breadcrumbHome", staticLocale), path: "/" },
-      { label: st("news", "heading", staticLocale), disabled: true },
+      { label: st("news", "breadcrumbLatestNews", staticLocale), disabled: true },
       { label: heroTitle, disabled: true },
     ],
   };
