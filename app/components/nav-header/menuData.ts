@@ -151,6 +151,11 @@ export const MENU_DATA: MenuItemType[] = [
             href: "/news/language-testing-lab",
             icon: "/assets/icons/stroke-standard/microscope-stroke-rounded.svg",
           },
+          {
+            label: "طلب خدمة بحثية",
+            href: "/research-service-request",
+            icon: "/assets/icons/stroke-standard/microscope-stroke-rounded.svg",
+          },
         ],
       },
     ],
