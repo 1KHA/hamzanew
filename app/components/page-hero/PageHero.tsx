@@ -15,7 +15,7 @@ export type HeroData = {
   description?: string;
   bgColor?: string;
   breadcrumbs?: Crumb[];
-  externalLink?: { href: string; label: string };
+  externalLink?: { href: string; label: string; download?: boolean }; //download is optional here for downloading files
   date?: string;
 };
 

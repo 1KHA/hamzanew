@@ -34,7 +34,8 @@ const IconImage = ({
     alt={alt}
     width={24}
     height={24}
-    className={`inline-block${className ? ` ${className}` : ""}`}
+    style={{ width: 24, height: 24, flexShrink: 0 }}
+    className={`block${className ? ` ${className}` : ""}`}
   />
 );
 

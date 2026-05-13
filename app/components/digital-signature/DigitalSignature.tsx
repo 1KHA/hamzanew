@@ -26,7 +26,8 @@ export default function DigitalSignature() {
                   aria-hidden="true"
                   width={20}
                   height={20}
-                  className="inline-block"
+                  style={{ width: 20, height: 20, flexShrink: 0 }}
+                  className="block"
                 />
               </div>
               <p>{st("digitalSignature", "badge")}</p>

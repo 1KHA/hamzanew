@@ -1,20 +1,22 @@
 import "./footer.css";
 import LastModified from "../last-modified/LastModified";
-import Image from "next/image";
 import Link from "next/link";
 import FeedbackDynamic from "../feedback/FeedbackDynamic";
+<<<<<<< HEAD
 import FooterAccessibilityTools from "./FooterAccessibilityTools";
 import { st } from "@/app/_lib/static-text-server";
+=======
+>>>>>>> 4df7879a9d811e63a4187a5433e39fa1004eae18
 
 function ExternalIcon() {
   return (
-    <Image
+    <img
       src="/assets/icons/stroke-standard/link-square-02-stroke-rounded.svg"
       alt=""
       aria-hidden="true"
       width={14}
       height={14}
-      style={{ filter: "brightness(0) invert(1)", flexShrink: 0 }}
+      style={{ width: 14, height: 14, display: "block", flexShrink: 0, filter: "brightness(0) invert(1)" }}
     />
   );
 }
@@ -162,7 +164,6 @@ function Footer({ locale }: FooterProps) {
 
             {/* Column 4: Follow Us + Accessibility Tools */}
             <div className="grid gap-8 content-start">
-
               <div>
                 <div className="line-title">
                   <h2 className="footer-title">{st("footer", "colFollowUs", locale)}</h2>
@@ -181,13 +182,13 @@ function Footer({ locale }: FooterProps) {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <Image
+                          <img
                             src={social.icon}
                             alt=""
                             aria-hidden="true"
                             width={24}
                             height={24}
-                            style={{ filter: "brightness(0) invert(1)" }}
+                            style={{ width: 24, height: 24, display: "block", filter: "brightness(0) invert(1)" }}
                           />
                         </a>
                       </li>
@@ -244,7 +245,7 @@ function Footer({ locale }: FooterProps) {
                 rel="noopener noreferrer"
                 aria-label={`${st("footer", "ksaaLabel", locale)} - ${opensInNew}`}
               >
-                <Image
+                <img
                   src="/assets/image/king-salman-global.svg"
                   alt={st("footer", "ksaaLogoAlt", locale)}
                   width={200}
@@ -253,13 +254,13 @@ function Footer({ locale }: FooterProps) {
                   className="w-24 h-auto md:w-[200px]"
                 />
               </a>
-              <Image
+              <img
                 src="/assets/image/footer-logo.svg"
                 alt=""
-                width={200}
-                height={200}
-                loading="lazy"
-                className="w-24 h-auto md:w-[200px]"
+                aria-hidden="true"
+                className="footer-logo-img"
+                width={96}
+                height={96}
               />
             </div>
           </div>

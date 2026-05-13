@@ -1,25 +1,32 @@
-import Image from "next/image";
 import type { Slide } from "../_data/homeData";
 
 interface BannerHeroProps {
   slide: Pick<Slide, "image">;
 }
 
-// Server Component — renders the LCP image with no client-side JS.
-// Sized via CSS (position:absolute/inset:0) rather than intrinsic dimensions
-// so it fills the 560px section regardless of natural image size.
-export default function BannerHero({ slide }: BannerHeroProps) {
+// Server Component — LCP image served as a static file (bypasses /_next/image
+// optimizer cold-cache, which added ~3-4 s on first load).
+// hero.webp (35 KB) is pre-optimised and lives in /public/assets/image/.
+export default function BannerHero({ slide: _ }: BannerHeroProps) {
   return (
-    <Image
-      src={slide.image}
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/assets/image/hero.webp"
       alt="اختبارات همزة"
-      fill
-      sizes="100vw"
       className="custom-banner"
-      style={{ objectFit: "cover" }}
-      priority
+      width={1440}
+      height={560}
+      loading="eager"
+      decoding="async"
       fetchPriority="high"
-      quality={75}
+      style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        display: "block",
+      }}
     />
   );
 }

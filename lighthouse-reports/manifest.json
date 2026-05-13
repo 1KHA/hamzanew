@@ -1,0 +1,14 @@
+[
+  {
+    "url": "http://localhost:3000/",
+    "isRepresentativeRun": true,
+    "htmlPath": "C:\\Users\\ASUS\\Desktop\\hamza\\hamza-site\\lighthouse-reports\\localhost--2026_05_11_23_51_50.report.html",
+    "jsonPath": "C:\\Users\\ASUS\\Desktop\\hamza\\hamza-site\\lighthouse-reports\\localhost--2026_05_11_23_51_50.report.json",
+    "summary": {
+      "performance": 0.56,
+      "accessibility": 1,
+      "best-practices": 0.82,
+      "seo": 1
+    }
+  }
+]

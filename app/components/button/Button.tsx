@@ -136,7 +136,8 @@ const Button: React.FC<ButtonProps> = ({
         alt={altText || icon}
         width={iconSize}
         height={iconSize}
-        className={`inline-block ${iconClass}`}
+        style={{ width: iconSize, height: iconSize, flexShrink: 0 }}
+        className={`block ${iconClass}`}
         aria-hidden={altText ? false : isDecorative}
       />
     );

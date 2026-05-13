@@ -151,6 +151,11 @@ export const MENU_DATA: MenuItemType[] = [
             href: "/news/language-testing-lab",
             icon: "/assets/icons/stroke-standard/microscope-stroke-rounded.svg",
           },
+          {
+            label: "طلب خدمة بحثية",
+            href: "/research-service-request",
+            icon: "/assets/icons/stroke-standard/microscope-stroke-rounded.svg",
+          },
         ],
       },
     ],
@@ -166,7 +171,7 @@ export const MENU_DATA: MenuItemType[] = [
           {
             label: "hamza-latest-news",
             href: "/news/latest",
-            icon: "/assets/icons/stroke-standard/book-04-stroke-standard.svg",
+            icon: "/assets/icons/stroke-standard/time-01-stroke-rounded.svg",
           },
           {
             label: "hamza-navigation-menu-news-and-articles",

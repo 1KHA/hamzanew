@@ -1,17 +1,9 @@
-"use client";
-import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import type { Service } from "../_data/homeData";
 
-const ServicesSection = dynamic(() => import("./ServicesSection"));
-
-const Placeholder = () => (
-  <div style={{ minHeight: 380, background: "#f9fafb" }} aria-hidden="true" />
+// ssr:true (default) keeps server-rendered HTML; JS chunk is deferred until
+// after initial paint so Carousel code doesn't compete with hero LCP.
+const ServicesSectionDynamic = dynamic<{ services: Service[] }>(
+  () => import("./ServicesSection"),
 );
-
-export default function ServicesSectionDynamic({ services }: { services: Service[] }) {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
-  if (!mounted) return <Placeholder />;
-  return <ServicesSection services={services} />;
-}
+export default ServicesSectionDynamic;

@@ -23,7 +23,8 @@ function StatItem({ value, label, icon }: { value: string; label: string; icon: 
           aria-hidden="true"
           width={24}
           height={24}
-          className="inline-block green-icon"
+          style={{ width: 24, height: 24, flexShrink: 0 }}
+          className="block green-icon"
           src={`/assets/icons/stroke-standard/${icon}-stroke-rounded.svg`}
         />
       </div>
@@ -99,6 +100,7 @@ function GlobalStatisticsSectionNative() {
           width={1200}
           height={600}
           className="w-full md:w-[70%]"
+          style={{ height: "auto", aspectRatio: "1200/600" }}
           loading="lazy"
           sizes="(max-width: 768px) 100vw, 70vw"
           quality={50}

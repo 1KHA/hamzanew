@@ -137,8 +137,6 @@ export default async function RootLayout({
           .embla__dots{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:12px;align-items:center}
           .embla__dot{width:12px;height:12px;border-radius:50%;background:#e5e7eb;border:none;cursor:pointer;transition:.3s}
           .embla__dot--selected{background:#1b8354}
-          @keyframes spin{to{transform:rotate(360deg)}}
-          .animate-spin-slow{animation:spin 8s linear infinite}
         ` }} />
       </head>
       <body className="min-h-screen flex flex-col" style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
@@ -151,7 +149,7 @@ export default async function RootLayout({
           // id prevents duplicate execution on navigation
           id="agent-monitoring"
           // Loads after the page is interactive without blocking rendering
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           // Safely injects inline JS without React processing it
           dangerouslySetInnerHTML={{ __html: agentMonitoringScript }}
         />

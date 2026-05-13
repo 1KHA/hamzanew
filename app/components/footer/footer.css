@@ -1,6 +1,5 @@
 .c-ontent {
   padding: 0 80px;
-  /* margin-inline: auto; */
 }
 
 @media screen and (max-width: 599px) {
@@ -13,47 +12,43 @@
   filter: invert(33%) sepia(87%) saturate(438%) hue-rotate(95deg)
     brightness(95%) contrast(90%);
 }
-/* section */
+
 .c-divider {
   border: none;
   border-top: 2px solid #074d31;
   margin: 0;
   width: 100%;
 }
+
 .feedback-section {
   display: flex;
   flex-direction: column;
-  
-  padding-top: 24px !important; /* !py-[24px] */
+  padding-top: 24px !important;
   padding-bottom: 24px !important;
 }
 
-/* main row */
 .feedback-row {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px; /* max-md:gap-4 */
+  gap: 16px;
 }
 
-/* left group */
 .feedback-left {
   display: flex;
   flex-direction: column;
-  gap: 16px; /* gap-4 */
+  gap: 16px;
 }
 
 .feedback-question {
   color: #161616;
 }
 
-/* buttons wrapper */
 .feedback-actions {
   display: flex;
-  gap: 16px; /* gap-4 */
+  gap: 16px;
 }
 
-/* stats text */
 .feedback-stats {
   color: #161616;
   text-align: start;
@@ -65,13 +60,12 @@
   color: #b42318 !important;
 }
 
-/* Tablet/Desktop (md: >= 768px) */
 @media (min-width: 768px) {
   .feedback-row {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: 0; /* removes mobile gap */
+    gap: 0;
   }
 
   .feedback-left {
@@ -80,16 +74,6 @@
     gap: 24px;
     flex: 1;
   }
-}
-
-.footer {
-  /* background-image: url("../../wassets/imges/pattern footer.svg"); */
-  background-color: #074d31;
-  width: 100%;
-  height: 86.41px;
-  background-repeat: repeat-x;
-  background-size: cover;
-  background-position: center;
 }
 
 .footer-container {
@@ -102,17 +86,13 @@
 .footer-item {
   gap: 8px;
 }
-.py-4 {
-  padding-top: 16px;
-  padding-bottom: 16px;
-}
+
 .footer-title {
   color: #fff !important;
-
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 24px; /* 150% */
+  line-height: 24px;
 }
 
 .line-title {
@@ -124,7 +104,6 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-
 .footer-social-section {
   display: flex;
   flex-wrap: wrap;
@@ -134,13 +113,15 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* Explicit display:grid so the layout is stable without relying on Tailwind */
 .footer-social-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 40px));
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-wrap: wrap;
   gap: 8px;
+  width: fit-content;
 }
 
 .border-green {
@@ -159,18 +140,13 @@ a.border-green:hover {
 a.border-green:focus {
   background-color: #6a9483;
 }
-.pt-4 {
-  padding-top: 16px;
-}
-.pb-10 {
-  padding-bottom: 40px;
-}
 
 .footer-contnet {
   gap: 8px;
   padding-top: 8px;
-  display: grid; /* makes links stack vertically */
+  display: grid;
 }
+
 .footer__nav-links ul a {
   font-weight: 400 !important;
   font-size: var(--typo-size-text-sm) !important;
@@ -200,13 +176,12 @@ a.border-green:focus {
   color: #ffffff;
   opacity: 0.6;
 }
+
 .footer-link:focus {
   border: 2px solid #fff;
   color: #ffffff;
-
   opacity: 1;
-
-  border-radius: 4px; /* Optional: rounded corners */
+  border-radius: 4px;
 }
 
 .text-center-mobile {
@@ -223,18 +198,23 @@ a.border-green:focus {
   display: flex;
   flex-direction: row;
   align-items: center;
-  
   gap: 16px;
 }
 
+/* Footer logo images — explicit sizes to reserve space without lazy-loading gaps */
+.footer-logo-img {
+  display: block;
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+}
 
-
-
-/* @media (min-width: 768px) {
-  .footer_logos {
-    flex-direction: row;
+@media (min-width: 768px) {
+  .footer-logo-img {
+    width: 150px !important;
+    height: 200px;
   }
-} */
+}
 
 .footer-bottom {
   max-width: 1280px;
@@ -264,16 +244,9 @@ a.border-green:focus {
   justify-content: flex-start;
 }
 
-@media (min-width: 768px) {
-  .footer-legal-links {
-    justify-content: flex-start;
-  }
-}
-
 .footer-copyright {
   display: grid;
   gap: 8px;
-  
 }
 
 .footer-copyright-text {
