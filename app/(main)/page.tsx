@@ -26,8 +26,7 @@ export default function LandingPage(): ReactElement {
         as="image"
         href="/assets/image/hero.webp"
         type="image/webp"
-        // @ts-expect-error fetchpriority not yet in React link types
-        fetchpriority="high"
+        fetchPriority="high"
       />
       {/* Section is server-rendered — BannerHero image is static HTML with no
           client component in its ancestor chain, so React hydration of Banner

@@ -18,7 +18,7 @@
 }
 
 .animate-spin-slow {
-  animation: spin-slow 120s linear infinite;
+  animation: spin-slow 60s linear infinite;
 }
 
 /* Flip arrow for RTL */

@@ -18,8 +18,7 @@ export default function BannerHero({ slide: _ }: BannerHeroProps) {
       height={560}
       loading="eager"
       decoding="async"
-      // @ts-expect-error fetchpriority is valid HTML but not yet in React types
-      fetchpriority="high"
+      fetchPriority="high"
       style={{
         position: "absolute",
         inset: 0,
