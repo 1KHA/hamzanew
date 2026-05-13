@@ -12,7 +12,7 @@ export type HeroData = {
   description?: string;
   bgColor?: string;
   breadcrumbs?: Crumb[];
-  externalLink?: { href: string; label: string };
+  externalLink?: { href: string; label: string; download?: boolean }; //download is optional here for downloading files
   date?: string;
 };
 
@@ -98,9 +98,7 @@ export default function PageHero({
     >
       <div className={styles.heroContent}>
         <div className={styles.inner}>
-          {/* <ClientOnly> */}
           <DgaBreadcrumbs items={hero.breadcrumbs ?? []} max={max} />
-          {/* </ClientOnly> */}
           <h1 className="display-sm-bold">{hero.title}</h1>
 
           {hero.description ? (
@@ -112,13 +110,44 @@ export default function PageHero({
               <button
                 type="button"
                 className="dga-btn dga-btn--lg dga-btn--primary-brand"
-                onClick={() =>
-                  window.open(
-                    hero.externalLink!.href,
-                    "_blank",
-                    "noopener,noreferrer",
-                  )
-                }
+            
+                onClick={async () => {
+                  const link = hero.externalLink;
+
+                  if (!link) return;
+
+                  if (link.download) {
+                    try {
+                      const response = await fetch(link.href);
+
+                      if (!response.ok) {
+                        throw new Error("Failed to download file");
+                      }
+
+                      const blob = await response.blob();
+                      const url = window.URL.createObjectURL(blob);
+
+                      const a = document.createElement("a");
+                      a.href = url;
+                      a.download = "research-service.pdf";
+
+                      document.body.appendChild(a);
+                      a.click();
+                      document.body.removeChild(a);
+
+                      window.URL.revokeObjectURL(url);
+                      return;
+                    } catch (error) {
+                      console.error(error);
+
+                      // fallback if download fails
+                      window.open(link.href, "_blank", "noopener,noreferrer");
+                      return;
+                    }
+                  }
+
+                  window.open(link.href, "_blank", "noopener,noreferrer");
+                }}
               >
                 {hero.externalLink.label}
                 <img
