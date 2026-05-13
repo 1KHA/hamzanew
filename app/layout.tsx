@@ -150,7 +150,7 @@ export default async function RootLayout({
           // id prevents duplicate execution on navigation
           id="agent-monitoring"
           // Loads after the page is interactive without blocking rendering
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           // Safely injects inline JS without React processing it
           dangerouslySetInnerHTML={{ __html: agentMonitoringScript }}
         />

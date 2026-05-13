@@ -19,6 +19,16 @@ export const metadata: Metadata = {
 export default function LandingPage(): ReactElement {
   return (
     <>
+      {/* Hoisted to <head> by React 18 — gives the browser the preload hint
+          before it has parsed any CSS, so hero.webp starts fetching immediately */}
+      <link
+        rel="preload"
+        as="image"
+        href="/assets/image/hero.webp"
+        type="image/webp"
+        // @ts-expect-error fetchpriority not yet in React link types
+        fetchpriority="high"
+      />
       {/* Section is server-rendered — BannerHero image is static HTML with no
           client component in its ancestor chain, so React hydration of Banner
           (overlay/controls) cannot delay the hero image paint. */}
@@ -30,6 +40,22 @@ export default function LandingPage(): ReactElement {
       >
         <BannerHero slide={BANNER_SLIDES[0]} />
         <BannerHeroText slide={BANNER_SLIDES[0]} />
+        {/* Spinning logo — server-rendered so it is in the initial HTML.
+            fetchpriority="low" avoids competing with the hero's high-priority fetch.
+            loading="eager" prevents it from appearing late as a new LCP candidate. */}
+        <div className="banner-logo" aria-hidden="true" style={{ zIndex: 5 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/assets/image/logo-stroke.png"
+            alt=""
+            width={500}
+            height={500}
+            loading="eager"
+            // @ts-expect-error fetchpriority is valid HTML but not in React types yet
+            fetchpriority="low"
+            className="animate-spin-slow"
+          />
+        </div>
         <BannerDynamic slides={BANNER_SLIDES} />
       </section>
 

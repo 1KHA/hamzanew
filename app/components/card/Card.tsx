@@ -173,7 +173,8 @@ const Card: React.FC<CardProps> = ({
             aria-hidden="true"
             width={24}
             height={24}
-            className="inline-block green-icon"
+            style={{ width: 24, height: 24, flexShrink: 0 }}
+            className="block green-icon"
             src={`/assets/icons/stroke-standard/${icon}-stroke-rounded.svg`}
           />
         </div>
@@ -238,8 +239,8 @@ const Card: React.FC<CardProps> = ({
             alt={title || "Card image"}
             style={{
               objectFit: "cover",
-              margin: isImgCenter ? "0 auto" : "unset",
               display: isImgCenter ? "block" : "inline-block",
+              margin: isImgCenter ? "0 auto" : "unset",
             }}
           />
         </div>

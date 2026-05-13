@@ -1,19 +1,17 @@
 import "./footer.css";
 import LastModified from "../last-modified/LastModified";
-import Image from "next/image";
 import Link from "next/link";
 import FeedbackDynamic from "../feedback/FeedbackDynamic";
-import FooterAccessibilityTools from "./FooterAccessibilityTools";
 
 function ExternalIcon() {
   return (
-    <Image
+    <img
       src="/assets/icons/stroke-standard/link-square-02-stroke-rounded.svg"
       alt=""
       aria-hidden="true"
       width={14}
       height={14}
-      style={{ filter: "brightness(0) invert(1)", flexShrink: 0 }}
+      style={{ width: 14, height: 14, display: "block", flexShrink: 0, filter: "brightness(0) invert(1)" }}
     />
   );
 }
@@ -136,16 +134,15 @@ function Footer() {
               </nav>
             </div>
 
-            {/* Column 4: تابعنا على + أدوات الاتاحة */}
+            {/* Column 4: تابعنا على */}
             <div className="grid gap-8 content-start">
-
               <div>
                 <div className="line-title">
                   <h2 className="footer-title">تابعنا على</h2>
                 </div>
                 <div className="footer-contnet">
                   <ul
-                    className="footer-social-list grid grid-cols-4"
+                    className="footer-social-list"
                     aria-label="تابعنا على وسائل التواصل الاجتماعي"
                   >
                     {SOCIAL_LINKS.map((social) => (
@@ -157,13 +154,13 @@ function Footer() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <Image
+                          <img
                             src={social.icon}
                             alt=""
                             aria-hidden="true"
                             width={24}
                             height={24}
-                            style={{ filter: "brightness(0) invert(1)" }}
+                            style={{ width: 24, height: 24, display: "block", filter: "brightness(0) invert(1)" }}
                           />
                         </a>
                       </li>
@@ -171,16 +168,6 @@ function Footer() {
                   </ul>
                 </div>
               </div>
-
-              {/* <div>
-                <div className="line-title">
-                  <h2 className="footer-title">أدوات الاتاحة والوصول</h2>
-                </div>
-                <div className="footer-contnet">
-                  <FooterAccessibilityTools />
-                </div>
-              </div> */}
-
             </div>
           </div>
 
@@ -197,7 +184,6 @@ function Footer() {
                 <a href="/sitemap-page" className="footer-link">
                   خريطة الموقع
                 </a>
-              
               </div>
 
               <div className="footer-copyright text-start">
@@ -220,22 +206,21 @@ function Footer() {
                 rel="noopener noreferrer"
                 aria-label="مجمع الملك سلمان العالمي للغة العربية - يفتح في نافذة جديدة"
               >
-                <Image
+                <img
                   src="/assets/image/king-salman-global.svg"
                   alt="مجمع الملك سلمان العالمي للغة العربية"
-                  width={200}
-                  height={200}
-                  loading="lazy"
-                  className="w-24 h-auto md:w-[200px]"
+                  className="footer-logo-img"
+                  width={96}
+                  height={96}
                 />
               </a>
-              <Image
+              <img
                 src="/assets/image/footer-logo.svg"
                 alt=""
-                width={200}
-                height={200}
-                loading="lazy"
-                className="w-24 h-auto md:w-[200px]"
+                aria-hidden="true"
+                className="footer-logo-img"
+                width={96}
+                height={96}
               />
             </div>
           </div>

@@ -1252,7 +1252,8 @@ li {
 
 .banner-logo img {
   width: 500px;
-  height: auto;
+  height: 500px;
+  aspect-ratio: 1 / 1;
 }
 
 /* للـ LTR */

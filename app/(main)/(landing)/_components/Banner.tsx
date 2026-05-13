@@ -81,6 +81,7 @@ export default function Banner({ slides }: BannerProps) {
           pointerEvents: isFirstSlide ? "none" : "auto",
         }}
         aria-hidden={isFirstSlide}
+        inert={isFirstSlide || undefined}
       >
         <div className="hero w-[-webkit-fill-available] content !text-start">
           <h2 className="display-xl-semibold">{slides[currentSlide].title}</h2>
@@ -96,17 +97,6 @@ export default function Banner({ slides }: BannerProps) {
             </button>
           </a>
         </div>
-      </div>
-
-      {/* ── Spinning logo watermark ─────────────────────────────────────── */}
-      <div className="banner-logo" aria-hidden="true" style={{ zIndex: 5 }}>
-        <Image
-          src="/assets/image/logo-stroke.png"
-          alt=""
-          width={500}
-          height={500}
-          style={{ animation: "spin-slow 40s linear infinite" }}
-        />
       </div>
 
       {/* ── Screen-reader live region for slide changes ─────────────────── */}

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Button from "@/app/components/button/Button";
 import TextInput from "@/app/components/text-input/TextInput";
 
@@ -18,12 +19,12 @@ export default function SubscriptionSection() {
         <div className="flex flex-col lg:flex-row md:justify-between lg:items-center gap-6">
           {/* Logo and Text */}
           <div className="flex flex-col md:flex-row items-center gap-[32px] text-center md:text-start">
-            <img
+            <Image
               src="/assets/image/small-logo.png"
               alt="شعار همزة"
               width={56}
               height={56}
-              className="inline-block"
+              className="flex-shrink-0"
             />
             <div className="flex flex-col gap-4">
               <h2 className="display-sm-bold !text-white">سجل اهتمامك</h2>
