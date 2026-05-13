@@ -50,8 +50,7 @@ export default function LandingPage(): ReactElement {
             width={500}
             height={500}
             loading="eager"
-            // @ts-expect-error fetchpriority is valid HTML but not in React types yet
-            fetchpriority="low"
+            fetchPriority="low"
             className="animate-spin-slow"
           />
         </div>
