@@ -9,7 +9,7 @@ import { readFileSync } from "fs";
 import { join } from "path";
 import type { ParsedStatisticsData, CSVStatEntry } from "./statistics-csv-service";
 
-const CSV_PATH = join(process.cwd(), "mdfiles", "statistics.csv");
+const CSV_PATH = join(process.cwd(), "statistics.csv");
 
 // Column indices for each filter group (0-based)
 const COL_COUNTRY_NAME = 0;
