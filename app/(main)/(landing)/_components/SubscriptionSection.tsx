@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Button from "@/app/components/button/Button";
 import TextInput from "@/app/components/text-input/TextInput";
-import { t } from "@/app/_lib/translationContext";
 import { st } from "@/app/_lib/static-text";
 
 interface SubscriptionSectionProps {
@@ -18,10 +17,16 @@ interface SubscriptionSectionProps {
 export default function SubscriptionSection({
   translations,
 }: SubscriptionSectionProps) {
+  /* Translation helper: prefers Liferay value, falls back to static text */
+  const tx = (key: string, fallback: string): string => {
+    const val = translations?.[key];
+    return val && val.trim() !== "" ? val : fallback;
+  };
+
   return (
     <section
       className="content gap-[32px]"
-      aria-label={t("hamza-news-letter-aria-section", translations) || st("subscription", "sectionAria")}
+      aria-label={tx("hamza-news-letter-aria-section", st("subscription", "sectionAria"))}
     >
       <div className="grid gap-[24px] !flex flex-col bg-[#074D31] rounded-[16px] md:rounded-[24px] !px-[24px] md:!px-[80px] custom-container section-spacing-5xl">
         <div className="flex flex-col lg:flex-row md:justify-between lg:items-center gap-6">
@@ -29,18 +34,17 @@ export default function SubscriptionSection({
           <div className="flex flex-col md:flex-row items-center gap-[32px] text-center md:text-start">
             <Image
               src="/assets/image/small-logo.png"
-              alt={t("hamza-logo-alt", translations) || st("subscription", "logoAlt")}
+              alt={tx("hamza-logo-alt", st("subscription", "logoAlt"))}
               width={56}
               height={56}
               className="flex-shrink-0"
             />
             <div className="flex flex-col gap-4">
               <h2 className="display-sm-bold !text-white">
-                {t("hamza-news-letter-title", translations) || st("subscription", "heading")}
+                {tx("hamza-news-letter-title", st("subscription", "heading"))}
               </h2>
               <p className="text-md-regular !text-white md:text-start !text-center">
-                {t("hamza-news-letter-description", translations) ||
-                  st("subscription", "description")}
+                {tx("hamza-news-letter-description", st("subscription", "description"))}
               </p>
             </div>
           </div>
@@ -49,20 +53,20 @@ export default function SubscriptionSection({
           <form
             className="flex flex-col md:flex-row items-stretch md:items-center gap-4 w-full md:w-auto"
             onSubmit={(e) => e.preventDefault()}
-            aria-label={t("hamza-news-letter-aria-form", translations) || st("subscription", "formAria")}
+            aria-label={tx("hamza-news-letter-aria-form", st("subscription", "formAria"))}
           >
             <TextInput
               type="email"
               name="email"
-              placeholder={t("hamza-news-letter-placeholder", translations) || st("subscription", "placeholder")}
-              aria-label={t("hamza-news-letter-aria-input", translations) || st("subscription", "inputAria")}
+              placeholder={tx("hamza-news-letter-placeholder", st("subscription", "placeholder"))}
+              aria-label={tx("hamza-news-letter-aria-input", st("subscription", "inputAria"))}
               size="lg"
               variant="default"
               autoComplete="email"
               extraClass="md:!w-[280px]"
             />
             <Button
-              label={t("hamza-news-letter-button", translations) || st("subscription", "submitButton")}
+              label={tx("hamza-news-letter-button", st("subscription", "submitButton"))}
               variant="primary-neutral--on-color"
               size="lg"
               icon="arrow-up-right-01"

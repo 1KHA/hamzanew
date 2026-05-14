@@ -4,7 +4,7 @@ import { useState, useMemo, useCallback } from "react";
 import Image from "next/image";
 import Dropdown from "@/app/components/dropdown/Dropdown";
 import Card from "../card/Card";
-import { st } from "@/app/_lib/static-text";
+import { st, toLocaleNumerals } from "@/app/_lib/static-text";
 import "./GlobalStatisticsSection.css";
 import {
   getCountryStats,
@@ -230,7 +230,7 @@ function GlobalStatisticsSection({
             "0 4px 8px -2px rgba(16, 24, 40, 0.10), 0 2px 4px -2px rgba(16, 24, 40, 0.06)",
         }}
         key={index}
-        title={stat.numberTitle}
+        title={toLocaleNumerals(stat.numberTitle)}
         description={stat.descriptionText}
         icon={icon}
         iconPosition="left"
