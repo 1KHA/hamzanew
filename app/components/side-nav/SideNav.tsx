@@ -17,6 +17,7 @@ function getProfileRoutes(): IRoute[] {
   return [
     { name: st("profile", "navHome"), path: "/", icon: "home-01", divider: true },
     { name: st("profile", "navProfile"), path: "/profile", icon: "user-02", divider: true },
+    /* Temporarily hidden
     {
       name: st("profile", "navChangePassword"),
       path: "/profile?view=security",
@@ -46,6 +47,7 @@ function getProfileRoutes(): IRoute[] {
       path: "/profile/notifications",
       icon: "notification-01",
     },
+    */
   ];
 }
 
