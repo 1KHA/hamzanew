@@ -79,7 +79,7 @@ export function getHeroMap(locale: "ar" | "en"): Record<string, HeroData & { bre
       ],
     },
     "/test-takers/discover-hamza-tests": {
-      title: "hamza-navigation-menu-test-takers",
+      title: "",
       bgColor: "#F9FAFB",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
