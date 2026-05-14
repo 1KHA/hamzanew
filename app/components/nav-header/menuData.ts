@@ -136,6 +136,7 @@ export const MENU_DATA: MenuItemType[] = [
       {
         title: "الأبحاث",
         items: [
+          /* Temporarily hidden
           {
             label: "hamza-navigation-menu-research",
             href: "/research-library",
@@ -146,6 +147,7 @@ export const MENU_DATA: MenuItemType[] = [
             href: "/statistics-and-reports",
             icon: "/assets/icons/stroke-standard/chart-bar-line-stroke-standard.svg",
           },
+          */
           {
             label: "nav.languageTestingLab",
             href: "/news/language-testing-lab",
