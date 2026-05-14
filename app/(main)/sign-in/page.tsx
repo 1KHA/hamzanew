@@ -190,7 +190,7 @@ export default function SignInPage() {
             </form>
           </FormProvider>
 
-          {/* National SSO Button */}
+          {/* National SSO Button hidden temporarily
           <button
             type="button"
             className="dga-btn dga-btn--lg dga-btn--secondary sign-in-page__sso-btn"
@@ -206,6 +206,7 @@ export default function SignInPage() {
               aria-hidden="true"
             />
           </button>
+          */}
 
           {/* Divider */}
           <div
