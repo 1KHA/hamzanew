@@ -169,14 +169,14 @@ export const MENU_DATA: MenuItemType[] = [
         title: "الاخبار",
         items: [
           {
-            label: "hamza-latest-news",
-            href: "/news/latest",
-            icon: "/assets/icons/stroke-standard/time-01-stroke-rounded.svg",
-          },
-          {
             label: "hamza-navigation-menu-news-and-articles",
             href: "/news",
             icon: "/assets/icons/stroke-standard/book-04-stroke-standard.svg",
+          },
+          {
+            label: "hamza-latest-news",
+            href: "/news/latest",
+            icon: "/assets/icons/stroke-standard/time-01-stroke-rounded.svg",
           },
         ],
       },

@@ -93,18 +93,7 @@ function TabContentCard({
             {tabContent.description}
           </p>
         </div>
-        {/* Action Link Button */}
-        <Button
-          label={tx("hamza-discover-more-about-test", translations, "المزيد عن الاختبار")}
-          aria-label={`${tx("hamza-discover-more-about-aria", translations, "المزيد عن")} ${tabContent.header}`}
-          variant="primary-brand"
-          size="lg"
-          icon="arrow-up-right-01"
-          iconClass="white-icon"
-          iconPosition="right"
-          onClick={() => window.open(tabContent.link, "_blank")}
-          className="w-fit"
-        />
+
       </div>
 
       {/* Left Side Image */}

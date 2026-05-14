@@ -200,10 +200,7 @@ export default function NewsListing({
               date={article.date}
               description={(article.content?.substring(0, 120) ?? "") + "..."} //handle null content if any
               image={article.image}
-              showPrimaryAction={true}
-              primaryActionLabel={st("news", "readMore")}
-              showPrimaryIcon={false}
-              linkPrimaryAction={`/news/details/${article.id}`}
+              showPrimaryAction={false}
             />
           </div>
         ))}
