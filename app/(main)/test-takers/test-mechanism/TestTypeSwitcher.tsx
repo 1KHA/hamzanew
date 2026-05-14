@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState } from "react";
 import ContentSwitcher from "@/app/components/content-switcher/ContentSwitcher";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
@@ -52,26 +52,6 @@ export default function TestTypeSwitcher({
   const tabs = [inPersonTab, remoteTab];
   const [selected, setSelected] = useState(0);
   const current = tabs[selected];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const switcherRef = useRef<any>(null);
-
-  const handleClick = useCallback(() => {
-    requestAnimationFrame(() => {
-      const el = switcherRef.current;
-      if (!el) return;
-      const val = (el as unknown as { selected: number }).selected ?? 0;
-      if (val !== selected) {
-        setSelected(val);
-      }
-    });
-  }, [selected]);
-
-  useEffect(() => {
-    const el = switcherRef.current;
-    if (!el) return;
-    el.addEventListener("click", handleClick);
-    return () => el.removeEventListener("click", handleClick);
-  }, [handleClick]);
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 gap-[40px] xl:gap-[80px] items-center w-full">
@@ -84,6 +64,8 @@ export default function TestTypeSwitcher({
         {/* Toggle Tabs */}
         <ContentSwitcher
           size="md"
+          value={selected}
+          onChange={setSelected}
           items={tabs.map((t) => ({ label: t.label, content: "" }))}
         />
 
