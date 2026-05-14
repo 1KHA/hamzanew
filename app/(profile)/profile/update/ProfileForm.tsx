@@ -18,57 +18,60 @@ import {
 import { updateUserProfile } from "@/app/_lib/profile-actions";
 import { Suspense } from "react";
 import Button from "@/app/components/button/Button";
+import { st } from "@/app/_lib/static-text";
 
 // ─────────────────────────────────────────
-//   Schema defined
+//   Schema factory (locale-aware)
 // ─────────────────────────────────────────
-const userProfileSchema = z.object({
-  // Account Info
-  email: z
-    .string()
-    .min(1, "البريد الشبكي مطلوب")
-    .email("البريد الشبكي غير صحيح"),
-  password: z.string().min(8, "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل"),
-  phone: z
-    .string()
-    .regex(/^\d+$/, "يجب أن يحتوي رقم الجوال على أرقام فقط")
-    .refine(
-      (val) => {
-        const digits = getDigitsFromPhone(val);
-        return digits.length >= 7;
-      },
-      { message: "رقم الجوال غير صحيح (7 أرقام على الأقل بعد رمز الدولة)" },
-    ),
-  // Personal Info
-  firstName_ar: z.string().min(1, "الاسم الأول مطلوب"),
-  secondName_ar: z.string().min(1, "الاسم الثاني مطلوب"),
-  lastName_ar: z.string().min(1, "الاسم الأخير مطلوب"),
-  firstName_en: z.string().min(1, "الاسم الأول باللغة الإنجليزية مطلوب"),
-  secondName_en: z.string().min(1, "الاسم الثاني باللغة الإنجليزية مطلوب"),
-  lastName_en: z.string().min(1, "الاسم الأخير باللغة الإنجليزية مطلوب"),
-  birthDate: z.string().min(1, "تاريخ الميلاد مطلوب"),
-  nationality: z.string().min(1, "الجنسية مطلوبة"),
-  motherTongue: z.string().min(1, "اللغة الأم مطلوبة"),
-  identity: z.string().min(1, "الإثبات مطلوب"),
-  identityNumber: z.string().min(1, "رقم الإثبات مطلوب"),
-  identityFile: z
-    .any()
-    .refine((files) => files?.length > 0, "نسخة من الإثبات مطلوبة"),
-  // Education
-  education: z.string().min(1, "المؤهل الدراسي مطلوب"),
-  basicLanguageInEducation: z.string().min(1, "لغة التعليم مطلوبة"),
-  institution: z.string().min(1, "المؤسسة مطلوبة"),
-  specialization: z.string().min(1, "التخصص مطلوب"),
-  // Location
-  timezone: z.string().min(1, "المنطقة الزمنية مطلوبة"),
-  country: z.string().min(1, "الدولة مطلوبة"),
-  state: z.string().min(1, "المنطقة مطلوبة"),
-  city: z.string().min(1, "المدينة مطلوبة"),
-  postalAddress: z.string().min(1, "العنوان البريدي مطلوب"),
-  zipCode: z.string().min(1, "الرمز البريدي مطلوب"),
-});
+function createProfileSchema(getText: (key: string) => string) {
+  return z.object({
+    // Account Info
+    email: z
+      .string()
+      .min(1, getText("valEmailRequired"))
+      .email(getText("valEmailInvalid")),
+    password: z.string().min(8, getText("valPasswordMin")),
+    phone: z
+      .string()
+      .regex(/^\d+$/, getText("valPhoneDigitsOnly"))
+      .refine(
+        (val) => {
+          const digits = getDigitsFromPhone(val);
+          return digits.length >= 7;
+        },
+        { message: getText("valPhoneMinLength") },
+      ),
+    // Personal Info
+    firstName_ar: z.string().min(1, getText("valFirstNameArRequired")),
+    secondName_ar: z.string().min(1, getText("valSecondNameArRequired")),
+    lastName_ar: z.string().min(1, getText("valLastNameArRequired")),
+    firstName_en: z.string().min(1, getText("valFirstNameEnRequired")),
+    secondName_en: z.string().min(1, getText("valSecondNameEnRequired")),
+    lastName_en: z.string().min(1, getText("valLastNameEnRequired")),
+    birthDate: z.string().min(1, getText("valBirthDateRequired")),
+    nationality: z.string().min(1, getText("valNationalityRequired")),
+    motherTongue: z.string().min(1, getText("valMotherTongueRequired")),
+    identity: z.string().min(1, getText("valIdentityRequired")),
+    identityNumber: z.string().min(1, getText("valIdentityNumberRequired")),
+    identityFile: z
+      .any()
+      .refine((files) => files?.length > 0, getText("valIdentityFileRequired")),
+    // Education
+    education: z.string().min(1, getText("valEducationRequired")),
+    basicLanguageInEducation: z.string().min(1, getText("valBasicLanguageRequired")),
+    institution: z.string().min(1, getText("valInstitutionRequired")),
+    specialization: z.string().min(1, getText("valSpecializationRequired")),
+    // Location
+    timezone: z.string().min(1, getText("valTimezoneRequired")),
+    country: z.string().min(1, getText("valCountryRequired")),
+    state: z.string().min(1, getText("valStateRequired")),
+    city: z.string().min(1, getText("valCityRequired")),
+    postalAddress: z.string().min(1, getText("valPostalAddressRequired")),
+    zipCode: z.string().min(1, getText("valZipCodeRequired")),
+  });
+}
 
-export type UserProfileFormValues = z.infer<typeof userProfileSchema>;
+export type UserProfileFormValues = z.infer<ReturnType<typeof createProfileSchema>>;
 
 import type { DropdownOption } from "@/app/components/dropdown/Dropdown";
 
@@ -147,6 +150,8 @@ function ProfileFormContent({
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const userProfileSchema = createProfileSchema((key) => st("profile", key));
+
   const methods = useForm<UserProfileFormValues>({
     resolver: zodResolver(userProfileSchema),
     defaultValues: buildDefaultValues(initialValues),
@@ -160,13 +165,13 @@ function ProfileFormContent({
         setShowSuccess(true);
         setTimeout(() => setShowSuccess(false), 5000);
       } else {
-        setErrorMessage(result.message || "فشل تحديث الملف الشخصي");
+        setErrorMessage(result.message || st("profile", "toastErrorDefault"));
         setShowError(true);
         setTimeout(() => setShowError(false), 5000);
       }
     } catch (error) {
       console.error("Error updating profile:", error);
-      setErrorMessage("حدث خطأ أثناء تحديث الملف الشخصي");
+      setErrorMessage(st("profile", "toastErrorDefault"));
       setShowError(true);
       setTimeout(() => setShowError(false), 5000);
     }
@@ -183,8 +188,8 @@ function ProfileFormContent({
           type="success"
           vPosition="bottom"
           hPosition="left"
-          leadText="نجاح"
-          helperText="تم تحديث الملف الشخصي بنجاح"
+          leadText={st("profile", "toastSuccessLead")}
+          helperText={st("profile", "toastSuccessHelper")}
           open={showSuccess}
           onClose={() => setShowSuccess(false)}
         />
@@ -194,7 +199,7 @@ function ProfileFormContent({
           type="error"
           vPosition="bottom"
           hPosition="left"
-          leadText="خطأ"
+          leadText={st("profile", "toastErrorLead")}
           helperText={errorMessage}
           open={showError}
           onClose={() => setShowError(false)}
@@ -203,7 +208,7 @@ function ProfileFormContent({
 
       <section
         className="section-spacing-5xl !bg-white !p-[32px] !rounded-[8px] !h-fit !mb-16"
-        aria-label="نموذج الملف اشخصي"
+        aria-label={st("profile", "ariaFormLabel")}
         role="form"
       >
         <DgaTabs
@@ -215,17 +220,17 @@ function ProfileFormContent({
           onTabChange={handleTabChange}
           tabsList={[
             {
-              label: "المعلومات الشخصية",
+              label: st("profile", "tabPersonalInfo"),
               tabIcon: "user",
               onClick: () => handleTabChange(1),
             },
             {
-              label: "المؤهلات الدراسية",
+              label: st("profile", "tabEducation"),
               tabIcon: "mortarboard-02",
               onClick: () => handleTabChange(2),
             },
             {
-              label: "الموقع",
+              label: st("profile", "tabLocation"),
               tabIcon: "location-01",
               onClick: () => handleTabChange(3),
             },
@@ -261,7 +266,7 @@ function ProfileFormContent({
           <Button
             form="profile-form"
             type="submit"
-            label="حفظ التغييرات"
+            label={st("profile", "saveChanges")}
             variant="primary-brand"
             size="md"
             className="md:w-[100px] w-full"
@@ -269,7 +274,7 @@ function ProfileFormContent({
           <Button
             form="profile-form"
             type="button"
-            label="إلغاء"
+            label={st("profile", "cancel")}
             variant="secondary-outline"
             size="md"
             className="md:w-[100px] w-full"

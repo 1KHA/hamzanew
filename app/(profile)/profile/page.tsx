@@ -3,10 +3,15 @@ import { Metadata } from "next";
 import ProfileView from "./ProfileView";
 import { getCachedUserProfile } from "@/app/_lib/session-cache";
 import mockUserInfo from "./_data/mockUserInfo.json";
+import { st } from "@/app/_lib/static-text-server";
+import { cookies } from "next/headers";
 
-export const metadata: Metadata = {
-  title: "الملف الشخصي",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = (await cookies()).get("lang")?.value?.startsWith("en") ? "en" : "ar";
+  return {
+    title: st("profile", "metaTitle", locale),
+  };
+}
 
 /**
  * Maps API profile response to the shape expected by ProfileView.
@@ -62,6 +67,8 @@ function mapApiProfile(apiData: any): Record<string, any> {
 }
 
 export default async function ProfilePage() {
+  const locale = (await cookies()).get("lang")?.value?.startsWith("en") ? "en" : "ar";
+
   let userProfile = null;
   try {
     console.log("[ProfilePage] Fetching cached user profile...");
@@ -85,11 +92,11 @@ export default async function ProfilePage() {
   console.log("[ProfilePage] Final profileData passed to ProfileView:", JSON.stringify(profileData, null, 2));
 
   const HERO_CONFIG = {
-    title: "الملف الشخصي",
+    title: st("profile", "heroTitle", locale),
     bgColor: "#F9FAFB",
     breadcrumbs: [
-      { label: "الرئيسة", path: "/" },
-      { label: "الملف الشخصي", disabled: true },
+      { label: st("profile", "breadcrumbHome", locale), path: "/" },
+      { label: st("profile", "breadcrumbProfile", locale), disabled: true },
     ],
   };
 
@@ -106,7 +113,7 @@ export default async function ProfilePage() {
         className="profile-main-section"
       >
         <h1 id="profile-heading" className="sr-only">
-          إدارة الملف الشخصي
+          {st("profile", "srOnlyManageProfile", locale)}
         </h1>
         <div className="content" role="main">
           <ProfileView userProfile={profileData} />

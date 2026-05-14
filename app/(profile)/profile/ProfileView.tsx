@@ -3,6 +3,7 @@
 import Button from "@/app/components/button/Button";
 import { useRouter } from "next/navigation";
 import type { ReactElement, ReactNode } from "react";
+import { st } from "@/app/_lib/static-text";
 import "./ProfileView.css";
 
 /* ── Types ─────────────────────────────────────────────── */
@@ -24,29 +25,44 @@ interface ProfileViewProps {
 
 /* ── Helper maps ───────────────────────────────────────── */
 
-const nationalityMap: Record<string, string> = {
-  KW: "كويتي",
-  SA: "سعودي",
-  US: "أمريكي",
-  EG: "مصري",
-  JO: "أردني",
-  AE: "إماراتي",
-  OTHER: "أخرى",
-};
+function getNationalityMap(): Record<string, string> {
+  return {
+    KW: st("profile", "valueNationalityKW"),
+    SA: st("profile", "valueNationalitySA"),
+    US: st("profile", "valueNationalityUS"),
+    EG: st("profile", "valueNationalityEG"),
+    JO: st("profile", "valueNationalityJO"),
+    AE: st("profile", "valueNationalityAE"),
+    OTHER: st("profile", "valueNationalityOther"),
+  };
+}
 
-const langMap: Record<string, string> = { ar: "العربية", en: "الإنجليزية", fr: "الفرنسية", other: "أخرى" };
-const identityMap: Record<string, string> = {
-  national_id: "هوية وطنية",
-  iqama: "إقامة",
-  passport: "جواز سفر",
-};
-const educationMap: Record<string, string> = {
-  high_school: "ثانوية عامة",
-  diploma: "دبلوم",
-  bachelor: "بكالوريوس",
-  master: "ماجستير",
-  phd: "دكتوراه",
-};
+function getLangMap(): Record<string, string> {
+  return {
+    ar: st("profile", "valueLangAr"),
+    en: st("profile", "valueLangEn"),
+    fr: st("profile", "valueLangFr"),
+    other: st("profile", "valueLangOther"),
+  };
+}
+
+function getIdentityMap(): Record<string, string> {
+  return {
+    national_id: st("profile", "valueIdentityNationalId"),
+    iqama: st("profile", "valueIdentityIqama"),
+    passport: st("profile", "valueIdentityPassport"),
+  };
+}
+
+function getEducationMap(): Record<string, string> {
+  return {
+    high_school: st("profile", "valueEducationHighSchool"),
+    diploma: st("profile", "valueEducationDiploma"),
+    bachelor: st("profile", "valueEducationBachelor"),
+    master: st("profile", "valueEducationMaster"),
+    phd: st("profile", "valueEducationPhd"),
+  };
+}
 
 /* ── Sub-components ────────────────────────────────────── */
 
@@ -57,7 +73,7 @@ function InfoTable({ title, rows, editTabId }: InfoTableProps): ReactElement {
       <div className="info-table__header">
         <h3 className="text-md-bold !text-neutral-900">{title}</h3>
         <Button
-          label="تعديل"
+          label={st("profile", "editBtn")}
           icon="edit-02"
           variant="secondary-outline"
           iconPosition="left"
@@ -93,19 +109,24 @@ function InfoTable({ title, rows, editTabId }: InfoTableProps): ReactElement {
 
 export default function ProfileView({ userProfile }: ProfileViewProps): ReactElement {
   const u = userProfile || {};
+  const nationalityMap = getNationalityMap();
+  const langMap = getLangMap();
+  const identityMap = getIdentityMap();
+  const educationMap = getEducationMap();
+  const dash = st("profile", "placeholderDash");
 
   const personalInfoRows = [
     [
-      { label: "الاسم الاول بالعربي", value: u.firstName_ar || "-" },
-      { label: "الاسم الثاني بالعربي", value: u.secondName_ar || u.middleName_ar || "-" },
-      { label: "الاسم الثالث بالعربي", value: u.lastName_ar || "-" },
-      { label: "الاسم الاول بالانجليزي", value: u.firstName_en || "-" },
-      { label: "الاسم الثاني بالانجليزي", value: u.secondName_en || u.middleName_en || "-" },
-      { label: "الاسم الثالث بالانجليزي", value: u.lastName_en || "-" },
-      { label: "البريد الالكتروني", value: u.email || u.emailId || "-" },
-      { label: "رقم الجوال", value: u.phone || u.phoneNumber || "-" },
+      { label: st("profile", "labelFirstNameAr"), value: u.firstName_ar || dash },
+      { label: st("profile", "labelSecondNameAr"), value: u.secondName_ar || u.middleName_ar || dash },
+      { label: st("profile", "labelLastNameAr"), value: u.lastName_ar || dash },
+      { label: st("profile", "labelFirstNameEn"), value: u.firstName_en || dash },
+      { label: st("profile", "labelSecondNameEn"), value: u.secondName_en || u.middleName_en || dash },
+      { label: st("profile", "labelLastNameEn"), value: u.lastName_en || dash },
+      { label: st("profile", "labelEmail"), value: u.email || u.emailId || dash },
+      { label: st("profile", "labelPhone"), value: u.phone || u.phoneNumber || dash },
       {
-        label: "تاريخ الميلاد",
+        label: st("profile", "labelBirthDate"),
         value: (
           <>
             <img
@@ -115,27 +136,27 @@ export default function ProfileView({ userProfile }: ProfileViewProps): ReactEle
               className="gray-icon"
               alt=""
             />
-            <span>{u.birthDate || "-"}</span>
+            <span>{u.birthDate || dash}</span>
           </>
         ),
       },
     ],
     [
       {
-        label: "الجنسية",
+        label: st("profile", "labelNationality"),
         value:
-          nationalityMap[u.nationality] || u.nationality || "-",
+          nationalityMap[u.nationality] || u.nationality || dash,
       },
       {
-        label: "لغة الأم",
-        value: langMap[u.motherTongue] || u.motherTongue || "-",
+        label: st("profile", "labelMotherTongue"),
+        value: langMap[u.motherTongue] || u.motherTongue || dash,
       },
       {
-        label: "الإثبات",
-        value: identityMap[u.identity] || u.identity || "-",
+        label: st("profile", "labelIdentity"),
+        value: identityMap[u.identity] || u.identity || dash,
       },
       {
-        label: "رقم الإثبات",
+        label: st("profile", "labelIdentityNumber"),
         value: (
           <>
             <img
@@ -145,12 +166,12 @@ export default function ProfileView({ userProfile }: ProfileViewProps): ReactEle
               className="gray-icon"
               alt=""
             />
-            <span>{u.identityNumber || "-"}</span>
+            <span>{u.identityNumber || dash}</span>
           </>
         ),
       },
       {
-        label: "نسخة من الاثبات",
+        label: st("profile", "labelIdentityFile"),
         value: (
           <a
             href="#"
@@ -166,7 +187,7 @@ export default function ProfileView({ userProfile }: ProfileViewProps): ReactEle
               alt=""
             />
             <span className="text-[#344054] text-sm-regular truncate flex-1">
-              {u.identityFile || "-"}
+              {u.identityFile || dash}
             </span>
           </a>
         ),
@@ -177,16 +198,16 @@ export default function ProfileView({ userProfile }: ProfileViewProps): ReactEle
   const educationInfoRows = [
     [
       {
-        label: "المؤهل الدراسي",
-        value: educationMap[u.education] || u.education || "-",
+        label: st("profile", "labelEducation"),
+        value: educationMap[u.education] || u.education || dash,
       },
-      { label: "التخصص", value: u.specialization || "-" },
-      { label: "الجامعة", value: u.institution || u.university || "-" },
+      { label: st("profile", "labelSpecialization"), value: u.specialization || dash },
+      { label: st("profile", "labelInstitution"), value: u.institution || u.university || dash },
       {
-        label: "اللغة الأساسية في التعليم",
+        label: st("profile", "labelBasicLanguageInEducation"),
         value: (
           <span>
-            {langMap[u.basicLanguageInEducation] || u.basicLanguageInEducation || "-"}
+            {langMap[u.basicLanguageInEducation] || u.basicLanguageInEducation || dash}
           </span>
         ),
       },
@@ -195,16 +216,16 @@ export default function ProfileView({ userProfile }: ProfileViewProps): ReactEle
 
   const locationInfoRows = [
     [
-      { label: "الدولة", value: u.country || "-" },
-      { label: "المنطقة", value: u.state || "-" },
-      { label: "المدينة", value: u.city || "-" },
+      { label: st("profile", "labelCountry"), value: u.country || dash },
+      { label: st("profile", "labelState"), value: u.state || dash },
+      { label: st("profile", "labelCity"), value: u.city || dash },
       {
-        label: "العنوان البريدي",
-        value: <span>{u.postalAddress || u.street || "-"}</span>,
+        label: st("profile", "labelPostalAddress"),
+        value: <span>{u.postalAddress || u.street || dash}</span>,
       },
       {
-        label: "الرمز البريدي",
-        value: <span>{u.zipCode || "-"}</span>,
+        label: st("profile", "labelZipCode"),
+        value: <span>{u.zipCode || dash}</span>,
       },
     ],
   ];
@@ -212,16 +233,16 @@ export default function ProfileView({ userProfile }: ProfileViewProps): ReactEle
   return (
     <div className="flex flex-col gap-6">
       <InfoTable
-        title="المعلومات الشخصية"
+        title={st("profile", "sectionPersonalInfo")}
         rows={personalInfoRows}
         editTabId={1}
       />
       <InfoTable
-        title="المعلومات الدراسية"
+        title={st("profile", "sectionEducation")}
         rows={educationInfoRows}
         editTabId={2}
       />
-      <InfoTable title="معلومات الموقع" rows={locationInfoRows} editTabId={3} />
+      <InfoTable title={st("profile", "sectionLocation")} rows={locationInfoRows} editTabId={3} />
     </div>
   );
 }

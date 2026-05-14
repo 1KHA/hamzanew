@@ -6,10 +6,15 @@ import { fetchJsonList } from "@/app/_lib/category-service";
 import { getFormattedCountriesList } from "@/app/_lib/countries-service";
 import mockUserInfo from "../_data/mockUserInfo.json";
 import type { DropdownOption } from "@/app/components/dropdown/Dropdown";
+import { st } from "@/app/_lib/static-text-server";
+import { cookies } from "next/headers";
 
-export const metadata: Metadata = {
-  title: "الملف الشخصي - تعديل",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = (await cookies()).get("lang")?.value?.startsWith("en") ? "en" : "ar";
+  return {
+    title: st("profile", "metaTitleUpdate", locale),
+  };
+}
 
 /**
  * Maps API profile response to the form field shape.
@@ -77,6 +82,8 @@ function mapCategoryOptions(raw: any[]): DropdownOption[] {
 }
 
 export default async function ProfileUpdatePage() {
+  const locale = (await cookies()).get("lang")?.value?.startsWith("en") ? "en" : "ar";
+
   let profileValues = {} as Record<string, any>;
   let nationalityOptions: DropdownOption[] = [];
   let motherTongueOptions: DropdownOption[] = [];
@@ -158,12 +165,12 @@ export default async function ProfileUpdatePage() {
   console.log("[ProfileUpdatePage] Final initialValues passed to ProfileForm:", JSON.stringify(initialValues, null, 2));
 
   const HERO_CONFIG = {
-    title: "الملف الشخصي",
+    title: st("profile", "heroTitle", locale),
     bgColor: "#F9FAFB",
     breadcrumbs: [
-      { label: "الرئيسة", path: "/" },
-      { label: "الملف الشخصي", path: "/profile" },
-      { label: "تعديل", disabled: true },
+      { label: st("profile", "breadcrumbHome", locale), path: "/" },
+      { label: st("profile", "breadcrumbProfile", locale), path: "/profile" },
+      { label: st("profile", "breadcrumbEdit", locale), disabled: true },
     ],
   };
 
@@ -180,7 +187,7 @@ export default async function ProfileUpdatePage() {
         className="profile-main-section"
       >
         <h1 id="profile-heading" className="sr-only">
-          إدارة الملف الشخصي
+          {st("profile", "srOnlyManageProfile", locale)}
         </h1>
         <div className="content" role="main">
           <ProfileForm

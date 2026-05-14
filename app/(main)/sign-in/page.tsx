@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { signIn } from "next-auth/react";
 import CheckBox from "@/app/components/checkbox/CheckBox";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,18 +13,21 @@ import "./sign-in.css";
 import Image from "next/image";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
+import { st } from "@/app/_lib/static-text";
 
-const formSchema = z.object({
-  username: z.string().min(1, "اسم المستخدم مطلوب"),
-  password: z.string().min(1, "كلمة المرور مطلوبة"),
-});
+export type FormSchema = z.infer<ReturnType<typeof buildFormSchema>>;
 
-export type FormSchema = z.infer<typeof formSchema>;
-
-const INITIAL_VALUES: FormSchema = {
+const INITIAL_VALUES = {
   username: "",
   password: "",
 };
+
+function buildFormSchema() {
+  return z.object({
+    username: z.string().min(1, st("signIn", "usernameRequired")),
+    password: z.string().min(1, st("signIn", "passwordRequired")),
+  });
+}
 
 export default function SignInPage() {
   useEffect(() => {
@@ -34,6 +37,8 @@ export default function SignInPage() {
 
   const [rememberMe, setRememberMe] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const formSchema = useMemo(() => buildFormSchema(), []);
 
   const methods = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -49,7 +54,7 @@ export default function SignInPage() {
     try {
       setRememberMe(false);
       const result = await signIn("credentials", {
-        redirect: false, // FALSE to stay on the page and get the error
+        redirect: false,
         username: data.username,
         password: data.password,
       });
@@ -59,19 +64,16 @@ export default function SignInPage() {
         methods.setError("root", { message: result.error });
         setIsSubmitting(false);
       } else if (result?.ok) {
-        // Because redirect is false, NextAuth won't redirect us!
-        // manually redirect if login was successful.
         window.location.href = "/profile";
       }
     } catch {
-      methods.setError("root", { message: "Something went wrong" });
+      methods.setError("root", { message: st("signIn", "genericError") });
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleSSOClick = useCallback(() => {
-    // TODO: Implement National SSO redirect
     console.log("National SSO clicked");
   }, []);
 
@@ -86,10 +88,10 @@ export default function SignInPage() {
           {/* Header */}
           <header className="sign-in-page__header">
             <h1 id="sign-in-heading" className="display-sm-bold">
-              اهلا بك
+              {st("signIn", "welcome")}
             </h1>
             <p className="text-md-regular sign-in-page__subtitle">
-              قم بتسجيل الدخول
+              {st("signIn", "subtitle")}
             </p>
           </header>
 
@@ -98,13 +100,11 @@ export default function SignInPage() {
             <form
               onSubmit={methods.handleSubmit(onSubmit)}
               className="sign-in-page__form"
-              aria-label="نموذج تسجيل الدخول"
-              // noValidate
+              aria-label={st("signIn", "formAria")}
             >
               {/* Username Field */}
-
               <FormField
-                label="اسم المستخدم"
+                label={st("signIn", "usernameLabel")}
                 required
                 error={errors.username?.message}
                 htmlFor="username"
@@ -112,7 +112,7 @@ export default function SignInPage() {
                 <ControlledTextInput
                   name="username"
                   id="username"
-                  placeholder="أدخل اسم المستخدم"
+                  placeholder={st("signIn", "usernamePlaceholder")}
                   variant="darker"
                   aria-required={true}
                   aria-describedby={
@@ -120,13 +120,13 @@ export default function SignInPage() {
                   }
                 />
                 <span id="username-help" className="sr-only">
-                  أدخل اسم المستخدم الخاص بك
+                  {st("signIn", "usernameHelp")}
                 </span>
               </FormField>
 
               {/* Password Field */}
               <FormField
-                label="كلمة المرور"
+                label={st("signIn", "passwordLabel")}
                 required
                 error={errors.password?.message}
                 htmlFor="password"
@@ -135,7 +135,7 @@ export default function SignInPage() {
                   name="password"
                   type="password"
                   id="password"
-                  placeholder="أدخل كلمة المرور"
+                  placeholder={st("signIn", "passwordPlaceholder")}
                   variant="darker"
                   aria-required={true}
                   aria-describedby={
@@ -143,14 +143,14 @@ export default function SignInPage() {
                   }
                 />
                 <span id="password-help" className="sr-only">
-                  أدخل كلمة المرور الخاصة بك
+                  {st("signIn", "passwordHelp")}
                 </span>
               </FormField>
 
               {/* Remember Me & Forgot Password */}
               <div className="sign-in-page__options">
                 <CheckBox
-                  label="تذكرني"
+                  label={st("signIn", "rememberMe")}
                   size="md"
                   color="brand"
                   checked={rememberMe}
@@ -160,7 +160,7 @@ export default function SignInPage() {
                   href="/forgot-password"
                   className="link--primary text-md-regular"
                 >
-                  هل نسيت كلمة المرور؟
+                  {st("signIn", "forgotPassword")}
                 </a>
               </div>
 
@@ -172,14 +172,14 @@ export default function SignInPage() {
                   aria-live="assertive"
                 >
                   {errors.root.message === "CredentialsSignin"
-                    ? "اسم المستخدم أو كلمة المرور غير صحيحة"
+                    ? st("signIn", "invalidCredentials")
                     : errors.root.message}
                 </p>
               )}
 
               {/* Submit */}
               <Button
-                label={isSubmitting ? "جاري تسجيل الدخول..." : "تسجيل الدخول"}
+                label={isSubmitting ? st("signIn", "submitting") : st("signIn", "signInBtn")}
                 variant="primary-brand"
                 size="lg"
                 type="submit"
@@ -215,15 +215,15 @@ export default function SignInPage() {
             aria-hidden="true"
           >
             <span className="sign-in-page__divider-text text-sm-regular">
-              أو
+              {st("signIn", "dividerOr")}
             </span>
           </div>
 
           {/* Create Account */}
           <p className="sign-in-page__register text-sm-regular">
-            ليس لديك حساب؟{" "}
+            {st("signIn", "noAccount")}{" "}
             <a href="/sign-up" className="link--primary">
-              إنشاء حساب جديد
+              {st("signIn", "createAccount")}
             </a>
           </p>
         </main>

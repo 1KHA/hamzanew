@@ -4,21 +4,45 @@ import Button from "@/app/components/button/Button";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import type { UserProfileFormValues } from "../update/ProfileForm";
-const REGION_OPTIONS = [
-  { name: "منطقة الرياض", value: "riyadh" },
-  { name: "منطقة مكة المكرمة", value: "makkah" },
-  { name: "المنطقة الشرقية", value: "eastern" },
-  { name: "منطقة المدينة المنورة", value: "madinah" },
-];
+import { st } from "@/app/_lib/static-text";
 
-const CITY_OPTIONS = [
-  { name: "الرياض", value: "riyadh_city" },
-  { name: "جدة", value: "jeddah" },
-  { name: "مكة المكرمة", value: "makkah_city" },
-  { name: "المدينة المنورة", value: "madinah_city" },
-  { name: "الدمام", value: "dammam" },
-];
+function getRegionOptions(): DropdownOption[] {
+  return [
+    { name: st("profile", "fallbackRegionRiyadh"), value: "riyadh" },
+    { name: st("profile", "fallbackRegionMakkah"), value: "makkah" },
+    { name: st("profile", "fallbackRegionEastern"), value: "eastern" },
+    { name: st("profile", "fallbackRegionMadinah"), value: "madinah" },
+  ];
+}
 
+function getCityOptions(): DropdownOption[] {
+  return [
+    { name: st("profile", "fallbackCityRiyadh"), value: "riyadh_city" },
+    { name: st("profile", "fallbackCityJeddah"), value: "jeddah" },
+    { name: st("profile", "fallbackCityMakkah"), value: "makkah_city" },
+    { name: st("profile", "fallbackCityMadinah"), value: "madinah_city" },
+    { name: st("profile", "fallbackCityDammam"), value: "dammam" },
+  ];
+}
+
+function getFallbackTimezoneOptions(): DropdownOption[] {
+  return [
+    { name: st("profile", "fallbackTimezoneRiyadh"), value: "Asia/Riyadh" },
+    { name: st("profile", "fallbackTimezoneCairo"), value: "Africa/Cairo" },
+    { name: st("profile", "fallbackTimezoneDubai"), value: "Asia/Dubai" },
+    { name: st("profile", "fallbackTimezoneLondon"), value: "Europe/London" },
+  ];
+}
+
+function getFallbackCountryOptions(): DropdownOption[] {
+  return [
+    { name: st("profile", "fallbackCountrySA"), value: "SA" },
+    { name: st("profile", "fallbackCountryEG"), value: "EG" },
+    { name: st("profile", "fallbackCountryJO"), value: "JO" },
+    { name: st("profile", "fallbackCountryAE"), value: "AE" },
+    { name: st("profile", "fallbackCountryKW"), value: "KW" },
+  ];
+}
 
 interface LocationTabProps {
   countryOptions?: DropdownOption[];
@@ -42,17 +66,16 @@ export default function LocationTab({
       id="panel-location"
     >
       <h2 id="tab-location" className="sr-only">
-        معلومات الموقع
+        {st("profile", "srOnlyLocation")}
       </h2>
       <p className="text-sm text-gray-600 sr-only">
-        قم بإدخال معلومات موقعك بما في ذلك المنطقة الزمنية والدولة والمدينة
-        والعنوان
+        {st("profile", "srOnlyLocation")}
       </p>
 
       <div className="!grid !grid-cols-1 md:!grid-cols-3 !gap-8">
         {/* ── Timezone ── */}
         <FormField
-          label="المنطقة الزمنية"
+          label={st("profile", "labelTimezoneShort")}
           required
           error={errors.timezone?.message}
         >
@@ -61,7 +84,7 @@ export default function LocationTab({
             control={control}
             render={({ field }) => (
               <Dropdown
-                placeholder="اختر"
+                placeholder={st("profile", "placeholderSelectTimezone")}
                 size="lg"
                 variant="darker"
                 optionLabel="name"
@@ -70,25 +93,20 @@ export default function LocationTab({
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
                 error={!!errors.timezone}
-                options={timezoneOptions.length ? timezoneOptions : [
-                  { name: "توقيت الرياض (GMT+3)", value: "Asia/Riyadh" },
-                  { name: "توقيت القاهرة (GMT+2)", value: "Africa/Cairo" },
-                  { name: "توقيت دبي (GMT+4)", value: "Asia/Dubai" },
-                  { name: "توقيت لندن (GMT+0)", value: "Europe/London" },
-                ]}
+                options={timezoneOptions.length ? timezoneOptions : getFallbackTimezoneOptions()}
               />
             )}
           />
         </FormField>
 
         {/* ── Country ── */}
-        <FormField label="الدولة" required error={errors.country?.message}>
+        <FormField label={st("profile", "labelCountryShort")} required error={errors.country?.message}>
           <Controller
             name="country"
             control={control}
             render={({ field }) => (
               <Dropdown
-                placeholder="اختر"
+                placeholder={st("profile", "placeholderSelectCountry")}
                 size="lg"
                 variant="darker"
                 optionLabel="name"
@@ -97,13 +115,7 @@ export default function LocationTab({
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
                 error={!!errors.country}
-                options={countryOptions.length ? countryOptions : [
-                  { name: "المملكة العربية السعودية", value: "SA" },
-                  { name: "مصر", value: "EG" },
-                  { name: "الأردن", value: "JO" },
-                  { name: "الإمارات", value: "AE" },
-                  { name: "الكويت", value: "KW" },
-                ]}
+                options={countryOptions.length ? countryOptions : getFallbackCountryOptions()}
               />
             )}
           />
@@ -111,7 +123,7 @@ export default function LocationTab({
 
         {/* ── State ── */}
         <FormField
-          label="الولاية / المقاطعة / الإقليم"
+          label={st("profile", "labelStateShort")}
           required
           error={errors.state?.message}
         >
@@ -120,7 +132,7 @@ export default function LocationTab({
             control={control}
             render={({ field }) => (
               <Dropdown
-                placeholder="اختر"
+                placeholder={st("profile", "placeholderSelect")}
                 size="lg"
                 variant="darker"
                 optionLabel="name"
@@ -129,20 +141,20 @@ export default function LocationTab({
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
                 error={!!errors.state}
-                options={REGION_OPTIONS}
+                options={getRegionOptions()}
               />
             )}
           />
         </FormField>
 
         {/* ── City ── */}
-        <FormField label="المدينة" required error={errors.city?.message}>
+        <FormField label={st("profile", "labelCityShort")} required error={errors.city?.message}>
           <Controller
             name="city"
             control={control}
             render={({ field }) => (
               <Dropdown
-                placeholder="اختر"
+                placeholder={st("profile", "placeholderSelect")}
                 size="lg"
                 variant="darker"
                 optionLabel="name"
@@ -151,7 +163,7 @@ export default function LocationTab({
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
                 error={!!errors.city}
-                options={CITY_OPTIONS}
+                options={getCityOptions()}
               />
             )}
           />
@@ -159,7 +171,7 @@ export default function LocationTab({
 
         {/* ── Postal Address ── */}
         <FormField
-          label="العنوان"
+          label={st("profile", "labelAddressShort")}
           required
           error={errors.postalAddress?.message}
         >
@@ -168,7 +180,7 @@ export default function LocationTab({
 
         {/* ── Zip Code ── */}
         <FormField
-          label="الرمز البريدي"
+          label={st("profile", "labelZipCodeShort")}
           required
           error={errors.zipCode?.message}
         >

@@ -15,13 +15,35 @@ import {
   getDigitsFromPhone,
   type PrefixOption,
 } from "@/lib/utils/phonePrefixes";
+import { st } from "@/app/_lib/static-text";
 
-const ID_TYPE_OPTIONS = [
-  { name: "هوية وطنية", value: "national_id" },
-  { name: "إقامة", value: "iqama" },
-  { name: "جواز سفر", value: "passport" },
-];
+function getIdTypeOptions(): DropdownOption[] {
+  return [
+    { name: st("profile", "idTypeNationalId"), value: "national_id" },
+    { name: st("profile", "idTypeIqama"), value: "iqama" },
+    { name: st("profile", "idTypePassport"), value: "passport" },
+  ];
+}
 
+function getFallbackNationalityOptions(): DropdownOption[] {
+  return [
+    { name: st("profile", "fallbackNationalitySA"), value: "SA" },
+    { name: st("profile", "fallbackNationalityEG"), value: "EG" },
+    { name: st("profile", "fallbackNationalityJO"), value: "JO" },
+    { name: st("profile", "fallbackNationalityAE"), value: "AE" },
+    { name: st("profile", "fallbackNationalityKW"), value: "KW" },
+    { name: st("profile", "fallbackNationalityOther"), value: "OTHER" },
+  ];
+}
+
+function getFallbackMotherTongueOptions(): DropdownOption[] {
+  return [
+    { name: st("profile", "langAr"), value: "ar" },
+    { name: st("profile", "langEn"), value: "en" },
+    { name: st("profile", "langFr"), value: "fr" },
+    { name: st("profile", "langOther"), value: "other" },
+  ];
+}
 
 interface PersonalInfoTabProps {
   nationalityOptions?: DropdownOption[];
@@ -117,17 +139,16 @@ export default function PersonalInfoTab({
       id="panel-personal-info"
     >
       <h2 id="tab-personal-info" className="sr-only">
-        المعلومات الشخصية
+        {st("profile", "srOnlyPersonalInfo")}
       </h2>
       <p className="text-sm text-gray-600 sr-only">
-        قم بإدخال معلوماتك الشخصية بما في ذلك الاسم وتاريخ الميلاد والجنسية
-        ومعلومات الهوية
+        {st("profile", "srOnlyPersonalInfo")}
       </p>
 
       {/* Arabic Name */}
       <div className="!grid !grid-cols-1 md:!grid-cols-3 !gap-8">
         <FormField
-          label="الاسم الاول"
+          label={st("profile", "labelFirstName")}
           required
           error={errors.firstName_ar?.message}
         >
@@ -135,7 +156,7 @@ export default function PersonalInfoTab({
         </FormField>
 
         <FormField
-          label="الاسم الثاني"
+          label={st("profile", "labelSecondName")}
           required
           error={errors.secondName_ar?.message}
         >
@@ -143,7 +164,7 @@ export default function PersonalInfoTab({
         </FormField>
 
         <FormField
-          label="الاسم الاخير"
+          label={st("profile", "labelLastName")}
           required
           error={errors.lastName_ar?.message}
         >
@@ -154,7 +175,7 @@ export default function PersonalInfoTab({
       {/* English Name */}
       <div className="!grid !grid-cols-1 md:!grid-cols-3 !gap-8">
         <FormField
-          label="الاسم الاول (باللغة الإنجليزية)"
+          label={st("profile", "labelFirstNameEnShort")}
           required
           error={errors.firstName_en?.message}
         >
@@ -162,7 +183,7 @@ export default function PersonalInfoTab({
         </FormField>
 
         <FormField
-          label="الاسم الثاني (باللغة الإنجليزية)"
+          label={st("profile", "labelSecondNameEnShort")}
           required
           error={errors.secondName_en?.message}
         >
@@ -170,7 +191,7 @@ export default function PersonalInfoTab({
         </FormField>
 
         <FormField
-          label="الاسم الاخير (باللغة الإنجليزية)"
+          label={st("profile", "labelLastNameEnShort")}
           required
           error={errors.lastName_en?.message}
         >
@@ -181,20 +202,20 @@ export default function PersonalInfoTab({
       {/* Other Personal Fields */}
       <div className="!grid !grid-cols-1 md:!grid-cols-3 !gap-8">
         <FormField
-          label="البريد الشبكي"
+          label={st("profile", "labelEmailShort")}
           required
           error={errors.email?.message}
           htmlFor="input-email"
         >
           <ControlledTextInput name="email" id="input-email" />
           <span id="email-help" className="sr-only">
-            أدخل عنوان بريدك الشبكي المستخدم لتسجيل الدخول
+            {st("profile", "ariaEmailHelp")}
           </span>
         </FormField>
 
         {/* Phone — Controller wraps the full phone UI (input + prefix dropdown) */}
         <FormField
-          label="رقم الجوال"
+          label={st("profile", "labelPhoneShort")}
           required
           error={errors.phone?.message}
           htmlFor="phone-input"
@@ -210,7 +231,7 @@ export default function PersonalInfoTab({
               >
                 <input
                   id="phone-input"
-                  placeholder="00 000 0000"
+                  placeholder={st("profile", "phonePlaceholder")}
                   type="tel"
                   inputMode="numeric"
                   value={phoneDigitsOnly}
@@ -231,7 +252,7 @@ export default function PersonalInfoTab({
                   }
                 />
                 <span id="phone-help" className="sr-only">
-                  أدخل رقم جوالك مسبوقاً برمز الدولة
+                  {st("profile", "ariaPhoneHelp")}
                 </span>
 
                 {/* Prefix Dropdown */}
@@ -242,7 +263,7 @@ export default function PersonalInfoTab({
                     className={prefixBtnClass}
                     aria-haspopup="listbox"
                     aria-expanded={prefixOpen}
-                    aria-label={`رمز الدولة الحالي: ${selectedCountryPrefix.label}. اضغط لتغيير رمز الدولة`}
+                    aria-label={st("profile", "ariaPrefixLabel").replace("{label}", selectedCountryPrefix.label)}
                   >
                     <span className="input__prefix-icon" />
                     <span className="input__prefix-label">
@@ -263,7 +284,7 @@ export default function PersonalInfoTab({
                   <ul
                     role="listbox"
                     className={prefixListClass}
-                    aria-label="اختر رمز الدولة"
+                    aria-label={st("profile", "ariaPrefixList")}
                   >
                     <div className="prefix-list__scroll">
                       {PHONE_PREFIXES.map((opt) => {
@@ -300,7 +321,7 @@ export default function PersonalInfoTab({
           />
         </FormField>
         <FormField
-          label="تاريخ الميلاد"
+          label={st("profile", "labelBirthDateShort")}
           required
           error={errors.birthDate?.message}
         >
@@ -322,25 +343,18 @@ export default function PersonalInfoTab({
           />
         </FormField>
 
-        <FormField label="الجنسية" required error={errors.nationality?.message}>
+        <FormField label={st("profile", "labelNationalityShort")} required error={errors.nationality?.message}>
           <Controller
             name="nationality"
             control={control}
             render={({ field }) => (
               <Dropdown
-                placeholder="اختر الجنسية"
+                placeholder={st("profile", "placeholderSelectNationality")}
                 size="lg"
                 variant="darker"
                 optionLabel="name"
                 trackBy="value"
-                options={nationalityOptions.length ? nationalityOptions : [
-                  { name: "سعودي", value: "SA" },
-                  { name: "مصري", value: "EG" },
-                  { name: "أردني", value: "JO" },
-                  { name: "إماراتي", value: "AE" },
-                  { name: "كويتي", value: "KW" },
-                  { name: "أخرى", value: "OTHER" },
-                ]}
+                options={nationalityOptions.length ? nationalityOptions : getFallbackNationalityOptions()}
                 extraClass="w-full"
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
@@ -350,7 +364,7 @@ export default function PersonalInfoTab({
         </FormField>
 
         <FormField
-          label="اللغة الام"
+          label={st("profile", "labelMotherTongueShort")}
           required
           error={errors.motherTongue?.message}
         >
@@ -359,17 +373,12 @@ export default function PersonalInfoTab({
             control={control}
             render={({ field }) => (
               <Dropdown
-                placeholder="اختر اللغة الام"
+                placeholder={st("profile", "placeholderSelectMotherTongue")}
                 size="lg"
                 variant="darker"
                 optionLabel="name"
                 trackBy="value"
-                options={motherTongueOptions.length ? motherTongueOptions : [
-                  { name: "العربية", value: "ar" },
-                  { name: "الإنجليزية", value: "en" },
-                  { name: "الفرنسية", value: "fr" },
-                  { name: "أخرى", value: "other" },
-                ]}
+                options={motherTongueOptions.length ? motherTongueOptions : getFallbackMotherTongueOptions()}
                 extraClass="w-full"
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
@@ -381,18 +390,18 @@ export default function PersonalInfoTab({
 
       {/* Identity */}
       <div className="!grid !grid-cols-1 md:!grid-cols-3 !gap-8">
-        <FormField label="الاثبات" required error={errors.identity?.message}>
+        <FormField label={st("profile", "labelIdentityShort")} required error={errors.identity?.message}>
           <Controller
             name="identity"
             control={control}
             render={({ field }) => (
               <Dropdown
-                placeholder="اختر نوع الاثبات"
+                placeholder={st("profile", "placeholderSelectIdType")}
                 size="lg"
                 variant="darker"
                 optionLabel="name"
                 trackBy="value"
-                options={ID_TYPE_OPTIONS}
+                options={getIdTypeOptions()}
                 extraClass="w-full"
                 value={field.value}
                 getSelectedOptions={(opt: any) => field.onChange(opt.value)}
@@ -402,7 +411,7 @@ export default function PersonalInfoTab({
         </FormField>
 
         <FormField
-          label="ادخل رقم الاثبات"
+          label={st("profile", "labelIdentityNumberShort")}
           required
           error={errors.identityNumber?.message}
         >
@@ -413,7 +422,7 @@ export default function PersonalInfoTab({
       {/* File Upload */}
       <div className="!grid !grid-cols-1 md:!grid-cols-3 !gap-8">
         <FormField
-          label="ارفق نسخة من الاثبات"
+          label={st("profile", "labelIdentityFileShort")}
           required
           error={errors.identityFile?.message as string | undefined}
           htmlFor="identity-file"
@@ -424,9 +433,9 @@ export default function PersonalInfoTab({
             render={({ field }) => (
               <FileUpload
                 name="identity-file"
-                fileTypesText="الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وصيغ الملفات المدعومة تشمل .pdf."
+                fileTypesText={st("profile", "fileUploadTypesText")}
                 accept=".pdf,.png,.jpg,.jpeg"
-                actionName="تصفح الملفات"
+                actionName={st("profile", "fileUploadAction")}
                 showIcon={false}
                 getUploadedFile={(files: UploadedFile[]) => {
                   setIdFile(files);

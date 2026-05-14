@@ -7,44 +7,47 @@ import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Button from "@/app/components/button/Button";
 import { IRoute } from "@/app/components/drawer";
+import { st } from "@/app/_lib/static-text";
 import "@/app/components/drawer/Drawer.css";
 import "./SideNav.css";
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 
-const PROFILE_ROUTES: IRoute[] = [
-  { name: "الرئيسة", path: "/", icon: "home-01", divider: true },
-  { name: "الملف الشخصي", path: "/profile", icon: "user-02", divider: true },
-  {
-    name: "تغيير كلمة المرور",
-    path: "/profile?view=security",
-    icon: "square-lock-02",
-    divider: true,
-  },
-  {
-    name: "الاختبارات",
-    path: "/profile/tests",
-    icon: "book-open-01",
-    divider: true,
-  },
-  {
-    name: "الشهادات",
-    path: "/profile/certificates",
-    icon: "certificate-01",
-    divider: true,
-  },
-  {
-    name: "الفواتير",
-    path: "/profile/invoices",
-    icon: "invoice-03",
-    divider: true,
-  },
-  {
-    name: "التنبيهات",
-    path: "/profile/notifications",
-    icon: "notification-01",
-  },
-];
+function getProfileRoutes(): IRoute[] {
+  return [
+    { name: st("profile", "navHome"), path: "/", icon: "home-01", divider: true },
+    { name: st("profile", "navProfile"), path: "/profile", icon: "user-02", divider: true },
+    {
+      name: st("profile", "navChangePassword"),
+      path: "/profile?view=security",
+      icon: "square-lock-02",
+      divider: true,
+    },
+    {
+      name: st("profile", "navTests"),
+      path: "/profile/tests",
+      icon: "book-open-01",
+      divider: true,
+    },
+    {
+      name: st("profile", "navCertificates"),
+      path: "/profile/certificates",
+      icon: "certificate-01",
+      divider: true,
+    },
+    {
+      name: st("profile", "navInvoices"),
+      path: "/profile/invoices",
+      icon: "invoice-03",
+      divider: true,
+    },
+    {
+      name: st("profile", "navNotifications"),
+      path: "/profile/notifications",
+      icon: "notification-01",
+    },
+  ];
+}
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -99,20 +102,20 @@ export default function SideNav({
         <header className="header header--divider">
           <nav
             className="header-nav--full custom-container"
-            aria-label="قائمة الملف الشخصي"
+            aria-label={st("profile", "navProfileMenu")}
           >
             <div className="header-nav__main">
               <div className="header-menu__btn">
                 <button
                   type="button"
                   className="dga-btn dga-btn--md dga-btn--transparent dga-btn--icon"
-                  aria-label="فتح القائمة الجانبية"
+                  aria-label={st("profile", "navOpenMenu")}
                   aria-expanded={isOpen}
                   onClick={() => setIsOpen(true)}
                 >
                   <Image
                     src="/assets/icons/stroke-standard/menu-01-stroke-rounded.svg"
-                    alt="أيقونة القائمة"
+                    alt={st("profile", "navMenuIconAlt")}
                     width={24}
                     height={24}
                     className="inline-block"
@@ -123,11 +126,11 @@ export default function SideNav({
                 <Link
                   href="/"
                   className="header__logo"
-                  aria-label="الصفحة الرئيسة - همزة"
+                  aria-label={st("navActions", "homeLink")}
                 >
                   <Image
                     src="/assets/image/Hamza_Logo.png"
-                    alt="شعار همزة"
+                    alt={st("navActions", "hamzaLogo")}
                     width={120}
                     height={40}
                     priority
@@ -137,7 +140,7 @@ export default function SideNav({
               <button
                 type="button"
                 className="dga-btn dga-btn--md dga-btn--transparent dga-btn--icon"
-                aria-label="تبديل اللغة"
+                aria-label={st("profile", "navToggleLang")}
                 onClick={() => {
                   const html = document.documentElement;
                   const isArabic = html.lang === "ar";
@@ -150,7 +153,7 @@ export default function SideNav({
               >
                 <img
                   src="/assets/icons/stroke-standard/translation-stroke-rounded.svg"
-                  alt="أيقونة تغيير اللغة"
+                  alt={st("profile", "navLangIconAlt")}
                   width={24}
                   height={24}
                   className="inline-block"
@@ -170,14 +173,14 @@ export default function SideNav({
 
       {/* Sidebar */}
       <aside
-        aria-label="قائمة أقسام الملف الشخصي"
+        aria-label={st("profile", "navProfileMenu")}
         className={`sidenav sidepanel--bg-brand${isOpen ? " open" : ""}`}
       >
         {/* Close button — mobile only */}
         <button
           className="sidenav__close"
           onClick={() => setIsOpen(false)}
-          aria-label="إغلاق القائمة"
+          aria-label={st("profile", "navCloseMenu")}
         >
           <img
             src="/assets/icons/stroke-standard/cancel-01-stroke-rounded.svg"
@@ -192,7 +195,7 @@ export default function SideNav({
         <div className="sidenav__logo">
           <img
             src="/assets/image/footer-logo.svg"
-            alt="شعار المجمع"
+            alt={st("profile", "navLogoAlt")}
             width={132}
           />
         </div>
@@ -217,7 +220,7 @@ export default function SideNav({
         {/* Navigation */}
         <nav className="sidenav__nav">
           <ul className="sidepanel__menu-list" role="list">
-            {PROFILE_ROUTES.map((route) => {
+            {getProfileRoutes().map((route) => {
               const isActive = checkIsActive(route.path);
               return (
                 <li key={route.path}>
@@ -260,7 +263,7 @@ export default function SideNav({
         {/* Translate + Logout */}
         <div className="sidenav__logout sidenav__actions-row">
           <Button
-            label="تسجيل الخروج"
+            label={st("profile", "navLogout")}
             icon="logout-04"
             iconPosition="right"
             variant="primary-neutral--on-color"
