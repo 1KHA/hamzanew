@@ -1,7 +1,7 @@
 import Card from "@/app/components/card/Card";
 import NotificationToast from "@/app/components/notification-toast/NotificationToast";
-import Button from "@/app/components/button/Button";
 import PageHero from "@/app/components/page-hero/PageHero";
+import DownloadButton from "./DownloadButton";
 import { Metadata } from "next";
 import { ReactElement } from "react";
 import { cookies } from "next/headers";
@@ -89,14 +89,9 @@ export default async function ResearchServiceRequest(): Promise<ReactElement> {
                 <p className="text-md-regular text-[#475467]">
                   {st("researchServiceRequest", "formDescription", staticLocale)}
                 </p>
-                <Button
-                  aria-label={st("researchServiceRequest", "downloadAria", staticLocale)}
+                <DownloadButton
+                  ariaLabel={st("researchServiceRequest", "downloadAria", staticLocale)}
                   label={st("researchServiceRequest", "downloadBtn", staticLocale)}
-                  variant="primary-brand"
-                  size="md"
-                  icon="download-02"
-                  iconClass="white-icon"
-                  className="!w-fit"
                 />
               </div>
             </div>
@@ -132,7 +127,7 @@ export default async function ResearchServiceRequest(): Promise<ReactElement> {
           </section>
 
           {/* ── Data policy notice ─────────────────────────────────────── */}
-          <section aria-labelledby="data-policy-heading">
+          {/* <section aria-labelledby="data-policy-heading">
             <h2 id="data-policy-heading" className="sr-only">
               {st("researchServiceRequest", "toastAriaHeading", staticLocale)}
             </h2>
@@ -144,7 +139,7 @@ export default async function ResearchServiceRequest(): Promise<ReactElement> {
               variant="stroke"
               inline
             />
-          </section>
+          </section> */}
 
         </div>
       </main>
