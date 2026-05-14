@@ -252,9 +252,11 @@ export default async function LandingPage(): Promise<ReactElement> {
           fallbackPartners={getPartners(staticLocale)}
         />
       </ScrollReveal>
+      {/* Subscription section hidden temporarily
       <ScrollReveal>
         <SubscriptionSection translations={translations} />
       </ScrollReveal>
+      */}
     </>
   );
 }
