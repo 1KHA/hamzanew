@@ -6,7 +6,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import "@/app/components/card/card.css";
 import { useRouter } from "next/navigation";
-import { t } from "@/app/_lib/translationContext";
+
 
 /**
  * Check if image URL is from localhost/private IP
@@ -36,6 +36,12 @@ interface DiscoverHamzaTestsContentProps {
   areYouReady?: AreYouReadyProps;
   sectionTitle?: string;
   translations?: Record<string, string> | null;
+}
+
+/* Translation helper: prefers Liferay value, falls back to literal string */
+function tx(key: string, translations: Record<string, string> | null | undefined, fallback: string): string {
+  const val = translations?.[key];
+  return val && val.trim() !== "" ? val : fallback;
 }
 
 /**
@@ -74,7 +80,7 @@ function TabContentCard({
                 src={`/assets/icons/stroke-standard/${tabContent.title_icon}-stroke-rounded.svg`}
               />
             </span>
-            {sectionTitle || t("hamza-test-types-title", translations) || "انواع اختبارات همزة"}
+            {sectionTitle || tx("hamza-test-types-title", translations, "انواع اختبارات همزة")}
           </p>
 
           {/* Main Card Heading */}
@@ -89,8 +95,8 @@ function TabContentCard({
         </div>
         {/* Action Link Button */}
         <Button
-          label={t("hamza-discover-more-about-test", translations) || "المزيد عن الاختبار"}
-          aria-label={`${t("hamza-discover-more-about-aria", translations) || "المزيد عن"} ${tabContent.header}`}
+          label={tx("hamza-discover-more-about-test", translations, "المزيد عن الاختبار")}
+          aria-label={`${tx("hamza-discover-more-about-aria", translations, "المزيد عن")} ${tabContent.header}`}
           variant="primary-brand"
           size="lg"
           icon="arrow-up-right-01"
@@ -106,7 +112,7 @@ function TabContentCard({
         <div className="card-img-container">
           <Image
             src={tabContent.image}
-            alt={`${t("hamza-discover-test-image-alt", translations) || "صورة توضيحية لـ"} ${tabContent.header}`}
+            alt={`${tx("hamza-discover-test-image-alt", translations, "صورة توضيحية لـ")} ${tabContent.header}`}
             width={700}
             height={400}
             className="card-img !h-full"
@@ -131,6 +137,7 @@ export default function DiscoverHamzaTestsContent({
   sectionTitle,
   translations,
 }: DiscoverHamzaTestsContentProps) {
+
   const [activeTab, setActiveTab] = useState<number>(1);
   const router = useRouter();
   useEffect(() => {
@@ -162,7 +169,7 @@ export default function DiscoverHamzaTestsContent({
       <section aria-labelledby="discover-tests-title">
         {/* Visually Hidden Title for Screen Readers */}
         <h2 id="discover-tests-title" className="sr-only">
-          {sectionTitle || t("hamza-test-types-title", translations) || "اختبارات همزة الأكاديمية والمفردات"}
+          {sectionTitle || tx("hamza-test-types-title", translations, "اختبارات همزة الأكاديمية والمفردات")}
         </h2>
 
         {/* Tab Navigation Menu */}
@@ -173,22 +180,22 @@ export default function DiscoverHamzaTestsContent({
           size="lg"
           tabsList={[
             {
-              label: tabsContent[0]?.header || t("hamza-academic-test", translations) || "اختبار همزة الأكاديمي",
+              label: tabsContent[0]?.header || tx("hamza-academic-test", translations, "اختبار همزة الأكاديمي"),
               tabIcon: "mortarboard-02",
               onClick: () => handleTabChange(1),
             },
             {
-              label: tabsContent[1]?.header || t("hamza-general-test", translations) || "اختبار همزة العام",
+              label: tabsContent[1]?.header || tx("hamza-general-test", translations, "اختبار همزة العام"),
               tabIcon: "glasses",
               onClick: () => handleTabChange(2),
             },
             {
-              label: tabsContent[2]?.header || t("hamza-placement-test", translations) || "اختبار همزة لتحديد المستوى",
+              label: tabsContent[2]?.header || tx("hamza-placement-test", translations, "اختبار همزة لتحديد المستوى"),
               tabIcon: "star",
               onClick: () => handleTabChange(3),
             },
             {
-              label: tabsContent[3]?.header || t("hamza-vocabulary-test", translations) || "اختبار همزة المفردات",
+              label: tabsContent[3]?.header || tx("hamza-vocabulary-test", translations, "اختبار همزة المفردات"),
               tabIcon: "book-02",
               onClick: () => handleTabChange(4),
             },
@@ -235,10 +242,10 @@ export default function DiscoverHamzaTestsContent({
           <div className="flex flex-col md:flex-row items-center gap-[32px] text-center md:text-start">
             <div className="flex flex-col gap-4">
               <h2 id="cta-title" className="display-sm-bold !text-white">
-                {areYouReady?.titleText || t("hamza-are-you-ready-title", translations) || "هل أنت مستعد لاختبار همزة؟"}
+                {areYouReady?.titleText || tx("hamza-are-you-ready-title", translations, "هل أنت مستعد لاختبار همزة؟")}
               </h2>
               <p className="text-md-regular !text-white md:text-start text-center max-w-[500px]">
-                {areYouReady?.descriptionText || t("hamza-are-you-ready-description", translations) || "نوفّر برامج إعداد مرنة يمكنك دراستها بالوتيرة التي تناسبك، وبأساليب متنوعة تلائم احتياجاتك. عزّز تجربتك وجهودك الدراسية، واستعد ليوم الاختبار بثقة واطمئنان."}
+                {areYouReady?.descriptionText || tx("hamza-are-you-ready-description", translations, "نوفّر برامج إعداد مرنة يمكنك دراستها بالوتيرة التي تناسبك، وبأساليب متنوعة تلائم احتياجاتك. عزّز تجربتك وجهودك الدراسية، واستعد ليوم الاختبار بثقة واطمئنان.")}
               </p>
             </div>
           </div>
@@ -246,7 +253,7 @@ export default function DiscoverHamzaTestsContent({
           {/* CTA Button */}
           <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 w-full md:w-auto">
             <Button
-              label={areYouReady?.buttonText || t("hamza-prepare-for-test", translations) || "التحضير للاختبار"}
+              label={areYouReady?.buttonText || tx("hamza-prepare-for-test", translations, "التحضير للاختبار")}
               variant="primary-neutral--on-color"
               size="lg"
               icon="arrow-up-right-01"
