@@ -145,6 +145,47 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     latestCoverageTitle: { ar: "آخر التغطيات", en: "Latest Coverage" },
     readMoreBtn: { ar: "قراءة المزيد", en: "Read More" },
   },
+
+  researchServiceRequest: {
+    metaTitle: { ar: "طلب خدمة بحثية | اختبار همزة", en: "Research Service Request | Hamza Test" },
+    metaDescription: {
+      ar: "يسهم كبار الأكاديميين والباحثين حول العالم في التطوير المستمر وتحسين اختبار همزة من خلال تنفيذ أبحاث ممولة. اكتشف أحدث الأبحاث الأكاديمية والرؤى والخبرات من شركاء اختبار همزة وخبراء عالميين في تقييم اللغة العربية.",
+      en: "Leading academics and researchers around the world contribute to the continuous development and improvement of the Hamza Test through funded research. Discover the latest academic research, insights, and expertise from Hamza Test partners and global experts in Arabic language assessment.",
+    },
+    heroTitle: { ar: "طلب خدمة بحثية", en: "Research Service Request" },
+    heroDescription: {
+      ar: "يسهم كبار الأكاديميين والباحثين حول العالم في التطوير المستمر وتحسين اختبار همزة من خلال تنفيذ أبحاث ممولة. اكتشف أحدث الأبحاث الأكاديمية، والرؤى، والخبرات من شركاء اختبار همزة وخبراء عالميين في تقييم اللغة العربية.",
+      en: "Leading academics and researchers around the world contribute to the continuous development and improvement of the Hamza Test through funded research. Discover the latest academic research, insights, and expertise from Hamza Test partners and global experts in Arabic language assessment.",
+    },
+    breadcrumbHome: { ar: "الرئيسة", en: "Home" },
+    breadcrumbResearch: { ar: "الأبحاث", en: "Research" },
+    breadcrumbServiceRequest: { ar: "طلب خدمة بحثية", en: "Research Service Request" },
+    formHeading: { ar: "نموذج طلب خدمة بحثية", en: "Research Service Request Form" },
+    formDescription: {
+      ar: "نرجو استخدام النموذج التالي لتقديم طلبات الخدمات البحثية المتعلقة باختبار همزة.",
+      en: "Please use the following form to submit research service requests related to the Hamza Test.",
+    },
+    servicesHeading: { ar: "الخدمات البحثية", en: "Research Services" },
+    downloadBtn: { ar: "تحميل النموذج", en: "Download Form" },
+    downloadAria: { ar: "تحميل نموذج طلب خدمة بحثية", en: "Download research service request form" },
+    serviceCollabTitle: { ar: "طلب تعاون بحثي", en: "Request Research Collaboration" },
+    serviceDataTitle: { ar: "طلب بيانات بغرض البحث", en: "Request Data for Research" },
+    serviceIdeaTitle: { ar: "مشاركة فكرة أو مقترح بحثي", en: "Share a Research Idea or Proposal" },
+    serviceCollabAction: { ar: "تقديم الطلب", en: "Submit Request" },
+    serviceDataAction: { ar: "تقديم الطلب", en: "Submit Request" },
+    serviceIdeaAction: { ar: "مشاركة الفكرة", en: "Share Idea" },
+    week1Title: { ar: "المرحلة الأولى — استلام الطلب", en: "Phase 1 — Request Received" },
+    week2Title: { ar: "المرحلة الثانية — مراجعة الطلب", en: "Phase 2 — Request Review" },
+    week3Title: { ar: "المرحلة الثالثة — الرد والتنفيذ", en: "Phase 3 — Response & Execution" },
+    toastLead: { ar: "ضوابط استخدام البيانات البحثية", en: "Research Data Usage Guidelines" },
+    toastHelper: {
+      ar: "لضمان استخدام علمي وأخلاقي للبيانات، نحيلكم إلى شروط إعداد الدراسات والأبحاث بناءً على اختبارات همزة",
+      en: "To ensure scientific and ethical use of data, we refer you to the terms for preparing studies and research based on Hamza tests",
+    },
+    toastAriaHeading: { ar: "ضوابط استخدام البيانات البحثية", en: "Research Data Usage Guidelines" },
+    ariaPage: { ar: "طلب خدمة بحثية", en: "Research Service Request" },
+  },
+
   statistics: {
     sectionAria: { ar: "إحصائيات همزة", en: "Hamza Statistics" },
     showAll: { ar: "عرض الكل", en: "View All" },

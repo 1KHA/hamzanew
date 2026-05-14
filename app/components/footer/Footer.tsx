@@ -2,11 +2,8 @@ import "./footer.css";
 import LastModified from "../last-modified/LastModified";
 import Link from "next/link";
 import FeedbackDynamic from "../feedback/FeedbackDynamic";
-<<<<<<< HEAD
 import FooterAccessibilityTools from "./FooterAccessibilityTools";
 import { st } from "@/app/_lib/static-text-server";
-=======
->>>>>>> 4df7879a9d811e63a4187a5433e39fa1004eae18
 
 function ExternalIcon() {
   return (
