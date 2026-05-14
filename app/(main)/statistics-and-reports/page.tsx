@@ -22,6 +22,7 @@ import { getReportsData } from "./_data/reportsData";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { getTranslations } from "@/app/_lib/getTranslations";
+import { parseStatisticsCSV } from "@/app/_lib/statistics-csv-parser";
 import { st } from "@/app/_lib/static-text-server";
 
 /* ==========================================================================
@@ -106,6 +107,18 @@ export default async function StatisticsAndReportsPage(): Promise<ReactElement> 
     ],
   };
 
+  // Statistics data source switch
+  const statsSource = process.env.STATISTICS_SOURCE || "liferay";
+  let csvData = null;
+  if (statsSource === "csv") {
+    try {
+      csvData = parseStatisticsCSV();
+      console.log(`[StatsReports] CSV statistics loaded: ${csvData.countryStats.length} countries, ${csvData.examTypeStats.length} exam types`);
+    } catch (err) {
+      console.error("[StatsReports] Failed to parse statistics CSV:", err);
+    }
+  }
+
   const reports = data?.reports || getReportsData(staticLocale);
   const statistics = data?.statistics || [
     { numberTitle: "1.5k", descriptionText: st("statisticsAndReports", "statTestCenters", staticLocale) },
@@ -133,7 +146,7 @@ export default async function StatisticsAndReportsPage(): Promise<ReactElement> 
             aria-label={st("statisticsAndReports", "ariaPage", staticLocale)}
           >
             <div aria-label={st("statisticsAndReports", "ariaPage", staticLocale)}>
-              <GlobalStatisticsSection statistics={statistics} />
+              <GlobalStatisticsSection statistics={statistics} csvData={csvData} />
             </div>
           </section>
         </div>

@@ -4,15 +4,18 @@ import { useRouter } from "next/navigation";
 import Button from "@/app/components/button/Button";
 import GlobalStatisticsSection from "@/app/components/global-statistics-section/GlobalStatisticsSection";
 import { st } from "@/app/_lib/static-text";
+import type { ParsedStatisticsData } from "@/app/_lib/statistics-csv-service";
 
 interface StatisticsSectionProps {
   translations?: Record<string, string> | null;
   countries?: { code: string; name: string }[];
+  csvData?: ParsedStatisticsData | null;
 }
 
 export default function StatisticsSection({
   translations,
   countries,
+  csvData,
 }: StatisticsSectionProps) {
   const router = useRouter();
 
@@ -43,6 +46,7 @@ export default function StatisticsSection({
           <GlobalStatisticsSection
             translations={translations}
             countries={countries}
+            csvData={csvData}
           />
         </div>
       </section>

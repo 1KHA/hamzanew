@@ -5,6 +5,7 @@ import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFields, extractList } from "@/app/_lib/helper-service";
 import { getTranslations } from "@/app/_lib/getTranslations";
 import { getFormattedCountriesList } from "@/app/_lib/countries-service";
+import { parseStatisticsCSV } from "@/app/_lib/statistics-csv-parser";
 import { cookies } from "next/headers";
 
 import Banner from "./(landing)/_components/Banner";
@@ -214,6 +215,18 @@ export default async function LandingPage(): Promise<ReactElement> {
   const countries = countriesRaw.map((c: { label: string; key: string }) => ({ name: c.label, code: c.key.toUpperCase() }));
   console.log(`[Home] Countries fetched: ${countriesRaw.length}, mapped: ${countries.length}`);
 
+  // Statistics data source switch
+  const statsSource = process.env.STATISTICS_SOURCE || "liferay";
+  let csvData = null;
+  if (statsSource === "csv") {
+    try {
+      csvData = parseStatisticsCSV();
+      console.log(`[Home] CSV statistics loaded: ${csvData.countryStats.length} countries, ${csvData.examTypeStats.length} exam types, ${csvData.yearStats.length} years, ${csvData.nationalityStats.length} nationalities`);
+    } catch (err) {
+      console.error("[Home] Failed to parse statistics CSV:", err);
+    }
+  }
+
   return (
     <>
       <Banner bannerFields={bannerFields} />
@@ -226,7 +239,7 @@ export default async function LandingPage(): Promise<ReactElement> {
       </ScrollReveal>
 
       <ScrollReveal>
-        <StatisticsSection translations={translations} countries={countries} />
+        <StatisticsSection translations={translations} countries={countries} csvData={csvData} />
       </ScrollReveal>
 
       <ScrollReveal>

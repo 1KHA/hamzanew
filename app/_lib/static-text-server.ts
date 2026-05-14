@@ -212,6 +212,9 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     statNationalities: { ar: "جنسيات", en: "Nationalities" },
     statCountries: { ar: "دولة", en: "Countries" },
     statTesters: { ar: "مختبرين", en: "Testers" },
+    statTotalTestTakers: { ar: "إجمالي المختبرين", en: "Total Test Takers" },
+    statNumberOfTests: { ar: "عدد الاختبارات", en: "Number of Tests" },
+    statParticipatingInstitutions: { ar: "المؤسسات المشاركة", en: "Participating Institutions" },
   },
   partners: {
     sectionFallback: { ar: "الشركاء", en: "Partners" },
