@@ -673,6 +673,9 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     prepResourceSrHeading: { ar: "مصادر التحضير لاختبار همزة", en: "Preparation resources for the Hamza test" },
     prepResourceListAria: { ar: "قائمة مصادر التحضير المتاحة", en: "List of available preparation resources" },
   },
+  discoverTests: {
+    pageTitle: { ar: "اكتشف اختبارات همزة", en: "Discover Hamza Tests" },
+  },
   meranCourse: {
     /* ── Metadata & hero ────────────────────────────────────────────────────── */
     metaTitle: { ar: "دورة مران همزة", en: "Hamza Meran Course" },

@@ -286,7 +286,7 @@ export default async function HamzaMeranCoursePage() {
 
               {/* Register Button */}
               <div>
-                <a href="/test-takers/hamza-meran-course/player">
+                <a href="https://youtu.be/-5e7hvlCF0I?si=wtdawaKMR-9vJV6O" target="_blank" rel="noopener noreferrer">
                   <Button
                     label={st("meranCourse", "watchLessonsBtn", locale)}
                     variant="primary-brand"

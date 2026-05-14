@@ -1,17 +1,23 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import DiscoverHamzaTestsContent from "./DiscoverHamzaTestsContent";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFields, extractList } from "@/app/_lib/helper-service";
 import { getTranslations } from "@/app/_lib/getTranslations";
+import { st } from "@/app/_lib/static-text-server";
 
 /* ==========================================================================
    Metadata
    ========================================================================== */
 
-export const metadata: Metadata = {
-  title: "اكتشف اختبارات همزة",
-  description: "اكتشف اختبارات همزة",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+  return {
+    title: st("discoverTests", "pageTitle", locale),
+    description: st("discoverTests", "pageTitle", locale),
+  };
+}
 
 interface TabContent {
   title_icon: string;
@@ -89,6 +95,10 @@ const staticAreYouReady: AreYouReadyData = {
 export const dynamic = "force-dynamic";
 
 export default async function DiscoverHamzaTestsPage() {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value || "ar-SA";
+  const staticLocale = locale.startsWith("en") ? "en" : "ar";
+
   // Fetch translations and Liferay content directly (no internal API)
   const [translations, typeOfTestsContent, areYoureadyContentData] = await Promise.all([
     getTranslations().catch((err) => {
@@ -134,11 +144,7 @@ export default async function DiscoverHamzaTestsPage() {
       }))
     : staticTabsContent;
 
-  const sectionTitle =
-    typeOfTestsContentFields?.titleText ||
-    typeOfTestsContent?.title ||
-    staticTabsContent[0]?.header ||
-    "Discover Hamza Tests";
+  const sectionTitle = st("discoverTests", "pageTitle", staticLocale);
 
   // Section 2: Are You Ready
   const areYoureadyFields = extractFields(

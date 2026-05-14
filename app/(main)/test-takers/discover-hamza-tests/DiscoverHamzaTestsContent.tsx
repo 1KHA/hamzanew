@@ -156,6 +156,11 @@ export default function DiscoverHamzaTestsContent({
   return (
     <>
       <section aria-labelledby="discover-tests-title">
+        {/* Page Hero Title */}
+        <h1 className="display-md-bold !text-[#161616] !mb-[32px]">
+          {sectionTitle || tx("hamza-test-types-title", translations, "اختبارات همزة الأكاديمية والمفردات")}
+        </h1>
+
         {/* Visually Hidden Title for Screen Readers */}
         <h2 id="discover-tests-title" className="sr-only">
           {sectionTitle || tx("hamza-test-types-title", translations, "اختبارات همزة الأكاديمية والمفردات")}
