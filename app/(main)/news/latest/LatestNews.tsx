@@ -153,12 +153,11 @@ export default function LatestNews({
 
   return (
     <section className="content !flex !flex-col !gap-[40px] !py-[32px] lg:!py-[64px]">
-      {/* Carousel Header */}
+      {/* Breaking News section hidden temporarily
       {carouselHeader && (
         <h2 className="display-sm-bold">{carouselHeader}</h2>
       )}
 
-      {/* News Carousel */}
       <Carousel showDots={true} itemsPerSlide={1}>
         {activeNews.map((newsItem) => (
           <ul key={newsItem.id}>
@@ -168,6 +167,7 @@ export default function LatestNews({
           </ul>
         ))}
       </Carousel>
+      */}
 
       <div className="!grid !grid-cols-1 lg:!grid-cols-2 !gap-[32px]">
         {/* Latest News */}
