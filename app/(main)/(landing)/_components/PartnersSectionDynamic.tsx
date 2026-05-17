@@ -1,14 +1,46 @@
+"use client";
+
 import dynamic from "next/dynamic";
+import { useState, useEffect } from "react";
 import type { Partner } from "../_data/homeData";
 
-const PartnersSectionDynamic = dynamic<{ partners: Partner[] }>(
+const DynamicPartnersSection = dynamic(
   () => import("./PartnersSection"),
 );
 
-export default function PartnersSectionDynamic({ fallbackPartners }: { fallbackPartners?: Partner[] }) {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
-  if (!mounted) return <Placeholder />;
-  return <PartnersSection fallbackPartners={fallbackPartners} />;
+interface PartnersSectionDynamicProps {
+  insideEntities?: { id: number; name: string; image: string }[];
+  outsideEntities?: { id: number; name: string; image: string }[];
+  insideTitle?: string;
+  outsideTitle?: string;
+  translations?: Record<string, string> | null;
+  fallbackPartners?: Partner[];
 }
- 
+
+export default function PartnersSectionDynamic({
+  insideEntities,
+  outsideEntities,
+  insideTitle,
+  outsideTitle,
+  translations,
+  fallbackPartners,
+}: PartnersSectionDynamicProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  return (
+    <DynamicPartnersSection
+      insideEntities={insideEntities}
+      outsideEntities={outsideEntities}
+      insideTitle={insideTitle}
+      outsideTitle={outsideTitle}
+      translations={translations}
+      fallbackPartners={fallbackPartners}
+    />
+  );
+}
