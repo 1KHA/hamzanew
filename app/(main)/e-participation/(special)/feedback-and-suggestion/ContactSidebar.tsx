@@ -141,34 +141,34 @@ export default async function ContactSidebar() {
           <ContactItem
             icon={ICONS.call}
             title={st("eParticipation", "contactMobile", locale)}
-            label="9200343222"
-            url="tel:9200343222"
+            label="٩٦٦١١٥٢٠٧٧٧٧+"
+            url="tel:٩٦٦١١٥٢٠٧٧٧٧+"
             alt="call"
           />
 
-          <ContactItem
+          {/* <ContactItem
             icon={ICONS.message}
             title={st("eParticipation", "contactSms", locale)}
             label="199099"
             url="sms:199099"
             alt="message"
-          />
+          /> */}
 
           <ContactItem
             icon={ICONS.mail}
             title={st("eParticipation", "contactEmail", locale)}
-            label="help@hamza.sa"
-            url="mailto:help@hamza.sa"
+            label="infohamza@ksaa.gov.sa"
+            url="mailto:infohamza@ksaa.gov.sa"
             alt="mail"
           />
 
-          <ContactItem
+          {/* <ContactItem
             icon={ICONS.mail}
             title={st("eParticipation", "contactFax", locale)}
             label="00966-11-434-6654"
             url="tel:00966114346654"
             alt="fax"
-          />
+          /> */}
 
           {/* Location */}
           <div className="!flex flex-row! justify-start! items-start! gap-2!">
