@@ -186,8 +186,11 @@ export default async function ContactSidebar() {
               </h3>
               <div className="!flex !flex-row !justify-start !gap-2 items-center">
                 <Link
+                  external
                   label={st("eParticipation", "locationRiyadh", locale)}
                   size="md"
+                  target="_blank"
+                  url="https://maps.app.goo.gl/UQPyymnDiM3X8nCM9"
                   variant="primary"
                 />
                 <Image
@@ -210,14 +213,14 @@ export default async function ContactSidebar() {
               </h3>
               <div className="!flex !flex-row !justify-start !gap-2 ">
                 <a
-                  href="https://www.instagram.com/hamzatest"
+                  href="https://www.facebook.com/KSGAFAL/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="!flex flex-row! justify-start! gap-2! p-1! cursor-pointer! rounded items-center focus:ring-2 focus:ring-primary-500"
-                  aria-label={st("eParticipation", "followInstagram", locale)}
+                  aria-label={st("eParticipation", "followFacebook", locale)}
                 >
                   <Image
-                    src={ICONS.instagram}
+                    src="/assets/icons/stroke-standard/facebook-01-stroke-rounded.svg"
                     alt=""
                     aria-hidden="true"
                     width={20}
@@ -225,7 +228,7 @@ export default async function ContactSidebar() {
                   />
                 </a>
                 <a
-                  href="https://www.linkedin.com/company/hamzatest"
+                  href="https://sa.linkedin.com/company/ksgafal"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="!flex flex-row! justify-start! gap-2! p-1! cursor-pointer! rounded items-center focus:ring-2 focus:ring-primary-500"
@@ -240,7 +243,7 @@ export default async function ContactSidebar() {
                   />
                 </a>
                 <a
-                  href="https://x.com/hamzatest"
+                  href="https://x.com/KSGAFAL"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="!flex flex-row! justify-start! gap-2! p-1! cursor-pointer! rounded items-center focus:ring-2 focus:ring-primary-500"
@@ -248,6 +251,21 @@ export default async function ContactSidebar() {
                 >
                   <Image
                     src={ICONS.twitter}
+                    alt=""
+                    aria-hidden="true"
+                    width={20}
+                    height={20}
+                  />
+                </a>
+                <a
+                  href="https://www.youtube.com/channel/UCGXRWZ9gkmmGQn5DSz8DbNA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="!flex flex-row! justify-start! gap-2! p-1! cursor-pointer! rounded items-center focus:ring-2 focus:ring-primary-500"
+                  aria-label={st("eParticipation", "followYouTube", locale)}
+                >
+                  <Image
+                    src="/assets/icons/stroke-standard/youtube-stroke-rounded.svg"
                     alt=""
                     aria-hidden="true"
                     width={20}
