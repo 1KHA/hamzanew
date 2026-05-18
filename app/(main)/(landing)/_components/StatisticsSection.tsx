@@ -30,12 +30,12 @@ export default function StatisticsSection({
             <h2 className="display-sm-bold">
               {translations?.["hamza-home-page-map-title"] || st("statistics", "headingFallback")}
             </h2>
-            <Button
+            {/* <Button
               label={st("statistics", "showAll")}
               variant="secondary-outline"
               size="md"
               onClick={() => router.push("/statistics-and-reports")}
-            />
+            /> */}
           </div>
           <p className="text-md-regular">
             {translations?.["hamza-home-page-map-institutions-description"] ||

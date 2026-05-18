@@ -276,10 +276,10 @@ export default async function ContactSidebar() {
             </div>
           </div>
 
-          <hr className="text-[#D2D6DB]! my-6! border-t" />
+          {/* <hr className="text-[#D2D6DB]! my-6! border-t" /> */}
 
           {/* Emergency Contacts */}
-          <div className="!flex flex-col! gap-4!">
+          {/* <div className="!flex flex-col! gap-4!">
             <h1 className="text-xl-bold">
               {st("eParticipation", "emergencyContacts", locale)}
             </h1>
@@ -298,7 +298,7 @@ export default async function ContactSidebar() {
               number="997"
               locale={locale}
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </aside>
