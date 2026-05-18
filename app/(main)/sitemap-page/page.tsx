@@ -103,6 +103,7 @@ const SITEMAP_DATA: SitemapEntry[] = [
       { label: "مكتبة الأبحاث", href: "/research-library" },
       { label: "التقارير والإحصائيات", href: "/statistics-and-reports" },
       { label: "معمل ابحاث الاختبارات اللغوية", href: "/news/language-testing-lab" },
+      { label: "طلب خدمة بحثية", href: "/research-service-request" },
     ],
   },
 

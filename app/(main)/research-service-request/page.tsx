@@ -92,8 +92,7 @@ export default function ResearchServiceRequest(): ReactElement {
               </h2>
               <div className="flex flex-col gap-[16px]">
                 <p className="text-md-regular text-[#475467]">
-                  نرجو استخدام النموذج التالي لتقديم طلبات الخدمات البحثية المتعلقة باختبار همزة.
-                </p>
+نرجو استخدام النموذج التالي وتعبئة جميع البيانات المطلوبة، ثم إرفاقه عند تقديم طلب الخدمة البحثية؛ لضمان سرعة معالجة الطلب ومراجعته.                </p>
                 <Button
                   aria-label="تحميل نموذج طلب خدمة بحثية"
                   label="تحميل النموذج"
@@ -155,12 +154,12 @@ export default function ResearchServiceRequest(): ReactElement {
         <NotificationToast
           type="info"
           leadText="ضوابط استخدام البيانات البحثية"
-          helperText="لضمان استخدام علمي وأخلاقي للبيانات،نحيلكم إلى شروط إعداد الدراسات والأبحاث بناءً على اختبارات همزة"
+          helperText="لضمان استخدام علمي وأخلاقي للبيانات، تخضع جميع الطلبات للمراجعة وفق سياسات ومعايير اختبارات همزة. كما تجدون الضوابط التفصيلية مُدرجةً ضمن نموذج طلب الخدمة، ويُرجى الاطلاع عليها قبل تقديم الطلب."
           open
           variant="stroke"
           inline
-            // actionLabel="التواصل مع البريد البحثي"
-            // actionHref="mailto:altrl@ksaa.gov.sa"
+          // actionLabel="التواصل مع البريد البحثي"
+          // actionHref="mailto:altrl@ksaa.gov.sa"
         />
       </section>
 
