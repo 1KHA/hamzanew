@@ -16,13 +16,22 @@ interface ServicesSectionProps {
 
 export default function ServicesSection({ services, bannerBoxes, locale }: ServicesSectionProps) {
   // Merge dynamic titles/links from API with static descriptions/icons
+  // Match by link slug instead of array index to avoid CMS ordering mismatches
   const mergedServices =
     bannerBoxes && bannerBoxes.length > 0
-      ? bannerBoxes.map((box, index) => ({
-          ...services[index % services.length],
-          title: box.title || services[index % services.length].title,
-          link: box.link || services[index % services.length].link,
-        }))
+      ? services.map((service) => {
+          // Extract slug from static fallback link, e.g. "/types-of-tests/hamza-general-test" → "hamza-general-test"
+          const slug = service.link?.split("/").filter(Boolean).pop() || "";
+          // Find API banner box whose link contains the same slug
+          const matchedBox = bannerBoxes.find(
+            (box) => box.link && box.link.includes(slug)
+          );
+          return {
+            ...service,
+            title: matchedBox?.title || service.title,
+            link: matchedBox?.link || service.link,
+          };
+        })
       : services;
   return (
     <div className="bg-neutral-50">
@@ -45,10 +54,7 @@ export default function ServicesSection({ services, bannerBoxes, locale }: Servi
                 title={service.title}
                 description={service.description}
                 icon={service.icon}
-                showPrimaryAction
-                primaryActionLabel={st("services", "register", locale)}
-                showPrimaryIcon
-                primaryTrailIconType="arrow-up-right-01"
+                showPrimaryAction={false}
                 showSecondaryAction
                 secondaryActionLabel={st("services", "more", locale)}
                 showSecondaryIcon={false}
