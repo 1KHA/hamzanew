@@ -196,6 +196,9 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     },
     statsAria: { ar: "الإحصائيات العامة", en: "General Statistics" },
     globalOption: { ar: "كل الدول", en: "Global" },
+    globalOptionExamType: { ar: "جميع الاختبارات", en: "All Tests" },
+    globalOptionYear: { ar: "جميع السنوات", en: "All Years" },
+    globalOptionNationality: { ar: "جميع الجنسيات", en: "All Nationalities" },
     yearLabel: { ar: "السنة", en: "Year" },
     countryLabel: { ar: "الدولة", en: "Country" },
     countryPlaceholder: { ar: "اختر الدولة", en: "Select Country" },
@@ -697,6 +700,11 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
   },
   discoverTests: {
     pageTitle: { ar: "اكتشف اختبارات همزة", en: "Discover Hamza Tests" },
+  },
+  generalTest: {
+    questionCountLabel: { ar: "عدد الأسئلة", en: "Number of questions" },
+    questionUnitSingle: { ar: "فقرة", en: "paragraph" },
+    questionUnitPlural: { ar: "فقرات", en: "paragraphs" },
   },
   meranCourse: {
     /* ── Metadata & hero ────────────────────────────────────────────────────── */

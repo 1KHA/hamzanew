@@ -5,6 +5,7 @@ import "@/app/components/card/card.css";
 import "@/app/styles/Button.css";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFields, extractList } from "@/app/_lib/helper-service";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: "اختبار همزة العام",
@@ -63,6 +64,9 @@ async function getHamzaGeneralTestData() {
         testNameText: "testNameText",
         image: "image",
         testDescriptionText: "testDescriptionText",
+        sidebarTopText: "sidebarTopText",
+        sidebarBottomText1: "sidebarBottomText1",
+        sidebarBottomText2: "sidebarBottomText2",
       }
     );
 
@@ -128,6 +132,7 @@ async function getHamzaGeneralTestData() {
 
 export default async function HamzaGeneralTestPage() {
   const data = await getHamzaGeneralTestData();
+  const locale = (await cookies()).get("lang")?.value?.startsWith("en") ? "en" : "ar";
 
   return (
     <>
@@ -140,6 +145,7 @@ export default async function HamzaGeneralTestPage() {
           <GeneralTestContent
             header={data.header}
             testSections={data.testSections}
+            locale={locale}
           />
         </div>
       </section>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Tag from "../../../components/tag/Tag";
 import ScrollReveal from "../../../components/scroll-reveal/ScrollReveal";
 import { QUESTION_TYPES, TEST_INFO, type TestSection, type InfoCard } from "./data";
+import { st } from "@/app/_lib/static-text-server";
 
 /* ==========================================================================
    Types
@@ -12,6 +13,9 @@ interface TestSectionItem {
   testNameText: string;
   image: string;
   testDescriptionText: string;
+  sidebarTopText?: string;
+  sidebarBottomText1?: string;
+  sidebarBottomText2?: string;
 }
 
 interface TestSectionsData {
@@ -32,6 +36,7 @@ interface GeneralTestContentProps {
   testSections?: TestSectionsData;
   questionTypes?: TestSection[];
   testInfo?: InfoCard[];
+  locale?: "ar" | "en";
 }
 
 /* ==========================================================================
@@ -72,7 +77,7 @@ function TestInfoCard({ icon, iconAlt, title, description }: InfoCard) {
   );
 }
 
-function TestSectionCard({ section }: { section: TestSection }) {
+function TestSectionCard({ section, locale = "ar" }: { section: TestSection; locale?: "ar" | "en" }) {
   return (
     <article className="card !border-none">
       <div className="flex flex-row gap-[24px] items-center w-full">
@@ -96,10 +101,10 @@ function TestSectionCard({ section }: { section: TestSection }) {
             <Tag
               variant="neutral"
               size="md"
-              label={`عدد الأسئلة ${section.questionCount} ${section.questionUnit}`}
+              label={`${st("generalTest", "questionCountLabel", locale)} ${section.questionCount}`}
               trailIcon={{
                 src: "/assets/icons/stroke-standard/message-question-stroke-rounded.svg",
-                alt: "أيقونة عدد الأسئلة",
+                alt: st("generalTest", "questionCountLabel", locale),
               }}
             />
           </div>
@@ -117,8 +122,46 @@ export default function GeneralTestContent({
   header,
   testSections,
   questionTypes = QUESTION_TYPES,
-  testInfo = TEST_INFO
+  testInfo = TEST_INFO,
+  locale = "ar",
 }: GeneralTestContentProps) {
+  // Helper function to extract number from Arabic or Western numerals
+  const extractNumber = (text: string | undefined | null): number => {
+    if (!text) return 0;
+    
+    // Check if text contains Arabic numerals (٠١٢٣٤٥٦٧٨٩)
+    const arabicNumerals = text.match(/[٠-٩]+/);
+    if (arabicNumerals) {
+      const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+      const num = parseInt(arabicNumerals[0].split('').map(d => arabicDigits.indexOf(d)).join('')) || 0;
+      if (num > 0) return num;
+    }
+    
+    // Check for Western numerals
+    const westernNumerals = text.match(/\d+/);
+    if (westernNumerals) {
+      return parseInt(westernNumerals[0]) || 0;
+    }
+    
+    return 0;
+  };
+  
+  // Helper function to determine if text refers to multiple items (فقرات vs فقرة)
+  const isPlural = (text: string | undefined | null): boolean => {
+    if (!text) return false;
+    return text.includes("فقرات");
+  };
+
+  // Map section names to fallback question counts
+  const sectionNameToFallback: Record<string, { count: string; unit: string }> = {
+    "الفهم المسموع": { count: "25", unit: "فقرة" },
+    "الاستماع": { count: "40", unit: "فقرة" },
+    "استيعاب المقروء": { count: "25", unit: "فقرة" },
+    "القراءة": { count: "40", unit: "فقرة" },
+    "الكتابة": { count: ":(مهمتين - 6 فقرات)", unit: "فقرة" },
+    "التحدث": { count: ":(3 مهمات - 9 فقرات)", unit: "فقرات" },
+  };
+
   // Transform API data if provided
   const transformedQuestionTypes = testSections?.testSectionsList?.length 
     ? testSections.testSectionsList.map((section, index) => {
@@ -132,14 +175,32 @@ export default function GeneralTestContent({
           "التحدث": "message-01",
         };
         
+        // Try to extract number from sidebar fields
+        const sidebarCount = extractNumber(section.sidebarTopText) || 
+                             extractNumber(section.sidebarBottomText1) ||
+                             extractNumber(section.sidebarBottomText2);
+        
+        const sidebarIsPlural = isPlural(section.sidebarTopText) || 
+                                isPlural(section.sidebarBottomText1) ||
+                                isPlural(section.sidebarBottomText2);
+        
+        // Use sidebar data if valid, otherwise use fallback
+        const sectionName = section.testNameText;
+        const fallback = sectionNameToFallback[sectionName] || { count: 0, unit: "فقرة" };
+        
+        const questionCount = sidebarCount > 0 ? sidebarCount : fallback.count;
+        const questionUnit = sidebarCount > 0 
+          ? (sidebarIsPlural ? "فقرات" : "فقرة") 
+          : fallback.unit;
+        
         return {
           id: index + 1,
-          icon: iconMap[section.testNameText] || "star",
-          iconAlt: `أيقونة قسم ${section.testNameText}`,
-          title: section.testNameText,
+          icon: iconMap[sectionName] || "star",
+          iconAlt: `أيقونة قسم ${sectionName}`,
+          title: sectionName,
           description: section.testDescriptionText,
-          questionCount: 0, // Will use fallback data
-          questionUnit: "فقرة",
+          questionCount,
+          questionUnit,
         };
       })
     : questionTypes;
@@ -231,7 +292,7 @@ export default function GeneralTestContent({
               duration={DURATION}
               amount={AMOUNT}
             >
-              <TestSectionCard section={section} />
+              <TestSectionCard section={section} locale={locale} />
             </ScrollReveal>
           ))}
         </div>

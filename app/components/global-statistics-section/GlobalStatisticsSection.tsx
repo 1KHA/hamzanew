@@ -69,7 +69,7 @@ function useCSVStats(csvData: ParsedStatisticsData | null | undefined) {
     if (!csvData) return [];
     return buildDropdownOptions(
       csvData.examTypeStats,
-      st("statistics", "globalOption")
+      st("statistics", "globalOptionExamType")
     );
   }, [csvData]);
 
@@ -77,7 +77,7 @@ function useCSVStats(csvData: ParsedStatisticsData | null | undefined) {
     if (!csvData) return [];
     return buildDropdownOptions(
       csvData.yearStats,
-      st("statistics", "globalOption")
+      st("statistics", "globalOptionYear")
     );
   }, [csvData]);
 
@@ -85,7 +85,7 @@ function useCSVStats(csvData: ParsedStatisticsData | null | undefined) {
     if (!csvData) return [];
     return buildDropdownOptions(
       csvData.nationalityStats,
-      st("statistics", "globalOption")
+      st("statistics", "globalOptionNationality")
     );
   }, [csvData]);
 
