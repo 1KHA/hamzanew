@@ -4,8 +4,8 @@ export interface TestSection {
   iconAlt: string;
   title: string;
   description: string;
-  questionCount: number;
-  questionUnit: string;
+  questionCount: number | string;
+  questionUnit?: string;
 }
 
 export interface InfoCard {
@@ -22,8 +22,7 @@ export const QUESTION_TYPES: TestSection[] = [
     iconAlt: "أيقونة سماعات - قسم الفهم المسموع",
     title: "الفهم المسموع",
     description: "قياس قدرتك على متابعة المحادثات والحوارات اليومية.",
-    questionCount: 25,
-    questionUnit: "فقرة",
+    questionCount: "25",
   },
   {
     id: 2,
@@ -31,8 +30,7 @@ export const QUESTION_TYPES: TestSection[] = [
     iconAlt: "أيقونة كتاب مفتوح - قسم استيعاب المقروء",
     title: "استيعاب المقروء",
     description: "اختبار فهمك للنصوص العامة والمتنوعة.",
-    questionCount: 25,
-    questionUnit: "فقرة",
+    questionCount: "25",
   },
   {
     id: 3,
@@ -40,8 +38,7 @@ export const QUESTION_TYPES: TestSection[] = [
     iconAlt: "أيقونة قلم - قسم الكتابة",
     title: "الكتابة",
     description: "تقييم قدرتك على التعبير بلغة دقيقة ومنظمة في موضوعات عامة.",
-    questionCount: 2,
-    questionUnit: "فقرة",
+    questionCount: "2",
   },
   {
     id: 4,
@@ -49,8 +46,7 @@ export const QUESTION_TYPES: TestSection[] = [
     iconAlt: "أيقونة محادثة - قسم التحدث",
     title: "التحدث",
     description: "قياس دقة لغتك وطلاقتك في استخدام اللغة في المحادثات العامة.",
-    questionCount: 5,
-    questionUnit: "فقرات",
+    questionCount: "5",
   },
 ];
 

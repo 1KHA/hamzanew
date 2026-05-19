@@ -125,41 +125,20 @@ export default function GeneralTestContent({
   testInfo = TEST_INFO,
   locale = "ar",
 }: GeneralTestContentProps) {
-  // Helper function to extract number from Arabic or Western numerals
-  const extractNumber = (text: string | undefined | null): number => {
-    if (!text) return 0;
-    
-    // Check if text contains Arabic numerals (٠١٢٣٤٥٦٧٨٩)
-    const arabicNumerals = text.match(/[٠-٩]+/);
-    if (arabicNumerals) {
-      const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-      const num = parseInt(arabicNumerals[0].split('').map(d => arabicDigits.indexOf(d)).join('')) || 0;
-      if (num > 0) return num;
-    }
-    
-    // Check for Western numerals
-    const westernNumerals = text.match(/\d+/);
-    if (westernNumerals) {
-      return parseInt(westernNumerals[0]) || 0;
-    }
-    
-    return 0;
-  };
-  
-  // Helper function to determine if text refers to multiple items (فقرات vs فقرة)
-  const isPlural = (text: string | undefined | null): boolean => {
-    if (!text) return false;
-    return text.includes("فقرات");
+  // Helper: get first non-empty sidebar text as raw string
+  const getSidebarText = (text: string | undefined | null): string => {
+    if (!text) return "";
+    return text.trim();
   };
 
-  // Map section names to fallback question counts
-  const sectionNameToFallback: Record<string, { count: string; unit: string }> = {
-    "الفهم المسموع": { count: "25", unit: "فقرة" },
-    "الاستماع": { count: "40", unit: "فقرة" },
-    "استيعاب المقروء": { count: "25", unit: "فقرة" },
-    "القراءة": { count: "40", unit: "فقرة" },
-    "الكتابة": { count: ":(مهمتين - 6 فقرات)", unit: "فقرة" },
-    "التحدث": { count: ":(3 مهمات - 9 فقرات)", unit: "فقرات" },
+  // Map section names to fallback question display text
+  const sectionNameToFallback: Record<string, string> = {
+    "الفهم المسموع": "25",
+    "الاستماع": "40",
+    "استيعاب المقروء": "25",
+    "القراءة": "40",
+    "الكتابة": "2",
+    "التحدث": "5",
   };
 
   // Transform API data if provided
@@ -175,23 +154,15 @@ export default function GeneralTestContent({
           "التحدث": "message-01",
         };
         
-        // Try to extract number from sidebar fields
-        const sidebarCount = extractNumber(section.sidebarTopText) || 
-                             extractNumber(section.sidebarBottomText1) ||
-                             extractNumber(section.sidebarBottomText2);
+        // Use first non-empty sidebar text from API, or fallback
+        const sidebarText = getSidebarText(section.sidebarTopText) || 
+                            getSidebarText(section.sidebarBottomText1) ||
+                            getSidebarText(section.sidebarBottomText2);
         
-        const sidebarIsPlural = isPlural(section.sidebarTopText) || 
-                                isPlural(section.sidebarBottomText1) ||
-                                isPlural(section.sidebarBottomText2);
-        
-        // Use sidebar data if valid, otherwise use fallback
         const sectionName = section.testNameText;
-        const fallback = sectionNameToFallback[sectionName] || { count: 0, unit: "فقرة" };
+        const fallback = sectionNameToFallback[sectionName] || "0";
         
-        const questionCount = sidebarCount > 0 ? sidebarCount : fallback.count;
-        const questionUnit = sidebarCount > 0 
-          ? (sidebarIsPlural ? "فقرات" : "فقرة") 
-          : fallback.unit;
+        const questionCount = sidebarText || fallback;
         
         return {
           id: index + 1,
@@ -200,7 +171,6 @@ export default function GeneralTestContent({
           title: sectionName,
           description: section.testDescriptionText,
           questionCount,
-          questionUnit,
         };
       })
     : questionTypes;
