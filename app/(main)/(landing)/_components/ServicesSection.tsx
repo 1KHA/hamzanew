@@ -15,21 +15,17 @@ interface ServicesSectionProps {
 }
 
 export default function ServicesSection({ services, bannerBoxes, locale }: ServicesSectionProps) {
-  // Merge dynamic titles/links from API with static descriptions/icons
-  // Match by link slug instead of array index to avoid CMS ordering mismatches
-  const mergedServices =
+  // CMS-first: use banner box titles/links, falling back to static data by index.
+  // If CMS returns no boxes, use the full static services array.
+  const displayedServices =
     bannerBoxes && bannerBoxes.length > 0
-      ? services.map((service) => {
-          // Extract slug from static fallback link, e.g. "/types-of-tests/hamza-general-test" → "hamza-general-test"
-          const slug = service.link?.split("/").filter(Boolean).pop() || "";
-          // Find API banner box whose link contains the same slug
-          const matchedBox = bannerBoxes.find(
-            (box) => box.link && box.link.includes(slug)
-          );
+      ? bannerBoxes.map((box, index) => {
+          const fallback = services[index];
           return {
-            ...service,
-            title: matchedBox?.title || service.title,
-            link: matchedBox?.link || service.link,
+            title: box.title || fallback?.title || "",
+            description: fallback?.description || "",
+            icon: fallback?.icon || "",
+            link: box.link || fallback?.link || "",
           };
         })
       : services;
@@ -47,7 +43,7 @@ export default function ServicesSection({ services, bannerBoxes, locale }: Servi
         </div>
         <div aria-label={st("services", "carouselAria", locale)}>
           <Carousel itemsPerSlide={4} gap={20} autoPlay interval={4000}>
-            {mergedServices.map((service, index) => (
+            {displayedServices.map((service, index) => (
               <Card
                 key={`service-${index}`}
                 style={{ height: 288 }}
