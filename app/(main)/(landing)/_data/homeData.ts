@@ -68,6 +68,7 @@ export interface NewsArticle {
 
 import { st } from "@/app/_lib/static-text-server";
 
+/** exam links */
 export function getServices(locale?: "ar" | "en"): Service[] {
   return [
     {

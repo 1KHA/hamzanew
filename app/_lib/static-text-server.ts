@@ -552,7 +552,7 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     breadcrumbNavAria: { ar: "مسار التنقل", en: "Breadcrumb navigation" },
     feedbackPageHeading: { ar: "الشكاوى والمقترحات", en: "Feedback & Suggestions" },
     feedbackPageIntro: {
-      ar: "نحرص في منصة همزة على تحسين تجربتك بشكل مستمر. من خلال هذا النموذج يمكنك إرسال شكوى، ملاحظة، أو اقتراح بكل سهلة، وسيتم مراجعتها من قبل الفريق المختص في أقرب وقت ممكن. رأيك يهمنا، ويساعدنا في تطوير اختبارات همزة والارتقاء بجودة المحتوى والخدمة المقدّمة لك.",
+      ar: "نحرص في موقع اختبارات همزة على تحسين تجربتك بشكل مستمر. من خلال هذا النموذج يمكنك إرسال شكوى، ملاحظة، أو اقتراح بكل سهولة، وسيتم مراجعتها من قبل الفريق المختص في أقرب وقت ممكن. رأيك يهمنا، ويساعدنا في تطوير اختبارات همزة والارتقاء بجودة المحتوى والخدمة المقدّمة لك.",
       en: "At Hamza platform, we are constantly working to improve your experience. Through this form, you can easily submit a complaint, note, or suggestion, and it will be reviewed by the specialized team as soon as possible. Your opinion matters to us and helps us develop Hamza tests and raise the quality of content and services provided to you.",
     },
 

@@ -78,7 +78,7 @@ function Footer({ locale }: FooterProps) {
                 <ul role="list" className="footer-contnet">
                   <li className="flex items-center gap-[4px]">
                     <a
-                      href="https://my.gov.sa"
+                      href="https://ksaa.gov.sa/"
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${st("footer", "KSAA", locale)} - ${opensInNew}`}
