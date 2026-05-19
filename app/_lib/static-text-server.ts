@@ -38,13 +38,13 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     more: { ar: "المزيد", en: "More" },
     generalTestTitle: { ar: "اختبار همزة العام", en: "Hamza General Test" },
     generalTestDesc: {
-      ar: "اختبار محوسب، دقيق، يقيس كفايات اللغة العربية للناطقين بغيرها لأغراض أكاديمية.",
-      en: "A computer-based, accurate test that measures Arabic language proficiency for non-native speakers for academic purposes.",
+      ar: "اختبار لقياس كفايات اللغة العربية للناطقين بغيرها لأغراض عامة.",
+      en: "A test to measure Arabic language proficiency for non-native speakers for general purposes.",
     },
     academicTestTitle: { ar: "اختبار همزة الأكاديمي", en: "Hamza Academic Test" },
     academicTestDesc: {
-      ar: "اختبار لقياس كفايات اللغة العربية للناطقين بغيرها لأغراض عامة.",
-      en: "A test to measure Arabic language proficiency for non-native speakers for general purposes.",
+      ar: "اختبار محوسب، دقيق، يقيس كفايات اللغة العربية للناطقين بغيرها لأغراض أكاديمية.",
+      en: "A computer-based, accurate test that measures Arabic language proficiency for non-native speakers for academic purposes.",
     },
     placementTestTitle: { ar: "اختبار تحديد المستوى", en: "Placement Test" },
     placementTestDesc: {

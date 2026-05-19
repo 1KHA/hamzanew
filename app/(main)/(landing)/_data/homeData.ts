@@ -72,16 +72,16 @@ import { st } from "@/app/_lib/static-text-server";
 export function getServices(locale?: "ar" | "en"): Service[] {
   return [
     {
-      title: st("services", "generalTestTitle", locale),
-      description: st("services", "generalTestDesc", locale),
-      icon: "mortarboard-01",
-      link: "/types-of-tests/hamza-general-test",
-    },
-    {
       title: st("services", "academicTestTitle", locale),
       description: st("services", "academicTestDesc", locale),
       icon: "glasses",
       link: "/types-of-tests/hamza-academic-test",
+    },
+    {
+      title: st("services", "generalTestTitle", locale),
+      description: st("services", "generalTestDesc", locale),
+      icon: "mortarboard-01",
+      link: "/types-of-tests/hamza-general-test",
     },
     {
       title: st("services", "placementTestTitle", locale),

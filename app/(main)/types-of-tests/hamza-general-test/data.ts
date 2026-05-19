@@ -55,24 +55,24 @@ export const TEST_INFO: InfoCard[] = [
     icon: "time-02",
     iconAlt: "أيقونة ساعة - مدة الاختبار",
     title: "مدة الاختبار",
-    description: "(115) دقيقة",
+    description: "(170) دقيقة",
   },
   {
     icon: "right-to-left-list-bullet",
     iconAlt: "أيقونة قائمة - عدد فقرات الاختبار",
     title: "عدد فقرات الاختبار",
-    description: "(57) فقرة",
+    description: "(95) سؤال",
   },
   {
     icon: "cursor-in-window",
     iconAlt: "أيقونة شاشة - تطبيق الاختبار عن بُعد",
     title: "تطبيق الاختبار",
-    description: "عن بُعد",
+    description: "حضوري و عن بُعد",
   },
   {
     icon: "building-06",
     iconAlt: "أيقونة مبنى - تطبيق الاختبار في مراكز الاختبار",
     title: "تطبيق الاختبار",
-    description: "في مراكز الاختبار",
+    description: " في مراكز الاختبار المعتمدة  ",
   },
 ];
