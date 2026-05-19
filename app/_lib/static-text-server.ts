@@ -36,22 +36,22 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     carouselAria: { ar: "عرض الاختبارات المتاحة", en: "Available tests display" },
     register: { ar: "التسجيل للاختبار", en: "Register for the test" },
     more: { ar: "المزيد", en: "More" },
-    generalTestTitle: { ar: "اختبار همزة العام", en: "Hamza General Test" },
+    generalTestTitle: { ar: "العام", en: "General Test" },
     generalTestDesc: {
       ar: "اختبار لقياس كفايات اللغة العربية للناطقين بغيرها لأغراض عامة.",
       en: "A test to measure Arabic language proficiency for non-native speakers for general purposes.",
     },
-    academicTestTitle: { ar: "اختبار همزة الأكاديمي", en: "Hamza Academic Test" },
+    academicTestTitle: { ar: "الأكاديمي", en: "Academic Test" },
     academicTestDesc: {
       ar: "اختبار محوسب، دقيق، يقيس كفايات اللغة العربية للناطقين بغيرها لأغراض أكاديمية.",
       en: "A computer-based, accurate test that measures Arabic language proficiency for non-native speakers for academic purposes.",
     },
-    placementTestTitle: { ar: "اختبار تحديد المستوى", en: "Placement Test" },
+    placementTestTitle: { ar: "تحديد المستوى", en: "Placement Test" },
     placementTestDesc: {
       ar: "اختبار لتحديد مستوى الكفاءة اللغوية العامة باللغة العربية لغير الناطقين بها لاستخدامه في البرامج الأكاديمية.",
       en: "A test to determine the general language proficiency level in Arabic for non-native speakers for use in academic programs.",
     },
-    vocabularyTestTitle: { ar: "اختبار همزة المفردات", en: "Hamza Vocabulary Test" },
+    vocabularyTestTitle: { ar: "المفردات", en: "Vocabulary Test" },
     vocabularyTestDesc: {
       ar: "اختبار معياري لقياس مستويات المفردات لدى الناطقين بغير العربية لأغراض مختلفة.",
       en: "A standardized test to measure vocabulary levels among non-Arabic speakers for various purposes.",
