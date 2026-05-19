@@ -10,6 +10,7 @@ import FileUpload, {
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import { NewUserFormValues } from "./SignUpForm";
+import { st } from "@/app/_lib/static-text";
 
 interface PersonalInfoProps {
   motherTongueOptions: any[];
@@ -218,9 +219,15 @@ export default function PersonalInfo({
           placeholder="ادخل رقم الاثبات"
           name="identityNumber"
           id="identity-number"
+          type="tel"
           size="lg"
           variant="darker"
+          maxLength={12}
+          aria-describedby="identity-hint"
         />
+        <p id="identity-hint" className="text-sm-regular text-gray-500 mt-1">
+          {st("signUp", "identityNumberDigitsOnly")}
+        </p>
       </FormField>
 
       <FormField

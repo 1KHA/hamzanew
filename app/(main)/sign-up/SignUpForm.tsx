@@ -13,6 +13,7 @@ import {
   getPrefixFromPhone,
 } from "@/lib/utils/phonePrefixes";
 import { signUpUserSevice } from "@/app/_lib/user-service";
+import { st } from "@/app/_lib/static-text";
 import "@/app/styles/Button.css";
 import "./sign-up.css";
 import AccountInfo from "./AccountInfo";
@@ -65,65 +66,89 @@ const STEP_CONFIG = [
 ];
 
 // ─────────────────────────────────────────
-//   Schema defined
+//   Schema factory (locale-aware)
 // ─────────────────────────────────────────
-const newUserSchema = z
-  .object({
-    /* ── Step 1 account info ── */
-    email: z
-      .string()
-      .min(1, "البريد الشبكي مطلوب")
-      .email("البريد الشبكي غير صحيح"),
-    password: z
-      .string()
-      .min(8, "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل"),
-    confirmPassword: z.string(),
-    phone: z
-      .string()
-      .regex(/^\d+$/, "يجب أن يحتوي رقم الجوال على أرقام فقط")
-      .refine(
-        (val) => {
-          const digits = getDigitsFromPhone(val);
-          return digits.length >= 7;
-        },
-        { message: "رقم الجوال غير صحيح (7 أرقام على الأقل بعد رمز الدولة)" },
-      ),
+function createSignUpSchema(getText: (key: string) => string) {
+  return z
+    .object({
+      /* ── Step 1 account info ── */
+      email: z
+        .string()
+        .min(1, getText("emailRequired"))
+        .email(getText("emailInvalid")),
+      password: z
+        .string()
+        .min(1, getText("passwordRequired"))
+        .min(8, getText("passwordMin"))
+        .regex(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/,
+          getText("passwordWeak"),
+        ),
+      confirmPassword: z.string(),
+      phone: z
+        .string()
+        .refine(
+          (val) => {
+            const digits = getDigitsFromPhone(val);
+            return /^\d+$/.test(digits);
+          },
+          { message: getText("phoneDigitsOnly") },
+        )
+        .refine(
+          (val) => {
+            const digits = getDigitsFromPhone(val);
+            return digits.length >= 7;
+          },
+          { message: getText("phoneMin7") },
+        )
+        .refine(
+          (val) => {
+            const digits = getDigitsFromPhone(val);
+            return digits.length <= 12;
+          },
+          { message: getText("phoneMax12") },
+        ),
 
-    /* ── Step 2 personal info ── */
-    firstName_ar: z.string().min(1, "الاسم الأول مطلوب"),
-    secondName_ar: z.string().min(1, "الاسم الثاني مطلوب"),
-    lastName_ar: z.string().min(1, "الاسم الأخير مطلوب"),
-    firstName_en: z.string().min(1, "الاسم الأول باللغة الإنجليزية مطلوب"),
-    secondName_en: z.string().min(1, "الاسم الثاني باللغة الإنجليزية مطلوب"),
-    lastName_en: z.string().min(1, "الاسم الأخير باللغة الإنجليزية مطلوب"),
-    birthDate: z.string().min(1, "تاريخ الميلاد مطلوب"),
-    nationality: z.string().min(1, "الجنسية مطلوبة"),
-    motherTongue: z.any().refine((val) => val && val.key, "اللغة الأم مطلوبة"),
-    identity: z.any().refine((val) => val && val.key, "الإثبات مطلوب"),
-    identityNumber: z.string().min(1, "رقم الإثبات مطلوب"),
-    identityFile: z
-      .any()
-      .refine((files) => files?.length > 0, "نسخة من الإثبات مطلوبة"),
+      /* ── Step 2 personal info ── */
+      firstName_ar: z.string().min(1, getText("firstNameArRequired")),
+      secondName_ar: z.string().min(1, getText("secondNameArRequired")),
+      lastName_ar: z.string().min(1, getText("lastNameArRequired")),
+      firstName_en: z.string().min(1, getText("firstNameEnRequired")),
+      secondName_en: z.string().min(1, getText("secondNameEnRequired")),
+      lastName_en: z.string().min(1, getText("lastNameEnRequired")),
+      birthDate: z.string().min(1, getText("birthDateRequired")),
+      nationality: z.string().min(1, getText("nationalityRequired")),
+      motherTongue: z.any().refine((val) => val && val.key, getText("motherTongueRequired")),
+      identity: z.any().refine((val) => val && val.key, getText("identityRequired")),
+      identityNumber: z
+        .string()
+        .min(1, getText("identityNumberRequired"))
+        .regex(/^\d{1,12}$/, getText("identityNumberDigitsOnly")),
+      identityFile: z
+        .any()
+        .refine((files) => files?.length > 0, getText("identityFileRequired")),
 
-    /* ── Step 3 education info ── */
-    education: z.any().refine((val) => val && val.key, "المؤهل الدراسي مطلوب"),
-    basicLanguageInEducation: z.any().refine((val) => val && val.key, "لغة التعليم مطلوبة"),
-    institution: z.any().refine((val) => val && val.key, "المؤسسة مطلوبة"),
-    specialization: z.any().refine((val) => val && val.key, "التخصص مطلوب"),
+      /* ── Step 3 education info ── */
+      education: z.any().refine((val) => val && val.key, getText("educationRequired")),
+      basicLanguageInEducation: z.any().refine((val) => val && val.key, getText("basicLanguageRequired")),
+      institution: z.any().refine((val) => val && val.key, getText("institutionRequired")),
+      specialization: z.any().refine((val) => val && val.key, getText("specializationRequired")),
 
-    /* ── Step 4 location ── */
-    timezone: z.any().refine((val) => val && val.key, "المنطقة الزمنية مطلوبة"),
-    country: z.string().min(1, "الدولة مطلوبة"),
-    state: z.string().min(1, "المنطقة مطلوبة"),
-    city: z.string().min(1, "المدينة مطلوبة"),
-    postalAddress: z.string().min(1, "العنوان البريدي مطلوب"),
-    zipCode: z.string().min(1, "الرمز البريدي مطلوب"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "كلمات السر غير متطابقة",
-    path: ["confirmPassword"],
-  });
-export type NewUserFormValues = z.infer<typeof newUserSchema>;
+      /* ── Step 4 location ── */
+      timezone: z.any().refine((val) => val && val.key, getText("timezoneRequired")),
+      country: z.string().min(1, getText("countryRequired")),
+      state: z.string().min(1, getText("stateRequired")),
+      city: z.string().min(1, getText("cityRequired")),
+      postalAddress: z.string().min(1, getText("postalAddressRequired")),
+      zipCode: z.string().min(1, getText("zipCodeRequired")),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: getText("confirmPasswordMismatch"),
+      path: ["confirmPassword"],
+    });
+}
+
+export type NewUserFormValues = z.infer<ReturnType<typeof createSignUpSchema>>;
 
 interface SignUpFormProps {
   motherTongueOptions: any[];
@@ -149,14 +174,16 @@ export default function SignUpForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  const newUserSchema = createSignUpSchema((key) => st("signUp", key));
+
   const methods = useForm<NewUserFormValues>({
     resolver: zodResolver(newUserSchema),
     defaultValues:
       process.env.NODE_ENV === "development"
         ? {
             email: "sophia.williams@example.com",
-            password: "Password123",
-            confirmPassword: "Password123",
+            password: "Password123!",
+            confirmPassword: "Password123!",
             phone: "1501234567",
             firstName_ar: "صوفيا",
             secondName_ar: "جيمس",

@@ -13,6 +13,7 @@ import {
   PrefixOption,
 } from "@/lib/utils/phonePrefixes";
 import { NewUserFormValues } from "./SignUpForm";
+import { st } from "@/app/_lib/static-text";
 
 export default function AccountInfo() {
   const {
@@ -119,6 +120,7 @@ export default function AccountInfo() {
                 placeholder="رقم الجوال"
                 type="tel"
                 inputMode="numeric"
+                maxLength={12}
                 value={phoneDigitsOnly}
                 name="phone"
                 className="input__field"
@@ -221,7 +223,11 @@ export default function AccountInfo() {
           type="password"
           size="lg"
           variant="darker"
+          aria-describedby="password-hint"
         />
+        <p id="password-hint" className="text-sm-regular text-gray-500 mt-1">
+          {st("signUp", "passwordStrongHint")}
+        </p>
       </FormField>
 
       {/* Confirm Password */}

@@ -13,6 +13,7 @@ interface ControlledTextInputProps<TFieldValues extends FieldValues> {
   size?: "md" | "lg";
   variant?: "lighter" | "default" | "darker";
   id?: string;
+  maxLength?: number;
   "aria-describedby"?: string;
   "aria-required"?: boolean;
 }
@@ -24,6 +25,7 @@ export default function ControlledTextInput<TFieldValues extends FieldValues>({
   size = "lg",
   variant = "darker",
   id,
+  maxLength,
   "aria-describedby": ariaDescribedBy,
   "aria-required": ariaRequired,
 }: ControlledTextInputProps<TFieldValues>) {
@@ -49,6 +51,7 @@ export default function ControlledTextInput<TFieldValues extends FieldValues>({
           placeholder={placeholder}
           size={size}
           variant={variant}
+          maxLength={maxLength}
           aria-describedby={ariaDescribedBy}
           required={ariaRequired}
         />
