@@ -62,7 +62,7 @@ export const TEST_INFO: InfoCard[] = [
     icon: "time-02",
     iconAlt: "أيقونة ساعة - مدة الاختبار",
     title: "مدة الاختبار",
-    description: "(155) دقيقة",
+    description: "(155)",
   },
   {
     icon: "right-to-left-list-bullet",

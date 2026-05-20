@@ -266,7 +266,7 @@ export default function AcademicTestContent({
           icon: "time-02",
           iconAlt: "أيقونة ساعة - مدة الاختبار",
           title: testSections.testDurationText,
-          description: `${testSections.testDurationValueText} دقيقة`,
+          description: `${testSections.testDurationValueText}`,
         },
         {
           icon: "right-to-left-list-bullet",

@@ -183,7 +183,7 @@ async function getAcademicTestData(): Promise<AcademicTestData> {
         descriptionText:
           'صُمّم اختبار "همزة" ليقدّم تقييمًا شاملًا لمستوى الكفاءة اللغوية في اللغة العربية من خلال أربعة أقسام رئيسية:',
         testDurationText: "مدة الاختبار",
-        testDurationValueText: "155 دقيقة",
+        testDurationValueText: "155",
         numberOfTestItemsText: "عدد فقرات الاختبار",
         numberOfTestItemsValueText: "75 فقرة",
         availableTestsTitleText: "يطبق الاختبار",
