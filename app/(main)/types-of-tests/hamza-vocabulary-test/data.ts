@@ -1,23 +1,30 @@
+import { st } from "@/app/_lib/static-text-server";
+
 export interface InfoCard {
   icon: string;
   title: string;
   description: string;
 }
 
-export const TEST_INFO: InfoCard[] = [
-  {
-    icon: "chart-column",
-    title: "المستويات",
-    description: "(5) مستويات",
-  },
-  {
-    icon: "right-to-left-list-bullet",
-    title: "عدد الأسئلة",
-    description: "(150)",
-  },
-  {
-    icon: "time-02",
-    title: "مدة الاختبار",
-    description: "(150) دقيقة",
-  },
-];
+export function getTestInfo(locale?: "ar" | "en"): InfoCard[] {
+  return [
+    {
+      icon: "chart-column",
+      title: st("vocabularyTest", "infoLevelsTitle", locale),
+      description: st("vocabularyTest", "infoLevelsDesc", locale),
+    },
+    {
+      icon: "right-to-left-list-bullet",
+      title: st("vocabularyTest", "infoQuestionsTitle", locale),
+      description: st("vocabularyTest", "infoQuestionsDesc", locale),
+    },
+    {
+      icon: "time-02",
+      title: st("vocabularyTest", "infoDurationTitle", locale),
+      description: st("vocabularyTest", "infoDurationDesc", locale),
+    },
+  ];
+}
+
+/** @deprecated Use getTestInfo(locale) for bilingual support */
+export const TEST_INFO: InfoCard[] = getTestInfo();

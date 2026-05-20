@@ -1,7 +1,8 @@
 
 import Image from "next/image";
 import ScrollReveal from "../../../components/scroll-reveal/ScrollReveal";
-import { TEST_INFO, type InfoCard } from "./data";
+import { getTestInfo, type InfoCard } from "./data";
+import { st } from "@/app/_lib/static-text-server";
 
 /* ==========================================================================
    Type Definitions
@@ -27,6 +28,7 @@ interface HeaderData {
 interface VocabularyTestContentProps {
   header?: HeaderData;
   testSections?: TestSectionsData;
+  locale?: "ar" | "en";
 }
 
 /* ==========================================================================
@@ -64,11 +66,11 @@ function TestInfoCard({ icon, title, description }: InfoCard) {
    Main Export
    ========================================================================== */
 
-export default function VocabularyTestContent({ header, testSections }: VocabularyTestContentProps) {
+export default function VocabularyTestContent({ header, testSections, locale = "ar" }: VocabularyTestContentProps) {
   // Use dynamic data if available, otherwise fallback to static data
-  const headerTitle = header?.titleText || "اختبار همزة المفردات";
-  const sectionTitle = testSections?.title || "أقسام الاختبار";
-  const sectionDescription = testSections?.descriptionText || "يقيس هذا الاختبار مستويات المفردات اللغوية لدى المتعلمين، ويُعد امتدادًا مطوّرًا للاختبار الأصلي الخاص بمستويات المفردات. ويعتمد على منهجية الاختبار من متعدد، مما يتيح قياسًا دقيقًا ومنهجيًا لقدرة المتعلمين على فهم المفردات واستخدامها عبر مستويات مختلفة، ويسهم في تشخيص كفاءتهم اللغوية بشكل موضوعي وموثوق.";
+  const headerTitle = header?.titleText || st("vocabularyTest", "headerSubtitle", locale);
+  const sectionTitle = testSections?.title || st("vocabularyTest", "headerTitle", locale);
+  const sectionDescription = testSections?.descriptionText || st("vocabularyTest", "headerDescription", locale);
 
   // Transform API data to component format if available
   const dynamicTestInfo: InfoCard[] = testSections?.testSectionsList?.map((item, index) => ({
@@ -78,7 +80,7 @@ export default function VocabularyTestContent({ header, testSections }: Vocabula
   })) || [];
 
   // Use dynamic test info if available, otherwise fallback to static
-  const testInfo = dynamicTestInfo.length > 0 ? dynamicTestInfo : TEST_INFO;
+  const testInfo = dynamicTestInfo.length > 0 ? dynamicTestInfo : getTestInfo(locale);
 
   return (
     <>
@@ -116,7 +118,7 @@ export default function VocabularyTestContent({ header, testSections }: Vocabula
       <div
         className="grid grid-cols-1 md:grid-cols-3 gap-[24px]"
         role="list"
-        aria-label="معلومات اختبار همزة المفردات"
+        aria-label={st("vocabularyTest", "ariaTestInfo", locale)}
       >
         {testInfo.map((card, i) => (
           <ScrollReveal

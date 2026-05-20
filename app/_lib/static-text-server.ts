@@ -783,6 +783,24 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     ariaTestSections: { ar: "أقسام اختبار همزة لتحديد المستوى الأربعة", en: "Four Hamza Placement Test Sections" },
     iconAltPrefix: { ar: "أيقونة", en: "Icon" },
   },
+  vocabularyTest: {
+    /* ── Info cards ────────────────────────────────────────────────────────── */
+    infoLevelsTitle: { ar: "المستويات", en: "Levels" },
+    infoLevelsDesc: { ar: "(5) مستويات", en: "(5) levels" },
+    infoQuestionsTitle: { ar: "عدد الأسئلة", en: "Number of Questions" },
+    infoQuestionsDesc: { ar: "(150)", en: "(150)" },
+    infoDurationTitle: { ar: "مدة الاختبار", en: "Test Duration" },
+    infoDurationDesc: { ar: "(150) دقيقة", en: "(150) minutes" },
+    /* ── Header fallbacks ──────────────────────────────────────────────────── */
+    headerSubtitle: { ar: "اختبار همزة المفردات", en: "Hamza Vocabulary Test" },
+    headerTitle: { ar: "أقسام الاختبار", en: "Test Sections" },
+    headerDescription: {
+      ar: "يقيس هذا الاختبار مستويات المفردات اللغوية لدى المتعلمين، ويُعد امتدادًا مطوّرًا للاختبار الأصلي الخاص بمستويات المفردات. ويعتمد على منهجية الاختبار من متعدد، مما يتيح قياسًا دقيقًا ومنهجيًا لقدرة المتعلمين على فهم المفردات واستخدامها عبر مستويات مختلفة، ويسهم في تشخيص كفاءتهم اللغوية بشكل موضوعي وموثوق.",
+      en: "This test measures vocabulary levels among learners and is an enhanced extension of the original vocabulary levels test. It adopts a multiple-choice methodology, enabling accurate and systematic measurement of learners' ability to understand and use vocabulary across different levels, contributing to an objective and reliable diagnosis of their language proficiency.",
+    },
+    /* ── aria-labels ───────────────────────────────────────────────────────── */
+    ariaTestInfo: { ar: "معلومات اختبار همزة المفردات", en: "Hamza Vocabulary Test Information" },
+  },
   academicTest: {
     badgeSubtitle: { ar: "اختبار همزة الأكاديمي", en: "Hamza Academic Test" },
   },
