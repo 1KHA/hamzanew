@@ -139,7 +139,7 @@ const useHorizontalScroll = (
 // =============================================
 // USER MENU DROPDOWN
 // =============================================
-function UserMenuDropdown({ name }: { name: string }) {
+function UserMenuDropdown({ name, locale }: { name: string; locale?: "ar" | "en" }) {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -467,6 +467,7 @@ function NavHeader({ translations, locale }: NavHeaderProps) {
                       {session ? (
                         <UserMenuDropdown
                           name={session.user?.name || st("navActions", "myAccount", locale)}
+                          locale={locale}
                         />
                       ) : (
                         <Link
