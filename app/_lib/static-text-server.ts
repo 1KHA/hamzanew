@@ -702,6 +702,21 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
   discoverTests: {
     pageTitle: { ar: "اكتشف اختبارات همزة", en: "Discover Hamza Tests" },
   },
+  typesOfTests: {
+    pageTitleFallback: { ar: "قارن بين اختبارات همزة", en: "Compare Hamza Tests" },
+    listAria: { ar: "قائمة اختبارات همزة", en: "Hamza tests list" },
+    registerBtn: { ar: "التسجيل في الاختبار", en: "Register for the test" },
+    moreInfo: { ar: "المزيد من المعلومات", en: "More information" },
+    moreInfoAria: { ar: "المزيد من المعلومات عن", en: "More information about" },
+    videoTitle: { ar: "آلية التسجيل", en: "Registration Process" },
+    videoAria: { ar: "فيديو شرح آلية التسجيل في اختبارات همزة", en: "Video explaining the registration process for Hamza tests" },
+    videoTrackLabel: { ar: "العربية", en: "Arabic" },
+    videoFallback: { ar: "متصفحك لا يدعم تشغيل الفيديو.", en: "Your browser does not support video playback." },
+    totalLabel: { ar: "المجموع", en: "Total" },
+    targetGroupIconAlt: { ar: "أيقونة هدف - الفئة المستهدفة", en: "Target group icon" },
+    questionsIconAlt: { ar: "أيقونة سؤال - عدد أسئلة الاختبار", en: "Test questions icon" },
+    durationIconAlt: { ar: "أيقونة ساعة - مدة الاختبار", en: "Test duration icon" },
+  },
   generalTest: {
     questionCountLabel: { ar: "عدد الأسئلة", en: "Number of questions" },
     questionUnitSingle: { ar: "فقرة", en: "paragraph" },
@@ -735,6 +750,38 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     ariaTestInfo: { ar: "معلومات الاختبار", en: "Test Information" },
     ariaTestSections: { ar: "أقسام اختبار همزة الأربعة", en: "Four Hamza Test Sections" },
     iconAltPrefix: { ar: "أيقونة قسم", en: "Section icon" },
+  },
+  placementTest: {
+    questionCountLabel: { ar: "عدد الأسئلة", en: "Number of questions" },
+    /* ── Section titles & descriptions ─────────────────────────────────────── */
+    sectionListeningTitle: { ar: "الفهم المسموع", en: "Listening Comprehension" },
+    sectionListeningDesc: { ar: "يقيــس قدرتــك علــى متابعـــة المحادثات والحــوارات اليومية.", en: "Measuring your ability to follow everyday conversations and dialogues." },
+    sectionReadingTitle: { ar: "استيعاب المقروء", en: "Reading Comprehension" },
+    sectionReadingDesc: { ar: "اختبار فهمك للنصوص العامة والمتنوعة.", en: "Testing your understanding of general and varied texts." },
+    sectionWritingTitle: { ar: "الكتابة", en: "Writing" },
+    sectionWritingDesc: { ar: "تقييم معرفتك واستخدامك للكلمات بصحة ودقة.", en: "Evaluating your knowledge and accurate use of words." },
+    sectionSpeakingTitle: { ar: "التحدث", en: "Speaking" },
+    sectionSpeakingDesc: { ar: "قياس معرفتك واستخدامك للتراكيب اللغوية بصحة ودقة.", en: "Measuring your knowledge and accurate use of linguistic structures." },
+    /* ── Info cards ────────────────────────────────────────────────────────── */
+    infoDurationTitle: { ar: "مدة الاختبار", en: "Test Duration" },
+    infoDurationDesc: { ar: "(90) دقيقة", en: "(90) minutes" },
+    infoQuestionsTitle: { ar: "عدد الأسئلة", en: "Number of Questions" },
+    infoQuestionsDesc: { ar: "(80)", en: "(80)" },
+    infoRemoteTitle: { ar: "يطبق الاختبار", en: "Test Application" },
+    infoRemoteDesc: { ar: "عن بُعد", en: "Remote" },
+    infoCentersTitle: { ar: "يطبق الاختبار", en: "Test Application" },
+    infoCentersDesc: { ar: "في مراكز الاختبار", en: "At test centers" },
+    /* ── Header fallbacks ──────────────────────────────────────────────────── */
+    headerSubtitle: { ar: "اختبار همزة لتحديد المستوى", en: "Hamza Placement Test" },
+    headerTitle: { ar: "أقسام الاختبار", en: "Test Sections" },
+    headerDescription: {
+      ar: "صُمّم اختبار \"همزة\" ليقدّم تقييمًا شاملًا لمستوى الكفاءة اللغوية في اللغة العربية من خلال أربعة أقسام رئيسية:",
+      en: "The Hamza Test is designed to provide a comprehensive assessment of Arabic language proficiency through four main sections:",
+    },
+    /* ── aria-labels ───────────────────────────────────────────────────────── */
+    ariaTestInfo: { ar: "معلومات اختبار تحديد المستوى", en: "Placement Test Information" },
+    ariaTestSections: { ar: "أقسام اختبار همزة لتحديد المستوى الأربعة", en: "Four Hamza Placement Test Sections" },
+    iconAltPrefix: { ar: "أيقونة", en: "Icon" },
   },
   academicTest: {
     badgeSubtitle: { ar: "اختبار همزة الأكاديمي", en: "Hamza Academic Test" },

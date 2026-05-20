@@ -1,16 +1,24 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFields, extractListWithSubListOriginalKeys } from "@/app/_lib/helper-service";
+import { st } from "@/app/_lib/static-text-server";
 import TypesOfTestsContent from "./TypesOfTestsContent";
 import "@/app/components/card/card.css";
 import "@/app/styles/Button.css";
 import "./types-of-tests.css";
 
-export const metadata: Metadata = {
-  title: "أنواع اختبارات همزة",
-  description:
-    "قارن بين اختبارات همزة واختر الاختبار المناسب لك. تعرّف على تفاصيل كل اختبار وسجّل الآن.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+  return {
+    title: st("typesOfTests", "pageTitleFallback", locale),
+    description:
+      locale === "en"
+        ? "Compare Hamza tests and choose the right one for you. Learn details about each test and register now."
+        : "قارن بين اختبارات همزة واختر الاختبار المناسب لك. تعرّف على تفاصيل كل اختبار وسجّل الآن.",
+  };
+}
 
 async function getTypesOfTestsData() {
   try {
@@ -62,12 +70,15 @@ async function getTypesOfTestsData() {
 }
 
 export default async function TypesOfTestsPage() {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value.startsWith("en") ? "en" : "ar";
+
   const data = await getTypesOfTestsData();
 
   return (
     <section className="bg-color-grey-50" aria-labelledby="comparison-title">
       <div className="content !py-[40px] md:!py-[80px] flex flex-col gap-[24px] md:gap-[32px]">
-        <TypesOfTestsContent data={data} />
+        <TypesOfTestsContent data={data} locale={locale} />
       </div>
     </section>
   );

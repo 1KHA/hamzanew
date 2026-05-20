@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Button from "../../components/button/Button";
 import ScrollReveal from "../../components/scroll-reveal/ScrollReveal";
+import { st } from "@/app/_lib/static-text-server";
 
 /* ==========================================================================
    Types
@@ -39,6 +40,7 @@ interface TypesOfTestsData {
 
 interface TypesOfTestsContentProps {
   data: TypesOfTestsData;
+  locale: "ar" | "en";
 }
 
 /* ==========================================================================
@@ -93,37 +95,21 @@ function InfoSection({
   );
 }
 
-function TestCardComponent({ test, index }: { test: TestQuestionSet; index: number }) {
-  // Map test type names to icon names
-  const iconMap: Record<string, string> = {
-    "الأكاديمي": "mortarboard-01",
-    "العام": "glasses",
-    "تحديد المستوى": "star",
-    "المفردات": "book-02",
-  };
+/* Index-based mappings (tests always come in same order: Academic, General, Placement, Vocabulary) */
+const ICONS = ["mortarboard-01", "glasses", "star", "book-02"];
+const INFO_LINKS = [
+  "/types-of-tests/hamza-academic-test",
+  "/types-of-tests/hamza-general-test",
+  "/types-of-tests/hamza-placement-test",
+  "/types-of-tests/hamza-vocabulary-test",
+];
 
-  const iconAltMap: Record<string, string> = {
-    "الأكاديمي": "أيقونة قبعة تخرج - اختبار همزة الأكاديمي",
-    "العام": "أيقونة نظارات - اختبار همزة العام",
-    "تحديد المستوى": "أيقونة نجمة - اختبار تحديد مستوى",
-    "المفردات": "أيقونة كتاب - اختبار همزة المفردات",
-  };
-
-  const icon = iconMap[test.sectionTitleText] || "star";
-  const iconAlt = iconAltMap[test.sectionTitleText] || "أيقونة اختبار همزة";
-  
-  // Map test type to info link
-  const infoLinkMap: Record<string, string> = {
-    "الأكاديمي": "/types-of-tests/hamza-academic-test",
-    "العام": "/types-of-tests/hamza-general-test",
-    "تحديد المستوى": "/types-of-tests/hamza-placement-test",
-    "المفردات": "/types-of-tests/hamza-vocabulary-test",
-  };
-  const infoLink = infoLinkMap[test.sectionTitleText] || "/types-of-tests";
+function TestCardComponent({ test, index, locale }: { test: TestQuestionSet; index: number; locale: "ar" | "en" }) {
+  const icon = ICONS[index] || "star";
+  const infoLink = INFO_LINKS[index] || "/types-of-tests";
 
   // Format duration
   const formatDuration = (text: string) => {
-    // Extract number from Arabic text like "١٥٥ دقيقة"
     const match = text.match(/(\d+)/);
     if (match) {
       const minutes = parseInt(match[1]);
@@ -145,7 +131,7 @@ function TestCardComponent({ test, index }: { test: TestQuestionSet; index: numb
         <div className="circular-green-number" aria-hidden="true">
           <Image
             src={`/assets/icons/stroke-standard/${icon}-stroke-rounded.svg`}
-            alt={iconAlt}
+            alt={test.sectionTitleText}
             width={24}
             height={24}
             unoptimized
@@ -166,7 +152,7 @@ function TestCardComponent({ test, index }: { test: TestQuestionSet; index: numb
       <div className="card-info-sections">
         <InfoSection
           iconSrc="/assets/icons/stroke-standard/target-02-stroke-rounded.svg"
-          iconAlt="أيقونة هدف - الفئة المستهدفة"
+          iconAlt={st("typesOfTests", "targetGroupIconAlt", locale)}
           label={test.targetGroupText}
         >
           <p className="text-md-medium">{test.targetGroupDescription}</p>
@@ -174,7 +160,7 @@ function TestCardComponent({ test, index }: { test: TestQuestionSet; index: numb
 
         <InfoSection
           iconSrc="/assets/icons/stroke-standard/message-question-stroke-rounded.svg"
-          iconAlt="أيقونة سؤال - عدد أسئلة الاختبار"
+          iconAlt={st("typesOfTests", "questionsIconAlt", locale)}
           label={test.testQuestionsTitleText}
         >
           {test.testQuestionsDescriptionText ? (
@@ -191,7 +177,10 @@ function TestCardComponent({ test, index }: { test: TestQuestionSet; index: numb
                 )
               ))}
               {test.totalText && (
-                <QuestionRow label="المجموع" count={test.totalText.replace("المجموع : ", "")} />
+                <QuestionRow
+                  label={st("typesOfTests", "totalLabel", locale)}
+                  count={test.totalText.replace(/(المجموع\s*:\s*)/, "")}
+                />
               )}
             </div>
           ) : null}
@@ -199,7 +188,7 @@ function TestCardComponent({ test, index }: { test: TestQuestionSet; index: numb
 
         <InfoSection
           iconSrc="/assets/icons/stroke-standard/time-02-stroke-rounded.svg"
-          iconAlt="أيقونة ساعة - مدة الاختبار"
+          iconAlt={st("typesOfTests", "durationIconAlt", locale)}
           label={test.testDurationTitleText}
         >
           <div className="duration-row">
@@ -210,7 +199,7 @@ function TestCardComponent({ test, index }: { test: TestQuestionSet; index: numb
 
       <div className="flex flex-col btn-card !gap-[8px]">
         <Button
-          label="التسجيل في الاختبار"
+          label={st("typesOfTests", "registerBtn", locale)}
           variant="primary-brand"
           size="lg"
           icon="arrow-up-right-01"
@@ -220,9 +209,9 @@ function TestCardComponent({ test, index }: { test: TestQuestionSet; index: numb
         <Link
           href={infoLink}
           className="link-neutral !underline text-[14px]"
-          aria-label={`المزيد من المعلومات عن ${test.sectionTitleText}`}
+          aria-label={`${st("typesOfTests", "moreInfoAria", locale)} ${test.sectionTitleText}`}
         >
-          المزيد من المعلومات
+          {st("typesOfTests", "moreInfo", locale)}
         </Link>
       </div>
     </article>
@@ -233,13 +222,13 @@ function TestCardComponent({ test, index }: { test: TestQuestionSet; index: numb
    Main Export
    ========================================================================== */
 
-export default function TypesOfTestsContent({ data }: TypesOfTestsContentProps) {
+export default function TypesOfTestsContent({ data, locale }: TypesOfTestsContentProps) {
   return (
     <>
       {/* ── Cards Section ─────────────────────────────────────────── */}
       <ScrollReveal direction="up" delay={r(0)} duration={DURATION} amount={0}>
         <h1 id="comparison-title" className="display-sm-bold">
-          {data?.title || "قارن بين اختبارات همزة"}
+          {data?.title || st("typesOfTests", "pageTitleFallback", locale)}
         </h1>
       </ScrollReveal>
 
@@ -252,7 +241,7 @@ export default function TypesOfTestsContent({ data }: TypesOfTestsContentProps) 
       <div
         className="tests-comparison-grid"
         role="list"
-        aria-label="قائمة اختبارات همزة"
+        aria-label={st("typesOfTests", "listAria", locale)}
       >
         {data?.testQuestionsSetList?.map((test, i) => (
           <div key={i} role="listitem">
@@ -262,7 +251,7 @@ export default function TypesOfTestsContent({ data }: TypesOfTestsContentProps) 
               duration={DURATION}
               amount={0}
             >
-              <TestCardComponent test={test} index={i} />
+              <TestCardComponent test={test} index={i} locale={locale} />
             </ScrollReveal>
           </div>
         ))}
@@ -272,7 +261,7 @@ export default function TypesOfTestsContent({ data }: TypesOfTestsContentProps) 
       <div className="video-section" aria-labelledby="registration-title">
         <ScrollReveal direction="up" delay={0} duration={DURATION} amount={AMOUNT}>
           <h2 id="registration-title" className="display-sm-bold">
-            آلية التسجيل
+            {st("typesOfTests", "videoTitle", locale)}
           </h2>
         </ScrollReveal>
 
@@ -282,10 +271,10 @@ export default function TypesOfTestsContent({ data }: TypesOfTestsContentProps) 
               className="video-player__element"
               controls
               preload="metadata"
-              aria-label="فيديو شرح آلية التسجيل في اختبارات همزة"
+              aria-label={st("typesOfTests", "videoAria", locale)}
             >
-              <track kind="captions" srcLang="ar" label="العربية" />
-              متصفحك لا يدعم تشغيل الفيديو.
+              <track kind="captions" srcLang={locale} label={st("typesOfTests", "videoTrackLabel", locale)} />
+              {st("typesOfTests", "videoFallback", locale)}
             </video>
           </div>
         </ScrollReveal>

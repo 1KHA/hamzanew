@@ -5,6 +5,7 @@ import "@/app/components/card/card.css";
 import "@/app/styles/Button.css";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFields, extractList } from "@/app/_lib/helper-service";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: "اختبار همزة لتحديد المستوى",
@@ -127,6 +128,9 @@ async function getHamzaPlacementTestData() {
 
 export default async function HamzaPlacementTestPage() {
   const data = await getHamzaPlacementTestData();
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value || "ar-SA";
+  const staticLocale = locale === "en-US" ? "en" : "ar";
 
   return (
     <>
@@ -139,6 +143,7 @@ export default async function HamzaPlacementTestPage() {
           <PlacementTestContent
             header={data.header}
             testSections={data.testSections}
+            locale={staticLocale}
           />
         </div>
       </section>

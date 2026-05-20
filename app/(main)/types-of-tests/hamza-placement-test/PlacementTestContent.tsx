@@ -2,7 +2,8 @@
 import Image from "next/image";
 import Tag from "../../../components/tag/Tag";
 import ScrollReveal from "../../../components/scroll-reveal/ScrollReveal";
-import { QUESTION_TYPES, TEST_INFO, type TestSection, type InfoCard } from "./data";
+import { getQuestionTypes, getTestInfo, type TestSection, type InfoCard } from "./data";
+import { st } from "@/app/_lib/static-text-server";
 
 /* ==========================================================================
    Type Definitions
@@ -29,6 +30,7 @@ interface HeaderData {
 interface PlacementTestContentProps {
   header?: HeaderData;
   testSections?: TestSectionsData;
+  locale?: "ar" | "en";
 }
 
 /* ==========================================================================
@@ -58,7 +60,7 @@ function TestInfoCard({ icon, iconAlt, title, description }: InfoCard) {
   );
 }
 
-function TestSectionCard({ section }: { section: TestSection }) {
+function TestSectionCard({ section, locale = "ar" }: { section: TestSection; locale?: "ar" | "en" }) {
   return (
     <article className="card !border-none">
       <div className="flex flex-row gap-[24px] items-center w-full">
@@ -82,10 +84,10 @@ function TestSectionCard({ section }: { section: TestSection }) {
             <Tag
               variant="neutral"
               size="md"
-              label={`عدد الأسئلة ${section.questionCount}`}
+              label={`${st("placementTest", "questionCountLabel", locale)} ${section.questionCount}`}
               trailIcon={{
                 src: "/assets/icons/stroke-standard/message-question-stroke-rounded.svg",
-                alt: "أيقونة عدد الأسئلة",
+                alt: st("placementTest", "questionCountLabel", locale),
               }}
             />
           </div>
@@ -117,17 +119,17 @@ const l = (i: number) => 0.6 + i * STAGGER;     // 0.6, 0.82, 1.04, 1.26
    Main Export
    ========================================================================== */
 
-export default function PlacementTestContent({ header, testSections }: PlacementTestContentProps) {
+export default function PlacementTestContent({ header, testSections, locale = "ar" }: PlacementTestContentProps) {
   // Use dynamic data if available, otherwise fallback to static data
-  const sectionTitle = testSections?.title || "أقسام الاختبار";
-  const sectionDescription = testSections?.descriptionText || "صُمّم اختبار \"همزة\" ليقدّم تقييمًا شاملًا لمستوى الكفاءة اللغوية في اللغة العربية من خلال أربعة أقسام رئيسية:";
-  const headerTitle = header?.titleText || "اختبار همزة لتحديد المستوى";
+  const sectionTitle = testSections?.title || st("placementTest", "headerTitle", locale);
+  const sectionDescription = testSections?.descriptionText || st("placementTest", "headerDescription", locale);
+  const headerTitle = header?.titleText || st("placementTest", "headerSubtitle", locale);
 
   // Transform API data to component format if available
   const dynamicSections: TestSection[] = testSections?.testSectionsList?.map((item, index) => ({
     id: index + 1,
     icon: getIconForSection(item.testNameText),
-    iconAlt: `أيقونة ${item.testNameText}`,
+    iconAlt: `${st("placementTest", "iconAltPrefix", locale)} ${item.testNameText}`,
     title: item.testNameText,
     description: item.testDescriptionText,
     questionCount: 20,
@@ -135,7 +137,7 @@ export default function PlacementTestContent({ header, testSections }: Placement
   })) || [];
 
   // Use dynamic sections if available, otherwise fallback to static
-  const sections = dynamicSections.length > 0 ? dynamicSections : QUESTION_TYPES;
+  const sections = dynamicSections.length > 0 ? dynamicSections : getQuestionTypes(locale);
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-2 gap-[80px]">
@@ -186,9 +188,9 @@ export default function PlacementTestContent({ header, testSections }: Placement
         <div
           className="grid grid-cols-1 md:grid-cols-2 gap-[24px]"
           role="list"
-          aria-label="معلومات اختبار تحديد المستوى"
+          aria-label={st("placementTest", "ariaTestInfo", locale)}
         >
-          {TEST_INFO.map((card, i) => (
+          {getTestInfo(locale).map((card, i) => (
             <ScrollReveal
               key={i}
               role="listitem"
@@ -207,7 +209,7 @@ export default function PlacementTestContent({ header, testSections }: Placement
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-[16px]"
         role="list"
-        aria-label="أقسام اختبار همزة لتحديد المستوى الأربعة"
+        aria-label={st("placementTest", "ariaTestSections", locale)}
       >
         {sections.map((section, i) => (
           <ScrollReveal
@@ -218,7 +220,7 @@ export default function PlacementTestContent({ header, testSections }: Placement
             duration={DURATION}
             amount={AMOUNT}
           >
-            <TestSectionCard section={section} />
+            <TestSectionCard section={section} locale={locale} />
           </ScrollReveal>
         ))}
       </div>
