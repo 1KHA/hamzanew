@@ -3,6 +3,7 @@ import Image from "next/image";
 import Tag from "../../../components/tag/Tag";
 import ScrollReveal from "../../../components/scroll-reveal/ScrollReveal";
 import { QUESTION_TYPES, TEST_INFO, type TestSection, type InfoCard } from "./data";
+import { st } from "@/app/_lib/static-text-server";
 
 /* ==========================================================================
    Types
@@ -48,6 +49,7 @@ interface AcademicTestContentProps {
   testSections?: TestSectionsData;
   questionTypes?: TestSection[];
   testInfo?: InfoCard[];
+  locale?: "ar" | "en";
 }
 
 /* ==========================================================================
@@ -88,7 +90,7 @@ function TestInfoCard({ icon, iconAlt, title, description }: InfoCard) {
   );
 }
 
-function TestSectionCard({ section }: { section: TestSection }) {
+function TestSectionCard({ section, locale = "ar" }: { section: TestSection; locale?: "ar" | "en" }) {
   return (
     <article className="card !border-none">
       <div className="flex flex-row gap-[24px] items-center w-full">
@@ -112,10 +114,10 @@ function TestSectionCard({ section }: { section: TestSection }) {
             <Tag
               variant="neutral"
               size="md"
-              label={`عدد الأسئلة ${section.questionCount}`}
+              label={`${st("generalTest", "questionCountLabel", locale)} ${section.questionCount}`}
               trailIcon={{
                 src: "/assets/icons/stroke-standard/message-question-stroke-rounded.svg",
-                alt: "أيقونة عدد الأسئلة",
+                alt: st("generalTest", "questionCountLabel", locale),
               }}
             />
           </div>
@@ -187,7 +189,8 @@ export function AcademicLevelsContent({
 export default function AcademicTestContent({ 
   testSections,
   questionTypes = QUESTION_TYPES,
-  testInfo = TEST_INFO
+  testInfo = TEST_INFO,
+  locale = "ar",
 }: AcademicTestContentProps) {
   // Helper function to extract number from Arabic or Western numerals
   const extractNumber = (text: string | undefined | null): number => {
@@ -374,7 +377,7 @@ export default function AcademicTestContent({
               duration={DURATION}
               amount={AMOUNT}
             >
-              <TestSectionCard section={section} />
+              <TestSectionCard section={section} locale={locale} />
             </ScrollReveal>
           ))}
         </div>

@@ -4,6 +4,7 @@ import "@/app/components/card/card.css";
 import "@/app/styles/Button.css";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFields, extractList } from "@/app/_lib/helper-service";
+import { cookies } from "next/headers";
 
 interface TestSectionItem {
   testNameText: string;
@@ -202,6 +203,10 @@ async function getAcademicTestData(): Promise<AcademicTestData> {
 }
 
 export default async function HamzaAcademicTestPage() {
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("lang")?.value || "ar-SA";
+  const staticLocale = locale === "en-US" ? "en" : "ar";
+
   const data = await getAcademicTestData();
 
   return (
@@ -223,7 +228,7 @@ export default async function HamzaAcademicTestPage() {
         aria-labelledby="test-sections-title"
       >
         <div className="content !py-[40px] xl:!py-[128px] flex flex-col gap-[24px] md:gap-[32px]">
-          <AcademicTestContent testSections={data.testSections} />
+          <AcademicTestContent testSections={data.testSections} locale={staticLocale} />
         </div>
       </section>
 
