@@ -164,13 +164,13 @@ function UserMenuDropdown({ name }: { name: string }) {
         className="header-menu__item user-menu__trigger"
         aria-haspopup="true"
         aria-expanded={isOpen}
-        aria-label={st("navActions", "userMenu")}
+        aria-label={st("navActions", "userMenu", locale)}
         onClick={() => setIsOpen((v) => !v)}
       >
         <span className="header-menu__item-label">{name}</span>
         <IconImage
           src="/assets/icons/stroke-standard/user-03-stroke-standard.svg"
-          alt={st("navActions", "userIcon")}
+          alt={st("navActions", "userIcon", locale)}
         />
       </button>
 
@@ -186,7 +186,7 @@ function UserMenuDropdown({ name }: { name: string }) {
               src="/assets/icons/stroke-standard/user-03-stroke-standard.svg"
               alt=""
             />
-            {st("navActions", "profile")}
+            {st("navActions", "profile", locale)}
           </Link>
           <hr className="user-menu__divider" />
           <button
@@ -200,7 +200,7 @@ function UserMenuDropdown({ name }: { name: string }) {
               src="/assets/icons/stroke-standard/logout-01-stroke-rounded.svg"
               alt=""
             />
-            {st("navActions", "signOut")}
+            {st("navActions", "signOut", locale)}
           </button>
         </div>
       )}
@@ -213,9 +213,10 @@ function UserMenuDropdown({ name }: { name: string }) {
 // =============================================
 interface NavHeaderProps {
   translations?: Record<string, string> | null;
+  locale?: "ar" | "en";
 }
 
-function NavHeader({ translations }: NavHeaderProps) {
+function NavHeader({ translations, locale }: NavHeaderProps) {
   const pathname = usePathname();
   const { data: session } = useSession();
   // Tracks which top-level nav item is visually highlighted
@@ -319,7 +320,7 @@ function NavHeader({ translations }: NavHeaderProps) {
   return (
     <>
       {/* ── Digital signature banner displayed above the main header ─── */}
-      <DigitalSignature />
+      <DigitalSignature locale={locale} />
 
       {/* ── Off-canvas mobile navigation drawer ─────────────────────── */}
       {/* Only mounted after the first open — keeps MobileNav out of the
@@ -342,7 +343,7 @@ function NavHeader({ translations }: NavHeaderProps) {
         <header className="header header--divider">
           <nav
             className="header-nav--full custom-container"
-            aria-label={st("navActions", "mainNav")}
+            aria-label={st("navActions", "mainNav", locale)}
           >
             <div className="header-nav__main">
               {/* Mobile hamburger button — visible only on small screens */}
@@ -350,14 +351,14 @@ function NavHeader({ translations }: NavHeaderProps) {
                 <button
                   type="button"
                   className="dga-btn dga-btn--md dga-btn--transparent dga-btn--icon"
-                  aria-label={st("navActions", "openMenu")}
+                  aria-label={st("navActions", "openMenu", locale)}
                   aria-expanded={isMenuOpen}
                   aria-controls="mobile-nav"
                   onClick={() => { setMobileNavMounted(true); setIsMenuOpen(true); }}
                 >
                   <IconImage
                     src="/assets/icons/stroke-standard/menu-01-stroke-rounded.svg"
-                    alt={st("navActions", "menuIcon")}
+                    alt={st("navActions", "menuIcon", locale)}
                   />
                 </button>
               </div>
@@ -369,11 +370,11 @@ function NavHeader({ translations }: NavHeaderProps) {
                 <Link
                   href="/"
                   className="header__logo"
-                  aria-label={st("navActions", "homeLink")}
+                  aria-label={st("navActions", "homeLink", locale)}
                 >
                   <Image
                     src="/assets/image/Hamza_Logo.png"
-                    alt={st("navActions", "hamzaLogo")}
+                    alt={st("navActions", "hamzaLogo", locale)}
                     width={120}
                     height={40}
                     priority
@@ -390,11 +391,11 @@ function NavHeader({ translations }: NavHeaderProps) {
                   <Link
                     href="/search"
                     className="header-menu__item"
-                    aria-label={st("navActions", "searchAria")}
+                    aria-label={st("navActions", "searchAria", locale)}
                   >
                     <IconImage
                       src="/assets/icons/stroke-standard/search-01-stroke-standard.svg"
-                      alt={st("navActions", "searchIcon")}
+                      alt={st("navActions", "searchIcon", locale)}
                     />
                   </Link>
                 </li>
@@ -411,7 +412,7 @@ function NavHeader({ translations }: NavHeaderProps) {
                     className="dga-btn dga-btn--md dga-btn--secondary-outline scroll-button scroll-button--left"
                     style={{ height: "80%" }}
                     onClick={scrollLeft}
-                    aria-label={st("navActions", "scrollLeft")}
+                    aria-label={st("navActions", "scrollLeft", locale)}
                   >
                     ‹
                   </button>
@@ -449,7 +450,7 @@ function NavHeader({ translations }: NavHeaderProps) {
                     className="dga-btn dga-btn--md dga-btn--secondary-outline scroll-button scroll-button--right"
                     style={{ height: "80%" }}
                     onClick={scrollRight}
-                    aria-label={st("navActions", "scrollRight")}
+                    aria-label={st("navActions", "scrollRight", locale)}
                   >
                     ›
                   </button>
@@ -465,20 +466,20 @@ function NavHeader({ translations }: NavHeaderProps) {
                     <li key={action.id} className={action.className}>
                       {session ? (
                         <UserMenuDropdown
-                          name={session.user?.name || st("navActions", "myAccount")}
+                          name={session.user?.name || st("navActions", "myAccount", locale)}
                         />
                       ) : (
                         <Link
                           href="/sign-in"
                           className="header-menu__item"
-                          aria-label={st("navActions", "signIn")}
+                          aria-label={st("navActions", "signIn", locale)}
                         >
                           {action.label && (
                             <span className="header-menu__item-label">
-                              {st("navActions", action.label)}
+                              {st("navActions", action.label, locale)}
                             </span>
                           )}
-                          <IconImage src={action.icon} alt={st("navActions", "userIcon")} />
+                          <IconImage src={action.icon} alt={st("navActions", "userIcon", locale)} />
                         </Link>
                       )}
                     </li>
@@ -490,14 +491,14 @@ function NavHeader({ translations }: NavHeaderProps) {
                     <Link
                       href={action.href}
                       className="header-menu__item"
-                      aria-label={st("navActions", action.label || "searchAria")}
+                      aria-label={st("navActions", action.label || "searchAria", locale)}
                     >
                       {action.label && (
                         <span className="header-menu__item-label">
-                          {st("navActions", action.label)}
+                          {st("navActions", action.label, locale)}
                         </span>
                       )}
-                      <IconImage src={action.icon} alt={st("navActions", "actionIcon")} />
+                      <IconImage src={action.icon} alt={st("navActions", "actionIcon", locale)} />
                     </Link>
                   </li>
                 );

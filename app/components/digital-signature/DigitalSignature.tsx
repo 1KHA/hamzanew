@@ -6,7 +6,11 @@ import { useState, useCallback, useId } from "react";
 import "./DigitalSignature.css";
 import { st } from "@/app/_lib/static-text";
 
-export default function DigitalSignature() {
+interface DigitalSignatureProps {
+  locale?: "ar" | "en";
+}
+
+export default function DigitalSignature({ locale }: DigitalSignatureProps) {
   const [isOpen, setIsOpen] = useState(false);
   const panelId = useId();
 
@@ -30,7 +34,7 @@ export default function DigitalSignature() {
                   className="block"
                 />
               </div>
-              <p>{st("digitalSignature", "badge")}</p>
+              <p>{st("digitalSignature", "badge", locale)}</p>
             </div>
 
             <button
@@ -40,7 +44,7 @@ export default function DigitalSignature() {
               aria-expanded={isOpen}
               aria-controls={panelId}
             >
-              {st("digitalSignature", "verify")}
+              {st("digitalSignature", "verify", locale)}
               <span className="digital_link_icon" aria-hidden="true">
                 <Image
                   src={
@@ -69,7 +73,7 @@ export default function DigitalSignature() {
                 window.location.reload();
               }
             }}
-            aria-label={st("digitalSignature", "langAriaLabel")}
+            aria-label={st("digitalSignature", "langAriaLabel", locale)}
           >
             <Image
               src="/assets/icons/stroke-standard/translation-stroke-rounded.svg"
@@ -78,14 +82,14 @@ export default function DigitalSignature() {
               width={20}
               height={20}
             />
-            <span>{st("digitalSignature", "langBtn")}</span>
+            <span>{st("digitalSignature", "langBtn", locale)}</span>
           </button>
         </div>
 
         <div
           id={panelId}
           role="region"
-          aria-label={st("digitalSignature", "panelLabel")}
+          aria-label={st("digitalSignature", "panelLabel", locale)}
           aria-hidden={!isOpen ? true : undefined}
           inert={!isOpen || undefined}
           className={`digital_collapsible ${isOpen ? "open" : ""}`}
@@ -107,10 +111,10 @@ export default function DigitalSignature() {
                   </div>
                   <div className="digital_content_item_content">
                     <h2>
-                      {st("digitalSignature", "domainTitle")}
+                      {st("digitalSignature", "domainTitle", locale)}
                       <span>&nbsp;.gov.sa</span>
                     </h2>
-                    <p>{st("digitalSignature", "domainBody")}</p>
+                    <p>{st("digitalSignature", "domainBody", locale)}</p>
                   </div>
                 </div>
 
@@ -128,11 +132,11 @@ export default function DigitalSignature() {
                   </div>
                   <div className="digital_content_item_content">
                     <h2>
-                      {st("digitalSignature", "httpsTitle")}
+                      {st("digitalSignature", "httpsTitle", locale)}
                       <span>&nbsp;HTTPS&nbsp;</span>
-                      {st("digitalSignature", "httpsSuffix")}
+                      {st("digitalSignature", "httpsSuffix", locale)}
                     </h2>
-                    <p>{st("digitalSignature", "httpsBody")}</p>
+                    <p>{st("digitalSignature", "httpsBody", locale)}</p>
                   </div>
                 </div>
               </div>
@@ -143,14 +147,14 @@ export default function DigitalSignature() {
                   <div className="digital_more_content_icon">
                     <Image
                       src="/assets/icons/DGA logo.png"
-                      alt={st("digitalSignature", "dgaAlt")}
+                      alt={st("digitalSignature", "dgaAlt", locale)}
                       width={21}
                       height={31}
                       className="inline-block"
                     />
                   </div>
                   <div className="digital_more_content_content self-center text-start">
-                    <p>{st("digitalSignature", "dgaLabel")}</p>
+                    <p>{st("digitalSignature", "dgaLabel", locale)}</p>
                     <Link
                       href="/"
                       className="!self-start link link--md link--primary link--inline link_label"

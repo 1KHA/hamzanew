@@ -329,7 +329,8 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     benefitsSubtitle: { ar: "كيفية الإستفادة من همزة", en: "Benefits of Hamza Test" },
     benefitsTakersTitle: { ar: "فوائد اختبارات همزة للمختبرين", en: "Benefits of Hamza Tests for Test Takers" },
     benefitsDescription: {
-      ar: "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية، ويستخدمها أفراد يسعون إلى الدراسة أو العمل أو الهجرة إلى دول ناطقة بالعربية. تدعم هذه الاختبارات المؤسسات في اختيار الطلاب الأنسب، وبناء كوادر قادرة على التواصل بفاعلية في بيئات العمل والتعليم، واستقطاب الكفاءات إلى جهتك.",
+      ar: "تُعَدّ اختبارات (همزة) مبادرة رائدة يشرف على تطويرها مجمع الملك سلمان العالمي للغة العربية، تهدف إلى توفير أدوات قياس موثوقة للغة العربية تراعي المعايير الدولية، وتعتمد في بنائها على مرجعيات عالمية معتمدة؛ لضمان الجودة والمواءمة مع أفضل الممارسات في تعليم اللغات وقياسها، مستندةً في تطويرها إلى خبرات علمية واستشارية متخصصة؛ بما يعزز مصداقيتها، ويجعلها مرجعًا موثوقًا للمتعلمين والجهات الأكاديمية والمهنية في أنحاء العالم.",
+      // ar: "توفّر اختبارات همزة نهجاً معيارياً وموثوقاً لقياس الكفاءة في اللغة العربية، ويستخدمها أفراد يسعون إلى الدراسة أو العمل أو الهجرة إلى دول ناطقة بالعربية. تدعم هذه الاختبارات المؤسسات في اختيار الطلاب الأنسب، وبناء كوادر قادرة على التواصل بفاعلية في بيئات العمل والتعليم، واستقطاب الكفاءات إلى جهتك.",
       en: "Hamza tests provide a standardized and reliable approach to measuring proficiency in the Arabic language. They are used by individuals seeking to study, work, or immigrate to Arabic-speaking countries. These tests support institutions in selecting the most suitable students, building workforces capable of communicating effectively in professional and educational environments, and attracting talent to your organization.",
     },
     benefitsOrgTitle: { ar: "فوائد اختبارات همزة للجهات", en: "Benefits of Hamza Tests for Organizations" },

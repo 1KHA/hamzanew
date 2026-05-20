@@ -40,7 +40,7 @@ export default async function MainLayout({
 
   return (
     <>
-      <NavHeader translations={translations} />
+      <NavHeader translations={translations} locale={staticLocale} />
       <main className="flex-1 flex flex-col" style={{ flex: 1, display: "flex", flexDirection: "column" }}>{children}</main>
       <Footer locale={staticLocale} />
     </>
