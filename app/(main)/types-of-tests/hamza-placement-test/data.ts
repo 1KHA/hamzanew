@@ -63,9 +63,9 @@ export const TEST_INFO: InfoCard[] = [
   },
   {
     icon: "right-to-left-list-bullet",
-    iconAlt: "أيقونة قائمة - عدد فقرات الاختبار",
-    title: "عدد فقرات الاختبار",
-    description: "(80) فقرة",
+    iconAlt: "أيقونة قائمة - عدد الأسئلة",
+    title: "عدد الأسئلة",
+    description: "(80)",
   },
   {
     icon: "cursor-in-window",

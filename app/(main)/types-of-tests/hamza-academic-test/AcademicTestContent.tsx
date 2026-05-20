@@ -112,7 +112,7 @@ function TestSectionCard({ section }: { section: TestSection }) {
             <Tag
               variant="neutral"
               size="md"
-              label={`عدد الأسئلة ${section.questionCount} ${section.questionUnit}`}
+              label={`عدد الأسئلة ${section.questionCount}`}
               trailIcon={{
                 src: "/assets/icons/stroke-standard/message-question-stroke-rounded.svg",
                 alt: "أيقونة عدد الأسئلة",
@@ -210,20 +210,14 @@ export default function AcademicTestContent({
     return 0;
   };
   
-  // Helper function to determine if text refers to multiple items (فقرات vs فقرة)
-  const isPlural = (text: string | undefined | null): boolean => {
-    if (!text) return false;
-    return text.includes("فقرات");
-  };
-
   // Map section names to fallback question counts
-  const sectionNameToFallback: Record<string, { count: number; unit: string }> = {
-    "الفهم المسموع": { count: 30, unit: "فقرة" },
-    "الاستماع": { count: 30, unit: "فقرة" },
-    "استيعاب المقروء": { count: 40, unit: "فقرة" },
-    "القراءة": { count: 40, unit: "فقرة" },
-    "الكتابة": { count: 1, unit: "فقرة" },
-    "التحدث": { count: 4, unit: "فقرات" },
+  const sectionNameToFallback: Record<string, number> = {
+    "الفهم المسموع": 30,
+    "الاستماع": 30,
+    "استيعاب المقروء": 40,
+    "القراءة": 40,
+    "الكتابة": 1,
+    "التحدث": 4,
   };
 
   // Transform API data if provided
@@ -245,18 +239,11 @@ export default function AcademicTestContent({
                              extractNumber(section.sidebarBottomText1) ||
                              extractNumber(section.sidebarBottomText2);
         
-        const sidebarIsPlural = isPlural(section.sidebarTopText) || 
-                                isPlural(section.sidebarBottomText1) ||
-                                isPlural(section.sidebarBottomText2);
-        
         // Use sidebar data if valid, otherwise use fallback
         const sectionName = section.testNameText;
-        const fallback = sectionNameToFallback[sectionName] || { count: 0, unit: "فقرة" };
+        const fallback = sectionNameToFallback[sectionName] || 0;
         
-        const questionCount = sidebarCount > 0 ? sidebarCount : fallback.count;
-        const questionUnit = sidebarCount > 0 
-          ? (sidebarIsPlural ? "فقرات" : "فقرة") 
-          : fallback.unit;
+        const questionCount = sidebarCount > 0 ? sidebarCount : fallback;
         
         return {
           id: index + 1,
@@ -265,7 +252,7 @@ export default function AcademicTestContent({
           title: sectionName,
           description: section.testDescriptionText,
           questionCount,
-          questionUnit,
+          questionUnit: "",
         };
       })
     : questionTypes;
@@ -276,13 +263,13 @@ export default function AcademicTestContent({
           icon: "time-02",
           iconAlt: "أيقونة ساعة - مدة الاختبار",
           title: testSections.testDurationText,
-          description: `(${testSections.testDurationValueText}) دقيقة`,
+          description: `${testSections.testDurationValueText} دقيقة`,
         },
         {
           icon: "right-to-left-list-bullet",
-          iconAlt: "أيقونة قائمة - عدد فقرات الاختبار",
+          iconAlt: "أيقونة قائمة - عدد الأسئلة",
           title: testSections.numberOfTestItemsText,
-          description: `(${testSections.numberOfTestItemsValueText})`,
+          description: `${testSections.numberOfTestItemsValueText}`,
         },
         {
           icon: "cursor-in-window",

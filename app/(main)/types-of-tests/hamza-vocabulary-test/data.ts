@@ -12,8 +12,8 @@ export const TEST_INFO: InfoCard[] = [
   },
   {
     icon: "right-to-left-list-bullet",
-    title: "عدد فقرات الاختبار",
-    description: "(150) فقرة",
+    title: "عدد الأسئلة",
+    description: "(150)",
   },
   {
     icon: "time-02",

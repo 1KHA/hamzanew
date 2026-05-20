@@ -60,19 +60,19 @@ export const TEST_INFO: InfoCard[] = [
   {
     icon: "right-to-left-list-bullet",
     iconAlt: "أيقونة قائمة - عدد فقرات الاختبار",
-    title: "عدد فقرات الاختبار",
+    title: "عدد أسئلة الاختبار",
     description: "(95) سؤال",
   },
   {
     icon: "cursor-in-window",
     iconAlt: "أيقونة شاشة - تطبيق الاختبار عن بُعد",
-    title: "تطبيق الاختبار",
+    title: "يُطبَّق الاختبار",
     description: "حضوري و عن بُعد",
   },
   {
     icon: "building-06",
     iconAlt: "أيقونة مبنى - تطبيق الاختبار في مراكز الاختبار",
-    title: "تطبيق الاختبار",
+    title: "يُطبَّق الاختبار",
     description: " في مراكز الاختبار المعتمدة  ",
   },
 ];

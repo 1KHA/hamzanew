@@ -22,7 +22,7 @@ export const QUESTION_TYPES: TestSection[] = [
     iconAlt: "أيقونة سماعات - قسم الفهم المسموع",
     title: "الفهم المسموع",
     description:
-      "الاستماع إلى مقاطع صوتية عامة ومتنوعة، والإجابة عن أسئلة (الاختيار من متعدد) - (30) فقرة.",
+      "الاستماع إلى مقاطع صوتية عامة ومتنوعة، والإجابة عن أسئلة (الاختيار من متعدد) - (30).",
     questionCount: 30,
     questionUnit: "فقرة",
   },
@@ -32,7 +32,7 @@ export const QUESTION_TYPES: TestSection[] = [
     iconAlt: "أيقونة كتاب مفتوح - قسم استيعاب المقروء",
     title: "استيعاب المقروء",
     description:
-      "قراءة نصوص عامة ومتنوعة، والإجابة عن أسئلة (الاختيار من متعدد) - (40) فقرة.",
+      "قراءة نصوص عامة ومتنوعة، والإجابة عن أسئلة (الاختيار من متعدد) - (40).",
     questionCount: 40,
     questionUnit: "فقرة",
   },
@@ -42,7 +42,7 @@ export const QUESTION_TYPES: TestSection[] = [
     iconAlt: "أيقونة قلم - قسم الكتابة",
     title: "الكتابة",
     description:
-      "كتابة مقال واحد في موضوع عام تتراوح عدد كلماته من (200) إلى (250) كلمة - فقرة واحدة.",
+      "كتابة مقال واحد في موضوع عام تتراوح عدد كلماته من (200) إلى (250) كلمة.",
     questionCount: 1,
     questionUnit: "فقرة",
   },
@@ -51,7 +51,7 @@ export const QUESTION_TYPES: TestSection[] = [
     icon: "message-01",
     iconAlt: "أيقونة محادثة - قسم التحدث",
     title: "التحدث",
-    description: "الإجابة عن أسئلة عامة، والتحدُّث عن موضوع عام - (4) فقرات.",
+    description: "الإجابة عن أسئلة عامة، والتحدُّث عن موضوع عام - (4).",
     questionCount: 4,
     questionUnit: "فقرات",
   },
@@ -66,9 +66,9 @@ export const TEST_INFO: InfoCard[] = [
   },
   {
     icon: "right-to-left-list-bullet",
-    iconAlt: "أيقونة قائمة - عدد فقرات الاختبار",
-    title: "عدد فقرات الاختبار",
-    description: "(75) فقرة",
+    iconAlt: "أيقونة قائمة - عدد الأسئلة",
+    title: "عدد الأسئلة",
+    description: "(75)",
   },
   {
     icon: "cursor-in-window",

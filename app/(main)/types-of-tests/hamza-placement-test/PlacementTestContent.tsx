@@ -82,7 +82,7 @@ function TestSectionCard({ section }: { section: TestSection }) {
             <Tag
               variant="neutral"
               size="md"
-              label={`عدد الأسئلة ${section.questionCount} ${section.questionUnit}`}
+              label={`عدد الأسئلة ${section.questionCount}`}
               trailIcon={{
                 src: "/assets/icons/stroke-standard/message-question-stroke-rounded.svg",
                 alt: "أيقونة عدد الأسئلة",
@@ -131,7 +131,7 @@ export default function PlacementTestContent({ header, testSections }: Placement
     title: item.testNameText,
     description: item.testDescriptionText,
     questionCount: 20,
-    questionUnit: "فقرة",
+    questionUnit: "",
   })) || [];
 
   // Use dynamic sections if available, otherwise fallback to static
