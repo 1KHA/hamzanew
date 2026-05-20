@@ -1,3 +1,5 @@
+import { st } from "@/app/_lib/static-text-server";
+
 export interface TestSection {
   id: number;
   icon: string;
@@ -15,64 +17,74 @@ export interface InfoCard {
   description: string;
 }
 
-export const QUESTION_TYPES: TestSection[] = [
-  {
-    id: 1,
-    icon: "headphones",
-    iconAlt: "أيقونة سماعات - قسم الفهم المسموع",
-    title: "الفهم المسموع",
-    description: "قياس قدرتك على متابعة المحادثات والحوارات اليومية.",
-    questionCount: "25",
-  },
-  {
-    id: 2,
-    icon: "book-open-01",
-    iconAlt: "أيقونة كتاب مفتوح - قسم استيعاب المقروء",
-    title: "استيعاب المقروء",
-    description: "اختبار فهمك للنصوص العامة والمتنوعة.",
-    questionCount: "25",
-  },
-  {
-    id: 3,
-    icon: "pencil-edit-02",
-    iconAlt: "أيقونة قلم - قسم الكتابة",
-    title: "الكتابة",
-    description: "تقييم قدرتك على التعبير بلغة دقيقة ومنظمة في موضوعات عامة.",
-    questionCount: "2",
-  },
-  {
-    id: 4,
-    icon: "message-01",
-    iconAlt: "أيقونة محادثة - قسم التحدث",
-    title: "التحدث",
-    description: "قياس دقة لغتك وطلاقتك في استخدام اللغة في المحادثات العامة.",
-    questionCount: "5",
-  },
-];
+export function getQuestionTypes(locale?: "ar" | "en"): TestSection[] {
+  return [
+    {
+      id: 1,
+      icon: "headphones",
+      iconAlt: st("generalTest", "sectionListeningTitle", locale),
+      title: st("generalTest", "sectionListeningTitle", locale),
+      description: st("generalTest", "sectionListeningDesc", locale),
+      questionCount: "25",
+    },
+    {
+      id: 2,
+      icon: "book-open-01",
+      iconAlt: st("generalTest", "sectionReadingTitle", locale),
+      title: st("generalTest", "sectionReadingTitle", locale),
+      description: st("generalTest", "sectionReadingDesc", locale),
+      questionCount: "25",
+    },
+    {
+      id: 3,
+      icon: "pencil-edit-02",
+      iconAlt: st("generalTest", "sectionWritingTitle", locale),
+      title: st("generalTest", "sectionWritingTitle", locale),
+      description: st("generalTest", "sectionWritingDesc", locale),
+      questionCount: "2",
+    },
+    {
+      id: 4,
+      icon: "message-01",
+      iconAlt: st("generalTest", "sectionSpeakingTitle", locale),
+      title: st("generalTest", "sectionSpeakingTitle", locale),
+      description: st("generalTest", "sectionSpeakingDesc", locale),
+      questionCount: "5",
+    },
+  ];
+}
 
-export const TEST_INFO: InfoCard[] = [
-  {
-    icon: "time-02",
-    iconAlt: "أيقونة ساعة - مدة الاختبار",
-    title: "مدة الاختبار",
-    description: "(170) دقيقة",
-  },
-  {
-    icon: "right-to-left-list-bullet",
-    iconAlt: "أيقونة قائمة - عدد فقرات الاختبار",
-    title: "عدد أسئلة الاختبار",
-    description: "(95) سؤال",
-  },
-  {
-    icon: "cursor-in-window",
-    iconAlt: "أيقونة شاشة - تطبيق الاختبار عن بُعد",
-    title: "يُطبَّق الاختبار",
-    description: "حضوري و عن بُعد",
-  },
-  {
-    icon: "building-06",
-    iconAlt: "أيقونة مبنى - تطبيق الاختبار في مراكز الاختبار",
-    title: "يُطبَّق الاختبار",
-    description: " في مراكز الاختبار المعتمدة  ",
-  },
-];
+/** @deprecated Use getQuestionTypes(locale) for bilingual support */
+export const QUESTION_TYPES: TestSection[] = getQuestionTypes();
+
+export function getTestInfo(locale?: "ar" | "en"): InfoCard[] {
+  return [
+    {
+      icon: "time-02",
+      iconAlt: st("generalTest", "infoDurationTitle", locale),
+      title: st("generalTest", "infoDurationTitle", locale),
+      description: st("generalTest", "infoDurationDesc", locale),
+    },
+    {
+      icon: "right-to-left-list-bullet",
+      iconAlt: st("generalTest", "infoQuestionsTitle", locale),
+      title: st("generalTest", "infoQuestionsTitle", locale),
+      description: st("generalTest", "infoQuestionsDesc", locale),
+    },
+    {
+      icon: "cursor-in-window",
+      iconAlt: st("generalTest", "infoRemoteTitle", locale),
+      title: st("generalTest", "infoRemoteTitle", locale),
+      description: st("generalTest", "infoRemoteDesc", locale),
+    },
+    {
+      icon: "building-06",
+      iconAlt: st("generalTest", "infoCentersTitle", locale),
+      title: st("generalTest", "infoCentersTitle", locale),
+      description: st("generalTest", "infoCentersDesc", locale),
+    },
+  ];
+}
+
+/** @deprecated Use getTestInfo(locale) for bilingual support */
+export const TEST_INFO: InfoCard[] = getTestInfo();

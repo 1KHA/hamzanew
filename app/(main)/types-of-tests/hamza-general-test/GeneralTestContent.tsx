@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Tag from "../../../components/tag/Tag";
 import ScrollReveal from "../../../components/scroll-reveal/ScrollReveal";
-import { QUESTION_TYPES, TEST_INFO, type TestSection, type InfoCard } from "./data";
+import { getQuestionTypes, getTestInfo, type TestSection, type InfoCard } from "./data";
 import { st } from "@/app/_lib/static-text-server";
 
 /* ==========================================================================
@@ -121,9 +121,9 @@ function TestSectionCard({ section, locale = "ar" }: { section: TestSection; loc
 export default function GeneralTestContent({
   header,
   testSections,
-  questionTypes = QUESTION_TYPES,
-  testInfo = TEST_INFO,
   locale = "ar",
+  questionTypes = getQuestionTypes(locale),
+  testInfo = getTestInfo(locale),
 }: GeneralTestContentProps) {
   // Helper: get first non-empty sidebar text as raw string
   const getSidebarText = (text: string | undefined | null): string => {
@@ -167,7 +167,7 @@ export default function GeneralTestContent({
         return {
           id: index + 1,
           icon: iconMap[sectionName] || "star",
-          iconAlt: `أيقونة قسم ${sectionName}`,
+          iconAlt: `${st("generalTest", "iconAltPrefix", locale)} ${sectionName}`,
           title: sectionName,
           description: section.testDescriptionText,
           questionCount,
@@ -196,11 +196,11 @@ export default function GeneralTestContent({
                     className="inline-block green-icon"
                   />
                 </span>
-                {header?.titleText || "اختبار همزة العام"}
+                {header?.titleText || st("generalTest", "headerSubtitle", locale)}
               </p>
 
               <h1 id="test-sections-title" className="display-sm-bold hidden xl:block">
-                {testSections?.title || "أقسام الاختبار"}
+                {testSections?.title || st("generalTest", "headerTitle", locale)}
                 <Image
                   src="/assets/icons/stroke-standard/arrow-left-02-stroke-rounded.svg"
                   alt=""
@@ -213,7 +213,7 @@ export default function GeneralTestContent({
               </h1>
 
               <p className="text-md-regular">
-                {testSections?.descriptionText || "صُمّم اختبار \"همزة\" ليقدّم تقييمًا شاملًا لمستوى الكفاءة اللغوية في اللغة العربية من خلال أربعة أقسام رئيسية:"}
+                {testSections?.descriptionText || st("generalTest", "headerDescription", locale)}
               </p>
             </div>
           </header>
@@ -222,7 +222,7 @@ export default function GeneralTestContent({
         <div
           className="grid grid-cols-1 md:grid-cols-2 gap-[24px]"
           role="list"
-          aria-label="معلومات الاختبار"
+          aria-label={st("generalTest", "ariaTestInfo", locale)}
         >
           {testInfo.map((card, i) => (
             <ScrollReveal
@@ -244,14 +244,14 @@ export default function GeneralTestContent({
         {/* Mobile-only title */}
         <ScrollReveal direction="up" delay={l(0)} duration={DURATION} amount={AMOUNT}>
           <h2 className="display-sm-bold block xl:hidden">
-            {testSections?.title || "أقسام الاختبار"}
+            {testSections?.title || st("generalTest", "headerTitle", locale)}
           </h2>
         </ScrollReveal>
 
         <div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-[16px]"
           role="list"
-          aria-label="أقسام اختبار همزة الأربعة"
+          aria-label={st("generalTest", "ariaTestSections", locale)}
         >
           {transformedQuestionTypes.map((section, i) => (
             <ScrollReveal

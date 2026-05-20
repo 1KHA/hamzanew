@@ -706,6 +706,35 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     questionCountLabel: { ar: "عدد الأسئلة", en: "Number of questions" },
     questionUnitSingle: { ar: "فقرة", en: "paragraph" },
     questionUnitPlural: { ar: "فقرات", en: "paragraphs" },
+    /* ── Section titles & descriptions ─────────────────────────────────────── */
+    sectionListeningTitle: { ar: "الفهم المسموع", en: "Listening Comprehension" },
+    sectionListeningDesc: { ar: "قياس قدرتك على متابعة المحادثات والحوارات اليومية.", en: "Measuring your ability to follow everyday conversations and dialogues." },
+    sectionReadingTitle: { ar: "استيعاب المقروء", en: "Reading Comprehension" },
+    sectionReadingDesc: { ar: "اختبار فهمك للنصوص العامة والمتنوعة.", en: "Testing your understanding of general and varied texts." },
+    sectionWritingTitle: { ar: "الكتابة", en: "Writing" },
+    sectionWritingDesc: { ar: "تقييم قدرتك على التعبير بلغة دقيقة ومنظمة في موضوعات عامة.", en: "Evaluating your ability to express yourself with precise and organized language on general topics." },
+    sectionSpeakingTitle: { ar: "التحدث", en: "Speaking" },
+    sectionSpeakingDesc: { ar: "قياس دقة لغتك وطلاقتك في استخدام اللغة في المحادثات العامة.", en: "Measuring your language accuracy and fluency in general conversations." },
+    /* ── Info cards ────────────────────────────────────────────────────────── */
+    infoDurationTitle: { ar: "مدة الاختبار", en: "Test Duration" },
+    infoDurationDesc: { ar: "(170) دقيقة", en: "(170) minutes" },
+    infoQuestionsTitle: { ar: "عدد أسئلة الاختبار", en: "Number of Test Questions" },
+    infoQuestionsDesc: { ar: "(95) سؤال", en: "(95) questions" },
+    infoRemoteTitle: { ar: "يُطبَّق الاختبار", en: "Test Application" },
+    infoRemoteDesc: { ar: "حضوري و عن بُعد", en: "In-person and remote" },
+    infoCentersTitle: { ar: "يُطبَّق الاختبار", en: "Test Application" },
+    infoCentersDesc: { ar: "في مراكز الاختبار المعتمدة", en: "At accredited test centers" },
+    /* ── Header fallbacks ──────────────────────────────────────────────────── */
+    headerSubtitle: { ar: "اختبار همزة العام", en: "Hamza General Test" },
+    headerTitle: { ar: "أقسام الاختبار", en: "Test Sections" },
+    headerDescription: {
+      ar: "صُمّم اختبار \"همزة\" ليقدّم تقييمًا شاملًا لمستوى الكفاءة اللغوية في اللغة العربية من خلال أربعة أقسام رئيسية:",
+      en: "The Hamza Test is designed to provide a comprehensive assessment of Arabic language proficiency through four main sections:",
+    },
+    /* ── aria-labels ───────────────────────────────────────────────────────── */
+    ariaTestInfo: { ar: "معلومات الاختبار", en: "Test Information" },
+    ariaTestSections: { ar: "أقسام اختبار همزة الأربعة", en: "Four Hamza Test Sections" },
+    iconAltPrefix: { ar: "أيقونة قسم", en: "Section icon" },
   },
   academicTest: {
     badgeSubtitle: { ar: "اختبار همزة الأكاديمي", en: "Hamza Academic Test" },
