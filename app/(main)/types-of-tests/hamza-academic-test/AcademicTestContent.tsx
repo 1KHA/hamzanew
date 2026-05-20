@@ -310,7 +310,7 @@ export default function AcademicTestContent({
                     className="inline-block green-icon"
                   />
                 </span>
-                اختبار همزة الأكاديمي
+                {st("academicTest", "badgeSubtitle", locale)}
               </p>
 
               <h2 id="test-sections-title" className="display-sm-bold hidden xl:block">

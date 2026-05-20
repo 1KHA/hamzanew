@@ -172,12 +172,12 @@ export async function getTypesOfTestsHero(): Promise<
   return fetchHeroFromKey(
     "HAMZA_HOMEPAGE_TYPES_OF_TESTS_COMPARE_HAMZA_TESTS_CONTENT_KEY",
     "TypesOfTestsHero",
-    "أنواع اختبارات همزة",
+    "hamza-navigation-menu-types-of-tests",
     "",
     [
-      { label: "الرئيسة", path: "/" },
-      { label: "عن الجهة", disabled: true },
-      { label: "أنواع اختبارات همزة", disabled: true },
+      { label: "hamza-navigation-menu-home", path: "/" },
+      { label: "hamza-page-level-nav-who-are-we", disabled: true },
+      { label: "hamza-navigation-menu-types-of-tests", disabled: true },
     ]
   );
 }
@@ -188,13 +188,13 @@ export async function getHamzaAcademicTestHero(): Promise<
   return fetchHeroFromKey(
     "HAMZA_HOMEPAGE_TYPES_OF_TESTS_HAMZA_ACADEMIC_TEST_HEADER_CONTENT_KEY",
     "AcademicTestHero",
-    "اختبار همزة الأكاديمي",
-    "اختبار همزة الأكاديمي يمنحك فرصة لبدء مستقبلك الدراسي والمهني بخطوة واثقة ومستوى معتمد من الكفاءة اللغوية نبذه عن اختبار همزة الأكاديمي",
+    "hamza-page-organizations-academic-hamza",
+    "",
     [
-      { label: "الرئيسة", path: "/" },
-      { label: "عن الجهة", disabled: true },
-      { label: "أنواع اختبارات همزة", path: "/types-of-tests" },
-      { label: "اختبار همزة الأكاديمي", disabled: true },
+      { label: "hamza-navigation-menu-home", path: "/" },
+      { label: "hamza-page-level-nav-who-are-we", disabled: true },
+      { label: "hamza-navigation-menu-types-of-tests", path: "/types-of-tests" },
+      { label: "hamza-page-organizations-academic-hamza", disabled: true },
     ]
   );
 }
@@ -205,13 +205,13 @@ export async function getHamzaGeneralTestHero(): Promise<
   return fetchHeroFromKey(
     "HAMZA_HOMEPAGE_TYPES_OF_TESTS_HAMZA_GENERAL_TEST_HEADER_CONTENT_KEY",
     "GeneralTestHero",
-    "اختبار همزة العام",
-    "يُعد اختبار همزة العام أداة موثوقة لقياس كفاءة اللغة العربية للناطقين بغيرها للأغراض العامة.",
+    "hamza-navigation-menu-the-hamza-of-the-year",
+    "",
     [
-      { label: "الرئيسة", path: "/" },
-      { label: "عن الجهة", disabled: true },
-      { label: "أنواع اختبارات همزة", path: "/types-of-tests" },
-      { label: "اختبار همزة العام", disabled: true },
+      { label: "hamza-navigation-menu-home", path: "/" },
+      { label: "hamza-page-level-nav-who-are-we", disabled: true },
+      { label: "hamza-navigation-menu-types-of-tests", path: "/types-of-tests" },
+      { label: "hamza-navigation-menu-the-hamza-of-the-year", disabled: true },
     ]
   );
 }
@@ -222,13 +222,13 @@ export async function getHamzaPlacementTestHero(): Promise<
   return fetchHeroFromKey(
     "HAMZA_HOMEPAGE_TYPES_OF_TESTS_HAMZA_PLACEMENT_TEST_HEADER_CONTENT_KEY",
     "PlacementTestHero",
-    "اختبار همزة لتحديد المستوى",
-    "صُمم الاختبار ليقيس معرفة المتعلم باللغة العربية من خلال أربعة أقسام رئيسية: الاستماع، القراءة، المفردات، والقواعد، وذلك بهدف اختيار المستوى المناسب للمختبر عند التحاقه بالبرنامج المستهدف.",
+    "hamza-navigation-menu-hamza-to-determine-the-level",
+    "",
     [
-      { label: "الرئيسة", path: "/" },
-      { label: "عن الجهة", disabled: true },
-      { label: "أنواع اختبارات همزة", path: "/types-of-tests" },
-      { label: "اختبار همزة لتحديد المستوى", disabled: true },
+      { label: "hamza-navigation-menu-home", path: "/" },
+      { label: "hamza-page-level-nav-who-are-we", disabled: true },
+      { label: "hamza-navigation-menu-types-of-tests", path: "/types-of-tests" },
+      { label: "hamza-navigation-menu-hamza-to-determine-the-level", disabled: true },
     ]
   );
 }
@@ -239,13 +239,13 @@ export async function getHamzaVocabularyTestHero(): Promise<
   return fetchHeroFromKey(
     "HAMZA_HOMEPAGE_TYPES_OF_TESTS_HAMZA_VOCABULARY_TEST_HEADER_CONTENT_KEY",
     "VocabularyTestHero",
-    "اختبار همزة المفردات",
-    "اختباراً معيارياً لقياس مستويات المفردات العربية لدى الناطقين بغيرها يهدف إلى تصنيف المفردات ضمن خمسة مستويات من الشيوع (الصعوبة)، بدءاً من الكلمات الأكثر شيوعاً (المستوى الأول) وصولاً إلى الكلمات الأقل شيوعاً (المستوى الخامس).",
+    "hamza-navigation-menu-hamza-for-vocabulary",
+    "",
     [
-      { label: "الرئيسة", path: "/" },
-      { label: "عن الجهة", disabled: true },
-      { label: "أنواع اختبارات همزة", path: "/types-of-tests" },
-      { label: "اختبار همزة المفردات", disabled: true },
+      { label: "hamza-navigation-menu-home", path: "/" },
+      { label: "hamza-page-level-nav-who-are-we", disabled: true },
+      { label: "hamza-navigation-menu-types-of-tests", path: "/types-of-tests" },
+      { label: "hamza-navigation-menu-hamza-for-vocabulary", disabled: true },
     ]
   );
 }

@@ -707,6 +707,9 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     questionUnitSingle: { ar: "فقرة", en: "paragraph" },
     questionUnitPlural: { ar: "فقرات", en: "paragraphs" },
   },
+  academicTest: {
+    badgeSubtitle: { ar: "اختبار همزة الأكاديمي", en: "Hamza Academic Test" },
+  },
   signUp: {
     emailRequired: { ar: "البريد الشبكي مطلوب", en: "Email is required" },
     emailInvalid: { ar: "البريد الشبكي غير صحيح", en: "Invalid email address" },
