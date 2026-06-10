@@ -135,14 +135,48 @@ export default function SignInPage() {
               >
                 <Controller
                   name="password"
-                  type="password"
-                  id="password"
-                  placeholder={st("signIn", "passwordPlaceholder")}
-                  variant="darker"
-                  aria-required={true}
-                  aria-describedby={
-                    errors.password ? "password-error" : "password-help"
-                  }
+                  control={methods.control}
+                  render={({ field, fieldState }) => (
+                    <TextInput
+                      id="password"
+                      value={field.value}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      type={showPassword ? "text" : "password"}
+                      placeholder={st("signIn", "passwordPlaceholder")}
+                      variant="darker"
+                      size="lg"
+                      error={!!fieldState.error}
+                      required={true}
+                      aria-describedby={
+                        errors.password ? "password-error" : "password-help"
+                      }
+                      suffix={
+                        <button
+                          type="button"
+                          className="password-eye-btn"
+                          onClick={() => setShowPassword((v) => !v)}
+                          aria-label={
+                            showPassword
+                              ? "إخفاء كلمة المرور"
+                              : "إظهار كلمة المرور"
+                          }
+                        >
+                          <img
+                            src={
+                              showPassword
+                                ? "/assets/icons/stroke-standard/view-off-slash-stroke-rounded.svg"
+                                : "/assets/icons/stroke-standard/eye-stroke-rounded.svg"
+                            }
+                            alt=""
+                            width={20}
+                            height={20}
+                            aria-hidden="true"
+                          />
+                        </button>
+                      }
+                    />
+                  )}
                 />
                 <span id="password-help" className="sr-only">
                   {st("signIn", "passwordHelp")}
