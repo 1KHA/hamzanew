@@ -4,9 +4,10 @@ import { useCallback, useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
 import CheckBox from "@/app/components/checkbox/CheckBox";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
+import { Controller, FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import Button from "@/app/components/button/Button";
+import TextInput from "@/app/components/text-input/TextInput";
 import "@/app/components/card/card.css";
 import "@/app/styles/Button.css";
 import "./sign-in.css";
@@ -34,6 +35,7 @@ export default function SignInPage() {
 
   const [rememberMe, setRememberMe] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const methods = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -131,16 +133,44 @@ export default function SignInPage() {
                 error={errors.password?.message}
                 htmlFor="password"
               >
-                <ControlledTextInput
+                <Controller
                   name="password"
-                  type="password"
-                  id="password"
-                  placeholder="أدخل كلمة المرور"
-                  variant="darker"
-                  aria-required={true}
-                  aria-describedby={
-                    errors.password ? "password-error" : "password-help"
-                  }
+                  control={methods.control}
+                  render={({ field, fieldState }) => (
+                    <TextInput
+                      id="password"
+                      value={field.value}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      type={showPassword ? "text" : "password"}
+                      placeholder="أدخل كلمة المرور"
+                      variant="darker"
+                      size="lg"
+                      error={!!fieldState.error}
+                      aria-required
+                      aria-describedby={errors.password ? "password-error" : "password-help"}
+                      suffix={
+                        <button
+                          type="button"
+                          className="password-eye-btn"
+                          onClick={() => setShowPassword((v) => !v)}
+                          aria-label={showPassword ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"}
+                        >
+                          <img
+                            src={
+                              showPassword
+                                ? "/assets/icons/stroke-standard/view-off-slash-stroke-rounded.svg"
+                                : "/assets/icons/stroke-standard/eye-stroke-rounded.svg"
+                            }
+                            alt=""
+                            width={20}
+                            height={20}
+                            aria-hidden="true"
+                          />
+                        </button>
+                      }
+                    />
+                  )}
                 />
                 <span id="password-help" className="sr-only">
                   أدخل كلمة المرور الخاصة بك

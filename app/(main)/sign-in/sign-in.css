@@ -126,6 +126,45 @@
 }
 
 /* --------------------------------------------------------------------------
+   Password eye toggle
+   -------------------------------------------------------------------------- */
+
+.password-eye-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 4px;
+  margin-inline-start: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  color: var(--form-field-border-hovered, #98a2b3);
+  transition: color 0.15s;
+  flex-shrink: 0;
+}
+
+.password-eye-btn:hover {
+  color: var(--form-field-text-focused, #384250);
+  cursor: pointer;
+}
+
+.password-eye-btn:focus-visible {
+  outline: 2px solid var(--form-field-border-pressed, #074d31);
+  outline-offset: 2px;
+}
+
+.password-eye-btn img {
+  display: block;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+
+.password-eye-btn:hover img {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
    Submit button
    -------------------------------------------------------------------------- */
 
