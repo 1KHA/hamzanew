@@ -4,9 +4,10 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { signIn } from "next-auth/react";
 import CheckBox from "@/app/components/checkbox/CheckBox";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
+import { Controller, FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import Button from "@/app/components/button/Button";
+import TextInput from "@/app/components/text-input/TextInput";
 import "@/app/components/card/card.css";
 import "@/app/styles/Button.css";
 import "./sign-in.css";
@@ -37,6 +38,7 @@ export default function SignInPage() {
 
   const [rememberMe, setRememberMe] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const formSchema = useMemo(() => buildFormSchema(), []);
 
@@ -131,7 +133,7 @@ export default function SignInPage() {
                 error={errors.password?.message}
                 htmlFor="password"
               >
-                <ControlledTextInput
+                <Controller
                   name="password"
                   type="password"
                   id="password"
