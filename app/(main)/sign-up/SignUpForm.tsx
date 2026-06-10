@@ -113,9 +113,18 @@ function createSignUpSchema(getText: (key: string) => string) {
       firstName_ar: z.string().min(1, getText("firstNameArRequired")),
       secondName_ar: z.string().min(1, getText("secondNameArRequired")),
       lastName_ar: z.string().min(1, getText("lastNameArRequired")),
-      firstName_en: z.string().min(1, getText("firstNameEnRequired")),
-      secondName_en: z.string().min(1, getText("secondNameEnRequired")),
-      lastName_en: z.string().min(1, getText("lastNameEnRequired")),
+      firstName_en: z
+        .string()
+        .min(1, getText("firstNameEnRequired"))
+        .regex(/^[a-zA-Z\s'.-]+$/, getText("englishOnly")),
+      secondName_en: z
+        .string()
+        .min(1, getText("secondNameEnRequired"))
+        .regex(/^[a-zA-Z\s'.-]+$/, getText("englishOnly")),
+      lastName_en: z
+        .string()
+        .min(1, getText("lastNameEnRequired"))
+        .regex(/^[a-zA-Z\s'.-]+$/, getText("englishOnly")),
       birthDate: z.string().min(1, getText("birthDateRequired")),
       nationality: z.string().min(1, getText("nationalityRequired")),
       motherTongue: z.any().refine((val) => val && val.key, getText("motherTongueRequired")),
