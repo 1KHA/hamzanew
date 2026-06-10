@@ -145,6 +145,7 @@ export default function PersonalInfo({
               size="lg"
               variant="darker"
               error={!!errors.birthDate}
+              maxDate={new Date()}
               onChange={(date: any) => {
                 field.onChange(date ? String(date) : "");
               }}

@@ -149,7 +149,10 @@ function createSignUpSchema(getText: (key: string) => string) {
       state: z.string().min(1, getText("stateRequired")),
       city: z.string().min(1, getText("cityRequired")),
       postalAddress: z.string().min(1, getText("postalAddressRequired")),
-      zipCode: z.string().min(1, getText("zipCodeRequired")),
+      zipCode: z
+        .string()
+        .min(1, getText("zipCodeRequired"))
+        .regex(/^\d+$/, getText("zipCodeDigitsOnly")),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: getText("confirmPasswordMismatch"),

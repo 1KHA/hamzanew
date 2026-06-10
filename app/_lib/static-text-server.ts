@@ -841,6 +841,7 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     cityRequired: { ar: "المدينة مطلوبة", en: "City is required" },
     postalAddressRequired: { ar: "العنوان البريدي مطلوب", en: "Postal address is required" },
     zipCodeRequired: { ar: "الرمز البريدي مطلوب", en: "Zip code is required" },
+    zipCodeDigitsOnly: { ar: "يجب أن يحتوي الرمز البريدي على أرقام فقط", en: "Zip code must contain digits only" },
   },
   meranCourse: {
     /* ── Metadata & hero ────────────────────────────────────────────────────── */

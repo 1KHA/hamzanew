@@ -40,6 +40,10 @@ const CalendarIcon = (
 
 /* ── Types ────────────────────────────────────────────────────── */
 
+function startOfDay(d: Date): Date {
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+
 export interface DateFieldProps {
   label?: string;
   placeholder?: string;
@@ -54,6 +58,7 @@ export interface DateFieldProps {
   fullwidth?: boolean;
   rtl?: boolean;
   name?: string;
+  maxDate?: Date;
   onChange?: (date: Date | null) => void;
 }
 
@@ -73,6 +78,7 @@ export default function DateField({
   fullwidth = true,
   rtl = false,
   name,
+  maxDate,
   onChange,
 }: DateFieldProps) {
   const id = useId();
@@ -156,9 +162,13 @@ export default function DateField({
 
     const parsed = parseDate(val);
     if (parsed) {
-      setSelectedDate(parsed);
-      setErrorMessage("");
-      onChange?.(parsed);
+      if (maxDate && startOfDay(parsed) > startOfDay(maxDate)) {
+        setErrorMessage(rtl ? "التاريخ يجب أن لا يتجاوز التاريخ الحالي" : "Date exceeds the allowed maximum");
+      } else {
+        setSelectedDate(parsed);
+        setErrorMessage("");
+        onChange?.(parsed);
+      }
     } else if (DATE_RE.test(val)) {
       setErrorMessage(rtl ? "تاريخ غير صالح" : "Invalid date");
     } else {
@@ -167,12 +177,17 @@ export default function DateField({
   }, [onChange, rtl]);
 
   const handlePickerChange = useCallback((date: Date) => {
+    if (maxDate && startOfDay(date) > startOfDay(maxDate)) {
+      setErrorMessage(rtl ? "التاريخ يجب أن لا يتجاوز التاريخ الحالي" : "Date exceeds the allowed maximum");
+      setIsOpen(false);
+      return;
+    }
     setSelectedDate(date);
     setInputValue(formatDate(date));
     setErrorMessage("");
     setIsOpen(false);
     onChange?.(date);
-  }, [onChange]);
+  }, [onChange, maxDate, rtl]);
 
   const handleBlur = useCallback(() => {
     setTimeout(() => {
@@ -288,6 +303,7 @@ export default function DateField({
           <DatePicker
             value={selectedDate}
             rtl={rtl}
+            maxDate={maxDate}
             onChange={handlePickerChange}
           />
         </div>
