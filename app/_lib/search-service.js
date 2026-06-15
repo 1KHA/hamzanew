@@ -1,6 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { fetchWithAccessToken } from "./token-refresh-service";
 
 export const searchlNewsArticles = async function name(
   searchText,
@@ -10,12 +11,6 @@ export const searchlNewsArticles = async function name(
   pageSize = 10
 ) {
   const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_GET_ARTICLES_URL}/NEWS_ARTICLES/News article types`;
-  const authorization =
-    "Basic " +
-    btoa(
-      `${process.env.BASIC_AUTH_USERNAME} : ${process.env.BASIC_AUTH_PASSWORD}`
-    );
-
   const cookieStore = await cookies(); // Await cookies()
   const locale = cookieStore.get("lang")?.value || "ar-SA";
 
@@ -28,11 +23,8 @@ export const searchlNewsArticles = async function name(
   urlWithParam.searchParams.append("page", page.toString());
   urlWithParam.searchParams.append("pageSize", pageSize.toString());
 
-  const res = await fetch(urlWithParam, {
+  const res = await fetchWithAccessToken(urlWithParam, {
     method: "POST",
-    headers: {
-      Authorization: authorization,
-    },
     // cache: "force-cache", // Optional: caching behavior
   });
 
@@ -52,12 +44,6 @@ export const searchLatestNewsArticles = async function name(
   selectedArticleType
 ) {
   const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_GET_ARTICLES_URL}/LATEST_NEWS_ARTICLES/Latest news article type`;
-  const authorization =
-    "Basic " +
-    btoa(
-      `${process.env.BASIC_AUTH_USERNAME} : ${process.env.BASIC_AUTH_PASSWORD}`
-    );
-
   const cookieStore = await cookies(); // Await cookies()
   const locale = cookieStore.get("lang")?.value || "ar-SA";
 
@@ -68,11 +54,8 @@ export const searchLatestNewsArticles = async function name(
   urlWithParam.searchParams.append("locale", locale);
   urlWithParam.searchParams.append("selectedArticleType", selectedArticleType);
 
-  const res = await fetch(urlWithParam, {
+  const res = await fetchWithAccessToken(urlWithParam, {
     method: "POST",
-    headers: {
-      Authorization: authorization,
-    },
     // cache: "force-cache", // Optional: caching behavior
   });
 
@@ -91,20 +74,11 @@ export const getNewsArticles = async function name(entryClassPK) {
   const locale = cookieStore.get("lang")?.value || "ar-SA";
 
   const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_GET_ARTICLE_URL}/${locale}/${entryClassPK}`;
-  const authorization =
-    "Basic " +
-    btoa(
-      `${process.env.BASIC_AUTH_USERNAME} : ${process.env.BASIC_AUTH_PASSWORD}`
-    );
-
   // Append query parameter to the URL
   const urlWithParam = new URL(serviceUrl);
 
-  const res = await fetch(urlWithParam, {
+  const res = await fetchWithAccessToken(urlWithParam, {
     method: "GET",
-    headers: {
-      Authorization: authorization,
-    },
     // cache: "force-cache", // Optional: caching behavior
   });
 
@@ -126,12 +100,6 @@ export const searchResearchArticles = async function name(
   pageSize = 10
 ) {
   const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_GET_ARTICLES_URL}/RESEARCH_ARTICLE/Research article type`;
-  const authorization =
-    "Basic " +
-    btoa(
-      `${process.env.BASIC_AUTH_USERNAME} : ${process.env.BASIC_AUTH_PASSWORD}`
-    );
-
   const cookieStore = await cookies(); // Await cookies()
   const locale = cookieStore.get("lang")?.value || "ar-SA";
 
@@ -143,11 +111,8 @@ export const searchResearchArticles = async function name(
   urlWithParam.searchParams.append("selectedArticleType", selectedArticleType);
   urlWithParam.searchParams.append("page", page.toString());
   urlWithParam.searchParams.append("pageSize", pageSize.toString());
-  const res = await fetch(urlWithParam, {
+  const res = await fetchWithAccessToken(urlWithParam, {
     method: "POST",
-    headers: {
-      Authorization: authorization,
-    },
     // cache: "force-cache", // Optional: caching behavior
   });
 
@@ -169,12 +134,6 @@ export const searchReportsAndStatisticsArticles = async function name(
   pageSize = 10
 ) {
   const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_GET_ARTICLES_URL}/REPORTS_AND_STATISTICS_ARTICLE/Reports & Statistics article type`;
-  const authorization =
-    "Basic " +
-    btoa(
-      `${process.env.BASIC_AUTH_USERNAME} : ${process.env.BASIC_AUTH_PASSWORD}`
-    );
-
   const cookieStore = await cookies(); // Await cookies()
   const locale = cookieStore.get("lang")?.value || "ar-SA";
 
@@ -186,11 +145,8 @@ export const searchReportsAndStatisticsArticles = async function name(
   urlWithParam.searchParams.append("selectedArticleType", selectedArticleType);
   urlWithParam.searchParams.append("page", page.toString());
   urlWithParam.searchParams.append("pageSize", pageSize.toString());
-  const res = await fetch(urlWithParam, {
+  const res = await fetchWithAccessToken(urlWithParam, {
     method: "POST",
-    headers: {
-      Authorization: authorization,
-    },
     // cache: "force-cache", // Optional: caching behavior
   });
 

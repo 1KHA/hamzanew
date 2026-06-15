@@ -1,20 +1,13 @@
 "use server";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
+import { fetchWithAccessToken } from "./token-refresh-service";
+import { getUserAuth } from "./user-token-service";
 
 export const signUpUserSevice = async function signUpUserSevice(formData) {
   const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_SIGN_UP_API_URL}`;
 
-  const authorization =
-    "Basic " +
-    btoa(
-      `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
-    );
-
-  const res = await fetch(serviceUrl, {
+  const res = await fetchWithAccessToken(serviceUrl, {
     method: "POST",
     headers: {
-      Authorization: authorization,
       Accept: "application/json",
     },
     body: formData,
@@ -27,14 +20,80 @@ export const signUpUserSevice = async function signUpUserSevice(formData) {
 };
 
 /**
- * Builds the shared Basic auth header used by the profile service endpoints.
+ * MFA step 1 — validate email + password and trigger an OTP email.
+ * POST /login  body: { email, password }
+ * On success the backend emails the OTP and returns an mfaToken (ticket key)
+ * that must be presented to verify-otp / resend-otp. The OTP itself is never
+ * returned. A FAIL with 401 means invalid credentials.
  */
-function getBasicAuthHeader() {
-  return (
-    "Basic " +
-    btoa(`${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`)
-  );
-}
+export const loginRequestService = async function loginRequestService(
+  email,
+  password
+) {
+  try {
+    const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_LOGIN_API_URL}`;
+
+    const response = await fetchWithAccessToken(serviceUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+      cache: "no-store",
+    });
+
+    const data = await parseResponseBody(response);
+
+    return {
+      status: response.ok && data.status === "SUCCESS" ? "SUCCESS" : "FAIL",
+      message: data.message || data.error || "",
+      code: data.code,
+      mfaToken: data.mfaToken,
+    };
+  } catch (error) {
+    console.error("[loginRequestService] error:", error);
+    return { status: "FAIL", message: "An error occurred while signing in" };
+  }
+};
+
+// Note: OTP verification is NOT a standalone service action — it runs inside
+// NextAuth authorize() (see lib/auth.ts verifyOtpTicket) so the session can only
+// be issued after the OTP is verified server-side. Calling verify-otp separately
+// from the client would let the session be minted without it (MFA bypass).
+
+/**
+ * Resend a login OTP for an in-progress MFA session.
+ * POST /login/resend-otp  body: { mfaToken }
+ * Returns a fresh mfaToken; the previous one is invalidated server-side.
+ */
+export const resendOtpService = async function resendOtpService(mfaToken) {
+  try {
+    const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_RESEND_OTP_API_URL}`;
+
+    const response = await fetchWithAccessToken(serviceUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ mfaToken }),
+      cache: "no-store",
+    });
+
+    const data = await parseResponseBody(response);
+
+    return {
+      status: response.ok && data.status === "SUCCESS" ? "SUCCESS" : "FAIL",
+      message: data.message || data.error || "",
+      code: data.code,
+      mfaToken: data.mfaToken,
+    };
+  } catch (error) {
+    console.error("[resendOtpService] error:", error);
+    return { status: "FAIL", message: "An error occurred while resending the code" };
+  }
+};
 
 /**
  * Safely parses a fetch Response body as JSON, falling back to raw text.
@@ -59,10 +118,9 @@ export const requestPasswordResetService = async function requestPasswordResetSe
   try {
     const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_FORGOT_PASSWORD_API_URL}`;
 
-    const response = await fetch(serviceUrl, {
+    const response = await fetchWithAccessToken(serviceUrl, {
       method: "POST",
       headers: {
-        Authorization: getBasicAuthHeader(),
         "Content-Type": "application/json",
         Accept: "application/json",
       },
@@ -100,10 +158,9 @@ export const validateResetTokenService = async function validateResetTokenServic
       process.env.HAMZA_VALIDATE_RESET_TOKEN_API_URL
     }?token=${encodeURIComponent(token)}`;
 
-    const response = await fetch(serviceUrl, {
+    const response = await fetchWithAccessToken(serviceUrl, {
       method: "GET",
       headers: {
-        Authorization: getBasicAuthHeader(),
         Accept: "application/json",
       },
       cache: "no-store",
@@ -136,10 +193,9 @@ export const resetPasswordService = async function resetPasswordService(
   try {
     const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_RESET_PASSWORD_API_URL}`;
 
-    const response = await fetch(serviceUrl, {
+    const response = await fetchWithAccessToken(serviceUrl, {
       method: "POST",
       headers: {
-        Authorization: getBasicAuthHeader(),
         "Content-Type": "application/json",
         Accept: "application/json",
       },
@@ -167,32 +223,23 @@ export const resetPasswordService = async function resetPasswordService(
 
 export async function getUserProfileInfo() {
   try {
-    const { cookies } = await import("next/headers");
-    const cookieStore = await cookies();
-    const session = await getServerSession(authOptions);
+    const auth = await getUserAuth();
 
-    console.log("[getUserProfileInfo] Session from getServerSession:", JSON.stringify(session, null, 2));
-
-    if (!session || !session.user) {
-      console.log("[getUserProfileInfo] No session or no session.user");
+    if (!auth?.accessToken || auth.error) {
+      console.log("[getUserProfileInfo] No user token / refresh failed");
       return null;
     }
 
-    console.log("[getUserProfileInfo] Session user id:", session.user.id, "| email:", session.user.email, "| name:", session.user.name);
+    console.log("[getUserProfileInfo] User id:", auth.id, "| email:", auth.email);
 
-    const authorization =
-      "Basic " +
-      btoa(
-        `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
-      );
-
-    const profileUrl = `${process.env.BASE_URL}${process.env.HAMZA_GET_USER_PROFILE_INFO}${session.user.id}`;
+    const profileUrl = `${process.env.BASE_URL}${process.env.HAMZA_GET_USER_PROFILE_INFO}${auth.id}`;
     console.log("[getUserProfileInfo] Fetching profile URL:", profileUrl);
 
+    // Runs as the signed-in user (their own token).
     const response = await fetch(profileUrl, {
       method: "GET",
       headers: {
-        Authorization: authorization,
+        Authorization: `Bearer ${auth.accessToken}`,
         Accept: "application/json",
       },
       cache: "no-store",
@@ -217,16 +264,16 @@ export async function getUserProfileInfo() {
 export const updateUserProfileService = async function updateUserProfileService(formData) {
   const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_UPDATE_USER_PROFILE_API_URL}`;
 
-  const authorization =
-    "Basic " +
-    btoa(
-      `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
-    );
+  const auth = await getUserAuth();
+  if (!auth?.accessToken || auth.error) {
+    return { status: "FAIL", message: "User not authenticated" };
+  }
 
+  // Runs as the signed-in user (their own token).
   const res = await fetch(serviceUrl, {
     method: "POST",
     headers: {
-      Authorization: authorization,
+      Authorization: `Bearer ${auth.accessToken}`,
       "Content-Type": "application/json",
       Accept: "application/json",
     },
