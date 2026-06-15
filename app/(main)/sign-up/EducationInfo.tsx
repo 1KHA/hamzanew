@@ -42,7 +42,7 @@ export default function EducationInfo({
               trackBy="key"
               options={educationQualificationsOptions}
               extraClass="w-full"
-              value={field.value}
+              value={field.value?.key}
               getSelectedOptions={(opt: any) => field.onChange(opt)}
             />
           )}
@@ -66,7 +66,7 @@ export default function EducationInfo({
               trackBy="key"
               options={educationInstitutionsOptions}
               extraClass="w-full"
-              value={field.value}
+              value={field.value?.key}
               getSelectedOptions={(opt: any) => field.onChange(opt)}
             />
           )}
@@ -90,7 +90,7 @@ export default function EducationInfo({
               trackBy="key"
               options={specializationOptions}
               extraClass="w-full"
-              value={field.value}
+              value={field.value?.key}
               getSelectedOptions={(opt: any) => field.onChange(opt)}
             />
           )}
@@ -114,7 +114,7 @@ export default function EducationInfo({
               trackBy="key"
               options={motherTongueOptions}
               extraClass="w-full"
-              value={field.value}
+              value={field.value?.key}
               getSelectedOptions={(opt: any) => field.onChange(opt)}
             />
           )}

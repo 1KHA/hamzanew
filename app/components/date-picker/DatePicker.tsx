@@ -36,6 +36,10 @@ function sameDay(a: Date, b: Date) {
   );
 }
 
+function startOfDay(d: Date): Date {
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+
 const DAYS = {
   en: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
   ar: ["أحد", "إثنين", "ثلاثاء", "أربعاء", "خميس", "جمعة", "سبت"],
@@ -53,24 +57,26 @@ interface DateCellProps {
   isCurrentMonth: boolean;
   isSelected: boolean;
   isToday: boolean;
+  disabled?: boolean;
   onSelect: (d: Date) => void;
 }
 
 const DateCell = memo(function DateCell({
-  date, isCurrentMonth, isSelected, isToday, onSelect,
+  date, isCurrentMonth, isSelected, isToday, disabled, onSelect,
 }: DateCellProps) {
   let cls = "date-cell";
   if (!isCurrentMonth) cls += " date-cell--not-current-month";
   if (isSelected)      cls += " date-cell--selected";
   if (isToday)         cls += " date-cell--today";
+  if (disabled)        cls += " date-cell--disabled";
 
   return (
     <button
       type="button"
       className={cls}
-      onClick={() => isCurrentMonth && onSelect(date)}
-      disabled={!isCurrentMonth}
-      tabIndex={isCurrentMonth ? 0 : -1}
+      onClick={() => isCurrentMonth && !disabled && onSelect(date)}
+      disabled={!isCurrentMonth || disabled}
+      tabIndex={isCurrentMonth && !disabled ? 0 : -1}
       aria-label={date.toLocaleDateString("ar-SA", { day: "numeric", month: "long", year: "numeric" })}
       aria-pressed={isSelected}
     >
@@ -184,10 +190,11 @@ const MonthNavigator = memo(function MonthNavigator({ currentMonth, rtl, onChang
 export interface DatePickerProps {
   value?: Date | null;
   rtl?: boolean;
+  maxDate?: Date;
   onChange: (date: Date) => void;
 }
 
-export default function DatePicker({ value, rtl = false, onChange }: DatePickerProps) {
+export default function DatePicker({ value, rtl = false, maxDate, onChange }: DatePickerProps) {
   const today = useMemo(() => new Date(), []);
   const [currentMonth, setCurrentMonth] = useState(() =>
     value
@@ -235,6 +242,7 @@ export default function DatePicker({ value, rtl = false, onChange }: DatePickerP
               isCurrentMonth={date.getMonth() === currentMonth.getMonth()}
               isSelected={value ? sameDay(date, value) : false}
               isToday={sameDay(date, today)}
+              disabled={maxDate ? startOfDay(date) > startOfDay(maxDate) : false}
               onSelect={handleSelect}
             />
           ))}

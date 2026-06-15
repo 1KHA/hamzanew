@@ -30,6 +30,11 @@ export default function PersonalInfo({
 
   const [, setIdFile] = useState<UploadedFile[]>([]);
 
+  const handleEnglishOnlyInput = (e: React.FormEvent<HTMLInputElement>) => {
+    const target = e.currentTarget;
+    target.value = target.value.replace(/[^a-zA-Z\s'.-]/g, "");
+  };
+
   return (
     <div className="sign-up-page__grid">
       <FormField
@@ -59,6 +64,7 @@ export default function PersonalInfo({
           id="first-name-en"
           size="lg"
           variant="darker"
+          onInput={handleEnglishOnlyInput}
         />
       </FormField>
 
@@ -89,6 +95,7 @@ export default function PersonalInfo({
           id="second-name-en"
           size="lg"
           variant="darker"
+          onInput={handleEnglishOnlyInput}
         />
       </FormField>
 
@@ -119,6 +126,7 @@ export default function PersonalInfo({
           id="last-name-en"
           size="lg"
           variant="darker"
+          onInput={handleEnglishOnlyInput}
         />
       </FormField>
 
@@ -137,6 +145,7 @@ export default function PersonalInfo({
               size="lg"
               variant="darker"
               error={!!errors.birthDate}
+              maxDate={new Date()}
               onChange={(date: any) => {
                 field.onChange(date ? String(date) : "");
               }}
@@ -182,7 +191,7 @@ export default function PersonalInfo({
               trackBy="key"
               options={motherTongueOptions}
               extraClass="w-full"
-              value={field.value}
+              value={field.value?.key}
               getSelectedOptions={(opt: any) => field.onChange(opt)}
             />
           )}
@@ -202,7 +211,7 @@ export default function PersonalInfo({
               trackBy="key"
               options={proofOptions}
               extraClass="w-full"
-              value={field.value}
+              value={field.value?.key}
               getSelectedOptions={(opt: any) => field.onChange(opt)}
             />
           )}
@@ -242,7 +251,7 @@ export default function PersonalInfo({
           render={({ field }) => (
             <FileUpload
               name="identity-file"
-              fileTypesText="الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وتشمل الصيغ الدعومة .pdf."
+              fileTypesText="الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وصيغ الملفات المدعومة تشمل jpg, png, pdf."
               accept=".pdf,.png,.jpg,.jpeg"
               actionName="تصفح الملفات"
               showIcon={false}
