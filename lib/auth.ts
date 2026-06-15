@@ -6,7 +6,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
  * Uses Basic Auth with the user's own username/password to call
  * the Liferay headless user account endpoint.
  */
-async function getUser(username: string, password: string) {
+export async function getUser(username: string, password: string) {
   const authURL = `${process.env.BASE_URL}/o/headless-admin-user/v1.0/my-user-account`;
   const credentials = Buffer.from(`${username}:${password}`).toString("base64");
 
