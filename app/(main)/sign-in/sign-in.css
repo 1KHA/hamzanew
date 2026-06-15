@@ -203,6 +203,66 @@ body.page-sign-in hr[aria-hidden="true"] {
 }
 
 /* --------------------------------------------------------------------------
+   OTP Input
+   -------------------------------------------------------------------------- */
+
+.otp-input {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  direction: ltr;
+}
+
+.otp-input__wrapper {
+  width: 52px;
+  min-width: 52px;
+  padding-inline: 0;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.otp-input__wrapper:active {
+  background-color: var(--form-field-background-darker, #e5e7eb);
+  border-color: var(--form-field-border-default, #d0d5dd);
+}
+
+.otp-input__wrapper:active::after {
+  width: 50% !important;
+  background-color: var(--form-field-border-pressed, #074d31);
+}
+
+.otp-input__wrapper--filled::after {
+  width: 100%;
+  background-color: var(--form-field-border-pressed, #074d31);
+}
+
+.otp-input__cell {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  width: 100%;
+  caret-color: var(--form-field-border-pressed, #074d31);
+}
+
+/* --------------------------------------------------------------------------
+   Resend row
+   -------------------------------------------------------------------------- */
+
+.sign-in-otp__resend {
+  text-align: center;
+  color: #6c737f;
+  margin-top: -4px;
+}
+
+.sign-in-otp__resend-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+/* --------------------------------------------------------------------------
    Responsive: stack on small screens
    -------------------------------------------------------------------------- */
 
@@ -228,5 +288,18 @@ body.page-sign-in hr[aria-hidden="true"] {
 @media (max-width: 480px) {
   .sign-in-page__content {
     padding: 20px;
+  }
+
+  .otp-input {
+    gap: 6px;
+  }
+
+  .otp-input__wrapper {
+    width: 40px;
+    min-width: 40px;
+  }
+
+  .otp-input__cell {
+    font-size: 16px;
   }
 }

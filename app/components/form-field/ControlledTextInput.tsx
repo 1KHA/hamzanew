@@ -16,6 +16,7 @@ interface ControlledTextInputProps<TFieldValues extends FieldValues> {
   maxLength?: number;
   "aria-describedby"?: string;
   "aria-required"?: boolean;
+  onInput?: (event: React.FormEvent<HTMLInputElement>) => void;
 }
 
 export default function ControlledTextInput<TFieldValues extends FieldValues>({
@@ -28,6 +29,7 @@ export default function ControlledTextInput<TFieldValues extends FieldValues>({
   maxLength,
   "aria-describedby": ariaDescribedBy,
   "aria-required": ariaRequired,
+  onInput,
 }: ControlledTextInputProps<TFieldValues>) {
   const {
     control,
@@ -54,6 +56,7 @@ export default function ControlledTextInput<TFieldValues extends FieldValues>({
           maxLength={maxLength}
           aria-describedby={ariaDescribedBy}
           required={ariaRequired}
+          onInput={onInput}
         />
       )}
     />

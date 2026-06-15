@@ -20,6 +20,11 @@ export default function LocationInfo({
     formState: { errors },
   } = useFormContext<NewUserFormValues>();
 
+  const handleDigitsOnlyInput = (e: React.FormEvent<HTMLInputElement>) => {
+    const target = e.currentTarget;
+    target.value = target.value.replace(/\D/g, "");
+  };
+
   return (
     <div className="sign-up-page__grid">
       <FormField
@@ -39,7 +44,7 @@ export default function LocationInfo({
               trackBy="key"
               options={timezoneOptions}
               extraClass="w-full"
-              value={field.value}
+              value={field.value?.key}
               error={!!errors.timezone}
               getSelectedOptions={(opt: any) => field.onChange(opt)}
             />
@@ -126,8 +131,10 @@ export default function LocationInfo({
           placeholder="الرمز البريدي"
           name="zipCode"
           id="input-postal"
+          type="tel"
           size="lg"
           variant="darker"
+          onInput={handleDigitsOnlyInput}
         />
       </FormField>
     </div>

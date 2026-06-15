@@ -587,8 +587,8 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     messagePlaceholder: { ar: "اكتب رسالتك", en: "Write your message" },
     fileUploadLabel: { ar: "رفع المرفقات", en: "Upload Attachments" },
     fileTypesText: {
-      ar: "الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وصيغ الملفات المدعومة تشمل .jpg و .png و .pdf.",
-      en: "Maximum file size allowed is 2 MB, supported formats include .jpg, .png, and .pdf.",
+      ar: "الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وصيغ الملفات المدعومة تشمل jpg, png, pdf.",
+      en: "Maximum file size allowed is 2 MB, supported formats include jpg, png, and pdf.",
     },
     browseFiles: { ar: "تصفح الملفات", en: "Browse Files" },
     submitBtn: { ar: "إرسال", en: "Submit" },
@@ -693,6 +693,14 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     genericError: { ar: "حدث خطأ ما", en: "Something went wrong" },
     submitting: { ar: "جاري تسجيل الدخول...", en: "Signing in..." },
     signInBtn: { ar: "تسجيل الدخول", en: "Sign in" },
+    otpLabel: { ar: "رمز التحقق", en: "Verification code" },
+    otpVerifyBtn: { ar: "التحقق من الرمز", en: "Verify code" },
+    otpSubmitting: { ar: "جاري التحقق...", en: "Verifying..." },
+    otpResend: { ar: "إعادة إرسال الرمز", en: "Resend code" },
+    otpResendAfter: { ar: "إعادة الإرسال بعد {countdown} ث", en: "Resend after {countdown}s" },
+    otpInvalid: { ar: "رمز التحقق غير صحيح", en: "Invalid verification code" },
+    otpRequired: { ar: "رمز التحقق مطلوب", en: "Verification code is required" },
+    otpSentTo: { ar: "أُرسل رمز مكوّن من 6 أرقام إلى", en: "A 6-digit code was sent to" },
     dividerOr: { ar: "أو", en: "Or" },
     noAccount: { ar: "ليس لديك حساب؟", en: "Don't have an account?" },
     createAccount: { ar: "إنشاء حساب جديد", en: "Create new account" },
@@ -825,6 +833,7 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     secondNameEnRequired: { ar: "الاسم الثاني باللغة الإنجليزية مطلوب", en: "Second name in English is required" },
     lastNameArRequired: { ar: "الاسم الأخير مطلوب", en: "Last name is required" },
     lastNameEnRequired: { ar: "الاسم الأخير باللغة الإنجليزية مطلوب", en: "Last name in English is required" },
+    englishOnly: { ar: "يسمح فقط بالحروف الإنجليزية", en: "Only English letters are allowed" },
     birthDateRequired: { ar: "تاريخ الميلاد مطلوب", en: "Date of birth is required" },
     nationalityRequired: { ar: "الجنسية مطلوبة", en: "Nationality is required" },
     motherTongueRequired: { ar: "اللغة الأم مطلوبة", en: "Mother tongue is required" },
@@ -840,6 +849,7 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     cityRequired: { ar: "المدينة مطلوبة", en: "City is required" },
     postalAddressRequired: { ar: "العنوان البريدي مطلوب", en: "Postal address is required" },
     zipCodeRequired: { ar: "الرمز البريدي مطلوب", en: "Zip code is required" },
+    zipCodeDigitsOnly: { ar: "يجب أن يحتوي الرمز البريدي على أرقام فقط", en: "Zip code must contain digits only" },
   },
   meranCourse: {
     /* ── Metadata & hero ────────────────────────────────────────────────────── */
@@ -1304,7 +1314,7 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     ariaPrefixLabel: { ar: "رمز الدولة الحالي: {label}. اضغط لتغيير رمز الدولة", en: "Current country code: {label}. Press to change country code" },
     ariaPrefixList: { ar: "اختر رمز الدولة", en: "Choose country code" },
     ariaEmailHelp: { ar: "أدخل عنوان بريدك الشبكي المستخدم لتسجيل الدخول", en: "Enter your email address used for login" },
-    fileUploadTypesText: { ar: "الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وصيغ الملفات المدعومة تشمل .pdf.", en: "Maximum file size allowed is 2 MB, supported formats include .pdf." },
+    fileUploadTypesText: { ar: "الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وصيغ الملفات المدعومة تشمل PDF, PNG, JPG, JPEG.", en: "Maximum file size allowed is 2 MB, supported formats include PDF, PNG, JPG, JPEG." },
     fileUploadAction: { ar: "تصفح الملفات", en: "Browse Files" },
 
     /* PersonalInfoTab — fallback nationality options */
