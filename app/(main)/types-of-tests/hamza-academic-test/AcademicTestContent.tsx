@@ -142,7 +142,7 @@ export function AcademicLevelsContent({
       {/* Right Column: icon + title + subtitle */}
       <ScrollReveal direction="up" delay={r(0)} duration={DURATION} amount={0} className="h-full flex items-center justify-center">
         <div className="flex flex-col gap-[16px] justify-center items-center text-center py-0 xl:py-[80px] px-0 xl:px-[80px]">
-          <div className="circular-green-outline !w-[64px] !h-[64px]" aria-hidden="true">
+          <div className="circular-green-outline !w-[64px] !h-[64px] !border-white" aria-hidden="true">
             <Image
               src="/assets/icons/stroke-standard/mortarboard-01-stroke-rounded.svg"
               alt=""
@@ -150,23 +150,23 @@ export function AcademicLevelsContent({
               height={32}
               unoptimized
               priority
-              className="inline-block green-icon"
+              className="inline-block white-icon"
             />
           </div>
-          <h1 id="levels-title" className="display-sm-bold !leading-[1.8]">
+          <h1 id="levels-title" className="display-sm-bold !leading-[1.8] text-white">
             {title.split(" ").slice(0, 3).join(" ")}
             <br />
             {title.split(" ").slice(3).join(" ")}
           </h1>
-          <p className="text-md-regular">
+          <p className="text-md-regular text-white">
             {subtitle}
           </p>
         </div>
       </ScrollReveal>
 
       {/* Left Column: levels chart image */}
-      <ScrollReveal direction="left" delay={l(0)} duration={DURATION} amount={0}>
-        <div className="bg-[#F0FDF4] flex items-center justify-center border border-[#D2D6DB] rounded-[16px] overflow-hidden">
+      <ScrollReveal className="flex items-center justify-center" direction="left" delay={l(0)} duration={DURATION} amount={0}>
+        <div className="flex items-center justify-center rounded-[16px] overflow-hidden">
           <Image
             src={image}
             alt="رسم بياني يوضح مستويات اختبار همزة الأكاديمي من A1 مبتدئ إلى C2 ماهر"

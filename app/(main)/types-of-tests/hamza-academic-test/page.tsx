@@ -212,7 +212,7 @@ export default async function HamzaAcademicTestPage() {
   return (
     <>
       {/* Section 1: Language Proficiency Levels */}
-      <section className="bg-[#F3FCF6]" aria-labelledby="levels-title">
+      <section className="bg-[#1B8354]" aria-labelledby="levels-title">
         <div className="content !py-[40px] xl:!py-0">
           <AcademicLevelsContent
             title={data.levelsMeasured.title}
