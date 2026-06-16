@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import Card from "@/app/components/card/Card";
 import ScrollReveal from "@/app/components/scroll-reveal/ScrollReveal";
 import Typewriter from "@/app/components/typewriter/Typewriter";
@@ -13,6 +14,7 @@ interface InstitutionsContentProps {
 }
 
 export default function InstitutionsContent({ locale = "ar" }: InstitutionsContentProps) {
+  const router = useRouter();
   const resources = locale === "en" ? RESOURCES_EN : RESOURCES;
 
   return (
@@ -58,7 +60,7 @@ export default function InstitutionsContent({ locale = "ar" }: InstitutionsConte
                 primaryActionLabel={item.primaryActionLabel}
                 primaryTrailIconType="arrow-up-right-01"
                 buttonColor="primary-brand"
-                external={true}
+                external={false}
                 linkPrimaryAction={item.externalLink}
               />
             </ScrollReveal>
@@ -78,7 +80,11 @@ export default function InstitutionsContent({ locale = "ar" }: InstitutionsConte
           </ScrollReveal>
 
           <ScrollReveal direction="up" distance={0} duration={DURATION} delay={3} amount={0} margin="0px 0px -60px 0px">
-            <button className="dga-btn dga-btn--md dga-btn--primary-neutral--on-color" aria-label={st("about", "institutionsCtaButtonAria", locale)}>
+            <button
+              className="dga-btn dga-btn--md dga-btn--primary-neutral--on-color"
+              aria-label={st("about", "institutionsCtaButtonAria", locale)}
+              onClick={() => router.push("/sign-in")}
+            >
               <span className="dga-btn-label">{st("about", "institutionsCtaButton", locale)}</span>
               <img src="/assets/icons/stroke-standard/arrow-up-right-01-stroke-rounded.svg" width={24} height={24} alt="" aria-hidden="true" />
             </button>

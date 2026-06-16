@@ -22,6 +22,7 @@ export default function StatisticsSection({
   return (
     <div className="bg-neutral-50">
       <section
+        id="statistics"
         className="section-spacing-5xl custom-container gap-[32px] !flex flex-col"
         aria-label={st("statistics", "sectionAria")}
       >
