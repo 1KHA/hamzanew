@@ -121,7 +121,7 @@ export default async function PreparationResourcePage() {
         <div className="custom-container !py-[48px] lg:!py-[96px]">
           <div className="!grid !grid-cols-1 lg:!grid-cols-12 !gap-20">
             {/* Introductory Text */}
-            <header className="!flex !flex-col !gap-[14px] lg:!col-span-3">
+            <header className="!flex !flex-col !gap-[14px] lg:!col-span-3 self-center !items-center !text-center">
               <h2
                 id="resources-introduction"
                 className="display-sm-bold !text-[#fff]"
