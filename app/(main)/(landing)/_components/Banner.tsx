@@ -84,7 +84,6 @@ function Banner({ bannerFields }: BannerProps) {
     : getFallbackSlides();
 
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const [isRTL, setIsRTL] = useState<boolean>(() => {
     if (typeof document === "undefined") return true; // SSR safe default
     return document.documentElement.dir !== "ltr";
@@ -100,20 +99,18 @@ function Banner({ bannerFields }: BannerProps) {
     return () => observer.disconnect();
   }, []);
 
-  // Auto-advance — suspended while isPaused is true
+  // Auto-advance
   useEffect(() => {
-    if (isPaused) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, [isPaused, slides.length]);
+  }, [slides.length]);
 
   // RTL: positive offset | LTR: negative offset
   const translateX = `translateX(${isRTL ? currentSlide * 100 : -(currentSlide * 100)}%)`;
 
   const goToSlide = useCallback((index: number) => setCurrentSlide(index), []);
-  const togglePause = useCallback(() => setIsPaused((p) => !p), []);
 
   const isFirstSlide = currentSlide === 0;
 
@@ -129,8 +126,8 @@ function Banner({ bannerFields }: BannerProps) {
         <div
           className="embla-container"
           style={{ transform: translateX }}
-          // "off" during auto-play avoids constant AT announcements; "polite" when paused
-          aria-live={isPaused ? "polite" : "off"}
+          // "off" during auto-play avoids constant AT announcements
+          aria-live="off"
         >
           {slides.map((slide, index) => (
             <div
@@ -198,30 +195,10 @@ function Banner({ bannerFields }: BannerProps) {
           </button>
         </div>
 
-        {/* Controls: pause/play + dot navigation */}
+        {/* Controls: dot navigation */}
         <div className="embla__dots">
 
-          {/* Pause/play satisfies WCAG 2.1 AA SC 2.2.2 for auto-moving content */}
-          <button
-            type="button"
-            className="dga-btn dga-btn--sm dga-btn--primary-neutral--on-color"
-            onClick={togglePause}
-            aria-label={isPaused ? st("banner", "ariaPlay") : st("banner", "ariaPause")}
-          >
-            <Image
-              src={
-                isPaused
-                  ? "/assets/icons/stroke-standard/play-stroke-rounded.svg"
-                  : "/assets/icons/stroke-standard/pause-stroke-rounded.svg"
-              }
-              alt=""
-              aria-hidden="true"
-              width={20}
-              height={20}
-            />
-          </button>
-
-          {slides.map((_, index) => (
+          {slides.map((_, index) =>(
             <button
               key={index}
               type="button"
@@ -247,26 +224,6 @@ function Banner({ bannerFields }: BannerProps) {
         role="group"
         aria-label={st("banner", "ariaNav")}
       >
-        <button
-          type="button"
-          className="dga-btn dga-btn--sm dga-btn--primary-neutral--on-color"
-          onClick={togglePause}
-          aria-pressed={isPaused}
-          aria-label={isPaused ? st("banner", "ariaPlay") : st("banner", "ariaPause")}
-        >
-          <Image
-            src={
-              isPaused
-                ? "/assets/icons/stroke-standard/play-stroke-rounded.svg"
-                : "/assets/icons/stroke-standard/pause-stroke-rounded.svg"
-            }
-            alt=""
-            aria-hidden="true"
-            width={20}
-            height={20}
-          />
-        </button>
-
         {slides.map((slide, index) => (
           <button
             key={index}
