@@ -8,7 +8,7 @@
 
 import "@/app/components/card/card.css";
 import "@/app/styles/Button.css";
-import Button from "../../../components/button/Button";
+import PrepareButton from "../../../components/prepare-button/PrepareButton";
 import TestTypeSwitcher, { TabData } from "./TestTypeSwitcher";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
@@ -130,11 +130,8 @@ export default async function TestMechanismPage() {
 
           {/* CTA Button */}
           <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 w-full md:w-auto">
-            <Button
+            <PrepareButton
               label={areYouReady.buttonText}
-              variant="primary-neutral--on-color"
-              size="lg"
-              icon="arrow-up-right-01"
               className="w-full md:w-auto"
             />
           </div>

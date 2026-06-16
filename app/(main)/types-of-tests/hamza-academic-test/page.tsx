@@ -1,4 +1,4 @@
-import Button from "../../../components/button/Button";
+import PrepareButton from "../../../components/prepare-button/PrepareButton";
 import AcademicTestContent, { AcademicLevelsContent } from "./AcademicTestContent";
 import "@/app/components/card/card.css";
 import "@/app/styles/Button.css";
@@ -250,11 +250,8 @@ export default async function HamzaAcademicTestPage() {
           </div>
 
           <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 w-full md:w-auto">
-            <Button
+            <PrepareButton
               label={data.areYouReady.buttonText}
-              variant="primary-neutral--on-color"
-              size="lg"
-              icon="arrow-up-right-01"
               className="w-full md:w-auto"
             />
           </div>
