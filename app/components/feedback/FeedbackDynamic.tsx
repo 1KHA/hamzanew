@@ -1,6 +1,9 @@
 "use client";
+
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-import Feedback from "./Feedback";
+
+const Feedback = dynamic(() => import("./Feedback"), { ssr: false });
 
 export default function FeedbackDynamic() {
   const pathname = usePathname();

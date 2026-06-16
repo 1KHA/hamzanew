@@ -1374,6 +1374,188 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     fallbackCityMadinah: { ar: "المدينة المنورة", en: "Madinah" },
     fallbackCityDammam: { ar: "الدمام", en: "Dammam" },
   },
+
+  sitemap: {
+    /* ── Metadata ─────────────────────────────────────────────────────────── */
+    metaTitle: { ar: "خريطة الموقع", en: "Sitemap" },
+    metaDescription: {
+      ar: "تصفّح خريطة موقع منصة همزة للوصول السريع إلى جميع الصفحات والأقسام المتاحة.",
+      en: "Browse the Hamza platform sitemap for quick access to all available pages and sections.",
+    },
+
+    /* ── Hero ─────────────────────────────────────────────────────────────── */
+    heroTitle: { ar: "خريطة الموقع", en: "Sitemap" },
+    heroDescription: {
+      ar: "تصفّح جميع صفحات وأقسام منصة همزة من مكان واحد للوصول السريع إلى المحتوى الذي تبحث عنه.",
+      en: "Browse all pages and sections of the Hamza platform in one place for quick access to the content you are looking for.",
+    },
+    breadcrumbHome: { ar: "الرئيسة", en: "Home" },
+    breadcrumbCurrent: { ar: "خريطة الموقع", en: "Sitemap" },
+
+    /* ── Heading ──────────────────────────────────────────────────────────── */
+    heading: { ar: "خريطة الموقع", en: "Sitemap" },
+    treeLabel: { ar: "خريطة الموقع", en: "Sitemap" },
+
+    /* ── Standalone links ─────────────────────────────────────────────────── */
+    linkHome: { ar: "الرئيسة", en: "Home" },
+    linkOrganizations: { ar: "المنظمات", en: "Organizations" },
+
+    /* ── Categories ───────────────────────────────────────────────────────── */
+    categoryAbout: { ar: "عن الجهة", en: "About the Entity" },
+    categoryEParticipation: { ar: "المشاركة الإلكترونية", en: "E-Participation" },
+    categoryTestTypes: { ar: "أنواع اختبارات همزة", en: "Types of Hamza Tests" },
+    categoryTestPreparation: { ar: "الإستعداد للإختبار", en: "Test Preparation" },
+    categoryResearch: { ar: "الأبحاث", en: "Research" },
+    categoryNews: { ar: "الأخبار", en: "News" },
+    categoryOtherPages: { ar: "صفحات أخرى", en: "Other Pages" },
+
+    /* ── About children ───────────────────────────────────────────────────── */
+    aboutAboutHamza: { ar: "عن همزة", en: "About Hamza" },
+    aboutWhoWeAre: { ar: "من نحن", en: "Who We Are" },
+    aboutTestTraits: { ar: "سمات اختبار همزة", en: "Hamza Test Traits" },
+    aboutBenefits: { ar: "أهمية اختبارات همزة", en: "Benefits of Hamza Tests" },
+    aboutInstitutions: { ar: "المؤسسات والدول التي تقبل همزة", en: "Institutions & Countries Accepting Hamza" },
+    aboutCommittee: { ar: "اللجنة الاستشارية الدورية", en: "Periodic Advisory Committee" },
+    aboutAmbassadors: { ar: "سفراء همزة", en: "Hamza Ambassadors" },
+
+    /* ── E-Participation children ─────────────────────────────────────────── */
+    eParticipationConsultations: { ar: "الإستشارات الإلكترونية", en: "E-Consultations" },
+    eParticipationCoCreation: { ar: "التطوير المشترك والافكار", en: "Co-Creation & Ideas" },
+    eParticipationOpenData: { ar: "البيانات المفتوحة", en: "Open Data" },
+    eParticipationPolicy: { ar: "سياسة المشاركة الإلكترونية", en: "E-Participation Policy" },
+    eParticipationStats: { ar: "إحصائيات أداء البوابة والخدمات", en: "Portal & Services Statistics" },
+    eParticipationSocialMedia: { ar: "وسائل التواصل", en: "Social Media" },
+    eParticipationVoiceReports: { ar: "تقارير صوت المستفيد", en: "Voice of the Beneficiary Reports" },
+    eParticipationFeedback: { ar: "الشكاوى والمقترحات", en: "Feedback & Suggestions" },
+
+    /* ── Test Types children ──────────────────────────────────────────────── */
+    testTypesOverview: { ar: "أنواع اختبارات همزة", en: "Types of Hamza Tests" },
+    testTypesAcademic: { ar: "همزة الأكاديمي", en: "Hamza Academic" },
+    testTypesGeneral: { ar: "همزة العام", en: "Hamza General" },
+    testTypesPlacement: { ar: "همزة لتحديد المستوى", en: "Hamza Placement" },
+    testTypesVocabulary: { ar: "همزة للمفردات", en: "Hamza Vocabulary" },
+
+    /* ── Test Preparation children ────────────────────────────────────────── */
+    prepDiscover: { ar: "اكتشف اختبارات همزة", en: "Discover Hamza Tests" },
+    prepResources: { ar: "مصادر التحضير", en: "Preparation Resources" },
+    prepMeranCourse: { ar: "دورة مران همزة", en: "Hamza Meran Course" },
+    prepMechanism: { ar: "آلية الإختبار", en: "Test Mechanism" },
+
+    /* ── Research children ────────────────────────────────────────────────── */
+    researchLibrary: { ar: "مكتبة الأبحاث", en: "Research Library" },
+    researchStats: { ar: "التقارير والإحصائيات", en: "Reports & Statistics" },
+    researchLab: { ar: "معمل ابحاث الاختبارات اللغوية", en: "Language Testing Research Lab" },
+    researchServiceRequest: { ar: "طلب خدمة بحثية", en: "Research Service Request" },
+
+    /* ── News children ────────────────────────────────────────────────────── */
+    newsLatest: { ar: "آخر الأخبار", en: "Latest News" },
+    newsAll: { ar: "الأخبار", en: "News" },
+
+    /* ── Other Pages children ─────────────────────────────────────────────── */
+    otherFaq: { ar: "الأسئلة الشائعة", en: "FAQ" },
+    otherSearch: { ar: "البحث", en: "Search" },
+    otherProfile: { ar: "الملف الشخصي", en: "Profile" },
+    otherTerms: { ar: "الشروط والأحكام", en: "Terms & Conditions" },
+    otherSitemap: { ar: "خريطة الموقع", en: "Sitemap" },
+    otherSignIn: { ar: "تسجيل الدخول", en: "Sign In" },
+    otherSignUp: { ar: "إنشاء حساب", en: "Sign Up" },
+  },
+
+  termsAndConditions: {
+    /* ── Metadata ─────────────────────────────────────────────────────────── */
+    metaTitle: { ar: "الشروط والأحكام", en: "Terms and Conditions" },
+    metaDescription: {
+      ar: "اطّلع على الشروط والأحكام الخاصة باستخدام منصة همزة، بما في ذلك سياسات الاستخدام، التسجيل، حقوق الملكية الفكرية، ومسؤوليات المستخدم.",
+      en: "Read the terms and conditions for using the Hamza platform, including usage policies, registration, intellectual property rights, and user responsibilities.",
+    },
+
+    /* ── Hero ─────────────────────────────────────────────────────────────── */
+    heroTitle: { ar: "الشروط والأحكام", en: "Terms and Conditions" },
+    heroDescription: {
+      ar: "يرجى قراءة هذه الشروط والأحكام بعناية قبل استخدام منصة همزة. باستخدامك للمنصة، فإنك توافق على الالتزام بجميع البنود والشروط المذكورة أدناه.",
+      en: "Please read these terms and conditions carefully before using the Hamza platform. By using the platform, you agree to comply with all the terms and conditions stated below.",
+    },
+    breadcrumbHome: { ar: "الرئيسة", en: "Home" },
+    breadcrumbCurrent: { ar: "الشروط والأحكام", en: "Terms and Conditions" },
+
+    /* ── Table of Contents ────────────────────────────────────────────────── */
+    tocTitle: { ar: "شروط الاستخدام", en: "Terms of Use" },
+    tocSubtitle: { ar: "في هذه الصفحة", en: "On this page" },
+    tocSection1: { ar: "القيود على الاستخدام", en: "Usage Restrictions" },
+    tocSection2: { ar: "التسجيل واستخدام الحساب", en: "Account Registration" },
+    tocSection3: { ar: "حقوق الملكية الفكرية", en: "Intellectual Property" },
+    tocSection4: { ar: "مسؤولية المستخدم", en: "User Responsibility" },
+    tocSection5: { ar: "سياسة الخصوصية", en: "Privacy Policy" },
+    tocSection6: { ar: "التعديلات على الشروط", en: "Terms Modifications" },
+
+    /* ── Section Headings ─────────────────────────────────────────────────── */
+    sectionTitle1: { ar: "القيود على الاستخدام", en: "Usage Restrictions" },
+    sectionTitle2: { ar: "التسجيل واستخدام الحساب", en: "Account Registration" },
+    sectionTitle3: { ar: "حقوق الملكية الفكرية", en: "Intellectual Property" },
+    sectionTitle4: { ar: "مسؤولية المستخدم", en: "User Responsibility" },
+    sectionTitle5: { ar: "سياسة الخصوصية", en: "Privacy Policy" },
+    sectionTitle6: { ar: "التعديلات على الشروط", en: "Terms Modifications" },
+
+    /* ── Section 1: Usage Restrictions ────────────────────────────────────── */
+    section1Paragraph1: {
+      ar: "يُحظر على المستخدمين استخدام المنصة لأي أغراض غير مشروعة أو غير مصرّح بها. يشمل ذلك على سبيل المثال لا الحصر: محاولة الوصول غير المصّرح به إلى أنظمة المنصة، أو نقل أي محتوى ضار أو فيروسات، أو استخدام المنصة بطريقة قد تُلحق الضرر بالخوادم أو الشبكات المرتبطة بها.",
+      en: "Users are prohibited from using the platform for any unlawful or unauthorized purposes. This includes, but is not limited to: attempting unauthorized access to the platform's systems, transmitting harmful content or viruses, or using the platform in a way that may damage the servers or associated networks.",
+    },
+    section1Paragraph2: {
+      ar: "كما يُمنع استخدام أي أدوات آلية أو برامج لجمع البيانات من المنصة دون إذن كتابي مسبق. تحتفظ المنصة بحق تعليق أو إنهاء حساب أي مستخدم يُخالف هذه القيود دون إشعار مسبق.",
+      en: "The use of any automated tools or software to collect data from the platform without prior written permission is also prohibited. The platform reserves the right to suspend or terminate the account of any user who violates these restrictions without prior notice.",
+    },
+
+    /* ── Section 2: Account Registration ──────────────────────────────────── */
+    section2Paragraph1: {
+      ar: "يتطلب الوصول إلى بعض خدمات المنصة إنشاء حساب مستخدم. يلتزم المستخدم بتقديم معلومات صحيحة ودقيقة عند التسجيل، وتحديثها عند الحاجة. يتحمّل المستخدم المسؤولية الكاملة عن الحفاظ على سرية بيانات حسابه، بما في ذلك اسم المستخدم وكلمة المرور.",
+      en: "Access to some platform services requires creating a user account. The user is obligated to provide accurate and correct information during registration and to update it when necessary. The user bears full responsibility for maintaining the confidentiality of their account credentials, including username and password.",
+    },
+    section2Paragraph2: {
+      ar: "يُسمح بحساب واحد فقط لكل مستخدم، ولا يجوز مشاركة بيانات الدخول مع أي طرف آخر. في حال الاشتباه بأي استخدام غير مصرّح به للحساب، يجب على المستخدم إبلاغ إدارة المنصة فوراً.",
+      en: "Only one account is allowed per user, and login credentials may not be shared with any other party. In case of suspected unauthorized use of the account, the user must notify platform administration immediately.",
+    },
+
+    /* ── Section 3: Intellectual Property ─────────────────────────────────── */
+    section3Paragraph1: {
+      ar: "جميع المحتويات المتاحة على المنصة، بما في ذلك النصوص والصور والتصاميم والشعارات والرسومات والبرمجيات، هي ملكية فكرية محمية لصالح منصة همزة أو الجهات المرخّصة لها. لا يجوز نسخ أو توزيع أو تعديل أو إعادة نشر أي محتوى من المنصة دون الحصول على إذن كتابي مسبق.",
+      en: "All content available on the platform, including texts, images, designs, logos, graphics, and software, is protected intellectual property of the Hamza platform or its licensed parties. No content from the platform may be copied, distributed, modified, or republished without obtaining prior written permission.",
+    },
+    section3Paragraph2: {
+      ar: "يُمنح المستخدم ترخيصاً محدوداً وغير حصري للاستخدام الشخصي فقط. أي استخدام تجاري للمحتوى يتطلب موافقة خطية من إدارة المنصة.",
+      en: "The user is granted a limited, non-exclusive license for personal use only. Any commercial use of the content requires written approval from platform management.",
+    },
+
+    /* ── Section 4: User Responsibility ───────────────────────────────────── */
+    section4Paragraph1: {
+      ar: "يتحمل المستخدم المسؤولية الكاملة عن جميع الأنشطة التي تتم من خلال حسابه. يلتزم المستخدم باستخدام المنصة وفقاً للأنظمة والقوانين المعمول بها في المملكة العربية السعودية، ويتعهد بعدم انتهاك حقوق أي طرف ثالث.",
+      en: "The user bears full responsibility for all activities conducted through their account. The user is obligated to use the platform in accordance with the laws and regulations in force in the Kingdom of Saudi Arabia, and undertakes not to infringe on the rights of any third party.",
+    },
+    section4Paragraph2: {
+      ar: "في حال إخلال المستخدم بأي من هذه الشروط، تحتفظ المنصة بحق اتخاذ الإجراءات المناسبة، بما في ذلك تعليق الحساب أو إنهائه، بالإضافة إلى اللجوء إلى الوسائل القانونية المتاحة.",
+      en: "In the event of any breach of these terms by the user, the platform reserves the right to take appropriate action, including suspending or terminating the account, in addition to resorting to available legal remedies.",
+    },
+
+    /* ── Section 5: Privacy Policy ────────────────────────────────────────── */
+    section5Paragraph1: {
+      ar: "تلتزم المنصة بحماية خصوصية المستخدمين وفقاً لنظام حماية البيانات الشخصية المعمول به في المملكة العربية السعودية. يتم جمع البيانات الشخصية واستخدامها فقط للأغراض المحددة في سياسة الخصوصية، ولا يتم مشاركتها مع أطراف ثالثة إلا بموافقة المستخدم أو وفقاً لمتطلبات قانونية.",
+      en: "The platform is committed to protecting user privacy in accordance with the Personal Data Protection Law in force in the Kingdom of Saudi Arabia. Personal data is collected and used only for the purposes specified in the privacy policy, and is not shared with third parties except with user consent or as required by law.",
+    },
+    section5Paragraph2: {
+      ar: "يحق للمستخدم طلب الاطلاع على بياناته الشخصية المحفوظة لدى المنصة أو طلب تعديلها أو حذفها وفقاً للإجراءات المتبعة.",
+      en: "The user has the right to request access to their personal data stored by the platform, or to request its modification or deletion in accordance with applicable procedures.",
+    },
+
+    /* ── Section 6: Terms Modifications ───────────────────────────────────── */
+    section6Paragraph1: {
+      ar: "تحتفظ المنصة بحق تعديل هذه الشروط والأحكام في أي وقت دون إشعار مسبق. تُعتبر التعديلات سارية المفعول فور نشرها على المنصة. يُنصح المستخدمون بمراجعة هذه الصفحة بشكل دوري للاطلاع على أي تحديثات.",
+      en: "The platform reserves the right to modify these terms and conditions at any time without prior notice. Modifications take effect immediately upon being published on the platform. Users are advised to review this page periodically for any updates.",
+    },
+    section6Paragraph2: {
+      ar: "استمرار استخدام المنصة بعد نشر التعديلات يُعدّ موافقة ضمنية على الشروط المحدّثة.",
+      en: "Continued use of the platform after modifications are posted constitutes implicit acceptance of the updated terms.",
+    },
+  },
 };
 
 /**
