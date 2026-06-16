@@ -257,7 +257,8 @@ export default function TypesOfTestsContent({ data, locale }: TypesOfTestsConten
         ))}
       </div>
 
-      {/* ── Video Section ─────────────────────────────────────────── */}
+      {/* ── Video Section ───────────────────────────────────────────
+      Hidden temporarily per request.
       <div className="video-section" aria-labelledby="registration-title">
         <ScrollReveal direction="up" delay={0} duration={DURATION} amount={AMOUNT}>
           <h2 id="registration-title" className="display-sm-bold">
@@ -279,6 +280,7 @@ export default function TypesOfTestsContent({ data, locale }: TypesOfTestsConten
           </div>
         </ScrollReveal>
       </div>
+      */}
     </>
   );
 }
