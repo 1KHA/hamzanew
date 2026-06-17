@@ -1,7 +1,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import Button from "../../components/button/Button";
 import ScrollReveal from "../../components/scroll-reveal/ScrollReveal";
 import { st } from "@/app/_lib/static-text-server";
 
@@ -198,14 +197,6 @@ function TestCardComponent({ test, index, locale }: { test: TestQuestionSet; ind
       </div>
 
       <div className="flex flex-col btn-card !gap-[8px]">
-        <Button
-          label={st("typesOfTests", "registerBtn", locale)}
-          variant="primary-brand"
-          size="lg"
-          icon="arrow-up-right-01"
-          iconClass="white-icon"
-          className="w-full"
-        />
         <Link
           href={infoLink}
           className="link-neutral !underline text-[14px]"
