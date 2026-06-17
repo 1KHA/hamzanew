@@ -198,7 +198,7 @@ export default function NewsListing({
             <Card
               title={article.title}
               date={article.date}
-              description={(article.content?.substring(0, 120) ?? "") + "..."} //handle null content if any
+              description={article.content}
               image={article.image}
               showPrimaryAction={false}
             />
