@@ -256,6 +256,7 @@ export default function SearchResults({
             onChange={handleSearchChange}
             onClear={handleSearchClear}
             onSearch={handleSearch}
+            showIcon={false}
           />
 
           {/* Search Button */}

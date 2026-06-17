@@ -383,22 +383,8 @@ function NavHeader({ translations, locale }: NavHeaderProps) {
                 </Link>
               </div>
 
-              {/* Search icon — mobile only, appears on the left in RTL.
-                  .header-nav__mobile-actions is display:none on desktop
-                  and display:flex on ≤960px (defined in NavHeader.css). */}
+              {/* Search icon — hidden per request. */}
               <ul className="header-nav__mobile-actions" role="list">
-                <li>
-                  <Link
-                    href="/search"
-                    className="header-menu__item"
-                    aria-label={st("navActions", "searchAria", locale)}
-                  >
-                    <IconImage
-                      src="/assets/icons/stroke-standard/search-01-stroke-standard.svg"
-                      alt={st("navActions", "searchIcon", locale)}
-                    />
-                  </Link>
-                </li>
               </ul>
 
               {/* Desktop navigation list with horizontal-scroll support.

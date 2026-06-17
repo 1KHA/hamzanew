@@ -194,11 +194,4 @@ export const ACTION_ITEMS = [
     icon: "/assets/icons/stroke-standard/user-03-stroke-standard.svg",
     className: "action-btn-reversed",
   },
-  {
-    id: "search",
-    label: "search",
-    href: "/search",
-    icon: "/assets/icons/stroke-standard/search-01-stroke-standard.svg",
-    className: "action-btn-reversed translate-btn",
-  },
 ];
