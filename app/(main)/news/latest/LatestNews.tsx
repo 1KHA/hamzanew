@@ -174,13 +174,6 @@ export default function LatestNews({
         <div className="!flex !flex-col !gap-[20px]">
           <div className="!flex !justify-between !items-center">
             <h2 className="display-sm-bold">{latestNewsTitle}</h2>
-            <Button
-              variant="secondary"
-              size="sm"
-              label={viewAllBtnText}
-              onClick={() => {}}
-              className="hidden lg:block"
-            />
           </div>
           <div className="card">
             <SafeImage
@@ -188,7 +181,7 @@ export default function LatestNews({
               alt={latestNewsTitle}
               width={590}
               height={395}
-              className="card-img !rounded-[8px] !h-full"
+              className="!w-full !rounded-[8px] !h-full !object-fill"
             />
           </div>
         </div>
@@ -204,7 +197,7 @@ export default function LatestNews({
                   alt={event.text || coverageTitle}
                   width={260}
                   height={160}
-                  className="card-img !rounded-[8px] !h-[160px]"
+                  className="!w-full !rounded-[8px] !h-[160px] !object-fill"
                 />
               </li>
             ))}
