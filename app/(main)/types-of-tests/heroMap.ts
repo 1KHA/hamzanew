@@ -123,9 +123,11 @@ async function fetchHeroFromKey(
       title,
       description: fields?.descriptionText || fallbackDescription,
       bgColor: "#FFF",
-      breadcrumbs: fallbackBreadcrumbs.map((crumb) =>
-        crumb.disabled ? crumb : { ...crumb, label: title }
-      ),
+      breadcrumbs: fallbackBreadcrumbs.map((crumb, index, arr) => {
+        // Only the last crumb (current page) should display the resolved title.
+        const isLast = index === arr.length - 1;
+        return isLast ? { ...crumb, label: title } : crumb;
+      }),
     };
   } catch (error) {
     console.error(`[${label}] FAILED —`, error, "Using FALLBACK.");
