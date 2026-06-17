@@ -1,23 +1,17 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { fetchWithAccessToken } from "./token-refresh-service";
 
 export const fetchCountriesList = async function fetchCountriesList() {
   const serviceUrl =
     `${process.env.BASE_URL}` +
     "/o/headless-admin-address/v1.0/countries?pageSize=500&fields=a2,title_i18n";
 
-  const authorization =
-    "Basic " +
-    btoa(
-      `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
-    );
-
-  const res = await fetch(serviceUrl, {
+  const res = await fetchWithAccessToken(serviceUrl, {
     method: "GET",
     headers: {
       Accept: "application/json",
-      Authorization: authorization,
     },
     redirect: "follow",
     // cache: "force-cache", // Optional: caching behavior

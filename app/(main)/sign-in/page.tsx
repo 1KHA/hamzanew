@@ -16,6 +16,10 @@ import Image from "next/image";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import { st } from "@/app/_lib/static-text";
+import {
+  loginRequestService,
+  resendOtpService,
+} from "@/app/_lib/user-service";
 
 export type FormSchema = z.infer<ReturnType<typeof buildFormSchema>>;
 
@@ -51,7 +55,7 @@ export default function SignInPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [step, setStep] = useState<Step>("login");
-  const [generatedOtp, setGeneratedOtp] = useState("");
+  const [mfaToken, setMfaToken] = useState("");
   const [otpValue, setOtpValue] = useState("");
   const [otpError, setOtpError] = useState<string | null>(null);
   const [countdown, setCountdown] = useState(0);
@@ -86,37 +90,27 @@ export default function SignInPage() {
     return () => clearTimeout(id);
   }, [countdown]);
 
-  const generateOtp = () => {
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
-    setGeneratedOtp(code);
+  // Reset the OTP entry UI when (re)entering the OTP step.
+  const startOtpStep = () => {
     setOtpValue("");
     setOtpError(null);
     setCountdown(60);
-    console.log("[OTP] Generated verification code:", code);
   };
 
   const onSubmit = async (data: FormSchema) => {
     setIsSubmitting(true);
     try {
-      const res = await fetch("/api/auth/validate-credentials", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: data.username,
-          password: data.password,
-        }),
-      });
+      // Validate credentials and trigger the OTP email. The backend returns an
+      // mfaToken identifying this login attempt; the OTP is sent by email only.
+      const result = await loginRequestService(data.username, data.password);
 
-      const result = await res.json();
-
-      if (!result.success) {
+      if (result.status !== "SUCCESS") {
         methods.setError("root", {
           message:
-            result.error === "اسم المستخدم أو كلمة المرور غير صحيحة"
+            result.code === "INVALID_CREDENTIALS"
               ? st("signIn", "invalidCredentials")
-              : result.error || st("signIn", "genericError"),
+              : result.message || st("signIn", "genericError"),
         });
-        setIsSubmitting(false);
         return;
       }
 
@@ -124,9 +118,10 @@ export default function SignInPage() {
       setValidatedUser({
         username: data.username,
         password: data.password,
-        email: result.email,
+        email: data.username,
       });
-      generateOtp();
+      setMfaToken(result.mfaToken || "");
+      startOtpStep();
       setStep("otp");
     } catch {
       methods.setError("root", { message: st("signIn", "genericError") });
@@ -139,13 +134,9 @@ export default function SignInPage() {
     e.preventDefault();
     setOtpError(null);
 
-    if (otpValue.replace(/\D/g, "").length < 6) {
+    const otp = otpValue.replace(/\D/g, "");
+    if (otp.length < 6) {
       setOtpError(st("signIn", "otpRequired"));
-      return;
-    }
-
-    if (otpValue !== generatedOtp) {
-      setOtpError(st("signIn", "otpInvalid"));
       return;
     }
 
@@ -153,14 +144,19 @@ export default function SignInPage() {
 
     setIsSubmitting(true);
     try {
+      // The OTP is verified server-side inside authorize() (the MFA gate) BEFORE
+      // the session is issued, so the code is submitted together with the
+      // credentials. This prevents bypassing MFA by calling sign-in directly.
       const result = await signIn("credentials", {
         redirect: false,
         username: validatedUser.username,
         password: validatedUser.password,
+        mfaToken,
+        otp,
       });
 
       if (result?.error) {
-        setOtpError(st("signIn", "genericError"));
+        setOtpError(st("signIn", "otpInvalid"));
         setIsSubmitting(false);
       } else if (result?.ok) {
         window.location.href = "/profile";
@@ -171,12 +167,18 @@ export default function SignInPage() {
     }
   };
 
-  const handleResend = useCallback(() => {
+  const handleResend = useCallback(async () => {
     if (countdown > 0) return;
     setOtpValue("");
     setOtpError(null);
-    generateOtp();
-  }, [countdown]);
+    const result = await resendOtpService(mfaToken);
+    if (result.status === "SUCCESS") {
+      setMfaToken(result.mfaToken || mfaToken);
+      setCountdown(60);
+    } else {
+      setOtpError(result.message || st("signIn", "genericError"));
+    }
+  }, [countdown, mfaToken]);
 
   const handleSSOClick = useCallback(() => {
     console.log("National SSO clicked");

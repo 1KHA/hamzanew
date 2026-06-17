@@ -6,6 +6,7 @@ import { extractFields, extractList } from "@/app/_lib/helper-service";
 import { getTranslations } from "@/app/_lib/getTranslations";
 import { getFormattedCountriesList } from "@/app/_lib/countries-service";
 import { parseStatisticsCSV } from "@/app/_lib/statistics-csv-parser";
+import { fetchWithAccessToken } from "@/app/_lib/token-refresh-service";
 import { cookies } from "next/headers";
 
 import Banner from "./(landing)/_components/Banner";
@@ -46,11 +47,8 @@ async function fetchLatestNews(locale: string) {
   try {
     const baseURL = process.env.BASE_URL || "";
     const getArticlesURL = process.env.HAMZA_GET_ARTICLES_URL || "";
-    const username = process.env.BASIC_AUTH_USERNAME || "";
-    const password = process.env.BASIC_AUTH_PASSWORD || "";
 
     const serviceUrl = `${baseURL}${getArticlesURL}/NEWS_ARTICLES/News article types`;
-    const authorization = "Basic " + btoa(`${username}:${password}`);
 
     const urlWithParam = new URL(serviceUrl);
     urlWithParam.searchParams.append("searchText", "");
@@ -62,9 +60,8 @@ async function fetchLatestNews(locale: string) {
 
     console.log("[Home] Fetching latest news from Liferay...");
 
-    const response = await fetch(urlWithParam, {
+    const response = await fetchWithAccessToken(urlWithParam, {
       method: "POST",
-      headers: { Authorization: authorization },
     });
 
     if (!response.ok) {

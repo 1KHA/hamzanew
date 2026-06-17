@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import { fetchWithAccessToken } from "./token-refresh-service";
 
 export async function getTranslations() {
   const cookieStore = await cookies();
@@ -10,22 +11,13 @@ export async function getTranslations() {
     URL = baseURL + "/o/hamza-test-language/language/arabic/get";
   }
 
-  const authorization =
-    "Basic " +
-    btoa(
-      `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
-    );
-
   const requestOptions = {
     method: "GET",
-    headers: {
-      Authorization: authorization,
-    },
     // cache: "force-cache", // Optional: caching behavior
   };
 
   try {
-    const res = await fetch(URL, requestOptions);
+    const res = await fetchWithAccessToken(URL, requestOptions);
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }

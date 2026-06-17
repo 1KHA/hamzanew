@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getUser } from "@/lib/auth";
+import { validateUserCredentials } from "@/lib/auth";
 
 export async function POST(req: Request) {
   try {
@@ -13,7 +13,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const user = await getUser(username, password);
+    const user = await validateUserCredentials(username, password);
 
     if (!user) {
       return NextResponse.json(

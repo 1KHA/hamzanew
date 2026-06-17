@@ -20,6 +20,7 @@ import { cookies } from "next/headers";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFields } from "@/app/_lib/helper-service";
 import { getTranslations } from "@/app/_lib/getTranslations";
+import { fetchWithAccessToken } from "@/app/_lib/token-refresh-service";
 import { st } from "@/app/_lib/static-text-server";
 
 /* ==========================================================================
@@ -49,11 +50,8 @@ function resolveImageUrl(imagePath: string | undefined): string {
 async function fetchNewsArticlesDirectly(locale: string) {
   const baseURL = process.env.BASE_URL || "";
   const getArticlesURL = process.env.HAMZA_GET_ARTICLES_URL || "";
-  const username = process.env.BASIC_AUTH_USERNAME || "";
-  const password = process.env.BASIC_AUTH_PASSWORD || "";
 
   const serviceUrl = `${baseURL}${getArticlesURL}/NEWS_ARTICLES/News article types`;
-  const authorization = "Basic " + btoa(`${username}:${password}`);
 
   const urlWithParam = new URL(serviceUrl);
   urlWithParam.searchParams.append("searchText", "");
@@ -63,9 +61,8 @@ async function fetchNewsArticlesDirectly(locale: string) {
   urlWithParam.searchParams.append("page", "1");
   urlWithParam.searchParams.append("pageSize", "1000");
 
-  return fetch(urlWithParam, {
+  return fetchWithAccessToken(urlWithParam, {
     method: "POST",
-    headers: { Authorization: authorization },
   });
 }
 
