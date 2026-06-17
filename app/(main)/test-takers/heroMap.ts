@@ -23,7 +23,6 @@ export function getHeroMap(locale: "ar" | "en"): Record<string, HeroData & { bre
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
         { label: "hamza-navigation-menu-test-takers", disabled: true },
-        { label: "hamza-navigation-menu-test-takers", disabled: true },
         {
           label: "hamza-navigation-menu-hamza-maran-hamza",
           path: "/test-takers/hamza-meran-course",
@@ -36,7 +35,6 @@ export function getHeroMap(locale: "ar" | "en"): Record<string, HeroData & { bre
       bgColor: "#fff",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
-        { label: "hamza-navigation-menu-test-takers", disabled: true },
         { label: "hamza-navigation-menu-test-takers", disabled: true },
         { label: "hamza-navigation-menu-hamza-maran-hamza", path: "/test-takers/hamza-meran-course" },
         {
@@ -54,7 +52,6 @@ export function getHeroMap(locale: "ar" | "en"): Record<string, HeroData & { bre
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
         { label: "hamza-navigation-menu-test-takers", disabled: true },
-        { label: "hamza-navigation-menu-test-takers", disabled: true },
         {
           label: "hamza-navigation-menu-hamza-test-mechanism",
           path: "/test-takers/test-mechanism",
@@ -70,7 +67,6 @@ export function getHeroMap(locale: "ar" | "en"): Record<string, HeroData & { bre
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
         { label: "hamza-navigation-menu-test-takers", disabled: true },
-        { label: "hamza-navigation-menu-test-takers", disabled: true },
         {
           label: "hamza-page-level-nav-preparation-sources",
           path: "/test-takers/preparation-resource",
@@ -83,7 +79,6 @@ export function getHeroMap(locale: "ar" | "en"): Record<string, HeroData & { bre
       bgColor: "#F9FAFB",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
-        { label: "hamza-navigation-menu-test-takers", disabled: true },
         { label: "hamza-navigation-menu-test-takers", disabled: true },
         {
           label: "hamza-navigation-menu-test-takers",
@@ -124,7 +119,6 @@ export async function getTestMechanismHero(): Promise<
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
         { label: "hamza-navigation-menu-test-takers", disabled: true },
-        { label: "hamza-navigation-menu-test-takers", disabled: true },
         {
           label: data.header?.title || "hamza-navigation-menu-hamza-test-mechanism",
           path: "/test-takers/test-mechanism",
@@ -142,7 +136,6 @@ export async function getTestMechanismHero(): Promise<
       bgColor: "#F9FAFB",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
-        { label: "hamza-navigation-menu-test-takers", disabled: true },
         { label: "hamza-navigation-menu-test-takers", disabled: true },
         {
           label: "hamza-navigation-menu-hamza-test-mechanism",
@@ -181,7 +174,6 @@ export async function getPreparationResourceHero(): Promise<
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
         { label: "hamza-navigation-menu-test-takers", disabled: true },
-        { label: "hamza-navigation-menu-test-takers", disabled: true },
         {
           label: data.header?.title || "hamza-page-level-nav-preparation-sources",
           path: "/test-takers/preparation-resource",
@@ -202,7 +194,6 @@ export async function getPreparationResourceHero(): Promise<
       bgColor: "#FFF",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
-        { label: "hamza-navigation-menu-test-takers", disabled: true },
         { label: "hamza-navigation-menu-test-takers", disabled: true },
         {
           label: "hamza-page-level-nav-preparation-sources",

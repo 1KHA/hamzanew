@@ -27,7 +27,6 @@ const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     breadcrumbs: [
       { label: "hamza-navigation-menu-home", path: "/" },
       { label: "hamza-page-level-nav-who-are-we", disabled: true },
-      { label: "hamza-page-level-nav-who-are-we", disabled: true },
     ],
   },
 
@@ -37,7 +36,6 @@ const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     bgColor: "#FFF",
     breadcrumbs: [
       { label: "hamza-navigation-menu-home", path: "/" },
-      { label: "hamza-page-level-nav-who-are-we", disabled: true },
       { label: "hamza-page-level-nav-who-are-we", path: "/about" },
       { label: "hamza-page-level-nav-who-are-we", path: "/about/who-we-are", disabled: true },
     ],
@@ -49,7 +47,6 @@ const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     bgColor: "#F9FAFB",
     breadcrumbs: [
       { label: "hamza-navigation-menu-home", path: "/" },
-      { label: "hamza-page-level-nav-who-are-we", disabled: true },
       { label: "hamza-page-level-nav-who-are-we", path: "/about" },
       {
         label: "hamza-periodic-advisory-committee",
@@ -64,7 +61,6 @@ const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     bgColor: "#F9FAFB",
     breadcrumbs: [
       { label: "hamza-navigation-menu-home", path: "/" },
-      { label: "hamza-page-level-nav-who-are-we", disabled: true },
       { label: "hamza-page-level-nav-who-are-we", path: "/about" },
       {
         label: "hamza-navigation-menu-benefits-of-hamza-test",
@@ -79,7 +75,6 @@ const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     bgColor: "#FFF",
     breadcrumbs: [
       { label: "hamza-navigation-menu-home", path: "/" },
-      { label: "hamza-page-level-nav-who-are-we", disabled: true },
       { label: "hamza-page-level-nav-who-are-we", path: "/about" },
       {
         label: "hamza-institutions-and-countries-that-accept-the-hamza",
@@ -94,7 +89,6 @@ const staticHeroMap: Record<string, HeroData & { breadcrumbs?: Crumb[] }> = {
     bgColor: "#F9FAFB",
     breadcrumbs: [
       { label: "hamza-navigation-menu-home", path: "/" },
-      { label: "hamza-page-level-nav-who-are-we", disabled: true },
       { label: "hamza-page-level-nav-who-are-we", path: "/about" },
       {
         label: "hamza-navigation-menu-hamza-ambassadors",
@@ -133,7 +127,6 @@ export async function getPeriodicAdvisoryCommitteeHero(): Promise<HeroData & { b
       bgColor: "#F9FAFB",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
-        { label: "hamza-page-level-nav-who-are-we", disabled: true },
         { label: "hamza-page-level-nav-who-are-we", path: "/about" },
         {
           label: data.title,
@@ -152,7 +145,6 @@ export async function getPeriodicAdvisoryCommitteeHero(): Promise<HeroData & { b
       bgColor: "#F9FAFB",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
-        { label: "hamza-page-level-nav-who-are-we", disabled: true },
         { label: "hamza-page-level-nav-who-are-we", path: "/about" },
         {
           label: "hamza-periodic-advisory-committee",
@@ -190,7 +182,6 @@ export async function getWhoWeAreHero(): Promise<HeroData & { breadcrumbs?: Crum
       bgColor: data.hero?.bgColor || "#FFF",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
-        { label: "hamza-page-level-nav-who-are-we", disabled: true },
         { label: "hamza-page-level-nav-who-are-we", path: "/about" },
         {
           label: data.hero?.title || "hamza-page-level-nav-who-are-we",
@@ -209,7 +200,6 @@ export async function getWhoWeAreHero(): Promise<HeroData & { breadcrumbs?: Crum
       bgColor: "#FFF",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
-        { label: "hamza-page-level-nav-who-are-we", disabled: true },
         { label: "hamza-page-level-nav-who-are-we", path: "/about" },
         { label: "hamza-page-level-nav-who-are-we", path: "/about/who-we-are", disabled: true },
       ],
@@ -242,7 +232,6 @@ export async function getHamzaAmbassadorsHero(): Promise<HeroData & { breadcrumb
       bgColor: "#F9FAFB",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
-        { label: "hamza-page-level-nav-who-are-we", disabled: true },
         { label: "hamza-page-level-nav-who-are-we", path: "/about" },
         {
           label: data.title,
@@ -261,7 +250,6 @@ export async function getHamzaAmbassadorsHero(): Promise<HeroData & { breadcrumb
       bgColor: "#F9FAFB",
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
-        { label: "hamza-page-level-nav-who-are-we", disabled: true },
         { label: "hamza-page-level-nav-who-are-we", path: "/about" },
         {
           label: "hamza-navigation-menu-hamza-ambassadors",
@@ -305,7 +293,6 @@ export async function getHamzaTestTraitsHero(): Promise<HeroData & { breadcrumbs
       },
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
-        { label: "hamza-page-level-nav-who-are-we", disabled: true },
         { label: "hamza-page-level-nav-who-are-we", path: "/about" },
         {
           label: data.title || "hamza-navigation-menu-why-choose-hamza",
@@ -328,7 +315,6 @@ export async function getHamzaTestTraitsHero(): Promise<HeroData & { breadcrumbs
       },
       breadcrumbs: [
         { label: "hamza-navigation-menu-home", path: "/" },
-        { label: "hamza-page-level-nav-who-are-we", disabled: true },
         { label: "hamza-page-level-nav-who-are-we", path: "/about" },
         {
           label: "hamza-navigation-menu-why-choose-hamza",
