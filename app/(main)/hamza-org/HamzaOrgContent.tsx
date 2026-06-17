@@ -233,7 +233,7 @@ export default function HamzaOrgContent({
                     </span>
 
                     <TextInput
-                      placeholder="أدخل رقم الشهادة"
+                      placeholder={verificationData.placeholder}
                       size="lg"
                       variant="default"
                       aria-label={verificationData.labelText}
@@ -265,7 +265,12 @@ export default function HamzaOrgContent({
                     id="certificate-number-help"
                     className="text-sm-medium !font-normal !text-[#384250]"
                   >
-                    {tx("hamza-org-verify-help", "ادخل رقم الشهادة للتحقق من موثوقية الشهادة واعتمادها")}
+                    {tx(
+                      "hamza-org-verify-help",
+                      isRTL
+                        ? "ادخل رقم الشهادة للتحقق من موثوقية الشهادة واعتمادها"
+                        : "Enter the certificate number to verify its authenticity and accreditation"
+                    )}
                   </p>
                 </div>
               </form>

@@ -1038,6 +1038,7 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
   },
   nav: {
     languageTestingLab: { ar: "معمل ابحاث الاختبارات اللغوية", en: "Arabic Language Testing Research Laboratory" },
+    researchServiceRequest: { ar: "طلب خدمة بحثية", en: "Research Service Request" },
   },
   researchLibrary: {
     metaTitle: { ar: "مكتبة الابحاث", en: "Research Library" },
