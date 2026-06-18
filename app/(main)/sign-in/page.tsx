@@ -109,6 +109,8 @@ export default function SignInPage() {
           message:
             result.code === "INVALID_CREDENTIALS"
               ? st("signIn", "invalidCredentials")
+              : result.code === "ACCOUNT_NOT_ACTIVATED"
+              ? "لم يتم تفعيل حسابك بعد. يرجى تفعيله عبر الرابط المُرسَل إلى بريدك الإلكتروني."
               : result.message || st("signIn", "genericError"),
         });
         return;

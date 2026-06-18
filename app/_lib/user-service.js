@@ -221,6 +221,68 @@ export const resetPasswordService = async function resetPasswordService(
   }
 };
 
+/**
+ * Activate a newly-registered account using the token from the activation email.
+ * POST /activate-account  body: { token }
+ */
+export const activateAccountService = async function activateAccountService(token) {
+  try {
+    const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_ACTIVATE_ACCOUNT_API_URL}`;
+
+    const response = await fetchWithAccessToken(serviceUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ token }),
+      cache: "no-store",
+    });
+
+    const data = await parseResponseBody(response);
+
+    return {
+      status: response.ok && data.status === "SUCCESS" ? "SUCCESS" : "FAIL",
+      message: data.message || data.error || "",
+      code: data.code,
+    };
+  } catch (error) {
+    console.error("[activateAccountService] error:", error);
+    return { status: "FAIL", message: "An error occurred while activating the account" };
+  }
+};
+
+/**
+ * Resend the account-activation link for an unactivated account.
+ * POST /activate-account/resend  body: { email }
+ */
+export const resendActivationService = async function resendActivationService(email) {
+  try {
+    const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_RESEND_ACTIVATION_API_URL}`;
+
+    const response = await fetchWithAccessToken(serviceUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ email }),
+      cache: "no-store",
+    });
+
+    const data = await parseResponseBody(response);
+
+    return {
+      status: response.ok && data.status === "SUCCESS" ? "SUCCESS" : "FAIL",
+      message: data.message || data.error || "",
+      code: data.code,
+    };
+  } catch (error) {
+    console.error("[resendActivationService] error:", error);
+    return { status: "FAIL", message: "An error occurred while resending the activation link" };
+  }
+};
+
 export async function getUserProfileInfo() {
   try {
     const auth = await getUserAuth();
