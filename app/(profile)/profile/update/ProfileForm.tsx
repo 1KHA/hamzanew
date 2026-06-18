@@ -30,7 +30,9 @@ function createProfileSchema(getText: (key: string) => string) {
       .string()
       .min(1, getText("valEmailRequired"))
       .email(getText("valEmailInvalid")),
-    password: z.string().min(8, getText("valPasswordMin")),
+    // Profile editing does not change the password (that's the separate
+    // change-password flow), so it is not required here.
+    password: z.string().optional(),
     phone: z
       .string()
       .regex(/^\d+$/, getText("valPhoneDigitsOnly"))
@@ -126,6 +128,19 @@ function buildDefaultValues(
   };
 }
 
+// Fields belonging to each tab (1 = Personal, 2 = Education, 3 = Location).
+// Used to validate only the active tab on Save.
+const TAB_FIELDS: Record<number, (keyof UserProfileFormValues)[]> = {
+  1: [
+    "firstName_ar", "secondName_ar", "lastName_ar",
+    "firstName_en", "secondName_en", "lastName_en",
+    "email", "phone", "birthDate", "nationality", "motherTongue",
+    "identity", "identityNumber", "identityFile",
+  ],
+  2: ["education", "institution", "specialization", "basicLanguageInEducation"],
+  3: ["timezone", "country", "state", "city", "postalAddress", "zipCode"],
+};
+
 /**
  * ProfileForm Component (Client Component)
  */
@@ -175,6 +190,17 @@ function ProfileFormContent({
       setShowError(true);
       setTimeout(() => setShowError(false), 5000);
     }
+  };
+
+  // Save validates ONLY the active tab's fields, then submits the whole form.
+  // Fields on the other tabs keep their loaded values (sent as-is), so the
+  // backend still receives a complete payload — but the user isn't blocked by a
+  // validation error on a tab they're not looking at.
+  const handleSave = async () => {
+    const fieldsToValidate = TAB_FIELDS[activeTab] ?? [];
+    const isValid = await methods.trigger(fieldsToValidate);
+    if (!isValid) return;
+    await onSubmit(methods.getValues());
   };
 
   const handleTabChange = (tabId: number) => {
@@ -239,7 +265,13 @@ function ProfileFormContent({
 
         <div className="mb-[40px]" role="region" aria-live="polite">
           <FormProvider {...methods}>
-            <form id="profile-form" onSubmit={methods.handleSubmit(onSubmit)}>
+            <form
+              id="profile-form"
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSave();
+              }}
+            >
               {activeTab === 1 && (
                 <PersonalInfoTab
                   nationalityOptions={nationalityOptions}
@@ -264,8 +296,8 @@ function ProfileFormContent({
         </div>
         <div className="flex gap-[12px] justify-end !pt-[24px]">
           <Button
-            form="profile-form"
-            type="submit"
+            type="button"
+            onClick={handleSave}
             label={st("profile", "saveChanges")}
             variant="primary-brand"
             size="md"

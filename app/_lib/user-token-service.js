@@ -1,6 +1,6 @@
 "use server";
 
-import { getToken, encode } from "next-auth/jwt";
+import { decode, encode } from "next-auth/jwt";
 import { cookies } from "next/headers";
 import { refreshLiferayUserToken } from "@/lib/auth";
 
@@ -30,11 +30,31 @@ export async function getUserAuth() {
   const secret = process.env.NEXTAUTH_SECRET;
   const secure = (process.env.NEXTAUTH_URL ?? "").startsWith("https://");
 
-  const token = await getToken({
-    req: { headers: { cookie: cookieStore.toString() } },
-    secret,
-    secureCookie: secure,
-  });
+  // Read the NextAuth session cookie value directly and decode it. Reading the
+  // value straight from the cookie store (like getServerSession does) avoids the
+  // header re-serialization that getToken({ req: { headers: { cookie } } }) does
+  // — that round-trip corrupted the JWE value (other cookies like csrf-token
+  // contain a '|') and made getToken return null even though the cookie existed.
+  const baseName = secure
+    ? "__Secure-next-auth.session-token"
+    : "next-auth.session-token";
+
+  let sessionToken = cookieStore.get(baseName)?.value;
+
+  if (!sessionToken) {
+    // Reassemble a chunked cookie: baseName.0, baseName.1, ...
+    let assembled = "";
+    for (let i = 0; ; i++) {
+      const chunk = cookieStore.get(`${baseName}.${i}`)?.value;
+      if (!chunk) break;
+      assembled += chunk;
+    }
+    sessionToken = assembled || undefined;
+  }
+
+  if (!sessionToken) return null;
+
+  const token = await decode({ token: sessionToken, secret });
 
   if (!token) return null;
 

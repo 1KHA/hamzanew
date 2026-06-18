@@ -60,6 +60,12 @@ function mapFormToApiPayload(formData) {
 export async function updateUserProfile(profileData) {
   try {
     const auth = await getUserAuth();
+    console.log(
+      "[updateUserProfile] auth —",
+      auth
+        ? `hasAccessToken=${!!auth?.accessToken}, id=${auth?.id}, error=${auth?.error}`
+        : "null"
+    );
 
     if (!auth?.accessToken || auth.error) {
       return {
@@ -68,19 +74,22 @@ export async function updateUserProfile(profileData) {
       };
     }
 
+    // Note: do NOT add userId — CreateProfileRequest has no such field, and the
+    // backend's strict JSON reader 500s on unknown properties. The endpoint
+    // resolves the user by emailId + the OAuth-authenticated principal instead.
     const payload = mapFormToApiPayload(profileData);
-    const body = JSON.stringify({
-      ...payload,
-      userId: auth.id,
-    });
+    const body = JSON.stringify(payload);
 
+    const updateUrl = `${process.env.BASE_URL}${process.env.HAMZA_UPDATE_USER_PROFILE_API_URL}`;
+    console.log("[updateUserProfile] POST URL:", updateUrl);
     console.log("[updateUserProfile] payload:", body);
 
     // Make API call to update profile — runs as the signed-in user (their own token).
     const response = await fetch(
-      `${process.env.BASE_URL}${process.env.HAMZA_UPDATE_USER_PROFILE_API_URL}`,
+      updateUrl,
       {
-        method: "PUT",
+        // Backend update-profile is @POST in ProfileSelfServiceApplication.
+        method: "POST",
         headers: {
           Authorization: `Bearer ${auth.accessToken}`,
           "Content-Type": "application/json",
@@ -100,6 +109,7 @@ export async function updateUserProfile(profileData) {
     }
 
     console.log("[updateUserProfile] response status:", response.status);
+    console.log("[updateUserProfile] response RAW body:", responseText);
     console.log("[updateUserProfile] response data:", updatedProfileData);
 
     if (response.ok) {

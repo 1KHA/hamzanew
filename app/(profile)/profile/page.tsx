@@ -2,7 +2,6 @@ import PageHero from "../../components/page-hero/PageHero";
 import { Metadata } from "next";
 import ProfileView from "./ProfileView";
 import { getCachedUserProfile } from "@/app/_lib/session-cache";
-import mockUserInfo from "./_data/mockUserInfo.json";
 import { st } from "@/app/_lib/static-text-server";
 import { cookies } from "next/headers";
 
@@ -71,25 +70,21 @@ export default async function ProfilePage() {
 
   let userProfile = null;
   try {
-    console.log("[ProfilePage] Fetching cached user profile...");
     const apiData = await getCachedUserProfile();
-    console.log("[ProfilePage] Raw API data from getCachedUserProfile:", JSON.stringify(apiData, null, 2));
 
     if (apiData && apiData.status !== "FAIL") {
       userProfile = mapApiProfile(apiData);
-      console.log("[ProfilePage] Mapped profile data:", JSON.stringify(userProfile, null, 2));
-    } else {
-      console.log("[ProfilePage] apiData is null or status is FAIL");
     }
   } catch (error) {
     console.error("[ProfilePage] Error fetching profile:", error);
   }
 
+  // No mock fallback: show the real profile, or an empty object (ProfileView
+  // renders a dash for missing fields). Falling back to mock data here is what
+  // made failed fetches look like a real-but-wrong person.
   const profileData = userProfile && Object.keys(userProfile).length > 0
     ? userProfile
-    : mockUserInfo;
-
-  console.log("[ProfilePage] Final profileData passed to ProfileView:", JSON.stringify(profileData, null, 2));
+    : {};
 
   const HERO_CONFIG = {
     title: st("profile", "heroTitle", locale),
