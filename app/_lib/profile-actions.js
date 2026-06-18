@@ -1,8 +1,7 @@
 "use server";
 
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
 import { clearUserProfileCache, updateUserProfileCache } from "./session-cache";
+import { getUserAuth } from "./user-token-service";
 
 /**
  * Converts frontend form field names to backend API field names.
@@ -60,40 +59,35 @@ function mapFormToApiPayload(formData) {
 
 export async function updateUserProfile(profileData) {
   try {
-    const session = await getServerSession(authOptions);
+    const auth = await getUserAuth();
 
-    if (!session || !session.user) {
+    if (!auth?.accessToken || auth.error) {
       return {
         status: "FAIL",
         message: "User not authenticated",
       };
     }
 
-    const authorization =
-      "Basic " +
-      btoa(
-        `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
-      );
-
     const payload = mapFormToApiPayload(profileData);
     const body = JSON.stringify({
       ...payload,
-      userId: session.user.id,
+      userId: auth.id,
     });
 
     console.log("[updateUserProfile] payload:", body);
 
-    // Make API call to update profile
+    // Make API call to update profile — runs as the signed-in user (their own token).
     const response = await fetch(
       `${process.env.BASE_URL}${process.env.HAMZA_UPDATE_USER_PROFILE_API_URL}`,
       {
         method: "PUT",
         headers: {
-          Authorization: authorization,
+          Authorization: `Bearer ${auth.accessToken}`,
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body,
+        cache: "no-store",
       }
     );
 
@@ -134,37 +128,32 @@ export async function updateUserProfile(profileData) {
 
 export async function changeUserPassword(passwordData) {
   try {
-    const session = await getServerSession(authOptions);
+    const auth = await getUserAuth();
 
-    if (!session || !session.user) {
+    if (!auth?.accessToken || auth.error) {
       return {
         status: "FAIL",
         message: "User not authenticated",
       };
     }
 
-    const authorization =
-      "Basic " +
-      btoa(
-        `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
-      );
-
     const payload = {
       ...passwordData,
-      userId: session.user.id,
+      userId: auth.id,
     };
 
-    // Make API call to change password
+    // Make API call to change password — runs as the signed-in user (their own token).
     const response = await fetch(
       `${process.env.BASE_URL}${process.env.HAMZA_CHANGE_PASSWORD_API_URL}`,
       {
         method: "POST",
         headers: {
-          Authorization: authorization,
+          Authorization: `Bearer ${auth.accessToken}`,
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify(payload),
+        cache: "no-store",
       }
     );
 

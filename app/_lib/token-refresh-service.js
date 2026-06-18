@@ -82,6 +82,48 @@ export const getAccessToken = async function name() {
   }
 };
 
+/**
+ * Performs a fetch authenticated with an OAuth2 client-credentials bearer token.
+ * Retries once on 401/400 with a freshly-fetched token (same retry semantics
+ * used by the content & booking services). Callers pass the URL and options
+ * WITHOUT an Authorization header — it is injected here.
+ */
+export const fetchWithAccessToken = async (url, options = {}) => {
+  const accessToken = await getAccessToken();
+  if (!accessToken) {
+    throw new Error("No access token");
+  }
+
+  const doFetch = (token) =>
+    fetch(url, {
+      ...options,
+      headers: {
+        ...(options.headers || {}),
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+  let res = await doFetch(accessToken);
+
+  if (!res.ok && (res.status === 401 || res.status === 400)) {
+    console.log(
+      `Received ${res.status}, clearing token cache and retrying once...`
+    );
+    clearTokenCache();
+    try {
+      const freshToken = await getAccessToken();
+      res = await doFetch(freshToken);
+    } catch (tokenError) {
+      console.error(
+        "Failed to get fresh token for retry:",
+        tokenError.message
+      );
+    }
+  }
+
+  return res;
+};
+
 // Function to clear the token cache (useful when token is invalid)
 // This should NOT clear an ongoing refresh to avoid race conditions
 export const clearTokenCache = () => {

@@ -22,6 +22,7 @@ import { cookies } from "next/headers";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFields } from "@/app/_lib/helper-service";
 import { getTranslations } from "@/app/_lib/getTranslations";
+import { fetchWithAccessToken } from "@/app/_lib/token-refresh-service";
 import NotificationToast from "@/app/components/notification-toast/NotificationToast";
 import { st } from "@/app/_lib/static-text-server";
 
@@ -91,11 +92,6 @@ export default async function ResearchLibraryPage(): Promise<ReactElement> {
     (async () => {
       try {
         const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_GET_ARTICLES_URL}/RESEARCH_ARTICLE/Research article type`;
-        const authorization =
-          "Basic " +
-          btoa(
-            `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
-          );
 
         const urlWithParam = new URL(serviceUrl);
         urlWithParam.searchParams.append("searchText", "");
@@ -105,9 +101,8 @@ export default async function ResearchLibraryPage(): Promise<ReactElement> {
         urlWithParam.searchParams.append("page", "1");
         urlWithParam.searchParams.append("pageSize", "1000");
 
-        const res = await fetch(urlWithParam, {
+        const res = await fetchWithAccessToken(urlWithParam, {
           method: "POST",
-          headers: { Authorization: authorization },
         });
 
         if (!res.ok) {

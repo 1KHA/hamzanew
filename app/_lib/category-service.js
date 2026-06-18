@@ -1,6 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { fetchWithAccessToken } from "./token-refresh-service";
 
 export const fetchJsonList = async function fetchJsonList(vocabularyName) {
   //   const serviceUrl =
@@ -11,19 +12,12 @@ export const fetchJsonList = async function fetchJsonList(vocabularyName) {
     `${process.env.BASE_URL}${process.env.HAMZA_CATEGORY_SERVICE_API_URL}` +
     vocabularyName;
 
-  const authorization =
-    "Basic " +
-    btoa(
-      `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
-    );
-
   const cookieStore = await cookies();
   const locale = cookieStore.get("lang")?.value || "ar-SA";
 
-  const res = await fetch(serviceUrl, {
+  const res = await fetchWithAccessToken(serviceUrl, {
     method: "GET",
     headers: {
-      Authorization: authorization,
       "Accept-Language": locale,
     },
     // cache: "force-cache", // Optional: caching behavior
@@ -49,19 +43,12 @@ export const fetchSubCategoryList = async function fetchSubCategoryList(
     "/" +
     parentCategoryId;
 
-  const authorization =
-    "Basic " +
-    btoa(
-      `${process.env.BASIC_AUTH_USERNAME}:${process.env.BASIC_AUTH_PASSWORD}`
-    );
-
   const cookieStore = await cookies();
   const language = cookieStore.get("lang")?.value || "ar-SA";
 
-  const res = await fetch(serviceUrl, {
+  const res = await fetchWithAccessToken(serviceUrl, {
     method: "GET",
     headers: {
-      Authorization: authorization,
       "Accept-Language": language,
     },
     // cache: "force-cache", // Optional: caching behavior

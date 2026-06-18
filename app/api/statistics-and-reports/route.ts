@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { fetchContentWithKey } from "@/app/_lib/content-service";
 import { extractFields, extractList } from "@/app/_lib/helper-service";
+import { fetchWithAccessToken } from "@/app/_lib/token-refresh-service";
 import { cookies } from "next/headers";
 
 /**
@@ -57,11 +58,6 @@ export async function GET() {
 
     // Fetch reports articles directly (server action import causes runtime issues in route handlers)
     const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_GET_ARTICLES_URL}/REPORTS_AND_STATISTICS_ARTICLE/Reports & Statistics article type`;
-    const authorization =
-      "Basic " +
-      btoa(
-        `${process.env.BASIC_AUTH_USERNAME} : ${process.env.BASIC_AUTH_PASSWORD}`
-      );
 
     const urlWithParam = new URL(serviceUrl);
     urlWithParam.searchParams.append("searchText", "");
@@ -80,9 +76,8 @@ export async function GET() {
         fetchContentWithKey(
           "RESEARCH_STATISTICS_TESTING_CENTERS_STATISTICS_CONTENT_KEY"
         ),
-        fetch(urlWithParam, {
+        fetchWithAccessToken(urlWithParam, {
           method: "POST",
-          headers: { Authorization: authorization },
         }),
       ]);
 

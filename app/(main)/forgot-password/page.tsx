@@ -1,16 +1,21 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import OtpInput from "@/app/components/otp-input/OtpInput";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import Button from "@/app/components/button/Button";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import TextInput from "@/app/components/text-input/TextInput";
 import NotificationToast from "@/app/components/notification-toast/NotificationToast";
+import {
+  requestPasswordResetService,
+  validateResetTokenService,
+  resetPasswordService,
+} from "@/app/_lib/user-service";
 import "../sign-in/sign-in.css";
 import "./forgot-password.css";
 
@@ -23,10 +28,6 @@ const emailSchema = z.object({
     .string()
     .min(1, "البريد الإلكتروني مطلوب")
     .email("البريد الإلكتروني غير صحيح"),
-});
-
-const codeSchema = z.object({
-  code: z.string().length(6, "رمز التحقق يجب أن يكون 6 أرقام"),
 });
 
 const resetSchema = z
@@ -47,9 +48,14 @@ const resetSchema = z
   });
 
 type EmailForm = z.infer<typeof emailSchema>;
-type CodeForm = z.infer<typeof codeSchema>;
 type ResetForm = z.infer<typeof resetSchema>;
-type Step = "email" | "code" | "reset" | "done";
+
+/**
+ * Flow:
+ *  - No token in URL  → "email" → "sent"
+ *  - Token in URL     → "validating" → ("reset" → "done") | "invalid"
+ */
+type Step = "email" | "sent" | "validating" | "reset" | "invalid" | "done";
 
 /* ==========================================================================
    Password Rules Component
@@ -95,15 +101,19 @@ function PasswordRules({ value }: { value: string }) {
    Page
    ========================================================================== */
 
-const HEADINGS: Record<Exclude<Step, "done">, string> = {
+const HEADINGS: Partial<Record<Step, string>> = {
   email: "نسيت كلمة المرور الخاصة بي",
-  code: "التحقق من هويتك",
+  validating: "التحقق من الرابط",
   reset: "إعادة تعيين كلمة المرور",
 };
 
-export default function ForgotPasswordPage() {
-  const [step, setStep] = useState<Step>("email");
+function ForgotPasswordContent() {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token") ?? "";
+
+  const [step, setStep] = useState<Step>(token ? "validating" : "email");
   const [email, setEmail] = useState("");
+  const [apiError, setApiError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [countdown, setCountdown] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
@@ -128,17 +138,30 @@ export default function ForgotPasswordPage() {
     return () => clearTimeout(id);
   }, [countdown]);
 
+  // Validate the token from the emailed link on mount
+  useEffect(() => {
+    if (!token) return;
+    let active = true;
+    (async () => {
+      const res = await validateResetTokenService(token);
+      if (!active) return;
+      if (res.valid) {
+        setStep("reset");
+      } else {
+        setApiError(res.message || "الرابط غير صالح أو منتهي الصلاحية");
+        setStep("invalid");
+      }
+    })();
+    return () => {
+      active = false;
+    };
+  }, [token]);
+
   /* ── Forms ── */
 
   const emailForm = useForm<EmailForm>({
     resolver: zodResolver(emailSchema),
     defaultValues: { email: "" },
-    mode: "all",
-  });
-
-  const codeForm = useForm<CodeForm>({
-    resolver: zodResolver(codeSchema),
-    defaultValues: { code: "" },
     mode: "all",
   });
 
@@ -148,38 +171,48 @@ export default function ForgotPasswordPage() {
     mode: "all",
   });
 
-  /* ── Submit handlers (simulate API calls) ── */
+  /* ── Submit handlers ── */
 
+  // Step 1: request the reset link
   const onEmailSubmit = async (data: EmailForm) => {
+    setApiError("");
     setIsSubmitting(true);
-    await new Promise((r) => setTimeout(r, 800));
-    setEmail(data.email);
-    setCountdown(60);
+    const res = await requestPasswordResetService(data.email);
     setIsSubmitting(false);
-    setStep("code");
+    if (res.status === "SUCCESS") {
+      setEmail(data.email);
+      setCountdown(60);
+      setStep("sent");
+    } else {
+      setApiError(res.message || "تعذّر إرسال رابط إعادة التعيين");
+    }
   };
 
-  const onCodeSubmit = async (_data: CodeForm) => {
+  // Step 3: set the new password using the validated token
+  const onResetSubmit = async (data: ResetForm) => {
+    setApiError("");
     setIsSubmitting(true);
-    await new Promise((r) => setTimeout(r, 800));
+    const res = await resetPasswordService(token, data.password);
     setIsSubmitting(false);
-    setStep("reset");
-  };
-
-  const onResetSubmit = async (_data: ResetForm) => {
-    setIsSubmitting(true);
-    await new Promise((r) => setTimeout(r, 800));
-    setIsSubmitting(false);
-    setStep("done");
+    if (res.status === "SUCCESS") {
+      setStep("done");
+    } else {
+      setApiError(res.message || "تعذّر إعادة تعيين كلمة المرور");
+    }
   };
 
   const handleResend = useCallback(async () => {
-    if (countdown > 0) return;
-    codeForm.reset();
-    setCountdown(60);
-  }, [countdown, codeForm]);
+    if (countdown > 0 || !email) return;
+    setApiError("");
+    const res = await requestPasswordResetService(email);
+    if (res.status === "SUCCESS") {
+      setCountdown(60);
+    } else {
+      setApiError(res.message || "تعذّر إعادة إرسال الرابط");
+    }
+  }, [countdown, email]);
 
-  const codeValue = codeForm.watch("code");
+  const hasHeading = step in HEADINGS;
 
   return (
     <div className="sign-in-page-wrapper forgot-password-wrapper">
@@ -192,7 +225,7 @@ export default function ForgotPasswordPage() {
         >
 
           {/* Header */}
-          {step !== "done" && (
+          {hasHeading && (
             <header className="sign-in-page__header">
               <h1
                 id="forgot-heading"
@@ -205,13 +238,8 @@ export default function ForgotPasswordPage() {
               </h1>
               <p className="text-md-regular sign-in-page__subtitle">
                 {step === "email" &&
-                  "أدخل بريدك الإلكتروني وسنرسل إليك رمز التحقق"}
-                {step === "code" && (
-                  <>
-                    أُرسل رمز مكوّن من 6 أرقام إلى{" "}
-                    <strong>{email}</strong>
-                  </>
-                )}
+                  "أدخل بريدك الإلكتروني وسنرسل إليك رابط إعادة تعيين كلمة المرور"}
+                {step === "validating" && "يرجى الانتظار، جارٍ التحقق من صلاحية الرابط…"}
                 {step === "reset" &&
                   "أدخل كلمة المرور الجديدة وتأكيدها لإتمام عملية الاسترداد"}
               </p>
@@ -227,6 +255,16 @@ export default function ForgotPasswordPage() {
                 aria-label="نموذج استعادة كلمة المرور"
                 noValidate
               >
+                {apiError && (
+                  <NotificationToast
+                    type="error"
+                    leadText={apiError}
+                    open
+                    variant="stroke"
+                    inline
+                  />
+                )}
+
                 <FormField
                   label="البريد الإلكتروني"
                   required
@@ -252,7 +290,7 @@ export default function ForgotPasswordPage() {
                 </FormField>
 
                 <Button
-                  label={isSubmitting ? "جاري الإرسال..." : "إرسال رمز التحقق"}
+                  label={isSubmitting ? "جاري الإرسال..." : "إرسال رابط إعادة التعيين"}
                   variant="primary-brand"
                   size="lg"
                   type="submit"
@@ -264,63 +302,69 @@ export default function ForgotPasswordPage() {
             </FormProvider>
           )}
 
-          {/* ── Step 2: OTP ── */}
-          {step === "code" && (
-            <FormProvider {...codeForm}>
-              <form
-                onSubmit={codeForm.handleSubmit(onCodeSubmit)}
-                className="sign-in-page__form"
-                aria-label="نموذج رمز التحقق"
-                noValidate
-              >
-                <FormField
-                  label="رمز التحقق"
-                  required
-                  error={codeForm.formState.errors.code?.message}
-                  htmlFor="fp-otp-0"
+          {/* ── Step 2: Link sent ── */}
+          {step === "sent" && (
+            <div
+              className="sign-in-page__form"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              <header className="sign-in-page__header">
+                <h1
+                  id="forgot-heading"
+                  className="display-sm-bold"
+                  ref={headingRef}
+                  tabIndex={-1}
+                  style={{ outline: "none" }}
                 >
-                  <Controller
-                    name="code"
-                    control={codeForm.control}
-                    render={({ field, fieldState }) => (
-                      <OtpInput
-                        value={field.value}
-                        onChange={field.onChange}
-                        hasError={!!fieldState.error}
-                        idPrefix="fp-otp"
-                      />
-                    )}
-                  />
-                </FormField>
-
-                <Button
-                  label={isSubmitting ? "جاري التحقق..." : "التحقق من الرمز"}
-                  variant="primary-brand"
-                  size="lg"
-                  type="submit"
-                  disabled={isSubmitting || codeValue.replace(/\D/g, "").length < 6}
-                  className="sign-in-page__submit"
-                  aria-busy={isSubmitting}
-                />
-
-                <p className="forgot-password__resend text-sm-regular">
-                  لم تستلم الرمز؟{" "}
-                  {countdown > 0 ? (
-                    <span aria-live="polite" aria-atomic="true">
-                      إعادة الإرسال بعد {countdown} ث
-                    </span>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={handleResend}
-                      className="link--primary forgot-password__resend-btn"
-                    >
-                      إعادة إرسال الرمز
-                    </button>
-                  )}
+                  تحقق من بريدك الإلكتروني
+                </h1>
+                <p className="text-md-regular sign-in-page__subtitle">
+                  أرسلنا رابط إعادة تعيين كلمة المرور إلى <strong>{email}</strong>.
+                  افتح الرابط من بريدك لمتابعة العملية.
                 </p>
-              </form>
-            </FormProvider>
+              </header>
+
+              {apiError && (
+                <NotificationToast
+                  type="error"
+                  leadText={apiError}
+                  open
+                  variant="stroke"
+                  inline
+                />
+              )}
+
+              <p className="forgot-password__resend text-sm-regular">
+                لم يصلك الرابط؟{" "}
+                {countdown > 0 ? (
+                  <span aria-live="polite" aria-atomic="true">
+                    إعادة الإرسال بعد {countdown} ث
+                  </span>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleResend}
+                    className="link--primary forgot-password__resend-btn"
+                  >
+                    إعادة إرسال الرابط
+                  </button>
+                )}
+              </p>
+            </div>
+          )}
+
+          {/* ── Validating token ── */}
+          {step === "validating" && (
+            <div
+              className="sign-in-page__form"
+              role="status"
+              aria-live="polite"
+              aria-busy="true"
+            >
+              <p className="text-md-regular">جارٍ التحقق من الرابط…</p>
+            </div>
           )}
 
           {/* ── Step 3: New Password ── */}
@@ -332,6 +376,16 @@ export default function ForgotPasswordPage() {
                 aria-label="نموذج إعادة تعيين كلمة المرور"
                 noValidate
               >
+                {apiError && (
+                  <NotificationToast
+                    type="error"
+                    leadText={apiError}
+                    open
+                    variant="stroke"
+                    inline
+                  />
+                )}
+
                 <FormField
                   label="كلمة المرور الجديدة"
                   required
@@ -443,6 +497,45 @@ export default function ForgotPasswordPage() {
             </FormProvider>
           )}
 
+          {/* ── Invalid / expired token ── */}
+          {step === "invalid" && (
+            <div
+              className="sign-in-page__form"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              <header className="sign-in-page__header">
+                <h1
+                  id="forgot-heading"
+                  className="display-sm-bold"
+                  ref={headingRef}
+                  tabIndex={-1}
+                  style={{ outline: "none" }}
+                >
+                  رابط غير صالح
+                </h1>
+              </header>
+
+              <NotificationToast
+                type="error"
+                leadText={apiError || "الرابط غير صالح أو منتهي الصلاحية"}
+                helperText="يرجى طلب رابط جديد لإعادة تعيين كلمة المرور"
+                open
+                variant="stroke"
+                inline
+              />
+
+              <Button
+                label="طلب رابط جديد"
+                variant="primary-brand"
+                size="lg"
+                onClick={() => (window.location.href = "/forgot-password")}
+                className="sign-in-page__submit"
+              />
+            </div>
+          )}
+
           {/* ── Step 4: Success ── */}
           {step === "done" && (
             <div
@@ -505,5 +598,14 @@ export default function ForgotPasswordPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// useSearchParams (reads the ?token= from the emailed link) requires a Suspense boundary.
+export default function ForgotPasswordPage() {
+  return (
+    <Suspense fallback={null}>
+      <ForgotPasswordContent />
+    </Suspense>
   );
 }
