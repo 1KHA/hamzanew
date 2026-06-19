@@ -55,6 +55,9 @@ function mapApiProfileToForm(apiData: any): Record<string, any> {
     identity: apiData.identity ?? apiData.proofName ?? "",
     identityNumber: apiData.identityNumber ?? apiData.passportNumber ?? "",
     identityFile: apiData.identityFile ?? "",
+    // ID document uploaded at sign-up — surfaced as a download link in edit mode.
+    identityFileName: apiData.identityFileName ?? "",
+    fileEntryId: apiData.fileEntryId ?? "",
     education: apiData.education ?? apiData.lastEducationalQualification ?? "",
     basicLanguageInEducation: apiData.basicLanguageInEducation ?? apiData.primaryLanguageOfEducation ?? "",
     institution: apiData.institution ?? apiData.university ?? "",

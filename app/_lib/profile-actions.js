@@ -57,7 +57,55 @@ function mapFormToApiPayload(formData) {
   return payload;
 }
 
-export async function updateUserProfile(profileData) {
+/**
+ * Requests an OTP for the signed-in user before a profile edit. The returned
+ * mfaToken must be paired with the emailed code on the subsequent update call.
+ */
+export async function requestProfileEditOtp() {
+  try {
+    const auth = await getUserAuth();
+
+    if (!auth?.accessToken || auth.error) {
+      return { status: "FAIL", message: "User not authenticated" };
+    }
+
+    const url = `${process.env.BASE_URL}/o/hamza-profile-self/request-profile-otp`;
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${auth.accessToken}`,
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    });
+
+    const responseText = await response.text();
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch {
+      data = { raw: responseText };
+    }
+
+    if (response.ok && data.status === "SUCCESS") {
+      return { status: "SUCCESS", mfaToken: data.mfaToken, message: data.message };
+    }
+
+    return {
+      status: "FAIL",
+      message:
+        data.message ||
+        data.error ||
+        `Failed to send verification code (HTTP ${response.status})`,
+    };
+  } catch (error) {
+    console.error("Error requesting profile-edit OTP:", error);
+    return { status: "FAIL", message: "An error occurred while sending the verification code" };
+  }
+}
+
+export async function updateUserProfile(profileData, otpContext = {}) {
   try {
     const auth = await getUserAuth();
     console.log(
@@ -78,6 +126,9 @@ export async function updateUserProfile(profileData) {
     // backend's strict JSON reader 500s on unknown properties. The endpoint
     // resolves the user by emailId + the OAuth-authenticated principal instead.
     const payload = mapFormToApiPayload(profileData);
+    // OTP gate: the backend verifies + consumes this single-use code.
+    if (otpContext.mfaToken) payload.mfaToken = otpContext.mfaToken;
+    if (otpContext.otp) payload.otp = otpContext.otp;
     const body = JSON.stringify(payload);
 
     const updateUrl = `${process.env.BASE_URL}${process.env.HAMZA_UPDATE_USER_PROFILE_API_URL}`;
@@ -132,6 +183,58 @@ export async function updateUserProfile(profileData) {
     return {
       status: "FAIL",
       message: "An error occurred while updating profile",
+    };
+  }
+}
+
+/**
+ * Uploads a replacement ID / proof document for the signed-in user.
+ * Expects a FormData with a "file" field. The Liferay endpoint stores the
+ * file, repoints the profile at it, and deletes the previous document.
+ */
+export async function updateUserIdProof(formData) {
+  try {
+    const auth = await getUserAuth();
+
+    if (!auth?.accessToken || auth.error) {
+      return { status: "FAIL", message: "User not authenticated" };
+    }
+
+    const url = `${process.env.BASE_URL}/o/hamza-profile-self/update-id-proof`;
+
+    // Note: do NOT set Content-Type — fetch sets the multipart boundary itself.
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${auth.accessToken}` },
+      body: formData,
+      cache: "no-store",
+    });
+
+    const responseText = await response.text();
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch {
+      data = { raw: responseText };
+    }
+
+    if (response.ok) {
+      await clearUserProfileCache();
+      return { status: "SUCCESS", data };
+    }
+
+    return {
+      status: "FAIL",
+      message:
+        data.message ||
+        data.error ||
+        `Failed to update ID document (HTTP ${response.status})`,
+    };
+  } catch (error) {
+    console.error("Error updating ID proof:", error);
+    return {
+      status: "FAIL",
+      message: "An error occurred while updating ID document",
     };
   }
 }
