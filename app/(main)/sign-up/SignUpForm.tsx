@@ -379,7 +379,7 @@ export default function SignUpForm({
             <FormProvider {...methods}>
               {STEP_CONFIG.map((config, index) => {
                 const stepNumber = index + 1;
-                if (activeStep !== stepNumber) return null;
+                const isActive = activeStep === stepNumber;
 
                 const CurrentComponent = config.component;
                 const isLastStep = stepNumber === STEPS.length;
@@ -401,6 +401,11 @@ export default function SignUpForm({
                     key={stepNumber}
                     className="sign-up-page__form"
                     onSubmit={handleStepSubmit}
+                    // Keep every step mounted (just hide the inactive ones) so
+                    // stateful children — notably the ID file upload, whose
+                    // selection lives in its own local state — don't lose their
+                    // value/display when navigating back and forth between steps.
+                    style={{ display: isActive ? undefined : "none" }}
                   >
                     <h2 className="text-md-bold sign-up-page__section-title">
                       {STEPS[index].title}
@@ -459,7 +464,10 @@ export default function SignUpForm({
           )}
 
           {/* ══════════════════════════════════════
-              Success: تم إنشاء الحساب
+              Success: check your email
+              Neutral wording (no "account created") so the response is identical
+              whether the email was new or already registered — see the Tier-A
+              anti-enumeration sign-up path on the backend.
           ══════════════════════════════════════ */}
           {submitted && (
             <div
@@ -469,8 +477,8 @@ export default function SignUpForm({
             >
               <NotificationToast
                 type="success"
-                leadText="تم إنشاء حسابك بنجاح"
-                helperText="يرجى مراجعة بريدك الشبكي لتفعيل الحساب وإكمال عملية التسجيل"
+                leadText="تحقق من بريدك الشبكي"
+                helperText="لقد أرسلنا رسالة إلى عنوان بريدك الشبكي تتضمن الخطوات التالية لإكمال التسجيل. يرجى مراجعة بريدك الوارد (وربما مجلد الرسائل غير المرغوب فيها)."
                 open
                 variant="stroke"
                 inline
