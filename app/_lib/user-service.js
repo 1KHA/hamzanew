@@ -228,6 +228,7 @@ export const resetPasswordService = async function resetPasswordService(
 export const activateAccountService = async function activateAccountService(token) {
   try {
     const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_ACTIVATE_ACCOUNT_API_URL}`;
+    console.log("HAMZA_ACTIVATE_ACCOUNT_API_URL serviceUrl: " + serviceUrl);
 
     const response = await fetchWithAccessToken(serviceUrl, {
       method: "POST",
