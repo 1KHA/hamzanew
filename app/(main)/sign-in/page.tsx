@@ -105,6 +105,7 @@ export default function SignInPage() {
       const result = await loginRequestService(data.username, data.password);
 
       if (result.status !== "SUCCESS") {
+        console.error("Login request failed:", result);
         methods.setError("root", {
           message:
             result.code === "INVALID_CREDENTIALS"
@@ -125,7 +126,8 @@ export default function SignInPage() {
       setMfaToken(result.mfaToken || "");
       startOtpStep();
       setStep("otp");
-    } catch {
+    } catch (error) {
+      console.error("Login request threw:", error);
       methods.setError("root", { message: st("signIn", "genericError") });
     } finally {
       setIsSubmitting(false);
@@ -158,12 +160,21 @@ export default function SignInPage() {
       });
 
       if (result?.error) {
-        setOtpError(st("signIn", "otpInvalid"));
+        console.error("signIn credentials error:", result.error, result);
+        const isOtpError =
+          result.error === "CredentialsSignin" ||
+          /رمز|otp|verification/i.test(result.error);
+        setOtpError(
+          isOtpError
+            ? st("signIn", "otpInvalid")
+            : st("signIn", "genericError")
+        );
         setIsSubmitting(false);
       } else if (result?.ok) {
         window.location.href = "/profile";
       }
-    } catch {
+    } catch (error) {
+      console.error("signIn credentials threw:", error);
       setOtpError(st("signIn", "genericError"));
       setIsSubmitting(false);
     }
@@ -178,6 +189,7 @@ export default function SignInPage() {
       setMfaToken(result.mfaToken || mfaToken);
       setCountdown(60);
     } else {
+      console.error("Resend OTP failed:", result);
       setOtpError(result.message || st("signIn", "genericError"));
     }
   }, [countdown, mfaToken]);

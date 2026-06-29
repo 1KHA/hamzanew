@@ -45,8 +45,17 @@ export const loginRequestService = async function loginRequestService(
 
     const data = await parseResponseBody(response);
 
+    const status = response.ok && data.status === "SUCCESS" ? "SUCCESS" : "FAIL";
+    if (status === "FAIL") {
+      console.warn(
+        "[loginRequestService] backend returned non-success:",
+        response.status,
+        data
+      );
+    }
+
     return {
-      status: response.ok && data.status === "SUCCESS" ? "SUCCESS" : "FAIL",
+      status,
       message: data.message || data.error || "",
       code: data.code,
       mfaToken: data.mfaToken,
