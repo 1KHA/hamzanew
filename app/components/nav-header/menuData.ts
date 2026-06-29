@@ -119,6 +119,11 @@ export const MENU_DATA: MenuItemType[] = [
             href: "/test-takers/test-mechanism",
             icon: "/assets/icons/stroke-standard/task-daily-02-stroke-standard.svg",
           },
+          {
+            label: "hamza-navigation-menu-hamza-test-centers",
+            href: "/test-takers/test-centers",
+            icon: "/assets/icons/stroke-standard/test-tube-01-stroke-rounded.svg",
+          },
         ],
       },
     ],

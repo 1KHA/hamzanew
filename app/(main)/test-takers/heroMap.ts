@@ -74,6 +74,20 @@ export function getHeroMap(locale: "ar" | "en"): Record<string, HeroData & { bre
         },
       ],
     },
+    "/test-takers/test-centers": {
+      title: "hamza-navigation-menu-hamza-test-centers",
+      description: "",
+      bgColor: "#F9FAFB",
+      breadcrumbs: [
+        { label: "hamza-navigation-menu-home", path: "/" },
+        { label: "hamza-navigation-menu-test-takers", disabled: true },
+        {
+          label: "hamza-navigation-menu-hamza-test-centers",
+          path: "/test-takers/test-centers",
+          disabled: true,
+        },
+      ],
+    },
     "/test-takers/discover-hamza-tests": {
       title: "",
       bgColor: "#F9FAFB",
