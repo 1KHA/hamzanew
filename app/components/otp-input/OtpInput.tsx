@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import "./OtpInput.css";
 
 export interface OtpInputProps {
   value: string;

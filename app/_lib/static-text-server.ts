@@ -1316,6 +1316,20 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     ariaEmailHelp: { ar: "أدخل عنوان بريدك الشبكي المستخدم لتسجيل الدخول", en: "Enter your email address used for login" },
     fileUploadTypesText: { ar: "الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وصيغ الملفات المدعومة تشمل PDF, PNG, JPG, JPEG.", en: "Maximum file size allowed is 2 MB, supported formats include PDF, PNG, JPG, JPEG." },
     fileUploadAction: { ar: "تصفح الملفات", en: "Browse Files" },
+    fileUploadReplaceAction: { ar: "استبدال الملف", en: "Replace File" },
+
+    /* Profile-edit OTP verification modal */
+    otpModalTitle: { ar: "تأكيد الهوية", en: "Verify it's you" },
+    otpModalDescription: {
+      ar: "لقد أرسلنا رمز تحقق إلى بريدك الشبكي. أدخله أدناه لحفظ التغييرات.",
+      en: "We've sent a verification code to your email. Enter it below to save your changes.",
+    },
+    otpVerify: { ar: "تأكيد وحفظ", en: "Verify & Save" },
+    otpVerifying: { ar: "جارٍ التحقق...", en: "Verifying..." },
+    otpResend: { ar: "إعادة إرسال الرمز", en: "Resend code" },
+    otpResendIn: { ar: "إعادة الإرسال خلال {s} ثانية", en: "Resend in {s}s" },
+    otpInvalid: { ar: "رمز التحقق غير صحيح أو منتهي الصلاحية", en: "The verification code is incorrect or expired" },
+    otpSending: { ar: "جارٍ الإرسال...", en: "Sending..." },
 
     /* PersonalInfoTab — fallback nationality options */
     fallbackNationalitySA: { ar: "سعودي", en: "Saudi" },
