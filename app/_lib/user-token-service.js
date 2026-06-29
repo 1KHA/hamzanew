@@ -52,9 +52,17 @@ export async function getUserAuth() {
     sessionToken = assembled || undefined;
   }
 
+  console.log("[getUserAuth] session cookie found:", !!sessionToken);
   if (!sessionToken) return null;
 
   const token = await decode({ token: sessionToken, secret });
+  console.log("[getUserAuth] decoded token keys:", token ? Object.keys(token) : null);
+  console.log("[getUserAuth] token summary:", token ? {
+    id: token.id,
+    hasAccessToken: !!token.accessToken,
+    accessTokenExpires: token.accessTokenExpires,
+    error: token.error,
+  } : null);
 
   if (!token) return null;
 
@@ -72,6 +80,10 @@ export async function getUserAuth() {
   }
 
   const refreshed = await refreshLiferayUserToken(token.refreshToken);
+  console.log("[getUserAuth] refresh result:", refreshed ? {
+    hasAccessToken: !!refreshed.access_token,
+    expiresIn: refreshed.expires_in,
+  } : null);
 
   if (!refreshed?.access_token) {
     return { ...token, error: "RefreshAccessTokenError" };

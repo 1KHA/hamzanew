@@ -308,12 +308,19 @@ export const resendActivationService = async function resendActivationService(em
 export async function getUserProfileInfo() {
   try {
     const auth = await getUserAuth();
+    console.log("[getUserProfileInfo] auth summary:", auth ? {
+      id: auth.id,
+      hasAccessToken: !!auth.accessToken,
+      error: auth.error,
+    } : null);
 
     if (!auth?.accessToken || auth.error) {
+      console.warn("[getUserProfileInfo] missing access token or auth error:", auth?.error);
       return null;
     }
 
     const profileUrl = `${process.env.BASE_URL}${process.env.HAMZA_GET_USER_PROFILE_INFO}${auth.id}`;
+    console.log("[getUserProfileInfo] fetching URL:", profileUrl);
 
     // Runs as the signed-in user (their own token).
     const response = await fetch(profileUrl, {
@@ -325,14 +332,23 @@ export async function getUserProfileInfo() {
       cache: "no-store",
     });
 
+    console.log("[getUserProfileInfo] response status:", response.status);
+    const responseText = await response.text();
+    console.log("[getUserProfileInfo] response body:", responseText);
+
     if (response.ok) {
-      const userData = await response.json();
-      return userData;
+      try {
+        return JSON.parse(responseText);
+      } catch (parseErr) {
+        console.error("[getUserProfileInfo] failed to parse profile JSON:", parseErr);
+        return null;
+      }
     }
 
+    console.warn("[getUserProfileInfo] profile API non-OK:", response.status, responseText);
     return null;
   } catch (error) {
-    console.error("[getUserProfileInfo] Error getting user data from token:", error);
+    console.error("[getUserProfileInfo] error:", error);
     return null;
   }
 }

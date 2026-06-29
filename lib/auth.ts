@@ -274,6 +274,7 @@ export const authOptions: NextAuthOptions = {
         };
 
         console.log("[AUTH] authorize() returning user id:", returnUser.id);
+        console.log("[AUTH] authorize() returnUser keys:", Object.keys(returnUser));
         return returnUser as any;
       },
     }),
@@ -302,6 +303,7 @@ export const authOptions: NextAuthOptions = {
     },
     async session(params: any) {
       const { session, token } = params;
+      console.log("[AUTH session] token keys:", token ? Object.keys(token) : null);
       // Expose only non-sensitive user data to the client session.
       // The access token is deliberately NOT exposed here — server code reads it
       // from the encrypted JWT via getUserAuth().
@@ -311,6 +313,7 @@ export const authOptions: NextAuthOptions = {
         session.user.name = token.name;
         session.user.email = token.email;
       }
+      console.log("[AUTH session] session.user:", JSON.stringify(session.user, null, 2));
       return session;
     },
   },

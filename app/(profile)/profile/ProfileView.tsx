@@ -108,6 +108,7 @@ function InfoTable({ title, rows, editTabId }: InfoTableProps): ReactElement {
 /* ── Main component ────────────────────────────────────── */
 
 export default function ProfileView({ userProfile }: ProfileViewProps): ReactElement {
+  console.log("[ProfileView] received userProfile:", JSON.stringify(userProfile, null, 2));
   const u = userProfile || {};
   const nationalityMap = getNationalityMap();
   const langMap = getLangMap();

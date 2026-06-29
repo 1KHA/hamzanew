@@ -12,12 +12,15 @@ const profileCache = new Map();
 export async function getCachedUserProfile() {
   try {
     const session = await getServerSession(authOptions);
+    console.log("[getCachedUserProfile] session:", JSON.stringify(session, null, 2));
 
     if (!session || !session.user) {
+      console.warn("[getCachedUserProfile] no session or session.user");
       return null;
     }
 
     const userId = session.user.id;
+    console.log("[getCachedUserProfile] session.user.id:", userId);
 
     // Caching disabled — always fetch fresh profile data.
     // const cacheKey = `profile_${userId}`;
@@ -43,6 +46,7 @@ export async function getCachedUserProfile() {
     // }
 
     const userProfileData = await getUserProfileInfo();
+    console.log("[getCachedUserProfile] raw userProfileData:", JSON.stringify(userProfileData, null, 2));
 
     // if (userProfileData && userProfileData.status !== "FAIL") {
     //   // Cache the data in memory

@@ -74,9 +74,13 @@ export default async function ProfilePage() {
   let userProfile = null;
   try {
     const apiData = await getCachedUserProfile();
+    console.log("[ProfilePage] raw apiData:", JSON.stringify(apiData, null, 2));
 
     if (apiData && apiData.status !== "FAIL") {
       userProfile = mapApiProfile(apiData);
+      console.log("[ProfilePage] mapped userProfile:", JSON.stringify(userProfile, null, 2));
+    } else {
+      console.warn("[ProfilePage] apiData is null or status FAIL");
     }
   } catch (error) {
     console.error("[ProfilePage] Error fetching profile:", error);
@@ -88,6 +92,7 @@ export default async function ProfilePage() {
   const profileData = userProfile && Object.keys(userProfile).length > 0
     ? userProfile
     : {};
+  console.log("[ProfilePage] profileData passed to ProfileView:", JSON.stringify(profileData, null, 2));
 
   const HERO_CONFIG = {
     title: st("profile", "heroTitle", locale),
