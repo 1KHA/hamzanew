@@ -64,6 +64,10 @@ export default function PersonalInfoTab({
 
   const [, setIdFile] = useState<UploadedFile[]>([]);
 
+  // Name of the ID document uploaded at sign-up (if any). When present we show
+  // a download link and treat a fresh upload as optional.
+  const existingFileName = watch("identityFileName");
+
   const [prefixOpen, setPrefixOpen] = useState(false);
   const prefixRef = useRef<HTMLDivElement>(null);
 
@@ -328,18 +332,36 @@ export default function PersonalInfoTab({
           <Controller
             name="birthDate"
             control={control}
-            render={({ field }) => (
-              <DateField
-                rtl
-                fullwidth
-                size="lg"
-                variant="darker"
-                error={!!errors.birthDate}
-                onChange={(date: any) => {
-                  field.onChange(date ? String(date) : "");
-                }}
-              />
-            )}
+            render={({ field }) => {
+              // field.value is either an ISO "YYYY-MM-DD" (initial load) or a
+              // Date.toString() (after the user picks one). Parse the ISO form
+              // as a LOCAL date so it doesn't shift a day in negative-offset
+              // timezones.
+              const raw = field.value ? String(field.value) : "";
+              const isoMatch = /^(\d{4})-(\d{2})-(\d{2})/.exec(raw);
+              const parsed = isoMatch
+                ? new Date(
+                    Number(isoMatch[1]),
+                    Number(isoMatch[2]) - 1,
+                    Number(isoMatch[3]),
+                  )
+                : raw
+                  ? new Date(raw)
+                  : null;
+              return (
+                <DateField
+                  rtl
+                  fullwidth
+                  size="lg"
+                  variant="darker"
+                  value={parsed && !isNaN(parsed.getTime()) ? parsed : null}
+                  error={!!errors.birthDate}
+                  onChange={(date: any) => {
+                    field.onChange(date ? String(date) : "");
+                  }}
+                />
+              );
+            }}
           />
         </FormField>
 
@@ -423,10 +445,29 @@ export default function PersonalInfoTab({
       <div className="!grid !grid-cols-1 md:!grid-cols-3 !gap-8">
         <FormField
           label={st("profile", "labelIdentityFileShort")}
-          required
+          // The document was uploaded at sign-up, so re-uploading is only
+          // required when none exists yet.
+          required={!existingFileName}
           error={errors.identityFile?.message as string | undefined}
           htmlFor="identity-file"
         >
+          {existingFileName && (
+            <a
+              href="/api/profile/id-proof"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 mb-2 text-sm text-brand-600 underline underline-offset-2 hover:opacity-80"
+            >
+              <Image
+                src="/assets/icons/stroke-standard/file-02-stroke-rounded.svg"
+                alt=""
+                width={18}
+                height={18}
+                aria-hidden="true"
+              />
+              <span>{existingFileName}</span>
+            </a>
+          )}
           <Controller
             name="identityFile"
             control={control}
@@ -435,7 +476,11 @@ export default function PersonalInfoTab({
                 name="identity-file"
                 fileTypesText={st("profile", "fileUploadTypesText")}
                 accept=".pdf,.png,.jpg,.jpeg"
-                actionName={st("profile", "fileUploadAction")}
+                actionName={
+                  existingFileName
+                    ? st("profile", "fileUploadReplaceAction")
+                    : st("profile", "fileUploadAction")
+                }
                 showIcon={false}
                 getUploadedFile={(files: UploadedFile[]) => {
                   setIdFile(files);

@@ -172,9 +172,9 @@ export default function ProfileView({ userProfile }: ProfileViewProps): ReactEle
       },
       {
         label: st("profile", "labelIdentityFile"),
-        value: (
+        value: u.identityFileName ? (
           <a
-            href="#"
+            href="/api/profile/id-proof"
             target="_blank"
             rel="noopener noreferrer"
             className="!flex !items-center !gap-2 !p-[8px] border! border-[#d0d5dd]! rounded-[4px]! bg-white! hover:bg-[#f9fafb]! transition-all no-underline! w-full max-w-[334px]"
@@ -187,9 +187,11 @@ export default function ProfileView({ userProfile }: ProfileViewProps): ReactEle
               alt=""
             />
             <span className="text-[#344054] text-sm-regular truncate flex-1">
-              {u.identityFile || dash}
+              {u.identityFileName}
             </span>
           </a>
+        ) : (
+          dash
         ),
       },
     ],

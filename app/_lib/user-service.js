@@ -236,8 +236,20 @@ export const resetPasswordService = async function resetPasswordService(
  */
 export const activateAccountService = async function activateAccountService(token) {
   try {
-    const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_ACTIVATE_ACCOUNT_API_URL}`;
-    console.log("HAMZA_ACTIVATE_ACCOUNT_API_URL serviceUrl: " + serviceUrl);
+    const path = process.env.HAMZA_ACTIVATE_ACCOUNT_API_URL;
+    if (!path) {
+      console.error(
+        "[activateAccountService] HAMZA_ACTIVATE_ACCOUNT_API_URL is NOT set in this process. " +
+        "Add it to the env file THIS server actually loads " +
+        "(.env.production/.env for a production build, .env.development for `next dev`), then RESTART/REBUILD."
+      );
+      return {
+        status: "FAIL",
+        message: "Activation endpoint is not configured (env var not loaded).",
+      };
+    }
+
+    const serviceUrl = `${process.env.BASE_URL}${path}`;
 
     const response = await fetchWithAccessToken(serviceUrl, {
       method: "POST",
@@ -298,14 +310,10 @@ export async function getUserProfileInfo() {
     const auth = await getUserAuth();
 
     if (!auth?.accessToken || auth.error) {
-      console.log("[getUserProfileInfo] No user token / refresh failed");
       return null;
     }
 
-    console.log("[getUserProfileInfo] User id:", auth.id, "| email:", auth.email);
-
     const profileUrl = `${process.env.BASE_URL}${process.env.HAMZA_GET_USER_PROFILE_INFO}${auth.id}`;
-    console.log("[getUserProfileInfo] Fetching profile URL:", profileUrl);
 
     // Runs as the signed-in user (their own token).
     const response = await fetch(profileUrl, {
@@ -317,15 +325,11 @@ export async function getUserProfileInfo() {
       cache: "no-store",
     });
 
-    console.log("[getUserProfileInfo] Profile API response status:", response.status);
-
     if (response.ok) {
       const userData = await response.json();
-      console.log("[getUserProfileInfo] Profile API response body:", JSON.stringify(userData, null, 2));
       return userData;
     }
 
-    console.log("[getUserProfileInfo] Profile API response NOT OK");
     return null;
   } catch (error) {
     console.error("[getUserProfileInfo] Error getting user data from token:", error);
