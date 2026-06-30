@@ -34,7 +34,7 @@ const makeApiCallWithRetry = async (url, options, isRetry = false) => {
   return res;
 };
 
-export const fetchContent = async function name(contnetId) {
+export async function fetchContent(contnetId) {
   const contentURL =
     `${process.env.BASE_URL}${process.env.STRUCTURED_CONTENT_API_URL}` +
     contnetId;
@@ -78,7 +78,7 @@ export const fetchContent = async function name(contnetId) {
   return content;
 };
 
-export const fetchContentWithKey = async function name(key) {
+export async function fetchContentWithKey(key) {
   const getContentByKeyURL = `${process.env.BASE_URL}${process.env.HAMZA_GET_CONTENT_KEY_URL}/${key}`;
 
   const accessToken = await getAccessToken();

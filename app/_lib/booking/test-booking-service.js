@@ -29,7 +29,7 @@ const makeApiCallWithRetry = async (url, options, isRetry = false) => {
   return res;
 };
 
-export const fetchTestBookings = async function name(filter = null) {
+export async function fetchTestBookings(filter = null) {
   let serviceUrl = `${process.env.BASE_URL}/o/c/testbookings`;
 
   // Add filter parameter to URL if provided
@@ -68,7 +68,7 @@ export const fetchTestBookings = async function name(filter = null) {
   return content;
 };
 
-export const createTestBooking = async function name(bookingData) {
+export async function createTestBooking(bookingData) {
   if (!process.env.BASE_URL) {
     throw new Error("BASE_URL environment variable is not set");
   }
@@ -112,7 +112,7 @@ export const createTestBooking = async function name(bookingData) {
   return content;
 };
 
-export const updateTestBooking = async function name(bookingId, bookingData) {
+export async function updateTestBooking(bookingId, bookingData) {
   if (!process.env.BASE_URL) {
     throw new Error("BASE_URL environment variable is not set");
   }

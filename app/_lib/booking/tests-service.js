@@ -29,7 +29,7 @@ const makeApiCallWithRetry = async (url, options, isRetry = false) => {
   return res;
 };
 
-export const fetchTests = async function name(
+export async function fetchTests(
   testId = null,
   customFilter = null
 ) {

@@ -29,7 +29,7 @@ const makeApiCallWithRetry = async (url, options, isRetry = false) => {
   return res;
 };
 
-export const fetchTestCenters = async function name() {
+export async function fetchTestCenters() {
   if (!process.env.BASE_URL) {
     throw new Error("BASE_URL environment variable is not set");
   }
