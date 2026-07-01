@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { signOut } from "next-auth/react";
@@ -24,12 +24,14 @@ function getProfileRoutes(): IRoute[] {
       icon: "square-lock-02",
       divider: true,
     },
+    */
     {
       name: st("profile", "navTests"),
       path: "/profile/tests",
       icon: "book-open-01",
       divider: true,
     },
+    /* Temporarily hidden
     {
       name: st("profile", "navCertificates"),
       path: "/profile/certificates",
@@ -57,7 +59,6 @@ interface SideNavProps {
   activePath?: string;
   userName: string;
   userEmail: string;
-  userAvatar: string;
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -66,16 +67,13 @@ export default function SideNav({
   activePath = "/profile",
   userName,
   userEmail,
-  userAvatar,
 }: SideNavProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isArabicLang, setIsArabicLang] = useState(true);
+  const [isArabicLang] = useState(() => {
+    if (typeof document === "undefined") return true;
+    return document.documentElement.lang === "ar";
+  });
   const searchParams = useSearchParams();
-
-  // Detect current language after hydration
-  useEffect(() => {
-    setIsArabicLang(document.documentElement.lang === "ar");
-  }, []);
 
   const checkIsActive = (routePath: string) => {
     if (routePath === "/") return activePath === "/";
@@ -95,6 +93,16 @@ export default function SideNav({
       activePath.startsWith(routePath + "/") ||
       activePath.startsWith(routePath + "?")
     );
+  };
+
+  const toggleLanguage = () => {
+    const html = document.documentElement;
+    const isArabic = html.lang === "ar";
+    // Set the lang cookie and reload to apply changes consistently
+    document.cookie = `lang=${isArabic ? "en-US" : "ar-SA"}; path=/;`;
+    if (typeof window !== "undefined") {
+      window.location.reload();
+    }
   };
 
   return (
@@ -143,17 +151,9 @@ export default function SideNav({
                 type="button"
                 className="dga-btn dga-btn--md dga-btn--transparent dga-btn--icon"
                 aria-label={st("profile", "navToggleLang")}
-                onClick={() => {
-                  const html = document.documentElement;
-                  const isArabic = html.lang === "ar";
-                  // Set the lang cookie and reload to apply changes consistently
-                  document.cookie = `lang=${isArabic ? "en-US" : "ar-SA"}; path=/;`;
-                  if (typeof window !== "undefined") {
-                    window.location.reload();
-                  }
-                }}
+                onClick={toggleLanguage}
               >
-                <img
+                <Image
                   src="/assets/icons/stroke-standard/translation-stroke-rounded.svg"
                   alt={st("profile", "navLangIconAlt")}
                   width={24}
@@ -184,7 +184,7 @@ export default function SideNav({
           onClick={() => setIsOpen(false)}
           aria-label={st("profile", "navCloseMenu")}
         >
-          <img
+          <Image
             src="/assets/icons/stroke-standard/cancel-01-stroke-rounded.svg"
             alt=""
             width={20}
@@ -195,10 +195,11 @@ export default function SideNav({
 
         {/* Logo */}
         <div className="sidenav__logo">
-          <img
+          <Image
             src="/assets/image/footer-logo.svg"
             alt={st("profile", "navLogoAlt")}
             width={132}
+            height={40}
           />
         </div>
 
@@ -237,7 +238,7 @@ export default function SideNav({
                         className="sidepanel__menu-tab-icon"
                         aria-hidden="true"
                       >
-                        <img
+                        <Image
                           src={`/assets/icons/stroke-standard/${route.icon}-stroke-rounded.svg`}
                           alt=""
                           width={18}
@@ -279,15 +280,7 @@ export default function SideNav({
             variant="primary-neutral--on-color"
             size="md"
             className="sidenav__translate"
-            onClick={() => {
-              const html = document.documentElement;
-              const isArabic = html.lang === "ar";
-              // Set the lang cookie and reload to apply changes consistently
-              document.cookie = `lang=${isArabic ? "en-US" : "ar-SA"}; path=/;`;
-              if (typeof window !== "undefined") {
-                window.location.reload();
-              }
-            }}
+            onClick={toggleLanguage}
           />
         </div>
       </aside>

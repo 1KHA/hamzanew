@@ -29,6 +29,11 @@ const makeApiCallWithRetry = async (url, options, isRetry = false) => {
   return res;
 };
 
+/**
+ * @param {string | number | null | undefined} [testId]
+ * @param {string | null | undefined} [customFilter]
+ * @returns {Promise<Record<string, unknown>>}
+ */
 export async function fetchTests(
   testId = null,
   customFilter = null

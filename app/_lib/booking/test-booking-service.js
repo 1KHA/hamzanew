@@ -29,6 +29,10 @@ const makeApiCallWithRetry = async (url, options, isRetry = false) => {
   return res;
 };
 
+/**
+ * @param {string | null | undefined} [filter]
+ * @returns {Promise<Record<string, unknown>>}
+ */
 export async function fetchTestBookings(filter = null) {
   let serviceUrl = `${process.env.BASE_URL}/o/c/testbookings`;
 
@@ -68,6 +72,10 @@ export async function fetchTestBookings(filter = null) {
   return content;
 };
 
+/**
+ * @param {Record<string, unknown>} bookingData
+ * @returns {Promise<Record<string, unknown>>}
+ */
 export async function createTestBooking(bookingData) {
   if (!process.env.BASE_URL) {
     throw new Error("BASE_URL environment variable is not set");
@@ -112,6 +120,11 @@ export async function createTestBooking(bookingData) {
   return content;
 };
 
+/**
+ * @param {string | number} bookingId
+ * @param {Record<string, unknown>} bookingData
+ * @returns {Promise<Record<string, unknown>>}
+ */
 export async function updateTestBooking(bookingId, bookingData) {
   if (!process.env.BASE_URL) {
     throw new Error("BASE_URL environment variable is not set");

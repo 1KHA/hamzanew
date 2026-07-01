@@ -130,8 +130,11 @@ export default async function TestCentersPage() {
   // Fetch available tests
   let tests: any[] = [];
   try {
-    const testsData = await fetchTests(null, "testStatus eq 'Available'" as any);
-    tests = testsData?.items || [];
+    const testsData = (await fetchTests(
+      null,
+      "testStatus eq 'Available'"
+    )) as { items?: unknown[] };
+    tests = (testsData?.items || []) as any[];
   } catch (error) {
     console.error("[TestCentersPage] Failed to fetch tests:", error);
   }
@@ -162,7 +165,10 @@ export default async function TestCentersPage() {
         if (test.id) {
           try {
             const filter = `r_testRelationship_c_testId eq '${test.id}'`;
-            const bookings = await fetchTestBookings(filter as any);
+            const bookings = (await fetchTestBookings(filter)) as {
+              items?: { length?: number }[];
+              totalCount?: number;
+            };
             const bookingCount =
               bookings?.items?.length || bookings?.totalCount || 0;
             const testCenter = testCentersMap.get(testCenterId);

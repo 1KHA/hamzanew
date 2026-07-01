@@ -8,14 +8,12 @@ interface ProfileLayoutClientProps {
   children: ReactNode;
   userName: string;
   userEmail: string;
-  userAvatar: string;
 }
 
 export default function ProfileLayoutClient({
   children,
   userName,
   userEmail,
-  userAvatar,
 }: ProfileLayoutClientProps) {
   const pathname = usePathname();
 
@@ -32,7 +30,6 @@ export default function ProfileLayoutClient({
           activePath={pathname}
           userName={userName}
           userEmail={userEmail}
-          userAvatar={userAvatar}
         />
       </div>
     </div>

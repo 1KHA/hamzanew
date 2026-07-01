@@ -1,0 +1,159 @@
+.timeslot-wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  height: 100%;
+  width: 350px;
+  overflow: hidden;
+  position: relative;
+}
+
+.timeslot-wrapper::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 90px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0));
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.timeslot-title {
+  color: var(--primary);
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.timeslot-list {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  flex-direction: column;
+  gap: 25px;
+  padding-right: 4px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 2;
+}
+
+/* Custom scrollbar styling */
+.timeslot-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.timeslot-list::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.timeslot-list::-webkit-scrollbar-thumb {
+  background: #2d5016;
+  border-radius: 4px;
+}
+
+.timeslot-list::-webkit-scrollbar-thumb:hover {
+  background: #1f350f;
+}
+
+.timeslot-item {
+  background-color: #ffffff;
+  border: none;
+  border-radius: 15px;
+  font-size: 30px;
+  color: #666666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 65%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timeslot-item:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.timeslot-item.selected {
+  background-color: #2d5016;
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(45, 80, 22, 0.3);
+}
+
+.timeslot-item.disabled {
+  background-color: #cccccc;
+  color: #888888;
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none;
+}
+
+.timeslot-item.disabled:hover {
+  background-color: #cccccc;
+  box-shadow: none;
+  transform: none;
+}
+
+.timeslot-item:active {
+  transform: translateY(0);
+}
+
+.timeslot-empty {
+  color: #666666;
+  font-size: 20px;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+@media screen and (max-width: 1599.98px) {
+  .timeslot-wrapper {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 1339.98px) {
+  .timeslot-wrapper {
+    width: 275px;
+  }
+
+  .appointment-details-wrapper {
+  }
+}
+
+/* Modal size reduction styles */
+.timeslot-modal {
+  width: 280px !important;
+  padding: 15px !important;
+  transform: scale(0.9);
+  transform-origin: top left;
+}
+
+.timeslot-modal .timeslot-title {
+  font-size: 24px !important;
+  margin: 0 0 15px 0 !important;
+}
+
+.timeslot-modal .timeslot-item {
+  font-size: 24px !important;
+  width: 70% !important;
+  padding: 10px !important;
+}
+
+.timeslot-modal .timeslot-list {
+  gap: 15px !important;
+}

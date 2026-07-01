@@ -57,3 +57,4 @@ lh-*.json
 /temp
 /mdfiles
 .qwen/
+/moved_files

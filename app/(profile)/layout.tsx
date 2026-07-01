@@ -12,7 +12,6 @@ export default async function ProfileLayout({
   // Try to get real user data from the profile API
   let userName = "";
   let userEmail = "";
-  let userAvatar = "";
 
   try {
     const apiData = await getCachedUserProfile();
@@ -31,7 +30,6 @@ export default async function ProfileLayout({
       }
 
       userEmail = apiData.email ?? apiData.emailId ?? "";
-      userAvatar = apiData.avatar ?? "";
     }
   } catch (error) {
     console.error("[ProfileLayout] Error fetching profile for sidebar:", error);
@@ -53,11 +51,7 @@ export default async function ProfileLayout({
   console.log("[ProfileLayout] Sidebar data — name:", userName, "| email:", userEmail);
 
   return (
-    <ProfileLayoutClient
-      userName={userName}
-      userEmail={userEmail}
-      userAvatar={userAvatar}
-    >
+    <ProfileLayoutClient userName={userName} userEmail={userEmail}>
       {children}
     </ProfileLayoutClient>
   );
