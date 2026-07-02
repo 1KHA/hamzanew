@@ -4,6 +4,7 @@ import {
   createTestBooking,
   updateTestBooking,
 } from "@/app/_lib/booking/test-booking-service";
+import { getUserAuth } from "@/app/_lib/user-token-service";
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof Error) return error.message;
@@ -50,8 +51,16 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    const auth = await getUserAuth();
+    if (!auth?.accessToken) {
+      return NextResponse.json(
+        { error: "Unauthorized: user access token is required" },
+        { status: 401 }
+      );
+    }
+
     const body = (await request.json()) as Record<string, unknown>;
-    const data = await createTestBooking(body);
+    const data = await createTestBooking(body, auth.accessToken);
     return NextResponse.json(data);
   } catch (error: unknown) {
     console.error("Error in test-bookings POST route:", error);
@@ -74,8 +83,16 @@ export async function PATCH(request: Request) {
       );
     }
 
+    const auth = await getUserAuth();
+    if (!auth?.accessToken) {
+      return NextResponse.json(
+        { error: "Unauthorized: user access token is required" },
+        { status: 401 }
+      );
+    }
+
     const body = (await request.json()) as Record<string, unknown>;
-    const data = await updateTestBooking(bookingId, body);
+    const data = await updateTestBooking(bookingId, body, auth.accessToken);
     return NextResponse.json(data);
   } catch (error: unknown) {
     console.error("Error in test-bookings PATCH route:", error);

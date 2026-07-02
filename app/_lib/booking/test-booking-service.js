@@ -74,22 +74,23 @@ export async function fetchTestBookings(filter = null) {
 
 /**
  * @param {Record<string, unknown>} bookingData
+ * @param {string} [accessToken]
  * @returns {Promise<Record<string, unknown>>}
  */
-export async function createTestBooking(bookingData) {
+export async function createTestBooking(bookingData, accessToken) {
   if (!process.env.BASE_URL) {
     throw new Error("BASE_URL environment variable is not set");
   }
 
   const serviceUrl = `${process.env.BASE_URL}/o/c/testbookings`;
 
-  const accessToken = await getAccessToken();
+  const token = accessToken || (await getAccessToken());
 
-  if (accessToken === "" || accessToken === undefined || accessToken === null) {
+  if (token === "" || token === undefined || token === null) {
     throw new Error("No access token");
   }
 
-  const authorization = "Bearer " + accessToken;
+  const authorization = "Bearer " + token;
 
   const cookieStore = await cookies();
   const language = cookieStore.get("lang")?.value || "ar-SA";
@@ -123,9 +124,10 @@ export async function createTestBooking(bookingData) {
 /**
  * @param {string | number} bookingId
  * @param {Record<string, unknown>} bookingData
+ * @param {string} [accessToken]
  * @returns {Promise<Record<string, unknown>>}
  */
-export async function updateTestBooking(bookingId, bookingData) {
+export async function updateTestBooking(bookingId, bookingData, accessToken) {
   if (!process.env.BASE_URL) {
     throw new Error("BASE_URL environment variable is not set");
   }
@@ -136,13 +138,13 @@ export async function updateTestBooking(bookingId, bookingData) {
 
   const serviceUrl = `${process.env.BASE_URL}/o/c/testbookings/${bookingId}`;
 
-  const accessToken = await getAccessToken();
+  const token = accessToken || (await getAccessToken());
 
-  if (accessToken === "" || accessToken === undefined || accessToken === null) {
+  if (token === "" || token === undefined || token === null) {
     throw new Error("No access token");
   }
 
-  const authorization = "Bearer " + accessToken;
+  const authorization = "Bearer " + token;
 
   const cookieStore = await cookies();
   const language = cookieStore.get("lang")?.value || "ar-SA";

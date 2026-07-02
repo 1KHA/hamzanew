@@ -319,11 +319,19 @@ export default function PaymentForm({
       const bookingRequestBody = {
         emailId: userProfile?.emailId || "",
         r_testRelationship_c_testId: Number(bookingData.testId),
+        r_testCenterRelationship_c_testCenterId: bookingData.testCenterId
+          ? Number(bookingData.testCenterId)
+          : undefined,
+        testDate: bookingData.testDate || undefined,
+        startTime: bookingData.startTime || undefined,
+        endTime: bookingData.endTime || undefined,
         registrationDate,
         testBookingStatus: {
           key: "Scheduled",
         },
       };
+
+      console.log("Creating booking with body:", bookingRequestBody);
 
       const createBookingResponse = await fetch("/api/test-bookings", {
         method: "POST",
@@ -334,10 +342,23 @@ export default function PaymentForm({
       });
 
       if (!createBookingResponse.ok) {
-        const errorData = (await createBookingResponse
-          .json()
-          .catch(() => ({}))) as Record<string, unknown>;
-        console.error("Error creating test booking:", errorData);
+        const errorText = await createBookingResponse
+          .text()
+          .catch(() => "Unable to read error response");
+        console.error(
+          "Error creating test booking:",
+          createBookingResponse.status,
+          errorText
+        );
+        setErrorModalTitle(
+          t("hamza-booking-error-title", translations) ||
+            "Failed to create booking"
+        );
+        setErrorModalDescription(
+          t("hamza-booking-error-description", translations) ||
+            "An error occurred while creating your booking. Please try again."
+        );
+        setShowErrorModal(true);
         setIsSubmitting(false);
         return;
       }
