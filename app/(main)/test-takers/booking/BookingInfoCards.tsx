@@ -346,7 +346,7 @@ export default function BookingInfoCards({
             testCenterId?: string | number;
           };
           if (bookingData.testCenterId) {
-            router.push(`/profile/test-booking/${bookingData.testCenterId}`);
+            router.push(`/test-takers/booking/${bookingData.testCenterId}`);
             return;
           }
         }
@@ -357,7 +357,7 @@ export default function BookingInfoCards({
       router.push("/test-takers/test-centers");
     });
 
-  const handleNext = onNext || (() => router.push("/profile/payment"));
+  const handleNext = onNext || (() => router.push("/test-takers/booking/payment"));
 
   return (
     <section className="hamza-booking-info-wrapper">

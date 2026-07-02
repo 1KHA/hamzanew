@@ -114,7 +114,7 @@ export default function TestCentersFilter({
     };
 
     sessionStorage.setItem("testBookingData", JSON.stringify(bookingData));
-    router.push(`/profile/test-booking/${card.id}`);
+    router.push(`/test-takers/booking/${card.id}`);
   };
 
   return (

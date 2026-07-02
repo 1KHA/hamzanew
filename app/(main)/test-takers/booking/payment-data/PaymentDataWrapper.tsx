@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import BookingInfoCards from "../test-booking/BookingInfoCards";
+import BookingInfoCards from "../BookingInfoCards";
 import PaymentDataPageClient from "./PaymentDataPageClient";
 import type { TranslationDict } from "@/app/_lib/booking-types";
 

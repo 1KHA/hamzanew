@@ -601,7 +601,7 @@ export default function TestBookingClient({
     try {
       storeBookingData(bookingDataToStore);
       // Redirect to payment data page
-      router.push("/profile/payment-data");
+      router.push("/test-takers/booking/payment-data");
     } catch (error) {
       console.error("Error storing booking data:", error);
       alert("Failed to save booking data. Please try again.");

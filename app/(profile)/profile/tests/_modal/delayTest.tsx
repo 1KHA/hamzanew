@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import { t } from "@/app/_lib/translationContext";
-import TestBookingView from "../../test-booking/TestBookingView";
+import TestBookingView from "@/app/(main)/test-takers/booking/TestBookingView";
 import BookingSlotCard from "./BookingSlotCard";
 import type {
   TestBooking,
@@ -80,6 +80,8 @@ export default function DelayTest({
     console.log("Selected Test:", bookingData.selectedTest);
     console.log("Existing Booking:", bookingData.existingBooking);
 
+    let rescheduled = false;
+
     // Check test capacity
     if (bookingData.selectedTest?.id) {
       try {
@@ -151,11 +153,17 @@ export default function DelayTest({
                     // Get the booking ID
                     const bookingId = String(bookingData.existingBooking.id);
 
-                    // Prepare request body with only the required fields
+                    // Prepare request body with the new test/date/time fields
                     const requestBody = {
                       id: bookingId,
                       registrationDate,
                       r_testRelationship_c_testId: bookingData.selectedTest.id,
+                      r_testCenterRelationship_c_testCenterId:
+                        bookingData.selectedTest
+                          .r_testCenterRelationship_c_testCenterId,
+                      testDate: bookingData.selectedTest.testDate,
+                      startTime: bookingData.selectedTest.startTime,
+                      endTime: bookingData.selectedTest.endTime,
                     };
 
                     console.log("Updating booking with:", requestBody);
@@ -175,6 +183,16 @@ export default function DelayTest({
                     if (updateResponse.ok) {
                       const updateData = await updateResponse.json();
                       console.log("Booking updated successfully:", updateData);
+
+                      rescheduled = true;
+
+                      // Close the reschedule modal and show the success confirmation
+                      if (onHandleCloseModal) {
+                        onHandleCloseModal();
+                      }
+                      if (onOpenChangeTestConfirmation) {
+                        onOpenChangeTestConfirmation();
+                      }
                     } else {
                       const errorData = (await updateResponse
                         .json()
@@ -194,12 +212,11 @@ export default function DelayTest({
       }
     }
 
-    // Close all other popups and open change test confirmation modal
-    if (onHandleCloseModal) {
-      onHandleCloseModal();
-    }
-    if (onOpenChangeTestConfirmation) {
-      onOpenChangeTestConfirmation();
+    if (!rescheduled) {
+      alert(
+        t("hamza-reschedule-failed", translations) ||
+          "Failed to reschedule the booking. Please try again."
+      );
     }
   };
 

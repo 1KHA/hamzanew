@@ -11,7 +11,7 @@ interface PaymentWrapperProps {
 }
 
 export default function PaymentWrapper({ translations }: PaymentWrapperProps) {
-  const [isFormLoading] = useState(true);
+  const [isFormLoading, setIsFormLoading] = useState(true);
 
   return (
     <>
@@ -27,7 +27,10 @@ export default function PaymentWrapper({ translations }: PaymentWrapperProps) {
         <div className="col-lg-12">
           <div className="payment-form-wrapper">
             <CardPaymentForm translations={translations} />
-            <PaymentForm translations={translations} />
+            <PaymentForm
+              translations={translations}
+              onLoadingChange={setIsFormLoading}
+            />
           </div>
         </div>
       </div>

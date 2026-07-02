@@ -189,7 +189,7 @@ export default function TestBookingView({
 
       setIsLoadingTests(true);
       try {
-        const filter = `r_testCenterRelationship_c_testCenterId eq '${centerId}' and typeOfTheTest eq '${typeOfTheTest}'`;
+        const filter = `r_testCenterRelationship_c_testCenterId eq '${centerId}' and typeOfTheTest eq '${typeOfTheTest}' and testStatus eq 'Available'`;
 
         console.log("Fetching tests with filter:", filter);
         const response = (await fetchTests(null, filter)) as {
@@ -498,6 +498,11 @@ export default function TestBookingView({
         try {
           const requestBody = {
             r_testRelationship_c_testId: selectedTest.id,
+            r_testCenterRelationship_c_testCenterId:
+              selectedTest.r_testCenterRelationship_c_testCenterId,
+            testDate: selectedTest.testDate,
+            startTime: selectedTest.startTime,
+            endTime: selectedTest.endTime,
           };
 
           const response = await fetch(
@@ -572,7 +577,7 @@ export default function TestBookingView({
 
       try {
         storeBookingData(bookingDataToStore);
-        window.location.href = "/profile/payment-data";
+        window.location.href = "/test-takers/booking/payment-data";
       } catch (error) {
         console.error("Error storing booking data:", error);
         alert("Failed to save booking data. Please try again.");

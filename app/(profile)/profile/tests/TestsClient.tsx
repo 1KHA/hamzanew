@@ -372,7 +372,8 @@ export default function TestsClient({
                         {inPersonBookings.length > 0 && (
                           <div className="profile-box-main">
                             <div className="whitebox-hd-area mb-3">
-                              {t("hamza-recorded-test", translations)}
+                              {t("hamza-testing-centers", translations) ||
+                              "In-Person Tests"}
                             </div>
                             <div className="profile-box-listarea">
                               {inPersonBookings.map((booking, index) =>

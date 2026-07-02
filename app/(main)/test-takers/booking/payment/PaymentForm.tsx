@@ -21,6 +21,7 @@ function getCookie(name: string): string | null {
 
 interface PaymentFormProps {
   translations: TranslationDict;
+  onLoadingChange?: (isLoading: boolean) => void;
 }
 
 interface FormData {
@@ -37,7 +38,10 @@ interface FormData {
   totalPrice: string;
 }
 
-export default function PaymentForm({ translations }: PaymentFormProps) {
+export default function PaymentForm({
+  translations,
+  onLoadingChange,
+}: PaymentFormProps) {
   const router = useRouter();
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [profileLoaded, setProfileLoaded] = useState(false);
@@ -199,6 +203,11 @@ export default function PaymentForm({ translations }: PaymentFormProps) {
 
   const isLoading = !profileLoaded || !userProfile || !bookingData;
 
+  // Notify parent about loading state so the step header can be shown/hidden
+  useEffect(() => {
+    onLoadingChange?.(isLoading);
+  }, [isLoading, onLoadingChange]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -345,7 +354,7 @@ export default function PaymentForm({ translations }: PaymentFormProps) {
   };
 
   const handlePrevious = () => {
-    router.push("/profile/payment-data");
+    router.push("/test-takers/booking/payment-data");
   };
 
   const handleCloseErrorModal = () => {

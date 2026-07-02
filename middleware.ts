@@ -24,7 +24,7 @@ export default withAuth(
     callbacks: {
       authorized: ({ req, token }) => {
         const path = req.nextUrl.pathname;
-        const protectedRoutes = ["/profile"]; // Add any other protected routes here
+        const protectedRoutes = ["/profile", "/test-takers/booking"]; // Add any other protected routes here
         const isProtectedRoute = protectedRoutes.some((route) => path.startsWith(route));
 
         // If the user tries to access a protected route without a verified NextAuth token

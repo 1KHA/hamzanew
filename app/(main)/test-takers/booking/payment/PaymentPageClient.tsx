@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import BookingHeader from "../test-booking/BookingHeader";
+import BookingHeader from "../BookingHeader";
 import type { BookingData, TranslationDict } from "@/app/_lib/booking-types";
 
 function getCookie(name: string): string | null {
