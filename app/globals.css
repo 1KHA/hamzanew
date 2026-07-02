@@ -6,6 +6,13 @@
   --stepper-button-upcomming: #d2d6db;
   --stepper-text-primary: #1f2a37;
   --stepper-text-secondary: #384250;
+
+  /* Booking / profile design tokens */
+  --primary: #306e4f;
+  --white: #ffffff;
+  --black: #000000;
+  --grey-200: #e5e7eb;
+  --grey-400: #9ca3af;
 }
 
 @keyframes spin-slow {

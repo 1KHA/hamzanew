@@ -225,7 +225,7 @@ export default function Calendar({
         calendarRef.current?.querySelector(".rdp-caption_label");
       if (captionLabel && !captionLabel.querySelector(".calendar-icon")) {
         const icon = document.createElement("img");
-        icon.src = "/test-takers/testing-center/calendar.png";
+        icon.src = "/test-takers/testing-center/calendar.svg";
         icon.alt = "Calendar";
         icon.className = "calendar-icon";
         icon.style.width = "25px";
@@ -281,12 +281,13 @@ export default function Calendar({
                 <Image
                   src={
                     isArabic
-                      ? "/test-takers/testing-center/booking-calendar-right-arrow.png"
-                      : "/test-takers/testing-center/booking-calendar-left-arrow.png"
+                      ? "/test-takers/testing-center/booking-calendar-right-arrow.svg"
+                      : "/test-takers/testing-center/booking-calendar-left-arrow.svg"
                   }
                   alt="Previous month"
                   width={24}
                   height={24}
+                  unoptimized
                   {...props}
                 />
               );
@@ -295,12 +296,13 @@ export default function Calendar({
               <Image
                 src={
                   isArabic
-                    ? "/test-takers/testing-center/booking-calendar-left-arrow.png"
-                    : "/test-takers/testing-center/booking-calendar-right-arrow.png"
+                    ? "/test-takers/testing-center/booking-calendar-left-arrow.svg"
+                    : "/test-takers/testing-center/booking-calendar-right-arrow.svg"
                 }
                 alt="Next month"
                 width={24}
                 height={24}
+                  unoptimized
                 {...props}
               />
             );

@@ -77,11 +77,11 @@ export default function CardPaymentForm({ translations }: CardPaymentFormProps) 
   };
 
   const paymentMethods = [
-    { key: "mastercard", label: "Mastercard", src: "/profile/payment/Mastercard-logo.svg.png" },
-    { key: "visa", label: "Visa", src: "/profile/payment/Visa_Inc._logo.svg.png" },
-    { key: "google-pay", label: "Google Pay", src: "/profile/payment/gpay-logo.png" },
-    { key: "mada", label: "Mada", src: "/profile/payment/mada-pay-logo.png" },
-    { key: "apple-pay", label: "Apple Pay", src: "/profile/payment/apple-pay-logo.png" },
+    { key: "mastercard", label: "Mastercard", src: "/profile/payment/Mastercard-logo.svg" },
+    { key: "visa", label: "Visa", src: "/profile/payment/Visa-logo.svg" },
+    { key: "google-pay", label: "Google Pay", src: "/profile/payment/gpay-logo.svg" },
+    { key: "mada", label: "Mada", src: "/profile/payment/mada-pay-logo.svg" },
+    { key: "apple-pay", label: "Apple Pay", src: "/profile/payment/apple-pay-logo.svg" },
   ];
 
   return (
@@ -103,6 +103,7 @@ export default function CardPaymentForm({ translations }: CardPaymentFormProps) 
                     alt={method.label}
                     width={60}
                     height={40}
+                    unoptimized
                     className="payment-method-image"
                   />
                 </div>

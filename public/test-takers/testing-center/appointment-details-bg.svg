@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="booking-bg-gradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#306e4f"/>
+      <stop offset="100%" stop-color="#1f4a33"/>
+    </linearGradient>
+    <pattern id="booking-bg-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="2" fill="#ffffff" opacity="0.08"/>
+    </pattern>
+  </defs>
+  <rect width="400" height="600" fill="url(#booking-bg-gradient)"/>
+  <rect width="400" height="600" fill="url(#booking-bg-pattern)"/>
+</svg>

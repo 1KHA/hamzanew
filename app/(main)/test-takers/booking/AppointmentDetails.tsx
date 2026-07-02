@@ -130,9 +130,9 @@ export default function AppointmentDetails({
       ],
     };
     const lang = language === "ar-SA" ? "ar" : "en";
-    // Arabic format: day year month
+    // Arabic format: day month year
     if (lang === "ar") {
-      return `${d.getDate()} ${d.getFullYear()} ${months[lang][d.getMonth()]}`;
+      return `${d.getDate()} ${months[lang][d.getMonth()]} ${d.getFullYear()}`;
     }
     // English format: month day, year
     return `${months[lang][d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
@@ -295,10 +295,11 @@ export default function AppointmentDetails({
         <div className="info-item">
           <div className="info-icon calendar-icon">
             <Image
-              src="/test-takers/testing-center/calendar-appointment.png"
+              src="/test-takers/testing-center/calendar-appointment.svg"
               alt={texts.date}
               width={24}
               height={24}
+              unoptimized
             />
           </div>
           <div className="info-content">
@@ -310,10 +311,11 @@ export default function AppointmentDetails({
         <div className="info-item">
           <div className="info-icon clock-icon">
             <Image
-              src="/test-takers/testing-center/clock-appointment.png"
+              src="/test-takers/testing-center/clock-appointment.svg"
               alt={texts.time}
               width={24}
               height={24}
+              unoptimized
             />
           </div>
           <div className="info-content">
@@ -381,10 +383,11 @@ export default function AppointmentDetails({
         <div className="info-item">
           <div className="info-icon location-icon">
             <Image
-              src="/test-takers/testing-center/location-appointment.png"
+              src="/test-takers/testing-center/location-appointment.svg"
               alt={texts.location}
               width={24}
               height={24}
+              unoptimized
             />
           </div>
           <div className="info-content">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { t } from "@/app/_lib/translationContext";
 import type { TranslationDict } from "@/app/_lib/booking-types";
 
@@ -58,7 +58,7 @@ export default function BookingHeader({
       </div>
       <div className="hamza-progress-bar">
         {steps.map((step, index) => (
-          <div key={step.id} className="hamza-progress-step-wrapper">
+          <Fragment key={step.id}>
             <div className="hamza-progress-step">
               <div
                 className={`hamza-step-circle ${
@@ -80,7 +80,7 @@ export default function BookingHeader({
                 }`}
               />
             )}
-          </div>
+          </Fragment>
         ))}
       </div>
     </div>
