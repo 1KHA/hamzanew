@@ -59,8 +59,12 @@ export async function getUserAuth() {
   console.log("[getUserAuth] decoded token keys:", token ? Object.keys(token) : null);
   console.log("[getUserAuth] token summary:", token ? {
     id: token.id,
+    email: token.email,
+    name: token.name,
     hasAccessToken: !!token.accessToken,
+    accessTokenPrefix: token.accessToken ? `${token.accessToken.slice(0, 6)}...${token.accessToken.slice(-6)}` : null,
     accessTokenExpires: token.accessTokenExpires,
+    expiresInSeconds: token.accessTokenExpires ? Math.round((token.accessTokenExpires - Date.now()) / 1000) : null,
     error: token.error,
   } : null);
 

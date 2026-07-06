@@ -95,6 +95,10 @@ export async function createTestBooking(bookingData, accessToken) {
   const cookieStore = await cookies();
   const language = cookieStore.get("lang")?.value || "ar-SA";
 
+  console.log("[createTestBooking] URL:", serviceUrl);
+  console.log("[createTestBooking] body:", JSON.stringify(bookingData, null, 2));
+  console.log("[createTestBooking] auth prefix:", authorization.slice(0, 20) + "...");
+
   const res = await makeApiCallWithRetry(serviceUrl, {
     method: "POST",
     headers: {
@@ -106,11 +110,13 @@ export async function createTestBooking(bookingData, accessToken) {
     body: JSON.stringify(bookingData),
   });
 
+  console.log("[createTestBooking] response status:", res.status, res.statusText);
+
   if (!res.ok) {
     const errorText = await res
       .text()
       .catch(() => "Unable to read error response");
-    console.error("Error response body:", errorText);
+    console.error("[createTestBooking] error response body:", errorText);
     throw new Error(
       `Failed to create test booking: ${res.status} ${res.statusText}`
     );
@@ -149,6 +155,10 @@ export async function updateTestBooking(bookingId, bookingData, accessToken) {
   const cookieStore = await cookies();
   const language = cookieStore.get("lang")?.value || "ar-SA";
 
+  console.log("[updateTestBooking] URL:", serviceUrl);
+  console.log("[updateTestBooking] body:", JSON.stringify(bookingData, null, 2));
+  console.log("[updateTestBooking] auth prefix:", authorization.slice(0, 20) + "...");
+
   const res = await makeApiCallWithRetry(serviceUrl, {
     method: "PATCH",
     headers: {
@@ -160,11 +170,13 @@ export async function updateTestBooking(bookingId, bookingData, accessToken) {
     body: JSON.stringify(bookingData),
   });
 
+  console.log("[updateTestBooking] response status:", res.status, res.statusText);
+
   if (!res.ok) {
     const errorText = await res
       .text()
       .catch(() => "Unable to read error response");
-    console.error("Error response body:", errorText);
+    console.error("[updateTestBooking] error response body:", errorText);
     throw new Error(
       `Failed to update test booking: ${res.status} ${res.statusText}`
     );

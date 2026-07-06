@@ -59,8 +59,30 @@ export async function POST(request: Request) {
       );
     }
 
+    const user = auth as unknown as {
+      id?: string | number;
+      email?: string;
+      name?: string;
+      accessToken: string;
+      accessTokenExpires?: number;
+    };
+
+    console.log("[test-bookings POST] authenticated user:", {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      tokenPrefix: `${user.accessToken.slice(0, 6)}...${user.accessToken.slice(-6)}`,
+      tokenExpires: user.accessTokenExpires,
+      expiresInSeconds: user.accessTokenExpires
+        ? Math.round((user.accessTokenExpires - Date.now()) / 1000)
+        : null,
+    });
+
     const body = (await request.json()) as Record<string, unknown>;
-    const data = await createTestBooking(body, auth.accessToken);
+    console.log("[test-bookings POST] request body:", JSON.stringify(body, null, 2));
+
+    const data = await createTestBooking(body, user.accessToken);
+    console.log("[test-bookings POST] created booking:", JSON.stringify(data, null, 2));
     return NextResponse.json(data);
   } catch (error: unknown) {
     console.error("Error in test-bookings POST route:", error);
@@ -91,8 +113,30 @@ export async function PATCH(request: Request) {
       );
     }
 
+    const user = auth as unknown as {
+      id?: string | number;
+      email?: string;
+      name?: string;
+      accessToken: string;
+      accessTokenExpires?: number;
+    };
+
+    console.log("[test-bookings PATCH] authenticated user:", {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      tokenPrefix: `${user.accessToken.slice(0, 6)}...${user.accessToken.slice(-6)}`,
+      tokenExpires: user.accessTokenExpires,
+      expiresInSeconds: user.accessTokenExpires
+        ? Math.round((user.accessTokenExpires - Date.now()) / 1000)
+        : null,
+    });
+
     const body = (await request.json()) as Record<string, unknown>;
-    const data = await updateTestBooking(bookingId, body, auth.accessToken);
+    console.log("[test-bookings PATCH] request body:", JSON.stringify(body, null, 2));
+
+    const data = await updateTestBooking(bookingId, body, user.accessToken);
+    console.log("[test-bookings PATCH] updated booking:", JSON.stringify(data, null, 2));
     return NextResponse.json(data);
   } catch (error: unknown) {
     console.error("Error in test-bookings PATCH route:", error);
