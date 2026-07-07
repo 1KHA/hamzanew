@@ -4,29 +4,71 @@
 
 ▲ Next.js 16.1.1 (webpack)
 - Local:         http://localhost:3000
-- Network:       http://192.168.8.102:3000
+- Network:       http://192.168.1.6:3000
 - Environments: .env.development
 
 ✓ Starting...
 ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-✓ Ready in 9.7s
-○ Compiling middleware ...
-[getUserAuth] session cookie found: false
- POST /api/test-bookings 401 in 6.3s (compile: 6.2s, render: 81ms)
-○ Compiling /test-takers/booking/payment ...
+✓ Ready in 11s
+○ Compiling /test-takers/booking/[testCenterId] ...
 Fetching new access token - cache miss
 fetchAccessTokenFromLiferay
 Fetching access token from: http://localhost:8080/o/oauth2/token
 Token refresh already in progress, waiting for completion...
 Token refresh already in progress, waiting for completion...
+Fetching tests from: http://localhost:8080/o/c/tests?filter=id eq '41169'
 ○ Compiling /api/test-takers/preparation-resource ...
 Preparation Resource API - Language: ar-SA
 Test Mechanism API - Language: ar-SA
-Preparation Resource - Header: Test Preparation header
-Preparation Resource - Details: مصادر التحضير
- GET /api/test-takers/preparation-resource 200 in 4.3s (compile: 4.1s, render: 255ms)
 Test Mechanism - Header: Test Delivery Options header
 Test Mechanism - Tabs: Hamza test via computer
 Test Mechanism - CTA: Are you ready for the Hamza test? - Test Mechanism
- GET /api/test-takers/test-mechanism 200 in 4.4s (compile: 4.1s, render: 273ms)
- GET /test-takers/booking/payment 200 in 13.5s (compile: 6.1s, proxy.ts: 1555ms, render: 5.9s)
+ GET /api/test-takers/test-mechanism 200 in 9.5s (compile: 5.7s, render: 3.8s)
+Preparation Resource - Header: Test Preparation header
+Preparation Resource - Details: مصادر التحضير
+ GET /api/test-takers/preparation-resource 200 in 9.5s (compile: 5.7s, render: 3.8s)
+Error retrieving booking data: ReferenceError: sessionStorage is not defined
+    at getBookingData (app\_lib\booking\booking-data-utils.ts:50:24)
+    at TestBookingClient.useMemo[storedBookingData] (app\(main)\test-takers\booking\[testCenterId]\TestBookingClient.tsx:37:77)
+    at TestBookingClient (app\(main)\test-takers\booking\[testCenterId]\TestBookingClient.tsx:37:36)
+  48 | export function getBookingData(): BookingData | null {
+  49 |   try {
+> 50 |     const storedData = sessionStorage.getItem("testBookingData");
+     |                        ^
+  51 |     if (storedData) {
+  52 |       return JSON.parse(storedData) as BookingData;
+  53 |     }
+○ Compiling /api/auth/[...nextauth] ...
+ GET /test-takers/booking/41169 200 in 26.4s (compile: 13.3s, proxy.ts: 498ms, render: 12.6s)
+[AUTH session] token keys: [
+  'name',
+  'email',
+  'sub',
+  'id',
+  'username',
+  'accessToken',
+  'refreshToken',
+  'accessTokenExpires',
+  'iat',
+  'exp',
+  'jti'
+]
+[AUTH session] session.user: {
+  "name": "ohg جيمس وليامز",
+  "email": "k.h.abdulghani@gmail.com",
+  "id": "46764",
+  "username": "k.h.abdulghani@gmail.com"
+}
+ GET /api/auth/session 200 in 8.9s (compile: 8.7s, render: 192ms)
+Fetching test centers from: http://localhost:8080/o/c/testcenters
+Fetching tests from: http://localhost:8080/o/c/tests?filter=r_testCenterRelationship_c_testCenterId%20eq%20'41169'%20and%20typeOfTheTest%20eq%20'GeneralTest'%20and%20testStatus%20eq%20'Available'
+ POST /test-takers/booking/41169 200 in 3.1s (compile: 2.7s, proxy.ts: 120ms, render: 295ms)
+ GET /api/test-centers?filter=id%20eq%20%2741169%27 200 in 3.4s (compile: 3.1s, render: 308ms)
+Fetching tests from: http://localhost:8080/o/c/tests?filter=r_testCenterRelationship_c_testCenterId%20eq%20'41169'%20and%20typeOfTheTest%20eq%20'GeneralTest'
+ GET /api/tests?filter=r_testCenterRelationship_c_testCenterId%20eq%20%2741169%27%20and%20typeOfTheTest%20eq%20%27GeneralTest%27&lang=ar-SA 200 in 3.1s (compile: 2.9s, render: 145ms)
+Fetching tests from: http://localhost:8080/o/c/tests?filter=r_testCenterRelationship_c_testCenterId%20eq%20'41169'%20and%20typeOfTheTest%20eq%20'GeneralTest'
+Fetching tests from: http://localhost:8080/o/c/tests?filter=r_testCenterRelationship_c_testCenterId%20eq%20'41169'%20and%20typeOfTheTest%20eq%20'GeneralTest'
+ GET /api/tests?filter=r_testCenterRelationship_c_testCenterId%20eq%20%2741169%27%20and%20typeOfTheTest%20eq%20%27GeneralTest%27&lang=ar-SA 200 in 57ms (compile: 13ms, render: 43ms)
+ GET /api/tests?filter=r_testCenterRelationship_c_testCenterId%20eq%20%2741169%27%20and%20typeOfTheTest%20eq%20%27GeneralTest%27&lang=en-US 200 in 60ms (compile: 11ms, render: 48ms)
+Fetching tests from: http://localhost:8080/o/c/tests?filter=r_testCenterRelationship_c_testCenterId%20eq%20'41169'%20and%20typeOfTheTest%20eq%20'GeneralTest'
+ GET /api/tests?filter=r_testCenterRelationship_c_testCenterId%20eq%20%2741169%27%20and%20typeOfTheTest%20eq%20%27GeneralTest%27&lang=en-US 200 in 51ms (compile: 8ms, render: 44ms)

@@ -610,73 +610,71 @@ export default function TestBookingClient({
 
   return (
     <AOSProvider>
-      <div id="midd-wrapper">
-        <section className="cmn-section lightgrey-bg screen20-first-section">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                {!isLoadingTests && (
-                  <BookingHeader
-                    currentStep={2}
-                    translations={translations}
-                    testName={displayTestName}
-                    testName_i18n={
-                      testTypeNames.ar_SA && testTypeNames.en_US
-                        ? testTypeNames
-                        : null
-                    }
-                  />
-                )}
+      <div id="midd-wrapper" className="w-full">
+        <section className="cmn-section lightgrey-bg screen20-first-section w-full">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            {!isLoadingTests && (
+              <BookingHeader
+                currentStep={2}
+                translations={translations}
+                testName={displayTestName}
+                testName_i18n={
+                  testTypeNames.ar_SA && testTypeNames.en_US
+                    ? testTypeNames
+                    : null
+                }
+              />
+            )}
 
-                <div className="test-booking-wrapper">
-                  <div className="calendar-wrapper">
-                    <Calendar
-                      selectedDate={selectedDate}
-                      currentMonth={currentMonth}
-                      onSelect={handleDateSelect}
-                      onMonthChange={setCurrentMonth}
-                      translations={translations}
-                      testsList={testsList}
-                    />
-                  </div>
-                  <div
-                    ref={timeSlotRef}
-                    style={{
-                      height: syncedHeight,
-                      transition: "height 0.3s ease",
-                    }}
-                  >
-                    <TimeSlot
-                      selectedDate={selectedDate}
-                      selectedTime={selectedTime}
-                      onTimeSelect={handleTimeSelect}
-                      translations={translations}
-                      testsList={testsList}
-                      disabled={hasExistingBooking}
-                    />
-                  </div>
-                  <div
-                    ref={appointmentDetailsRef}
-                    style={{
-                      height: syncedHeight,
-                      transition: "height 0.3s ease",
-                    }}
-                  >
-                    <AppointmentDetails
-                      selectedDate={selectedDate}
-                      selectedTime={selectedTime}
-                      testData={testData}
-                      bookingData={bookingData}
-                      testsList={testsList}
-                      onPrevious={() =>
-                        router.push("/test-takers/test-centers")
-                      }
-                      onNext={handleNext}
-                      translations={translations}
-                      testCenterId={testCenterId}
-                    />
-                  </div>
-                </div>
+            <div className="test-booking-page-layout">
+              <div className="calendar-panel">
+                <Calendar
+                  selectedDate={selectedDate}
+                  currentMonth={currentMonth}
+                  onSelect={handleDateSelect}
+                  onMonthChange={setCurrentMonth}
+                  translations={translations}
+                  testsList={testsList}
+                />
+              </div>
+              <div
+                className="time-slot-panel"
+                ref={timeSlotRef}
+                style={{
+                  height: syncedHeight,
+                  transition: "height 0.3s ease",
+                }}
+              >
+                <TimeSlot
+                  selectedDate={selectedDate}
+                  selectedTime={selectedTime}
+                  onTimeSelect={handleTimeSelect}
+                  translations={translations}
+                  testsList={testsList}
+                  disabled={hasExistingBooking}
+                />
+              </div>
+              <div
+                className="appointment-panel"
+                ref={appointmentDetailsRef}
+                style={{
+                  height: syncedHeight,
+                  transition: "height 0.3s ease",
+                }}
+              >
+                <AppointmentDetails
+                  selectedDate={selectedDate}
+                  selectedTime={selectedTime}
+                  testData={testData}
+                  bookingData={bookingData}
+                  testsList={testsList}
+                  onPrevious={() =>
+                    router.push("/test-takers/test-centers")
+                  }
+                  onNext={handleNext}
+                  translations={translations}
+                  testCenterId={testCenterId}
+                />
               </div>
             </div>
           </div>

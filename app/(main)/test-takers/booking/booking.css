@@ -456,3 +456,83 @@
     flex-direction: column;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Centered responsive page layout for /test-takers/booking/[testCenterId]
+   -------------------------------------------------------------------------- */
+
+.test-booking-page-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+}
+
+.test-booking-page-layout .calendar-panel,
+.test-booking-page-layout .time-slot-panel,
+.test-booking-page-layout .appointment-panel {
+  display: flex;
+}
+
+.test-booking-page-layout .calendar-panel {
+  flex: 1 1 320px;
+  min-width: 280px;
+  max-width: 520px;
+}
+
+.test-booking-page-layout .time-slot-panel {
+  flex: 0 1 300px;
+  min-width: 260px;
+  max-width: 350px;
+}
+
+.test-booking-page-layout .appointment-panel {
+  flex: 0 1 380px;
+  min-width: 280px;
+  max-width: 420px;
+}
+
+/* Make child components fill their panel without overflowing */
+.test-booking-page-layout .calendar-panel .calendar-wrapper,
+.test-booking-page-layout .time-slot-panel .timeslot-wrapper,
+.test-booking-page-layout .appointment-panel .appointment-details-wrapper {
+  width: 100%;
+  max-width: 100%;
+  flex: 1 1 auto;
+  min-width: auto;
+}
+
+/* Tablet: calendar full width, time + appointment side by side */
+@media screen and (max-width: 1339.98px) {
+  .test-booking-page-layout .calendar-panel {
+    flex: 1 1 100%;
+    max-width: 100%;
+    order: 1;
+  }
+
+  .test-booking-page-layout .time-slot-panel,
+  .test-booking-page-layout .appointment-panel {
+    flex: 1 1 calc(50% - 0.75rem);
+    max-width: none;
+    order: 2;
+  }
+}
+
+/* Mobile: single column, full width */
+@media screen and (max-width: 767.98px) {
+  .test-booking-page-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .test-booking-page-layout .calendar-panel,
+  .test-booking-page-layout .time-slot-panel,
+  .test-booking-page-layout .appointment-panel {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    order: unset;
+  }
+}
