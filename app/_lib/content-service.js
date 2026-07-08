@@ -112,6 +112,12 @@ export async function fetchContentWithKey(key) {
 
   const contentKey = await res.text();
 
+  // The key-lookup endpoint returns "0" when no matching content exists.
+  if (!contentKey || contentKey === "0" || contentKey.trim() === "") {
+    console.warn(`[fetchContentWithKey] No content mapped for key: ${key}`);
+    return null;
+  }
+
   const contentURL =
     `${process.env.BASE_URL}${process.env.STRUCTURED_CONTENT_API_URL}` +
     contentKey;
@@ -137,6 +143,12 @@ export async function fetchContentWithKey(key) {
     const errorText = await res2
       .text()
       .catch(() => "Unable to read error response");
+    if (res2.status === 404) {
+      console.warn(
+        `[fetchContentWithKey] Structured content not found for key ${key} (id: ${contentKey}).`
+      );
+      return null;
+    }
     console.log(key + " : " + contentKey);
     console.log("status :" + res2.status);
     console.log("response body :" + errorText);

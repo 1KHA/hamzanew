@@ -261,6 +261,7 @@ export default function Calendar({
     >
       <DayPicker
         mode="single"
+        navLayout="around"
         selected={selectedDate ?? undefined}
         onSelect={handleSelect}
         month={currentMonth}

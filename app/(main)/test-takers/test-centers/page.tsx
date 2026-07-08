@@ -64,17 +64,28 @@ export default async function TestCentersPage() {
   const locale = cookieStore.get("lang")?.value?.startsWith("en") ? "en" : "ar";
   const language = cookieStore.get("lang")?.value || "ar-SA";
   // CMS header + special-needs footer content
-  let testCentersContent;
-  let specialNeedsContent;
+  let testCentersContent = null;
+  let specialNeedsContent = null;
   try {
     testCentersContent = await fetchContentWithKey(
       "TEST_TAKERS_TEST_CENTER_HEADER_CONTENT_KEY"
     );
+  } catch (error) {
+    console.error(
+      "[TestCentersPage] Failed to fetch test center header content:",
+      error
+    );
+  }
+
+  try {
     specialNeedsContent = await fetchContentWithKey(
       "TEST_TAKERS_TEST_DELIVERY_OPTIONS_SPECIAL_NEEDS_CONTENT_KEY"
     );
   } catch (error) {
-    console.error("[TestCentersPage] Failed to fetch CMS content:", error);
+    console.error(
+      "[TestCentersPage] Failed to fetch special needs content:",
+      error
+    );
   }
 
   const testCentersContentFields = extractFields(
