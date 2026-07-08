@@ -125,17 +125,19 @@
    react-day-picker overrides
    -------------------------------------------------------------------------- */
 
-.calendar-wrapper .rdp {
+.calendar-wrapper .rdp-root {
   width: 100%;
   font-family: inherit;
 }
 
-.calendar-wrapper .rdp-caption {
+.calendar-wrapper .rdp-month_caption {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin-bottom: 1.25rem;
   padding: 0 0.5rem;
+  position: relative;
+  min-height: var(--rdp-nav-height);
 }
 
 .calendar-wrapper .rdp-caption_label {
@@ -147,13 +149,9 @@
   gap: 10px;
 }
 
-.calendar-wrapper .rdp-nav {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.calendar-wrapper .rdp-nav_button {
+/* Navigation arrows live inside the month caption by default in react-day-picker v10 */
+.calendar-wrapper .rdp-button_previous,
+.calendar-wrapper .rdp-button_next {
   width: 36px;
   height: 36px;
   display: inline-flex;
@@ -161,18 +159,30 @@
   justify-content: center;
   border-radius: 50%;
   transition: background 0.2s ease;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.calendar-wrapper .rdp-nav_button:hover {
+.calendar-wrapper .rdp-button_previous {
+  inset-inline-start: 0.5rem;
+}
+
+.calendar-wrapper .rdp-button_next {
+  inset-inline-end: 0.5rem;
+}
+
+.calendar-wrapper .rdp-button_previous:hover,
+.calendar-wrapper .rdp-button_next:hover {
   background: #e5ebe8;
 }
 
-.calendar-wrapper .rdp-table {
+.calendar-wrapper .rdp-month_grid {
   width: 100%;
   table-layout: fixed;
 }
 
-.calendar-wrapper .rdp-head_cell {
+.calendar-wrapper .rdp-weekday {
   color: var(--primary);
   font-size: 18px;
   font-weight: 600;
@@ -180,15 +190,12 @@
   text-align: center;
 }
 
-.calendar-wrapper .rdp-cell {
-  padding: 4px;
-}
-
 .calendar-wrapper .rdp-day {
   width: 100%;
   aspect-ratio: 1;
   font-size: 22px;
   color: #474747;
+  padding: 4px;
 }
 
 .calendar-wrapper .rdp-day_button {
@@ -202,20 +209,20 @@
   transition: all 0.2s ease;
 }
 
-.calendar-wrapper .rdp-day_today .rdp-day_button {
+.calendar-wrapper .rdp-today:not(.rdp-outside) .rdp-day_button {
   color: var(--primary);
   font-weight: 700;
 }
 
-.calendar-wrapper .rdp-day_selected .rdp-day_button,
-.calendar-wrapper .rdp-day_selected:focus .rdp-day_button,
-.calendar-wrapper .rdp-day_selected:active .rdp-day_button {
+.calendar-wrapper .rdp-selected .rdp-day_button,
+.calendar-wrapper .rdp-selected:focus .rdp-day_button,
+.calendar-wrapper .rdp-selected:active .rdp-day_button {
   background: var(--primary);
   color: var(--white);
   font-weight: 700;
 }
 
-.calendar-wrapper .rdp-day:hover:not(.rdp-day_selected) .rdp-day_button {
+.calendar-wrapper .rdp-day:hover:not(.rdp-selected) .rdp-day_button {
   background: #e8f0ec;
 }
 
@@ -231,11 +238,11 @@
   border-radius: 50%;
 }
 
-.calendar-wrapper .rdp-day_selected.rdp-day_has-test .rdp-day_button::after {
+.calendar-wrapper .rdp-selected.rdp-day_has-test .rdp-day_button::after {
   background-color: var(--white);
 }
 
-.calendar-wrapper .rdp-day_disabled {
+.calendar-wrapper .rdp-disabled {
   color: #b0b0b0;
 }
 
@@ -463,8 +470,8 @@
 
 .test-booking-page-layout {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
+  flex-wrap: nowrap;
+  gap: 0.75rem;
   align-items: stretch;
   justify-content: center;
   width: 100%;
@@ -476,22 +483,20 @@
   display: flex;
 }
 
+/* Calendar sits beside the time slot and appointment columns */
 .test-booking-page-layout .calendar-panel {
-  flex: 1 1 320px;
-  min-width: 280px;
-  max-width: 520px;
+  align-self: flex-start;
+  flex: 1 1 0;
+  min-width: 320px;
+  max-width: 640px;
 }
 
 .test-booking-page-layout .time-slot-panel {
-  flex: 0 1 300px;
-  min-width: 260px;
-  max-width: 350px;
+  flex: 0 0 300px;
 }
 
 .test-booking-page-layout .appointment-panel {
-  flex: 0 1 380px;
-  min-width: 280px;
-  max-width: 420px;
+  flex: 0 0 360px;
 }
 
 /* Make child components fill their panel without overflowing */
@@ -504,8 +509,78 @@
   min-width: auto;
 }
 
+/* Calendar UX improvements on the booking page */
+.test-booking-page-layout .calendar-panel .calendar-wrapper {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  height: auto;
+}
+
+/* Make the calendar stretch horizontally but keep its natural height */
+.test-booking-page-layout .calendar-panel .rdp-root {
+  width: 100%;
+  height: auto;
+}
+
+.test-booking-page-layout .calendar-panel .rdp-months {
+  width: 100%;
+  max-width: none;
+}
+
+.test-booking-page-layout .calendar-panel .rdp-month_grid {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.test-booking-page-layout .calendar-panel .rdp-day {
+  width: 100%;
+  height: clamp(48px, 7vh, 72px);
+  padding: 4px;
+  font-size: 22px;
+  color: #474747;
+}
+
+.test-booking-page-layout .calendar-panel .rdp-day_button {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}
+
+.test-booking-page-layout .calendar-panel .rdp-caption_label {
+  font-size: 28px;
+}
+
+.test-booking-page-layout .calendar-panel .rdp-weekday {
+  font-size: 18px;
+  padding: 12px 4px;
+  text-align: center;
+}
+
+.test-booking-page-layout .calendar-panel .rdp-day_has-test .rdp-day_button::after {
+  width: 6px;
+  height: 6px;
+  bottom: 6px;
+}
+
+/* Narrow desktop: shrink side columns */
+@media screen and (max-width: 1199.98px) {
+  .test-booking-page-layout .time-slot-panel {
+    flex: 0 0 260px;
+  }
+
+  .test-booking-page-layout .appointment-panel {
+    flex: 0 0 320px;
+  }
+}
+
 /* Tablet: calendar full width, time + appointment side by side */
-@media screen and (max-width: 1339.98px) {
+@media screen and (max-width: 991.98px) {
+  .test-booking-page-layout {
+    flex-wrap: wrap;
+  }
+
   .test-booking-page-layout .calendar-panel {
     flex: 1 1 100%;
     max-width: 100%;
@@ -514,8 +589,7 @@
 
   .test-booking-page-layout .time-slot-panel,
   .test-booking-page-layout .appointment-panel {
-    flex: 1 1 calc(50% - 0.75rem);
-    max-width: none;
+    flex: 1 1 calc(50% - 0.375rem);
     order: 2;
   }
 }
