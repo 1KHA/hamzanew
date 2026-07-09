@@ -48,16 +48,20 @@ export async function getCachedUserProfile() {
     const userProfileData = await getUserProfileInfo();
     console.log("[getCachedUserProfile] raw userProfileData:", JSON.stringify(userProfileData, null, 2));
 
-    // if (userProfileData && userProfileData.status !== "FAIL") {
-    //   // Cache the data in memory
-    //   profileCache.set(cacheKey, {
-    //     data: userProfileData,
-    //     timestamp: Date.now(),
-    //   });
-    //   console.log("[getCachedUserProfile] Cached profile data for userId:", userId);
-    // }
+    if (userProfileData && userProfileData.status !== "FAIL") {
+      return userProfileData;
+    }
 
-    return userProfileData;
+    // Fallback: if the backend profile service is missing/404, at least return
+    // the basic data we have in the session so the booking flow can continue.
+    console.warn(
+      "[getCachedUserProfile] profile service unavailable; falling back to session data"
+    );
+    return {
+      emailId: session.user.email,
+      username: session.user.username,
+      name: session.user.name,
+    };
   } catch (error) {
     console.error("[getCachedUserProfile] Error getting cached user profile:", error);
     return null;
