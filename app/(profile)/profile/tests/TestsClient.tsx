@@ -1,15 +1,17 @@
 "use client";
 
-import AOSProvider from "@/app/_components/AOSProvider";
-import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useState } from "react";
+import Button from "@/app/components/button/Button";
+import Tag from "@/app/components/tag/Tag";
 import CancelTestConfirmation from "./_modal/cancelTestConfirmation";
 import CancellTestBooking from "./_modal/cancellTestBooking";
 import ChangeTestConfirmation from "./_modal/changeTestConfirmation";
 import DelayTest from "./_modal/delayTest";
 import TestDetails from "./_modal/testDetails";
 import { t } from "@/app/_lib/translationContext";
+import styles from "./tests.module.css";
 import {
   getCurrentSaudiTime,
   addHoursInSaudiTime,
@@ -27,13 +29,16 @@ interface TestsClientProps {
   translations: TranslationDict;
   userProfileData: UserProfile | null;
   enrichedBookings: TestBooking[];
+  strings: Record<string, string>;
 }
 
 export default function TestsClient({
   translations,
   userProfileData,
   enrichedBookings,
+  strings,
 }: TestsClientProps) {
+  const router = useRouter();
   const [isDelayTestModalOpen, setIsDelayTestModalOpen] = useState(false);
   const [isCancelTestModalOpen, setIsCancelTestModalOpen] = useState(false);
   const [isCancelTestConfirmationOpen, setIsCancelTestConfirmationOpen] =
@@ -112,14 +117,14 @@ export default function TestsClient({
     return "/profile/profile-box-ico2.svg";
   }
 
-  // Get status class based on testStatus
-  function getStatusClass(testStatus: TestStatus | undefined) {
-    if (!testStatus) return "";
+  // Map test booking status to a design-system Tag variant
+  function getStatusVariant(testStatus: TestStatus | undefined) {
+    if (!testStatus) return "neutral";
     const statusKey = testStatus.key || "";
-    if (statusKey === "Scheduled") return "btn-grey";
-    if (statusKey === "Completed") return "btn-blue";
-    if (statusKey === "Cancelled") return "btn-orange";
-    return "";
+    if (statusKey === "Scheduled") return "success";
+    if (statusKey === "Completed") return "neutral";
+    if (statusKey === "Cancelled") return "error";
+    return "neutral";
   }
 
   // Check if test is within next 24 hours (considering date and time slot)
@@ -188,9 +193,9 @@ export default function TestsClient({
     );
     const testStatusName = booking.testBookingStatus?.name;
     const iconPath = getLocationIcon(booking.locationType);
-    const statusClass = getStatusClass(booking.testBookingStatus);
+    const statusVariant = getStatusVariant(booking.testBookingStatus);
 
-    // Check if booking is cancelled
+    // Check if booking is cancelled or completed
     const isCancelled =
       booking.testBookingStatus?.key === "Cancelled" ||
       booking.testBookingStatus?.key === "Completed";
@@ -204,74 +209,102 @@ export default function TestsClient({
     const showTestDetails = isScheduled && isWithin24Hours;
 
     return (
-      <div key={booking.id || index} className="profile-box-list">
-        <div className="profile-box-hd mb-3">
-          <span>
-            <Image
-              src={iconPath}
-              alt={locationTypeName || ""}
-              width={24}
-              height={24}
-            />
-          </span>{" "}
-          {locationTypeName}
+      <article key={booking.id || index} className={styles.bookingCard}>
+        <div className={styles.cardHeader}>
+          <div className={styles.locationType}>
+            <span className={styles.locationIcon}>
+              <Image
+                src={iconPath}
+                alt=""
+                width={24}
+                height={24}
+              />
+            </span>
+            <span className={styles.locationName}>
+              {locationTypeName || strings.labelTestLocation}
+            </span>
+          </div>
+          <Tag label={testStatusName} variant={statusVariant} size="md" />
         </div>
-        <div className="profile-box-details">
-          <span>{testTypeName}</span>
-          {t("hamza-test-date-form", translations)}: {formattedDate} <br />
-          {t("hamza-test-time--slot-form", translations)}:{" "}
-          {formattedTimeSlot && <> {formattedTimeSlot}</>}
-        </div>
-        <div
-          className={`profile-box-action ${
-            isCancelled ? "profile-box-action-no-left" : ""
-          }`}
-        >
-          {!isCancelled && (
-            <div className="profile-box-action-l">
-              {showTestDetails ? (
-                <span
-                  className="cmn-outline-btn"
-                  onClick={() => {
-                    setSelectedBooking(booking);
-                    setIsTestDetailsModalOpen(true);
-                  }}
-                >
-                  {t("hamza-test-details", translations) || "Test details"}
-                </span>
-              ) : (
-                <>
-                  <span
-                    className="cmn-outline-btn"
-                    onClick={() => {
-                      setSelectedBooking(booking);
-                      setIsCancelTestModalOpen(true);
-                    }}
-                  >
-                    {t("hamza-cancel-test-booking", translations)}
-                  </span>{" "}
-                  &nbsp;
-                  <span
-                    className="cmn-outline-btn"
-                    onClick={() => {
-                      setSelectedBooking(booking);
-                      setIsDelayTestModalOpen(true);
-                    }}
-                  >
-                    {t("hamza-delay-test-booking", translations)}
-                  </span>
-                </>
-              )}
+
+        <div className={styles.cardBody}>
+          <h3 className={styles.testName}>{testTypeName}</h3>
+
+          <div className={styles.metaRow}>
+            <span className={styles.metaIcon}>
+              <Image
+                src="/assets/icons/stroke-standard/calendar-03-stroke-rounded.svg"
+                alt=""
+                width={20}
+                height={20}
+              />
+            </span>
+            <span className={styles.metaLabel}>
+              {t("hamza-test-date-form", translations)}
+            </span>
+            <span className={styles.metaValue}>{formattedDate}</span>
+          </div>
+
+          {formattedTimeSlot && (
+            <div className={styles.metaRow}>
+              <span className={styles.metaIcon}>
+                <Image
+                  src="/assets/icons/stroke-standard/clock-01-stroke-rounded.svg"
+                  alt=""
+                  width={20}
+                  height={20}
+                />
+              </span>
+              <span className={styles.metaLabel}>
+                {t("hamza-test-time--slot-form", translations)}
+              </span>
+              <span className={styles.metaValue}>{formattedTimeSlot}</span>
             </div>
           )}
-          <div className="profile-box-action-r">
-            {t("hamza-registration-status", translations)} &nbsp;
-            <a href="#" className={`booking-status-btn ${statusClass}`}>
-              {testStatusName}
-            </a>
-          </div>
         </div>
-      </div>
+
+        {!isCancelled && (
+          <div className={styles.cardFooter}>
+            {showTestDetails ? (
+              <Button
+                label={
+                  t("hamza-test-details", translations) ||
+                  strings.actionTestDetails
+                }
+                variant="primary-brand"
+                size="md"
+                icon="view"
+                iconPosition="right"
+                onClick={() => {
+                  setSelectedBooking(booking);
+                  setIsTestDetailsModalOpen(true);
+                }}
+              />
+            ) : (
+              <>
+                <Button
+                  label={t("hamza-cancel-test-booking", translations) || strings.actionCancel}
+                  variant="secondary-outline"
+                  size="md"
+                  onClick={() => {
+                    setSelectedBooking(booking);
+                    setIsCancelTestModalOpen(true);
+                  }}
+                />
+                <Button
+                  label={t("hamza-delay-test-booking", translations) || strings.actionDelay}
+                  variant="primary-brand"
+                  size="md"
+                  onClick={() => {
+                    setSelectedBooking(booking);
+                    setIsDelayTestModalOpen(true);
+                  }}
+                />
+              </>
+            )}
+          </div>
+        )}
+      </article>
     );
   }
 
@@ -289,125 +322,105 @@ export default function TestsClient({
         !booking.locationType?.key
     ) || [];
 
+  const hasBookings = enrichedBookings && enrichedBookings.length > 0;
+
   return (
-    <AOSProvider>
-      <div id="midd-wrapper">
-        {isDelayTestModalOpen && (
-          <DelayTest
-            onHandleCloseModal={closeAllModals}
-            translations={translations}
-            selectedBooking={selectedBooking}
-            onOpenChangeTestConfirmation={handleOpenChangeTestConfirmation}
-          />
-        )}
-        {isCancelTestConfirmationOpen && (
-          <CancelTestConfirmation
-            testTypeName={selectedBooking?.typeOfTheTest?.name}
-            translations={translations}
-            onHandleCloseModal={closeAllModals}
-          />
-        )}
+    <>
+      {isDelayTestModalOpen && (
+        <DelayTest
+          onHandleCloseModal={closeAllModals}
+          translations={translations}
+          selectedBooking={selectedBooking}
+          onOpenChangeTestConfirmation={handleOpenChangeTestConfirmation}
+        />
+      )}
+      {isCancelTestConfirmationOpen && (
+        <CancelTestConfirmation
+          testTypeName={selectedBooking?.typeOfTheTest?.name}
+          translations={translations}
+          onHandleCloseModal={closeAllModals}
+        />
+      )}
 
-        {isCancelTestModalOpen && (
-          <CancellTestBooking
-            userProfileData={userProfileData}
-            translations={translations}
-            selectedBooking={selectedBooking}
-            onHandleCloseModal={closeAllModals}
-            onOpenCancelTestModal={handleCancelConfirmationTestModal}
-          />
-        )}
+      {isCancelTestModalOpen && (
+        <CancellTestBooking
+          userProfileData={userProfileData}
+          translations={translations}
+          selectedBooking={selectedBooking}
+          onHandleCloseModal={closeAllModals}
+          onOpenCancelTestModal={handleCancelConfirmationTestModal}
+        />
+      )}
 
-        {isChangeTestConfirmationOpen && (
-          <ChangeTestConfirmation
-            onHandleCloseModal={closeAllModals}
-            translations={translations}
-            testTypeName={selectedBooking?.typeOfTheTest?.name}
-          />
-        )}
+      {isChangeTestConfirmationOpen && (
+        <ChangeTestConfirmation
+          onHandleCloseModal={closeAllModals}
+          translations={translations}
+          testTypeName={selectedBooking?.typeOfTheTest?.name}
+        />
+      )}
 
-        {isTestDetailsModalOpen && (
-          <TestDetails
-            onHandleCloseModal={closeAllModals}
-            translations={translations}
-            selectedBooking={selectedBooking}
-          />
-        )}
+      {isTestDetailsModalOpen && (
+        <TestDetails
+          onHandleCloseModal={closeAllModals}
+          translations={translations}
+          selectedBooking={selectedBooking}
+        />
+      )}
 
-        <section className="cmn-section lightgrey-bg screen20-first-section">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <div className="heading-desc-side align-items-start">
-                  <div className="sidebar-area-cnt">
-                    <nav aria-label="breadcrumb">
-                      <ol className="breadcrumb">
-                        <li className="breadcrumb-item">
-                          <Link href="/">
-                            {t("hamza-navigation-menu-home", translations)}
-                          </Link>{" "}
-                          <span>&gt;</span>{" "}
-                          <Link href="/profile">
-                            {t("hamza-page-level-nav-profile", translations)}
-                          </Link>{" "}
-                          <span>&gt;</span>{" "}
-                          {t("hamza-page-level-nav-tests", translations)}
-                        </li>
-                      </ol>
-                    </nav>
-                    <div className="sigup-cnt-area mw-100">
-                      <div className="singup-whitebox">
-                        {remoteBookings.length > 0 && (
-                          <div className="profile-box-main mb-5">
-                            <div className="whitebox-hd-area mb-3">
-                              {t("hamza-recorded-test", translations)}
-                            </div>
-                            <div className="profile-box-listarea">
-                              {remoteBookings.map((booking, index) =>
-                                renderBookingCard(booking, index)
-                              )}
-                            </div>
-                          </div>
-                        )}
-                        {inPersonBookings.length > 0 && (
-                          <div className="profile-box-main">
-                            <div className="whitebox-hd-area mb-3">
-                              {t("hamza-testing-centers", translations) ||
-                              "In-Person Tests"}
-                            </div>
-                            <div className="profile-box-listarea">
-                              {inPersonBookings.map((booking, index) =>
-                                renderBookingCard(booking, index)
-                              )}
-                            </div>
-                          </div>
-                        )}
-                        {(!enrichedBookings ||
-                          enrichedBookings.length === 0) && (
-                          <div className="profile-box-main">
-                            <div className="whitebox-hd-area mb-3">
-                              {t("hamza-recorded-test", translations)}
-                            </div>
-                            <div className="profile-box-listarea">
-                              <div className="profile-box-list">
-                                <div className="profile-box-details">
-                                  <span>
-                                    {t("hamza-no-recorded-tests", translations)}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
+      <div className={styles.testsSection}>
+        {hasBookings ? (
+          <>
+            {remoteBookings.length > 0 && (
+              <div className="mb-8">
+                <h2 className={styles.sectionTitle}>
+                  {t("hamza-recorded-test", translations) || strings.sectionRemote}
+                </h2>
+                <div className={styles.cardsGrid}>
+                  {remoteBookings.map((booking, index) =>
+                    renderBookingCard(booking, index)
+                  )}
                 </div>
               </div>
-            </div>
+            )}
+
+            {inPersonBookings.length > 0 && (
+              <div>
+                <h2 className={styles.sectionTitle}>
+                  {t("hamza-testing-centers", translations) || strings.sectionInPerson}
+                </h2>
+                <div className={styles.cardsGrid}>
+                  {inPersonBookings.map((booking, index) =>
+                    renderBookingCard(booking, index)
+                  )}
+                </div>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className={styles.emptyState}>
+            <span className={styles.emptyIcon}>
+              <Image
+                src="/assets/icons/stroke-standard/calendar-03-stroke-rounded.svg"
+                alt=""
+                width={32}
+                height={32}
+                className="green-icon"
+              />
+            </span>
+            <h2 className={styles.emptyTitle}>{strings.emptyStateTitle}</h2>
+            <p className={styles.emptyDescription}>{strings.emptyStateDescription}</p>
+            <Button
+              label={strings.actionBrowseTests}
+              variant="primary-brand"
+              size="md"
+              icon="arrow"
+              iconPosition="right"
+              onClick={() => router.push("/test-takers/test-centers")}
+            />
           </div>
-        </section>
+        )}
       </div>
-    </AOSProvider>
+    </>
   );
 }

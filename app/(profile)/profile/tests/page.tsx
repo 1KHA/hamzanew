@@ -1,13 +1,29 @@
+import { Metadata } from "next";
+import { cookies } from "next/headers";
 import { getTranslations } from "@/app/_lib/getTranslations";
 import { getCachedUserProfile } from "@/app/_lib/session-cache";
 import { fetchTestBookings } from "@/app/_lib/booking/test-booking-service";
 import { fetchTests } from "@/app/_lib/booking/tests-service";
 import { fetchTestCenters } from "@/app/_lib/booking/test-center-service";
+import { st } from "@/app/_lib/static-text-server";
+import PageHero from "@/app/components/page-hero/PageHero";
 import TestsClient from "./TestsClient";
 import type { TestBooking, TestItem, TestCenter } from "@/app/_lib/booking-types";
 
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = (await cookies()).get("lang")?.value?.startsWith("en")
+    ? "en"
+    : "ar";
+  return {
+    title: st("profileTests", "metaTitle", locale),
+  };
+}
+
 export default async function Page() {
   const translations = await getTranslations();
+  const locale = (await cookies()).get("lang")?.value?.startsWith("en")
+    ? "en"
+    : "ar";
 
   const userProfileData = await getCachedUserProfile();
 
@@ -108,11 +124,62 @@ export default async function Page() {
     };
   }
 
+  const strings = {
+    sectionRemote: st("profileTests", "sectionRemote", locale),
+    sectionInPerson: st("profileTests", "sectionInPerson", locale),
+    statusScheduled: st("profileTests", "statusScheduled", locale),
+    statusCompleted: st("profileTests", "statusCompleted", locale),
+    statusCancelled: st("profileTests", "statusCancelled", locale),
+    labelTestType: st("profileTests", "labelTestType", locale),
+    labelTestDate: st("profileTests", "labelTestDate", locale),
+    labelTimeSlot: st("profileTests", "labelTimeSlot", locale),
+    labelTestLocation: st("profileTests", "labelTestLocation", locale),
+    actionCancel: st("profileTests", "actionCancel", locale),
+    actionDelay: st("profileTests", "actionDelay", locale),
+    actionTestDetails: st("profileTests", "actionTestDetails", locale),
+    actionBrowseTests: st("profileTests", "actionBrowseTests", locale),
+    emptyStateTitle: st("profileTests", "emptyStateTitle", locale),
+    emptyStateDescription: st("profileTests", "emptyStateDescription", locale),
+  };
+
+  const HERO_CONFIG = {
+    title: st("profileTests", "heroTitle", locale),
+    bgColor: "#F9FAFB",
+    breadcrumbs: [
+      { label: st("profileTests", "breadcrumbHome", locale), path: "/" },
+      {
+        label: st("profileTests", "breadcrumbProfile", locale),
+        path: "/profile",
+      },
+      { label: st("profileTests", "breadcrumbTests", locale), disabled: true },
+    ],
+  };
+
   return (
-    <TestsClient
-      translations={translations}
-      userProfileData={userProfileData}
-      enrichedBookings={enrichedBookings}
-    />
+    <>
+      <PageHero
+        heroMap={{ "/profile/tests": HERO_CONFIG }}
+        defaultRoute="/profile/tests"
+        breadcrumbsMax={3}
+        translations={translations}
+      />
+
+      <section
+        aria-labelledby="tests-heading"
+        className="profile-main-section"
+      >
+        <h1 id="tests-heading" className="sr-only">
+          {st("profileTests", "heroTitle", locale)}
+        </h1>
+        <div className="content" role="main">
+          <TestsClient
+            translations={translations}
+            userProfileData={userProfileData}
+            enrichedBookings={enrichedBookings}
+            strings={strings}
+          />
+        </div>
+      </section>
+    </>
   );
 }

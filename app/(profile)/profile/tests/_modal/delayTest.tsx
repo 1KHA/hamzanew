@@ -2,9 +2,11 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
+import ModalShell from "./ModalShell";
 import { t } from "@/app/_lib/translationContext";
 import TestBookingView from "@/app/(main)/test-takers/booking/TestBookingView";
 import BookingSlotCard from "./BookingSlotCard";
+import styles from "../tests.module.css";
 import type {
   TestBooking,
   TestCenterLocationType,
@@ -228,97 +230,64 @@ export default function DelayTest({
 
   if (!selectedBooking) {
     return (
-      <div id="profile-modal-popup1" className="modal-overlay">
-        <div className="modal-main">
-          <div className="modal-header">
-            <div className="modal-hd">
-              <span>{t("hamza-test-summary", translations)}</span>
-            </div>
-            <div className="modal-cls">
-              <span onClick={onHandleCloseModal} className="close-modal">
-                <Image
-                  src="/profile/close-icon.svg"
-                  alt={t("hamza-close", translations) || "Close"}
-                  width={20}
-                  height={20}
-                />
-              </span>
-            </div>
-          </div>
-          <div className="modal-cnt-area">
-            <p>No booking selected</p>
-          </div>
-        </div>
-      </div>
+      <ModalShell
+        id="profile-modal-popup1"
+        title={t("hamza-test-summary", translations) || "Test Summary"}
+        onClose={onHandleCloseModal}
+        closeAriaLabel={t("hamza-close", translations) || "Close"}
+        size="narrow"
+      >
+        <p className={styles.messageText}>No booking selected</p>
+      </ModalShell>
     );
   }
 
   return (
-    <div id="profile-modal-popup1" className="modal-overlay">
-      <div className="modal-main delay-test-modal">
-        <div className="modal-header hamza-booking-header-title">
-          <div className="modal-hd hamza-booking-header-title-text">
-            <div>
-              <div>
-                <span>{selectedBooking?.typeOfTheTest?.name}</span>
-                <p>
-                  {t(
-                    "hamza-choose-the-appropriate-date-for-your-test",
-                    translations
-                  )}
-                </p>
-              </div>
-            </div>
-          </div>
-          {/* Booking Slot Cards Comparison */}
-          {(selectedBooking || newBookingSelection) && (
-            <div className="booking-slots-comparison">
-              <BookingSlotCard
-                booking={selectedBooking}
-                isActive={true}
-              />
-              <div className="booking-slots-arrow">
-                <Image
-                  src={
-                    language === "ar-SA"
-                      ? "/test-takers/testing-center/booking-calendar-left-arrow.png"
-                      : "/test-takers/testing-center/booking-calendar-right-arrow.png"
-                  }
-                  alt="Arrow"
-                  width={24}
-                  height={24}
-                />
-              </div>
-              <BookingSlotCard
-                booking={newBookingSelection || selectedBooking}
-                isActive={!!newBookingSelection}
-              />
-            </div>
-          )}
-          <div className="modal-cls">
-            <span onClick={onHandleCloseModal} className="close-modal">
-              <Image
-                src="/profile/close-icon.svg"
-                alt={t("hamza-close", translations) || "Close"}
-                width={20}
-                height={20}
-              />
-            </span>
-          </div>
+    <ModalShell
+      id="profile-modal-popup1"
+      title={selectedBooking?.typeOfTheTest?.name || ""}
+      subtitle={t(
+        "hamza-choose-the-appropriate-date-for-your-test",
+        translations
+      )}
+      onClose={onHandleCloseModal}
+      closeAriaLabel={t("hamza-close", translations) || "Close"}
+      size="wide"
+      bodyClassName={styles.delayModalBody}
+    >
+      {/* Booking Slot Cards Comparison */}
+      <div className={styles.bookingSlotsComparison}>
+        <BookingSlotCard booking={selectedBooking} isActive={true} />
+        <div className={styles.bookingSlotsArrow}>
+          <Image
+            src={
+              language === "ar-SA"
+                ? "/test-takers/testing-center/booking-calendar-left-arrow.png"
+                : "/test-takers/testing-center/booking-calendar-right-arrow.png"
+            }
+            alt=""
+            width={24}
+            height={24}
+          />
         </div>
-        <TestBookingView
-          translations={translations}
-          testCenterId={testCenterId}
-          showBookingHeader={false}
-          isRescheduling={true}
-          existingBooking={selectedBooking as unknown as Record<string, unknown>}
-          onRescheduleComplete={handleRescheduleComplete}
-          onCancel={handleCancel}
-          isModal={true}
-          onSelectionChange={handleSelectionChange}
-          onRescheduleNext={handleRescheduleNext}
+        <BookingSlotCard
+          booking={newBookingSelection || selectedBooking}
+          isActive={!!newBookingSelection}
         />
       </div>
-    </div>
+
+      <TestBookingView
+        translations={translations}
+        testCenterId={testCenterId}
+        showBookingHeader={false}
+        isRescheduling={true}
+        existingBooking={selectedBooking as unknown as Record<string, unknown>}
+        onRescheduleComplete={handleRescheduleComplete}
+        onCancel={handleCancel}
+        isModal={true}
+        onSelectionChange={handleSelectionChange}
+        onRescheduleNext={handleRescheduleNext}
+      />
+    </ModalShell>
   );
 }

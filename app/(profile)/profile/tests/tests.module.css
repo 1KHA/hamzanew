@@ -1,0 +1,574 @@
+/* =========================================================
+   /profile/tests design-system styles
+   ========================================================= */
+
+.testsSection {
+  padding-block: var(--spacing-8);
+}
+
+.sectionTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--colors-neutral-900);
+  margin-block-end: var(--spacing-6);
+}
+
+/* ---------------------------------------------------------
+   Booking cards grid
+   --------------------------------------------------------- */
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--spacing-6);
+}
+
+@media (max-width: 640px) {
+  .cardsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bookingCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+  background: var(--colors-base-white);
+  border: 1px solid var(--colors-neutral-200);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+}
+
+.locationType {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  min-width: 0;
+}
+
+.locationIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--colors-primary-sa-flag-50);
+}
+
+.locationName {
+  font-weight: 500;
+  color: var(--colors-neutral-700);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.testName {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--colors-neutral-900);
+  line-height: 1.4;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: 14px;
+  color: var(--colors-neutral-600);
+}
+
+.metaIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.metaIcon svg,
+.metaIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.metaLabel {
+  color: var(--colors-neutral-500);
+  flex-shrink: 0;
+}
+
+.metaValue {
+  color: var(--colors-neutral-800);
+  font-weight: 500;
+  margin-inline-start: auto;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  margin-block-start: auto;
+}
+
+@media (max-width: 480px) {
+  .cardFooter {
+    flex-direction: column;
+  }
+
+  .cardFooter > * {
+    width: 100%;
+  }
+}
+
+/* ---------------------------------------------------------
+   Empty state
+   --------------------------------------------------------- */
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  text-align: center;
+  padding: var(--spacing-12) var(--spacing-6);
+  background: var(--colors-base-white);
+  border: 1px solid var(--colors-neutral-200);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.emptyIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-full);
+  background: var(--colors-primary-sa-flag-50);
+}
+
+.emptyTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--colors-neutral-900);
+}
+
+.emptyDescription {
+  font-size: 16px;
+  color: var(--colors-neutral-600);
+  max-width: 480px;
+}
+
+/* ---------------------------------------------------------
+   Shared modal shell (hashed, used by cancellation modals)
+   --------------------------------------------------------- */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-4);
+  background: var(--colors-alpha-alpha-black-50);
+}
+
+.modalMain {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 720px;
+  max-height: 90vh;
+  overflow: hidden;
+  background: var(--colors-base-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-2xl);
+}
+
+.modalMainNarrow {
+  max-width: 480px;
+}
+
+.modalMainWide {
+  max-width: 1400px;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  padding: var(--spacing-6);
+  border-bottom: 1px solid var(--colors-neutral-200);
+}
+
+.modalTitleWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  flex: 1;
+  min-width: 0;
+}
+
+.modalTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--colors-neutral-900);
+  line-height: 1.4;
+}
+
+.modalSubtitle {
+  font-size: 14px;
+  color: var(--colors-neutral-500);
+}
+
+.modalClose {
+  flex-shrink: 0;
+}
+
+.modalBody {
+  padding: var(--spacing-6);
+  overflow-y: auto;
+}
+
+.modalBodyFlush {
+  padding: 0;
+}
+
+.modalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-3);
+  padding: var(--spacing-6);
+  border-top: 1px solid var(--colors-neutral-200);
+}
+
+@media (max-width: 480px) {
+  .modalFooter {
+    flex-direction: column;
+  }
+
+  .modalFooter > * {
+    width: 100%;
+  }
+}
+
+/* ---------------------------------------------------------
+   Cancellation summary grid
+   --------------------------------------------------------- */
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-4);
+}
+
+@media (max-width: 768px) {
+  .summaryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.summaryItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  padding: var(--spacing-3);
+  background: var(--colors-neutral-50);
+  border-radius: var(--radius-sm);
+}
+
+.summaryLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--colors-neutral-500);
+  letter-spacing: 0.02em;
+}
+
+.summaryValue {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--colors-neutral-800);
+  line-height: 1.4;
+}
+
+.messageText {
+  font-size: 16px;
+  color: var(--colors-neutral-700);
+  line-height: 1.6;
+}
+
+/* ---------------------------------------------------------
+   Test details modal (legacy class names kept for print)
+   --------------------------------------------------------- */
+
+.testDetailsScope {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-4);
+  background: var(--colors-alpha-alpha-black-50);
+}
+
+.testDetailsScope :global(.modal-main) {
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow: hidden;
+  background: var(--colors-base-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-2xl);
+  display: flex;
+  flex-direction: column;
+}
+
+.testDetailsScope :global(.modal-header) {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  padding: var(--spacing-6);
+  border-bottom: 1px solid var(--colors-neutral-200);
+}
+
+.testDetailsScope :global(.modal-hd) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  flex: 1;
+  min-width: 0;
+}
+
+.testDetailsScope :global(.modal-hd span) {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--colors-neutral-900);
+}
+
+.testDetailsScope :global(.modal-hd p) {
+  font-size: 14px;
+  color: var(--colors-neutral-500);
+  margin: 0;
+}
+
+.testDetailsScope :global(.modal-cls) {
+  flex-shrink: 0;
+}
+
+.testDetailsScope :global(.modal-cnt-area) {
+  padding: var(--spacing-6);
+  overflow-y: auto;
+}
+
+.testDetailsScope :global(.modal-btn) {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-3);
+  padding: var(--spacing-6);
+  border-top: 1px solid var(--colors-neutral-200);
+}
+
+@media (max-width: 480px) {
+  .testDetailsScope :global(.modal-btn) {
+    flex-direction: column;
+  }
+
+  .testDetailsScope :global(.modal-btn) > * {
+    width: 100%;
+  }
+}
+
+.testDetailsScope :global(.test-details-info-section) {
+  display: flex;
+  gap: var(--spacing-4);
+  padding-bottom: var(--spacing-5);
+  margin-bottom: var(--spacing-5);
+  border-bottom: 1px solid var(--colors-neutral-200);
+}
+
+@media (max-width: 640px) {
+  .testDetailsScope :global(.test-details-info-section) {
+    flex-direction: column;
+  }
+}
+
+.testDetailsScope :global(.test-details-info-item) {
+  flex: 1;
+}
+
+.testDetailsScope :global(.test-details-label) {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--colors-primary-sa-flag-600-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.testDetailsScope :global(.test-details-value) {
+  font-size: 16px;
+  color: var(--colors-neutral-700);
+}
+
+.testDetailsScope :global(.test-details-credentials-section) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  padding: var(--spacing-6);
+  background: var(--colors-neutral-50);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-6);
+}
+
+.testDetailsScope :global(.test-details-credentials-row) {
+  display: flex;
+  gap: var(--spacing-4);
+}
+
+@media (max-width: 640px) {
+  .testDetailsScope :global(.test-details-credentials-row) {
+    flex-direction: column;
+  }
+}
+
+.testDetailsScope :global(.test-details-credential-value-container) {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.testDetailsScope :global(.test-details-credential-value) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  min-width: 0;
+  padding: var(--spacing-3) var(--spacing-4);
+  background: var(--colors-base-white);
+  border: 1px solid var(--colors-neutral-200);
+  border-radius: var(--radius-sm);
+}
+
+.testDetailsScope :global(.test-details-credential-value) span {
+  font-size: 16px;
+  color: var(--colors-neutral-800);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.testDetailsScope :global(.test-details-instructions-section) {
+  margin-bottom: var(--spacing-4);
+}
+
+.testDetailsScope :global(.test-details-instructions-title) {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--colors-neutral-800);
+  margin-bottom: var(--spacing-4);
+}
+
+.testDetailsScope :global(.test-details-instructions-list) {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-3) var(--spacing-4);
+}
+
+@media (max-width: 640px) {
+  .testDetailsScope :global(.test-details-instructions-list) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.testDetailsScope :global(.test-details-instructions-list) li {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: 14px;
+  color: var(--colors-neutral-600);
+  line-height: 1.5;
+}
+
+.testDetailsScope :global(.test-details-instructions-list) li img {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------
+   Booking slot cards (used inside delay modal)
+   --------------------------------------------------------- */
+
+.bookingSlotsComparison {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  flex-wrap: wrap;
+  padding: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+
+.bookingSlotsArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--colors-primary-sa-flag-600-primary);
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .bookingSlotsComparison {
+    flex-direction: column;
+  }
+
+  .bookingSlotsArrow {
+    transform: rotate(90deg);
+  }
+}
+
+/* Ensure the reschedule calendar fits inside the modal */
+.delayModalBody :global(.test-booking-wrapper) {
+  padding: var(--spacing-4);
+  gap: var(--spacing-4);
+}
+
+@media (max-width: 991px) {
+  .delayModalBody :global(.test-booking-wrapper) {
+    flex-direction: column;
+  }
+}

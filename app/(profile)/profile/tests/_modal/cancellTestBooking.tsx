@@ -1,7 +1,9 @@
 "use client";
 
-import Image from "next/image";
+import Button from "@/app/components/button/Button";
+import ModalShell from "./ModalShell";
 import { t } from "@/app/_lib/translationContext";
+import styles from "../tests.module.css";
 import type {
   TestBooking,
   TranslationDict,
@@ -142,97 +144,77 @@ export default function CancellTestBooking({
     }
   };
 
+  const summaryItems = [
+    {
+      label: t("hamza-card-payment-name-form", translations),
+      value: fullNameDisplay || "-",
+    },
+    {
+      label: t("hamza-email-id-form", translations),
+      value: emailId || "-",
+    },
+    {
+      label: t("hamza-phone-number-form", translations),
+      value: phoneNumber || "-",
+    },
+    {
+      label: "مكان الاختبار",
+      value: "في الموقع",
+    },
+    {
+      label: t("hamza-home-page-map-test-type-title-form", translations),
+      value: testTypeName,
+    },
+    {
+      label: t("hamza-test-price-form", translations),
+      value: `0 ${t("hamza-sar", translations)}`,
+    },
+    {
+      label: t("hamza-test-date-form", translations),
+      value: testDate,
+    },
+    {
+      label: t("hamza-test-time--slot-form", translations),
+      value: timeSlot,
+    },
+    {
+      label: t("hamza-total-form", translations),
+      value: `0 ${t("hamza-sar", translations)}`,
+    },
+  ];
+
   return (
-    <div id="profile-modal-popup3" className="modal-overlay">
-      <div className="modal-main cancell-test-booking-modal">
-        <div className="modal-header">
-          <div className="modal-hd">
-            <span>{t("hamza-test-summary", translations)}</span>
-            <p>{testTypeName}</p>
+    <ModalShell
+      id="profile-modal-popup3"
+      title={t("hamza-test-summary", translations) || "Test Summary"}
+      subtitle={testTypeName}
+      onClose={onHandleCloseModal}
+      closeAriaLabel={t("hamza-close", translations) || "Close"}
+      footer={
+        <>
+          <Button
+            label={t("hamza-cancel", translations) || "Close"}
+            variant="secondary-outline"
+            size="md"
+            onClick={onHandleCloseModal}
+          />
+          <Button
+            label={t("hamza-cancel-the-test", translations) || "Cancel the test"}
+            variant="primary-brand"
+            size="md"
+            onClick={handleCancelBooking}
+          />
+        </>
+      }
+    >
+      <div className={styles.summaryGrid}>
+        {summaryItems.map((item, index) => (
+          <div key={index} className={styles.summaryItem}>
+            <div className={styles.summaryLabel}>{item.label}</div>
+            <div className={styles.summaryValue}>{item.value}</div>
           </div>
-          <div className="modal-cls">
-            <span onClick={onHandleCloseModal} className="close-modal">
-              <Image
-                src="/profile/close-icon.svg"
-                alt={t("hamza-close", translations) || "Close"}
-                width={20}
-                height={20}
-              />
-            </span>
-          </div>
-        </div>
-        <div className="modal-cnt-area">
-          <div className="test-summary-detail">
-            <ul className="summary-three-col">
-              <li>
-                <div className="summary-label">
-                  {t("hamza-card-payment-name-form", translations)}
-                </div>
-                <div className="summary-cnt">{fullNameDisplay || "-"}</div>
-              </li>
-              <li>
-                <div className="summary-label">
-                  {t("hamza-email-id-form", translations)}
-                </div>
-                <div className="summary-cnt">{emailId || "-"}</div>
-              </li>
-              <li>
-                <div className="summary-label">
-                  {t("hamza-phone-number-form", translations)}
-                </div>
-                <div className="summary-cnt">{phoneNumber || "-"}</div>
-              </li>
-              <li>
-                <div className="summary-label">مكان الاختبار</div>
-                <div className="summary-cnt">في الموقع</div>
-              </li>
-              <li>
-                <div className="summary-label">
-                  {t("hamza-home-page-map-test-type-title-form", translations)}
-                </div>
-                <div className="summary-cnt">{testTypeName}</div>
-              </li>
-              <li>
-                <div className="summary-label">
-                  {t("hamza-test-price-form", translations)}
-                </div>
-                <div className="summary-cnt">
-                  0 {t("hamza-sar", translations)}
-                </div>
-              </li>
-              <li>
-                <div className="summary-label">
-                  {t("hamza-test-date-form", translations)}
-                </div>
-                <div className="summary-cnt">{testDate}</div>
-              </li>
-              <li>
-                <div className="summary-label">
-                  {t("hamza-test-time--slot-form", translations)}
-                </div>
-                <div className="summary-cnt">{timeSlot}</div>
-              </li>
-              <li>
-                <div className="summary-label">
-                  {t("hamza-total-form", translations)}
-                </div>
-                <div className="summary-cnt">
-                  0 {t("hamza-sar", translations)}
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="modal-btn text-left">
-          <span className="cmn-btn-green" onClick={handleCancelBooking}>
-            {t("hamza-cancel-the-test", translations)}
-          </span>{" "}
-          &nbsp;{" "}
-          <span className="cmn-outline-btn-bold" onClick={onHandleCloseModal}>
-            {t("hamza-cancel", translations)}
-          </span>
-        </div>
+        ))}
       </div>
-    </div>
+    </ModalShell>
   );
 }

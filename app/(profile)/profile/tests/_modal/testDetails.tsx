@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import { useRef } from "react";
+import Button from "@/app/components/button/Button";
 import { t } from "@/app/_lib/translationContext";
+import styles from "../tests.module.css";
 import type { TestBooking, TranslationDict } from "@/app/_lib/booking-types";
 
 interface TestDetailsProps {
@@ -317,7 +319,10 @@ export default function TestDetails({
   };
 
   return (
-    <div id="profile-modal-popup-test-details" className="modal-overlay">
+    <div
+      id="profile-modal-popup-test-details"
+      className={`${styles.testDetailsScope} modal-overlay`}
+    >
       <div className="modal-main test-details-modal" ref={modalRef}>
         <div className="modal-header">
           <div className="modal-hd">
@@ -325,14 +330,14 @@ export default function TestDetails({
             <p>{testName}</p>
           </div>
           <div className="modal-cls">
-            <span onClick={onHandleCloseModal} className="close-modal">
-              <Image
-                src="/profile/close-icon.svg"
-                alt={t("hamza-close", translations) || "Close"}
-                width={20}
-                height={20}
-              />
-            </span>
+            <Button
+              iconOnly
+              icon="cancel-01"
+              ariaLabel={t("hamza-close", translations) || "Close"}
+              variant="close"
+              size="md"
+              onClick={onHandleCloseModal}
+            />
           </div>
         </div>
 
@@ -501,9 +506,14 @@ export default function TestDetails({
         </div>
 
         <div className="modal-btn text-left">
-          <span className="cmn-btn-green" onClick={handlePrint}>
-            {t("hamza-print", translations) || "Print"}
-          </span>
+          <Button
+            label={t("hamza-print", translations) || "Print"}
+            variant="primary-brand"
+            size="md"
+            icon="printer"
+            iconPosition="right"
+            onClick={handlePrint}
+          />
         </div>
       </div>
     </div>

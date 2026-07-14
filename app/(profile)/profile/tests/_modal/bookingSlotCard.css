@@ -8,7 +8,8 @@
 }
 
 .booking-slot-card {
-  background-color: #f8f8f8;
+  background-color: var(--colors-neutral-50);
+  border: 1px solid var(--colors-neutral-200);
   border-radius: 12px;
   padding: 10px 12px;
   min-width: 280px;
@@ -18,11 +19,13 @@
 }
 
 .booking-slot-card.active {
-  /* Active state - dark green text */
+  background-color: var(--colors-primary-sa-flag-50);
+  border-color: var(--colors-primary-sa-flag-200);
 }
 
 .booking-slot-card.disabled {
-  /* Disabled state - light gray text */
+  background-color: var(--colors-neutral-100);
+  border-color: var(--colors-neutral-200);
 }
 
 .booking-slot-content {
@@ -49,23 +52,23 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 1.4;
-  color: #378a66;
+  color: var(--colors-primary-sa-flag-600-primary);
 }
 
 .booking-slot-card.disabled .booking-slot-date {
-  color: #c2c2c2;
+  color: var(--colors-neutral-400);
 }
 
 .booking-slot-test-name {
   font-size: 24px;
   font-weight: bold;
   line-height: 1.4;
-  color: #378a66;
+  color: var(--colors-primary-sa-flag-600-primary);
   margin: 4px 0;
 }
 
 .booking-slot-card.disabled .booking-slot-test-name {
-  color: #c2c2c2;
+  color: var(--colors-neutral-400);
   font-weight: 500;
 }
 
@@ -73,29 +76,29 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 1.4;
-  color: #378a66;
+  color: var(--colors-primary-sa-flag-600-primary);
 }
 
 .booking-slot-card.disabled .booking-slot-mechanism {
-  color: #c2c2c2;
+  color: var(--colors-neutral-400);
 }
 
 .booking-slot-time {
   font-size: 18px;
   font-weight: 500;
   line-height: 1.4;
-  color: #378a66;
+  color: var(--colors-primary-sa-flag-600-primary);
 }
 
 .booking-slot-card.disabled .booking-slot-time {
-  color: #c2c2c2;
+  color: var(--colors-neutral-400);
 }
 
 .booking-slots-arrow {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #378a66;
+  color: var(--colors-primary-sa-flag-600-primary);
   flex-shrink: 0;
   width: 40px;
   height: 40px;

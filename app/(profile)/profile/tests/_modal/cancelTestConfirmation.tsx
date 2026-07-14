@@ -1,5 +1,9 @@
-import Image from "next/image";
+"use client";
+
+import Button from "@/app/components/button/Button";
+import ModalShell from "./ModalShell";
 import { t } from "@/app/_lib/translationContext";
+import styles from "../tests.module.css";
 import type { TranslationDict } from "@/app/_lib/booking-types";
 
 interface CancelTestConfirmationProps {
@@ -19,35 +23,25 @@ export default function CancelTestConfirmation({
   };
 
   return (
-    <div id="profile-modal-popup2" className="modal-overlay">
-      <div className="modal-main">
-        <div className="modal-header">
-          <div className="modal-hd">
-            <span>{t("hamza-cancel-the-test", translations)}</span>
-            <p>{testTypeName}</p>
-          </div>
-          <div className="modal-cls">
-            <span onClick={handleCloseAndRefresh} className="close-modal">
-              <Image
-                src="/profile/close-icon.svg"
-                alt={t("hamza-close", translations) || "Close"}
-                width={20}
-                height={20}
-              />
-            </span>
-          </div>
-        </div>
-        <div className="modal-cnt-area">
-          <div className="test-summary-detail">
-            <p>{t("hamza-delete-test-confirmation-message", translations)}</p>
-          </div>
-        </div>
-        <div className="modal-btn text-left">
-          <span className="cmn-btn-green" onClick={handleCloseAndRefresh}>
-            {t("hamza-okay", translations)}
-          </span>
-        </div>
-      </div>
-    </div>
+    <ModalShell
+      id="profile-modal-popup2"
+      title={t("hamza-cancel-the-test", translations) || "Cancel the test"}
+      subtitle={testTypeName || undefined}
+      onClose={handleCloseAndRefresh}
+      closeAriaLabel={t("hamza-close", translations) || "Close"}
+      size="narrow"
+      footer={
+        <Button
+          label={t("hamza-okay", translations) || "OK"}
+          variant="primary-brand"
+          size="md"
+          onClick={handleCloseAndRefresh}
+        />
+      }
+    >
+      <p className={styles.messageText}>
+        {t("hamza-delete-test-confirmation-message", translations)}
+      </p>
+    </ModalShell>
   );
 }

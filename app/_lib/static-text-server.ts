@@ -1584,6 +1584,29 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
       en: "Continued use of the platform after modifications are posted constitutes implicit acceptance of the updated terms.",
     },
   },
+
+  profileTests: {
+    metaTitle: { ar: "اختباراتي", en: "My Tests" },
+    heroTitle: { ar: "اختباراتي", en: "My Tests" },
+    breadcrumbHome: { ar: "الرئيسة", en: "Home" },
+    breadcrumbProfile: { ar: "الملف الشخصي", en: "Profile" },
+    breadcrumbTests: { ar: "الاختبارات", en: "Tests" },
+    sectionRemote: { ar: "اختبارات عن بُعد", en: "Remote Tests" },
+    sectionInPerson: { ar: "اختبارات في المراكز", en: "In-Person Tests" },
+    statusScheduled: { ar: "مجدول", en: "Scheduled" },
+    statusCompleted: { ar: "مكتمل", en: "Completed" },
+    statusCancelled: { ar: "ملغى", en: "Cancelled" },
+    labelTestType: { ar: "نوع الاختبار", en: "Test Type" },
+    labelTestDate: { ar: "تاريخ الاختبار", en: "Test Date" },
+    labelTimeSlot: { ar: "الفترة الزمنية", en: "Time Slot" },
+    labelTestLocation: { ar: "مكان الاختبار", en: "Test Location" },
+    actionCancel: { ar: "إلغاء", en: "Cancel" },
+    actionDelay: { ar: "تأجيل", en: "Delay" },
+    actionTestDetails: { ar: "تفاصيل الاختبار", en: "Test Details" },
+    actionBrowseTests: { ar: "استعراض مراكز الاختبار", en: "Browse Test Centers" },
+    emptyStateTitle: { ar: "لا توجد اختبارات مسجلة", en: "No registered tests" },
+    emptyStateDescription: { ar: "لم تقم بتسجيل أي اختبار بعد. يمكنك استعراض مراكز الاختبار والتسجيل الآن.", en: "You haven't registered for any tests yet. Browse test centers and register now." },
+  },
 };
 
 /**
