@@ -561,14 +561,100 @@
   }
 }
 
-/* Ensure the reschedule calendar fits inside the modal */
-.delayModalBody :global(.test-booking-wrapper) {
-  padding: var(--spacing-4);
-  gap: var(--spacing-4);
+/* ---------------------------------------------------------
+   Delay / reschedule modal layout
+   --------------------------------------------------------- */
+
+.delayModalBody {
+  container-type: inline-size;
 }
 
-@media (max-width: 991px) {
-  .delayModalBody :global(.test-booking-wrapper) {
+.delayModalBody :global(.test-booking-wrapper) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+  gap: var(--spacing-4);
+  padding: var(--spacing-4);
+}
+
+.delayModalBody :global(.calendar-wrapper),
+.delayModalBody :global(.timeslot-wrapper),
+.delayModalBody :global(.appointment-details-wrapper) {
+  flex: 1 1 100%;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Remove the old modal scale hack from the time-slot panel */
+.delayModalBody :global(.timeslot-modal) {
+  width: 100% !important;
+  transform: none !important;
+  transform-origin: unset !important;
+  padding: var(--spacing-4) !important;
+}
+
+/* Let the appointment panel shrink on small screens */
+.delayModalBody :global(.appointment-modal) {
+  min-width: auto !important;
+  flex: 1 1 100% !important;
+  width: 100% !important;
+  padding: var(--spacing-5) !important;
+}
+
+/* Tablet: calendar on top, time slot + appointment side-by-side */
+@container (min-width: 768px) {
+  .delayModalBody :global(.calendar-wrapper) {
+    flex: 1 1 100%;
+  }
+
+  .delayModalBody :global(.timeslot-wrapper),
+  .delayModalBody :global(.appointment-details-wrapper) {
+    flex: 1 1 calc(50% - var(--spacing-2));
+  }
+}
+
+/* Desktop: all three columns side-by-side */
+@container (min-width: 1200px) {
+  .delayModalBody :global(.calendar-wrapper),
+  .delayModalBody :global(.timeslot-wrapper),
+  .delayModalBody :global(.appointment-details-wrapper) {
+    flex: 1 1 0;
+  }
+}
+
+/* Tighter typography inside the modal */
+.delayModalBody :global(.timeslot-title) {
+  font-size: 22px;
+  margin: 0 0 var(--spacing-4) 0;
+}
+
+.delayModalBody :global(.timeslot-item) {
+  width: 100%;
+  font-size: 18px;
+  padding: var(--spacing-3);
+}
+
+.delayModalBody :global(.appointment-title) {
+  font-size: 20px;
+}
+
+.delayModalBody :global(.info-value) {
+  font-size: 18px;
+}
+
+/* Stack action buttons on very narrow screens */
+@media (max-width: 480px) {
+  .delayModalBody :global(.appointment-actions) {
     flex-direction: column;
+  }
+
+  .delayModalBody :global(.calendar-wrapper .rdp-caption_label) {
+    font-size: 20px;
+  }
+
+  .delayModalBody :global(.calendar-wrapper .rdp-day) {
+    font-size: 16px;
   }
 }
