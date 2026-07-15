@@ -624,7 +624,7 @@ export default function TestBookingView({
         </div>
         <div
           ref={timeSlotRef}
-          className={isModal ? "timeslot-modal" : ""}
+          className={isModal ? "timeslot-col-modal" : ""}
           style={{
             height: syncedHeight,
             transition: "height 0.3s ease",
@@ -656,7 +656,7 @@ export default function TestBookingView({
         </div>
         <div
           ref={appointmentDetailsRef}
-          className={isModal ? "appointment-modal" : ""}
+          className={isModal ? "appointment-col-modal" : ""}
           style={{
             height: syncedHeight,
             transition: "height 0.3s ease",

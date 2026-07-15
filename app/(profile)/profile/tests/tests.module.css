@@ -210,7 +210,8 @@
 }
 
 .modalMainWide {
-  max-width: 1400px;
+  max-width: 1240px;
+  max-height: 92vh;
 }
 
 .modalHeader {
@@ -531,14 +532,15 @@
    Booking slot cards (used inside delay modal)
    --------------------------------------------------------- */
 
+/* Stacked by default (narrow modal); switches to a row via container query */
 .bookingSlotsComparison {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-4);
-  flex-wrap: wrap;
-  padding: var(--spacing-4);
-  margin-bottom: var(--spacing-4);
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-3);
+  padding-block-end: var(--spacing-4);
+  margin-block-end: var(--spacing-4);
+  border-bottom: 1px solid var(--colors-neutral-200);
 }
 
 .bookingSlotsArrow {
@@ -549,15 +551,30 @@
   height: 40px;
   color: var(--colors-primary-sa-flag-600-primary);
   flex-shrink: 0;
+  align-self: center;
+  /* Point the arrow downwards while the cards are stacked */
+  transform: rotate(90deg);
 }
 
-@media (max-width: 768px) {
+:global([dir="rtl"]) .bookingSlotsArrow {
+  transform: rotate(-90deg);
+}
+
+@container (min-width: 640px) {
   .bookingSlotsComparison {
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 
-  .bookingSlotsArrow {
-    transform: rotate(90deg);
+  .bookingSlotsComparison :global(.booking-slot-card) {
+    flex: 1 1 0;
+    max-width: 380px;
+  }
+
+  .bookingSlotsArrow,
+  :global([dir="rtl"]) .bookingSlotsArrow {
+    transform: none;
   }
 }
 
@@ -569,73 +586,44 @@
   container-type: inline-size;
 }
 
+@media (max-width: 640px) {
+  .delayModalBody {
+    padding: var(--spacing-4);
+  }
+}
+
 .delayModalBody :global(.test-booking-wrapper) {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  justify-content: center;
   gap: var(--spacing-4);
+}
+
+/* Mobile-first: each panel takes the full row.
+   The flex children here are the column divs rendered by TestBookingView
+   (.calendar-wrapper, .timeslot-col-modal, .appointment-col-modal). */
+.delayModalBody :global(.test-booking-wrapper) > * {
+  flex: 1 1 100%;
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Calendar gets the same card treatment as the other panels */
+.delayModalBody :global(.test-booking-wrapper) > :global(.calendar-wrapper) {
+  background: var(--colors-base-white);
+  border: 1px solid var(--colors-neutral-200);
+  border-radius: var(--radius-md);
   padding: var(--spacing-4);
 }
 
-.delayModalBody :global(.calendar-wrapper),
-.delayModalBody :global(.timeslot-wrapper),
+/* Inner panels fill their height-synced columns */
 .delayModalBody :global(.appointment-details-wrapper) {
-  flex: 1 1 100%;
-  min-width: 0;
-  max-width: 100%;
-  width: 100%;
-}
-
-/* Remove the old modal scale hack from the time-slot panel */
-.delayModalBody :global(.timeslot-modal) {
-  width: 100% !important;
-  transform: none !important;
-  transform-origin: unset !important;
-  padding: var(--spacing-4) !important;
-}
-
-/* Let the appointment panel shrink on small screens */
-.delayModalBody :global(.appointment-modal) {
-  min-width: auto !important;
-  flex: 1 1 100% !important;
-  width: 100% !important;
-  padding: var(--spacing-5) !important;
-}
-
-/* Tablet: calendar on top, time slot + appointment side-by-side */
-@container (min-width: 768px) {
-  .delayModalBody :global(.calendar-wrapper) {
-    flex: 1 1 100%;
-  }
-
-  .delayModalBody :global(.timeslot-wrapper),
-  .delayModalBody :global(.appointment-details-wrapper) {
-    flex: 1 1 calc(50% - var(--spacing-2));
-  }
-}
-
-/* Desktop: all three columns side-by-side */
-@container (min-width: 1200px) {
-  .delayModalBody :global(.calendar-wrapper),
-  .delayModalBody :global(.timeslot-wrapper),
-  .delayModalBody :global(.appointment-details-wrapper) {
-    flex: 1 1 0;
-  }
+  height: 100%;
+  padding: var(--spacing-5);
 }
 
 /* Tighter typography inside the modal */
-.delayModalBody :global(.timeslot-title) {
-  font-size: 22px;
-  margin: 0 0 var(--spacing-4) 0;
-}
-
-.delayModalBody :global(.timeslot-item) {
-  width: 100%;
-  font-size: 18px;
-  padding: var(--spacing-3);
-}
-
 .delayModalBody :global(.appointment-title) {
   font-size: 20px;
 }
@@ -644,8 +632,34 @@
   font-size: 18px;
 }
 
-/* Stack action buttons on very narrow screens */
-@media (max-width: 480px) {
+/* Tablet: calendar on top, time slot + appointment side-by-side */
+@container (min-width: 700px) {
+  .delayModalBody :global(.test-booking-wrapper) > :global(.timeslot-col-modal) {
+    flex: 1 1 calc(45% - var(--spacing-2));
+  }
+
+  .delayModalBody :global(.test-booking-wrapper) > :global(.appointment-col-modal) {
+    flex: 1 1 calc(55% - var(--spacing-2));
+  }
+}
+
+/* Desktop: all three columns side-by-side */
+@container (min-width: 1060px) {
+  .delayModalBody :global(.test-booking-wrapper) > :global(.calendar-wrapper) {
+    flex: 1.5 1 0;
+  }
+
+  .delayModalBody :global(.test-booking-wrapper) > :global(.timeslot-col-modal) {
+    flex: 1 1 0;
+  }
+
+  .delayModalBody :global(.test-booking-wrapper) > :global(.appointment-col-modal) {
+    flex: 1.2 1 0;
+  }
+}
+
+/* Narrow modal: stack action buttons and shrink the calendar type */
+@container (max-width: 480px) {
   .delayModalBody :global(.appointment-actions) {
     flex-direction: column;
   }

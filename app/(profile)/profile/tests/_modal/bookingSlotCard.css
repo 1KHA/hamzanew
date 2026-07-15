@@ -1,20 +1,11 @@
-/* Booking Slot Card Styles */
-.booking-slots-comparison {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  flex-wrap: wrap;
-}
-
+/* Booking Slot Card Styles (sizing/stacking handled by tests.module.css) */
 .booking-slot-card {
   background-color: var(--colors-neutral-50);
   border: 1px solid var(--colors-neutral-200);
   border-radius: 12px;
-  padding: 10px 12px;
-  min-width: 280px;
-  max-width: 320px;
-  flex: 0 0 auto;
+  padding: 12px 16px;
+  width: 100%;
+  min-width: 0;
   transition: all 0.3s ease;
 }
 
@@ -32,12 +23,12 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 20px;
-  position: relative;
+  gap: 16px;
 }
 
 .booking-slot-right {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
 }
@@ -46,10 +37,11 @@
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
+  flex-shrink: 0;
 }
 
 .booking-slot-date {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 1.4;
   color: var(--colors-primary-sa-flag-600-primary);
@@ -60,11 +52,14 @@
 }
 
 .booking-slot-test-name {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 700;
   line-height: 1.4;
   color: var(--colors-primary-sa-flag-600-primary);
   margin: 4px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .booking-slot-card.disabled .booking-slot-test-name {
@@ -73,7 +68,7 @@
 }
 
 .booking-slot-mechanism {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.4;
   color: var(--colors-primary-sa-flag-600-primary);
@@ -84,43 +79,13 @@
 }
 
 .booking-slot-time {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.4;
   color: var(--colors-primary-sa-flag-600-primary);
+  white-space: nowrap;
 }
 
 .booking-slot-card.disabled .booking-slot-time {
   color: var(--colors-neutral-400);
-}
-
-.booking-slots-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--colors-primary-sa-flag-600-primary);
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-}
-
-.booking-slots-arrow svg {
-  width: 24px;
-  height: 24px;
-}
-
-/* Responsive adjustments */
-@media screen and (max-width: 768px) {
-  .booking-slots-comparison {
-    flex-direction: column;
-  }
-
-  .booking-slots-arrow {
-    transform: rotate(90deg);
-  }
-
-  .booking-slot-card {
-    min-width: 100%;
-    max-width: 100%;
-  }
 }

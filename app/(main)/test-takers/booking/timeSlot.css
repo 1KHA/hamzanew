@@ -135,25 +135,24 @@
   }
 }
 
-/* Modal size reduction styles */
+/* Compact styles when rendered inside the reschedule modal */
 .timeslot-modal {
-  width: 280px !important;
-  padding: 15px !important;
-  transform: scale(0.9);
-  transform-origin: top left;
+  width: 100%;
+  padding: 16px;
 }
 
 .timeslot-modal .timeslot-title {
-  font-size: 24px !important;
-  margin: 0 0 15px 0 !important;
+  font-size: 20px;
+  margin: 0 0 12px 0;
 }
 
 .timeslot-modal .timeslot-item {
-  font-size: 24px !important;
-  width: 70% !important;
-  padding: 10px !important;
+  font-size: 18px;
+  width: 100%;
+  max-width: 320px;
+  padding: 12px;
 }
 
 .timeslot-modal .timeslot-list {
-  gap: 15px !important;
+  gap: 12px;
 }
