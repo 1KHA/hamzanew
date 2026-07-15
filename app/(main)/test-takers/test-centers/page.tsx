@@ -13,7 +13,6 @@ import {
   addHoursInSaudiTime,
 } from "@/app/_lib/time-utils";
 import { st } from "@/app/_lib/static-text-server";
-import ScrollReveal from "@/app/components/scroll-reveal/ScrollReveal";
 import TestCentersFilter from "./TestCentersFilter";
 import styles from "./TestCenters.module.css";
 import type {
@@ -63,9 +62,8 @@ export default async function TestCentersPage() {
   const cookieStore = await cookies();
   const locale = cookieStore.get("lang")?.value?.startsWith("en") ? "en" : "ar";
   const language = cookieStore.get("lang")?.value || "ar-SA";
-  // CMS header + special-needs footer content
+  // CMS header content
   let testCentersContent = null;
-  let specialNeedsContent = null;
   try {
     testCentersContent = await fetchContentWithKey(
       "TEST_TAKERS_TEST_CENTER_HEADER_CONTENT_KEY"
@@ -77,25 +75,9 @@ export default async function TestCentersPage() {
     );
   }
 
-  try {
-    specialNeedsContent = await fetchContentWithKey(
-      "TEST_TAKERS_TEST_DELIVERY_OPTIONS_SPECIAL_NEEDS_CONTENT_KEY"
-    );
-  } catch (error) {
-    console.error(
-      "[TestCentersPage] Failed to fetch special needs content:",
-      error
-    );
-  }
-
   const testCentersContentFields = extractFields(
     testCentersContent?.contentFields,
     ["titleText", "descriptionText"]
-  ) as Record<string, string>;
-
-  const specialNeedsContentFields = extractFields(
-    specialNeedsContent?.contentFields,
-    ["titleText", "descriptionText", "buttonText"]
   ) as Record<string, string>;
 
   // Fetch test centers
@@ -257,7 +239,6 @@ export default async function TestCentersPage() {
     registrationStatus: st("testTakers", "testCentersRegistrationStatus", locale),
     available: st("testTakers", "testCentersAvailable", locale),
     unavailable: st("testTakers", "testCentersUnavailable", locale),
-    specialNeedsButton: st("testTakers", "testCentersSpecialNeedsButton", locale),
   };
 
   return (
@@ -275,19 +256,6 @@ export default async function TestCentersPage() {
           labels={labels}
         />
 
-        <ScrollReveal direction="up" delay={0.1}>
-          <div className={styles.specialNeedsFooter}>
-            <h2 className={styles.specialNeedsTitle}>
-              {specialNeedsContentFields?.titleText ?? ""}
-            </h2>
-            <p className={styles.specialNeedsDescription}>
-              {specialNeedsContentFields?.descriptionText ?? ""}
-            </p>
-            <button type="button" className={styles.specialNeedsButton}>
-              {specialNeedsContentFields?.buttonText ?? labels.specialNeedsButton}
-            </button>
-          </div>
-        </ScrollReveal>
       </div>
     </div>
   );

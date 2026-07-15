@@ -36,5 +36,4 @@ export type TestCentersLabels = {
   registrationStatus: string;
   available: string;
   unavailable: string;
-  specialNeedsButton: string;
 };
