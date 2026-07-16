@@ -29,12 +29,19 @@ const makeApiCallWithRetry = async (url, options, isRetry = false) => {
   return res;
 };
 
-export async function fetchTestCenters() {
+/**
+ * @param {string | null | undefined} [filter]
+ * @returns {Promise<Record<string, unknown>>}
+ */
+export async function fetchTestCenters(filter = null) {
   if (!process.env.BASE_URL) {
     throw new Error("BASE_URL environment variable is not set");
   }
 
-  const serviceUrl = `${process.env.BASE_URL}/o/c/testcenters`;
+  let serviceUrl = `${process.env.BASE_URL}/o/c/testcenters`;
+  if (filter) {
+    serviceUrl += `?filter=${encodeURIComponent(filter)}`;
+  }
   console.log("Fetching test centers from:", serviceUrl);
 
   const accessToken = await getAccessToken();

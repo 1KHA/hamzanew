@@ -96,7 +96,9 @@ export default async function TestCentersPage() {
   // Fetch test centers
   let testCentersMap = new Map<number | string, any>();
   try {
-    const testCentersData = await fetchTestCenters();
+    const testCentersData = (await fetchTestCenters()) as {
+      items?: any[];
+    };
 
     testCentersMap = new Map(
       (testCentersData?.items || []).map((item: any) => {
