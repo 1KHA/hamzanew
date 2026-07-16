@@ -251,9 +251,7 @@ export default function TestCentersFilter({
                           : ""
                       }`}
                     >
-                      {card.testStatus
-                        ? card.testStatus
-                        : card.registationStatus === "available"
+                      {card.registationStatus === "available"
                         ? labels.available
                         : labels.unavailable}
                     </div>

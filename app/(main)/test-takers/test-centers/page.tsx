@@ -30,6 +30,19 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+function formatTestDate(dateString: string, locale: "ar" | "en") {
+  try {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(locale === "ar" ? "ar-SA" : "en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
+  } catch {
+    return "";
+  }
+}
+
 function isTestUnavailable(testDate?: string, startTime?: { key?: string }) {
   if (!testDate) return true;
 
@@ -133,72 +146,156 @@ export default async function TestCentersPage() {
   }
 
   // Build exam cards
-  const processedCombinations = new Set<string>();
   const testCenterIdsWithTests = new Set<number | string>();
-  const examCards: ExamCard[] = [];
+  const combinationMap = new Map<
+    string,
+    {
+      testCenter: any;
+      testCenterId: number | string;
+      typeOfTheTest: string;
+      typeOfTheTestKey: string;
+      hasAvailable: boolean;
+      nearestAvailableTest: any | null;
+      nearestTest: any | null;
+    }
+  >();
 
   for (const test of tests) {
     const testCenterId = test.r_testCenterRelationship_c_testCenterId;
     const typeOfTheTest = test.typeOfTheTest?.name || "";
 
     if (testCenterId && testCentersMap.has(testCenterId)) {
+      testCenterIdsWithTests.add(testCenterId);
       const combinationKey = `${testCenterId}_${typeOfTheTest}`;
+      let agg = combinationMap.get(combinationKey);
+      const testCenter = testCentersMap.get(testCenterId);
 
-      if (!processedCombinations.has(combinationKey)) {
-        processedCombinations.add(combinationKey);
-        testCenterIdsWithTests.add(testCenterId);
-
-        const isUnavailableByDate = isTestUnavailable(
-          test.testDate,
-          test.startTime
-        );
-        const isUnavailableByStatus = test.testStatus?.key !== "Available";
-
-        let isUnavailableByCapacity = false;
-        if (test.id) {
-          try {
-            const filter = `r_testRelationship_c_testId eq '${test.id}'`;
-            const bookings = (await fetchTestBookings(filter)) as {
-              items?: { length?: number }[];
-              totalCount?: number;
-            };
-            const bookingCount =
-              bookings?.items?.length || bookings?.totalCount || 0;
-            const testCenter = testCentersMap.get(testCenterId);
-            const testCapacity =
-              test.capacity || testCenter?.capacity || 0;
-            const capacityNum =
-              typeof testCapacity === "string"
-                ? parseInt(testCapacity, 10)
-                : testCapacity;
-
-            if (capacityNum > 0 && bookingCount >= capacityNum) {
-              isUnavailableByCapacity = true;
-            }
-          } catch (err) {
-            console.error(
-              `[TestCentersPage] Failed to fetch bookings for test ${test.id}:`,
-              err
-            );
-          }
-        }
-
-        const isUnavailable =
-          isUnavailableByDate || isUnavailableByStatus || isUnavailableByCapacity;
-        const testCenter = testCentersMap.get(testCenterId);
-
-        examCards.push({
-          ...testCenter,
-          registationStatus: isUnavailable ? "unavailable" : "available",
+      if (!agg) {
+        agg = {
+          testCenter,
+          testCenterId,
           typeOfTheTest,
           typeOfTheTestKey: test.typeOfTheTest?.key || "",
-          testId: test.id || "",
-          capacity: test.capacity || testCenter?.capacity || "",
-          testStatus: test.testStatus?.name || "",
+          hasAvailable: false,
+          nearestAvailableTest: null,
+          nearestTest: null,
+        };
+        combinationMap.set(combinationKey, agg);
+      }
+
+      const isUnavailableByDate = isTestUnavailable(
+        test.testDate,
+        test.startTime
+      );
+      const isUnavailableByStatus = test.testStatus?.key !== "Available";
+
+      let isUnavailableByCapacity = false;
+      if (test.id) {
+        try {
+          const filter = `r_testRelationship_c_testId eq '${test.id}'`;
+          const bookings = (await fetchTestBookings(filter)) as {
+            items?: { length?: number }[];
+            totalCount?: number;
+          };
+          const bookingCount =
+            bookings?.items?.length || bookings?.totalCount || 0;
+          const testCapacity = test.capacity || testCenter?.capacity || 0;
+          const capacityNum =
+            typeof testCapacity === "string"
+              ? parseInt(testCapacity, 10)
+              : testCapacity;
+
+          if (capacityNum > 0 && bookingCount >= capacityNum) {
+            isUnavailableByCapacity = true;
+          }
+        } catch (err) {
+          console.error(
+            `[TestCentersPage] Failed to fetch bookings for test ${test.id}:`,
+            err
+          );
+        }
+      }
+
+      const isUnavailable =
+        isUnavailableByDate || isUnavailableByStatus || isUnavailableByCapacity;
+      const isAvailable = !isUnavailable;
+
+      // Diagnostic logging for Riyadh / General Test combinations
+      if (testCenter?.location?.includes("الرياض") || typeOfTheTest === "اختبار عام") {
+        console.log("[TestCentersPage] Riyadh/General test slot:", {
+          testId: test.id,
+          testDate: test.testDate,
+          startTime: test.startTime,
+          isUnavailableByDate,
+          isUnavailableByStatus,
+          isUnavailableByCapacity,
+          isAvailable,
+          testCenterId,
+          location: testCenter?.location,
         });
+      }
+
+      const testDateMs = test.testDate
+        ? new Date(test.testDate).getTime()
+        : Infinity;
+
+      if (
+        !agg.nearestTest ||
+        (test.testDate &&
+          testDateMs <
+            (agg.nearestTest.testDate
+              ? new Date(agg.nearestTest.testDate).getTime()
+              : Infinity))
+      ) {
+        agg.nearestTest = test;
+      }
+
+      if (isAvailable) {
+        agg.hasAvailable = true;
+        if (
+          !agg.nearestAvailableTest ||
+          (test.testDate &&
+            testDateMs <
+              (agg.nearestAvailableTest.testDate
+                ? new Date(agg.nearestAvailableTest.testDate).getTime()
+                : Infinity))
+        ) {
+          agg.nearestAvailableTest = test;
+        }
       }
     }
   }
+
+  console.log(
+    "[TestCentersPage] Built combinations:",
+    Array.from(combinationMap.entries()).map(([key, agg]) => ({
+      key,
+      hasAvailable: agg.hasAvailable,
+      nearestTestDate: agg.nearestTest?.testDate,
+      nearestAvailableTestDate: agg.nearestAvailableTest?.testDate,
+    }))
+  );
+
+  const examCards: ExamCard[] = [];
+  combinationMap.forEach((agg) => {
+    const selectedTest = agg.hasAvailable
+      ? agg.nearestAvailableTest
+      : agg.nearestTest;
+    const isUnavailable = !agg.hasAvailable;
+
+    examCards.push({
+      ...agg.testCenter,
+      registationStatus: isUnavailable ? "unavailable" : "available",
+      typeOfTheTest: agg.typeOfTheTest,
+      typeOfTheTestKey: agg.typeOfTheTestKey,
+      testId: selectedTest?.id || "",
+      capacity: selectedTest?.capacity || agg.testCenter?.capacity || "",
+      testStatus: selectedTest?.testStatus?.name || "",
+      date: selectedTest?.testDate
+        ? formatTestDate(selectedTest.testDate, locale)
+        : "",
+    });
+  });
 
   // Add test centers without tests as unavailable
   testCentersMap.forEach((testCenter, testCenterId) => {
@@ -209,6 +306,7 @@ export default async function TestCentersPage() {
         typeOfTheTest: "",
         typeOfTheTestKey: "",
         testStatus: "",
+        date: "",
       });
     }
   });
