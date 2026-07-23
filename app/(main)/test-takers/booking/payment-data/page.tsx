@@ -7,13 +7,9 @@ export default async function Page() {
   return (
     <div id="midd-wrapper">
       <PaymentDataClient />
-      <section className="cmn-section lightgrey-bg screen20-first-section">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <PaymentDataWrapper translations={translations} />
-            </div>
-          </div>
+      <section className="cmn-section lightgrey-bg screen20-first-section w-full">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <PaymentDataWrapper translations={translations} />
         </div>
       </section>
     </div>

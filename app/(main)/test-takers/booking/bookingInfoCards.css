@@ -82,6 +82,8 @@
 .hamza-booking-info-value {
   font-size: 26px;
   font-weight: 600;
+  overflow-wrap: anywhere;
+  min-height: 1.2em;
 }
 
 .hamza-booking-info-footer {
@@ -155,6 +157,20 @@
   transform: scale(0.98);
 }
 
+@media screen and (max-width: 1199.98px) {
+  .hamza-booking-info-card {
+    padding: 24px 20px;
+  }
+
+  .hamza-booking-info-body {
+    padding: 0 10px;
+  }
+
+  .hamza-booking-info-value {
+    font-size: 22px;
+  }
+}
+
 @media screen and (max-width: 991.98px) {
   .hamza-booking-info-wrapper {
     flex-direction: column;
@@ -162,5 +178,21 @@
 
   .hamza-booking-info-card {
     width: 100%;
+    min-height: auto;
+  }
+}
+
+@media screen and (max-width: 575.98px) {
+  .hamza-booking-info-card {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .hamza-booking-info-body {
+    padding: 0;
+  }
+
+  .hamza-booking-info-value {
+    font-size: 18px;
   }
 }
