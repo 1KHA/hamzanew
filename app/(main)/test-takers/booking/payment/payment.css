@@ -8,6 +8,17 @@
   padding: 20px 35px;
 }
 
+/* Two columns: card panel + payment details form */
+.payment-form-wrapper > .card-payment-wrapper {
+  flex: 1 1 40%;
+  min-width: 0;
+}
+
+.payment-form-wrapper > div:last-child {
+  flex: 1 1 60%;
+  min-width: 0;
+}
+
 /* Payment Form Spacer - Used to align fields with multi-row name field */
 /* .payment-form-spacer {
   padding: 12px 15px;
@@ -380,6 +391,35 @@
 }
 
 /* Responsive Design */
+@media screen and (max-width: 1199.98px) {
+  .payment-form-wrapper {
+    flex-direction: column;
+    gap: 25px;
+    padding: 20px;
+  }
+
+  .payment-form-wrapper > .card-payment-wrapper,
+  .payment-form-wrapper > div:last-child {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .payment-form-field,
+  .card-detail-label,
+  .card-detail-input,
+  .payment-form-phone-code,
+  .payment-form-phone-input,
+  .payment-form-currency,
+  .payment-form-buttons {
+    font-size: 24px;
+  }
+
+  .payment-form-field input,
+  .payment-form-input {
+    font-size: 20px;
+  }
+}
+
 @media screen and (max-width: 991.98px) {
   .card-payment-container {
     padding: 30px 20px;
@@ -409,8 +449,31 @@
 }
 
 @media screen and (max-width: 767.98px) {
+  .payment-form-wrapper {
+    padding: 15px;
+    gap: 20px;
+  }
+
   .card-payment-container {
     padding: 25px 15px;
+  }
+
+  .payment-form-grid {
+    grid-template-columns: 1fr;
+    padding: 20px 10px;
+  }
+
+  .payment-form-field,
+  .payment-form-phone-code,
+  .payment-form-currency,
+  .payment-form-buttons {
+    font-size: 20px;
+  }
+
+  .payment-form-field input,
+  .payment-form-input,
+  .payment-form-phone-input {
+    font-size: 18px;
   }
 
   .payment-methods-grid {
