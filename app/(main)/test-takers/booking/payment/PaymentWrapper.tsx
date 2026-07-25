@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import PaymentForm from "./PaymentForm";
-import CardPaymentForm from "./CardPaymentForm";
+// Payment box hidden for now — restore the import and JSX below to bring it back
+// import CardPaymentForm from "./CardPaymentForm";
 import PaymentPageClient from "./PaymentPageClient";
 import type { TranslationDict } from "@/app/_lib/booking-types";
 
@@ -26,7 +27,7 @@ export default function PaymentWrapper({ translations }: PaymentWrapperProps) {
       <div className="row">
         <div className="col-lg-12">
           <div className="payment-form-wrapper">
-            <CardPaymentForm translations={translations} />
+            {/* <CardPaymentForm translations={translations} /> */}
             <PaymentForm
               translations={translations}
               onLoadingChange={setIsFormLoading}
