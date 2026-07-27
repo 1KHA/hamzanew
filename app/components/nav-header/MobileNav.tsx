@@ -9,6 +9,21 @@ import "./MobileNav.css";
 import { t } from "@/app/_lib/translationContext";
 import { st } from "@/app/_lib/static-text";
 
+// Resolve a menu label: try Liferay translations first, then fall back to
+// static-text for "scope.key" format (matching desktop MenuItem.tsx).
+function resolveLabel(key: string, translations?: Record<string, string> | null): string {
+  const translated = t(key, translations);
+  if (translated !== key) return translated;
+  if (key.includes(".")) {
+    const [scope, k] = key.split(".", 2);
+    if (scope && k) {
+      const staticText = st(scope, k);
+      if (staticText !== k) return staticText;
+    }
+  }
+  return key;
+}
+
 // =============================================
 // TYPES
 // =============================================
@@ -49,7 +64,7 @@ interface MobileNavItemProps {
 const MobileNavItem = memo<MobileNavItemProps>(
   ({ item, isActive, isExpanded, onLinkClick, onToggleSubmenu, index, translations }) => {
     const itemClass = `mobile-nav__item${isActive ? " mobile-nav__item--active" : ""}`;
-    const resolvedLabel = t(item.label, translations);
+    const resolvedLabel = resolveLabel(item.label, translations);
 
     // ── Accordion item (has nested submenu) ───────────────────────────────
     if (item.hasSubmenu) {
@@ -101,7 +116,7 @@ const MobileNavItem = memo<MobileNavItemProps>(
                 className="mobile-nav__submenu-column"
               >
                 {/* Column heading */}
-                <div className="mobile-nav__submenu-title">{t(column.title, translations)}</div>
+                <div className="mobile-nav__submenu-title">{resolveLabel(column.title, translations)}</div>
 
                 {/* Submenu links — use href as key for stability */}
                 {column.items.map((subItem) => (
@@ -113,11 +128,11 @@ const MobileNavItem = memo<MobileNavItemProps>(
                   >
                     <Image
                       src={subItem.icon}
-                      alt={`أيقونة ${t(subItem.label, translations)}`}
+                      alt={`أيقونة ${resolveLabel(subItem.label, translations)}`}
                       width={20}
                       height={20}
                     />
-                    <span>{t(subItem.label, translations)}</span>
+                    <span>{resolveLabel(subItem.label, translations)}</span>
                   </Link>
                 ))}
               </div>

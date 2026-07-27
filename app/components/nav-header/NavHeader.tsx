@@ -332,6 +332,7 @@ function NavHeader({ translations, locale }: NavHeaderProps) {
           activeLink={activeLink}
           onLinkClick={handleLinkClick}
           onTranslateClick={handleTranslate}
+          translations={translations}
         />
       )}
 
