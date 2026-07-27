@@ -127,6 +127,10 @@ export default async function RootLayout({
           .custom-banner{width:100%;height:100%;object-fit:cover;display:block}
           .overlay{position:absolute;inset:0;background:linear-gradient(to left,#104f34 10%,transparent 100%);display:flex;align-items:center;justify-content:flex-end}
           [dir="ltr"] .overlay{background:linear-gradient(to right,#104f34 10%,transparent 100%);justify-content:flex-start}
+          @media (max-width:768px){
+            .overlay{background:linear-gradient(to left,rgba(16,79,52,0.3) 5%,rgba(16,79,52,0) 65%)}
+            [dir="ltr"] .overlay{background:linear-gradient(to right,rgba(16,79,52,0.3) 5%,rgba(16,79,52,0) 65%)}
+          }
           .hero{z-index:2;color:#fff;max-width:1280px;text-align:right}
           [dir="ltr"] .hero{text-align:left}
           .hero h1{font-weight:700;margin-bottom:16px}
