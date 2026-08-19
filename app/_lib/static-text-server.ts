@@ -212,7 +212,7 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     nationalityPlaceholder: { ar: "الجنسية", en: "Nationality" },
     globeAlt: { ar: "خريطة العالم", en: "World Map" },
     statCenters: { ar: "مراكز الاختبار", en: "Test Centers" },
-    statNationalities: { ar: "جنسيات", en: "Nationalities" },
+    statNationalities: { ar: "الجنسيات", en: "Nationalities" },
     statCountries: { ar: "دولة", en: "Countries" },
     statTesters: { ar: "مختبرين", en: "Testers" },
     statTotalTestTakers: { ar: "إجمالي المختبرين", en: "Total Test Takers" },
