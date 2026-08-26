@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 // import ClientOnly from "./components/ClientOnly";
 import AuthProvider from "@/lib/utils/AuthProvider";
+import SessionTimeout from "@/app/components/session-timeout/SessionTimeout";
+import { sessionIdleTimeoutMinutes } from "@/lib/session-config";
 import { cookies } from "next/headers";
 import Script from "next/script";
 
@@ -145,6 +147,7 @@ export default async function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col" style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
         <AuthProvider>  {/*manage auth state for user*/}
+          <SessionTimeout timeoutMinutes={sessionIdleTimeoutMinutes()} />
           {children}
         </AuthProvider>
         

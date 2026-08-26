@@ -4,6 +4,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
 
+import {
+  identityNumberErrorKey,
+  isValidIdentityNumber,
+} from "@/lib/identity-number";
 import ProgressIndicator from "@/app/components/progress-indicator/ProgressIndicator";
 import Button from "@/app/components/button/Button";
 import NotificationToast from "@/app/components/notification-toast/NotificationToast";
@@ -129,10 +133,9 @@ function createSignUpSchema(getText: (key: string) => string) {
       nationality: z.string().min(1, getText("nationalityRequired")),
       motherTongue: z.any().refine((val) => val && val.key, getText("motherTongueRequired")),
       identity: z.any().refine((val) => val && val.key, getText("identityRequired")),
-      identityNumber: z
-        .string()
-        .min(1, getText("identityNumberRequired"))
-        .regex(/^\d{1,12}$/, getText("identityNumberDigitsOnly")),
+      // Format depends on the selected identity type — validated in the
+      // object-level refine below, since it needs the `identity` field too.
+      identityNumber: z.string().min(1, getText("identityNumberRequired")),
       identityFile: z
         .any()
         .refine((files) => files?.length > 0, getText("identityFileRequired")),
@@ -157,6 +160,20 @@ function createSignUpSchema(getText: (key: string) => string) {
     .refine((data) => data.password === data.confirmPassword, {
       message: getText("confirmPasswordMismatch"),
       path: ["confirmPassword"],
+    })
+    .superRefine((data, ctx) => {
+      const identityTypeKey = (data.identity as any)?.key;
+
+      if (
+        data.identityNumber &&
+        !isValidIdentityNumber(data.identityNumber, identityTypeKey)
+      ) {
+        ctx.addIssue({
+          code: "custom",
+          message: getText(identityNumberErrorKey(identityTypeKey)),
+          path: ["identityNumber"],
+        });
+      }
     });
 }
 

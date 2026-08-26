@@ -1,9 +1,23 @@
 "use server";
 import { fetchWithAccessToken } from "./token-refresh-service";
 import { getUserAuth } from "./user-token-service";
+import { checkUploadedFile } from "@/lib/upload-policy";
 
 export const signUpUserSevice = async function signUpUserSevice(formData) {
   const serviceUrl = `${process.env.BASE_URL}${process.env.HAMZA_SIGN_UP_API_URL}`;
+
+  // Enforce the upload policy here, not just in the browser — this action is
+  // reachable directly, so the client-side check cannot be relied upon.
+  const uploadedFile = formData.get("file");
+
+  if (uploadedFile) {
+    const check = await checkUploadedFile(uploadedFile);
+
+    if (!check.ok) {
+      console.warn("[signUpUserSevice] rejected upload:", check.message);
+      return { status: "FAIL", message: check.message };
+    }
+  }
 
   const res = await fetchWithAccessToken(serviceUrl, {
     method: "POST",

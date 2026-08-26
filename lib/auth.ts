@@ -1,6 +1,10 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { fetchWithAccessToken } from "@/app/_lib/token-refresh-service";
+import {
+  sessionIdleTimeoutSeconds,
+  sessionUpdateAgeSeconds,
+} from "@/lib/session-config";
 
 const TOKEN_URL = `${process.env.BASE_URL}${process.env.ACCESS_TOKEN_URL}`;
 
@@ -208,6 +212,11 @@ export async function validateUserCredentials(username: string, password: string
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
+    // Idle timeout: the JWT expires this long after the last session read.
+    // NextAuth re-issues it on activity, so an active user is never cut off,
+    // while an abandoned session lapses on its own.
+    maxAge: sessionIdleTimeoutSeconds(),
+    updateAge: sessionUpdateAgeSeconds(),
   },
   providers: [
     CredentialsProvider({
