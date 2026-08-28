@@ -254,6 +254,11 @@ export default async function LandingPage(): Promise<ReactElement> {
         <SubscriptionSection translations={translations} />
       </ScrollReveal>
       */}
+
+      {/* TEMP — remove before merging */}
+      <div className="custom-container text-md-regular" style={{ padding: "24px 0" }}>
+        This is test
+      </div>
     </>
   );
 }
