@@ -251,7 +251,7 @@ export default function PersonalInfo({
           render={({ field }) => (
             <FileUpload
               name="identity-file"
-              fileTypesText="الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وصيغ الملفات المدعومة تشمل jpg, png, pdf."
+              fileTypesText="الحد الأقصى لحجم الملف المسموح به هو 5 ميجابايت، وصيغ الملفات المدعومة تشمل jpg, png, pdf."
               accept=".pdf,.png,.jpg,.jpeg"
               actionName="تصفح الملفات"
               showIcon={false}

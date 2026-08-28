@@ -1,6 +1,7 @@
 import React, { useState, useRef, useId } from "react";
 import "./FileUpload.css";
 import "@/app/styles/Button.css";
+import { ACCEPT_ATTRIBUTE, MAX_UPLOAD_BYTES } from "@/lib/upload-policy";
 
 // --- Icons ---
 const Icon = ({
@@ -134,12 +135,16 @@ export interface FileUploadProps {
 export const FileUpload: React.FC<FileUploadProps> = ({
   id: propId,
   name: propName,
-  accept,
+  accept = ACCEPT_ATTRIBUTE,
   multiple,
   title = " ",
-  fileTypesText = "Maximum file size allowed is 2MB, supported file formats include .jpg, .png, and .pdf.",
+  // Derived from the policy so the stated limit can never drift from the
+  // enforced one.
+  fileTypesText = `Maximum file size allowed is ${Math.round(
+    MAX_UPLOAD_BYTES / 1024 / 1024
+  )}MB, supported file formats include .jpg, .png, and .pdf.`,
   actionName = "Browse Files",
-  maximumFilesSize,
+  maximumFilesSize = MAX_UPLOAD_BYTES,
   disabled = false,
   showIcon = true,
   style,

@@ -7,6 +7,10 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { DgaTabs } from "@/app/components/tabs/DgaTabs";
 import OtpInput from "@/app/components/otp-input/OtpInput";
 import "@/app/(main)/e-participation/(special)/feedback-and-suggestion/feedback-form.css";
+import {
+  identityNumberErrorKey,
+  isValidIdentityNumber,
+} from "@/lib/identity-number";
 import PersonalInfoTab from "../_component/PersonalInfoTab";
 import EducationTab from "../_component/EducationTab";
 import LocationTab from "../_component/LocationTab";
@@ -78,6 +82,20 @@ function createProfileSchema(getText: (key: string) => string) {
     city: z.string().min(1, getText("valCityRequired")),
     postalAddress: z.string().min(1, getText("valPostalAddressRequired")),
     zipCode: z.string().min(1, getText("valZipCodeRequired")),
+  })
+  // Same identity-number rule as sign-up (lib/identity-number) so a value
+  // accepted here could also have been entered at registration.
+  .superRefine((data, ctx) => {
+    if (
+      data.identityNumber &&
+      !isValidIdentityNumber(data.identityNumber, data.identity)
+    ) {
+      ctx.addIssue({
+        code: "custom",
+        message: getText(identityNumberErrorKey(data.identity)),
+        path: ["identityNumber"],
+      });
+    }
   });
 }
 

@@ -52,7 +52,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const auth = await getUserAuth();
-    if (!auth?.accessToken) {
+    if (!auth?.accessToken || auth.error) {
       return NextResponse.json(
         { error: "Unauthorized: user access token is required" },
         { status: 401 }
@@ -106,7 +106,7 @@ export async function PATCH(request: Request) {
     }
 
     const auth = await getUserAuth();
-    if (!auth?.accessToken) {
+    if (!auth?.accessToken || auth.error) {
       return NextResponse.json(
         { error: "Unauthorized: user access token is required" },
         { status: 401 }

@@ -3,6 +3,7 @@
 import { decode, encode } from "next-auth/jwt";
 import { cookies } from "next/headers";
 import { refreshLiferayUserToken } from "@/lib/auth";
+import { sessionIdleTimeoutSeconds } from "@/lib/session-config";
 
 /**
  * Server-only access to the signed-in user's Liferay token.
@@ -16,8 +17,6 @@ import { refreshLiferayUserToken } from "@/lib/auth";
  * To keep this the single source of refresh (no races), we refresh here when the
  * access token is expired and best-effort re-persist the cookie.
  */
-
-const SESSION_MAX_AGE = 30 * 24 * 60 * 60; // 30 days (NextAuth default)
 
 function sessionCookieName(secure) {
   return secure
@@ -105,18 +104,23 @@ export async function getUserAuth() {
   // Best-effort persist: works in Server Actions / Route Handlers; silently
   // skipped when called during a Server Component render (cookies are read-only
   // there) — the in-memory token below still serves the current request.
+  // Re-persist with the idle timeout, not a longer lifetime — using anything
+  // larger here would reset the idle window on every token refresh and defeat
+  // the automatic session termination.
+  const sessionMaxAge = sessionIdleTimeoutSeconds();
+
   try {
     const encoded = await encode({
       token: freshToken,
       secret,
-      maxAge: SESSION_MAX_AGE,
+      maxAge: sessionMaxAge,
     });
     cookieStore.set(sessionCookieName(secure), encoded, {
       httpOnly: true,
       secure,
       sameSite: "lax",
       path: "/",
-      maxAge: SESSION_MAX_AGE,
+      maxAge: sessionMaxAge,
     });
   } catch (error) {
     console.warn("[getUserAuth] could not persist refreshed token:", error?.message);

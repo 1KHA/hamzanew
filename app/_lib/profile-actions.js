@@ -2,6 +2,7 @@
 
 import { clearUserProfileCache, updateUserProfileCache } from "./session-cache";
 import { getUserAuth } from "./user-token-service";
+import { checkUploadedFile } from "@/lib/upload-policy";
 
 /**
  * Converts frontend form field names to backend API field names.
@@ -198,6 +199,14 @@ export async function updateUserIdProof(formData) {
 
     if (!auth?.accessToken || auth.error) {
       return { status: "FAIL", message: "User not authenticated" };
+    }
+
+    // Enforce the upload policy server-side; the browser check is advisory.
+    const check = await checkUploadedFile(formData.get("file"));
+
+    if (!check.ok) {
+      console.warn("[updateUserIdProof] rejected upload:", check.message);
+      return { status: "FAIL", message: check.message };
     }
 
     const url = `${process.env.BASE_URL}/o/hamza-profile-self/update-id-proof`;
