@@ -19,6 +19,8 @@ export default function StatisticsSection({
 }: StatisticsSectionProps) {
   const router = useRouter();
 
+  console.log("this is new update");
+
   return (
     <div className="bg-neutral-50">
       <section
