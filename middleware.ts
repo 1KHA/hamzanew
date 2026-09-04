@@ -19,8 +19,20 @@ export default withAuth(
     return NextResponse.next();
   },
   {
-    // Explicit secret for Edge Runtime compatibility (Next.js 15+)
+    // Explicit secret for Edge Runtime compatibility (Next.js 15+).
+    // NOTE: middleware runs in the Edge runtime, where Next.js inlines
+    // process.env at BUILD time — this value must be present when `next build`
+    // runs, not only at runtime, or withAuth falls through its NO_SECRET branch.
     secret: process.env.NEXTAUTH_SECRET,
+    // withAuth does NOT read `pages` from authOptions in lib/auth.ts — it has
+    // its own, defaulting to /api/auth/signin and /api/auth/error. Without these
+    // overrides a failed check bounces the user to /api/auth/error, which is a
+    // NextAuth-internal URL and 404s behind a proxy that doesn't route /api to
+    // this app.
+    pages: {
+      signIn: "/sign-in",
+      error: "/sign-in",
+    },
     callbacks: {
       authorized: ({ req, token }) => {
         const path = req.nextUrl.pathname;
@@ -28,8 +40,9 @@ export default withAuth(
         const isProtectedRoute = protectedRoutes.some((route) => path.startsWith(route));
 
         // If the user tries to access a protected route without a verified NextAuth token
-        // Returning 'false' here automatically stops the request and redirects the user
-        // directly to the custom signIn page configured in lib/auth.ts!
+        // Returning 'false' here stops the request and redirects the user to the
+        // signIn page configured in the `pages` option above (NOT the one in
+        // lib/auth.ts — withAuth does not read authOptions).
         if (isProtectedRoute && !token) {
           return false; 
         }
