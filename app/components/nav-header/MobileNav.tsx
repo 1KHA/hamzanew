@@ -80,7 +80,7 @@ const MobileNavItem = memo<MobileNavItemProps>(
             className={itemClass}
             aria-haspopup="true"
             aria-expanded={isExpanded}
-            aria-label={`${resolvedLabel}، قائمة فرعية`}
+            aria-label={`${resolvedLabel}${st("nav", "submenuSuffixAria")}`}
           >
             <span>{resolvedLabel}</span>
 
@@ -108,7 +108,7 @@ const MobileNavItem = memo<MobileNavItemProps>(
           <div
             className={`mobile-nav__submenu${isExpanded ? " mobile-nav__submenu--active" : ""}`}
             role="region"
-            aria-label={`قائمة ${resolvedLabel} الفرعية`}
+            aria-label={st("nav", "submenuOfAria").replace("{label}", resolvedLabel)}
           >
             {item.submenuColumns?.map((column, colIndex) => (
               <div
@@ -128,7 +128,7 @@ const MobileNavItem = memo<MobileNavItemProps>(
                   >
                     <Image
                       src={subItem.icon}
-                      alt={`أيقونة ${resolveLabel(subItem.label, translations)}`}
+                      alt={`${st("nav", "iconAlt")} ${resolveLabel(subItem.label, translations)}`}
                       width={20}
                       height={20}
                     />

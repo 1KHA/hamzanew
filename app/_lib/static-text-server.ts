@@ -1183,6 +1183,13 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
   nav: {
     languageTestingLab: { ar: "معمل ابحاث الاختبارات اللغوية", en: "Arabic Language Testing Research Laboratory" },
     researchServiceRequest: { ar: "طلب خدمة بحثية", en: "Research Service Request" },
+    research: { ar: "الأبحاث", en: "Research" },
+    news: { ar: "الاخبار", en: "News" },
+    iconAlt: { ar: "أيقونة", en: "Icon:" },
+    submenuSuffixAria: { ar: "، قائمة فرعية", en: ", submenu" },
+    submenuOfAria: { ar: "قائمة {label} الفرعية", en: "{label} submenu" },
+    submenuArrowAlt: { ar: "سهم تفتح القائمة الفرعية", en: "Submenu arrow" },
+    submenuAria: { ar: "القائمة الفرعية", en: "Submenu" },
   },
   researchLibrary: {
     metaTitle: { ar: "مكتبة الابحاث", en: "Research Library" },

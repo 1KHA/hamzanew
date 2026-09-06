@@ -139,7 +139,7 @@ export const MENU_DATA: MenuItemType[] = [
     hasSubmenu: true,
     submenuColumns: [
       {
-        title: "الأبحاث",
+        title: "nav.research",
         items: [
           /* Temporarily hidden
           {
@@ -173,7 +173,7 @@ export const MENU_DATA: MenuItemType[] = [
     hasSubmenu: true,
     submenuColumns: [
       {
-        title: "الاخبار",
+        title: "nav.news",
         items: [
           {
             label: "hamza-navigation-menu-news-and-articles",

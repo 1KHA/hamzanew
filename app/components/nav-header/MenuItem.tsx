@@ -81,7 +81,7 @@ const MenuItem = memo<MenuItemProps>(({
           aria-haspopup="true"
           // aria-expanded reflects the current open/closed state
           aria-expanded={isSubmenuOpen}
-          aria-label={`${resolvedLabel}، قائمة فرعية`}
+          aria-label={`${resolvedLabel}${st("nav", "submenuSuffixAria")}`}
         >
           <span className="header-menu__item-label">{resolvedLabel}</span>
 
@@ -91,7 +91,7 @@ const MenuItem = memo<MenuItemProps>(({
           <span className="header-menu__item-arrow" aria-hidden="true">
             <Image
               src="/assets/icons/stroke-standard/arrow-down-01-stroke-rounded.svg"
-              alt="سهم تفتح القائمة الفرعية"
+              alt={st("nav", "submenuArrowAlt")}
               width={24}
               height={24}
               className={`inline-block transition-transform duration-300${

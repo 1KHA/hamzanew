@@ -63,7 +63,7 @@ const SubmenuLink = memo<{ item: SubmenuItem; onClick: () => void; translations?
           <div className="flex gap-[16px] items-center">
             <Image
               src={item.icon}
-              alt={`أيقونة ${resolvedLabel}`}
+              alt={`${st("nav", "iconAlt")} ${resolvedLabel}`}
               width={24}
               height={24}
               className="inline-block"
@@ -170,7 +170,7 @@ export default function NavigationSubmenu({
     <nav
       ref={contentRef}
       className="sub-navs sub-navs-fixed"
-      aria-label="القائمة الفرعية"
+      aria-label={st("nav", "submenuAria")}
       onTransitionEnd={handleTransitionEnd}
       style={{
         position: "absolute",
