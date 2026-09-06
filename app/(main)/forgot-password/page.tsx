@@ -16,39 +16,44 @@ import {
   validateResetTokenService,
   resetPasswordService,
 } from "@/app/_lib/user-service";
+import { st } from "@/app/_lib/static-text";
 import "../sign-in/sign-in.css";
 import "./forgot-password.css";
 
 /* ==========================================================================
-   Schemas
+   Schemas (locale-aware factories — same pattern as SignUpForm)
    ========================================================================== */
 
-const emailSchema = z.object({
-  email: z
-    .string()
-    .min(1, "البريد الإلكتروني مطلوب")
-    .email("البريد الإلكتروني غير صحيح"),
-});
-
-const resetSchema = z
-  .object({
-    password: z
+function createEmailSchema(getText: (key: string) => string) {
+  return z.object({
+    email: z
       .string()
-      .min(8, "يجب أن لا تقل عن 8 خانات")
-      .regex(/[A-Z]/, "حرف كبير واحد على الأقل")
-      .regex(/[a-z]/, "حرف صغير واحد على الأقل")
-      .regex(/\d/, "رقم واحد على الأقل")
-      .regex(/[@$!#%*?&]/, "رمز خاص واحد على الأقل (@$!#%*?&)")
-      .regex(/^\S+$/, "لا يجب أن تحتوي على مسافات"),
-    confirmPassword: z.string().min(1, "تأكيد كلمة المرور مطلوب"),
-  })
-  .refine((d) => d.password === d.confirmPassword, {
-    message: "كلمتا المرور غير متطابقتين",
-    path: ["confirmPassword"],
+      .min(1, getText("emailRequired"))
+      .email(getText("emailInvalid")),
   });
+}
 
-type EmailForm = z.infer<typeof emailSchema>;
-type ResetForm = z.infer<typeof resetSchema>;
+function createResetSchema(getText: (key: string) => string) {
+  return z
+    .object({
+      password: z
+        .string()
+        .min(8, getText("ruleLength"))
+        .regex(/[A-Z]/, getText("ruleUpper"))
+        .regex(/[a-z]/, getText("ruleLower"))
+        .regex(/\d/, getText("ruleDigit"))
+        .regex(/[@$!#%*?&]/, getText("ruleSpecial"))
+        .regex(/^\S+$/, getText("ruleSpaces")),
+      confirmPassword: z.string().min(1, getText("confirmPasswordRequired")),
+    })
+    .refine((d) => d.password === d.confirmPassword, {
+      message: getText("passwordsMismatch"),
+      path: ["confirmPassword"],
+    });
+}
+
+type EmailForm = z.infer<ReturnType<typeof createEmailSchema>>;
+type ResetForm = z.infer<ReturnType<typeof createResetSchema>>;
 
 /**
  * Flow:
@@ -62,33 +67,34 @@ type Step = "email" | "sent" | "validating" | "reset" | "invalid" | "done";
    ========================================================================== */
 
 const PASSWORD_RULES = [
-  { id: "length",  label: "الحد الأدنى 8 أحرف",              test: (v: string) => v.length >= 8 },
-  { id: "upper",   label: "حرف كبير واحد على الأقل",          test: (v: string) => /[A-Z]/.test(v) },
-  { id: "lower",   label: "حرف صغير واحد على الأقل",          test: (v: string) => /[a-z]/.test(v) },
-  { id: "digit",   label: "رقم واحد على الأقل",               test: (v: string) => /\d/.test(v) },
-  { id: "special", label: "رمز خاص واحد على الأقل (@$!#%*?&)", test: (v: string) => /[@$!#%*?&]/.test(v) },
-  { id: "spaces",  label: "لا يحتوي على مسافات",              test: (v: string) => v.length > 0 && !/\s/.test(v) },
+  { id: "length",  labelKey: "ruleLength",  test: (v: string) => v.length >= 8 },
+  { id: "upper",   labelKey: "ruleUpper",   test: (v: string) => /[A-Z]/.test(v) },
+  { id: "lower",   labelKey: "ruleLower",   test: (v: string) => /[a-z]/.test(v) },
+  { id: "digit",   labelKey: "ruleDigit",   test: (v: string) => /\d/.test(v) },
+  { id: "special", labelKey: "ruleSpecial", test: (v: string) => /[@$!#%*?&]/.test(v) },
+  { id: "spaces",  labelKey: "ruleSpaces",  test: (v: string) => v.length > 0 && !/\s/.test(v) },
 ];
 
 function PasswordRules({ value }: { value: string }) {
   return (
-    <div className="password-rules dga-helper-text" aria-label="متطلبات كلمة المرور">
+    <div className="password-rules dga-helper-text" aria-label={st("forgotPassword", "rulesAria")}>
       <p className="dga-helper-text__desc password-rules__intro">
-        يجب أن تحتوي كلمة المرور على رمز خاص (@$!#%*?&)، أرقام، حروف صغيرة، وحرف كبير واحد على الأقل، وأن لا تقل عن 8 خانات
+        {st("forgotPassword", "rulesIntro")}
       </p>
       <ul className="password-rules__list" role="list">
         {PASSWORD_RULES.map((rule) => {
           const met = rule.test(value);
+          const label = st("forgotPassword", rule.labelKey);
           return (
             <li
               key={rule.id}
               className={`password-rules__item${met ? " password-rules__item--met" : ""}`}
-              aria-label={`${rule.label}: ${met ? "مستوفى" : "غير مستوفى"}`}
+              aria-label={`${label}: ${st("forgotPassword", met ? "ruleMet" : "ruleUnmet")}`}
             >
               <span className="password-rules__icon" aria-hidden="true">
                 {met ? "✓" : "·"}
               </span>
-              <span className="password-rules__label">{rule.label}</span>
+              <span className="password-rules__label">{label}</span>
             </li>
           );
         })}
@@ -100,12 +106,6 @@ function PasswordRules({ value }: { value: string }) {
 /* ==========================================================================
    Page
    ========================================================================== */
-
-const HEADINGS: Partial<Record<Step, string>> = {
-  email: "نسيت كلمة المرور الخاصة بي",
-  validating: "التحقق من الرابط",
-  reset: "إعادة تعيين كلمة المرور",
-};
 
 function ForgotPasswordContent() {
   const searchParams = useSearchParams();
@@ -119,6 +119,14 @@ function ForgotPasswordContent() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
+
+  const t = (key: string) => st("forgotPassword", key);
+
+  const HEADINGS: Partial<Record<Step, string>> = {
+    email: t("headingEmail"),
+    validating: t("headingValidating"),
+    reset: t("headingReset"),
+  };
 
   // Move focus to heading on step change (screen reader UX)
   useEffect(() => {
@@ -148,7 +156,7 @@ function ForgotPasswordContent() {
       if (res.valid) {
         setStep("reset");
       } else {
-        setApiError(res.message || "الرابط غير صالح أو منتهي الصلاحية");
+        setApiError(res.message || st("forgotPassword", "invalidLead"));
         setStep("invalid");
       }
     })();
@@ -160,13 +168,13 @@ function ForgotPasswordContent() {
   /* ── Forms ── */
 
   const emailForm = useForm<EmailForm>({
-    resolver: zodResolver(emailSchema),
+    resolver: zodResolver(createEmailSchema(t)),
     defaultValues: { email: "" },
     mode: "all",
   });
 
   const resetForm = useForm<ResetForm>({
-    resolver: zodResolver(resetSchema),
+    resolver: zodResolver(createResetSchema(t)),
     defaultValues: { password: "", confirmPassword: "" },
     mode: "all",
   });
@@ -184,7 +192,7 @@ function ForgotPasswordContent() {
       setCountdown(60);
       setStep("sent");
     } else {
-      setApiError(res.message || "تعذّر إرسال رابط إعادة التعيين");
+      setApiError(res.message || t("sendFailed"));
     }
   };
 
@@ -197,7 +205,7 @@ function ForgotPasswordContent() {
     if (res.status === "SUCCESS") {
       setStep("done");
     } else {
-      setApiError(res.message || "تعذّر إعادة تعيين كلمة المرور");
+      setApiError(res.message || t("resetFailed"));
     }
   };
 
@@ -208,7 +216,7 @@ function ForgotPasswordContent() {
     if (res.status === "SUCCESS") {
       setCountdown(60);
     } else {
-      setApiError(res.message || "تعذّر إعادة إرسال الرابط");
+      setApiError(res.message || st("forgotPassword", "resendFailed"));
     }
   }, [countdown, email]);
 
@@ -237,11 +245,9 @@ function ForgotPasswordContent() {
                 {HEADINGS[step]}
               </h1>
               <p className="text-md-regular sign-in-page__subtitle">
-                {step === "email" &&
-                  "أدخل بريدك الإلكتروني وسنرسل إليك رابط إعادة تعيين كلمة المرور"}
-                {step === "validating" && "يرجى الانتظار، جارٍ التحقق من صلاحية الرابط…"}
-                {step === "reset" &&
-                  "أدخل كلمة المرور الجديدة وتأكيدها لإتمام عملية الاسترداد"}
+                {step === "email" && t("subtitleEmail")}
+                {step === "validating" && t("subtitleValidating")}
+                {step === "reset" && t("subtitleReset")}
               </p>
             </header>
           )}
@@ -252,7 +258,7 @@ function ForgotPasswordContent() {
               <form
                 onSubmit={emailForm.handleSubmit(onEmailSubmit)}
                 className="sign-in-page__form"
-                aria-label="نموذج استعادة كلمة المرور"
+                aria-label={t("formAriaEmail")}
                 noValidate
               >
                 {apiError && (
@@ -266,7 +272,7 @@ function ForgotPasswordContent() {
                 )}
 
                 <FormField
-                  label="البريد الإلكتروني"
+                  label={t("emailLabel")}
                   required
                   error={emailForm.formState.errors.email?.message}
                   htmlFor="fp-email"
@@ -275,7 +281,7 @@ function ForgotPasswordContent() {
                     name="email"
                     id="fp-email"
                     type="email"
-                    placeholder="أدخل بريدك الإلكتروني"
+                    placeholder={t("emailPlaceholder")}
                     variant="darker"
                     aria-required={true}
                     aria-describedby={
@@ -285,12 +291,12 @@ function ForgotPasswordContent() {
                     }
                   />
                   <span id="fp-email-help" className="sr-only">
-                    أدخل البريد الإلكتروني المرتبط بحسابك
+                    {t("emailHelp")}
                   </span>
                 </FormField>
 
                 <Button
-                  label={isSubmitting ? "جاري الإرسال..." : "إرسال رابط إعادة التعيين"}
+                  label={isSubmitting ? t("sending") : t("sendLinkBtn")}
                   variant="primary-brand"
                   size="lg"
                   type="submit"
@@ -318,11 +324,11 @@ function ForgotPasswordContent() {
                   tabIndex={-1}
                   style={{ outline: "none" }}
                 >
-                  تحقق من بريدك الإلكتروني
+                  {t("sentHeading")}
                 </h1>
                 <p className="text-md-regular sign-in-page__subtitle">
-                  أرسلنا رابط إعادة تعيين كلمة المرور إلى <strong>{email}</strong>.
-                  افتح الرابط من بريدك لمتابعة العملية.
+                  {t("sentBody1")} <strong>{email}</strong>
+                  {t("sentBody2")}
                 </p>
               </header>
 
@@ -337,10 +343,10 @@ function ForgotPasswordContent() {
               )}
 
               <p className="forgot-password__resend text-sm-regular">
-                لم يصلك الرابط؟{" "}
+                {t("noLinkReceived")}{" "}
                 {countdown > 0 ? (
                   <span aria-live="polite" aria-atomic="true">
-                    إعادة الإرسال بعد {countdown} ث
+                    {t("resendAfter").replace("{countdown}", String(countdown))}
                   </span>
                 ) : (
                   <button
@@ -348,7 +354,7 @@ function ForgotPasswordContent() {
                     onClick={handleResend}
                     className="link--primary forgot-password__resend-btn"
                   >
-                    إعادة إرسال الرابط
+                    {t("resendBtn")}
                   </button>
                 )}
               </p>
@@ -363,7 +369,7 @@ function ForgotPasswordContent() {
               aria-live="polite"
               aria-busy="true"
             >
-              <p className="text-md-regular">جارٍ التحقق من الرابط…</p>
+              <p className="text-md-regular">{t("validatingBody")}</p>
             </div>
           )}
 
@@ -373,7 +379,7 @@ function ForgotPasswordContent() {
               <form
                 onSubmit={resetForm.handleSubmit(onResetSubmit)}
                 className="sign-in-page__form"
-                aria-label="نموذج إعادة تعيين كلمة المرور"
+                aria-label={t("formAriaReset")}
                 noValidate
               >
                 {apiError && (
@@ -387,7 +393,7 @@ function ForgotPasswordContent() {
                 )}
 
                 <FormField
-                  label="كلمة المرور الجديدة"
+                  label={t("newPasswordLabel")}
                   required
                   error={resetForm.formState.errors.password?.message}
                   htmlFor="fp-password"
@@ -402,7 +408,7 @@ function ForgotPasswordContent() {
                         onChange={field.onChange}
                         onBlur={field.onBlur}
                         type={showPassword ? "text" : "password"}
-                        placeholder="أدخل كلمة المرور الجديدة"
+                        placeholder={t("newPasswordPlaceholder")}
                         variant="darker"
                         size="lg"
                         error={!!fieldState.error}
@@ -413,7 +419,7 @@ function ForgotPasswordContent() {
                             type="button"
                             className="password-eye-btn"
                             onClick={() => setShowPassword((v) => !v)}
-                            aria-label={showPassword ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"}
+                            aria-label={showPassword ? t("hidePassword") : t("showPassword")}
                           >
                             <img
                               src={
@@ -437,7 +443,7 @@ function ForgotPasswordContent() {
                 </FormField>
 
                 <FormField
-                  label="تأكيد كلمة المرور"
+                  label={t("confirmPasswordLabel")}
                   required
                   error={resetForm.formState.errors.confirmPassword?.message}
                   htmlFor="fp-confirm-password"
@@ -452,7 +458,7 @@ function ForgotPasswordContent() {
                         onChange={field.onChange}
                         onBlur={field.onBlur}
                         type={showConfirmPassword ? "text" : "password"}
-                        placeholder="أعد إدخال كلمة المرور الجديدة"
+                        placeholder={t("confirmPasswordPlaceholder")}
                         variant="darker"
                         size="lg"
                         error={!!fieldState.error}
@@ -462,7 +468,7 @@ function ForgotPasswordContent() {
                             type="button"
                             className="password-eye-btn"
                             onClick={() => setShowConfirmPassword((v) => !v)}
-                            aria-label={showConfirmPassword ? "إخفاء كلمة المرور" : "إظهار كلمة المرور"}
+                            aria-label={showConfirmPassword ? t("hidePassword") : t("showPassword")}
                           >
                             <img
                               src={
@@ -483,9 +489,7 @@ function ForgotPasswordContent() {
                 </FormField>
 
                 <Button
-                  label={
-                    isSubmitting ? "جاري الحفظ..." : "إعادة تعيين كلمة المرور"
-                  }
+                  label={isSubmitting ? t("savingBtn") : t("resetBtn")}
                   variant="primary-brand"
                   size="lg"
                   type="submit"
@@ -513,21 +517,21 @@ function ForgotPasswordContent() {
                   tabIndex={-1}
                   style={{ outline: "none" }}
                 >
-                  رابط غير صالح
+                  {t("invalidHeading")}
                 </h1>
               </header>
 
               <NotificationToast
                 type="error"
-                leadText={apiError || "الرابط غير صالح أو منتهي الصلاحية"}
-                helperText="يرجى طلب رابط جديد لإعادة تعيين كلمة المرور"
+                leadText={apiError || t("invalidLead")}
+                helperText={t("invalidHelper")}
                 open
                 variant="stroke"
                 inline
               />
 
               <Button
-                label="طلب رابط جديد"
+                label={t("requestNewLink")}
                 variant="primary-brand"
                 size="lg"
                 onClick={() => (window.location.href = "/forgot-password")}
@@ -552,21 +556,21 @@ function ForgotPasswordContent() {
                   tabIndex={-1}
                   style={{ outline: "none" }}
                 >
-                  تم بنجاح
+                  {t("doneHeading")}
                 </h1>
               </header>
 
               <NotificationToast
                 type="success"
-                leadText="تم إعادة تعيين كلمة المرور بنجاح"
-                helperText="يمكنك الآن تسجيل الدخول باستخدام كلمة مرورك الجديدة"
+                leadText={t("doneLead")}
+                helperText={t("doneHelper")}
                 open
                 variant="stroke"
                 inline
               />
 
               <Button
-                label="الذهاب إلى تسجيل الدخول"
+                label={t("goToSignIn")}
                 variant="primary-brand"
                 size="lg"
                 onClick={() => (window.location.href = "/sign-in")}
@@ -578,9 +582,9 @@ function ForgotPasswordContent() {
           {/* Back to sign-in */}
           {step !== "done" && (
             <p className="sign-in-page__register text-sm-regular">
-              تذكرت كلمة المرور؟{" "}
+              {t("rememberedPassword")}{" "}
               <a href="/sign-in" className="link--primary">
-                تسجيل الدخول
+                {t("signInLink")}
               </a>
             </p>
           )}
