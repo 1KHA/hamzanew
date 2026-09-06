@@ -5,6 +5,7 @@ import Dropdown from "@/app/components/dropdown/Dropdown";
 import FormField from "@/app/components/form-field/FormField";
 import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import { NewUserFormValues } from "./SignUpForm";
+import { st } from "@/app/_lib/static-text";
 
 interface LocationInfoProps {
   timezoneOptions: any[];
@@ -20,6 +21,8 @@ export default function LocationInfo({
     formState: { errors },
   } = useFormContext<NewUserFormValues>();
 
+  const t = (key: string) => st("signUp", key);
+
   const handleDigitsOnlyInput = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
     target.value = target.value.replace(/\D/g, "");
@@ -28,7 +31,7 @@ export default function LocationInfo({
   return (
     <div className="sign-up-page__grid">
       <FormField
-        label="المنطقة الزمنية"
+        label={t("timezoneLabel")}
         required
         error={errors.timezone?.message as string | undefined}
       >
@@ -37,7 +40,7 @@ export default function LocationInfo({
           control={control}
           render={({ field }) => (
             <Dropdown
-              placeholder="اختر المنطقة الزمنية"
+              placeholder={t("timezonePlaceholder")}
               size="lg"
               variant="darker"
               optionLabel="label"
@@ -52,13 +55,13 @@ export default function LocationInfo({
         />
       </FormField>
 
-      <FormField label="الدولة" required error={errors.country?.message}>
+      <FormField label={t("countryLabel")} required error={errors.country?.message}>
         <Controller
           name="country"
           control={control}
           render={({ field }) => (
             <Dropdown
-              placeholder="اختر الدولة"
+              placeholder={t("countryPlaceholder")}
               size="lg"
               variant="darker"
               optionLabel="label"
@@ -73,7 +76,7 @@ export default function LocationInfo({
       </FormField>
 
       <FormField
-        label="الولاية/المقاطعة/الإقليم"
+        label={t("stateLabel")}
         required
         error={errors.state?.message}
       >
@@ -83,7 +86,7 @@ export default function LocationInfo({
           render={({ field }) => (
             <ControlledTextInput
               name="state"
-              placeholder="أدخل الولاية"
+              placeholder={t("statePlaceholder")}
               size="lg"
               variant="darker"
             />
@@ -91,14 +94,14 @@ export default function LocationInfo({
         />
       </FormField>
 
-      <FormField label="المدينة" required error={errors.city?.message}>
+      <FormField label={t("cityLabel")} required error={errors.city?.message}>
         <Controller
           name="city"
           control={control}
           render={({ field }) => (
             <ControlledTextInput
               name="city"
-              placeholder="أدخل المدينة"
+              placeholder={t("cityPlaceholder")}
               size="lg"
               variant="darker"
             />
@@ -107,13 +110,13 @@ export default function LocationInfo({
       </FormField>
 
       <FormField
-        label="الشارع"
+        label={t("streetLabel")}
         required
         error={errors.postalAddress?.message}
         htmlFor="input-street"
       >
         <ControlledTextInput
-          placeholder="اسم الشارع"
+          placeholder={t("streetPlaceholder")}
           name="postalAddress"
           id="input-street"
           size="lg"
@@ -122,13 +125,13 @@ export default function LocationInfo({
       </FormField>
 
       <FormField
-        label="الرمز البريدي"
+        label={t("zipLabel")}
         required
         error={errors.zipCode?.message}
         htmlFor="input-postal"
       >
         <ControlledTextInput
-          placeholder="الرمز البريدي"
+          placeholder={t("zipLabel")}
           name="zipCode"
           id="input-postal"
           type="tel"

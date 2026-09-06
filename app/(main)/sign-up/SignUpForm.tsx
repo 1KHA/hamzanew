@@ -25,13 +25,6 @@ import PersonalInfo from "./PersonalInfo";
 import EducationInfo from "./EducationInfo";
 import LocationInfo from "./LocationInfo";
 
-const STEPS = [
-  { title: "معلومات الحساب", description: "وصف الخطوة" },
-  { title: "المعلومات الشخصية", description: "وصف الخطوة" },
-  { title: "المؤهلات الدراسية", description: "وصف الخطوة" },
-  { title: "الموقع", description: "وصف الخطوة" },
-];
-
 const STEP_CONFIG = [
   {
     component: AccountInfo,
@@ -203,7 +196,17 @@ export default function SignUpForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const newUserSchema = createSignUpSchema((key) => st("signUp", key));
+  const t = (key: string) => st("signUp", key);
+
+  // Built inside the component so titles resolve to the active locale.
+  const STEPS = [
+    { title: t("step1Title"), description: t("stepDescription") },
+    { title: t("step2Title"), description: t("stepDescription") },
+    { title: t("step3Title"), description: t("stepDescription") },
+    { title: t("step4Title"), description: t("stepDescription") },
+  ];
+
+  const newUserSchema = createSignUpSchema(t);
 
   const methods = useForm<NewUserFormValues>({
     resolver: zodResolver(newUserSchema),
@@ -338,14 +341,11 @@ export default function SignUpForm({
         setActiveStep(STEPS.length + 1);
         setSubmitted(true);
       } else {
-        setSubmitError(
-          result?.message ||
-            "حدث خطأ أثناء إنشاء الحساب. يرجى المحاولة مرة أخرى.",
-        );
+        setSubmitError(result?.message || t("submitErrorFallback"));
       }
     } catch (error) {
       console.error("Sign-up error:", error);
-      setSubmitError("حدث خطأ أثناء إنشاء الحساب. يرجى المحاولة مرة أخرى.");
+      setSubmitError(t("submitErrorFallback"));
     } finally {
       setIsSubmitting(false);
     }
@@ -370,13 +370,11 @@ export default function SignUpForm({
         {/* ── Right panel: Form ── */}
         <div className="sign-up-page__content">
           <div className="sign-up-page__header">
-            <h1 className="display-sm-bold">إنشاء حساب جديد</h1>
+            <h1 className="display-sm-bold">{t("pageTitle")}</h1>
             <p className="text-md-regular sign-up-page__subtitle">
-              أنشئ حسابك في منصة اختبارات همزة بسهولة عبر إدخال بياناتك الأساسية
-              .
+              {t("pageSubtitle1")}
               <br />
-              بمجرد التسجيل يمكنك الوصول للاختبارات، متابعة النتائج، وإدارة ملفك
-              الشخصي.
+              {t("pageSubtitle2")}
             </p>
           </div>
 
@@ -385,7 +383,7 @@ export default function SignUpForm({
               <span className="sign-up-page__required" aria-hidden="true">
                 *
               </span>
-              &nbsp;المعلومات المطلوبة
+              &nbsp;{t("requiredNote")}
             </p>
           )}
 
@@ -454,9 +452,9 @@ export default function SignUpForm({
                         label={
                           isLastStep
                             ? isSubmitting
-                              ? "جاري إنشاء الحساب..."
-                              : "إنشاء الحساب"
-                            : "التالي"
+                              ? t("creatingAccount")
+                              : t("createAccountBtn")
+                            : t("nextBtn")
                         }
                         variant="primary-brand"
                         size="lg"
@@ -465,7 +463,7 @@ export default function SignUpForm({
                       />
                       {stepNumber > 1 && (
                         <Button
-                          label="رجوع"
+                          label={t("backBtn")}
                           variant="secondary"
                           size="lg"
                           type="button"
@@ -494,14 +492,14 @@ export default function SignUpForm({
             >
               <NotificationToast
                 type="success"
-                leadText="تحقق من بريدك الشبكي"
-                helperText="لقد أرسلنا رسالة إلى عنوان بريدك الشبكي تتضمن الخطوات التالية لإكمال التسجيل. يرجى مراجعة بريدك الوارد (وربما مجلد الرسائل غير المرغوب فيها)."
+                leadText={t("successLead")}
+                helperText={t("successHelper")}
                 open
                 variant="stroke"
                 inline
               />
               <Button
-                label="الذهاب إلى تسجيل الدخول"
+                label={t("goToSignIn")}
                 variant="primary-brand"
                 size="lg"
                 onClick={() => (window.location.href = "/sign-in")}
@@ -514,7 +512,7 @@ export default function SignUpForm({
         {/* ── Left panel: Progress Indicator ── */}
         <aside
           className="sign-up-page__sidebar"
-          aria-label="خطوات إنشاء الحساب"
+          aria-label={t("stepsAria")}
         >
           <ProgressIndicator
             steps={STEPS}

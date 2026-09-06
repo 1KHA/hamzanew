@@ -4,6 +4,7 @@ import { useFormContext, Controller } from "react-hook-form";
 import Dropdown from "@/app/components/dropdown/Dropdown";
 import FormField from "@/app/components/form-field/FormField";
 import { NewUserFormValues } from "./SignUpForm";
+import { st } from "@/app/_lib/static-text";
 
 interface EducationInfoProps {
   educationQualificationsOptions: any[];
@@ -23,10 +24,12 @@ export default function EducationInfo({
     formState: { errors },
   } = useFormContext<NewUserFormValues>();
 
+  const t = (key: string) => st("signUp", key);
+
   return (
     <div className="sign-up-page__grid">
       <FormField
-        label="آخر مؤهل دراسي"
+        label={t("educationLabel")}
         required
         error={errors.education?.message as string | undefined}
       >
@@ -35,7 +38,7 @@ export default function EducationInfo({
           control={control}
           render={({ field }) => (
             <Dropdown
-              placeholder="اختر المؤهل"
+              placeholder={t("educationPlaceholder")}
               size="lg"
               variant="darker"
               optionLabel="label"
@@ -50,7 +53,7 @@ export default function EducationInfo({
       </FormField>
 
       <FormField
-        label="المؤسسة التعليمية"
+        label={t("institutionLabel")}
         required
         error={errors.institution?.message as string | undefined}
       >
@@ -59,7 +62,7 @@ export default function EducationInfo({
           control={control}
           render={({ field }) => (
             <Dropdown
-              placeholder="اختر المؤسسة"
+              placeholder={t("institutionPlaceholder")}
               size="lg"
               variant="darker"
               optionLabel="label"
@@ -74,7 +77,7 @@ export default function EducationInfo({
       </FormField>
 
       <FormField
-        label="التخصص الدراسي"
+        label={t("specializationLabel")}
         required
         error={errors.specialization?.message as string | undefined}
       >
@@ -83,7 +86,7 @@ export default function EducationInfo({
           control={control}
           render={({ field }) => (
             <Dropdown
-              placeholder="اختر التخصص"
+              placeholder={t("specializationPlaceholder")}
               size="lg"
               variant="darker"
               optionLabel="label"
@@ -98,7 +101,7 @@ export default function EducationInfo({
       </FormField>
 
       <FormField
-        label="اللغة الأساسية في التعليم"
+        label={t("basicLanguageLabel")}
         required
         error={errors.basicLanguageInEducation?.message as string | undefined}
       >
@@ -107,7 +110,7 @@ export default function EducationInfo({
           control={control}
           render={({ field }) => (
             <Dropdown
-              placeholder="اختر اللغة"
+              placeholder={t("basicLanguagePlaceholder")}
               size="lg"
               variant="darker"
               optionLabel="label"

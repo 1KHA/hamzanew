@@ -24,6 +24,8 @@ export default function AccountInfo() {
     formState: { errors },
   } = useFormContext<NewUserFormValues>();
 
+  const t = (key: string) => st("signUp", key);
+
   const phoneValue = watch("phone") || DEFAULT_PREFIX.value;
   const selectedCountryPrefix =
     getPrefixFromPhone(phoneValue) || DEFAULT_PREFIX;
@@ -81,26 +83,26 @@ export default function AccountInfo() {
     <div className="sign-up-page__grid">
       {/* Email */}
       <FormField
-        label="البريد الشبكي"
+        label={t("emailLabel")}
         required
         error={errors.email?.message}
         htmlFor="input-email"
       >
         <ControlledTextInput
-          placeholder="البريد الشبكي"
+          placeholder={t("emailLabel")}
           name="email"
           id="input-email"
           size="lg"
           variant="darker"
         />
         <span id="email-help" className="sr-only">
-          أدخل عنوان بريدك الشبكي المستخدم لتسجيل الدخول
+          {t("emailHelp")}
         </span>
       </FormField>
 
       {/* Phone */}
       <FormField
-        label="رقم الجوال"
+        label={t("phoneLabel")}
         required
         error={errors.phone?.message}
         htmlFor="phone-input"
@@ -117,7 +119,7 @@ export default function AccountInfo() {
               {/* Digits-only input — prefix is stored separately in RHF */}
               <input
                 id="phone-input"
-                placeholder="رقم الجوال"
+                placeholder={t("phoneLabel")}
                 type="tel"
                 inputMode="numeric"
                 maxLength={12}
@@ -149,7 +151,7 @@ export default function AccountInfo() {
                   className={prefixBtnClass}
                   aria-haspopup="listbox"
                   aria-expanded={prefixOpen}
-                  aria-label={`رمز الدولة: ${selectedCountryPrefix.label}`}
+                  aria-label={`${t("countryCodeAria")}: ${selectedCountryPrefix.label}`}
                 >
                   <span className="input__prefix-icon" />
                   <span className="dropdown__label" />
@@ -171,7 +173,7 @@ export default function AccountInfo() {
                 <ul
                   role="listbox"
                   className={prefixListClass}
-                  aria-label="رمز الدولة"
+                  aria-label={t("countryCodeAria")}
                 >
                   <div className="prefix-list__scroll">
                     {PHONE_PREFIXES.map((opt) => {
@@ -211,14 +213,14 @@ export default function AccountInfo() {
 
       {/* Password */}
       <FormField
-        label="كلمة السر"
+        label={t("passwordLabel")}
         required
         error={errors.password?.message}
         htmlFor="input-password"
       >
         <ControlledTextInput
           name="password"
-          placeholder="كلمة السر"
+          placeholder={t("passwordLabel")}
           id="input-password"
           type="password"
           size="lg"
@@ -232,13 +234,13 @@ export default function AccountInfo() {
 
       {/* Confirm Password */}
       <FormField
-        label="تأكيد كلمة السر"
+        label={t("confirmPasswordLabel")}
         required
         error={errors.confirmPassword?.message}
         htmlFor="input-confirm-password"
       >
         <ControlledTextInput
-          placeholder="تأكيد كلمة السر"
+          placeholder={t("confirmPasswordLabel")}
           name="confirmPassword"
           id="input-confirm-password"
           type="password"

@@ -28,6 +28,8 @@ export default function PersonalInfo({
     formState: { errors },
   } = useFormContext<NewUserFormValues>();
 
+  const t = (key: string) => st("signUp", key);
+
   const [, setIdFile] = useState<UploadedFile[]>([]);
 
   const handleEnglishOnlyInput = (e: React.FormEvent<HTMLInputElement>) => {
@@ -38,13 +40,13 @@ export default function PersonalInfo({
   return (
     <div className="sign-up-page__grid">
       <FormField
-        label="الاسم الاول"
+        label={t("firstNameAr")}
         required
         error={errors.firstName_ar?.message}
         htmlFor="first-name-ar"
       >
         <ControlledTextInput
-          placeholder="الاسم الاول"
+          placeholder={t("firstNameAr")}
           name="firstName_ar"
           id="first-name-ar"
           size="lg"
@@ -53,13 +55,13 @@ export default function PersonalInfo({
       </FormField>
 
       <FormField
-        label="الاسم الاول (باللغة الإنجليزية)"
+        label={t("firstNameEn")}
         required
         error={errors.firstName_en?.message}
         htmlFor="first-name-en"
       >
         <ControlledTextInput
-          placeholder="الاسم الاول (باللغة الإنجليزية)"
+          placeholder={t("firstNameEn")}
           name="firstName_en"
           id="first-name-en"
           size="lg"
@@ -69,13 +71,13 @@ export default function PersonalInfo({
       </FormField>
 
       <FormField
-        label="الاسم الثاني"
+        label={t("secondNameAr")}
         required
         error={errors.secondName_ar?.message}
         htmlFor="second-name-ar"
       >
         <ControlledTextInput
-          placeholder="الاسم الثاني"
+          placeholder={t("secondNameAr")}
           name="secondName_ar"
           id="second-name-ar"
           size="lg"
@@ -84,13 +86,13 @@ export default function PersonalInfo({
       </FormField>
 
       <FormField
-        label="الاسم الثاني (باللغة الإنجليزية)"
+        label={t("secondNameEn")}
         required
         error={errors.secondName_en?.message}
         htmlFor="second-name-en"
       >
         <ControlledTextInput
-          placeholder="الاسم الثاني (باللغة الإنجليزية)"
+          placeholder={t("secondNameEn")}
           name="secondName_en"
           id="second-name-en"
           size="lg"
@@ -100,13 +102,13 @@ export default function PersonalInfo({
       </FormField>
 
       <FormField
-        label="الاسم الأخير"
+        label={t("lastNameAr")}
         required
         error={errors.lastName_ar?.message}
         htmlFor="last-name-ar"
       >
         <ControlledTextInput
-          placeholder="الاسم الأخير"
+          placeholder={t("lastNameAr")}
           name="lastName_ar"
           id="last-name-ar"
           size="lg"
@@ -115,13 +117,13 @@ export default function PersonalInfo({
       </FormField>
 
       <FormField
-        label="الاسم الأخير (باللغة الإنجليزية)"
+        label={t("lastNameEn")}
         required
         error={errors.lastName_en?.message}
         htmlFor="last-name-en"
       >
         <ControlledTextInput
-          placeholder="الاسم الأخير (باللغة الإنجليزية)"
+          placeholder={t("lastNameEn")}
           name="lastName_en"
           id="last-name-en"
           size="lg"
@@ -131,7 +133,7 @@ export default function PersonalInfo({
       </FormField>
 
       <FormField
-        label="تاريخ الميلاد"
+        label={t("birthDateLabel")}
         required
         error={errors.birthDate?.message}
       >
@@ -154,13 +156,13 @@ export default function PersonalInfo({
         />
       </FormField>
 
-      <FormField label="الجنسية" required error={errors.nationality?.message}>
+      <FormField label={t("nationalityLabel")} required error={errors.nationality?.message}>
         <Controller
           name="nationality"
           control={control}
           render={({ field }) => (
             <Dropdown
-              placeholder="اختر الجنسية"
+              placeholder={t("nationalityPlaceholder")}
               size="lg"
               variant="darker"
               optionLabel="label"
@@ -175,7 +177,7 @@ export default function PersonalInfo({
       </FormField>
 
       <FormField
-        label="اللغة الأم"
+        label={t("motherTongueLabel")}
         required
         error={errors.motherTongue?.message as string | undefined}
       >
@@ -184,7 +186,7 @@ export default function PersonalInfo({
           control={control}
           render={({ field }) => (
             <Dropdown
-              placeholder="اختر اللغة الأم"
+              placeholder={t("motherTonguePlaceholder")}
               size="lg"
               variant="darker"
               optionLabel="label"
@@ -198,13 +200,13 @@ export default function PersonalInfo({
         />
       </FormField>
 
-      <FormField label="الاثبات" required error={errors.identity?.message as string | undefined}>
+      <FormField label={t("identityLabel")} required error={errors.identity?.message as string | undefined}>
         <Controller
           name="identity"
           control={control}
           render={({ field }) => (
             <Dropdown
-              placeholder="اختر نوع الاثبات"
+              placeholder={t("identityPlaceholder")}
               size="lg"
               variant="darker"
               optionLabel="label"
@@ -219,13 +221,13 @@ export default function PersonalInfo({
       </FormField>
 
       <FormField
-        label="ادخل رقم الاثبات"
+        label={t("identityNumberLabel")}
         required
         error={errors.identityNumber?.message}
         htmlFor="identity-number"
       >
         <ControlledTextInput
-          placeholder="ادخل رقم الاثبات"
+          placeholder={t("identityNumberLabel")}
           name="identityNumber"
           id="identity-number"
           type="tel"
@@ -240,7 +242,7 @@ export default function PersonalInfo({
       </FormField>
 
       <FormField
-        label="ارفق نسخة من الاثبات"
+        label={t("identityFileLabel")}
         required
         error={errors.identityFile?.message as string | undefined}
         htmlFor="identity-file"
@@ -251,9 +253,9 @@ export default function PersonalInfo({
           render={({ field }) => (
             <FileUpload
               name="identity-file"
-              fileTypesText="الحد الأقصى لحجم الملف المسموح به هو 5 ميجابايت، وصيغ الملفات المدعومة تشمل jpg, png, pdf."
+              fileTypesText={t("identityFileTypes")}
               accept=".pdf,.png,.jpg,.jpeg"
-              actionName="تصفح الملفات"
+              actionName={t("browseFiles")}
               showIcon={false}
               getUploadedFile={(files: UploadedFile[]) => {
                 setIdFile(files);
