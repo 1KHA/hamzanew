@@ -157,8 +157,8 @@ export default async function ContactSidebar() {
           <ContactItem
             icon={ICONS.mail}
             title={st("eParticipation", "contactEmail", locale)}
-            label="infohamza@ksaa.gov.sa"
-            url="mailto:infohamza@ksaa.gov.sa"
+            label="hamza@ksaa.gov.sa"
+            url="mailto:hamza@ksaa.gov.sa"
             alt="mail"
           />
 

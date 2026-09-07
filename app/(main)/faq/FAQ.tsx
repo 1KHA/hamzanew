@@ -6,6 +6,7 @@ import { Accordion } from "@/app/components/accordion/Accordion";
 import SearchBox from "../../components/search-box/SearchBox";
 import Button from "../../components/button/Button";
 import { normalizeArabic, arabicIncludes } from "@/lib/utils/arabic";
+import { st } from "@/app/_lib/static-text";
 
 /**
  * FAQ Component (Client Component)
@@ -34,14 +35,17 @@ export default function FAQ({ items }: { items: FAQItem[] }) {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [appliedSearchQuery, setAppliedSearchQuery] = useState<string>("");
 
+  const allTabLabel = st("faq", "allTab");
+
   /**
    * Derive tab categories dynamically from the items prop.
-   * "الكل" is always the first tab.
+   * The localized "All" tab is always the first tab; the filter below matches
+   * it by position (tab 1), not by label text.
    */
   const categories = useMemo(() => {
     const cats = new Set(items.map((item) => item.category));
-    return ["الكل", ...Array.from(cats)];
-  }, [items]);
+    return [allTabLabel, ...Array.from(cats)];
+  }, [items, allTabLabel]);
 
   const TAB_MAP = useMemo(() => {
     return Object.fromEntries(
@@ -70,10 +74,10 @@ export default function FAQ({ items }: { items: FAQItem[] }) {
    */
   const filteredItems = useMemo(() => {
     return items.filter((item) => {
-      // 1. Category Filter
+      // 1. Category Filter — tab 1 is always the "All" tab
       const activeCategory = TAB_MAP[activeTabId];
       const matchesCategory =
-        activeCategory === "الكل" || item.category === activeCategory;
+        activeTabId === 1 || item.category === activeCategory;
 
       // 2. Search Filter (using Arabic normalization)
       const matchesSearch =
@@ -120,7 +124,7 @@ export default function FAQ({ items }: { items: FAQItem[] }) {
   return (
     <section
       className="content section-spacing-5xl"
-      aria-label="قسم الأسئلة الشائعة"
+      aria-label={st("faq", "sectionAria")}
     >
       <div className="!flex !flex-col !gap-16">
         {/* Search Bar */}
@@ -128,11 +132,11 @@ export default function FAQ({ items }: { items: FAQItem[] }) {
           <SearchBox
             value={searchQuery}
             onChange={(val) => setSearchQuery(val)}
-            placeholder="ابحث عن سؤالك هنا..."
+            placeholder={st("faq", "searchPlaceholder")}
             size="lg"
           />
           <Button
-            label="بحث"
+            label={st("faq", "searchBtn")}
             onClick={() => setAppliedSearchQuery(searchQuery)}
             variant="secondary-outline"
             size="lg"
@@ -154,7 +158,7 @@ export default function FAQ({ items }: { items: FAQItem[] }) {
             className="faq-content-area"
             role="region"
             aria-live="polite"
-            aria-label="محتوى الأسئلة الشائعة"
+            aria-label={st("faq", "contentAria")}
           >
             <div className="!space-y-[16px]">
               {filteredItems.length > 0 ? (
@@ -169,7 +173,7 @@ export default function FAQ({ items }: { items: FAQItem[] }) {
               ) : (
                 <div className="!py-20 text-center">
                   <p className="text-md-regular text-gray-500">
-                    لا توجد برامج أو أسئلة متاحة في هذا القسم حالياً.
+                    {st("faq", "emptyState")}
                   </p>
                 </div>
               )}

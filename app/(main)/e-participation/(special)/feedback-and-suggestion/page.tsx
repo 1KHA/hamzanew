@@ -30,5 +30,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function FeedbackAndSuggestionPage() {
-  return <FeedbackFormClient />;
+  // Feedback & suggestions form hidden temporarily — restore by swapping the
+  // return values below. The page keeps its hero + contact sidebar (layout.tsx).
+  return null;
+  // return <FeedbackFormClient />;
 }

@@ -1180,6 +1180,15 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     goal5: { ar: "بناء شراكات بحثية مع معامل ومراكز دولية في مجال اختبارات اللغة.", en: "Build research partnerships with international labs and centers in the field of language testing." },
     goal6: { ar: "تأهيل باحثين متخصصين في مجال أبحاث اختبارات اللغوية.", en: "Qualify specialized researchers in the field of language testing research." },
   },
+  faq: {
+    allTab: { ar: "الكل", en: "All" },
+    searchPlaceholder: { ar: "ابحث عن سؤالك هنا...", en: "Search for your question here..." },
+    searchBtn: { ar: "بحث", en: "Search" },
+    sectionAria: { ar: "قسم الأسئلة الشائعة", en: "Frequently asked questions section" },
+    contentAria: { ar: "محتوى الأسئلة الشائعة", en: "Frequently asked questions content" },
+    emptyState: { ar: "لا توجد برامج أو أسئلة متاحة في هذا القسم حالياً.", en: "No programs or questions are available in this section at the moment." },
+  },
+
   nav: {
     languageTestingLab: { ar: "معمل ابحاث الاختبارات اللغوية", en: "Arabic Language Testing Research Laboratory" },
     researchServiceRequest: { ar: "طلب خدمة بحثية", en: "Research Service Request" },
