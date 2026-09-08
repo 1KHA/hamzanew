@@ -11,12 +11,12 @@ import { getFormattedCountriesList } from "@/app/_lib/countries-service";
 import SignUpForm from "./SignUpForm";
 
 export default async function SignUpPage() {
-  // Fetch all dropdown data in parallel with error handling
+  // Fetch all dropdown data in parallel with error handling.
+  // (Educational Institution and Academic specialization are free-text inputs
+  // now, so their vocabularies are no longer fetched.)
   let motherTongueOptions = [];
   let educationQualificationsOptions = [];
-  let educationInstitutionsOptions = [];
   let proofOptions = [];
-  let specializationOptions = [];
   let timezoneOptions = [];
   let countriesOptions = [];
 
@@ -24,9 +24,7 @@ export default async function SignUpPage() {
     [
       motherTongueOptions,
       educationQualificationsOptions,
-      educationInstitutionsOptions,
       proofOptions,
-      specializationOptions,
       timezoneOptions,
       countriesOptions,
     ] = await Promise.all([
@@ -38,16 +36,8 @@ export default async function SignUpPage() {
         console.warn("Failed to fetch Educational Qualification options:", err.message);
         return [];
       }),
-      fetchJsonList("Educational Institution").catch((err) => {
-        console.warn("Failed to fetch Educational Institution options:", err.message);
-        return [];
-      }),
       fetchJsonList("Proof").catch((err) => {
         console.warn("Failed to fetch Proof options:", err.message);
-        return [];
-      }),
-      fetchJsonList("Academic specialization").catch((err) => {
-        console.warn("Failed to fetch Academic specialization options:", err.message);
         return [];
       }),
       fetchJsonList("Time zone").catch((err) => {
@@ -67,9 +57,7 @@ export default async function SignUpPage() {
     <SignUpForm
       motherTongueOptions={motherTongueOptions}
       educationQualificationsOptions={educationQualificationsOptions}
-      educationInstitutionsOptions={educationInstitutionsOptions}
       proofOptions={proofOptions}
-      specializationOptions={specializationOptions}
       timezoneOptions={timezoneOptions}
       countriesOptions={countriesOptions}
     />

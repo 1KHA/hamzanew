@@ -136,8 +136,10 @@ function createSignUpSchema(getText: (key: string) => string) {
       /* ── Step 3 education info ── */
       education: z.any().refine((val) => val && val.key, getText("educationRequired")),
       basicLanguageInEducation: z.any().refine((val) => val && val.key, getText("basicLanguageRequired")),
-      institution: z.any().refine((val) => val && val.key, getText("institutionRequired")),
-      specialization: z.any().refine((val) => val && val.key, getText("specializationRequired")),
+      // Free-text fields — the backend stores these as plain strings
+      // (UserProfile.university / .academicSpecialization), not category IDs.
+      institution: z.string().trim().min(1, getText("institutionRequired")),
+      specialization: z.string().trim().min(1, getText("specializationRequired")),
 
       /* ── Step 4 location ── */
       timezone: z.any().refine((val) => val && val.key, getText("timezoneRequired")),
@@ -175,9 +177,7 @@ export type NewUserFormValues = z.infer<ReturnType<typeof createSignUpSchema>>;
 interface SignUpFormProps {
   motherTongueOptions: any[];
   educationQualificationsOptions: any[];
-  educationInstitutionsOptions: any[];
   proofOptions: any[];
-  specializationOptions: any[];
   timezoneOptions: any[];
   countriesOptions: any[];
 }
@@ -185,9 +185,7 @@ interface SignUpFormProps {
 export default function SignUpForm({
   motherTongueOptions,
   educationQualificationsOptions,
-  educationInstitutionsOptions,
   proofOptions,
-  specializationOptions,
   timezoneOptions,
   countriesOptions,
 }: SignUpFormProps) {
@@ -231,8 +229,8 @@ export default function SignUpForm({
             identityFile: [],
             education: educationQualificationsOptions[0] || { key: 1, label: "بكالوريوس" },
             basicLanguageInEducation: motherTongueOptions[0] || { key: 1, label: "العربية" },
-            institution: educationInstitutionsOptions[0] || { key: 1, label: "جامعة" },
-            specialization: specializationOptions[0] || { key: 1, label: "لغويات" },
+            institution: "King Saud University",
+            specialization: "Linguistics",
             timezone: timezoneOptions[0] || { key: 1, label: "GMT+3" },
             country: "SA",
             state: "riyadh",
@@ -265,8 +263,8 @@ export default function SignUpForm({
             identityFile: [],
             education: undefined,
             basicLanguageInEducation: undefined,
-            institution: undefined,
-            specialization: undefined,
+            institution: "",
+            specialization: "",
             timezone: undefined,
             country: "",
             state: "",
@@ -305,9 +303,11 @@ export default function SignUpForm({
         motherTongue: data.motherTongue?.key,
         proofName: data.identity?.key,
         passportNumber: data.identityNumber,
-        university: data.institution?.key,
+        // Free text since the institution/specialization dropdowns became
+        // inputs — the backend column is a plain string either way.
+        university: data.institution,
         lastEducationalQualification: data.education?.key,
-        academicSpecialization: data.specialization?.key,
+        academicSpecialization: data.specialization,
         primaryLanguageOfEducation: data.basicLanguageInEducation?.key,
         timeZone: data.timezone?.key,
         country: data.country,
@@ -431,8 +431,6 @@ export default function SignUpForm({
                       proofOptions={proofOptions}
                       countriesOptions={countriesOptions}
                       educationQualificationsOptions={educationQualificationsOptions}
-                      educationInstitutionsOptions={educationInstitutionsOptions}
-                      specializationOptions={specializationOptions}
                       timezoneOptions={timezoneOptions}
                     />
 

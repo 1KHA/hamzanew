@@ -3,20 +3,17 @@
 import { useFormContext, Controller } from "react-hook-form";
 import Dropdown from "@/app/components/dropdown/Dropdown";
 import FormField from "@/app/components/form-field/FormField";
+import ControlledTextInput from "@/app/components/form-field/ControlledTextInput";
 import { NewUserFormValues } from "./SignUpForm";
 import { st } from "@/app/_lib/static-text";
 
 interface EducationInfoProps {
   educationQualificationsOptions: any[];
-  educationInstitutionsOptions: any[];
-  specializationOptions: any[];
   motherTongueOptions: any[];
 }
 
 export default function EducationInfo({
   educationQualificationsOptions,
-  educationInstitutionsOptions,
-  specializationOptions,
   motherTongueOptions,
 }: EducationInfoProps) {
   const {
@@ -56,23 +53,14 @@ export default function EducationInfo({
         label={t("institutionLabel")}
         required
         error={errors.institution?.message as string | undefined}
+        htmlFor="institution"
       >
-        <Controller
+        <ControlledTextInput
           name="institution"
-          control={control}
-          render={({ field }) => (
-            <Dropdown
-              placeholder={t("institutionPlaceholder")}
-              size="lg"
-              variant="darker"
-              optionLabel="label"
-              trackBy="key"
-              options={educationInstitutionsOptions}
-              extraClass="w-full"
-              value={field.value?.key}
-              getSelectedOptions={(opt: any) => field.onChange(opt)}
-            />
-          )}
+          id="institution"
+          placeholder={t("institutionPlaceholder")}
+          size="lg"
+          variant="darker"
         />
       </FormField>
 
@@ -80,23 +68,14 @@ export default function EducationInfo({
         label={t("specializationLabel")}
         required
         error={errors.specialization?.message as string | undefined}
+        htmlFor="specialization"
       >
-        <Controller
+        <ControlledTextInput
           name="specialization"
-          control={control}
-          render={({ field }) => (
-            <Dropdown
-              placeholder={t("specializationPlaceholder")}
-              size="lg"
-              variant="darker"
-              optionLabel="label"
-              trackBy="key"
-              options={specializationOptions}
-              extraClass="w-full"
-              value={field.value?.key}
-              getSelectedOptions={(opt: any) => field.onChange(opt)}
-            />
-          )}
+          id="specialization"
+          placeholder={t("specializationPlaceholder")}
+          size="lg"
+          variant="darker"
         />
       </FormField>
 

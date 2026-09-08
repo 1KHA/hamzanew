@@ -976,9 +976,9 @@ export const STATIC_TEXT: Record<string, Record<string, { ar: string; en: string
     educationLabel: { ar: "آخر مؤهل دراسي", en: "Latest educational qualification" },
     educationPlaceholder: { ar: "اختر المؤهل", en: "Select qualification" },
     institutionLabel: { ar: "المؤسسة التعليمية", en: "Educational institution" },
-    institutionPlaceholder: { ar: "اختر المؤسسة", en: "Select institution" },
+    institutionPlaceholder: { ar: "أدخل المؤسسة التعليمية", en: "Enter educational institution" },
     specializationLabel: { ar: "التخصص الدراسي", en: "Academic specialization" },
-    specializationPlaceholder: { ar: "اختر التخصص", en: "Select specialization" },
+    specializationPlaceholder: { ar: "أدخل التخصص الدراسي", en: "Enter academic specialization" },
     basicLanguageLabel: { ar: "اللغة الأساسية في التعليم", en: "Primary language of education" },
     basicLanguagePlaceholder: { ar: "اختر اللغة", en: "Select language" },
 
