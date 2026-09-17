@@ -51,7 +51,7 @@ class StripCssImportUrlsPlugin {
  * whatever BASE_URL was set during `next build`. If one build artefact is
  * promoted across environments, this must be rebuilt per environment.
  */
-const liferayOrigin = process.env.BASE_URL ?? "http://localhost:8080";
+const liferayOrigin = new URL(process.env.BASE_URL ?? "http://localhost:8080");
 
 /**
  * `dangerouslyAllowLocalIP` disables the image optimizer's SSRF guard, which
@@ -66,8 +66,16 @@ const nextConfig: NextConfig = {
   // optimizePackageImports: ["platformscode-new-react"],
   images: {
     formats: ["image/webp"],
-    // Two-arg URL() so a trailing slash on BASE_URL cannot yield "//documents".
-    remotePatterns: [new URL("/documents/**", liferayOrigin)],
+    // Explicit object, not `new URL(...)`: a URL carries `search: ""`, which
+    // Next matches exactly and so rejects Liferay's `?version=...&t=...` URLs.
+    remotePatterns: [
+      {
+        protocol: liferayOrigin.protocol.replace(/:$/, "") as "http" | "https",
+        hostname: liferayOrigin.hostname,
+        port: liferayOrigin.port,
+        pathname: "/documents/**",
+      },
+    ],
     dangerouslyAllowLocalIP: allowLocalHosts,
   },
   webpack(config, { webpack }) {
