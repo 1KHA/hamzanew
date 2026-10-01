@@ -74,9 +74,9 @@ const nextConfig: NextConfig = {
     // Next matches exactly and so rejects Liferay's `?version=...&t=...` URLs.
     remotePatterns: [
       {
-        protocol: liferayOrigin.protocol.replace(/:$/, "") as "http" | "https",
-        hostname: liferayOrigin.hostname,
-        port: liferayOrigin.port,
+        protocol: "https",
+        hostname: "hamza-app-uat.ksaa.gov.sa",
+        port: "",
         pathname: "/**",
       },
     ],
