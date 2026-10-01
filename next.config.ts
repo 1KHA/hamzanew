@@ -8,6 +8,9 @@ import type { NextConfig } from "next";
  * causing Chrome warnings because @import rules must appear at the top of a
  * stylesheet. Fonts are loaded correctly via <link> tags in layout.tsx instead.
  */
+
+
+
 class StripCssImportUrlsPlugin {
   apply(compiler: any) {
     compiler.hooks.compilation.tap(
@@ -63,6 +66,7 @@ const allowLocalHosts = process.env.NODE_ENV !== "production";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  devIndicators: false,
   // optimizePackageImports: ["platformscode-new-react"],
   images: {
     formats: ["image/webp"],
@@ -73,7 +77,7 @@ const nextConfig: NextConfig = {
         protocol: liferayOrigin.protocol.replace(/:$/, "") as "http" | "https",
         hostname: liferayOrigin.hostname,
         port: liferayOrigin.port,
-        pathname: "/documents/**",
+        pathname: "/**",
       },
     ],
     dangerouslyAllowLocalIP: allowLocalHosts,
