@@ -57,6 +57,34 @@ class StripCssImportUrlsPlugin {
 const liferayOrigin = new URL(process.env.BASE_URL ?? "http://localhost:8080");
 
 /**
+ * Hosts allowed to serve images through /_next/image.
+ *
+ * The first entry is derived from BASE_URL, but a build made without the right
+ * env (or promoted from another environment) would silently produce a pattern
+ * that matches nothing — and every image then fails with a 400
+ * `"url" parameter is not allowed`. The explicit entries below are the known
+ * Liferay origins, so the optimizer keeps working even if BASE_URL is missing
+ * at build time.
+ *
+ * Protocol and port are read from BASE_URL rather than hardcoded: dev serves
+ * Liferay over http on :8080, UAT/prod over https on the default port.
+ */
+const imageRemotePatterns = [
+  {
+    protocol: liferayOrigin.protocol.replace(/:$/, "") as "http" | "https",
+    hostname: liferayOrigin.hostname,
+    port: liferayOrigin.port,
+    pathname: "/**",
+  },
+  // UAT / production — Liferay on its own public HTTPS domain
+  { protocol: "https" as const, hostname: "hamza-app-uat.ksaa.gov.sa", port: "", pathname: "/**" },
+  // Internal dev hosts — Liferay over plain http on 8080
+  { protocol: "http" as const, hostname: "10.20.3.124", port: "8080", pathname: "/**" },
+  { protocol: "http" as const, hostname: "localhost", port: "8080", pathname: "/**" },
+  { protocol: "http" as const, hostname: "127.0.0.1", port: "8080", pathname: "/**" },
+];
+
+/**
  * `dangerouslyAllowLocalIP` disables the image optimizer's SSRF guard, which
  * normally blocks loopback/private addresses. Dev Liferay runs on localhost /
  * a private IP, so it is required there — but allowing it in production would
@@ -70,16 +98,9 @@ const nextConfig: NextConfig = {
   // optimizePackageImports: ["platformscode-new-react"],
   images: {
     formats: ["image/webp"],
-    // Explicit object, not `new URL(...)`: a URL carries `search: ""`, which
+    // Explicit objects, not `new URL(...)`: a URL carries `search: ""`, which
     // Next matches exactly and so rejects Liferay's `?version=...&t=...` URLs.
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "hamza-app-uat.ksaa.gov.sa",
-        port: "",
-        pathname: "/**",
-      },
-    ],
+    remotePatterns: imageRemotePatterns,
     dangerouslyAllowLocalIP: allowLocalHosts,
   },
   webpack(config, { webpack }) {
