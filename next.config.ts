@@ -85,12 +85,25 @@ const imageRemotePatterns = [
 ];
 
 /**
- * `dangerouslyAllowLocalIP` disables the image optimizer's SSRF guard, which
- * normally blocks loopback/private addresses. Dev Liferay runs on localhost /
- * a private IP, so it is required there — but allowing it in production would
- * let callers proxy arbitrary internal URLs through /_next/image.
+ * `dangerouslyAllowLocalIP` controls the image optimizer's SSRF guard. With it
+ * off, Next resolves the image hostname via DNS and refuses to fetch when the
+ * address is private (10.x, 192.168.x, 127.x, ...) — failing with a 400 whose
+ * message is `"url" parameter is not allowed`, i.e. *identical* to a
+ * remotePatterns mismatch. See fetchExternalImage() in next/dist/server/
+ * image-optimizer.js; the giveaway is the server log line
+ * `upstream image ... resolved to private ip`.
+ *
+ * Liferay is reachable only on the internal network here — hamza-app-uat
+ * .ksaa.gov.sa resolves to a 10.20.3.x address — so the guard must stay off in
+ * every environment, not just dev.
+ *
+ * This is safe because the guard is not what restricts which hosts may be
+ * fetched: `remotePatterns` above is checked first and is an explicit
+ * allowlist. Keep those patterns specific — never widen the hostname to a
+ * wildcard while this is enabled, or /_next/image becomes an open proxy into
+ * the internal network.
  */
-const allowLocalHosts = process.env.NODE_ENV !== "production";
+const allowLocalHosts = true;
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
