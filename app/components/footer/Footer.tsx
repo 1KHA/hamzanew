@@ -18,13 +18,14 @@ function ExternalIcon() {
   );
 }
 
+const CONTACT_EMAIL = "hamza@ksaa.gov.sa";
+
 function getSocialLinks(locale?: "ar" | "en") {
   return [
     { title: st("footer", "linkedin", locale), icon: "/assets/icons/stroke-standard/linkedin-01-stroke-rounded.svg", href: "https://sa.linkedin.com/company/ksgafal" },
     { title: st("footer", "twitter", locale),  icon: "/assets/icons/stroke-standard/new-twitter-stroke-rounded.svg", href: "https://x.com/KSGAFAL" },
     { title: st("footer", "youtube", locale),   icon: "/assets/icons/stroke-standard/youtube-stroke-rounded.svg", href: "https://www.youtube.com/channel/UCGXRWZ9gkmmGQn5DSz8DbNA" },
     { title: st("footer", "facebook", locale),   icon: "/assets/icons/stroke-standard/facebook-01-stroke-rounded.svg", href: "https://www.facebook.com/KSGAFAL/" },
-    { title: st("footer", "email", locale),     icon: "/assets/icons/stroke-standard/mail-01-stroke-rounded.svg", href: "mailto:hamza@ksaa.gov.sa" },
   ];
 }
 
@@ -136,12 +137,13 @@ function Footer({ locale }: FooterProps) {
               <nav aria-label={st("footer", "navContactSupportAria", locale)}>
                 <ul role="list" className="footer-contnet">
                   <li>
-                    <Link
-                      href="/e-participation/feedback-and-suggestion"
+                    <a
+                      href={`mailto:${CONTACT_EMAIL}`}
                       className="footer-link"
+                      aria-label={`${st("footer", "contactUs", locale)} - ${CONTACT_EMAIL}`}
                     >
                       {st("footer", "contactUs", locale)}
-                    </Link>
+                    </a>
                   </li>
                   {/* <li className="flex items-center gap-[4px]">
                     <a
